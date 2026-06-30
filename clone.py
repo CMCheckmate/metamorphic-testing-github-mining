@@ -1,0 +1,260 @@
+"""
+Phase 2 — Clone Repos
+======================
+Reads results/raw/repos.json and results/raw/code.json, builds a merged
+candidate list, then shallow-clones each repo into repos/<owner>/<name>/.
+
+Repos that already exist on disk are skipped unless --refresh is passed.
+A clone manifest (results/cloned/manifest.json) is maintained so Phase 3
+always has a complete picture of what is available locally.
+
+Usage:
+    python clone.py [--source repos|code|both] [--limit N] [--refresh]
+                    [--min-stars N] [--skip-forks] [--lang LANG]
+
+    --source      Which search result file to pull candidates from (default: both)
+    --limit       Max number of repos to clone in this run (default: unlimited)
+    --refresh     Re-clone repos that already exist locally
+    --min-stars   Skip repos with fewer stars (default: 0)
+    --skip-forks  Skip forked repositories
+    --lang        Only clone repos whose primary language matches (e.g. Python)
+"""
+
+import argparse
+import json
+import shutil
+import time
+from datetime import datetime, timezone
+from pathlib import Path
+
+from rich.console import Console
+from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn, TimeElapsedColumn
+
+import git  # GitPython
+
+from config import (
+    RESULTS_DIR,
+    REPOS_DIR,
+    MAX_REPO_SIZE_KB,
+    CLONE_DEPTH,
+    CLONE_DELAY_SECONDS,
+)
+
+console = Console()
+
+MANIFEST_PATH = RESULTS_DIR / "cloned" / "manifest.json"
+
+
+# ---------------------------------------------------------------------------
+# Candidate building
+# ---------------------------------------------------------------------------
+
+def load_candidates(source: str) -> list[dict]:
+    """
+    Merge repo and/or code search results into a unified candidate list.
+    Each candidate has at minimum: full_name, clone_url, size_kb, is_fork, stars, language.
+    """
+    candidates: dict[str, dict] = {}
+
+    if source in ("repos", "both"):
+        repo_file = RESULTS_DIR / "raw" / "repos.json"
+        if repo_file.exists():
+            with open(repo_file) as f:
+                for rec in json.load(f):
+                    candidates[rec["full_name"]] = rec
+        else:
+            console.print(f"[yellow]repos.json not found — run search.py first[/]")
+
+    if source in ("code", "both"):
+        code_file = RESULTS_DIR / "raw" / "code.json"
+        if code_file.exists():
+            with open(code_file) as f:
+                for rec in json.load(f):
+                    name = rec["repo_full_name"]
+                    if name not in candidates:
+                        # code records lack stars/size; fill with defaults
+                        candidates[name] = {
+                            "full_name":  name,
+                            "clone_url":  rec["repo_clone_url"],
+                            "html_url":   rec["repo_html_url"],
+                            "size_kb":    0,
+                            "is_fork":    False,
+                            "stars":      0,
+                            "language":   "",
+                            "source":     "code_search",
+                        }
+        else:
+            console.print(f"[yellow]code.json not found — run search.py first[/]")
+
+    # Enrich code-only candidates with repo metadata where possible
+    return list(candidates.values())
+
+
+def filter_candidates(
+    candidates: list[dict],
+    min_stars: int,
+    skip_forks: bool,
+    lang: str | None,
+) -> list[dict]:
+    out = []
+    for c in candidates:
+        if skip_forks and c.get("is_fork"):
+            continue
+        if c.get("stars", 0) < min_stars:
+            continue
+        if lang and c.get("language", "").lower() != lang.lower():
+            continue
+        if c.get("size_kb", 0) > MAX_REPO_SIZE_KB:
+            console.print(f"  [dim]skip (too large {c['size_kb']} KB):[/] {c['full_name']}")
+            continue
+        out.append(c)
+    return out
+
+
+# ---------------------------------------------------------------------------
+# Manifest helpers
+# ---------------------------------------------------------------------------
+
+def load_manifest() -> dict:
+    MANIFEST_PATH.parent.mkdir(parents=True, exist_ok=True)
+    if MANIFEST_PATH.exists():
+        with open(MANIFEST_PATH) as f:
+            return json.load(f)
+    return {"repos": {}}
+
+
+def save_manifest(manifest: dict) -> None:
+    with open(MANIFEST_PATH, "w") as f:
+        json.dump(manifest, f, indent=2)
+
+
+# ---------------------------------------------------------------------------
+# Clone
+# ---------------------------------------------------------------------------
+
+def clone_repo(candidate: dict, refresh: bool, manifest: dict) -> str:
+    """
+    Clone a single repo.  Returns one of: 'cloned', 'skipped', 'refreshed', 'error'.
+    Updates manifest in-place.
+    """
+    full_name = candidate["full_name"]
+    clone_url = candidate["clone_url"]
+    dest = REPOS_DIR / full_name
+
+    already_exists = dest.exists() and (dest / ".git").exists()
+
+    if already_exists and not refresh:
+        manifest["repos"].setdefault(full_name, {})["local_path"] = str(dest)
+        manifest["repos"][full_name]["status"] = "skipped_exists"
+        return "skipped"
+
+    if already_exists and refresh:
+        shutil.rmtree(dest)
+
+    dest.parent.mkdir(parents=True, exist_ok=True)
+
+    try:
+        git.Repo.clone_from(
+            clone_url,
+            str(dest),
+            depth=CLONE_DEPTH,
+            no_single_branch=True,
+        )
+        status = "refreshed" if (already_exists and refresh) else "cloned"
+    except git.exc.GitCommandError as exc:
+        console.print(f"  [red]Clone error[/] {full_name}: {exc}")
+        manifest["repos"][full_name] = {
+            "full_name":  full_name,
+            "local_path": str(dest),
+            "status":     "error",
+            "error":      str(exc),
+            "cloned_at":  datetime.now(timezone.utc).isoformat(),
+        }
+        return "error"
+
+    manifest["repos"][full_name] = {
+        "full_name":      full_name,
+        "clone_url":      clone_url,
+        "html_url":       candidate.get("html_url", ""),
+        "local_path":     str(dest),
+        "stars":          candidate.get("stars", 0),
+        "language":       candidate.get("language", ""),
+        "size_kb":        candidate.get("size_kb", 0),
+        "is_fork":        candidate.get("is_fork", False),
+        "matched_queries": _collect_queries(candidate),
+        "status":         status,
+        "cloned_at":      datetime.now(timezone.utc).isoformat(),
+    }
+    return status
+
+
+def _collect_queries(candidate: dict) -> list[str]:
+    q = candidate.get("matched_query", "")
+    return [q] if q else []
+
+
+# ---------------------------------------------------------------------------
+# Main
+# ---------------------------------------------------------------------------
+
+def run(source: str, limit: int | None, refresh: bool, min_stars: int,
+        skip_forks: bool, lang: str | None) -> None:
+
+    candidates = load_candidates(source)
+    candidates = filter_candidates(candidates, min_stars, skip_forks, lang)
+    candidates.sort(key=lambda c: c.get("stars", 0), reverse=True)
+
+    if limit:
+        candidates = candidates[:limit]
+
+    console.print(
+        f"\n[bold]{len(candidates)}[/] candidates to process  "
+        f"(source={source}, min_stars={min_stars}, skip_forks={skip_forks})"
+    )
+
+    manifest = load_manifest()
+    counts = {"cloned": 0, "skipped": 0, "refreshed": 0, "error": 0}
+
+    with Progress(
+        SpinnerColumn(),
+        TextColumn("[progress.description]{task.description}"),
+        BarColumn(),
+        TextColumn("{task.completed}/{task.total}"),
+        TimeElapsedColumn(),
+        console=console,
+    ) as progress:
+        task = progress.add_task("Cloning…", total=len(candidates))
+
+        for candidate in candidates:
+            progress.update(task, description=f"[cyan]{candidate['full_name'][:50]}[/]")
+            result = clone_repo(candidate, refresh, manifest)
+            counts[result] += 1
+            save_manifest(manifest)
+            progress.advance(task)
+            time.sleep(CLONE_DELAY_SECONDS)
+
+    console.print(
+        f"\n[bold green]Done.[/]  "
+        f"cloned=[green]{counts['cloned']}[/]  "
+        f"refreshed=[blue]{counts['refreshed']}[/]  "
+        f"skipped=[dim]{counts['skipped']}[/]  "
+        f"errors=[red]{counts['error']}[/]"
+    )
+    console.print(f"Manifest updated: [dim]{MANIFEST_PATH}[/]")
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description="Phase 2: clone candidate repositories")
+    parser.add_argument("--source",     choices=["repos", "code", "both"], default="both")
+    parser.add_argument("--limit",      type=int,  default=None, help="Max repos to clone")
+    parser.add_argument("--refresh",    action="store_true", help="Re-clone existing repos")
+    parser.add_argument("--min-stars",  type=int,  default=0)
+    parser.add_argument("--skip-forks", action="store_true")
+    parser.add_argument("--lang",       type=str,  default=None, help="Filter by primary language")
+    args = parser.parse_args()
+
+    run(args.source, args.limit, args.refresh, args.min_stars, args.skip_forks, args.lang)
+
+
+if __name__ == "__main__":
+    main()
