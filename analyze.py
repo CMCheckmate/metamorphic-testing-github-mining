@@ -259,7 +259,7 @@ def write_markdown_report(repo_scores: list[dict], out_dir: Path) -> None:
         lines.append(f"| `{pid}` | {all_pats.get(pid, '')} | {info['count']} |")
 
     report_path = out_dir / "summary_report.md"
-    report_path.write_text("\n".join(lines))
+    report_path.write_text("\n".join(lines), encoding="utf-8")
     console.print(f"Markdown report: [dim]{report_path}[/]")
 
 

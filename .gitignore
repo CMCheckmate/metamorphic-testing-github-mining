@@ -22,8 +22,7 @@ ENV/
 
 # Data outputs (large, generated)
 repos/
-results/raw/
-results/cloned/
+results
 
 # Keep results structure but not data
 !results/.gitkeep
