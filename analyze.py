@@ -23,6 +23,7 @@ Usage:
 import argparse
 import json
 import re
+import shutil
 import textwrap
 from datetime import datetime, timezone
 from pathlib import Path
@@ -262,11 +263,51 @@ def write_markdown_report(repo_scores: list[dict], out_dir: Path) -> None:
     console.print(f"Markdown report: [dim]{report_path}[/]")
 
 
+def _dedup_records(records: list[dict], key_fields: tuple[str, ...]) -> list[dict]:
+    seen: set[tuple] = set()
+    out: list[dict] = []
+    for record in records:
+        key = tuple(record.get(field) for field in key_fields)
+        if key in seen:
+            continue
+        seen.add(key)
+        out.append(record)
+    return out
+
+
+def _load_existing_outputs(out_dir: Path) -> tuple[list[dict], list[dict]]:
+    findings_path = out_dir / "findings.json"
+    scores_path = out_dir / "repo_scores.json"
+
+    existing_findings: list[dict] = []
+    existing_scores: list[dict] = []
+
+    if findings_path.exists():
+        with open(findings_path) as f:
+            existing_findings = json.load(f)
+
+    if scores_path.exists():
+        with open(scores_path) as f:
+            existing_scores = json.load(f)
+
+    return existing_findings, existing_scores
+
+
+def _cleanup_repo(local_path: Path, manifest: dict, full_name: str) -> None:
+    if local_path.exists():
+        shutil.rmtree(local_path)
+
+    repo_entry = manifest.setdefault("repos", {}).setdefault(full_name, {})
+    repo_entry["status"] = "cleaned"
+    repo_entry["cleaned_at"] = datetime.now(timezone.utc).isoformat()
+    repo_entry["local_path"] = str(local_path)
+
+
 # ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
 
-def run(target_repo: str | None, mode: str, min_score: int, out_dir: Path) -> None:
+def run(target_repo: str | None, mode: str, min_score: int, out_dir: Path, append: bool, cleanup: bool) -> None:
     out_dir.mkdir(parents=True, exist_ok=True)
 
     manifest_path = RESULTS_DIR / "cloned" / "manifest.json"
@@ -276,6 +317,11 @@ def run(target_repo: str | None, mode: str, min_score: int, out_dir: Path) -> No
 
     with open(manifest_path) as f:
         manifest = json.load(f)
+
+    existing_findings: list[dict] = []
+    existing_scores: list[dict] = []
+    if append:
+        existing_findings, existing_scores = _load_existing_outputs(out_dir)
 
     repos = list(manifest.get("repos", {}).values())
     repos = [r for r in repos if r.get("status") in ("cloned", "refreshed", "skipped_exists")]
@@ -326,28 +372,45 @@ def run(target_repo: str | None, mode: str, min_score: int, out_dir: Path) -> No
                 "language":       repo_meta.get("language", ""),
                 **sc,
             })
+
+            if cleanup:
+                _cleanup_repo(local_path, manifest, full_name)
             progress.advance(task)
 
-    # Filter by min_score
-    repo_scores_filtered = [r for r in repo_scores if r["score"] >= min_score]
+    # Merge with any existing outputs when running in batch mode.
+    combined_findings = existing_findings + all_findings
+    combined_scores = existing_scores + repo_scores
+
+    combined_findings = _dedup_records(
+        combined_findings,
+        ("repo", "file", "line", "pattern_id", "kind"),
+    )
+    combined_scores_by_repo: dict[str, dict] = {}
+    for record in combined_scores:
+        combined_scores_by_repo[record["full_name"]] = record
+
+    repo_scores_filtered = [r for r in combined_scores_by_repo.values() if r["score"] >= min_score]
 
     # Write outputs
     findings_path = out_dir / "findings.json"
     scores_path   = out_dir / "repo_scores.json"
 
     with open(findings_path, "w") as f:
-        json.dump(all_findings, f, indent=2)
+        json.dump(combined_findings, f, indent=2)
     with open(scores_path, "w") as f:
         json.dump(repo_scores_filtered, f, indent=2)
 
+    with open(manifest_path, "w") as f:
+        json.dump(manifest, f, indent=2)
+
     write_markdown_report(repo_scores_filtered, out_dir)
 
-    total_with_signal = sum(1 for r in repo_scores if r["classification"] != "none")
+    total_with_signal = sum(1 for r in combined_scores_by_repo.values() if r["classification"] != "none")
     console.print(
         f"\n[bold green]Done.[/]  "
-        f"[cyan]{len(repo_scores)}[/] repos  •  "
+        f"[cyan]{len(combined_scores_by_repo)}[/] repos  •  "
         f"[cyan]{total_with_signal}[/] with MT signal  •  "
-        f"[cyan]{len(all_findings)}[/] total findings\n"
+        f"[cyan]{len(combined_findings)}[/] total findings\n"
         f"Output: [dim]{out_dir}[/]"
     )
 
@@ -359,9 +422,11 @@ def main() -> None:
     parser.add_argument("--only",        choices=["explicit", "implicit", "both"], default="both")
     parser.add_argument("--min-score",   type=int, default=0)
     parser.add_argument("--output-dir",  type=Path, default=default_out)
+    parser.add_argument("--append",      action="store_true", help="Append to existing analysis outputs")
+    parser.add_argument("--cleanup-clones", action="store_true", help="Delete each cloned repo after analysis")
     args = parser.parse_args()
 
-    run(args.repo, args.only, args.min_score, args.output_dir)
+    run(args.repo, args.only, args.min_score, args.output_dir, args.append, args.cleanup_clones)
 
 
 if __name__ == "__main__":

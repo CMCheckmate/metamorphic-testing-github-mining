@@ -9,11 +9,12 @@ A clone manifest (results/cloned/manifest.json) is maintained so Phase 3
 always has a complete picture of what is available locally.
 
 Usage:
-    python clone.py [--source repos|code|both] [--limit N] [--refresh]
+    python clone.py [--source repos|code|both] [--limit N] [--offset N] [--refresh]
                     [--min-stars N] [--skip-forks] [--lang LANG]
 
     --source      Which search result file to pull candidates from (default: both)
     --limit       Max number of repos to clone in this run (default: unlimited)
+    --offset      Skip the first N candidates after filtering/sorting
     --refresh     Re-clone repos that already exist locally
     --min-stars   Skip repos with fewer stars (default: 0)
     --skip-forks  Skip forked repositories
@@ -197,19 +198,22 @@ def _collect_queries(candidate: dict) -> list[str]:
 # Main
 # ---------------------------------------------------------------------------
 
-def run(source: str, limit: int | None, refresh: bool, min_stars: int,
+def run(source: str, limit: int | None, offset: int, refresh: bool, min_stars: int,
         skip_forks: bool, lang: str | None) -> None:
 
     candidates = load_candidates(source)
     candidates = filter_candidates(candidates, min_stars, skip_forks, lang)
     candidates.sort(key=lambda c: c.get("stars", 0), reverse=True)
 
+    if offset:
+        candidates = candidates[offset:]
+
     if limit:
         candidates = candidates[:limit]
 
     console.print(
         f"\n[bold]{len(candidates)}[/] candidates to process  "
-        f"(source={source}, min_stars={min_stars}, skip_forks={skip_forks})"
+        f"(source={source}, min_stars={min_stars}, skip_forks={skip_forks}, offset={offset})"
     )
 
     manifest = load_manifest()
@@ -247,13 +251,14 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Phase 2: clone candidate repositories")
     parser.add_argument("--source",     choices=["repos", "code", "both"], default="both")
     parser.add_argument("--limit",      type=int,  default=None, help="Max repos to clone")
+    parser.add_argument("--offset",     type=int,  default=0, help="Skip the first N filtered repos")
     parser.add_argument("--refresh",    action="store_true", help="Re-clone existing repos")
     parser.add_argument("--min-stars",  type=int,  default=0)
     parser.add_argument("--skip-forks", action="store_true")
     parser.add_argument("--lang",       type=str,  default=None, help="Filter by primary language")
     args = parser.parse_args()
 
-    run(args.source, args.limit, args.refresh, args.min_stars, args.skip_forks, args.lang)
+    run(args.source, args.limit, args.offset, args.refresh, args.min_stars, args.skip_forks, args.lang)
 
 
 if __name__ == "__main__":

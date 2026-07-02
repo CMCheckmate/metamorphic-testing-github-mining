@@ -240,6 +240,10 @@ python clone.py --lang Python --min-stars 5 --skip-forks --limit 100
 
 # Re-clone (refresh) repos already on disk
 python clone.py --refresh
+
+# Batch cloning: skip the first N filtered repos, clone the next chunk only
+python clone.py --offset 0 --limit 50
+python clone.py --offset 50 --limit 50
 ```
 
 **Output:** `repos/<owner>/<name>/` + `results/cloned/manifest.json`
@@ -260,6 +264,9 @@ python analyze.py --repo owner/reponame
 
 # Only show repos with score >= 5
 python analyze.py --min-score 5
+
+# Batch mode: append to existing outputs and delete each cloned repo after analysis
+python analyze.py --append --cleanup-clones
 ```
 
 **Output:** `results/analysis/findings.json`, `repo_scores.json`, `summary_report.md`
