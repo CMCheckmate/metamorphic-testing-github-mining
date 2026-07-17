@@ -174,22 +174,26 @@ def clone_repo(candidate: dict, refresh: bool, manifest: dict) -> str:
         return "error"
 
     manifest["repos"][full_name] = {
-        "full_name":      full_name,
-        "clone_url":      clone_url,
-        "html_url":       candidate.get("html_url", ""),
-        "local_path":     str(dest),
-        "stars":          candidate.get("stars", 0),
-        "language":       candidate.get("language", ""),
-        "size_kb":        candidate.get("size_kb", 0),
-        "is_fork":        candidate.get("is_fork", False),
+        "full_name":       full_name,
+        "clone_url":       clone_url,
+        "html_url":        candidate.get("html_url", ""),
+        "local_path":      str(dest),
+        "stars":           candidate.get("stars", 0),
+        "language":        candidate.get("language", ""),
+        "created_at":      candidate.get("created_at", ""),
+        "size_kb":         candidate.get("size_kb", 0),
+        "is_fork":         candidate.get("is_fork", False),
         "matched_queries": _collect_queries(candidate),
-        "status":         status,
-        "cloned_at":      datetime.now(timezone.utc).isoformat(),
+        "status":          status,
+        "cloned_at":       datetime.now(timezone.utc).isoformat(),
     }
     return status
 
 
 def _collect_queries(candidate: dict) -> list[str]:
+    qs = candidate.get("matched_queries", [])
+    if qs:
+        return qs
     q = candidate.get("matched_query", "")
     return [q] if q else []
 

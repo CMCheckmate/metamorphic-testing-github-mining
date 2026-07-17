@@ -63,10 +63,7 @@ EXPLICIT_PATTERNS: list[dict] = [
     {"id": "string_mr",  "label": 'String: "metamorphic relation"',  "regex": re.compile(r'"[Mm]etamorphic\s+[Rr]elation"')},
     {"id": "comment_mt", "label": "Comment: metamorphic testing",    "regex": re.compile(r"#.*metamorphic\s+testing|//.*metamorphic\s+testing", re.IGNORECASE)},
     {"id": "comment_mr", "label": "Comment: metamorphic relation",   "regex": re.compile(r"#.*metamorphic\s+relation|//.*metamorphic\s+relation", re.IGNORECASE)},
-    # Function-naming conventions from MT literature
-    {"id": "fn_mr_prefix",    "label": "Fn: def mr_*()",     "regex": re.compile(r"\bdef\s+mr_\w+\s*\(")},
-    {"id": "fn_check_mr",     "label": "Fn: def check_mr*",  "regex": re.compile(r"\bdef\s+check_mr\w*\s*\(")},
-    {"id": "fn_follow_up",    "label": "Fn: def follow_up*", "regex": re.compile(r"\bdef\s+follow_up\w*\s*\(")},
+    # Java function-naming convention from MT literature
     {"id": "java_testMR",     "label": "Java fn: testMR*()", "regex": re.compile(r"\bvoid\s+testMR\w*\s*\(")},
 ]
 
@@ -89,7 +86,7 @@ def iter_source_files(repo_path: Path):
         # Skip unwanted directories
         if any(skip in p.parts for skip in SKIP_DIRS):
             continue
-        if p.suffix not in ANALYSIS_EXTENSIONS:
+        if ANALYSIS_EXTENSIONS and p.suffix not in ANALYSIS_EXTENSIONS:
             continue
         yield p, p.relative_to(repo_path)
 
@@ -366,10 +363,12 @@ def run(target_repo: str | None, mode: str, min_score: int, out_dir: Path, appen
             all_findings.extend(repo_findings)
             sc = score_repo(repo_findings)
             repo_scores.append({
-                "full_name":      full_name,
-                "html_url":       repo_meta.get("html_url", ""),
-                "stars":          repo_meta.get("stars", 0),
-                "language":       repo_meta.get("language", ""),
+                "full_name":        full_name,
+                "html_url":         repo_meta.get("html_url", ""),
+                "stars":            repo_meta.get("stars", 0),
+                "language":         repo_meta.get("language", ""),
+                "created_at":       repo_meta.get("created_at", ""),
+                "matched_queries":  repo_meta.get("matched_queries", []),
                 **sc,
             })
 
@@ -419,7 +418,8 @@ def main() -> None:
     default_out = RESULTS_DIR / "analysis"
     parser = argparse.ArgumentParser(description="Phase 3: analyse cloned repos for MT patterns")
     parser.add_argument("--repo",        default=None, help="Analyse a single repo (owner/name)")
-    parser.add_argument("--only",        choices=["explicit", "implicit", "both"], default="both")
+    parser.add_argument("--only",        choices=["explicit", "implicit", "both"], default="explicit",
+                        help="Pattern kinds to run (default: explicit, aligned with study focus)")
     parser.add_argument("--min-score",   type=int, default=0)
     parser.add_argument("--output-dir",  type=Path, default=default_out)
     parser.add_argument("--append",      action="store_true", help="Append to existing analysis outputs")
