@@ -65,11 +65,23 @@ SLICE_START_DATE = "2010-01-01"
 SLICE_END_DATE   = "2026-06-30"   # update as needed
 
 # ---------------------------------------------------------------------------
-# Explicit MT search queries
+# Search queries
+#
+# The search is intentionally broad — cast the widest net possible here.
+# Filtering for relevance happens in Phase 2 (clone criteria) and Phase 3
+# (local pattern analysis).  Do not add library-specific names unless the
+# library is verified to exist on a public package registry.
 # ---------------------------------------------------------------------------
 
 # --- Repository searches ---
 # Hits: repo name, description, topics, README content
+#
+# We do NOT include a bare "metamorphic" query: it is too general (matches
+# metamorphic rocks, metamorphic malware, etc.) and, because every specific
+# MT phrase contains "metamorphic", a broad "metamorphic" search with date-
+# slicing would subsume all the specific queries below, making them redundant.
+# The specific phrases ensure we retrieve targeted MT results without wasting
+# the 1,000-result cap on non-MT hits.
 REPO_QUERIES: list[dict] = [
     {"query": "metamorphic testing",            "label": "repo_mt"},
     {"query": "metamorphic test",               "label": "repo_mt_singular"},
@@ -77,39 +89,33 @@ REPO_QUERIES: list[dict] = [
     {"query": "metamorphic relation",           "label": "repo_mr"},
     {"query": "metamorphic relations",          "label": "repo_mr_plural"},
     {"query": "metamorphic relationship",       "label": "repo_mr_relationship"},
-    {"query": "metamorphic testing framework",  "label": "repo_mt_framework"},
+    # topic: searches are exact GitHub topic-tag matches, not full-text
     {"query": "topic:metamorphic-testing",      "label": "repo_topic"},
 ]
 
 # --- Code searches ---
 # Hits: all files on the default branch (source, config, docs, README, etc.)
 # Rate limit: 9 req/min (separate bucket from the other search endpoints)
+# These searches target actual code identifiers and string literals; they
+# do not reference specific library package names.
 CODE_QUERIES: list[dict] = [
-    # Library imports
+    # Import patterns (catches any user module named "metamorphic*")
     {"query": "import metamorphic",             "label": "import_metamorphic",      "lang": None},
     {"query": "from metamorphic",               "label": "from_metamorphic",        "lang": None},
+    # Common user-defined class and identifier names for MT
     {"query": "MetamorphicTest",                "label": "class_MetamorphicTest",   "lang": None},
     {"query": "MetamorphicRelation",            "label": "class_MR",                "lang": None},
     {"query": "metamorphic_relation",           "label": "fn_metamorphic_rel",      "lang": None},
     {"query": "metamorphic_test",               "label": "fn_metamorphic_test",     "lang": None},
-    # Python libraries
-    {"query": "pytest-metamorphic",             "label": "lib_pytest_mt",           "lang": "Python"},
-    {"query": "hypothesis_metamorphic",         "label": "lib_hypothesis_mt",       "lang": "Python"},
-    {"query": "from mt_testing",                "label": "lib_mt_testing",          "lang": "Python"},
-    # Java libraries
-    {"query": "MetamorphicTesting",             "label": "java_MetamorphicTesting", "lang": "Java"},
-    {"query": "org.metamorphictesting",         "label": "java_org_mt",             "lang": "Java"},
     # Decorators / annotations
     {"query": "@metamorphic",                   "label": "decorator_metamorphic",   "lang": None},
-    # String literals / comments — singular, plural, and relationship forms
+    # String literals and comments — all common phrase forms
     {"query": '"metamorphic relation"',         "label": "string_mr",               "lang": None},
     {"query": '"metamorphic relations"',        "label": "string_mr_plural",        "lang": None},
     {"query": '"metamorphic relationship"',     "label": "string_mr_relationship",  "lang": None},
     {"query": '"metamorphic testing"',          "label": "string_mt",               "lang": None},
     {"query": '"metamorphic test"',             "label": "string_mt_singular",      "lang": None},
     {"query": '"metamorphic tests"',            "label": "string_mt_plural",        "lang": None},
-    # Java function-naming convention from MT literature
-    {"query": "void testMR",                    "label": "java_testMR",             "lang": "Java"},
 ]
 
 # --- Issue and PR searches ---
@@ -117,33 +123,37 @@ CODE_QUERIES: list[dict] = [
 # Rate limit: 30 req/min (standard search bucket, shared with repos/commits)
 # Hits: issue/PR title, body text, and comment text (all in one endpoint)
 ISSUE_QUERIES: list[dict] = [
+    # Specific phrases — issues
     {"query": "metamorphic testing",            "label": "issue_mt",          "kind": "issue"},
     {"query": "metamorphic test",               "label": "issue_mt_singular", "kind": "issue"},
     {"query": "metamorphic tests",              "label": "issue_mt_plural",   "kind": "issue"},
     {"query": "metamorphic relation",           "label": "issue_mr",          "kind": "issue"},
     {"query": "metamorphic relations",          "label": "issue_mr_plural",   "kind": "issue"},
     {"query": "metamorphic relationship",       "label": "issue_mr_rel",      "kind": "issue"},
+    # Specific phrases — PRs
     {"query": "metamorphic testing",            "label": "pr_mt",             "kind": "pr"},
     {"query": "metamorphic test",               "label": "pr_mt_singular",    "kind": "pr"},
+    {"query": "metamorphic tests",              "label": "pr_mt_plural",      "kind": "pr"},
     {"query": "metamorphic relation",           "label": "pr_mr",             "kind": "pr"},
     {"query": "metamorphic relations",          "label": "pr_mr_plural",      "kind": "pr"},
-    {"query": "metamorphic testing framework",  "label": "issue_mt_fw",       "kind": "issue"},
-    # Library-specific: people asking about or reporting bugs in MT tools
-    {"query": "pytest-metamorphic",             "label": "issue_pytest_mt",   "kind": "issue"},
+    {"query": "metamorphic relationship",       "label": "pr_mr_rel",         "kind": "pr"},
+    # Identifier names that appear in issue/PR discussions
     {"query": "MetamorphicTest",                "label": "issue_class_mt",    "kind": "issue"},
+    {"query": "gemtest",                        "label": "issue_gemtest",     "kind": "issue"},
 ]
 
 # --- Commit message searches ---
 # Uses /search/commits endpoint — searches default branch commit messages only.
 # Rate limit: 30 req/min (standard search bucket)
-# Useful for finding projects that added MT incrementally without naming it in code.
 COMMIT_QUERIES: list[dict] = [
-    {"query": "metamorphic testing",   "label": "commit_mt"},
-    {"query": "metamorphic test",      "label": "commit_mt_singular"},
-    {"query": "metamorphic tests",     "label": "commit_mt_plural"},
-    {"query": "metamorphic relation",  "label": "commit_mr"},
-    {"query": "metamorphic relations", "label": "commit_mr_plural"},
-    {"query": "add metamorphic",       "label": "commit_add_mt"},
+    {"query": "metamorphic testing",      "label": "commit_mt"},
+    {"query": "metamorphic test",         "label": "commit_mt_singular"},
+    {"query": "metamorphic tests",        "label": "commit_mt_plural"},
+    {"query": "metamorphic relation",     "label": "commit_mr"},
+    {"query": "metamorphic relations",    "label": "commit_mr_plural"},
+    # Catches commit messages like "add metamorphic MR for X" that may not
+    # use the full phrase "metamorphic testing" or "metamorphic relation"
+    {"query": "add metamorphic",          "label": "commit_add_mt"},
 ]
 
 # --- GitHub Discussions (GraphQL only) ---
@@ -156,7 +166,6 @@ DISCUSSION_QUERIES: list[str] = [
     "metamorphic relation",
     "metamorphic relations",
     "metamorphic relationship",
-    "metamorphic test framework",
 ]
 
 # ---------------------------------------------------------------------------
@@ -174,26 +183,8 @@ SKIP_DIRS = {
 }
 
 # ---------------------------------------------------------------------------
-# Implicit-usage patterns searched inside cloned repos (Phase 3)
-# ---------------------------------------------------------------------------
-IMPLICIT_PATTERNS: list[dict] = [
-    {
-        "id":      "mr_variable_name",
-        "label":   "Variable named after MR convention",
-        "pattern": r"\b(mr\d+|MR\d+|metamorphic_rel)\b",
-        "note":    "Variable names using MT literature conventions (mr1, MR2, metamorphic_rel)",
-    },
-    {
-        "id":      "oracle_keyword",
-        "label":   "MT oracle keyword in test file",
-        "pattern": r"\b(test_oracle|pseudo_oracle)\b",
-        "note":    "Specific MT oracle terms (excludes bare 'oracle' which matches Oracle DB/Corp)",
-    },
-]
-
-# ---------------------------------------------------------------------------
 # Clone settings
 # ---------------------------------------------------------------------------
-MAX_REPO_SIZE_KB   = 200_000   # skip repos larger than 200 MB
-CLONE_DEPTH        = 1         # shallow clone (latest commit only)
-CLONE_DELAY_SECONDS = 0.5
+MAX_REPO_SIZE_KB    = 200_000   # skip repos larger than 200 MB
+CLONE_DEPTH         = 1         # shallow clone (latest commit only)
+CLONE_DELAY_SECONDS = 0.3       # inter-clone delay per worker thread

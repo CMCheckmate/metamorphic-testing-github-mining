@@ -25,8 +25,10 @@ import argparse
 import json
 import shutil
 import time
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
 from pathlib import Path
+from threading import Lock
 
 from rich.console import Console
 from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn, TimeElapsedColumn
@@ -203,7 +205,7 @@ def _collect_queries(candidate: dict) -> list[str]:
 # ---------------------------------------------------------------------------
 
 def run(source: str, limit: int | None, offset: int, refresh: bool, min_stars: int,
-        skip_forks: bool, lang: str | None) -> None:
+        skip_forks: bool, lang: str | None, workers: int = 4) -> None:
 
     candidates = load_candidates(source)
     candidates = filter_candidates(candidates, min_stars, skip_forks, lang)
@@ -211,17 +213,28 @@ def run(source: str, limit: int | None, offset: int, refresh: bool, min_stars: i
 
     if offset:
         candidates = candidates[offset:]
-
     if limit:
         candidates = candidates[:limit]
 
     console.print(
         f"\n[bold]{len(candidates)}[/] candidates to process  "
-        f"(source={source}, min_stars={min_stars}, skip_forks={skip_forks}, offset={offset})"
+        f"(source={source}, min_stars={min_stars}, skip_forks={skip_forks}, "
+        f"offset={offset}, workers={workers})"
     )
 
     manifest = load_manifest()
+    manifest_lock = Lock()
     counts = {"cloned": 0, "skipped": 0, "refreshed": 0, "error": 0}
+    counts_lock = Lock()
+
+    def _clone_worker(candidate: dict) -> str:
+        result = clone_repo(candidate, refresh, manifest)
+        time.sleep(CLONE_DELAY_SECONDS)
+        with manifest_lock:
+            save_manifest(manifest)
+        with counts_lock:
+            counts[result] += 1
+        return result
 
     with Progress(
         SpinnerColumn(),
@@ -233,13 +246,17 @@ def run(source: str, limit: int | None, offset: int, refresh: bool, min_stars: i
     ) as progress:
         task = progress.add_task("Cloning…", total=len(candidates))
 
-        for candidate in candidates:
-            progress.update(task, description=f"[cyan]{candidate['full_name'][:50]}[/]")
-            result = clone_repo(candidate, refresh, manifest)
-            counts[result] += 1
-            save_manifest(manifest)
-            progress.advance(task)
-            time.sleep(CLONE_DELAY_SECONDS)
+        with ThreadPoolExecutor(max_workers=workers) as executor:
+            future_to_candidate = {
+                executor.submit(_clone_worker, c): c for c in candidates
+            }
+            for future in as_completed(future_to_candidate):
+                c = future_to_candidate[future]
+                progress.update(
+                    task,
+                    description=f"[cyan]{c['full_name'][:50]}[/]",
+                    advance=1,
+                )
 
     console.print(
         f"\n[bold green]Done.[/]  "
@@ -259,10 +276,11 @@ def main() -> None:
     parser.add_argument("--refresh",    action="store_true", help="Re-clone existing repos")
     parser.add_argument("--min-stars",  type=int,  default=0)
     parser.add_argument("--skip-forks", action="store_true")
-    parser.add_argument("--lang",       type=str,  default=None, help="Filter by primary language")
+    parser.add_argument("--lang",        type=str,  default=None, help="Filter by primary language")
+    parser.add_argument("--workers",     type=int,  default=4,   help="Parallel clone workers (default: 4)")
     args = parser.parse_args()
 
-    run(args.source, args.limit, args.offset, args.refresh, args.min_stars, args.skip_forks, args.lang)
+    run(args.source, args.limit, args.offset, args.refresh, args.min_stars, args.skip_forks, args.lang, args.workers)
 
 
 if __name__ == "__main__":

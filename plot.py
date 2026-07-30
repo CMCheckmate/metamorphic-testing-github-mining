@@ -5,13 +5,16 @@ Reads the outputs of search.py (results/raw/) and analyze.py (results/analysis/)
 and produces a set of publication-quality plots saved to results/plots/.
 
 Plots generated:
-  1. query_hits.png           — per-query hit counts across all search surfaces
-  2. classification_dist.png  — classification tier distribution (bar)
-  3. yearly_trend.png         — MT-adopting repos created per year (line)
-  4. language_dist.png        — top languages among explicit MT repos (bar)
-  5. stars_vs_score.png       — stars vs explicit hit count scatter (log scale)
-  6. pattern_freq.png         — explicit pattern hit frequency (horizontal bar)
-  7. domain_heatmap.png       — language × classification tier heatmap
+  1.  query_hits.png           — per-query hit counts across all search surfaces
+  2.  classification_dist.png  — classification tier distribution (bar)
+  3.  yearly_trend.png         — MT-adopting repos created per year (line)
+  4.  language_dist.png        — top languages among explicit MT repos (bar)
+  5.  stars_vs_score.png       — stars vs explicit hit count scatter
+  6.  pattern_freq.png         — explicit pattern hit frequency (horizontal bar)
+  7.  domain_heatmap.png       — language × classification tier heatmap
+  8.  query_overlap.png        — repos found by N distinct search queries
+  9.  author_dist.png          — top organisations/users by explicit MT repo count (RQ2.6)
+  10. coverage_depth.png       — files-with-MT-signals per repo distribution (RQ2.7)
 
 Usage:
     python plot.py [--output-dir PATH] [--dpi N] [--format png|pdf|svg]
@@ -45,11 +48,9 @@ console = Console()
 PALETTE = {
     "strong_explicit": "#1a6e3c",
     "weak_explicit":   "#5aad72",
-    "strong_implicit": "#c67a00",
-    "weak_implicit":   "#f0b84b",
     "none":            "#bdbdbd",
 }
-TIER_ORDER = ["strong_explicit", "weak_explicit", "strong_implicit", "weak_implicit", "none"]
+TIER_ORDER = ["strong_explicit", "weak_explicit", "none"]
 
 sns.set_theme(style="whitegrid", font_scale=1.1)
 
@@ -70,6 +71,7 @@ def load_all(raw_dir: Path, analysis_dir: Path):
     return {
         "summary":     _load_json(raw_dir / "summary.json"),
         "repos":       _load_json(raw_dir / "repos.json"),
+        "code":        _load_json(raw_dir / "code.json"),
         "repo_scores": _load_json(analysis_dir / "repo_scores.json"),
         "findings":    _load_json(analysis_dir / "findings.json"),
     }
@@ -328,6 +330,98 @@ def plot_query_overlap(repo_scores: list, out_dir: Path, fmt: str, dpi: int) -> 
 
 
 # ---------------------------------------------------------------------------
+# 9. Author / organisation concentration (RQ2.6)
+# ---------------------------------------------------------------------------
+
+def plot_author_dist(repo_scores: list, out_dir: Path, fmt: str, dpi: int) -> None:
+    """Top organisations/users by count of explicit MT repositories (RQ2.6)."""
+    if not repo_scores:
+        return
+
+    from collections import Counter as _Counter
+
+    explicit = [r for r in repo_scores if r["classification"] in ("strong_explicit", "weak_explicit")]
+    if not explicit:
+        return
+
+    org_counts = _Counter(r["full_name"].split("/")[0] for r in explicit)
+    top = org_counts.most_common(20)
+    if not top:
+        return
+
+    labels = [o for o, _ in reversed(top)]
+    values = [v for _, v in reversed(top)]
+
+    fig, ax = plt.subplots(figsize=(10, max(6, len(labels) * 0.37)))
+    palette = sns.color_palette("mako_r", n_colors=len(labels))
+    ax.barh(labels, values, color=palette)
+    ax.set_xlabel("Explicit MT repositories")
+    ax.set_title("Top Organisations / Users by Explicit MT Repository Count (RQ2.6)")
+    ax.xaxis.set_major_locator(mticker.MaxNLocator(integer=True))
+    _save(fig, out_dir, "author_dist", fmt, dpi)
+
+
+# ---------------------------------------------------------------------------
+# 10. MT coverage depth within repos (RQ2.7)
+# ---------------------------------------------------------------------------
+
+def plot_coverage_depth(findings: list, repo_scores: list, out_dir: Path, fmt: str, dpi: int) -> None:
+    """Distribution of files-with-explicit-MT-signals per repo, by tier (RQ2.7)."""
+    if not findings or not repo_scores:
+        return
+
+    from collections import defaultdict as _dd
+
+    class_map = {r["full_name"]: r["classification"] for r in repo_scores}
+    files_per_repo: dict = _dd(set)
+
+    for f in findings:
+        if f.get("kind") == "explicit":
+            repo = f.get("repo", "")
+            tier = class_map.get(repo, "none")
+            if tier in ("strong_explicit", "weak_explicit"):
+                files_per_repo[(repo, tier)].add(f.get("file", ""))
+
+    if not files_per_repo:
+        return
+
+    rows = [{"tier": tier, "files": len(files)} for (_, tier), files in files_per_repo.items()]
+    df = pd.DataFrame(rows)
+
+    bin_edges  = [0, 1, 2, 5, 10, 20, float("inf")]
+    bin_labels = ["1", "2", "3–5", "6–10", "11–20", ">20"]
+    df["bin"] = pd.cut(df["files"], bins=bin_edges, labels=bin_labels, right=True)
+
+    pivot = (
+        df.groupby(["bin", "tier"])
+        .size()
+        .unstack(fill_value=0)
+        .reindex(bin_labels)
+    )
+    # Ensure both tiers are present
+    for tier in ("strong_explicit", "weak_explicit"):
+        if tier not in pivot.columns:
+            pivot[tier] = 0
+    pivot = pivot[["strong_explicit", "weak_explicit"]]
+
+    fig, ax = plt.subplots(figsize=(9, 5))
+    pivot.plot(
+        kind="bar", ax=ax, stacked=True,
+        color=[PALETTE["strong_explicit"], PALETTE["weak_explicit"]],
+        edgecolor="white", linewidth=0.5,
+    )
+    ax.set_xlabel("Number of files with explicit MT signals per repository")
+    ax.set_ylabel("Number of repositories")
+    ax.set_title("MT Coverage Depth within Repositories (RQ2.7)")
+    ax.legend(
+        [t.replace("_", " ").title() for t in ["strong_explicit", "weak_explicit"]],
+        title="Tier", fontsize=9,
+    )
+    ax.set_xticklabels(bin_labels, rotation=0)
+    _save(fig, out_dir, "coverage_depth", fmt, dpi)
+
+
+# ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
 
@@ -339,14 +433,16 @@ def run(out_dir: Path, fmt: str, dpi: int) -> None:
     data = load_all(raw_dir, analysis_dir)
 
     console.rule("[bold blue]Generating plots[/]")
-    plot_query_hits(       data["summary"],     out_dir, fmt, dpi)
-    plot_classification_dist(data["repo_scores"], out_dir, fmt, dpi)
-    plot_yearly_trend(     data["repo_scores"], out_dir, fmt, dpi)
-    plot_language_dist(    data["repo_scores"], out_dir, fmt, dpi)
-    plot_stars_scatter(    data["repo_scores"], out_dir, fmt, dpi)
-    plot_pattern_freq(     data["findings"],    out_dir, fmt, dpi)
-    plot_domain_heatmap(   data["repo_scores"], out_dir, fmt, dpi)
-    plot_query_overlap(    data["repo_scores"], out_dir, fmt, dpi)
+    plot_query_hits(         data["summary"],                      out_dir, fmt, dpi)
+    plot_classification_dist(data["repo_scores"],                  out_dir, fmt, dpi)
+    plot_yearly_trend(       data["repo_scores"],                  out_dir, fmt, dpi)
+    plot_language_dist(      data["repo_scores"],                  out_dir, fmt, dpi)
+    plot_stars_scatter(      data["repo_scores"],                  out_dir, fmt, dpi)
+    plot_pattern_freq(       data["findings"],                     out_dir, fmt, dpi)
+    plot_domain_heatmap(     data["repo_scores"],                  out_dir, fmt, dpi)
+    plot_query_overlap(      data["repo_scores"],                  out_dir, fmt, dpi)
+    plot_author_dist(        data["repo_scores"],                  out_dir, fmt, dpi)
+    plot_coverage_depth(     data["findings"], data["repo_scores"],out_dir, fmt, dpi)
 
     console.print(f"\n[bold green]Done.[/]  All plots saved to [dim]{out_dir}[/]")
 

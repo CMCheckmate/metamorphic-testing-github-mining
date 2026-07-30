@@ -1,338 +1,317 @@
 # MT GitHub Miner
 
-A three-phase pipeline for mining real-world adoption of **metamorphic testing (MT)** across open-source GitHub repositories.
-
-Designed to complement the [metamorphic-testing interactive module](../metamorphic-testing/), providing empirical data on how MT is actually used in practice.
+A four-phase pipeline for mining explicit adoption of **metamorphic testing (MT)** across open-source GitHub repositories. Designed to complement the [metamorphic-testing interactive module](../metamorphic-testing/) and to provide empirical, behavioural evidence of MT adoption at scale.
 
 ---
 
-## What this project does
-
-| Phase | Script | Input | Output |
-| --- | --- | --- | --- |
-| **1 — Search** | `search.py` | GitHub REST + GraphQL APIs | `results/raw/*.json` (6 files) |
-| **2 — Clone** | `clone.py` | `results/raw/*.json` | `repos/<owner>/<name>/` + manifest |
-| **3 — Analyse** | `analyze.py` | Cloned repos | `results/analysis/` findings + report |
-
-### Phase 1 — Search (5 surfaces)
-
-| Surface | Endpoint | What it searches | Rate limit |
-| --- | --- | --- | --- |
-| **Repositories** | `/search/repositories` | Repo name, description, topics, README | 30 req/min |
-| **Code files** | `/search/code` | All files on the default branch | **9 req/min** (separate bucket) |
-| **Issues** | `/search/issues?is:issue` | Issue title + body + comments | 30 req/min |
-| **Pull Requests** | `/search/issues?is:pr` | PR title + body + review comments | 30 req/min |
-| **Commits** | `/search/commits` | Commit messages (default branch) | 30 req/min |
-| **Discussions** | GraphQL `search(type: DISCUSSION)` | Discussion title + body | 5,000 pts/hr |
-
-**What is NOT covered:** Wiki pages, non-default branches, repository-level settings/CI files (covered by code search if they're text files), private repositories.
-
-### Phase 2 — Clone
-
-Reads and merges the six raw result files, deduplicates repositories, filters by optional criteria (language/stars/forks), and shallow-clones each repo.
-
-### Phase 3 — Analyse
-
-Scans every source file in every cloned repo for **explicit** MT markers (library imports, class names, decorators, string literals) and **implicit** structural patterns (heuristics in test files). Produces a scored classification per repo.
-
----
-
-## The 1,000-result hard cap and how we work around it
-
-**GitHub's hard limit:** Every search query returns at most 1,000 results across 10 pages. The API reports `total_count` (e.g. 4,200) but simply refuses to serve results beyond position 1,000 — there is no pagination trick that bypasses this.
-
-**Adaptive date-range slicing (the documented workaround):**
-
-When `total_count > 900`, `search.py` automatically bisects the query's date window and runs two sub-queries on the halves, recursing until each slice is under the threshold:
-
-```text
-"metamorphic testing" created:2010..2026   → total=3,200  → slice
-  created:2010..2018   → total=900   → done (within threshold)
-  created:2019..2026   → total=2,300  → slice again
-    created:2019..2022 → total=950   → slice again
-      created:2019..2020 → total=400 → done
-      created:2021..2022 → total=550 → done
-    created:2023..2026 → total=1,350 → slice again
-      ...
-```
-
-Each leaf query retrieves its full ≤1,000 results normally. The results are merged and deduplicated. This gives complete coverage for any query regardless of total result count.
-
-For most MT queries this never triggers at all — MT is niche enough that most individual queries return well under 900 results.
-
-**Disable slicing** with `--no-slice` if you want a fast run and don't need completeness.
-
----
-
-## Rate limits in detail
-
-### Search API buckets
-
-GitHub has **two separate rate-limit buckets** for search:
-
-| Bucket | Endpoints | Authenticated | Unauthenticated |
-| --- | --- | --- | --- |
-| Standard search | `/search/repositories`, `/search/issues`, `/search/commits` | **30 req/min** | 10 req/min |
-| Code search | `/search/code` | **9 req/min** | Not available |
-
-These are independent — running code searches does not consume your standard search quota and vice versa.
-
-### Secondary rate limits
-
-Beyond the per-minute search limits, GitHub also enforces:
-
-- Max **900 points/minute** across all REST requests (GET = 1 pt, POST/PATCH = 5 pts)
-- Max **100 concurrent requests**
-- Max **90 seconds CPU time per 60 seconds real time**
-- Violations return HTTP 429 or 403 with a `Retry-After` header — the scripts handle this automatically.
-
-### GraphQL rate limits
-
-- **5,000 points/hour** (standard users), 10,000 for GitHub Enterprise Cloud
-- **2,000 points/minute** secondary cap
-- Each non-mutation `search()` query costs 1 point
-- Results come back 100 per page; no 1,000-result cap (GraphQL paginates fully via cursors)
-
-### Script-configured delays
-
-| Delay constant | Value | Applied to |
-| --- | --- | --- |
-| `STANDARD_SEARCH_DELAY` | 2.2s | repos, issues, commits |
-| `CODE_SEARCH_DELAY` | 7.0s | code search |
-| `GRAPHQL_DELAY` | 1.5s | discussions |
-
----
-
-## Throughput calculations
-
-### Assumptions
-
-- MT is niche: most queries return < 500 results (no slicing needed)
-- ~3 queries per surface need slicing → ~2 extra sub-queries each
-- Average pages per final query: ~4
-
-### Phase 1 — Search timings
-
-| Surface | Queries | Avg sub-queries (slicing) | API calls | Delay per call | Time |
-| --- | --- | --- | --- | --- | --- |
-| Repos (4 queries) | 4 | 1.0× | ~16 reqs | 2.2s | ~35s |
-| Code (16 queries) | 16 | 1.3× avg (some slice) | ~85 reqs | 7.0s | ~10 min |
-| Issues (5 queries) | 5 | 1.0× | ~20 reqs | 2.2s | ~44s |
-| PRs (2 queries) | 2 | 1.0× | ~8 reqs | 2.2s | ~18s |
-| Commits (4 queries) | 4 | 1.0× | ~16 reqs | 2.2s | ~35s |
-| Discussions (3 queries) | 3 | n/a (cursor-based) | ~9 reqs | 1.5s | ~14s |
-| **Phase 1 total** | | | **~154 reqs** | — | **~14 min** |
-
-**Note:** Code search dominates due to the 7s/req limit. If you run `--no-slice` and only the most targeted code queries, Phase 1 drops to ~5 minutes.
-
-### Phase 2 — Clone timings
-
-| Scenario | Repos | Per-repo time | Total |
-| --- | --- | --- | --- |
-| Conservative | 100 repos | 2–4s | ~5–7 min |
-| Typical | 250 repos | 2–4s | ~10–17 min |
-| Full coverage | 500 repos | 2–4s | ~20–33 min |
-
-### Phase 3 — Analyse timings (local, no network)
-
-| Repos | Avg files/repo | Total files | Time |
-| --- | --- | --- | --- |
-| 250 repos | ~200 files | ~50,000 files | ~3–5 min |
-
-### Full pipeline (typical, 250 repos)
-
-| Phase | Time |
-| --- | --- |
-| Phase 1 — Search | ~14 min |
-| Phase 2 — Clone 250 repos | ~15 min |
-| Phase 3 — Analyse | ~4 min |
-| **Total** | **~33 min** |
-
-### Expected result counts
-
-| Surface | Expected total in GitHub | Retrieved (with slicing) |
-| --- | --- | --- |
-| Repos matching "metamorphic testing" | ~400–700 | ~400–700 (all) |
-| Code files with `MetamorphicTest` | ~100–400 | ~100–400 (all) |
-| Code files with `"metamorphic testing"` | ~500–3,000 | ~500–3,000 (sliced) |
-| Code files with `def mr_` (Python) | ~5,000–50,000 | **noisy** — narrow with `language:Python` |
-| Issues mentioning "metamorphic testing" | ~200–800 | ~200–800 (all) |
-| PRs mentioning "metamorphic testing" | ~50–200 | ~50–200 (all) |
-| Commits | ~100–500 | ~100–500 (all) |
-| Discussions | ~10–100 | all (cursor-based, no 1k cap) |
-| **Unique repos across all surfaces** | — | **~300–800 repos** |
-
----
-
-## Credentials & APIs
-
-### GitHub Personal Access Token
-
-| Limit | Unauthenticated | Authenticated |
-| --- | --- | --- |
-| Standard search | 10 req/min | **30 req/min** |
-| Code search | Not available | **9 req/min** |
-| GraphQL | Not available | **5,000 pts/hr** |
-
-**How to create one:**
-
-1. Go to <https://github.com/settings/tokens> → **Generate new token (classic)**
-2. Name: `mt-github-miner`, Expiration: 90 days
-3. Scopes: `public_repo` only (read-only, no write permissions needed)
-4. Copy the token — shown only once
+## Quick start
 
 ```bash
-cp .env.example .env
-# Edit .env: set GITHUB_TOKEN=ghp_...
-```
-
-> `.env` is in `.gitignore` and will never be committed.
-
----
-
-## Setup
-
-```bash
-cd github-mining
+cd metamorphic-testing-github-mining
 python -m venv .venv
 source .venv/bin/activate        # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 cp .env.example .env
-# Edit .env — set GITHUB_TOKEN
+# Edit .env — set GITHUB_TOKEN=ghp_...
+
+# Run the full pipeline
+python main.py
+
+# Or run specific phases
+python main.py --stages 1 2        # search then clone
+python main.py --stages 3 4        # analyse and plot existing clones
+python main.py --stages 5          # results report from existing data (no re-run needed)
+python main.py --stages 4 5        # regenerate plots then report
+python main.py --help              # full parameter reference
 ```
 
 ---
 
-## Workflow
+## Pipeline overview
 
-### Step 1 — Search
+| Phase | Script | Input | Output |
+|---|---|---|---|
+| **1 — Search** | `search.py` | GitHub REST + GraphQL APIs | `results/raw/*.json` |
+| **2 — Clone** | `clone.py` | `results/raw/*.json` | `repos/<owner>/<name>/` + manifest |
+| **3 — Analyse** | `analyze.py` | Cloned repos | `results/analysis/` findings + scores |
+| **4 — Plot** | `plot.py` | `results/raw/` + `results/analysis/` | `results/plots/*.png` |
+| **5 — Report** | `report.py` | `results/` (any existing data) | `results/reports/results_report.md` |
 
-```bash
-# Run all surfaces (repos + code + issues + commits + discussions)
-python search.py
-
-# Individual surfaces
-python search.py --repo
-python search.py --code
-python search.py --issues
-python search.py --commits
-python search.py --discussions
-
-# Fast mode: no date-range slicing (misses results beyond 1k per query)
-python search.py --no-slice
-
-# Combine: issues only, no slicing, max 5 pages per query
-python search.py --issues --no-slice --max-pages 5
-```
-
-**Output:** `results/raw/repos.json`, `code.json`, `issues.json`, `prs.json`, `commits.json`, `discussions.json`, `summary.json`
+All five phases are orchestrated by `main.py`. Each phase can also be run standalone via its own script. **Phase 5 can be run at any time without re-running earlier phases** — it reads whatever data exists on disk.
 
 ---
 
-### Step 2 — Clone
+## Phase 1 — Search
 
-```bash
-# Clone all candidates from all search result files
-python clone.py
+Queries GitHub across five search surfaces using the REST and GraphQL APIs.
 
-# Filter options
-python clone.py --lang Python --min-stars 5 --skip-forks --limit 100
+| Surface | Endpoint | What it searches | Rate limit |
+|---|---|---|---|
+| **Repositories** | `/search/repositories` | Name, description, topics, README | 30 req/min |
+| **Code files** | `/search/code` | All files on the default branch | **9 req/min** (separate bucket) |
+| **Issues** | `/search/issues?is:issue` | Title + body + comments | 30 req/min |
+| **Pull Requests** | `/search/issues?is:pr` | Title + body + review comments | 30 req/min |
+| **Commits** | `/search/commits` | Commit messages (default branch) | 30 req/min |
+| **Discussions** | GraphQL `search(type: DISCUSSION)` | Discussion title + body | 5,000 pts/hr |
 
-# Re-clone (refresh) repos already on disk
-python clone.py --refresh
+**Search strategy:** All queries use specific MT phrases (`"metamorphic testing"`, `"metamorphic relation"`, etc.) — no standalone `"metamorphic"` term. A bare `"metamorphic"` query is too general (matches geology, malware, etc.) and, since every specific MT phrase contains "metamorphic", it would subsume all specific queries and waste the 1,000-result cap on non-MT hits. Filtering for relevance happens downstream in Phases 2 and 3. Searches target only explicit MT terminology; we do not search for specific library names whose names do not contain "metamorphic" (see [Search design principle](#search-design-principle) below).
 
-# Batch cloning: skip the first N filtered repos, clone the next chunk only
-python clone.py --offset 0 --limit 50
-python clone.py --offset 50 --limit 50
-```
+**What is NOT covered:** Wiki pages, non-default branches, private repositories.
 
-**Output:** `repos/<owner>/<name>/` + `results/cloned/manifest.json`
+### The 1,000-result cap and adaptive slicing
 
----
-
-### Step 3 — Analyse
-
-```bash
-# Analyse all cloned repos (explicit + implicit patterns)
-python analyze.py
-
-# High-confidence only (faster, no implicit heuristics)
-python analyze.py --only explicit
-
-# Single repo
-python analyze.py --repo owner/reponame
-
-# Only show repos with score >= 5
-python analyze.py --min-score 5
-
-# Batch mode: append to existing outputs and delete each cloned repo after analysis
-python analyze.py --append --cleanup-clones
-```
-
-**Output:** `results/analysis/findings.json`, `repo_scores.json`, `summary_report.md`
-
----
-
-## Data flow for downstream analysis
+GitHub returns at most 1,000 results per query. When `total_count > 900`, `search.py` bisects the date window and recurses until each slice is under the threshold, giving full coverage. Disable with `--no-slice` for a faster partial run.
 
 ```text
-GitHub APIs
-   │
-   ▼
-results/raw/repos.json        ← repository metadata
-results/raw/code.json         ← code-file match records
-results/raw/issues.json       ← issue records
-results/raw/prs.json          ← pull request records
-results/raw/commits.json      ← commit records
-results/raw/discussions.json  ← discussion records
-results/raw/summary.json      ← per-query hit counts
-   │
-   ▼  (clone.py)
-repos/<owner>/<name>/         ← shallow-cloned source trees
-results/cloned/manifest.json  ← clone status + metadata
-   │
-   ▼  (analyze.py)
-results/analysis/findings.json    ← per-file pattern hits
-results/analysis/repo_scores.json ← per-repo scores + classification
-results/analysis/summary_report.md
+"metamorphic testing" created:2010..2026  → 3,200 total → slice
+  created:2010..2018  → 900  → done
+  created:2019..2026  → 2,300 → slice
+    created:2019..2022 → 950  → slice
+      ...
 ```
 
-All files are plain JSON — load directly into pandas for analysis:
+---
 
-```python
-import pandas as pd, json
+## Phase 2 — Clone
 
-scores = pd.DataFrame(json.load(open("results/analysis/repo_scores.json")))
-# Explicit MT adopters only
-explicit = scores[scores["classification"].isin(["strong_explicit","weak_explicit"])]
-print(explicit.sort_values("score", ascending=False)[["full_name","stars","language","score"]])
+Reads and merges the six raw result files, deduplicates, applies optional filters (language, minimum stars, fork exclusion), and shallow-clones each qualifying repo.
+
+```bash
+python main.py --stages 2 --min-stars 5 --skip-forks --workers 8
 ```
+
+Parallel cloning with `--workers N` gives roughly linear speedup on I/O-bound network clones.
+
+---
+
+## Phase 3 — Analyse
+
+Scans every file in every cloned repo for **explicit** MT adoption signals. Implicit pattern analysis (structural heuristics) is out of scope for this study; the analysis targets only direct terminology.
+
+### Explicit patterns
+
+| Category | Examples |
+|---|---|
+| Import patterns | `import metamorphic`, `from metamorphic` (any module whose name contains "metamorphic") |
+| Class / decorator names | `MetamorphicTest*`, `MetamorphicRelation*`, `@metamorphic` |
+| String literals | `"metamorphic testing"`, `"metamorphic relation"` (with plural variants) |
+| Inline comments | `# metamorphic testing …`, `// metamorphic relation …` |
+| Lemmatised comments | Morphological variants (e.g. *metamorphically*) matched against NLTK-lemmatised comment tokens |
+
+### Classification tiers
+
+| Tier | Criterion | Meaning |
+|---|---|---|
+| `strong_explicit` | ≥ 3 explicit hits | Multiple unambiguous MT signals across the repo |
+| `weak_explicit` | 1–2 explicit hits | At least one direct signal; adoption may be exploratory |
+| `none` | 0 explicit hits | Keyword appeared in README/commit/issue only; no MT in source code |
+
+Score = explicit hits × 3, capped at 100 (used for ranking within tiers).
+
+### Parallel analysis
+
+```bash
+python main.py --stages 3 --workers 8 --cleanup-clones
+```
+
+`--workers N` analyses N repos concurrently (ThreadPoolExecutor). `--cleanup-clones` deletes each repo after analysis to reclaim disk space.
+
+---
+
+## Phase 4 — Plot
+
+Reads Phase 1 and Phase 3 outputs and produces eight publication-quality figures.
+
+| File | Description |
+|---|---|
+| `query_hits.png` | Per-query hit counts across all search surfaces |
+| `classification_dist.png` | Classification tier distribution |
+| `yearly_trend.png` | Explicit MT-adopting repos by creation year |
+| `language_dist.png` | Top languages among explicit MT repos |
+| `stars_vs_score.png` | Repository popularity vs explicit hit count |
+| `pattern_freq.png` | Frequency of each explicit pattern across findings |
+| `domain_heatmap.png` | Language × classification tier heatmap |
+| `query_overlap.png` | Repos found by N distinct search queries |
+
+```bash
+python main.py --stages 4 --format pdf --dpi 300
+```
+
+---
+
+## Phase 5 — Report
+
+Reads whatever results exist on disk and generates a Markdown report at
+`results/reports/results_report.md` that directly answers each mining sub-question (RQ2.1–RQ2.8):
+
+| Section | Sub-question answered |
+|---|---|
+| Funnel Summary | Total pipeline yield at each stage |
+| RQ2.1 | What proportion of repos with MT mentions contain explicit MT in source code? |
+| RQ2.2 | Is explicit MT adoption growing, plateauing, or declining year-on-year? |
+| RQ2.3 | Which programming languages are most associated with explicit MT adoption? |
+| RQ2.4 | Are MT-adopting repos concentrated in specific domains? |
+| RQ2.5 | Are adopters production projects (high stars) or research prototypes? |
+| RQ2.6 | Are specific organisations/authors responsible for most adoption? |
+| RQ2.7 | How deeply does MT penetrate an adopting repository (files affected)? |
+| RQ2.8 | What MT patterns appear most often? Top repos for qualitative inspection. |
+
+Each section includes the relevant plot(s) embedded at the point where they support the narrative.
+Two plots added specifically for this report:
+
+- **`author_dist.png`** (RQ2.6) — top organisations/users by explicit MT repo count
+- **`coverage_depth.png`** (RQ2.7) — distribution of files-with-MT-signals per repo, by tier
+
+```bash
+python main.py --stages 5                         # report from existing results
+python main.py --stages 5 --refresh-plots         # also regenerate all plots first
+python main.py --stages 5 --top-repos 30          # include top 30 repos in RQ2.8 table
+python report.py                                  # run standalone
+```
+
+---
+
+## Search design principle
+
+**We search by terminology, not by library name.**
+
+MT libraries often have names that do not contain the word "metamorphic" (e.g. a library called `gemtest` or `mrtest`). Searching for `import gemtest` would be a form of *implicit* search: it relies on out-of-band knowledge that the library name maps to MT, is impossible to generalise to libraries we do not know about, and conflates knowledge of library names with evidence of explicit MT adoption.
+
+The correct approach: any well-documented MT library will mention "metamorphic testing" or "metamorphic relation" in its README, docstrings, or comments. Phase 3's string and comment patterns catch these mentions regardless of what the library is named. If a codebase uses an MT library but never mentions "metamorphic" anywhere in its own code or documentation, it does not exhibit explicit, intentional adoption of MT by our operational definition.
+
+**Consequence for CODE_QUERIES:** Code search queries use only identifiers that directly contain "metamorphic" (e.g. `MetamorphicTest`, `metamorphic_relation`, `@metamorphic`, string literals). No library-specific package names are searched.
+
+---
+
+## Rate limits
+
+| Bucket | Authenticated | Delay used |
+|---|---|---|
+| `/search/repositories`, `/search/issues`, `/search/commits` | 30 req/min | 2.2 s |
+| `/search/code` | 9 req/min | 7.0 s |
+| GraphQL discussions | 5,000 pts/hr | 1.5 s |
+
+Violations return HTTP 429 / 403 with `Retry-After` — handled automatically with up to 4 retries.
+
+---
+
+## Throughput estimates
+
+### Phase 1 (full run, all surfaces, slicing enabled)
+
+| Surface | Queries | Estimated time |
+|---|---|---|
+| Repositories | 7 | ~2 min |
+| Code files | 13 | ~16 min |
+| Issues + PRs | 14 | ~4 min |
+| Commits | 6 | ~2 min |
+| Discussions | 6 | ~2 min |
+| **Total** | **46** | **~26 min** |
+
+Code search dominates due to its 7 s/request rate limit. Phase 1 with `--no-slice` and only the code surface drops to ~2 min.
+
+### Phase 2 (with `--workers 4`)
+
+~250 repos cloned in 5–10 min (vs ~15 min sequential).
+
+### Phase 3 (with `--workers 4`)
+
+~250 repos × ~200 files analysed in ~2 min (vs ~5 min sequential).
+
+### Full pipeline (typical, 250 repos, 4 workers)
+
+| Phase | Time |
+|---|---|
+| 1 — Search | ~28 min |
+| 2 — Clone (parallel) | ~7 min |
+| 3 — Analyse (parallel) | ~2 min |
+| 4 — Plot | < 1 min |
+| **Total** | **~38 min** |
+
+---
+
+## GitHub Personal Access Token
+
+| Feature | Without token | With token |
+|---|---|---|
+| Standard search | 10 req/min | **30 req/min** |
+| Code search | ❌ not available | **9 req/min** |
+| GraphQL | ❌ not available | **5,000 pts/hr** |
+
+**Create a token:**
+1. <https://github.com/settings/tokens> → **Generate new token (classic)**
+2. Name: `mt-github-miner` | Scopes: `public_repo` only
+3. Copy the token (shown once only)
+
+```bash
+cp .env.example .env
+# Edit .env: GITHUB_TOKEN=ghp_...
+```
+
+`.env` is listed in `.gitignore` and will not be committed.
 
 ---
 
 ## Project structure
 
 ```text
-github-mining/
+metamorphic-testing-github-mining/
+├── main.py            # Pipeline orchestrator — run all phases from here
 ├── search.py          # Phase 1: GitHub API search → results/raw/
-├── clone.py           # Phase 2: shallow-clone repos → repos/
+├── clone.py           # Phase 2: filter + shallow-clone → repos/
 ├── analyze.py         # Phase 3: local pattern scan → results/analysis/
-├── config.py          # All queries, patterns, delays, paths, slicing settings
+├── plot.py            # Phase 4: visualisations → results/plots/
+├── report.py          # Phase 5: results report → results/reports/
+├── config.py          # Queries, patterns, delays, paths, slicing settings
 ├── requirements.txt
-├── .env.example       # Copy to .env and add GITHUB_TOKEN
+├── .env.example
 ├── .gitignore
-└── results/           # (gitignored data, directory structure tracked)
+└── results/           # gitignored; directory structure tracked
     ├── raw/
     ├── cloned/
-    └── analysis/
+    ├── analysis/
+    ├── plots/
+    └── reports/
 ```
 
 ---
 
-## Notes on search surfaces
+## Data flow
 
-**Code search does not return snippets.** The API only returns the matching file's path and SHA — not which line matched. Actual line-level matches are discovered in Phase 3 after cloning.
+```text
+GitHub APIs
+   │
+   ▼  search.py
+results/raw/repos.json        ← repository metadata
+results/raw/code.json         ← code-file matches
+results/raw/issues.json       ← issue records
+results/raw/prs.json          ← pull request records
+results/raw/commits.json      ← commit records
+results/raw/discussions.json  ← discussion records
+results/raw/summary.json      ← per-query hit counts
+   │
+   ▼  clone.py
+repos/<owner>/<name>/          ← shallow-cloned source trees
+results/cloned/manifest.json   ← clone status + metadata
+   │
+   ▼  analyze.py
+results/analysis/findings.json     ← per-file pattern hits
+results/analysis/repo_scores.json  ← per-repo scores + classification
+results/analysis/summary_report.md
+   │
+   ▼  plot.py
+results/plots/*.png            ← 10 publication-quality figures
+   │
+   ▼  report.py  (reads any/all of the above that exist)
+results/reports/results_report.md  ← comprehensive results report (RQ2.1–RQ2.8)
+```
 
-**Discussions have no result cap.** GraphQL cursor-based pagination retrieves all results — there is no 1,000-result wall for discussions.
+Load into pandas for analysis:
 
-**Implicit patterns are heuristics.** `transform(input)` before an assertion could be MT or just test setup. The implicit results are a shortlist for manual inspection. Use `--only explicit` for high-confidence findings.
+```python
+import pandas as pd, json
+
+scores = pd.DataFrame(json.load(open("results/analysis/repo_scores.json")))
+explicit = scores[scores["classification"].isin(["strong_explicit", "weak_explicit"])]
+print(explicit.sort_values("score", ascending=False)[["full_name", "stars", "language", "score"]])
+```
