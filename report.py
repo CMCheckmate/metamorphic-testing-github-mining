@@ -78,7 +78,7 @@ def sec_funnel(data: dict) -> str:
     # Unique repos found in search
     repo_set: set = set()
     for r in (data["repos"] or []):
-        repo_set.add(r.get("full_name", ""))
+        repo_set.add(r.get("repo", "") or r.get("full_name", ""))
     for r in (data["code"] or []):
         repo_set.add(r.get("repo_full_name", ""))
     repo_set.discard("")
@@ -138,7 +138,7 @@ def sec_rq21(data: dict, plots_rel: str, fmt: str) -> str:
     n_no  = tiers["none"]
     n_ex  = n_st + n_wk
 
-    return f"""## RQ2.1 — Prevalence
+    return f"""## Q1 — Prevalence
 
 | Classification | Repos | % of analysed |
 |---|---|---|
@@ -176,7 +176,7 @@ def sec_rq22(data: dict, plots_rel: str, fmt: str) -> str:
 
     if not rows:
         return ""
-    return f"""## RQ2.2 — Trend over Time
+    return f"""## Q2 — Trend over Time
 
 | Year | Strong | Weak | Total explicit | No signal | Total repos |
 |---|---|---|---|---|---|
@@ -219,7 +219,7 @@ def sec_rq23(data: dict, plots_rel: str, fmt: str) -> str:
         )[:10]
     )
 
-    return f"""## RQ2.3 — Language Distribution
+    return f"""## Q3 — Language Distribution
 
 **By explicit repo count (top 15):**
 
@@ -238,7 +238,7 @@ def sec_rq23(data: dict, plots_rel: str, fmt: str) -> str:
 
 
 def sec_rq24(plots_rel: str, fmt: str) -> str:
-    return f"""## RQ2.4 — Domain Analysis
+    return f"""## Q4 — Domain Analysis
 
 {_img(plots_rel, 'domain_heatmap', fmt, 'Language × classification tier heatmap (top 12 languages)')}
 """
@@ -262,7 +262,7 @@ def sec_rq25(data: dict, plots_rel: str, fmt: str) -> str:
                 f"| {max(s):,} | {_pct(sum(1 for x in s if x >= 100)/n*100)} "
                 f"| {_pct(sum(1 for x in s if x >= 1000)/n*100)} |")
 
-    return f"""## RQ2.5 — Project Maturity
+    return f"""## Q5 — Project Maturity
 
 | Tier | Repos | Median ★ | Mean ★ | Max ★ | ≥ 100 ★ | ≥ 1,000 ★ |
 |---|---|---|---|---|---|---|
@@ -283,7 +283,7 @@ def sec_rq26(data: dict, plots_rel: str, fmt: str) -> str:
     if not explicit:
         return ""
 
-    orgs  = Counter(r["full_name"].split("/")[0] for r in explicit)
+    orgs  = Counter(r["repo"].split("/")[0] for r in explicit)
     top   = orgs.most_common(20)
     total = sum(orgs.values())
 
@@ -295,7 +295,7 @@ def sec_rq26(data: dict, plots_rel: str, fmt: str) -> str:
     top10_pct = sum(v for _, v in top[:10]) / total * 100 if total else 0
     n_single  = sum(1 for v in orgs.values() if v == 1)
 
-    return f"""## RQ2.6 — Author Concentration
+    return f"""## Q6 — Author Concentration
 
 | | Value |
 |---|---|
@@ -318,12 +318,12 @@ def sec_rq27(data: dict, plots_rel: str, fmt: str) -> str:
     if not scores or not findings:
         return ""
 
-    explicit_repos = {r["full_name"] for r in scores
+    explicit_repos = {r["repo"] for r in scores
                       if r["classification"] in ("strong_explicit", "weak_explicit")}
     files: dict = defaultdict(set)
     for f in findings:
         repo = f.get("repo", "")
-        if repo in explicit_repos and f.get("kind") == "explicit":
+        if repo in explicit_repos:
             files[repo].add(f.get("file", ""))
 
     if not files:
@@ -341,7 +341,7 @@ def sec_rq27(data: dict, plots_rel: str, fmt: str) -> str:
         for lbl, (lo, hi) in zip(labels, bins)
     )
 
-    return f"""## RQ2.7 — Coverage within Repository
+    return f"""## Q7 — Coverage within Repository
 
 | | Value |
 |---|---|
@@ -368,55 +368,51 @@ def sec_rq28(data: dict, plots_rel: str, fmt: str, top_n: int) -> str:
     if not scores:
         return ""
 
-    # Pattern frequency from findings
-    explicit_finds = [f for f in findings if f.get("kind") == "explicit"]
-    pat_label_counts = Counter(f["pattern_label"] for f in explicit_finds)
-    # Pattern ID → repos count (from repo_scores.pattern_ids)
-    pat_id_repos: Counter = Counter()
-    for r in scores:
-        for pid in r.get("pattern_ids", []):
-            pat_id_repos[pid] += 1
+    # Count how many matches each pattern label has across all findings
+    matches_per_pattern: Counter = Counter(finding["label"] for finding in findings)
 
-    # Build label→id map from findings
-    id_to_label: dict = {}
-    for f in explicit_finds:
-        id_to_label[f.get("pattern_id", "")] = f.get("pattern_label", "")
+    # Count how many repos matched each pattern (from repo_scores.patterns_matched,
+    # which stores human-readable labels directly)
+    repos_per_pattern: Counter = Counter()
+    for repo_score in scores:
+        for pattern_label in repo_score.get("patterns_matched", []):
+            repos_per_pattern[pattern_label] += 1
 
     pat_rows = "\n".join(
-        f"| `{pid}` | {id_to_label.get(pid, pid)} | {pat_id_repos[pid]:,} | {pat_label_counts.get(id_to_label.get(pid,''), 0):,} |"
-        for pid, _ in pat_id_repos.most_common()
+        f"| {pattern_label} | {repos_per_pattern[pattern_label]:,} | {matches_per_pattern[pattern_label]:,} |"
+        for pattern_label, _ in repos_per_pattern.most_common()
     )
 
-    # Top repos
-    strong = sorted(
-        [r for r in scores if r["classification"] == "strong_explicit"],
-        key=lambda r: (r.get("score", 0), r.get("stars", 0)),
+    # Top repos by match count then stars
+    strong_repos = sorted(
+        [repo_score for repo_score in scores if repo_score["classification"] == "strong_explicit"],
+        key=lambda repo_score: (repo_score.get("score", 0), repo_score.get("stars", 0)),
         reverse=True,
     )[:top_n]
     repo_rows = "\n".join(
-        f"| [{r['full_name']}](https://github.com/{r['full_name']}) "
-        f"| {_tier(r['classification'])} "
-        f"| {r.get('score', 0)} "
-        f"| {r.get('explicit_hits', 0):,} "
-        f"| {r.get('affected_files', 0):,} "
-        f"| {r.get('language') or '—'} "
-        f"| {r.get('stars', 0):,} |"
-        for r in strong
+        f"| [{repo_score['repo']}](https://github.com/{repo_score['repo']}) "
+        f"| {_tier(repo_score['classification'])} "
+        f"| {repo_score.get('score', 0)} "
+        f"| {repo_score.get('direct_matches', 0):,} "
+        f"| {repo_score.get('files_with_matches', 0):,} "
+        f"| {repo_score.get('language') or '—'} "
+        f"| {repo_score.get('stars', 0):,} |"
+        for repo_score in strong_repos
     )
 
-    return f"""## RQ2.8 — MR Structure & Pattern Analysis
+    return f"""## Q8 — MR Structure & Pattern Analysis
 
-**Pattern frequency ({len(explicit_finds):,} total explicit matches):**
+**Pattern frequency ({len(findings):,} total matches across all repos):**
 
-| Pattern ID | Label | Repos | Total matches |
-|---|---|---|---|
+| Pattern matched | Repos | Total matches |
+|---|---|---|
 {pat_rows}
 
-{_img(plots_rel, 'pattern_freq', fmt, 'Explicit pattern match frequency')}
+{_img(plots_rel, 'pattern_freq', fmt, 'Pattern match frequency across repos')}
 
-**Top `strong_explicit` repos for qualitative inspection (top {top_n}):**
+**Top strong-adoption repos for qualitative inspection (top {top_n}):**
 
-| Repository | Tier | Score | Explicit hits | MT files | Language | Stars |
+| Repository | Tier | Score | Matches | MT files | Language | Stars |
 |---|---|---|---|---|---|---|
 {repo_rows}
 """
@@ -429,21 +425,21 @@ def sec_all_repos(data: dict) -> str:
 
     sorted_repos = sorted(scores, key=lambda r: (r.get("score", 0), r.get("stars", 0)), reverse=True)
     rows = "\n".join(
-        f"| [{r['full_name']}](https://github.com/{r['full_name']}) "
+        f"| [{r['repo']}](https://github.com/{r['repo']}) "
         f"| `{r['classification']}` "
         f"| {r.get('score', 0)} "
-        f"| {r.get('explicit_hits', 0):,} "
-        f"| {r.get('affected_files', 0):,} "
+        f"| {r.get('direct_matches', 0):,} "
+        f"| {r.get('files_with_matches', 0):,} "
         f"| {r.get('language') or '—'} "
         f"| {r.get('stars', 0):,} "
         f"| {(r.get('created_at') or '')[:4] or '—'} "
-        f"| {', '.join(f'`{p}`' for p in r.get('pattern_ids', [])) or '—'} |"
+        f"| {'; '.join(r.get('patterns_matched', [])) or '—'} |"
         for r in sorted_repos
     )
 
     return f"""## All Repositories ({len(sorted_repos):,})
 
-| Repository | Class | Score | Explicit hits | MT files | Language | Stars | Year | Patterns matched |
+| Repository | Class | Score | Matches | MT files | Language | Stars | Year | Patterns matched |
 |---|---|---|---|---|---|---|---|---|
 {rows}
 """
@@ -475,11 +471,78 @@ def sec_query_stats(data: dict) -> str:
 # Main builder
 # ---------------------------------------------------------------------------
 
+_GLOSSARY = """\
+## How to read this report
+
+**Metamorphic testing (MT)** — a testing technique where a *metamorphic relation* (a rule
+about how outputs should change when inputs change in a predictable way) is defined and then
+verified against the software under test.
+
+**Metamorphic relation (MR)** — the specific rule linking related inputs and outputs,
+e.g. "rotating an image 360° must return the original image."
+
+**Metamorphic group** — a set of test inputs that are all related to each other through
+the same metamorphic relation.
+
+---
+
+**How repositories are found (search phase)**
+
+The pipeline queries GitHub across five surfaces — repository names/descriptions, source code
+files, issues, pull requests, commit messages, and GitHub Discussions — using a set of search
+terms derived from MT terminology.  Every candidate that could plausibly be relevant is
+collected; false positives are filtered out in the analysis phase.
+
+---
+
+**How repositories are classified (analysis phase)**
+
+Each cloned repository is scanned for *patterns* — regular expressions that look for evidence
+of MT adoption in source files.  A **pattern** is a specific kind of signal, for example:
+
+| Pattern | What it looks for |
+|---|---|
+| Class name: MetamorphicTest | A class named `MetamorphicTest` (or similar) in source code |
+| Class name: MetamorphicRelation | A class named `MetamorphicRelation` in source code |
+| Identifier: metamorphic_relation | A variable or function named `metamorphic_relation` |
+| Identifier: metamorphic_test | A variable or function named `metamorphic_test` |
+| Decorator: @metamorphic | The `@metamorphic` decorator used in MT frameworks |
+| String: "metamorphic test/testing/tests" | An MT phrase used as a string literal |
+| String: "metamorphic relation/relationship" | An MR phrase used as a string literal |
+| String: "metamorphic group/groups" | An MG phrase used as a string literal |
+| Comment: metamorphic test/testing/tests | A code comment mentioning MT |
+| Comment: metamorphic relation/relationship | A code comment mentioning an MR |
+| Comment: metamorphic group/groups | A code comment mentioning an MG |
+
+Each time a pattern matches a line in a file, that is called a **match** (also shown as
+"direct match" in tables).  A single file can produce multiple matches from different patterns.
+
+**Patterns matched** in tables and JSON output lists which of the patterns above fired for
+that repository, so the evidence is immediately readable without needing to look up codes.
+
+---
+
+**Classification tiers**
+
+| Tier | Criteria | Meaning |
+|---|---|---|
+| **strong_explicit** | 3 or more matches | Multiple distinct MT signals found — high confidence of genuine adoption |
+| **weak_explicit** | 1 or 2 matches | At least one direct signal — possible adoption, worth checking manually |
+| **none** | 0 matches | No MT evidence found in the source code |
+
+**Score** = total number of matches found in the repository (raw count, no weighting).
+Higher score = more evidence of MT adoption.
+
+---
+"""
+
+
 def build_report(data: dict, plots_rel: str, fmt: str, top_n: int) -> str:
     ts = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
 
     parts = [
         f"# MT GitHub Mining — Results Report\n\n*Generated: {ts}*\n\n---\n",
+        _GLOSSARY,
         sec_funnel(data),
         "---\n",
         sec_rq21(data, plots_rel, fmt),

@@ -13,8 +13,8 @@ Plots generated:
   6.  pattern_freq.png         — explicit pattern hit frequency (horizontal bar)
   7.  domain_heatmap.png       — language × classification tier heatmap
   8.  query_overlap.png        — repos found by N distinct search queries
-  9.  author_dist.png          — top organisations/users by explicit MT repo count (RQ2.6)
-  10. coverage_depth.png       — files-with-MT-signals per repo distribution (RQ2.7)
+  9.  author_dist.png          — top organisations/users by explicit MT repo count (Q6)
+  10. coverage_depth.png       — files-with-MT-signals per repo distribution (Q7)
 
 Usage:
     python plot.py [--output-dir PATH] [--dpi N] [--format png|pdf|svg]
@@ -222,12 +222,12 @@ def plot_stars_scatter(repo_scores: list, out_dir: Path, fmt: str, dpi: int) -> 
         sub = df[df["classification"] == tier]
         if sub.empty:
             continue
-        ax.scatter(sub["stars_log"], sub["explicit_hits"],
+        ax.scatter(sub["stars_log"], sub["direct_matches"],
                    label=tier.replace("_", " ").title(),
                    color=PALETTE[tier], alpha=0.7, edgecolors="white", linewidth=0.5, s=60)
 
     ax.set_xlabel("√(Stars + 1)  (monotone proxy for popularity)")
-    ax.set_ylabel("Explicit pattern hit count")
+    ax.set_ylabel("Number of direct MT pattern matches")
     ax.set_title("Repository Popularity vs Explicit MT Hit Count")
     ax.legend(title="Classification", fontsize=9)
     _save(fig, out_dir, "stars_vs_score", fmt, dpi)
@@ -241,11 +241,10 @@ def plot_pattern_freq(findings: list, out_dir: Path, fmt: str, dpi: int) -> None
     if not findings:
         return
 
-    explicit = [f for f in findings if f.get("kind") == "explicit"]
-    if not explicit:
+    if not findings:
         return
 
-    counts = Counter(f["pattern_label"] for f in explicit)
+    counts = Counter(f["label"] for f in findings)
     top    = counts.most_common(20)
     labels = [l for l, _ in reversed(top)]
     values = [v for _, v in reversed(top)]
@@ -311,7 +310,7 @@ def plot_query_overlap(repo_scores: list, out_dir: Path, fmt: str, dpi: int) -> 
     if not repo_scores:
         return
 
-    query_counts = Counter(len(r.get("matched_queries", [])) for r in repo_scores)
+    query_counts = Counter(len(r.get("found_by_queries", [])) for r in repo_scores)
     if not query_counts:
         return
 
@@ -330,11 +329,11 @@ def plot_query_overlap(repo_scores: list, out_dir: Path, fmt: str, dpi: int) -> 
 
 
 # ---------------------------------------------------------------------------
-# 9. Author / organisation concentration (RQ2.6)
+# 9. Author / organisation concentration (Q6)
 # ---------------------------------------------------------------------------
 
 def plot_author_dist(repo_scores: list, out_dir: Path, fmt: str, dpi: int) -> None:
-    """Top organisations/users by count of explicit MT repositories (RQ2.6)."""
+    """Top organisations/users by count of explicit MT repositories (Q6)."""
     if not repo_scores:
         return
 
@@ -344,7 +343,7 @@ def plot_author_dist(repo_scores: list, out_dir: Path, fmt: str, dpi: int) -> No
     if not explicit:
         return
 
-    org_counts = _Counter(r["full_name"].split("/")[0] for r in explicit)
+    org_counts = _Counter(r["repo"].split("/")[0] for r in explicit)
     top = org_counts.most_common(20)
     if not top:
         return
@@ -355,32 +354,31 @@ def plot_author_dist(repo_scores: list, out_dir: Path, fmt: str, dpi: int) -> No
     fig, ax = plt.subplots(figsize=(10, max(6, len(labels) * 0.37)))
     palette = sns.color_palette("mako_r", n_colors=len(labels))
     ax.barh(labels, values, color=palette)
-    ax.set_xlabel("Explicit MT repositories")
-    ax.set_title("Top Organisations / Users by Explicit MT Repository Count (RQ2.6)")
+    ax.set_xlabel("Repositories with explicit MT adoption")
+    ax.set_title("Top Organisations / Users by Explicit MT Repository Count (Q6)")
     ax.xaxis.set_major_locator(mticker.MaxNLocator(integer=True))
     _save(fig, out_dir, "author_dist", fmt, dpi)
 
 
 # ---------------------------------------------------------------------------
-# 10. MT coverage depth within repos (RQ2.7)
+# 10. MT coverage depth within repos (Q7)
 # ---------------------------------------------------------------------------
 
 def plot_coverage_depth(findings: list, repo_scores: list, out_dir: Path, fmt: str, dpi: int) -> None:
-    """Distribution of files-with-explicit-MT-signals per repo, by tier (RQ2.7)."""
+    """Distribution of files-with-explicit-MT-signals per repo, by tier (Q7)."""
     if not findings or not repo_scores:
         return
 
     from collections import defaultdict as _dd
 
-    class_map = {r["full_name"]: r["classification"] for r in repo_scores}
+    class_map = {r["repo"]: r["classification"] for r in repo_scores}
     files_per_repo: dict = _dd(set)
 
     for f in findings:
-        if f.get("kind") == "explicit":
-            repo = f.get("repo", "")
-            tier = class_map.get(repo, "none")
-            if tier in ("strong_explicit", "weak_explicit"):
-                files_per_repo[(repo, tier)].add(f.get("file", ""))
+        repo = f.get("repo", "")
+        tier = class_map.get(repo, "none")
+        if tier in ("strong_explicit", "weak_explicit"):
+            files_per_repo[(repo, tier)].add(f.get("file", ""))
 
     if not files_per_repo:
         return
@@ -412,7 +410,7 @@ def plot_coverage_depth(findings: list, repo_scores: list, out_dir: Path, fmt: s
     )
     ax.set_xlabel("Number of files with explicit MT signals per repository")
     ax.set_ylabel("Number of repositories")
-    ax.set_title("MT Coverage Depth within Repositories (RQ2.7)")
+    ax.set_title("MT Coverage Depth within Repositories (Q7)")
     ax.legend(
         [t.replace("_", " ").title() for t in ["strong_explicit", "weak_explicit"]],
         title="Tier", fontsize=9,

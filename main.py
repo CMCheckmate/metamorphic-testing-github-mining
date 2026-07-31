@@ -8,7 +8,7 @@ Phases:
   2  Clone    — filter candidates and shallow-clone qualifying repos
   3  Analyse  — walk cloned repos for explicit MT patterns, score and classify
   4  Plot     — generate publication-quality figures from Phase 1 & 3 outputs
-  5  Report   — generate comprehensive results report answering RQ2.1–RQ2.8
+  5  Report   — generate comprehensive results report answering Q1–Q8
 
 Usage examples:
   python main.py                        # run all five phases
@@ -152,7 +152,7 @@ def build_parser() -> argparse.ArgumentParser:
     )
     g5.add_argument(
         "--top-repos", type=int, default=20, metavar="N",
-        help="Number of top strong_explicit repos in the RQ2.8 table (default: 20)",
+        help="Number of top strong_explicit repos in the Q8 table (default: 20)",
     )
 
     # --- Performance ---

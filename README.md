@@ -1,6 +1,6 @@
 # MT GitHub Miner
 
-A four-phase pipeline for mining explicit adoption of **metamorphic testing (MT)** across open-source GitHub repositories. Designed to complement the [metamorphic-testing interactive module](../metamorphic-testing/) and to provide empirical, behavioural evidence of MT adoption at scale.
+A five-phase pipeline for mining explicit adoption of **metamorphic testing (MT)** across open-source GitHub repositories. Designed to complement the [metamorphic-testing interactive module](../metamorphic-testing/) and to provide empirical, behavioural evidence of MT adoption at scale.
 
 ---
 
@@ -92,11 +92,10 @@ Scans every file in every cloned repo for **explicit** MT adoption signals. Impl
 
 | Category | Examples |
 |---|---|
-| Import patterns | `import metamorphic`, `from metamorphic` (any module whose name contains "metamorphic") |
 | Class / decorator names | `MetamorphicTest*`, `MetamorphicRelation*`, `@metamorphic` |
-| String literals | `"metamorphic testing"`, `"metamorphic relation"` (with plural variants) |
-| Inline comments | `# metamorphic testing …`, `// metamorphic relation …` |
-| Lemmatised comments | Morphological variants (e.g. *metamorphically*) matched against NLTK-lemmatised comment tokens |
+| Snake-case identifiers | `metamorphic_test*`, `metamorphic_relation*` |
+| String literals | `"metamorphic testing"`, `"metamorphic relation"` (with plural/morphological variants) |
+| Inline comments | `# metamorphic testing …`, `// metamorphic relation …`, with word-form alternatives handled by inline regex (e.g. `test/testing/tests`, `relation/relationship`) |
 
 ### Classification tiers
 
@@ -106,7 +105,7 @@ Scans every file in every cloned repo for **explicit** MT adoption signals. Impl
 | `weak_explicit` | 1–2 explicit hits | At least one direct signal; adoption may be exploratory |
 | `none` | 0 explicit hits | Keyword appeared in README/commit/issue only; no MT in source code |
 
-Score = explicit hits × 3, capped at 100 (used for ranking within tiers).
+Score = total number of matches (1 point per match, no cap). Used for ranking within tiers.
 
 ### Parallel analysis
 
@@ -120,7 +119,7 @@ python main.py --stages 3 --workers 8 --cleanup-clones
 
 ## Phase 4 — Plot
 
-Reads Phase 1 and Phase 3 outputs and produces eight publication-quality figures.
+Reads Phase 1 and Phase 3 outputs and produces ten publication-quality figures.
 
 | File | Description |
 |---|---|
@@ -132,6 +131,8 @@ Reads Phase 1 and Phase 3 outputs and produces eight publication-quality figures
 | `pattern_freq.png` | Frequency of each explicit pattern across findings |
 | `domain_heatmap.png` | Language × classification tier heatmap |
 | `query_overlap.png` | Repos found by N distinct search queries |
+| `author_dist.png` | Top organisations/users by explicit MT repo count (Q6) |
+| `coverage_depth.png` | Distribution of files-with-MT-signals per repo, by tier (Q7) |
 
 ```bash
 python main.py --stages 4 --format pdf --dpi 300
@@ -142,30 +143,30 @@ python main.py --stages 4 --format pdf --dpi 300
 ## Phase 5 — Report
 
 Reads whatever results exist on disk and generates a Markdown report at
-`results/reports/results_report.md` that directly answers each mining sub-question (RQ2.1–RQ2.8):
+`results/reports/results_report.md` that directly answers each mining sub-question (Q1–Q8):
 
 | Section | Sub-question answered |
 |---|---|
 | Funnel Summary | Total pipeline yield at each stage |
-| RQ2.1 | What proportion of repos with MT mentions contain explicit MT in source code? |
-| RQ2.2 | Is explicit MT adoption growing, plateauing, or declining year-on-year? |
-| RQ2.3 | Which programming languages are most associated with explicit MT adoption? |
-| RQ2.4 | Are MT-adopting repos concentrated in specific domains? |
-| RQ2.5 | Are adopters production projects (high stars) or research prototypes? |
-| RQ2.6 | Are specific organisations/authors responsible for most adoption? |
-| RQ2.7 | How deeply does MT penetrate an adopting repository (files affected)? |
-| RQ2.8 | What MT patterns appear most often? Top repos for qualitative inspection. |
+| Q1 | What proportion of repos with MT mentions contain explicit MT in source code? |
+| Q2 | Is explicit MT adoption growing, plateauing, or declining year-on-year? |
+| Q3 | Which programming languages are most associated with explicit MT adoption? |
+| Q4 | Are MT-adopting repos concentrated in specific domains? |
+| Q5 | Are adopters production projects (high stars) or research prototypes? |
+| Q6 | Are specific organisations/authors responsible for most adoption? |
+| Q7 | How deeply does MT penetrate an adopting repository (files affected)? |
+| Q8 | What MT patterns appear most often? Top repos for qualitative inspection. |
 
 Each section includes the relevant plot(s) embedded at the point where they support the narrative.
 Two plots added specifically for this report:
 
-- **`author_dist.png`** (RQ2.6) — top organisations/users by explicit MT repo count
-- **`coverage_depth.png`** (RQ2.7) — distribution of files-with-MT-signals per repo, by tier
+- **`author_dist.png`** (Q6) — top organisations/users by explicit MT repo count
+- **`coverage_depth.png`** (Q7) — distribution of files-with-MT-signals per repo, by tier
 
 ```bash
 python main.py --stages 5                         # report from existing results
 python main.py --stages 5 --refresh-plots         # also regenerate all plots first
-python main.py --stages 5 --top-repos 30          # include top 30 repos in RQ2.8 table
+python main.py --stages 5 --top-repos 30          # include top 30 repos in Q8 table
 python report.py                                  # run standalone
 ```
 
@@ -201,12 +202,12 @@ Violations return HTTP 429 / 403 with `Retry-After` — handled automatically wi
 
 | Surface | Queries | Estimated time |
 |---|---|---|
-| Repositories | 7 | ~2 min |
-| Code files | 13 | ~16 min |
-| Issues + PRs | 14 | ~4 min |
-| Commits | 6 | ~2 min |
-| Discussions | 6 | ~2 min |
-| **Total** | **46** | **~26 min** |
+| Repositories | 11 | ~4 min |
+| Code files | 5 | ~6 min |
+| Issues + PRs | 20 | ~7 min |
+| Commits | 9 | ~3 min |
+| Discussions | 10 | ~4 min |
+| **Total** | **55** | **~24 min** |
 
 Code search dominates due to its 7 s/request rate limit. Phase 1 with `--no-slice` and only the code surface drops to ~2 min.
 
@@ -303,7 +304,7 @@ results/analysis/summary_report.md
 results/plots/*.png            ← 10 publication-quality figures
    │
    ▼  report.py  (reads any/all of the above that exist)
-results/reports/results_report.md  ← comprehensive results report (RQ2.1–RQ2.8)
+results/reports/results_report.md  ← comprehensive results report (Q1–Q8)
 ```
 
 Load into pandas for analysis:
@@ -313,5 +314,5 @@ import pandas as pd, json
 
 scores = pd.DataFrame(json.load(open("results/analysis/repo_scores.json")))
 explicit = scores[scores["classification"].isin(["strong_explicit", "weak_explicit"])]
-print(explicit.sort_values("score", ascending=False)[["full_name", "stars", "language", "score"]])
+print(explicit.sort_values("score", ascending=False)[["repo", "stars", "language", "score"]])
 ```
