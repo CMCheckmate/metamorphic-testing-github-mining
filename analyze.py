@@ -36,6 +36,47 @@ from config import RESULTS_DIR, REPOS_DIR, ANALYSIS_EXTENSIONS, SKIP_DIRS, SKIP_
 console = Console()
 
 # ---------------------------------------------------------------------------
+# Optional NLTK lemmatization — catches inflected forms in comments/strings
+# that the regex patterns miss (e.g. "metamorphic tested", "was grouped").
+# Gracefully disabled if NLTK is not installed.
+# ---------------------------------------------------------------------------
+try:
+    import nltk
+    from nltk.stem import WordNetLemmatizer
+    from nltk.tokenize import word_tokenize
+    _LEMMATIZER: "WordNetLemmatizer | None" = WordNetLemmatizer()
+    _NLTK_AVAILABLE = True
+except ImportError:
+    _LEMMATIZER = None
+    _NLTK_AVAILABLE = False
+
+
+def _ensure_nltk_data() -> None:
+    if not _NLTK_AVAILABLE:
+        return
+    for resource, kind in [
+        ("tokenizers/punkt_tab",                        "punkt_tab"),
+        ("taggers/averaged_perceptron_tagger_eng",      "averaged_perceptron_tagger_eng"),
+        ("corpora/wordnet",                             "wordnet"),
+    ]:
+        try:
+            nltk.data.find(resource)
+        except LookupError:
+            nltk.download(kind, quiet=True)
+
+
+# Base lemmas mapped to a readable concept label used in findings output.
+_MT_CONCEPT_LEMMAS: dict[str, str] = {
+    "test":     "metamorphic testing",
+    "relation": "metamorphic relation",
+    "group":    "metamorphic group",
+}
+
+# Patterns for extracting comment and string text from source files.
+_COMMENT_LINE_RE  = re.compile(r'(?:#|//)(.+)$',   re.MULTILINE)
+_STRING_LITERAL_RE = re.compile(r'"([^"\n]{4,})"')
+
+# ---------------------------------------------------------------------------
 # Patterns — what counts as evidence of MT adoption in source files
 #
 # Each pattern has:
@@ -137,6 +178,49 @@ def iter_source_files(repo_path: Path):
 # Per-file analysis
 # ---------------------------------------------------------------------------
 
+def _lemmatized_findings(text: str, rel_path: Path) -> list[dict]:
+    """
+    Scan comment and string lines for MT concepts via lemmatization.
+
+    Complements the regex PATTERNS by catching inflected forms they don't
+    cover — past tense ("was tested"), agentive nouns ("grouped"), etc.
+    Only fires when "metamorphic" is already present in the line, so false
+    positives from general English lemmas ("test", "group") are avoided.
+    """
+    if not _NLTK_AVAILABLE or _LEMMATIZER is None:
+        return []
+
+    results: list[dict] = []
+    seen: set[tuple] = set()  # (line_number, concept) dedup
+
+    for context_re, kind in [(_COMMENT_LINE_RE, "Comment"), (_STRING_LITERAL_RE, "String")]:
+        for m in context_re.finditer(text):
+            segment = m.group(1)
+            if "metamorphic" not in segment.lower():
+                continue
+
+            tokens = word_tokenize(segment.lower())
+            lemmas: set[str] = set()
+            for tok in tokens:
+                lemmas.add(_LEMMATIZER.lemmatize(tok, pos="v"))
+                lemmas.add(_LEMMATIZER.lemmatize(tok, pos="n"))
+
+            line_number = text[: m.start()].count("\n") + 1
+            for base_lemma, concept_label in _MT_CONCEPT_LEMMAS.items():
+                key = (line_number, base_lemma)
+                if base_lemma in lemmas and key not in seen:
+                    seen.add(key)
+                    results.append({
+                        "id":      f"lemma_{base_lemma}",
+                        "label":   f"Lemmatised {kind}: {concept_label}",
+                        "file":    str(rel_path),
+                        "line":    line_number,
+                        "snippet": segment[:200].strip(),
+                    })
+
+    return results
+
+
 def _context_snippet(text: str, regex_match: re.Match, context_lines: int = 1) -> str:
     """Return a few lines of code surrounding a regex match."""
     lines      = text.splitlines()
@@ -164,6 +248,8 @@ def analyze_file(file_path: Path, rel_path: Path) -> list[dict]:
                 "line":    line_number,
                 "snippet": _context_snippet(text, regex_match),
             })
+
+    match_records.extend(_lemmatized_findings(text, rel_path))
     return match_records
 
 
@@ -273,6 +359,7 @@ def run(
     cleanup:     bool,
 ) -> None:
     out_dir.mkdir(parents=True, exist_ok=True)
+    _ensure_nltk_data()
 
     manifest_path = RESULTS_DIR / "cloned" / "manifest.json"
     if not manifest_path.exists():

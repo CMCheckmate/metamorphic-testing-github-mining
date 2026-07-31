@@ -90,12 +90,15 @@ Scans every file in every cloned repo for **explicit** MT adoption signals. Impl
 
 ### Explicit patterns
 
-| Category | Examples |
-|---|---|
-| Class / decorator names | `MetamorphicTest*`, `MetamorphicRelation*`, `@metamorphic` |
-| Snake-case identifiers | `metamorphic_test*`, `metamorphic_relation*` |
-| String literals | `"metamorphic testing"`, `"metamorphic relation"` (with plural/morphological variants) |
-| Inline comments | `# metamorphic testing …`, `// metamorphic relation …`, with word-form alternatives handled by inline regex (e.g. `test/testing/tests`, `relation/relationship`) |
+| Category | Examples | Method |
+|---|---|---|
+| Class / decorator names | `MetamorphicTest*`, `MetamorphicRelation*`, `@metamorphic` | Regex |
+| Snake-case identifiers | `metamorphic_test*`, `metamorphic_relation*` | Regex |
+| String literals | `"metamorphic testing"`, `"metamorphic relation"` (with plural/morphological variants) | Regex |
+| Inline comments | `# metamorphic testing …`, `// metamorphic relation …`, with word-form alternatives | Regex |
+| Comments + strings (inflected) | `# metamorphic tested`, `"metamorphic grouped"` — verb conjugations and other forms the regex misses | NLTK lemmatisation |
+
+NLTK lemmatisation is applied as a second pass over every comment and string line that already contains "metamorphic", reducing false positives while catching word forms the regex alternatives do not enumerate (e.g. past tense, agentive nouns). Results are labelled distinctly (`Lemmatised Comment: …`, `Lemmatised String: …`) in `findings.json`. If NLTK is not installed the pass is silently skipped and only the regex patterns are used.
 
 ### Classification tiers
 
