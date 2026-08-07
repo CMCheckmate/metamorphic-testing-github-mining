@@ -54,7 +54,7 @@ Queries GitHub across five search surfaces using the REST and GraphQL APIs.
 | **Commits** | `/search/commits` | Commit messages (default branch) | 30 req/min |
 | **Discussions** | GraphQL `search(type: DISCUSSION)` | Discussion title + body | 5,000 pts/hr |
 
-**Search strategy:** All queries use specific MT phrases (`"metamorphic testing"`, `"metamorphic relation"`, etc.) — no standalone `"metamorphic"` term. A bare `"metamorphic"` query is too general (matches geology, malware, etc.) and, since every specific MT phrase contains "metamorphic", it would subsume all specific queries and waste the 1,000-result cap on non-MT hits. Filtering for relevance happens downstream in Phases 2 and 3. Searches target only explicit MT terminology; we do not search for specific library names whose names do not contain "metamorphic" (see [Search design principle](#search-design-principle) below).
+**Search strategy:** All queries use specific MT phrases (`"metamorphic testing"`, `"metamorphic relation"`, `"metamorphic property"`, etc.) — no standalone `"metamorphic"` term. Multi-word phrases are wrapped in double quotes so GitHub treats them as **exact phrases**, not keyword bags. A bare `"metamorphic"` query is too general (matches geology, malware, etc.) and, since every specific MT phrase contains "metamorphic", it would subsume all specific queries and waste the 1,000-result cap on non-MT hits. The search vocabulary covers four core MT concepts — **testing**, **relation**, **group**, and **property** — with multiple word forms each (`testing`, `test`, `tests`; `relation`, `relations`, `relationship`, `relationships`; etc.). Filtering for relevance happens downstream in Phases 2 and 3. Searches target only explicit MT terminology; we do not search for specific library names whose names do not contain "metamorphic" (see [Search design principle](#search-design-principle) below).
 
 **What is NOT covered:** Wiki pages, non-default branches, private repositories.
 
@@ -74,13 +74,13 @@ GitHub returns at most 1,000 results per query. When `total_count > 900`, `searc
 
 ## Phase 2 — Clone
 
-Reads and merges the six raw result files, deduplicates, applies optional filters (language, minimum stars, fork exclusion), and shallow-clones each qualifying repo.
+Reads and merges the six raw result files, deduplicates, applies optional filters (language, minimum stars, fork exclusion), and shallow-clones each qualifying repo. Repos larger than **750 MB** are skipped by default (`MAX_REPO_SIZE_KB = 750_000` in `config.py`).
 
 ```bash
 python main.py --stages 2 --min-stars 5 --skip-forks --workers 8
 ```
 
-Parallel cloning with `--workers N` gives roughly linear speedup on I/O-bound network clones.
+Parallel cloning with `--workers N` gives roughly linear speedup on I/O-bound network clones. At completion, the summary shows a **skip breakdown by reason** (too large / fork / below min stars / language filter), so you can see exactly why each excluded repo was not cloned. Size-excluded repos are written to the manifest with `"status": "skipped_size"` so Phase 5 can report the pipeline funnel accurately.
 
 ---
 
@@ -93,12 +93,15 @@ Scans every file in every cloned repo for **explicit** MT adoption signals. Impl
 | Category | Examples | Method |
 |---|---|---|
 | Class / decorator names | `MetamorphicTest*`, `MetamorphicRelation*`, `@metamorphic` | Regex |
-| Snake-case identifiers | `metamorphic_test*`, `metamorphic_relation*` | Regex |
-| String literals | `"metamorphic testing"`, `"metamorphic relation"` (with plural/morphological variants) | Regex |
-| Inline comments | `# metamorphic testing …`, `// metamorphic relation …`, with word-form alternatives | Regex |
+| Snake-case identifiers | `metamorphic_test*`, `metamorphic_relation*`, `metamorphic_property*` | Regex |
+| String literals | `"metamorphic testing"`, `"metamorphic relation"`, `"metamorphic property"` (with plural/morphological variants) | Regex |
+| Inline comments | `# metamorphic testing …`, `// metamorphic relation …`, with word-form alternatives incl. property/properties | Regex |
+| MT/MR abbreviations | Standalone `MT` or `MR` tokens (surrounded by non-alphanumeric chars): ` MT `, `-MT-`, `_MT_` | Regex (case-sensitive) |
 | Comments + strings (inflected) | `# metamorphic tested`, `"metamorphic grouped"` — verb conjugations and other forms the regex misses | NLTK lemmatisation |
 
 NLTK lemmatisation is applied as a second pass over every comment and string line that already contains "metamorphic", reducing false positives while catching word forms the regex alternatives do not enumerate (e.g. past tense, agentive nouns). Results are labelled distinctly (`Lemmatised Comment: …`, `Lemmatised String: …`) in `findings.json`. If NLTK is not installed the pass is silently skipped and only the regex patterns are used.
+
+**MT/MR abbreviation matching** uses negative lookahead/lookbehind (`(?<![A-Za-z0-9])MT(?![A-Za-z0-9])`) so it matches ` MT `, `_MT_`, `-MT-` but not substrings like `smtp` or `HTML`. Matching is case-sensitive: only all-caps `MT` and `MR` are matched, because lowercase `mt`/`mr` appear in unrelated identifiers too often to be reliable signals.
 
 ### Classification tiers
 
@@ -113,16 +116,31 @@ Score = total number of matches (1 point per match, no cap). Used for ranking wi
 ### Parallel analysis
 
 ```bash
-python main.py --stages 3 --workers 8 --cleanup-clones
+python main.py --stages 3                     # use all CPU cores (default)
+python main.py --stages 3 --workers 4         # limit to 4 worker processes
+python main.py --stages 3 --append            # resume — skip already-analysed repos
+python main.py --stages 3 --cleanup-clones    # delete each repo after analysis
 ```
 
-`--workers N` analyses N repos concurrently (ThreadPoolExecutor). `--cleanup-clones` deletes each repo after analysis to reclaim disk space.
+Phase 3 uses `ProcessPoolExecutor` so each repo is scanned in a true parallel OS process, bypassing the Python GIL. By default all logical CPU cores are used; pass `--workers N` to cap the pool. `--cleanup-clones` deletes each repo after analysis to reclaim disk space.
+
+**Resuming interrupted runs (`--append`):** Without `--append`, each run replaces any existing `repo_scores.json`. With `--append`, repos that already have a score entry are skipped and only new repos are analysed. This lets you add newly cloned repos to an existing analysis without re-scanning everything.
+
+**Per-worker progress logs:** Each worker process writes a live log at `results/analysis/worker_logs/<pid>.log` (one file per OS process, no locking needed). Tail these in a second terminal to see which file is currently being scanned inside a repo:
+
+```bash
+# Windows (PowerShell)
+Get-Content results\analysis\worker_logs\*.log -Wait -Tail 5
+
+# Unix
+tail -f results/analysis/worker_logs/*.log
+```
 
 ---
 
 ## Phase 4 — Plot
 
-Reads Phase 1 and Phase 3 outputs and produces ten publication-quality figures.
+Reads Phase 1 and Phase 3 outputs and produces nine publication-quality figures.
 
 | File | Description |
 |---|---|
@@ -132,7 +150,6 @@ Reads Phase 1 and Phase 3 outputs and produces ten publication-quality figures.
 | `language_dist.png` | Top languages among explicit MT repos |
 | `stars_vs_score.png` | Repository popularity vs explicit hit count |
 | `pattern_freq.png` | Frequency of each explicit pattern across findings |
-| `domain_heatmap.png` | Language × classification tier heatmap |
 | `query_overlap.png` | Repos found by N distinct search queries |
 | `author_dist.png` | Top organisations/users by explicit MT repo count (Q6) |
 | `coverage_depth.png` | Distribution of files-with-MT-signals per repo, by tier (Q7) |
@@ -218,19 +235,19 @@ Code search dominates due to its 7 s/request rate limit. Phase 1 with `--no-slic
 
 ~250 repos cloned in 5–10 min (vs ~15 min sequential).
 
-### Phase 3 (with `--workers 4`)
+### Phase 3 (all CPU cores, `ProcessPoolExecutor`)
 
-~250 repos × ~200 files analysed in ~2 min (vs ~5 min sequential).
+~250 repos × ~200 files analysed in ~2–5 min depending on core count and repo sizes. Each repo is processed by a separate OS process (true CPU parallelism). No file-size or timeout limits are applied — every file in every repo is scanned to avoid missing data.
 
-### Full pipeline (typical, 250 repos, 4 workers)
+### Full pipeline (typical, 250 repos)
 
 | Phase | Time |
 |---|---|
 | 1 — Search | ~28 min |
-| 2 — Clone (parallel) | ~7 min |
-| 3 — Analyse (parallel) | ~2 min |
+| 2 — Clone (parallel, 4 workers) | ~7 min |
+| 3 — Analyse (all cores) | ~2–5 min |
 | 4 — Plot | < 1 min |
-| **Total** | **~38 min** |
+| **Total** | **~38–41 min** |
 
 ---
 
@@ -304,7 +321,7 @@ results/analysis/repo_scores.json  ← per-repo scores + classification
 results/analysis/summary_report.md
    │
    ▼  plot.py
-results/plots/*.png            ← 10 publication-quality figures
+results/plots/*.png            ← 9 publication-quality figures
    │
    ▼  report.py  (reads any/all of the above that exist)
 results/reports/results_report.md  ← comprehensive results report (Q1–Q8)

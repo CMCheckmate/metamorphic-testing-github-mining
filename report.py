@@ -83,13 +83,15 @@ def sec_funnel(data: dict) -> str:
         repo_set.add(r.get("repo_full_name", ""))
     repo_set.discard("")
 
-    n_cloned = n_error = 0
+    n_cloned = n_error = n_skipped_size = 0
     if data["manifest"]:
         for v in data["manifest"].get("repos", {}).values():
             if v.get("status") in ("cloned", "refreshed", "skipped_exists"):
                 n_cloned += 1
             elif v.get("status") == "error":
                 n_error += 1
+            elif v.get("status") == "skipped_size":
+                n_skipped_size += 1
 
     scores = data["repo_scores"] or []
     tiers  = Counter(r["classification"] for r in scores)
@@ -104,6 +106,8 @@ def sec_funnel(data: dict) -> str:
     if data["summary"]:
         total_hits = sum(q.get("hits", 0) for q in data["summary"].get("queries", []))
 
+    skipped_size_row = f"| Skipped — too large (> {750_000 // 1000} MB) | {n_skipped_size:,} |\n" if n_skipped_size else ""
+
     return f"""## Pipeline Funnel
 
 | Stage | Count |
@@ -111,7 +115,7 @@ def sec_funnel(data: dict) -> str:
 | Repos found in search | {len(repo_set):,} |
 | Cloned | {n_cloned:,} |
 | Clone errors | {n_error:,} |
-| Analysed | {n:,} |
+{skipped_size_row}| Analysed | {n:,} |
 | Strong explicit (≥ 3 signals) | {n_st:,} ({_pct(n_st/n*100 if n else 0)}) |
 | Weak explicit (1–2 signals) | {n_wk:,} ({_pct(n_wk/n*100 if n else 0)}) |
 | **Total explicit** | **{n_ex:,} ({_pct(rate)})** |
@@ -151,6 +155,10 @@ def sec_rq21(data: dict, plots_rel: str, fmt: str) -> str:
 {_img(plots_rel, 'classification_dist', fmt, 'Classification tier distribution')}
 {_img(plots_rel, 'query_hits', fmt, 'Per-query hit counts across all search surfaces')}
 {_img(plots_rel, 'query_overlap', fmt, 'Repos found by N distinct independent search queries')}
+
+> **Reading the query overlap chart:** Each bar shows how many repositories were found by exactly N distinct search queries. A repo at x=1 was surfaced by only a single query term on a single search surface; a repo at x=5 appeared independently in five different queries (e.g. a repository search for `"metamorphic testing"`, a code search for `MetamorphicRelation`, a commit search for `"metamorphic relation"`, and so on). The chart answers: *how redundantly is each repo captured by the search strategy?* Repos at higher x values are more robustly discovered — their MT-related content is broad enough to be picked up across multiple independent query terms and surfaces, making them less likely to be missed if any single query were removed. Most repos are expected to cluster at low x values since most genuine MT repos will mention only a subset of all MT terminology.
+
+> **Why are {n_no:,} repos classified as "No signal"?** These repos appeared in GitHub's search results for MT-related terms (in commit messages, issue bodies, README files, or repo descriptions), but contained no MT adoption patterns in their actual source code during Phase 3 analysis. Common causes: the keyword appeared only in a dependency name, a commit referencing an external MT paper or library, a README that discusses MT as background without implementing it, or non-source files (e.g. PDFs, data files) that were skipped. The search phase is deliberately broad to avoid missing genuine adopters; Phase 3 is the filter for actual code-level adoption.
 """
 
 
@@ -238,9 +246,24 @@ def sec_rq23(data: dict, plots_rel: str, fmt: str) -> str:
 
 
 def sec_rq24(plots_rel: str, fmt: str) -> str:
-    return f"""## Q4 — Domain Analysis
+    return """## Q4 — Domain Analysis
 
-{_img(plots_rel, 'domain_heatmap', fmt, 'Language × classification tier heatmap (top 12 languages)')}
+Automated domain classification (e.g. web development, scientific computing, systems software) is not feasible from repository metadata alone — it requires semantic understanding of the repository's purpose that goes beyond language and name.
+
+**Proxy:** Programming language is the strongest available signal. Language choice correlates closely with domain:
+
+| Language | Typical domain |
+|---|---|
+| Python | Data science, scientific computing, ML |
+| Java / Kotlin | Enterprise software, Android |
+| JavaScript / TypeScript | Web development |
+| C / C++ | Systems, embedded, high-performance computing |
+| Go | Cloud infrastructure, DevOps tooling |
+| Rust | Systems, WebAssembly, performance-critical software |
+
+See **Q3** for the full language distribution across MT-adopting repos. A language × tier heatmap was previously included here but removed — it duplicated Q3 without adding interpretable domain information.
+
+For a more precise domain breakdown, manual inspection or LLM-based classification of repo descriptions and README files would be required.
 """
 
 
@@ -249,23 +272,35 @@ def sec_rq25(data: dict, plots_rel: str, fmt: str) -> str:
     if not scores:
         return ""
 
+    current_year = datetime.now(timezone.utc).year
+
     by_tier: dict = defaultdict(list)
+    by_tier_maturity: dict = defaultdict(list)
     for r in scores:
-        by_tier[r["classification"]].append(r.get("stars", 0))
+        stars = r.get("stars", 0)
+        by_tier[r["classification"]].append(stars)
+        created = (r.get("created_at") or "")[:4]
+        if created.isdigit():
+            age = max(1, current_year - int(created))
+            by_tier_maturity[r["classification"]].append(stars / age)
 
     def _row(tier: str, label: str) -> str:
         s = sorted(by_tier.get(tier, []))
+        m = by_tier_maturity.get(tier, [])
         if not s:
-            return f"| {label} | — | — | — | — | — |"
+            return f"| {label} | — | — | — | — | — | — | — |"
         n = len(s)
+        median_mat = f"{statistics.median(m):.1f}" if m else "—"
         return (f"| {label} | {n:,} | {statistics.median(s):.0f} | {statistics.mean(s):.0f} "
                 f"| {max(s):,} | {_pct(sum(1 for x in s if x >= 100)/n*100)} "
-                f"| {_pct(sum(1 for x in s if x >= 1000)/n*100)} |")
+                f"| {_pct(sum(1 for x in s if x >= 1000)/n*100)} | {median_mat} |")
 
     return f"""## Q5 — Project Maturity
 
-| Tier | Repos | Median ★ | Mean ★ | Max ★ | ≥ 100 ★ | ≥ 1,000 ★ |
-|---|---|---|---|---|---|---|
+**Maturity proxy = ★ / repo age (years)** — a higher value indicates a repo that accumulated stars quickly relative to how long it has existed.
+
+| Tier | Repos | Median ★ | Mean ★ | Max ★ | ≥ 100 ★ | ≥ 1,000 ★ | Median ★/yr |
+|---|---|---|---|---|---|---|---|
 {_row("strong_explicit", "Strong explicit")}
 {_row("weak_explicit",   "Weak explicit")}
 {_row("none",            "No signal")}
@@ -295,6 +330,17 @@ def sec_rq26(data: dict, plots_rel: str, fmt: str) -> str:
     top10_pct = sum(v for _, v in top[:10]) / total * 100 if total else 0
     n_single  = sum(1 for v in orgs.values() if v == 1)
 
+    commit_hits = len(data.get("commits") or []) if data else 0
+    commit_note = (
+        f"\n> **Note:** Only {len(orgs):,} unique owners account for all explicit MT repos, "
+        f"yet the commit search surface returned {commit_hits:,} raw hits. "
+        f"This discrepancy suggests that many commit messages mention MT terminology "
+        f"(referencing papers, tools, or planned work) without the corresponding source code "
+        f"containing explicit MT patterns — i.e. discussion of MT in commit history does not "
+        f"imply implementation. It may also indicate that a small group of active MT researchers "
+        f"commits frequently across multiple repos."
+    ) if commit_hits > len(orgs) * 5 else ""
+
     return f"""## Q6 — Author Concentration
 
 | | Value |
@@ -307,6 +353,7 @@ def sec_rq26(data: dict, plots_rel: str, fmt: str) -> str:
 | Rank | Owner | Explicit repos | % of total |
 |---|---|---|---|
 {org_rows}
+{commit_note}
 
 {_img(plots_rel, 'author_dist', fmt, 'Top 20 owners by explicit MT repo count')}
 """
@@ -453,16 +500,25 @@ def sec_query_stats(data: dict) -> str:
     if not queries:
         return ""
 
+    # Invert found_by_queries to count unique repos per query label
+    repos_per_label: Counter = Counter()
+    for repo in (data["repo_scores"] or []):
+        for label in repo.get("found_by_queries", []):
+            repos_per_label[label] += 1
+
     rows = "\n".join(
-        f"| {q.get('type','').upper()} | {q.get('query','')} | {q.get('label','')} | {q.get('hits',0):,} |"
+        f"| {q.get('type','').upper()} | {q.get('query','')} | {q.get('label','')} "
+        f"| {q.get('hits',0):,} | {repos_per_label.get(q.get('label',''), 0):,} |"
         for q in sorted(queries, key=lambda q: q.get("hits", 0), reverse=True)
     )
     total = sum(q.get("hits", 0) for q in queries)
 
     return f"""## Search Query Statistics ({len(queries)} queries · {total:,} total hits)
 
-| Surface | Query | Label | Hits |
-|---|---|---|---|
+*API hits = raw results returned by GitHub (before deduplication). Unique repos = distinct repos in the final analysed set that were found by this query.*
+
+| Surface | Query | Label | API hits | Unique repos |
+|---|---|---|---|---|
 {rows}
 """
 
@@ -488,10 +544,22 @@ the same metamorphic relation.
 
 **How repositories are found (search phase)**
 
-The pipeline queries GitHub across five surfaces — repository names/descriptions, source code
-files, issues, pull requests, commit messages, and GitHub Discussions — using a set of search
-terms derived from MT terminology.  Every candidate that could plausibly be relevant is
-collected; false positives are filtered out in the analysis phase.
+The pipeline queries GitHub across six search surfaces using MT-related terms. Each surface
+searches a different part of a repository's history and content:
+
+| Surface | Label prefix | Exactly what is searched | What a hit means |
+|---|---|---|---|
+| **Repositories** | `repo_` | Repository name, description, topic tags, and README file content | The repo presents itself as MT-related |
+| **Code** | `code_` | Current content of every source file on the default branch at the time of search | MT terminology exists in the live source code |
+| **Issues** | `issue_` | Issue title and body text (not comments) | A developer opened a ticket discussing MT |
+| **Pull Requests** | `pr_` | PR title and body text (not review comments or the code diff) | A developer proposed a change described in MT terms |
+| **Commits** | `commit_` | **Commit message text only** — not the code changes introduced by the commit | A developer wrote a commit message mentioning MT; the committed code itself is not searched here |
+| **Discussions** | (GraphQL) | GitHub Discussion title and body text | A community discussion referenced MT |
+
+> **Important:** A commit hit means the *message* said something like "add metamorphic testing for login module" — it does not mean the committed code contains MT patterns. Code-level adoption is only confirmed by the Code surface (Phase 1) and the local file scan (Phase 3).
+
+Every candidate that could plausibly be relevant is collected across all six surfaces; false
+positives are filtered out in the analysis phase.
 
 ---
 
@@ -513,6 +581,11 @@ of MT adoption in source files.  A **pattern** is a specific kind of signal, for
 | Comment: metamorphic test/testing/tests | A code comment mentioning MT |
 | Comment: metamorphic relation/relationship | A code comment mentioning an MR |
 | Comment: metamorphic group/groups | A code comment mentioning an MG |
+| Comment: metamorphic property/properties | A code comment mentioning a metamorphic property |
+| String: "metamorphic property/properties" | An MP phrase used as a string literal |
+| Abbreviation: MT (metamorphic testing) | The standalone uppercase abbreviation `MT` used after the full term has been introduced |
+| Abbreviation: MR (metamorphic relation) | The standalone uppercase abbreviation `MR` used after the full term has been introduced |
+| Lemmatised Comment/String | A comment or string line containing "metamorphic" where NLTK lemmatisation identified a related concept (catches inflected forms like "tested", "grouped", "propert*" that the regex patterns miss) |
 
 Each time a pattern matches a line in a file, that is called a **match** (also shown as
 "direct match" in tables).  A single file can produce multiple matches from different patterns.

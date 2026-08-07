@@ -24,7 +24,7 @@ import argparse
 import json
 import re
 import shutil
-from concurrent.futures import ThreadPoolExecutor, as_completed
+from concurrent.futures import ProcessPoolExecutor, as_completed
 from pathlib import Path
 from threading import Lock
 
@@ -70,6 +70,7 @@ _MT_CONCEPT_LEMMAS: dict[str, str] = {
     "test":     "metamorphic testing",
     "relation": "metamorphic relation",
     "group":    "metamorphic group",
+    "property": "metamorphic property",
 }
 
 # Patterns for extracting comment and string text from source files.
@@ -137,6 +138,11 @@ PATTERNS: list[dict] = [
         "label": 'String: "metamorphic group/groups"',
         "regex": re.compile(r'"[Mm]etamorphic\s+[Gg]roups?"'),
     },
+    {
+        "id":    "string_mp_phrase",
+        "label": 'String: "metamorphic property/properties"',
+        "regex": re.compile(r'"[Mm]etamorphic\s+[Pp]ropert(?:y|ies)"'),
+    },
     # --- Inline comments mentioning MT concepts ---
     {
         "id":    "comment_mt",
@@ -152,6 +158,25 @@ PATTERNS: list[dict] = [
         "id":    "comment_mg",
         "label": "Comment: metamorphic group/groups",
         "regex": re.compile(r"(?:#|//).*\bmetamorphic\s+groups?\b", re.IGNORECASE),
+    },
+    {
+        "id":    "comment_mp",
+        "label": "Comment: metamorphic property/properties",
+        "regex": re.compile(r"(?:#|//).*\bmetamorphic\s+propert(?:y|ies)\b", re.IGNORECASE),
+    },
+    # --- Uppercase abbreviations MT / MR used after the full term has been introduced ---
+    # Matched case-sensitively and only when surrounded by non-alphanumeric characters
+    # (spaces, hyphens, underscores, punctuation) to avoid false positives from
+    # variable names like `smtp`, `html`, or matrix row abbreviations.
+    {
+        "id":    "abbrev_MT",
+        "label": "Abbreviation: MT (metamorphic testing)",
+        "regex": re.compile(r"(?<![A-Za-z0-9])MT(?![A-Za-z0-9])"),
+    },
+    {
+        "id":    "abbrev_MR",
+        "label": "Abbreviation: MR (metamorphic relation)",
+        "regex": re.compile(r"(?<![A-Za-z0-9])MR(?![A-Za-z0-9])"),
     },
 ]
 
@@ -287,22 +312,38 @@ def score_repo(findings: list[dict]) -> dict:
 
 
 # ---------------------------------------------------------------------------
-# Per-repo worker (runs in parallel via ThreadPoolExecutor)
+# Per-repo worker (runs in a separate process via ProcessPoolExecutor)
 # ---------------------------------------------------------------------------
 
 def _analyse_repo(repo_meta: dict) -> tuple[list[dict], dict | None]:
     """Walk one cloned repo and return (findings_list, score_record)."""
+    import os, time as _time
     repo_name  = repo_meta["full_name"]
     local_path = Path(repo_meta["local_path"])
 
     if not local_path.exists():
         return [], None
 
+    # Per-worker log file — one per process so no cross-process locking is needed.
+    # Written to results/analysis/worker_logs/<pid>.log.
+    log_dir  = RESULTS_DIR / "analysis" / "worker_logs"
+    log_dir.mkdir(parents=True, exist_ok=True)
+    log_path = log_dir / f"{os.getpid()}.log"
+
     all_findings: list[dict] = []
-    for file_path, rel_path in iter_source_files(local_path):
-        for finding in analyze_file(file_path, rel_path):
-            finding["repo"] = repo_name
-            all_findings.append(finding)
+    files_scanned = 0
+    t0 = _time.monotonic()
+
+    with open(log_path, "a", buffering=1) as log:
+        log.write(f"\n=== {repo_name} ===\n")
+        for file_path, rel_path in iter_source_files(local_path):
+            files_scanned += 1
+            log.write(f"  [{files_scanned}] {rel_path}\n")
+            for finding in analyze_file(file_path, rel_path):
+                finding["repo"] = repo_name
+                all_findings.append(finding)
+        elapsed = _time.monotonic() - t0
+        log.write(f"  done — {files_scanned} files, {len(all_findings)} findings, {elapsed:.1f}s\n")
 
     score_record = {
         "repo":             repo_name,
@@ -354,7 +395,7 @@ def run(
     target_repo: str | None,
     min_score:   int,
     out_dir:     Path,
-    workers:     int,
+    workers:     int | None,
     append:      bool,
     cleanup:     bool,
 ) -> None:
@@ -374,9 +415,12 @@ def run(
     if append:
         existing_findings, existing_scores = _load_existing_outputs(out_dir)
 
+    already_done: set[str] = {s["repo"] for s in existing_scores}
+
     repos_to_analyse = [
         repo_entry for repo_entry in manifest.get("repos", {}).values()
         if repo_entry.get("status") in ("cloned", "refreshed", "skipped_exists")
+        and repo_entry["full_name"] not in already_done
     ]
     if target_repo:
         repos_to_analyse = [
@@ -384,14 +428,18 @@ def run(
             if repo_entry["full_name"] == target_repo
         ]
         if not repos_to_analyse:
-            console.print(f"[red]Repo '{target_repo}' not found in manifest.[/]")
+            already = " (already analysed)" if target_repo in already_done else ""
+            console.print(f"[red]Repo '{target_repo}' not found in manifest{already}.[/]")
             return
 
-    console.print(f"\n[bold]{len(repos_to_analyse)}[/] repos to analyse  (workers={workers})\n")
+    import os
+    effective_workers = workers or os.cpu_count() or 4
+    skipped_msg = f"  ([dim]{len(already_done)} already done, skipping[/])" if already_done else ""
+    console.print(f"\n[bold]{len(repos_to_analyse)}[/] repos to analyse  (processes={effective_workers}){skipped_msg}")
+    console.print(f"  [dim]Per-file progress: tail results/analysis/worker_logs/<pid>.log[/]\n")
 
-    new_findings:  list[dict] = []
-    new_scores:    list[dict] = []
-    manifest_lock  = Lock()
+    new_findings: list[dict] = []
+    new_scores:   list[dict] = []
 
     with Progress(
         SpinnerColumn(),
@@ -403,7 +451,7 @@ def run(
     ) as progress:
         progress_task = progress.add_task("Analysing…", total=len(repos_to_analyse))
 
-        with ThreadPoolExecutor(max_workers=workers) as executor:
+        with ProcessPoolExecutor(max_workers=effective_workers) as executor:
             future_to_repo = {
                 executor.submit(_analyse_repo, repo_entry): repo_entry
                 for repo_entry in repos_to_analyse
@@ -422,8 +470,7 @@ def run(
                         local_path = Path(repo_entry["local_path"])
                         if local_path.exists():
                             shutil.rmtree(local_path)
-                        with manifest_lock:
-                            manifest["repos"][repo_name]["status"] = "cleaned"
+                        manifest["repos"][repo_name]["status"] = "cleaned"
 
                 progress.update(progress_task, description=f"[cyan]{repo_name[:50]}[/]", advance=1)
 
@@ -468,7 +515,7 @@ def main() -> None:
     parser.add_argument("--repo",           default=None,        help="Analyse a single repo (owner/name)")
     parser.add_argument("--min-score",      type=int, default=0)
     parser.add_argument("--output-dir",     type=Path, default=default_out)
-    parser.add_argument("--workers",        type=int, default=4, help="Parallel worker threads (default: 4)")
+    parser.add_argument("--workers",        type=int, default=None, help="Parallel worker processes (default: all CPU cores)")
     parser.add_argument("--append",         action="store_true", help="Merge with existing outputs")
     parser.add_argument("--cleanup-clones", action="store_true", help="Delete each clone after analysis")
     args = parser.parse_args()

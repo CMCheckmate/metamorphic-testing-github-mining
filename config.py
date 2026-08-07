@@ -77,13 +77,14 @@ _MT_WORD_VARIANTS: dict[str, list[str]] = {
     "testing":      ["testing", "test", "tests"],
     "relation":     ["relation", "relations", "relationship", "relationships"],
     "group":        ["group", "groups"],
+    "property":     ["property", "properties"],
 }
 
 
 def _mt_phrases() -> list[str]:
-    """Return every 'metamorphic <form>' phrase from the word-variant table."""
+    """Return every 'metamorphic <form>' phrase, quoted for exact GitHub matching."""
     return [
-        f"metamorphic {word_form}"
+        f'"metamorphic {word_form}"'
         for word_forms in _MT_WORD_VARIANTS.values()
         for word_form in word_forms
     ]
@@ -105,7 +106,8 @@ _MT_CODE_IDENTIFIERS: list[str] = [
 
 
 def _label(prefix: str, term: str) -> str:
-    return f"{prefix}_{term.replace(' ', '_').replace('@', 'at_')}"
+    clean = term.strip('"').replace(' ', '_').replace('@', 'at_')
+    return f"{prefix}_{clean}"
 
 
 # ---------------------------------------------------------------------------
@@ -126,8 +128,8 @@ REPO_QUERIES: list[dict] = [
     {"query": term, "label": _label("repo", term)}
     for term in _mt_phrases() + _MT_CODE_IDENTIFIERS
 ] + [
-    {"query": "metamorphic testing framework", "label": "repo_mt_framework"},
-    {"query": "topic:metamorphic-testing",     "label": "repo_topic"},
+    {"query": '"metamorphic testing framework"', "label": "repo_mt_framework"},
+    {"query": "topic:metamorphic-testing",       "label": "repo_topic"},
 ]
 
 CODE_QUERIES: list[dict] = [
@@ -142,7 +144,7 @@ ISSUE_QUERIES: list[dict] = [
     {"query": term, "label": _label("pr", term), "kind": "pr"}
     for term in _mt_phrases() + _MT_CODE_IDENTIFIERS
 ] + [
-    {"query": "metamorphic testing framework", "label": "issue_mt_framework", "kind": "issue"},
+    {"query": '"metamorphic testing framework"', "label": "issue_mt_framework", "kind": "issue"},
 ]
 
 COMMIT_QUERIES: list[dict] = [
@@ -150,7 +152,9 @@ COMMIT_QUERIES: list[dict] = [
     for term in _mt_phrases() + _MT_CODE_IDENTIFIERS
 ]
 
-DISCUSSION_QUERIES: list[str] = _mt_phrases() + _MT_CODE_IDENTIFIERS + ["metamorphic testing framework"]
+DISCUSSION_QUERIES: list[str] = (
+    _mt_phrases() + _MT_CODE_IDENTIFIERS + ['"metamorphic testing framework"']
+)
 
 # ---------------------------------------------------------------------------
 # File-extension filter for local analysis (Phase 3)
@@ -176,6 +180,7 @@ SKIP_EXTENSIONS: set[str] = {
 # ---------------------------------------------------------------------------
 # Clone settings
 # ---------------------------------------------------------------------------
-MAX_REPO_SIZE_KB    = 200_000   # skip repos larger than 200 MB
+MAX_REPO_SIZE_KB    = 750_000   # skip repos larger than 750 MB
 CLONE_DEPTH         = 1         # shallow clone (latest commit only)
 CLONE_DELAY_SECONDS = 0.3       # inter-clone delay per worker thread
+

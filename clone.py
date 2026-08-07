@@ -98,20 +98,29 @@ def filter_candidates(
     min_stars: int,
     skip_forks: bool,
     lang: str | None,
-) -> list[dict]:
-    out = []
+) -> tuple[list[dict], list[dict], dict[str, int]]:
+    """Return (kept, size_excluded, skip_counts). Size-excluded repos are recorded in the manifest."""
+    out: list[dict] = []
+    excluded: list[dict] = []
+    skip_counts: dict[str, int] = {"size": 0, "fork": 0, "stars": 0, "language": 0}
     for c in candidates:
         if skip_forks and c.get("is_fork"):
+            skip_counts["fork"] += 1
             continue
         if c.get("stars", 0) < min_stars:
+            skip_counts["stars"] += 1
             continue
         if lang and c.get("language", "").lower() != lang.lower():
+            skip_counts["language"] += 1
             continue
         if c.get("size_kb", 0) > MAX_REPO_SIZE_KB:
-            console.print(f"  [dim]skip (too large {c['size_kb']} KB):[/] {c['full_name']}")
+            size_kb = c["size_kb"]
+            console.print(f"  [dim]skip (too large {size_kb:,} KB > {MAX_REPO_SIZE_KB:,} KB limit):[/] {c['full_name']}")
+            excluded.append({**c, "skip_reason": f"size {size_kb:,} KB exceeds {MAX_REPO_SIZE_KB:,} KB limit"})
+            skip_counts["size"] += 1
             continue
         out.append(c)
-    return out
+    return out, excluded, skip_counts
 
 
 # ---------------------------------------------------------------------------
@@ -208,7 +217,7 @@ def run(source: str, limit: int | None, offset: int, refresh: bool, min_stars: i
         skip_forks: bool, lang: str | None, workers: int = 4) -> None:
 
     candidates = load_candidates(source)
-    candidates = filter_candidates(candidates, min_stars, skip_forks, lang)
+    candidates, excluded, filter_skips = filter_candidates(candidates, min_stars, skip_forks, lang)
     candidates.sort(key=lambda c: c.get("stars", 0), reverse=True)
 
     if offset:
@@ -223,6 +232,20 @@ def run(source: str, limit: int | None, offset: int, refresh: bool, min_stars: i
     )
 
     manifest = load_manifest()
+    for exc in excluded:
+        name = exc["full_name"]
+        manifest["repos"][name] = {
+            "full_name":   name,
+            "clone_url":   exc.get("clone_url", ""),
+            "html_url":    exc.get("html_url", ""),
+            "stars":       exc.get("stars", 0),
+            "language":    exc.get("language", ""),
+            "size_kb":     exc.get("size_kb", 0),
+            "status":      "skipped_size",
+            "skip_reason": exc["skip_reason"],
+        }
+    if excluded:
+        save_manifest(manifest)
     manifest_lock = Lock()
     counts = {"cloned": 0, "skipped": 0, "refreshed": 0, "error": 0}
     counts_lock = Lock()
@@ -258,12 +281,22 @@ def run(source: str, limit: int | None, offset: int, refresh: bool, min_stars: i
                     advance=1,
                 )
 
+    skip_lines = [f"already exist=[dim]{counts['skipped']}[/]"]
+    if filter_skips["size"]:
+        skip_lines.append(f"too large=[yellow]{filter_skips['size']}[/]")
+    if filter_skips["fork"]:
+        skip_lines.append(f"fork=[dim]{filter_skips['fork']}[/]")
+    if filter_skips["stars"]:
+        skip_lines.append(f"below min stars=[dim]{filter_skips['stars']}[/]")
+    if filter_skips["language"]:
+        skip_lines.append(f"language filter=[dim]{filter_skips['language']}[/]")
+
     console.print(
         f"\n[bold green]Done.[/]  "
         f"cloned=[green]{counts['cloned']}[/]  "
         f"refreshed=[blue]{counts['refreshed']}[/]  "
-        f"skipped=[dim]{counts['skipped']}[/]  "
-        f"errors=[red]{counts['error']}[/]"
+        f"errors=[red]{counts['error']}[/]\n"
+        f"Skipped:  " + "  |  ".join(skip_lines)
     )
     console.print(f"Manifest updated: [dim]{MANIFEST_PATH}[/]")
 

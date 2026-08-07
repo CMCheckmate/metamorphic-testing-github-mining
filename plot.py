@@ -11,10 +11,9 @@ Plots generated:
   4.  language_dist.png        — top languages among explicit MT repos (bar)
   5.  stars_vs_score.png       — stars vs explicit hit count scatter
   6.  pattern_freq.png         — explicit pattern hit frequency (horizontal bar)
-  7.  domain_heatmap.png       — language × classification tier heatmap
-  8.  query_overlap.png        — repos found by N distinct search queries
-  9.  author_dist.png          — top organisations/users by explicit MT repo count (Q6)
-  10. coverage_depth.png       — files-with-MT-signals per repo distribution (Q7)
+  7.  query_overlap.png        — repos found by N distinct search queries
+  8.  author_dist.png          — top organisations/users by explicit MT repo count (Q6)
+  9.  coverage_depth.png       — files-with-MT-signals per repo distribution (Q7)
 
 Usage:
     python plot.py [--output-dir PATH] [--dpi N] [--format png|pdf|svg]
@@ -437,7 +436,6 @@ def run(out_dir: Path, fmt: str, dpi: int) -> None:
     plot_language_dist(      data["repo_scores"],                  out_dir, fmt, dpi)
     plot_stars_scatter(      data["repo_scores"],                  out_dir, fmt, dpi)
     plot_pattern_freq(       data["findings"],                     out_dir, fmt, dpi)
-    plot_domain_heatmap(     data["repo_scores"],                  out_dir, fmt, dpi)
     plot_query_overlap(      data["repo_scores"],                  out_dir, fmt, dpi)
     plot_author_dist(        data["repo_scores"],                  out_dir, fmt, dpi)
     plot_coverage_depth(     data["findings"], data["repo_scores"],out_dir, fmt, dpi)
