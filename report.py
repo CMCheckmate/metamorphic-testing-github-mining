@@ -71,6 +71,66 @@ def _tier(t: str) -> str:
 
 
 # ---------------------------------------------------------------------------
+# Helpers for surface-origin analysis
+# ---------------------------------------------------------------------------
+
+_SURFACE_LABEL: dict[str, str] = {
+    "repo":       "Repo description / README",
+    "code":       "Code search (live source files)",
+    "commit":     "Commit messages",
+    "issue":      "Issues",
+    "pr":         "Pull requests",
+    "discussion": "Discussions (GraphQL)",
+}
+
+_SURFACE_PRIORITY = {"code": 0, "repo": 1, "commit": 2, "issue": 3, "pr": 4, "discussion": 5}
+
+
+def _surface_of(query_label: str) -> str:
+    """Map a found_by_queries label to its search surface (new-format labels only)."""
+    for prefix in ("code", "commit", "issue", "pr", "repo"):
+        if query_label.startswith(prefix + "_"):
+            return prefix
+    return "discussion"
+
+
+def _build_raw_to_surface(summary: dict | None) -> dict[str, str]:
+    """Map raw query string → surface type from summary.json.
+    Used to interpret old-format found_by_queries entries (raw strings, not labels).
+    When the same raw string appears on multiple surfaces, highest-priority wins.
+    """
+    out: dict[str, str] = {}
+    for q in (summary or {}).get("queries", []):
+        raw     = q.get("query", "")
+        surface = q.get("type", "discussion")
+        if raw not in out or _SURFACE_PRIORITY.get(surface, 99) < _SURFACE_PRIORITY.get(out.get(raw, "discussion"), 99):
+            out[raw] = surface
+    return out
+
+
+def _build_raw_to_label(summary: dict | None) -> dict[str, str]:
+    """Map raw query string → label from summary.json (for old-format found_by_queries)."""
+    out: dict[str, str] = {}
+    for q in (summary or {}).get("queries", []):
+        raw     = q.get("query", "")
+        label   = q.get("label", raw)
+        surface = q.get("type", "discussion")
+        if raw not in out or _SURFACE_PRIORITY.get(surface, 99) < _SURFACE_PRIORITY.get(
+            _SURFACE_PRIORITY.get(_surface_of(out.get(raw, "")), 99), 99
+        ):
+            out[raw] = label
+    return out
+
+
+def _entry_surface(entry: str, raw_to_surface: dict[str, str]) -> str:
+    """Determine the surface for a found_by_queries entry (label or raw string)."""
+    s = _surface_of(entry)
+    if s != "discussion":
+        return s
+    return raw_to_surface.get(entry, "discussion")
+
+
+# ---------------------------------------------------------------------------
 # Section builders
 # ---------------------------------------------------------------------------
 
@@ -142,6 +202,54 @@ def sec_rq21(data: dict, plots_rel: str, fmt: str) -> str:
     n_no  = tiers["none"]
     n_ex  = n_st + n_wk
 
+    # --- Surface-origin breakdown for "none" repos ---
+    raw_to_surface = _build_raw_to_surface(data.get("summary"))
+    none_scores = [r for r in scores if r["classification"] == "none"]
+    none_surface_block = ""
+    if none_scores:
+        surface_counter: Counter = Counter()
+        code_and_none: list[str] = []
+        for r in none_scores:
+            surfaces = {_entry_surface(q, raw_to_surface) for q in r.get("found_by_queries", [])}
+            for s in surfaces:
+                surface_counter[s] += 1
+            if "code" in surfaces:
+                code_and_none.append(r["repo"])
+
+        none_surface_rows = "\n".join(
+            f"| {_SURFACE_LABEL.get(s, s)} | {cnt:,} | {_pct(cnt / n_no * 100)} |"
+            for s, cnt in sorted(surface_counter.items(), key=lambda x: -x[1])
+        )
+
+        code_note = ""
+        if code_and_none:
+            code_list = "\n".join(
+                f"  - [{repo}](https://github.com/{repo})"
+                for repo in sorted(code_and_none)[:20]
+            )
+            extra = f" (showing first 20)" if len(code_and_none) > 20 else ""
+            code_note = (
+                f"\n> **{len(code_and_none)} no-signal repo(s) were also found by Phase 1 code search{extra}.**"
+                f" GitHub's live-file index found an MT identifier in those repos, but Phase 3's"
+                f" local scan found nothing. Likely causes: the match was in a vendored dependency,"
+                f" a compiled artifact, a non-default branch, or a file added/deleted between"
+                f" search and clone. These are worth a manual look:\n{code_list}\n"
+            )
+
+        none_surface_block = f"""
+### Why are {n_no:,} repos classified as "No signal"?
+
+These repos were returned by GitHub's search API for MT-related terms, but Phase 3's local file scan found no MT patterns in their source code. The table below shows *which search surface* surfaced each repo — a repo in the "Commit messages" row was discovered because a commit message mentioned MT, not because the code contains it.
+
+| Found via | Repos | % of no-signal |
+|---|---|---|
+{none_surface_rows}
+
+*A repo can appear in more than one row if it was found by multiple surfaces.*
+
+The most common explanation is that MT was mentioned in a discussion or commit context ("added metamorphic testing to the backlog") without ever being implemented in source code. The search phase is intentionally broad to avoid missing genuine adopters; Phase 3 is the filter that confirms actual code-level adoption.
+{code_note}"""
+
     return f"""## Q1 — Prevalence
 
 | Classification | Repos | % of analysed |
@@ -153,12 +261,15 @@ def sec_rq21(data: dict, plots_rel: str, fmt: str) -> str:
 | Total analysed | {n:,} | — |
 
 {_img(plots_rel, 'classification_dist', fmt, 'Classification tier distribution')}
-{_img(plots_rel, 'query_hits', fmt, 'Per-query hit counts across all search surfaces')}
+{_img(plots_rel, 'query_repos', fmt, 'Distinct repos matched per search query, coloured by surface')}
+
+> **Reading the repos-per-query chart:** Each bar shows how many distinct repositories in the final analysed set were matched by that specific query. Bars are coloured by search surface. This answers "which query terms are actually finding repos?" — a query with many API hits but few matched repos may be broad on GitHub but maps to repos already captured by other queries.
+
+{_img(plots_rel, 'query_hits', fmt, 'Raw API hit counts per query (before deduplication)')}
 {_img(plots_rel, 'query_overlap', fmt, 'Repos found by N distinct independent search queries')}
 
 > **Reading the query overlap chart:** Each bar shows how many repositories were found by exactly N distinct search queries. A repo at x=1 was surfaced by only a single query term on a single search surface; a repo at x=5 appeared independently in five different queries (e.g. a repository search for `"metamorphic testing"`, a code search for `MetamorphicRelation`, a commit search for `"metamorphic relation"`, and so on). The chart answers: *how redundantly is each repo captured by the search strategy?* Repos at higher x values are more robustly discovered — their MT-related content is broad enough to be picked up across multiple independent query terms and surfaces, making them less likely to be missed if any single query were removed. Most repos are expected to cluster at low x values since most genuine MT repos will mention only a subset of all MT terminology.
-
-> **Why are {n_no:,} repos classified as "No signal"?** These repos appeared in GitHub's search results for MT-related terms (in commit messages, issue bodies, README files, or repo descriptions), but contained no MT adoption patterns in their actual source code during Phase 3 analysis. Common causes: the keyword appeared only in a dependency name, a commit referencing an external MT paper or library, a README that discusses MT as background without implementing it, or non-source files (e.g. PDFs, data files) that were skipped. The search phase is deliberately broad to avoid missing genuine adopters; Phase 3 is the filter for actual code-level adoption.
+{none_surface_block}
 """
 
 
@@ -500,11 +611,15 @@ def sec_query_stats(data: dict) -> str:
     if not queries:
         return ""
 
-    # Invert found_by_queries to count unique repos per query label
+    # Invert found_by_queries to count unique repos per query label.
+    # found_by_queries may store raw query strings (old data) or proper labels
+    # (new data after the search.py fix); use summary.json to normalise both.
+    raw_to_lbl = _build_raw_to_label(data.get("summary"))
     repos_per_label: Counter = Counter()
     for repo in (data["repo_scores"] or []):
-        for label in repo.get("found_by_queries", []):
-            repos_per_label[label] += 1
+        for entry in repo.get("found_by_queries", []):
+            lbl = entry if _surface_of(entry) != "discussion" else raw_to_lbl.get(entry, entry)
+            repos_per_label[lbl] += 1
 
     rows = "\n".join(
         f"| {q.get('type','').upper()} | {q.get('query','')} | {q.get('label','')} "

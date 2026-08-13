@@ -140,11 +140,12 @@ tail -f results/analysis/worker_logs/*.log
 
 ## Phase 4 — Plot
 
-Reads Phase 1 and Phase 3 outputs and produces nine publication-quality figures.
+Reads Phase 1 and Phase 3 outputs and produces ten publication-quality figures.
 
 | File | Description |
 |---|---|
-| `query_hits.png` | Per-query hit counts across all search surfaces |
+| `query_hits.png` | Raw API hit counts per query (before deduplication) |
+| `query_repos.png` | Distinct repos matched per search query, coloured by search surface |
 | `classification_dist.png` | Classification tier distribution |
 | `yearly_trend.png` | Explicit MT-adopting repos by creation year |
 | `language_dist.png` | Top languages among explicit MT repos |
@@ -321,7 +322,7 @@ results/analysis/repo_scores.json  ← per-repo scores + classification
 results/analysis/summary_report.md
    │
    ▼  plot.py
-results/plots/*.png            ← 9 publication-quality figures
+results/plots/*.png            ← 10 publication-quality figures
    │
    ▼  report.py  (reads any/all of the above that exist)
 results/reports/results_report.md  ← comprehensive results report (Q1–Q8)

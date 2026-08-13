@@ -14,6 +14,7 @@ Plots generated:
   7.  query_overlap.png        — repos found by N distinct search queries
   8.  author_dist.png          — top organisations/users by explicit MT repo count (Q6)
   9.  coverage_depth.png       — files-with-MT-signals per repo distribution (Q7)
+  10. query_repos.png          — distinct repos matched per search query (coloured by surface)
 
 Usage:
     python plot.py [--output-dir PATH] [--dpi N] [--format png|pdf|svg]
@@ -419,6 +420,132 @@ def plot_coverage_depth(findings: list, repo_scores: list, out_dir: Path, fmt: s
 
 
 # ---------------------------------------------------------------------------
+# 10. Repos matched per search query (coloured by surface)
+# ---------------------------------------------------------------------------
+
+_SURFACE_COLORS = {
+    "repo":       "#4e79a7",
+    "code":       "#f28e2b",
+    "commit":     "#59a14f",
+    "issue":      "#e15759",
+    "pr":         "#76b7b2",
+    "discussion": "#edc948",
+}
+
+
+def _query_surface(label: str) -> str:
+    for prefix in ("code", "commit", "issue", "pr", "repo"):
+        if label.startswith(prefix + "_"):
+            return prefix
+    return "discussion"
+
+
+def _query_display(label: str) -> str:
+    for prefix in ("code_", "commit_", "issue_", "pr_", "repo_"):
+        if label.startswith(prefix):
+            term = label[len(prefix):].replace("_", " ")
+            return f"{prefix[:-1].upper()}: {term}"
+    clean = label.strip('"')[:45]
+    return f"DISCUSSION: {clean}"
+
+
+def _build_raw_to_surface(summary: dict | None) -> dict[str, str]:
+    """Map raw query string → surface type using summary.json as ground truth.
+    When the same raw query appears on multiple surfaces, the highest-priority
+    surface wins (code > repo > commit > issue > pr > discussion).
+    """
+    priority = {"code": 0, "repo": 1, "commit": 2, "issue": 3, "pr": 4, "discussion": 5}
+    out: dict[str, str] = {}
+    for q in (summary or {}).get("queries", []):
+        raw     = q.get("query", "")
+        surface = q.get("type", "discussion")
+        if raw not in out or priority.get(surface, 99) < priority.get(out[raw], 99):
+            out[raw] = surface
+    return out
+
+
+def _build_raw_to_label(summary: dict | None) -> dict[str, str]:
+    """Map raw query string → label using summary.json.
+    Prefers non-discussion labels when the same raw query appears on multiple surfaces.
+    """
+    priority = {"code": 0, "repo": 1, "commit": 2, "issue": 3, "pr": 4, "discussion": 5}
+    out: dict[str, str] = {}
+    for q in (summary or {}).get("queries", []):
+        raw     = q.get("query", "")
+        label   = q.get("label", raw)
+        surface = q.get("type", "discussion")
+        if raw not in out or priority.get(surface, 99) < priority.get(
+            priority.get(_query_surface(out[raw]), 99), 99
+        ):
+            out[raw] = label
+    return out
+
+
+def plot_query_repos(repo_scores: list, summary: dict | None, out_dir: Path, fmt: str, dpi: int) -> None:
+    """Distinct repos in the analysed set matched per search query, coloured by surface."""
+    if not repo_scores:
+        return
+
+    # Build lookup from raw query strings (what found_by_queries actually stores in
+    # existing data) to surface type and a display label.
+    raw_to_surface = _build_raw_to_surface(summary)
+    raw_to_label   = _build_raw_to_label(summary)
+
+    repos_per_query: Counter = Counter()
+    for r in repo_scores:
+        for entry in r.get("found_by_queries", []):
+            # entry may be a label (new data) or a raw query string (old data)
+            repos_per_query[entry] += 1
+
+    if not repos_per_query:
+        return
+
+    def _surface(entry: str) -> str:
+        # New data: entry is already a label with a known prefix
+        s = _query_surface(entry)
+        if s != "discussion":
+            return s
+        # Old data: entry is a raw string — look it up in the summary map
+        return raw_to_surface.get(entry, "discussion")
+
+    def _display(entry: str) -> str:
+        s = _query_surface(entry)
+        if s != "discussion":
+            # Already a label; strip the prefix and un-underscore
+            return _query_display(entry)
+        # Raw string — use the label from summary if available, else show raw
+        lbl = raw_to_label.get(entry, "")
+        if lbl and lbl != "discussion":
+            return _query_display(lbl)
+        # Discussion or unknown — show the raw query stripped of quotes
+        clean = entry.strip('"')[:45]
+        return f"DISCUSSION: {clean}"
+
+    # Sort ascending so largest bar is at top
+    items       = sorted(repos_per_query.items(), key=lambda x: x[1])
+    disp_labels = [_display(e) for e, _ in items]
+    values      = [cnt for _, cnt in items]
+    colors      = [_SURFACE_COLORS.get(_surface(e), "#aaaaaa") for e, _ in items]
+
+    fig, ax = plt.subplots(figsize=(12, max(8, len(items) * 0.32)))
+    ax.barh(disp_labels, values, color=colors)
+    ax.set_xlabel("Distinct repos matched (in analysed set)")
+    ax.set_title("Repos Matched per Search Query")
+    ax.xaxis.set_major_locator(mticker.MaxNLocator(integer=True))
+
+    from matplotlib.patches import Patch
+    surfaces_used = {_surface(e) for e, _ in items}
+    legend_handles = [
+        Patch(facecolor=_SURFACE_COLORS[s], label=s.capitalize())
+        for s in ("repo", "code", "commit", "issue", "pr", "discussion")
+        if s in surfaces_used
+    ]
+    ax.legend(handles=legend_handles, title="Search surface", loc="lower right", fontsize=9)
+
+    _save(fig, out_dir, "query_repos", fmt, dpi)
+
+
+# ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
 
@@ -439,6 +566,7 @@ def run(out_dir: Path, fmt: str, dpi: int) -> None:
     plot_query_overlap(      data["repo_scores"],                  out_dir, fmt, dpi)
     plot_author_dist(        data["repo_scores"],                  out_dir, fmt, dpi)
     plot_coverage_depth(     data["findings"], data["repo_scores"],out_dir, fmt, dpi)
+    plot_query_repos(        data["repo_scores"], data["summary"],  out_dir, fmt, dpi)
 
     console.print(f"\n[bold green]Done.[/]  All plots saved to [dim]{out_dir}[/]")
 

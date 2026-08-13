@@ -202,6 +202,12 @@ def clone_repo(candidate: dict, refresh: bool, manifest: dict) -> str:
 
 
 def _collect_queries(candidate: dict) -> list[str]:
+    # Prefer labels (e.g. "repo_metamorphic_testing") over raw query strings.
+    # matched_labels is written by search.py's _dedup_merge; fall back to
+    # matched_queries (raw strings) for data produced before that fix.
+    ls = candidate.get("matched_labels", [])
+    if ls:
+        return ls
     qs = candidate.get("matched_queries", [])
     if qs:
         return qs

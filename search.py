@@ -540,22 +540,28 @@ def search_discussions(queries: list[str], max_pages: int) -> tuple[list[dict], 
 # ---------------------------------------------------------------------------
 
 def _dedup_merge(records: list[dict], key_fn) -> list[dict]:
-    """Deduplicate records by key, merging matched_queries lists across duplicates."""
+    """Deduplicate records by key, merging matched_queries and matched_labels across duplicates."""
     seen: dict = {}
     order: list = []
     for r in records:
-        k = key_fn(r)
+        k  = key_fn(r)
         q  = r.get("matched_query", "")
-        qs = r.get("matched_queries", [q] if q else [])
+        lbl = r.get("matched_label", q)
+        qs  = r.get("matched_queries", [q] if q else [])
+        ls  = r.get("matched_labels",  [lbl] if lbl else [])
         if k not in seen:
             rec = dict(r)
             rec["matched_queries"] = list(qs)
+            rec["matched_labels"]  = list(ls)
             seen[k] = rec
             order.append(k)
         else:
             for q_item in qs:
                 if q_item and q_item not in seen[k]["matched_queries"]:
                     seen[k]["matched_queries"].append(q_item)
+            for l_item in ls:
+                if l_item and l_item not in seen[k]["matched_labels"]:
+                    seen[k]["matched_labels"].append(l_item)
     return [seen[k] for k in order]
 
 
