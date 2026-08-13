@@ -384,37 +384,43 @@ def sec_rq25(data: dict, plots_rel: str, fmt: str) -> str:
         return ""
 
     current_year = datetime.now(timezone.utc).year
+    n_total = len(scores)
 
-    by_tier: dict = defaultdict(list)
-    by_tier_maturity: dict = defaultdict(list)
-    for r in scores:
-        stars = r.get("stars", 0)
-        by_tier[r["classification"]].append(stars)
-        created = (r.get("created_at") or "")[:4]
-        if created.isdigit():
-            age = max(1, current_year - int(created))
-            by_tier_maturity[r["classification"]].append(stars / age)
+    buckets = [
+        ("0",         lambda s: s == 0),
+        ("1–10",      lambda s: 1 <= s <= 10),
+        ("11–100",    lambda s: 11 <= s <= 100),
+        ("101–1,000", lambda s: 101 <= s <= 1_000),
+        ("> 1,000",   lambda s: s > 1_000),
+    ]
 
-    def _row(tier: str, label: str) -> str:
-        s = sorted(by_tier.get(tier, []))
-        m = by_tier_maturity.get(tier, [])
-        if not s:
-            return f"| {label} | — | — | — | — | — | — | — |"
-        n = len(s)
-        median_mat = f"{statistics.median(m):.1f}" if m else "—"
-        return (f"| {label} | {n:,} | {statistics.median(s):.0f} | {statistics.mean(s):.0f} "
-                f"| {max(s):,} | {_pct(sum(1 for x in s if x >= 100)/n*100)} "
-                f"| {_pct(sum(1 for x in s if x >= 1000)/n*100)} | {median_mat} |")
+    rows = []
+    for label, pred in buckets:
+        bucket = [r for r in scores if pred(r.get("stars", 0))]
+        if not bucket:
+            continue
+        n_b  = len(bucket)
+        n_ex = sum(1 for r in bucket if r["classification"] in ("strong_explicit", "weak_explicit"))
+        maturity = []
+        for r in bucket:
+            created = (r.get("created_at") or "")[:4]
+            if created.isdigit():
+                age = max(1, current_year - int(created))
+                maturity.append(r.get("stars", 0) / age)
+        med_mat = f"{statistics.median(maturity):.1f}" if maturity else "—"
+        rows.append(
+            f"| {label} | {n_b:,} | {_pct(n_b / n_total * 100)} "
+            f"| {n_ex:,} | {_pct(n_ex / n_b * 100)} | {med_mat} |"
+        )
 
     return f"""## Q5 — Project Maturity
 
-**Maturity proxy = ★ / repo age (years)** — a higher value indicates a repo that accumulated stars quickly relative to how long it has existed.
+Star count as a proxy for production relevance and community uptake.
+**★/yr** = stars ÷ repo age in years — normalises for newer projects that haven't had time to accumulate stars.
 
-| Tier | Repos | Median ★ | Mean ★ | Max ★ | ≥ 100 ★ | ≥ 1,000 ★ | Median ★/yr |
-|---|---|---|---|---|---|---|---|
-{_row("strong_explicit", "Strong explicit")}
-{_row("weak_explicit",   "Weak explicit")}
-{_row("none",            "No signal")}
+| Stars | Repos | % of total | With MT signal | % with MT signal | Median ★/yr |
+|---|---|---|---|---|---|
+{"".join(rows)}
 
 {_img(plots_rel, 'stars_vs_score', fmt, 'Repository star count vs explicit MT hit count')}
 """
@@ -573,6 +579,177 @@ def sec_rq28(data: dict, plots_rel: str, fmt: str, top_n: int) -> str:
 | Repository | Tier | Score | Matches | MT files | Language | Stars |
 |---|---|---|---|---|---|---|
 {repo_rows}
+"""
+
+
+# ---------------------------------------------------------------------------
+# Framework vs Adopter classification
+# ---------------------------------------------------------------------------
+
+_TEST_DIR_PARTS = frozenset({
+    "test", "tests", "spec", "specs", "testing", "__tests__",
+    "e2e", "integration", "unit", "unittest", "functionaltest",
+    "systemtest", "acceptancetest", "testcases", "testcase",
+})
+
+
+def _is_test_file(filepath: str) -> bool:
+    """Heuristic: true if this file path looks like a test file."""
+    parts = filepath.replace("\\", "/").lower().split("/")
+    if any(p in _TEST_DIR_PARTS for p in parts[:-1]):
+        return True
+    fname = parts[-1]
+    return (
+        fname.startswith("test_") or
+        fname.endswith("_test.py") or fname.endswith("_test.java") or
+        fname.endswith("_test.go") or fname.endswith("_test.rb") or
+        fname.endswith("_test.js") or fname.endswith("_test.ts") or
+        fname.endswith("test.py") or fname.endswith("test.java") or
+        fname.endswith("test.go") or
+        fname.endswith("spec.rb") or fname.endswith("spec.js") or
+        fname.endswith("spec.ts") or fname.endswith("_spec.py") or
+        fname.endswith("tests.py")
+    )
+
+
+def _repo_role(repo_name: str, findings: list[dict]) -> str:
+    """Classify a repo as 'framework', 'adopter', or 'mixed'.
+
+    Logic: look at WHERE in the file tree MT patterns appear.
+    - Mostly in test dirs/files  → the repo USES MT to test its own code (adopter).
+    - Mostly in non-test src     → the repo DEFINES MT infrastructure (framework/library).
+    - Roughly equal split        → mixed / unclear.
+    """
+    repo_findings = [f for f in findings if f.get("repo") == repo_name]
+    if not repo_findings:
+        return "unknown"
+    test_hits    = sum(1 for f in repo_findings if _is_test_file(f.get("file", "")))
+    non_test_hits = len(repo_findings) - test_hits
+    total = len(repo_findings)
+    ratio = test_hits / total
+    if ratio >= 0.65:
+        return "adopter"
+    if ratio <= 0.35:
+        return "framework"
+    return "mixed"
+
+
+def sec_framework_vs_adopter(data: dict) -> str:
+    scores   = data["repo_scores"] or []
+    findings = data["findings"] or []
+    if not scores or not findings:
+        return ""
+
+    explicit = [r for r in scores if r["classification"] in ("strong_explicit", "weak_explicit")]
+    if not explicit:
+        return ""
+
+    roles       = {r["repo"]: _repo_role(r["repo"], findings) for r in explicit}
+    role_counts = Counter(roles.values())
+    n_ex        = len(explicit)
+
+    summary_rows = "\n".join(
+        f"| {role.capitalize()} | {role_counts[role]:,} | {_pct(role_counts[role] / n_ex * 100)} |"
+        for role in ("adopter", "framework", "mixed", "unknown")
+        if role_counts[role]
+    )
+
+    def _table(role: str) -> str:
+        repos = sorted(
+            [r for r in explicit if roles.get(r["repo"]) == role],
+            key=lambda r: (r.get("score", 0), r.get("stars", 0)),
+            reverse=True,
+        )
+        if not repos:
+            return ""
+        rows = "\n".join(
+            f"| [{r['repo']}](https://github.com/{r['repo']}) "
+            f"| {_tier(r['classification'])} "
+            f"| {r.get('score', 0)} "
+            f"| {r.get('language') or '—'} "
+            f"| {r.get('stars', 0):,} |"
+            for r in repos
+        )
+        return rows
+
+    adopter_table   = _table("adopter")
+    framework_table = _table("framework")
+    mixed_table     = _table("mixed")
+
+    adopter_section = f"""
+**Adopters ({role_counts['adopter']:,})** — MT patterns found primarily in test directories/files. These repos use MT to test their own application code.
+
+| Repository | Tier | Score | Language | Stars |
+|---|---|---|---|---|
+{adopter_table}
+""" if adopter_table else ""
+
+    framework_section = f"""
+**Frameworks / Libraries ({role_counts['framework']:,})** — MT patterns found primarily in non-test source files. These repos define MT infrastructure that others can use.
+
+| Repository | Tier | Score | Language | Stars |
+|---|---|---|---|---|
+{framework_table}
+""" if framework_table else ""
+
+    mixed_section = f"""
+**Mixed / Unclear ({role_counts.get('mixed', 0) + role_counts.get('unknown', 0):,})** — MT patterns spread across both test and source files, or no findings data available. Manual inspection needed.
+
+| Repository | Tier | Score | Language | Stars |
+|---|---|---|---|---|
+{_table("mixed")}
+{_table("unknown")}
+""" if (role_counts.get("mixed") or role_counts.get("unknown")) else ""
+
+    return f"""## MT Framework vs Adopter Classification
+
+Each explicit MT repo is classified by **where** its MT patterns appear in the file tree:
+
+| Role | Repos | % of explicit |
+|---|---|---|
+{summary_rows}
+
+> **Heuristic**: ≥ 65 % of findings in test dirs/files → *Adopter*; ≤ 35 % → *Framework*; between → *Mixed*. This is file-path based and may misclassify repos with unusual directory layouts — use the per-repo tables for manual verification.
+{adopter_section}{framework_section}{mixed_section}"""
+
+
+# ---------------------------------------------------------------------------
+# No-signal repos (for manual inspection)
+# ---------------------------------------------------------------------------
+
+def sec_no_signal_repos(data: dict) -> str:
+    scores  = data["repo_scores"] or []
+    summary = data.get("summary")
+    if not scores:
+        return ""
+
+    none_repos = [r for r in scores if r["classification"] == "none"]
+    if not none_repos:
+        return ""
+
+    raw_to_surface = _build_raw_to_surface(summary)
+    none_repos = sorted(none_repos, key=lambda r: r.get("stars", 0), reverse=True)
+
+    def _surfaces(r: dict) -> str:
+        found = {_entry_surface(q, raw_to_surface) for q in r.get("found_by_queries", [])}
+        return ", ".join(sorted(found)) if found else "—"
+
+    rows = "\n".join(
+        f"| [{r['repo']}](https://github.com/{r['repo']}) "
+        f"| {r.get('stars', 0):,} "
+        f"| {r.get('language') or '—'} "
+        f"| {(r.get('created_at') or '')[:4] or '—'} "
+        f"| {_surfaces(r)} |"
+        for r in none_repos
+    )
+
+    return f"""## No-Signal Repositories ({len(none_repos):,} repos — manual inspection)
+
+These repos were returned by GitHub's search but Phase 3 found **zero** MT patterns in their source code. Sorted by stars so higher-profile repos can be prioritised for manual review.
+
+| Repository | Stars | Language | Year | Found via |
+|---|---|---|---|---|
+{rows}
 """
 
 
@@ -748,6 +925,10 @@ def build_report(data: dict, plots_rel: str, fmt: str, top_n: int) -> str:
         sec_rq27(data, plots_rel, fmt),
         "---\n",
         sec_rq28(data, plots_rel, fmt, top_n),
+        "---\n",
+        sec_framework_vs_adopter(data),
+        "---\n",
+        sec_no_signal_repos(data),
         "---\n",
         sec_all_repos(data),
         "---\n",
