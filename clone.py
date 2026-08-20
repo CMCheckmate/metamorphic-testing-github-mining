@@ -25,8 +25,10 @@ import argparse
 import json
 import shutil
 import time
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
 from pathlib import Path
+from threading import Lock
 
 from rich.console import Console
 from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn, TimeElapsedColumn
@@ -96,20 +98,29 @@ def filter_candidates(
     min_stars: int,
     skip_forks: bool,
     lang: str | None,
-) -> list[dict]:
-    out = []
+) -> tuple[list[dict], list[dict], dict[str, int]]:
+    """Return (kept, size_excluded, skip_counts). Size-excluded repos are recorded in the manifest."""
+    out: list[dict] = []
+    excluded: list[dict] = []
+    skip_counts: dict[str, int] = {"size": 0, "fork": 0, "stars": 0, "language": 0}
     for c in candidates:
         if skip_forks and c.get("is_fork"):
+            skip_counts["fork"] += 1
             continue
         if c.get("stars", 0) < min_stars:
+            skip_counts["stars"] += 1
             continue
         if lang and c.get("language", "").lower() != lang.lower():
+            skip_counts["language"] += 1
             continue
         if c.get("size_kb", 0) > MAX_REPO_SIZE_KB:
-            console.print(f"  [dim]skip (too large {c['size_kb']} KB):[/] {c['full_name']}")
+            size_kb = c["size_kb"]
+            console.print(f"  [dim]skip (too large {size_kb:,} KB > {MAX_REPO_SIZE_KB:,} KB limit):[/] {c['full_name']}")
+            excluded.append({**c, "skip_reason": f"size {size_kb:,} KB exceeds {MAX_REPO_SIZE_KB:,} KB limit"})
+            skip_counts["size"] += 1
             continue
         out.append(c)
-    return out
+    return out, excluded, skip_counts
 
 
 # ---------------------------------------------------------------------------
@@ -174,22 +185,32 @@ def clone_repo(candidate: dict, refresh: bool, manifest: dict) -> str:
         return "error"
 
     manifest["repos"][full_name] = {
-        "full_name":      full_name,
-        "clone_url":      clone_url,
-        "html_url":       candidate.get("html_url", ""),
-        "local_path":     str(dest),
-        "stars":          candidate.get("stars", 0),
-        "language":       candidate.get("language", ""),
-        "size_kb":        candidate.get("size_kb", 0),
-        "is_fork":        candidate.get("is_fork", False),
+        "full_name":       full_name,
+        "clone_url":       clone_url,
+        "html_url":        candidate.get("html_url", ""),
+        "local_path":      str(dest),
+        "stars":           candidate.get("stars", 0),
+        "language":        candidate.get("language", ""),
+        "created_at":      candidate.get("created_at", ""),
+        "size_kb":         candidate.get("size_kb", 0),
+        "is_fork":         candidate.get("is_fork", False),
         "matched_queries": _collect_queries(candidate),
-        "status":         status,
-        "cloned_at":      datetime.now(timezone.utc).isoformat(),
+        "status":          status,
+        "cloned_at":       datetime.now(timezone.utc).isoformat(),
     }
     return status
 
 
 def _collect_queries(candidate: dict) -> list[str]:
+    # Prefer labels (e.g. "repo_metamorphic_testing") over raw query strings.
+    # matched_labels is written by search.py's _dedup_merge; fall back to
+    # matched_queries (raw strings) for data produced before that fix.
+    ls = candidate.get("matched_labels", [])
+    if ls:
+        return ls
+    qs = candidate.get("matched_queries", [])
+    if qs:
+        return qs
     q = candidate.get("matched_query", "")
     return [q] if q else []
 
@@ -199,25 +220,50 @@ def _collect_queries(candidate: dict) -> list[str]:
 # ---------------------------------------------------------------------------
 
 def run(source: str, limit: int | None, offset: int, refresh: bool, min_stars: int,
-        skip_forks: bool, lang: str | None) -> None:
+        skip_forks: bool, lang: str | None, workers: int = 4) -> None:
 
     candidates = load_candidates(source)
-    candidates = filter_candidates(candidates, min_stars, skip_forks, lang)
+    candidates, excluded, filter_skips = filter_candidates(candidates, min_stars, skip_forks, lang)
     candidates.sort(key=lambda c: c.get("stars", 0), reverse=True)
 
     if offset:
         candidates = candidates[offset:]
-
     if limit:
         candidates = candidates[:limit]
 
     console.print(
         f"\n[bold]{len(candidates)}[/] candidates to process  "
-        f"(source={source}, min_stars={min_stars}, skip_forks={skip_forks}, offset={offset})"
+        f"(source={source}, min_stars={min_stars}, skip_forks={skip_forks}, "
+        f"offset={offset}, workers={workers})"
     )
 
     manifest = load_manifest()
+    for exc in excluded:
+        name = exc["full_name"]
+        manifest["repos"][name] = {
+            "full_name":   name,
+            "clone_url":   exc.get("clone_url", ""),
+            "html_url":    exc.get("html_url", ""),
+            "stars":       exc.get("stars", 0),
+            "language":    exc.get("language", ""),
+            "size_kb":     exc.get("size_kb", 0),
+            "status":      "skipped_size",
+            "skip_reason": exc["skip_reason"],
+        }
+    if excluded:
+        save_manifest(manifest)
+    manifest_lock = Lock()
     counts = {"cloned": 0, "skipped": 0, "refreshed": 0, "error": 0}
+    counts_lock = Lock()
+
+    def _clone_worker(candidate: dict) -> str:
+        result = clone_repo(candidate, refresh, manifest)
+        time.sleep(CLONE_DELAY_SECONDS)
+        with manifest_lock:
+            save_manifest(manifest)
+        with counts_lock:
+            counts[result] += 1
+        return result
 
     with Progress(
         SpinnerColumn(),
@@ -229,20 +275,34 @@ def run(source: str, limit: int | None, offset: int, refresh: bool, min_stars: i
     ) as progress:
         task = progress.add_task("Cloning…", total=len(candidates))
 
-        for candidate in candidates:
-            progress.update(task, description=f"[cyan]{candidate['full_name'][:50]}[/]")
-            result = clone_repo(candidate, refresh, manifest)
-            counts[result] += 1
-            save_manifest(manifest)
-            progress.advance(task)
-            time.sleep(CLONE_DELAY_SECONDS)
+        with ThreadPoolExecutor(max_workers=workers) as executor:
+            future_to_candidate = {
+                executor.submit(_clone_worker, c): c for c in candidates
+            }
+            for future in as_completed(future_to_candidate):
+                c = future_to_candidate[future]
+                progress.update(
+                    task,
+                    description=f"[cyan]{c['full_name'][:50]}[/]",
+                    advance=1,
+                )
+
+    skip_lines = [f"already exist=[dim]{counts['skipped']}[/]"]
+    if filter_skips["size"]:
+        skip_lines.append(f"too large=[yellow]{filter_skips['size']}[/]")
+    if filter_skips["fork"]:
+        skip_lines.append(f"fork=[dim]{filter_skips['fork']}[/]")
+    if filter_skips["stars"]:
+        skip_lines.append(f"below min stars=[dim]{filter_skips['stars']}[/]")
+    if filter_skips["language"]:
+        skip_lines.append(f"language filter=[dim]{filter_skips['language']}[/]")
 
     console.print(
         f"\n[bold green]Done.[/]  "
         f"cloned=[green]{counts['cloned']}[/]  "
         f"refreshed=[blue]{counts['refreshed']}[/]  "
-        f"skipped=[dim]{counts['skipped']}[/]  "
-        f"errors=[red]{counts['error']}[/]"
+        f"errors=[red]{counts['error']}[/]\n"
+        f"Skipped:  " + "  |  ".join(skip_lines)
     )
     console.print(f"Manifest updated: [dim]{MANIFEST_PATH}[/]")
 
@@ -255,10 +315,11 @@ def main() -> None:
     parser.add_argument("--refresh",    action="store_true", help="Re-clone existing repos")
     parser.add_argument("--min-stars",  type=int,  default=0)
     parser.add_argument("--skip-forks", action="store_true")
-    parser.add_argument("--lang",       type=str,  default=None, help="Filter by primary language")
+    parser.add_argument("--lang",        type=str,  default=None, help="Filter by primary language")
+    parser.add_argument("--workers",     type=int,  default=4,   help="Parallel clone workers (default: 4)")
     args = parser.parse_args()
 
-    run(args.source, args.limit, args.offset, args.refresh, args.min_stars, args.skip_forks, args.lang)
+    run(args.source, args.limit, args.offset, args.refresh, args.min_stars, args.skip_forks, args.lang, args.workers)
 
 
 if __name__ == "__main__":

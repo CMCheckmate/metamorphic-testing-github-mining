@@ -333,6 +333,9 @@ def search_repositories(queries: list[dict], max_pages: int, enable_slicing: boo
                 STANDARD_SEARCH_DELAY, max_pages, _repo_transform,
             )
 
+        for rec in recs:
+            rec["matched_query"] = q["query"]
+            rec["matched_label"] = q["label"]
         all_records.extend(recs)
         summary.append({"type": "repo", **q, "hits": len(recs)})
         console.print(f"  → {len(recs)} records for this query")
@@ -368,6 +371,9 @@ def search_code(queries: list[dict], max_pages: int, enable_slicing: bool) -> li
                 CODE_SEARCH_DELAY, max_pages, _code_transform,
             )
 
+        for rec in recs:
+            rec["matched_query"] = q["query"]
+            rec["matched_label"] = q["label"]
         all_records.extend(recs)
         summary.append({"type": "code", **q, "hits": len(recs)})
         console.print(f"  → {len(recs)} records for this query")
@@ -398,6 +404,9 @@ def search_issues(queries: list[dict], max_pages: int, enable_slicing: bool) -> 
                 STANDARD_SEARCH_DELAY, max_pages, _issue_transform,
             )
 
+        for rec in recs:
+            rec["matched_query"] = q["query"]
+            rec["matched_label"] = q["label"]
         if kind == "pr":
             all_prs.extend(recs)
         else:
@@ -428,6 +437,9 @@ def search_commits(queries: list[dict], max_pages: int, enable_slicing: bool) ->
                 STANDARD_SEARCH_DELAY, max_pages, _commit_transform,
             )
 
+        for rec in recs:
+            rec["matched_query"] = q["query"]
+            rec["matched_label"] = q["label"]
         all_records.extend(recs)
         summary.append({"type": "commit", **q, "hits": len(recs)})
         console.print(f"  → {len(recs)} records for this query")
@@ -493,18 +505,20 @@ def search_discussions(queries: list[str], max_pages: int) -> tuple[list[dict], 
                     continue
                 repo = node.get("repository") or {}
                 records.append({
-                    "id":             node.get("id", ""),
-                    "number":         node.get("number", 0),
-                    "title":          node.get("title", ""),
-                    "url":            node.get("url", ""),
-                    "repo_full_name": repo.get("nameWithOwner", ""),
-                    "repo_clone_url": f"https://github.com/{repo.get('nameWithOwner','')}.git",
-                    "category":       (node.get("category") or {}).get("name", ""),
-                    "created_at":     node.get("createdAt", ""),
-                    "upvotes":        node.get("upvoteCount", 0),
-                    "comment_count":  (node.get("comments") or {}).get("totalCount", 0),
-                    "body_excerpt":   (node.get("bodyText") or "")[:500],
-                    "matched_query":  q_str,
+                    "id":              node.get("id", ""),
+                    "number":          node.get("number", 0),
+                    "title":           node.get("title", ""),
+                    "url":             node.get("url", ""),
+                    "repo_full_name":  repo.get("nameWithOwner", ""),
+                    "repo_clone_url":  f"https://github.com/{repo.get('nameWithOwner','')}.git",
+                    "category":        (node.get("category") or {}).get("name", ""),
+                    "created_at":      node.get("createdAt", ""),
+                    "upvotes":         node.get("upvoteCount", 0),
+                    "comment_count":   (node.get("comments") or {}).get("totalCount", 0),
+                    "body_excerpt":    (node.get("bodyText") or "")[:500],
+                    "matched_query":   q_str,
+                    "matched_label":   q_str,
+                    "matched_queries": [q_str],
                 })
 
             pages += 1
@@ -525,22 +539,37 @@ def search_discussions(queries: list[str], max_pages: int) -> tuple[list[dict], 
 # Deduplication
 # ---------------------------------------------------------------------------
 
-def _dedup(records: list[dict], key_fn) -> list[dict]:
-    seen: set = set()
-    out = []
+def _dedup_merge(records: list[dict], key_fn) -> list[dict]:
+    """Deduplicate records by key, merging matched_queries and matched_labels across duplicates."""
+    seen: dict = {}
+    order: list = []
     for r in records:
-        k = key_fn(r)
+        k  = key_fn(r)
+        q  = r.get("matched_query", "")
+        lbl = r.get("matched_label", q)
+        qs  = r.get("matched_queries", [q] if q else [])
+        ls  = r.get("matched_labels",  [lbl] if lbl else [])
         if k not in seen:
-            seen.add(k)
-            out.append(r)
-    return out
+            rec = dict(r)
+            rec["matched_queries"] = list(qs)
+            rec["matched_labels"]  = list(ls)
+            seen[k] = rec
+            order.append(k)
+        else:
+            for q_item in qs:
+                if q_item and q_item not in seen[k]["matched_queries"]:
+                    seen[k]["matched_queries"].append(q_item)
+            for l_item in ls:
+                if l_item and l_item not in seen[k]["matched_labels"]:
+                    seen[k]["matched_labels"].append(l_item)
+    return [seen[k] for k in order]
 
 
-def dedup_repos(recs):    return _dedup(recs, lambda r: r["id"])
-def dedup_code(recs):     return _dedup(recs, lambda r: f"{r['repo_id']}:{r['file_sha']}")
-def dedup_issues(recs):   return _dedup(recs, lambda r: r["id"])
-def dedup_commits(recs):  return _dedup(recs, lambda r: r["sha"])
-def dedup_discuss(recs):  return _dedup(recs, lambda r: r["id"])
+def dedup_repos(recs):    return _dedup_merge(recs, lambda r: r["id"])
+def dedup_code(recs):     return _dedup_merge(recs, lambda r: f"{r['repo_id']}:{r['file_sha']}")
+def dedup_issues(recs):   return _dedup_merge(recs, lambda r: r["id"])
+def dedup_commits(recs):  return _dedup_merge(recs, lambda r: r["sha"])
+def dedup_discuss(recs):  return _dedup_merge(recs, lambda r: r["id"])
 
 
 # ---------------------------------------------------------------------------
