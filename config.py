@@ -1,11 +1,18 @@
 """
-Central configuration: search queries, file patterns, and runtime paths.
-Edit this file to tune what gets searched and which repos get cloned.
+Central configuration: infrastructure settings and technique profile loader.
+
+Technique-specific vocabulary (search phrases, patterns, report settings) now lives
+in YAML files under techniques/. Use load_technique(path) to load a profile and pass
+it to each phase's run() function.
+
+Infrastructure settings (rate limits, clone params, file-scan filters) remain here
+as they are independent of the technique being mined.
 """
 
 from pathlib import Path
 from dotenv import load_dotenv
 import os
+import re
 
 load_dotenv()
 
@@ -18,7 +25,6 @@ REPOS_DIR   = Path(os.getenv("REPOS_DIR",   BASE_DIR / "repos"))
 
 RESULTS_DIR.mkdir(parents=True, exist_ok=True)
 REPOS_DIR.mkdir(parents=True, exist_ok=True)
-(RESULTS_DIR / "raw").mkdir(parents=True, exist_ok=True)
 
 # ---------------------------------------------------------------------------
 # GitHub API
@@ -43,17 +49,6 @@ GRAPHQL_DELAY         = 1.5   # GraphQL discussions (conservative)
 
 # ---------------------------------------------------------------------------
 # Adaptive date-range slicing
-#
-# GitHub hard-caps results at 1 000 per query.  When total_count exceeds
-# SLICE_THRESHOLD, search.py splits the date range in half and recurses until
-# each slice fits under the cap.
-#
-# SLICE_THRESHOLD  — begin slicing when total_count exceeds this value.
-#   Set to 900 (not 1 000) for a small buffer against results added mid-slice.
-# SLICE_MAX_DEPTH  — maximum recursion depth (2^N slices; 2^6 = 64 sub-queries
-#   per original query).  Most MT queries need 0–2 levels.
-# SLICE_MIN_DAYS   — stop recursing when a slice is this many days wide.
-#   Prevents infinite recursion on queries with >1 000 results in a single day.
 # ---------------------------------------------------------------------------
 SLICE_THRESHOLD  = 900
 SLICE_MAX_DEPTH  = 6
@@ -63,116 +58,15 @@ SLICE_START_DATE = "2010-01-01"
 SLICE_END_DATE   = "2026-06-30"   # update as needed
 
 # ---------------------------------------------------------------------------
-# MT terminology — word forms for each core concept (lemmatisation table)
-#
-# Maps each canonical MT concept to every word form worth searching for.
-# Listing all forms explicitly ensures we cast the widest possible net —
-# GitHub's full-text search does not guarantee stemming across all surfaces,
-# so "metamorphic test" may not reliably surface repos that only say
-# "metamorphic testing".  Explicit variants remove this ambiguity.
-#
-# Add new forms here; all query lists are built automatically from this table.
-# ---------------------------------------------------------------------------
-_MT_WORD_VARIANTS: dict[str, list[str]] = {
-    "testing":      ["testing", "test", "tests"],
-    "relation":     ["relation", "relations", "relationship", "relationships"],
-    "group":        ["group", "groups"],
-    "property":     ["property", "properties"],
-}
-
-
-def _mt_phrases() -> list[str]:
-    """Return every 'metamorphic <form>' phrase, quoted for exact GitHub matching."""
-    return [
-        f'"metamorphic {word_form}"'
-        for word_forms in _MT_WORD_VARIANTS.values()
-        for word_form in word_forms
-    ]
-
-
-# Code identifiers — class names, snake_case names, and decorators used in MT
-# code.  These appear not only in source files but also in commit messages,
-# issue bodies, and repo descriptions when developers discuss code, so they are
-# included on every search surface alongside the natural-language phrase queries.
-_MT_CODE_IDENTIFIERS: list[str] = [
-    "MetamorphicTest",
-    "MetamorphicRelation",
-    "metamorphic_relation",
-    "metamorphic_relations",
-    "metamorphic_test",
-    "metamorphic_tests",
-    "@metamorphic",
-]
-
-
-def _label(prefix: str, term: str) -> str:
-    clean = term.strip('"').replace(' ', '_').replace('@', 'at_')
-    return f"{prefix}_{clean}"
-
-
-# ---------------------------------------------------------------------------
-# Search queries
-#
-# Every surface uses the full vocabulary (_mt_phrases() + _MT_CODE_IDENTIFIERS)
-# so that:
-#   • Phrase queries ("metamorphic testing") catch natural-language mentions in
-#     repo descriptions, commit messages, issues, README files, and code comments.
-#   • Identifier queries (MetamorphicTest, metamorphic_relation, @metamorphic)
-#     catch code-level references that appear without spaces on all surfaces —
-#     a commit message or issue may mention a class name or snake_case identifier
-#     just as a code file does.
-# Filtering for genuine MT adoption happens later in Phase 3.
-# ---------------------------------------------------------------------------
-
-REPO_QUERIES: list[dict] = [
-    {"query": term, "label": _label("repo", term)}
-    for term in _mt_phrases() + _MT_CODE_IDENTIFIERS
-] + [
-    {"query": '"metamorphic testing framework"', "label": "repo_mt_framework"},
-    {"query": "topic:metamorphic-testing",       "label": "repo_topic"},
-]
-
-CODE_QUERIES: list[dict] = [
-    {"query": term, "label": _label("code", term)}
-    for term in _MT_CODE_IDENTIFIERS + _mt_phrases()
-]
-
-ISSUE_QUERIES: list[dict] = [
-    {"query": term, "label": _label("issue", term), "kind": "issue"}
-    for term in _mt_phrases() + _MT_CODE_IDENTIFIERS
-] + [
-    {"query": term, "label": _label("pr", term), "kind": "pr"}
-    for term in _mt_phrases() + _MT_CODE_IDENTIFIERS
-] + [
-    {"query": '"metamorphic testing framework"', "label": "issue_mt_framework", "kind": "issue"},
-]
-
-COMMIT_QUERIES: list[dict] = [
-    {"query": term, "label": _label("commit", term)}
-    for term in _mt_phrases() + _MT_CODE_IDENTIFIERS
-]
-
-DISCUSSION_QUERIES: list[str] = (
-    _mt_phrases() + _MT_CODE_IDENTIFIERS + ['"metamorphic testing framework"']
-)
-
-# ---------------------------------------------------------------------------
 # File-extension filter for local analysis (Phase 3)
-#
-# Empty set = accept all file types.
-# Populate to restrict, e.g. {".py", ".java", ".js", ".ts", ".go"}
 # ---------------------------------------------------------------------------
-ANALYSIS_EXTENSIONS: set[str] = set()
+ANALYSIS_EXTENSIONS: set[str] = set()   # empty = accept all
 
 SKIP_DIRS = {
     ".git", "node_modules", "__pycache__", ".venv", "venv", "env",
     "dist", "build", "target", ".tox", ".pytest_cache",
 }
 
-# Binary and machine-generated output formats — not human-authored, so any
-# regex match would be a path/encoding artifact rather than intentional MT content.
-# This is only used in Phase 3 (local analysis) to avoid wasting time on large binary 
-# files while keeping the search phase (Phase 2) as broad as possible.
 SKIP_EXTENSIONS: set[str] = {
     ".out", ".bin", ".pkl", ".npz", ".npy", ".h5", ".hdf5", ".parquet",
 }
@@ -184,3 +78,186 @@ MAX_REPO_SIZE_KB    = 750_000   # skip repos larger than 750 MB
 CLONE_DEPTH         = 1         # shallow clone (latest commit only)
 CLONE_DELAY_SECONDS = 0.3       # inter-clone delay per worker thread
 
+
+# ---------------------------------------------------------------------------
+# TechniqueProfile — loaded from a techniques/*.yaml file
+# ---------------------------------------------------------------------------
+
+class TechniqueProfile:
+    """
+    Holds all vocabulary, patterns, and report settings for one testing technique.
+    Loaded via load_technique(yaml_path).  Pass to each phase's run() function.
+    """
+
+    def __init__(self, data: dict) -> None:
+        # Core metadata
+        self.name:        str = data["name"]
+        self.short_name:  str = data["short_name"]
+        self.slug:        str = data["slug"]
+        self.description: str = data.get("description", "")
+        self.color:       str = data.get("color", "#1a6e3c")
+
+        # Search vocabulary
+        self.search_phrases: list[str] = data.get("search_phrases", [])
+        self.identifiers:    list[str] = data.get("identifiers", [])
+        raw_extra = data.get("extra_queries", {})
+        self.extra_queries: dict = {
+            "repos":       raw_extra.get("repos", []),
+            "code":        raw_extra.get("code", []),
+            "issues":      raw_extra.get("issues", []),
+            "commits":     raw_extra.get("commits", []),
+            "discussions": raw_extra.get("discussions", []),
+        }
+
+        # Analysis patterns (serialisable dicts — regex compiled separately)
+        self.patterns_raw: list[dict] = data.get("patterns", [])
+
+        # Scoring
+        cls = data.get("classification", {})
+        self.classification_strong: int = cls.get("strong_threshold", 3)
+        self.classification_weak:   int = cls.get("weak_threshold",   1)
+
+        # Lemmatization
+        lem = data.get("lemmatization", {})
+        self.lemma_trigger:   str  = lem.get("trigger", "")
+        self.concept_lemmas:  dict = lem.get("concept_lemmas", {})
+
+        # Report
+        self.extra_report_sections: list[str] = data.get("extra_report_sections", [])
+        self.report_intro:          str       = data.get("report_intro", "")
+
+        # Derived paths & queries
+        self._setup_dirs()
+        self._build_queries()
+        self._compile_patterns()
+
+    # ------------------------------------------------------------------
+    # Internal setup
+    # ------------------------------------------------------------------
+
+    def _setup_dirs(self) -> None:
+        self.results_dir = BASE_DIR / "results" / self.slug
+        self.repos_dir   = BASE_DIR / "repos"   / self.slug
+        for d in (
+            self.results_dir / "raw",
+            self.results_dir / "cloned",
+            self.results_dir / "analysis",
+            self.results_dir / "plots",
+            self.repos_dir,
+        ):
+            d.mkdir(parents=True, exist_ok=True)
+
+    @staticmethod
+    def _label(prefix: str, term: str) -> str:
+        clean = (
+            term.strip('"')
+            .replace(" ", "_")
+            .replace("@", "at_")
+            .replace("-", "_")
+            .replace(".", "_")
+            .replace("/", "_")
+        )
+        return f"{prefix}_{clean}"
+
+    def _build_queries(self) -> None:
+        phrases = [f'"{p}"' for p in self.search_phrases]
+        idents  = self.identifiers
+
+        def make(prefix: str, terms: list[str], kind: str | None = None) -> list[dict]:
+            q = [
+                {"query": t, "label": self._label(prefix, t)}
+                for t in terms
+            ]
+            if kind:
+                for entry in q:
+                    entry["kind"] = kind
+            return q
+
+        self.repo_queries: list[dict] = (
+            make("repo", phrases + idents)
+            + self.extra_queries["repos"]
+        )
+        self.code_queries: list[dict] = (
+            make("code", idents + phrases)
+            + self.extra_queries["code"]
+        )
+        self.issue_queries: list[dict] = (
+            make("issue", phrases + idents, kind="issue")
+            + make("pr",    phrases + idents, kind="pr")
+            + self.extra_queries["issues"]
+        )
+        self.commit_queries: list[dict] = (
+            make("commit", phrases + idents)
+            + self.extra_queries["commits"]
+        )
+        # Discussion queries are plain strings (used by GraphQL search)
+        disc_extras = [
+            e if isinstance(e, str) else e.get("query", "")
+            for e in self.extra_queries["discussions"]
+        ]
+        self.discussion_queries: list[str] = phrases + idents + disc_extras
+
+    def _compile_patterns(self) -> None:
+        """Compile regex patterns for use in the main process."""
+        flag_map = {"IGNORECASE": re.IGNORECASE, "MULTILINE": re.MULTILINE}
+        self.patterns: list[dict] = [
+            {
+                "id":    p["id"],
+                "label": p["label"],
+                "regex": re.compile(
+                    p["regex"],
+                    flag_map.get(p.get("flags", ""), 0),
+                ),
+            }
+            for p in self.patterns_raw
+        ]
+
+    # ------------------------------------------------------------------
+    # Serialisation for multiprocessing workers
+    # ------------------------------------------------------------------
+
+    def worker_config(self) -> dict:
+        """Return a JSON-serialisable dict for passing to subprocess workers."""
+        return {
+            "patterns_raw":         self.patterns_raw,
+            "results_dir":          str(self.results_dir),
+            "analysis_extensions":  list(ANALYSIS_EXTENSIONS),
+            "skip_dirs":            list(SKIP_DIRS),
+            "skip_extensions":      list(SKIP_EXTENSIONS),
+            "lemma_trigger":        self.lemma_trigger,
+            "concept_lemmas":       self.concept_lemmas,
+            "classification_strong": self.classification_strong,
+            "classification_weak":   self.classification_weak,
+        }
+
+    def __repr__(self) -> str:
+        return f"TechniqueProfile({self.name!r}, slug={self.slug!r})"
+
+
+# ---------------------------------------------------------------------------
+# Loader
+# ---------------------------------------------------------------------------
+
+def load_technique(yaml_path: str | Path) -> TechniqueProfile:
+    """
+    Load a technique profile from a YAML file.
+
+    Example:
+        profile = load_technique("techniques/metamorphic_testing.yaml")
+        search.run(..., profile=profile)
+    """
+    try:
+        import yaml
+    except ImportError as exc:
+        raise ImportError(
+            "PyYAML is required: pip install pyyaml"
+        ) from exc
+
+    path = Path(yaml_path)
+    if not path.exists():
+        raise FileNotFoundError(f"Technique file not found: {path}")
+
+    with open(path, encoding="utf-8") as fh:
+        data = yaml.safe_load(fh)
+
+    return TechniqueProfile(data)

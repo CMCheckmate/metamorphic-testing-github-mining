@@ -1,24 +1,21 @@
 """
-Metamorphic Testing GitHub Mining — Pipeline Orchestrator
-==========================================================
-Runs the full 5-phase pipeline or any subset of phases with a single command.
+GitHub Mining Pipeline Orchestrator
+=====================================
+Runs the full 5-phase pipeline or any subset of phases for a specified testing technique.
 
 Phases:
   1  Search   — query GitHub across 5 surfaces and write raw JSON results
   2  Clone    — filter candidates and shallow-clone qualifying repos
-  3  Analyse  — walk cloned repos for explicit MT patterns, score and classify
+  3  Analyse  — walk cloned repos for technique patterns, score and classify
   4  Plot     — generate publication-quality figures from Phase 1 & 3 outputs
   5  Report   — generate comprehensive results report answering Q1–Q8
 
 Usage examples:
-  python main.py                        # run all five phases
-  python main.py --stages 1 2           # search then clone only
-  python main.py --stages 3 4           # analyse and plot existing clones
-  python main.py --stages 5             # report from existing results (no re-run needed)
-  python main.py --stages 4 5           # regenerate plots and report
-  python main.py --stages 2 3 --min-stars 5 --workers 8
-  python main.py --stages 4 --format pdf
-  python main.py --stages 5 --refresh-plots --top-repos 30
+  python main.py --technique techniques/metamorphic_testing.yaml
+  python main.py --technique techniques/fuzzing.yaml --stages 1 2
+  python main.py --technique techniques/property_based_testing.yaml --stages 3 4 5
+  python main.py --technique techniques/metamorphic_testing.yaml --stages 5 --refresh-plots
+  python main.py --technique techniques/mutation_testing.yaml --stages 2 3 --min-stars 5 --workers 8
 
 Run  python main.py --help  for full parameter reference.
 """
@@ -57,9 +54,15 @@ def _elapsed(t0: float) -> str:
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="python main.py",
-        description="MT GitHub Mining pipeline orchestrator.",
+        description="GitHub Mining pipeline orchestrator — technique-agnostic.",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog=__doc__,
+    )
+
+    # --- Technique selection (required) ---
+    parser.add_argument(
+        "--technique", required=True, metavar="YAML",
+        help="Path to technique YAML file (e.g. techniques/metamorphic_testing.yaml)",
     )
 
     # --- Stage selection ---
@@ -142,9 +145,8 @@ def build_parser() -> argparse.ArgumentParser:
     # --- Phase 5: Report ---
     g5 = parser.add_argument_group("Phase 5 — Report")
     g5.add_argument(
-        "--report-output", type=Path,
-        default=None, metavar="PATH",
-        help="Output path for the results report (default: results/analysis/summary_report.md)",
+        "--report-output", type=Path, default=None, metavar="PATH",
+        help="Output path for the results report (default: results/<slug>/analysis/summary_report.md)",
     )
     g5.add_argument(
         "--refresh-plots", action="store_true",
@@ -174,8 +176,11 @@ def main() -> None:
     args   = parser.parse_args()
     stages = sorted(set(args.stages))
 
+    from config import load_technique
+    profile = load_technique(args.technique)
+
     t_total = time.time()
-    console.print(f"\n[bold]MT Mining Pipeline[/]  stages={stages}  workers={args.workers}\n")
+    console.print(f"\n[bold]Mining Pipeline — {profile.name} ({profile.short_name})[/]  stages={stages}  workers={args.workers}\n")
 
     # ------------------------------------------------------------------ #
     # Phase 1 — Search                                                     #
@@ -190,13 +195,14 @@ def main() -> None:
 
         surfaces = set(args.surfaces)
         search_phase.run(
-            do_repos        ="repo"        in surfaces,
-            do_code         ="code"        in surfaces,
-            do_issues       ="issues"      in surfaces,
-            do_commits      ="commits"     in surfaces,
-            do_discussions  ="discussions" in surfaces,
-            max_pages       =args.max_pages,
-            enable_slicing  =not args.no_slice,
+            do_repos       ="repo"        in surfaces,
+            do_code        ="code"        in surfaces,
+            do_issues      ="issues"      in surfaces,
+            do_commits     ="commits"     in surfaces,
+            do_discussions ="discussions" in surfaces,
+            max_pages      =args.max_pages,
+            enable_slicing =not args.no_slice,
+            profile        =profile,
         )
         console.print(f"\n[dim]Phase 1 done in {_elapsed(t0)}[/]")
 
@@ -212,14 +218,15 @@ def main() -> None:
             console.print(f"[red]Cannot import clone.py: {e}[/]"); sys.exit(1)
 
         clone_phase.run(
-            source     =args.clone_source,
-            limit      =args.clone_limit,
-            offset     =0,
-            refresh    =args.refresh,
-            min_stars  =args.min_stars,
-            skip_forks =args.skip_forks,
-            lang       =args.lang,
-            workers    =args.workers,
+            source    =args.clone_source,
+            limit     =args.clone_limit,
+            offset    =0,
+            refresh   =args.refresh,
+            min_stars =args.min_stars,
+            skip_forks=args.skip_forks,
+            lang      =args.lang,
+            workers   =args.workers,
+            profile   =profile,
         )
         console.print(f"\n[dim]Phase 2 done in {_elapsed(t0)}[/]")
 
@@ -234,14 +241,14 @@ def main() -> None:
         except ImportError as e:
             console.print(f"[red]Cannot import analyze.py: {e}[/]"); sys.exit(1)
 
-        from config import RESULTS_DIR
         analyze_phase.run(
-            target_repo =None,
-            min_score   =args.min_score,
-            out_dir     =RESULTS_DIR / "analysis",
-            workers     =args.workers,
-            append      =args.append,
-            cleanup     =args.cleanup_clones,
+            target_repo=None,
+            min_score  =args.min_score,
+            out_dir    =profile.results_dir / "analysis",
+            workers    =args.workers,
+            append     =args.append,
+            cleanup    =args.cleanup_clones,
+            profile    =profile,
         )
         console.print(f"\n[dim]Phase 3 done in {_elapsed(t0)}[/]")
 
@@ -256,11 +263,11 @@ def main() -> None:
         except ImportError as e:
             console.print(f"[red]Cannot import plot.py: {e}[/]"); sys.exit(1)
 
-        from config import RESULTS_DIR
         plot_phase.run(
-            out_dir=RESULTS_DIR / "plots",
-            fmt    =args.format,
-            dpi    =args.dpi,
+            out_dir =profile.results_dir / "plots",
+            fmt     =args.format,
+            dpi     =args.dpi,
+            profile =profile,
         )
         console.print(f"\n[dim]Phase 4 done in {_elapsed(t0)}[/]")
 
@@ -275,16 +282,16 @@ def main() -> None:
         except ImportError as e:
             console.print(f"[red]Cannot import report.py: {e}[/]"); sys.exit(1)
 
-        from config import RESULTS_DIR
-        out_path = args.report_output or (RESULTS_DIR / "analysis" / "summary_report.md")
+        out_path = args.report_output or (profile.results_dir / "analysis" / "summary_report.md")
         report_phase.run(
-            results_dir   = RESULTS_DIR,
-            out_path      = out_path,
-            plots_dir     = RESULTS_DIR / "plots",
-            refresh_plots = args.refresh_plots,
-            top_n         = args.top_repos,
-            fmt           = args.format,
-            dpi           = args.dpi,
+            results_dir   =profile.results_dir,
+            out_path      =out_path,
+            plots_dir     =profile.results_dir / "plots",
+            refresh_plots =args.refresh_plots,
+            top_n         =args.top_repos,
+            fmt           =args.format,
+            dpi           =args.dpi,
+            profile       =profile,
         )
         console.print(f"\n[dim]Phase 5 done in {_elapsed(t0)}[/]")
 

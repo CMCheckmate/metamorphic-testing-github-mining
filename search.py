@@ -1,7 +1,7 @@
 """
 Phase 1 — GitHub Search
 ========================
-Searches GitHub across five surfaces for metamorphic testing adoption:
+Searches GitHub across five surfaces for adoption of the specified testing technique.
 
   Surface            Endpoint                    Rate limit (auth)
   ─────────────────  ──────────────────────────  ─────────────────
@@ -16,14 +16,15 @@ split by date range and recursed until each slice fits under the 1,000-result
 hard cap, giving full coverage instead of a truncated first-1,000 sample.
 
 Usage:
-    python search.py [--repo] [--code] [--issues] [--commits] [--discussions]
-                     [--max-pages N] [--no-slice]
+    python search.py --technique techniques/metamorphic_testing.yaml
+    python search.py --technique techniques/fuzzing.yaml --repo --code
+    python search.py --technique techniques/property_based_testing.yaml --no-slice
 
-    Pass one or more surface flags to run only those; omit all to run everything.
-    --max-pages N   Cap pages per individual query/slice (default: 10)
-    --no-slice      Disable date-range slicing (faster, misses >1k results)
+    --technique PATH  Path to a technique YAML file (required)
+    --max-pages N     Cap pages per individual query/slice (default: 10)
+    --no-slice        Disable date-range slicing (faster, misses >1k results)
 
-Output files (results/raw/):
+Output files (results/<slug>/raw/):
     repos.json        — deduplicated repository records
     code.json         — deduplicated code-file match records
     issues.json       — deduplicated issue records
@@ -47,12 +48,6 @@ from config import (
     GITHUB_TOKEN,
     GITHUB_API_BASE,
     GITHUB_GRAPHQL_URL,
-    RESULTS_DIR,
-    REPO_QUERIES,
-    CODE_QUERIES,
-    ISSUE_QUERIES,
-    COMMIT_QUERIES,
-    DISCUSSION_QUERIES,
     STANDARD_SEARCH_DELAY,
     CODE_SEARCH_DELAY,
     GRAPHQL_DELAY,
@@ -604,8 +599,9 @@ def run(
     do_discussions: bool,
     max_pages: int,
     enable_slicing: bool,
+    profile,                # TechniqueProfile
 ) -> None:
-    raw = RESULTS_DIR / "raw"
+    raw = profile.results_dir / "raw"
     all_summary: list[dict] = []
 
     repos = issues = prs = commits = discussions = []
@@ -613,32 +609,32 @@ def run(
 
     if do_repos:
         console.rule("[bold blue]Repositories[/]")
-        repos, s = search_repositories(REPO_QUERIES, max_pages, enable_slicing)
+        repos, s = search_repositories(profile.repo_queries, max_pages, enable_slicing)
         repos = dedup_repos(repos)
         all_summary.extend(s)
 
     if do_code:
         console.rule("[bold blue]Code files[/]")
-        code_raw, s = search_code(CODE_QUERIES, max_pages, enable_slicing)
+        code_raw, s = search_code(profile.code_queries, max_pages, enable_slicing)
         code = dedup_code(code_raw)
         all_summary.extend(s)
 
     if do_issues:
         console.rule("[bold blue]Issues & Pull Requests[/]")
-        raw_issues, raw_prs, s = search_issues(ISSUE_QUERIES, max_pages, enable_slicing)
+        raw_issues, raw_prs, s = search_issues(profile.issue_queries, max_pages, enable_slicing)
         issues = dedup_issues(raw_issues)
         prs    = dedup_issues(raw_prs)
         all_summary.extend(s)
 
     if do_commits:
         console.rule("[bold blue]Commits[/]")
-        raw_commits, s = search_commits(COMMIT_QUERIES, max_pages, enable_slicing)
+        raw_commits, s = search_commits(profile.commit_queries, max_pages, enable_slicing)
         commits = dedup_commits(raw_commits)
         all_summary.extend(s)
 
     if do_discussions:
         console.rule("[bold blue]Discussions (GraphQL)[/]")
-        raw_disc, s = search_discussions(DISCUSSION_QUERIES, max_pages)
+        raw_disc, s = search_discussions(profile.discussion_queries, max_pages)
         discussions = dedup_discuss(raw_disc)
         all_summary.extend(s)
 
@@ -675,7 +671,9 @@ def run(
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Phase 1: search GitHub for MT adoption")
+    parser = argparse.ArgumentParser(description="Phase 1: search GitHub for technique adoption")
+    parser.add_argument("--technique",    required=True,
+                        help="Path to technique YAML file (e.g. techniques/metamorphic_testing.yaml)")
     parser.add_argument("--repo",         action="store_true", help="Repository searches")
     parser.add_argument("--code",         action="store_true", help="Code-file searches")
     parser.add_argument("--issues",       action="store_true", help="Issue & PR searches")
@@ -687,6 +685,9 @@ def main() -> None:
                         help="Disable adaptive date-range slicing (faster, incomplete for large queries)")
     args = parser.parse_args()
 
+    from config import load_technique
+    profile = load_technique(args.technique)
+
     # If no surface specified, run all
     any_flag = args.repo or args.code or args.issues or args.commits or args.discussions
     run(
@@ -697,6 +698,7 @@ def main() -> None:
         do_discussions  = args.discussions or not any_flag,
         max_pages       = args.max_pages,
         enable_slicing  = not args.no_slice,
+        profile         = profile,
     )
 
 

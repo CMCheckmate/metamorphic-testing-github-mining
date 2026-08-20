@@ -1,0 +1,194 @@
+# Technique profile: Mutation Testing
+# Mutation testing evaluates the quality of a test suite by injecting small
+# artificial faults (mutants) into the source code and checking whether the tests
+# detect them. Comparison with MT is instructive because both amplify test coverage,
+# but MT works from input relations while mutation testing works from code faults.
+
+name: "Mutation Testing"
+short_name: "MutTest"
+slug: "mutation_testing"
+description: >
+  A test adequacy technique that introduces small artificial faults (mutants) into source
+  code and measures what fraction of mutants the test suite can detect (kill).
+color: "#e65100"
+
+# -------------------------------------------------------------------
+# Search vocabulary
+# -------------------------------------------------------------------
+
+search_phrases:
+  - "mutation testing"
+  - "mutation analysis"
+  - "mutation score"
+  - "mutant killing"
+  - "killing mutants"
+  - "killed mutants"
+  - "survived mutants"
+  - "mutation operators"
+  - "higher order mutation"
+  - "higher-order mutation"
+  - "equivalent mutant"
+  - "equivalent mutants"
+  - "mutant generation"
+  - "test mutation"
+  - "program mutation"
+  - "source mutation"
+  - "weak mutation"
+  - "strong mutation"
+
+identifiers:
+  # Java — PIT (Pitest)
+  - "pitest"
+  - "PIT"
+  - "PITest"
+  # Python
+  - "mutmut"
+  - "mutatest"
+  - "MutPy"
+  - "cosmic-ray"
+  - "cosmicray"
+  # JavaScript / TypeScript
+  - "stryker"
+  - "StrykerJS"
+  # Rust
+  - "cargo-mutants"
+  # PHP
+  - "infection"
+  # Ruby
+  - "mutant"
+  # Go
+  - "gremlins"
+  - "go-mutesting"
+  # Generic
+  - "mutation_score"
+  - "killed_mutants"
+  - "survived_mutants"
+  - "MutationOperator"
+
+extra_queries:
+  repos:
+    - query: "topic:mutation-testing"
+      label: "repo_mutation_testing_topic"
+    - query: "topic:pitest"
+      label: "repo_pitest_topic"
+    - query: "topic:stryker"
+      label: "repo_stryker_topic"
+    - query: "topic:mutmut"
+      label: "repo_mutmut_topic"
+    - query: '"mutation testing framework"'
+      label: "repo_mutation_framework"
+  code: []
+  issues: []
+  commits: []
+  discussions: []
+
+# -------------------------------------------------------------------
+# Local analysis patterns (Phase 3)
+# -------------------------------------------------------------------
+
+patterns:
+  # --- Python mutmut ---
+  - id: "import_mutmut"
+    label: "Import: mutmut"
+    regex: "(?:import mutmut|from mutmut)"
+
+  # --- Python mutatest ---
+  - id: "import_mutatest"
+    label: "Import: mutatest"
+    regex: "(?:import mutatest|from mutatest)"
+
+  # --- Python cosmic-ray ---
+  - id: "import_cosmicray"
+    label: "Import: cosmic_ray / cosmicray"
+    regex: "(?:import cosmic_ray|from cosmic_ray|import cosmicray)"
+
+  # --- Java PIT (Pitest) — Maven/Gradle config ---
+  - id: "pitest_plugin"
+    label: "Build config: pitest / PIT plugin"
+    regex: "(?:pitest|org\\.pitest)"
+    flags: "IGNORECASE"
+
+  # --- JavaScript Stryker ---
+  - id: "stryker_config"
+    label: "Stryker config / import"
+    regex: "(?:stryker|@stryker-mutator)"
+    flags: "IGNORECASE"
+
+  # --- Rust cargo-mutants ---
+  - id: "cargo_mutants"
+    label: "Rust: cargo-mutants"
+    regex: "cargo.mutants|cargo_mutants"
+    flags: "IGNORECASE"
+
+  # --- Generic mutation testing identifiers ---
+  - id: "identifier_mutation_score"
+    label: "Identifier: mutation_score"
+    regex: "\\bmutation_score\\b"
+
+  - id: "identifier_mutant"
+    label: "Identifier: MutationOperator / mutant classes"
+    regex: "\\bMutation(?:Operator|Tester|Score|Analysis)\\w*\\b"
+
+  - id: "identifier_killed_mutants"
+    label: "Identifier: killed_mutants / survived_mutants"
+    regex: "\\b(?:killed|survived)_mutants\\b"
+
+  # --- String literals ---
+  - id: "string_mutation_testing"
+    label: 'String: "mutation testing/analysis"'
+    regex: '"[Mm]utation\\s+(?:test(?:ing|s)?|analysis|score|operator)"'
+
+  - id: "string_mutant_kill"
+    label: 'String: "killing mutants" / "mutant killed"'
+    regex: '"(?:[Kk]ill(?:ing)?\\s+mutants?|[Mm]utant\\s+killed)"'
+
+  # --- Comments ---
+  - id: "comment_mutation_testing"
+    label: "Comment: mutation testing"
+    regex: "(?:#|//).*\\bmutation\\s+test(?:ing|s|er)?\\b"
+    flags: "IGNORECASE"
+
+  - id: "comment_mutant"
+    label: "Comment: mutant / mutation operator"
+    regex: "(?:#|//).*\\b(?:mutants?|mutation\\s+operator)\\b"
+    flags: "IGNORECASE"
+
+  - id: "comment_mutation_score"
+    label: "Comment: mutation score"
+    regex: "(?:#|//).*\\bmutation\\s+score\\b"
+    flags: "IGNORECASE"
+
+# -------------------------------------------------------------------
+# Scoring thresholds
+# -------------------------------------------------------------------
+classification:
+  strong_threshold: 3
+  weak_threshold: 1
+
+# -------------------------------------------------------------------
+# Lemmatization
+# -------------------------------------------------------------------
+lemmatization:
+  trigger: ""   # disabled — mutation/mutant regex coverage is sufficient
+
+# -------------------------------------------------------------------
+# Report customization
+# -------------------------------------------------------------------
+extra_report_sections:
+  - "framework_vs_adopter"
+
+report_intro: |
+  **Mutation Testing** is a test adequacy technique that evaluates how thoroughly a test suite
+  exercises the source code by introducing small, syntactically valid *artificial faults*
+  (mutants) — e.g. replacing `>` with `>=`, deleting a statement, or negating a condition.
+
+  A test suite "kills" a mutant if at least one test fails for the mutated program. The
+  **mutation score** (killed ÷ total mutants) measures test suite quality beyond simple
+  code coverage.
+
+  Key tools: **PIT** (Java), **mutmut** (Python), **Stryker** (JS/TS/Java), **cosmic-ray**
+  (Python), **cargo-mutants** (Rust), and **MutPy** (Python).
+
+  Compared to Metamorphic Testing, mutation testing evaluates *test suite quality* (are
+  your tests good?) whereas MT generates *new test cases* (find new bugs). Both techniques
+  complement each other in a comprehensive testing strategy.

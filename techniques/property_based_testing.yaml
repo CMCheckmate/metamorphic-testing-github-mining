@@ -1,0 +1,225 @@
+# Technique profile: Property-Based Testing (PBT)
+# PBT is a generalization of which Metamorphic Testing (MT) is a specific form.
+# A PBT framework generates random inputs that satisfy a stated property;
+# MT is PBT applied to the oracle problem via metamorphic relations.
+# This profile covers the broader PBT ecosystem to provide comparison context for MT research.
+
+name: "Property-Based Testing"
+short_name: "PBT"
+slug: "property_based_testing"
+description: >
+  A testing approach where test cases are generated automatically to verify high-level
+  properties (invariants) that should hold for all valid inputs.
+color: "#1565c0"
+
+# -------------------------------------------------------------------
+# Search vocabulary
+# -------------------------------------------------------------------
+
+search_phrases:
+  - "property based testing"
+  - "property-based testing"
+  - "property based test"
+  - "property-based test"
+  - "property based tests"
+  - "property-based tests"
+  - "generative testing"
+  - "generator based testing"
+  - "invariant based testing"
+  - "randomized testing"
+  - "random test generation"
+  - "shrinking strategy"
+  - "test shrinkage"
+  - "arbitrary test data"
+  - "model based testing"
+  - "QuickCheck testing"
+
+identifiers:
+  # Haskell / original
+  - "QuickCheck"
+  - "Arbitrary"
+  # Python — Hypothesis
+  - "hypothesis"
+  - "@given"
+  - "@settings"
+  - "st.integers"
+  - "st.text"
+  - "st.composite"
+  # Scala
+  - "ScalaCheck"
+  - "Gen.arbitrary"
+  - "forAll"
+  # F# / C#
+  - "FsCheck"
+  # Java
+  - "jqwik"
+  - "@Property"
+  - "@ForAll"
+  # JavaScript / TypeScript
+  - "fast-check"
+  # Rust
+  - "proptest"
+  - "quickcheck"
+  # Erlang / Elixir
+  - "PropEr"
+  - "proper_gen"
+  # Go
+  - "gopter"
+  # Generic
+  - "property_test"
+  - "prop_test"
+
+extra_queries:
+  repos:
+    - query: "topic:property-based-testing"
+      label: "repo_pbt_topic"
+    - query: "topic:quickcheck"
+      label: "repo_quickcheck_topic"
+    - query: "topic:hypothesis"
+      label: "repo_hypothesis_topic"
+    - query: '"property-based testing framework"'
+      label: "repo_pbt_framework"
+  code: []
+  issues: []
+  commits: []
+  discussions: []
+
+# -------------------------------------------------------------------
+# Local analysis patterns (Phase 3)
+# -------------------------------------------------------------------
+
+patterns:
+  # --- Python Hypothesis ---
+  - id: "import_hypothesis"
+    label: "Import: hypothesis library"
+    regex: "(?:import hypothesis|from hypothesis)"
+
+  - id: "decorator_given"
+    label: "Decorator: @given (Hypothesis)"
+    regex: "@given\\s*\\("
+
+  - id: "decorator_settings"
+    label: "Decorator: @settings (Hypothesis)"
+    regex: "@settings\\s*\\("
+
+  - id: "hypothesis_strategies"
+    label: "Hypothesis strategies (st.*)"
+    regex: "\\bst\\.(?:integers|text|floats|booleans|lists|dictionaries|composite|one_of|builds)\\b"
+
+  # --- Haskell / Rust / Python QuickCheck ---
+  - id: "import_quickcheck"
+    label: "Import: quickcheck"
+    regex: "(?i)(?:import|use|require|extern crate)\\s+quickcheck"
+
+  - id: "class_Arbitrary"
+    label: "Class/trait: Arbitrary"
+    regex: "\\bArbitrary\\b"
+
+  # --- ScalaCheck ---
+  - id: "import_scalacheck"
+    label: "Import: ScalaCheck"
+    regex: "(?:import|use)\\s+org\\.scalacheck"
+
+  - id: "forAll_method"
+    label: "Method: forAll (ScalaCheck/QuickCheck)"
+    regex: "\\bforAll\\s*\\("
+
+  # --- Java jqwik ---
+  - id: "annotation_Property"
+    label: "Annotation: @Property (jqwik)"
+    regex: "@Property\\b"
+
+  - id: "annotation_ForAll"
+    label: "Annotation: @ForAll (jqwik)"
+    regex: "@ForAll\\b"
+
+  # --- JavaScript fast-check ---
+  - id: "import_fast_check"
+    label: "Import: fast-check"
+    regex: "(?:require|from)\\s+['\"]fast-check['\"]"
+
+  - id: "fc_property"
+    label: "fast-check: fc.property / fc.assert"
+    regex: "\\bfc\\.(?:property|assert|check|anything|integer|string|array)\\b"
+
+  # --- Rust proptest ---
+  - id: "proptest_macro"
+    label: "proptest! macro (Rust)"
+    regex: "\\bproptest!\\s*\\{"
+
+  - id: "import_proptest"
+    label: "Import: proptest (Rust)"
+    regex: "use\\s+proptest"
+
+  # --- F# FsCheck ---
+  - id: "import_fscheck"
+    label: "Import: FsCheck"
+    regex: "open\\s+FsCheck"
+
+  # --- Generic identifiers ---
+  - id: "identifier_property_test"
+    label: "Identifier: property_test / prop_test"
+    regex: "\\b(?:property_test|prop_test)\\w*\\b"
+
+  # --- String literals ---
+  - id: "string_pbt_phrase"
+    label: 'String: "property-based testing/test"'
+    regex: '"[Pp]roperty.based\\s+test(?:ing|s)?"'
+
+  - id: "string_quickcheck_phrase"
+    label: 'String: "QuickCheck"'
+    regex: '"QuickCheck"'
+
+  # --- Comments ---
+  - id: "comment_pbt"
+    label: "Comment: property-based testing"
+    regex: "(?:#|//).*\\bproperty.based\\s+test(?:ing|s)?\\b"
+    flags: "IGNORECASE"
+
+  - id: "comment_invariant"
+    label: "Comment: invariant testing"
+    regex: "(?:#|//).*\\binvariant\\s+test(?:ing|s)?\\b"
+    flags: "IGNORECASE"
+
+  - id: "comment_generative"
+    label: "Comment: generative testing"
+    regex: "(?:#|//).*\\bgenerative\\s+test(?:ing|s)?\\b"
+    flags: "IGNORECASE"
+
+  # --- Abbreviation ---
+  - id: "abbrev_PBT"
+    label: "Abbreviation: PBT (property-based testing)"
+    regex: "(?<![A-Za-z0-9])PBT(?![A-Za-z0-9])"
+
+# -------------------------------------------------------------------
+# Scoring thresholds
+# -------------------------------------------------------------------
+classification:
+  strong_threshold: 3
+  weak_threshold: 1
+
+# -------------------------------------------------------------------
+# Lemmatization
+# -------------------------------------------------------------------
+lemmatization:
+  trigger: ""   # disabled — "property" is too common a word for trigger-based filtering
+
+# -------------------------------------------------------------------
+# Report customization
+# -------------------------------------------------------------------
+extra_report_sections:
+  - "framework_vs_adopter"
+
+report_intro: |
+  **Property-Based Testing (PBT)** is a testing methodology in which the tester specifies
+  high-level *properties* (invariants that should hold for all valid inputs), and a framework
+  automatically generates diverse test cases to attempt to falsify those properties.
+
+  PBT originated with **QuickCheck** (Haskell, 1999) and has since been ported or reimplemented
+  across most major programming languages: **Hypothesis** (Python), **ScalaCheck** (Scala),
+  **FsCheck** (F#/C#), **jqwik** (Java), **fast-check** (JavaScript/TypeScript), **proptest** (Rust),
+  and many others.
+
+  *Metamorphic Testing (MT) is a specialised form of PBT* where the property is a metamorphic
+  relation between outputs of related inputs. This report analyses the broader PBT ecosystem
+  to provide comparison context for the MT research project.

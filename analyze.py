@@ -1,21 +1,22 @@
 """
 Phase 3 — Local Analysis
 =========================
-Walks each cloned repo and scans every file for MT adoption signals.
+Walks each cloned repo and scans every file for adoption signals of the specified
+testing technique.
 
-Produces results in results/analysis/:
+Produces results in results/<slug>/analysis/:
   - findings.json      — per-file matches with line numbers and code snippets
   - repo_scores.json   — per-repo scores and classification tier
-  - summary_report.md  — human-readable markdown summary
 
 Usage:
-    python analyze.py [--repo OWNER/NAME] [--min-score N]
-                      [--output-dir PATH] [--workers N] [--append]
-                      [--cleanup-clones]
+    python analyze.py --technique techniques/metamorphic_testing.yaml
+    python analyze.py --technique techniques/fuzzing.yaml --workers 8
+    python analyze.py --technique techniques/property_based_testing.yaml --append
 
+    --technique PATH   Path to technique YAML file (required)
     --repo FULL_NAME   Analyse a single repo only (e.g. owner/name)
     --min-score N      Only include repos with score >= N in the report
-    --workers N        Parallel worker threads (default: 4)
+    --workers N        Parallel worker processes (default: all CPU cores)
     --append           Merge with any existing analysis outputs
     --cleanup-clones   Delete each cloned repo after analysis to save disk
 """
@@ -31,13 +32,10 @@ from threading import Lock
 from rich.console import Console
 from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn, TimeElapsedColumn
 
-from config import RESULTS_DIR, REPOS_DIR, ANALYSIS_EXTENSIONS, SKIP_DIRS, SKIP_EXTENSIONS
-
 console = Console()
 
 # ---------------------------------------------------------------------------
-# Optional NLTK lemmatization — catches inflected forms in comments/strings
-# that the regex patterns miss (e.g. "metamorphic tested", "was grouped").
+# Optional NLTK lemmatization — catches inflected forms in comments/strings.
 # Gracefully disabled if NLTK is not installed.
 # ---------------------------------------------------------------------------
 try:
@@ -65,120 +63,52 @@ def _ensure_nltk_data() -> None:
             nltk.download(kind, quiet=True)
 
 
-# Base lemmas mapped to a readable concept label used in findings output.
-_MT_CONCEPT_LEMMAS: dict[str, str] = {
-    "test":     "metamorphic testing",
-    "relation": "metamorphic relation",
-    "group":    "metamorphic group",
-    "property": "metamorphic property",
-}
-
 # Patterns for extracting comment and string text from source files.
-_COMMENT_LINE_RE  = re.compile(r'(?:#|//)(.+)$',   re.MULTILINE)
+_COMMENT_LINE_RE   = re.compile(r'(?:#|//)(.+)$',   re.MULTILINE)
 _STRING_LITERAL_RE = re.compile(r'"([^"\n]{4,})"')
 
+
 # ---------------------------------------------------------------------------
-# Patterns — what counts as evidence of MT adoption in source files
-#
-# Each pattern has:
-#   id      — short machine-readable key used in output files and reports
-#   label   — human-readable description shown in the summary report
-#   regex   — compiled regular expression applied to the full file text
-#
-# Pattern categories:
-#   Class names     — language-agnostic names used by MT frameworks
-#   Identifiers     — snake_case variable/function names common in MT code
-#   String literals — quoted phrases used in test names, docstrings, etc.
-#   Inline comments — #//-style comments mentioning MT concepts;
-#                     each regex covers all word forms via (?:...) alternatives
-#                     (e.g. test/testing/tests, relation/relationship/...)
+# Worker-process state — set once per worker via ProcessPoolExecutor initializer
 # ---------------------------------------------------------------------------
-PATTERNS: list[dict] = [
-    # --- Class names (used in MT frameworks across multiple languages) ---
-    {
-        "id":    "class_MetamorphicTest",
-        "label": "Class name: MetamorphicTest",
-        "regex": re.compile(r"\bMetamorphicTest\w*\b"),
-    },
-    {
-        "id":    "class_MetamorphicRelation",
-        "label": "Class name: MetamorphicRelation",
-        "regex": re.compile(r"\bMetamorphicRelation\w*\b"),
-    },
-    # --- Decorator (used by some MT libraries) ---
-    {
-        "id":    "decorator_metamorphic",
-        "label": "Decorator: @metamorphic",
-        "regex": re.compile(r"@metamorphic\b"),
-    },
-    # --- Snake_case identifiers (common naming convention in MT code) ---
-    {
-        "id":    "identifier_mr",
-        "label": "Identifier: metamorphic_relation",
-        "regex": re.compile(r"\bmetamorphic_relation\w*\b"),
-    },
-    {
-        "id":    "identifier_mt",
-        "label": "Identifier: metamorphic_test",
-        "regex": re.compile(r"\bmetamorphic_test\w*\b"),
-    },
-    # --- String literals containing MT phrases ---
-    {
-        "id":    "string_mt_phrase",
-        "label": 'String: "metamorphic test/testing/tests"',
-        "regex": re.compile(r'"[Mm]etamorphic\s+[Tt]est(?:ing|s)?"'),
-    },
-    {
-        "id":    "string_mr_phrase",
-        "label": 'String: "metamorphic relation/relationship"',
-        "regex": re.compile(r'"[Mm]etamorphic\s+[Rr]elation(?:s|ship|ships)?"'),
-    },
-    {
-        "id":    "string_mg_phrase",
-        "label": 'String: "metamorphic group/groups"',
-        "regex": re.compile(r'"[Mm]etamorphic\s+[Gg]roups?"'),
-    },
-    {
-        "id":    "string_mp_phrase",
-        "label": 'String: "metamorphic property/properties"',
-        "regex": re.compile(r'"[Mm]etamorphic\s+[Pp]ropert(?:y|ies)"'),
-    },
-    # --- Inline comments mentioning MT concepts ---
-    {
-        "id":    "comment_mt",
-        "label": "Comment: metamorphic test/testing/tests",
-        "regex": re.compile(r"(?:#|//).*\bmetamorphic\s+test(?:ing|s)?\b", re.IGNORECASE),
-    },
-    {
-        "id":    "comment_mr",
-        "label": "Comment: metamorphic relation/relationship",
-        "regex": re.compile(r"(?:#|//).*\bmetamorphic\s+relation(?:s|ship|ships)?\b", re.IGNORECASE),
-    },
-    {
-        "id":    "comment_mg",
-        "label": "Comment: metamorphic group/groups",
-        "regex": re.compile(r"(?:#|//).*\bmetamorphic\s+groups?\b", re.IGNORECASE),
-    },
-    {
-        "id":    "comment_mp",
-        "label": "Comment: metamorphic property/properties",
-        "regex": re.compile(r"(?:#|//).*\bmetamorphic\s+propert(?:y|ies)\b", re.IGNORECASE),
-    },
-    # --- Uppercase abbreviations MT / MR used after the full term has been introduced ---
-    # Matched case-sensitively and only when surrounded by non-alphanumeric characters
-    # (spaces, hyphens, underscores, punctuation) to avoid false positives from
-    # variable names like `smtp`, `html`, or matrix row abbreviations.
-    {
-        "id":    "abbrev_MT",
-        "label": "Abbreviation: MT (metamorphic testing)",
-        "regex": re.compile(r"(?<![A-Za-z0-9])MT(?![A-Za-z0-9])"),
-    },
-    {
-        "id":    "abbrev_MR",
-        "label": "Abbreviation: MR (metamorphic relation)",
-        "regex": re.compile(r"(?<![A-Za-z0-9])MR(?![A-Za-z0-9])"),
-    },
-]
+
+_W_PATTERNS:             list[dict] = []
+_W_RESULTS_DIR:          Path       = Path(".")
+_W_ANALYSIS_EXTENSIONS:  set[str]   = set()
+_W_SKIP_DIRS:            set[str]   = set()
+_W_SKIP_EXTENSIONS:      set[str]   = set()
+_W_CONCEPT_LEMMAS:       dict       = {}
+_W_LEMMA_TRIGGER:        str        = ""
+_W_CLASS_STRONG:         int        = 3
+_W_CLASS_WEAK:           int        = 1
+
+
+def _worker_init(cfg: dict) -> None:
+    """Called once in each worker process before any jobs run."""
+    global _W_PATTERNS, _W_RESULTS_DIR, _W_ANALYSIS_EXTENSIONS
+    global _W_SKIP_DIRS, _W_SKIP_EXTENSIONS, _W_CONCEPT_LEMMAS, _W_LEMMA_TRIGGER
+    global _W_CLASS_STRONG, _W_CLASS_WEAK
+
+    flag_map = {"IGNORECASE": re.IGNORECASE, "MULTILINE": re.MULTILINE}
+    _W_PATTERNS = [
+        {
+            "id":    p["id"],
+            "label": p["label"],
+            "regex": re.compile(
+                p["regex"],
+                flag_map.get(p.get("flags", ""), 0),
+            ),
+        }
+        for p in cfg["patterns_raw"]
+    ]
+    _W_RESULTS_DIR         = Path(cfg["results_dir"])
+    _W_ANALYSIS_EXTENSIONS = set(cfg["analysis_extensions"])
+    _W_SKIP_DIRS           = set(cfg["skip_dirs"])
+    _W_SKIP_EXTENSIONS     = set(cfg["skip_extensions"])
+    _W_CONCEPT_LEMMAS      = cfg["concept_lemmas"]
+    _W_LEMMA_TRIGGER       = cfg["lemma_trigger"]
+    _W_CLASS_STRONG        = cfg["classification_strong"]
+    _W_CLASS_WEAK          = cfg["classification_weak"]
 
 
 # ---------------------------------------------------------------------------
@@ -190,11 +120,11 @@ def iter_source_files(repo_path: Path):
     for file_path in repo_path.rglob("*"):
         if not file_path.is_file():
             continue
-        if any(skip_dir in file_path.parts for skip_dir in SKIP_DIRS):
+        if any(skip_dir in file_path.parts for skip_dir in _W_SKIP_DIRS):
             continue
-        if ANALYSIS_EXTENSIONS and file_path.suffix not in ANALYSIS_EXTENSIONS:
+        if _W_ANALYSIS_EXTENSIONS and file_path.suffix not in _W_ANALYSIS_EXTENSIONS:
             continue
-        if file_path.suffix in SKIP_EXTENSIONS:
+        if file_path.suffix in _W_SKIP_EXTENSIONS:
             continue
         yield file_path, file_path.relative_to(repo_path)
 
@@ -205,23 +135,19 @@ def iter_source_files(repo_path: Path):
 
 def _lemmatized_findings(text: str, rel_path: Path) -> list[dict]:
     """
-    Scan comment and string lines for MT concepts via lemmatization.
-
-    Complements the regex PATTERNS by catching inflected forms they don't
-    cover — past tense ("was tested"), agentive nouns ("grouped"), etc.
-    Only fires when "metamorphic" is already present in the line, so false
-    positives from general English lemmas ("test", "group") are avoided.
+    Scan comment and string lines for technique concepts via lemmatization.
+    Only fires when lemma_trigger keyword is present in the line.
     """
-    if not _NLTK_AVAILABLE or _LEMMATIZER is None:
+    if not _NLTK_AVAILABLE or _LEMMATIZER is None or not _W_LEMMA_TRIGGER or not _W_CONCEPT_LEMMAS:
         return []
 
     results: list[dict] = []
-    seen: set[tuple] = set()  # (line_number, concept) dedup
+    seen: set[tuple] = set()
 
     for context_re, kind in [(_COMMENT_LINE_RE, "Comment"), (_STRING_LITERAL_RE, "String")]:
         for m in context_re.finditer(text):
             segment = m.group(1)
-            if "metamorphic" not in segment.lower():
+            if _W_LEMMA_TRIGGER not in segment.lower():
                 continue
 
             tokens = word_tokenize(segment.lower())
@@ -231,7 +157,7 @@ def _lemmatized_findings(text: str, rel_path: Path) -> list[dict]:
                 lemmas.add(_LEMMATIZER.lemmatize(tok, pos="n"))
 
             line_number = text[: m.start()].count("\n") + 1
-            for base_lemma, concept_label in _MT_CONCEPT_LEMMAS.items():
+            for base_lemma, concept_label in _W_CONCEPT_LEMMAS.items():
                 key = (line_number, base_lemma)
                 if base_lemma in lemmas and key not in seen:
                     seen.add(key)
@@ -256,14 +182,14 @@ def _context_snippet(text: str, regex_match: re.Match, context_lines: int = 1) -
 
 
 def analyze_file(file_path: Path, rel_path: Path) -> list[dict]:
-    """Scan one file against all PATTERNS and return a list of match records."""
+    """Scan one file against all patterns and return a list of match records."""
     try:
         text = file_path.read_text(errors="replace")
     except Exception:
         return []
 
     match_records: list[dict] = []
-    for pattern in PATTERNS:
+    for pattern in _W_PATTERNS:
         for regex_match in pattern["regex"].finditer(text):
             line_number = text[:regex_match.start()].count("\n") + 1
             match_records.append({
@@ -283,21 +209,12 @@ def analyze_file(file_path: Path, rel_path: Path) -> list[dict]:
 # ---------------------------------------------------------------------------
 
 def score_repo(findings: list[dict]) -> dict:
-    """
-    Compute a score and classification tier for a single repository.
-
-    Scoring: each pattern match = 3 points, capped at 100.
-
-    Classification tiers:
-      strong_explicit  3 or more matches — multiple distinct MT signals
-      weak_explicit    1 or 2 matches    — at least one direct signal
-      none             0 matches         — no MT evidence found
-    """
+    """Compute a score and classification tier for a single repository."""
     total_matches = len(findings)
 
-    if total_matches >= 3:
+    if total_matches >= _W_CLASS_STRONG:
         tier = "strong_explicit"
-    elif total_matches >= 1:
+    elif total_matches >= _W_CLASS_WEAK:
         tier = "weak_explicit"
     else:
         tier = "none"
@@ -324,9 +241,7 @@ def _analyse_repo(repo_meta: dict) -> tuple[list[dict], dict | None]:
     if not local_path.exists():
         return [], None
 
-    # Per-worker log file — one per process so no cross-process locking is needed.
-    # Written to results/analysis/worker_logs/<pid>.log.
-    log_dir  = RESULTS_DIR / "analysis" / "worker_logs"
+    log_dir  = _W_RESULTS_DIR / "analysis" / "worker_logs"
     log_dir.mkdir(parents=True, exist_ok=True)
     log_path = log_dir / f"{os.getpid()}.log"
 
@@ -398,11 +313,12 @@ def run(
     workers:     int | None,
     append:      bool,
     cleanup:     bool,
+    profile,                 # TechniqueProfile
 ) -> None:
     out_dir.mkdir(parents=True, exist_ok=True)
     _ensure_nltk_data()
 
-    manifest_path = RESULTS_DIR / "cloned" / "manifest.json"
+    manifest_path = profile.results_dir / "cloned" / "manifest.json"
     if not manifest_path.exists():
         console.print("[red]No clone manifest found. Run clone.py first.[/]")
         return
@@ -436,7 +352,9 @@ def run(
     effective_workers = workers or os.cpu_count() or 4
     skipped_msg = f"  ([dim]{len(already_done)} already done, skipping[/])" if already_done else ""
     console.print(f"\n[bold]{len(repos_to_analyse)}[/] repos to analyse  (processes={effective_workers}){skipped_msg}")
-    console.print(f"  [dim]Per-file progress: tail results/analysis/worker_logs/<pid>.log[/]\n")
+    console.print(f"  [dim]Per-file progress: tail {out_dir}/worker_logs/<pid>.log[/]\n")
+
+    worker_cfg = profile.worker_config()
 
     new_findings: list[dict] = []
     new_scores:   list[dict] = []
@@ -451,7 +369,11 @@ def run(
     ) as progress:
         progress_task = progress.add_task("Analysing…", total=len(repos_to_analyse))
 
-        with ProcessPoolExecutor(max_workers=effective_workers) as executor:
+        with ProcessPoolExecutor(
+            max_workers=effective_workers,
+            initializer=_worker_init,
+            initargs=(worker_cfg,),
+        ) as executor:
             future_to_repo = {
                 executor.submit(_analyse_repo, repo_entry): repo_entry
                 for repo_entry in repos_to_analyse
@@ -503,24 +425,30 @@ def run(
     console.print(
         f"\n[bold green]Done.[/]  "
         f"[cyan]{len(scores_by_repo)}[/] repos  •  "
-        f"[cyan]{repos_with_signal}[/] with MT signal  •  "
+        f"[cyan]{repos_with_signal}[/] with {profile.short_name} signal  •  "
         f"[cyan]{len(combined_findings)}[/] total findings\n"
         f"Output: [dim]{out_dir}[/]"
     )
 
 
 def main() -> None:
-    default_out = RESULTS_DIR / "analysis"
-    parser = argparse.ArgumentParser(description="Phase 3: analyse cloned repos for MT patterns")
+    parser = argparse.ArgumentParser(description="Phase 3: analyse cloned repos for technique patterns")
+    parser.add_argument("--technique",      required=True,
+                        help="Path to technique YAML file (e.g. techniques/metamorphic_testing.yaml)")
     parser.add_argument("--repo",           default=None,        help="Analyse a single repo (owner/name)")
     parser.add_argument("--min-score",      type=int, default=0)
-    parser.add_argument("--output-dir",     type=Path, default=default_out)
+    parser.add_argument("--output-dir",     type=Path, default=None,
+                        help="Output directory (default: results/<slug>/analysis/)")
     parser.add_argument("--workers",        type=int, default=None, help="Parallel worker processes (default: all CPU cores)")
     parser.add_argument("--append",         action="store_true", help="Merge with existing outputs")
     parser.add_argument("--cleanup-clones", action="store_true", help="Delete each clone after analysis")
     args = parser.parse_args()
 
-    run(args.repo, args.min_score, args.output_dir, args.workers, args.append, args.cleanup_clones)
+    from config import load_technique
+    profile = load_technique(args.technique)
+    out_dir = args.output_dir or (profile.results_dir / "analysis")
+
+    run(args.repo, args.min_score, out_dir, args.workers, args.append, args.cleanup_clones, profile=profile)
 
 
 if __name__ == "__main__":

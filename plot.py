@@ -1,27 +1,18 @@
 """
 Phase 4 — Plots & Visualisations
 ==================================
-Reads the outputs of search.py (results/raw/) and analyze.py (results/analysis/)
-and produces a set of publication-quality plots saved to results/plots/.
-
-Plots generated:
-  1.  query_hits.png           — per-query hit counts across all search surfaces
-  2.  classification_dist.png  — classification tier distribution (bar)
-  3.  yearly_trend.png         — MT-adopting repos created per year (line)
-  4.  language_dist.png        — top languages among explicit MT repos (bar)
-  5.  stars_vs_score.png       — stars vs explicit hit count scatter
-  6.  pattern_freq.png         — explicit pattern hit frequency (horizontal bar)
-  7.  query_overlap.png        — repos found by N distinct search queries
-  8.  author_dist.png          — top organisations/users by explicit MT repo count (Q6)
-  9.  coverage_depth.png       — files-with-MT-signals per repo distribution (Q7)
-  10. query_repos.png          — distinct repos matched per search query (coloured by surface)
+Reads the outputs of search.py (results/<slug>/raw/) and analyze.py
+(results/<slug>/analysis/) and produces publication-quality plots saved to
+results/<slug>/plots/.
 
 Usage:
-    python plot.py [--output-dir PATH] [--dpi N] [--format png|pdf|svg]
+    python plot.py --technique techniques/metamorphic_testing.yaml
+    python plot.py --technique techniques/fuzzing.yaml --format pdf --dpi 300
 
-    --output-dir   Where to save plots (default: results/plots/)
-    --dpi          Resolution for raster outputs (default: 150)
-    --format       Output format: png, pdf, or svg (default: png)
+    --technique PATH  Path to technique YAML file (required)
+    --output-dir      Where to save plots (default: results/<slug>/plots/)
+    --dpi             Resolution for raster outputs (default: 150)
+    --format          Output format: png, pdf, or svg (default: png)
 """
 
 import argparse
@@ -40,10 +31,6 @@ from rich.console import Console
 from config import RESULTS_DIR
 
 console = Console()
-
-# ---------------------------------------------------------------------------
-# Style
-# ---------------------------------------------------------------------------
 
 PALETTE = {
     "strong_explicit": "#1a6e3c",
@@ -78,6 +65,15 @@ def load_all(raw_dir: Path, analysis_dir: Path):
 
 
 # ---------------------------------------------------------------------------
+# Helper: substitute "MT" technique name in plot titles
+# ---------------------------------------------------------------------------
+
+def _title(base: str, technique_name: str) -> str:
+    """Replace 'MT' placeholder in a title with the technique short name."""
+    return base.replace("{technique}", technique_name)
+
+
+# ---------------------------------------------------------------------------
 # Plot helpers
 # ---------------------------------------------------------------------------
 
@@ -92,7 +88,7 @@ def _save(fig, out_dir: Path, name: str, fmt: str, dpi: int) -> None:
 # 1. Query hit counts (from summary.json)
 # ---------------------------------------------------------------------------
 
-def plot_query_hits(summary: dict, out_dir: Path, fmt: str, dpi: int) -> None:
+def plot_query_hits(summary: dict, out_dir: Path, fmt: str, dpi: int, technique_name: str = "Technique") -> None:
     if not summary:
         return
     queries = summary.get("queries", [])
@@ -108,7 +104,7 @@ def plot_query_hits(summary: dict, out_dir: Path, fmt: str, dpi: int) -> None:
     colors = [sns.color_palette("Blues_d", as_cmap=False, n_colors=8)[5]] * len(df)
     ax.barh(df["surface_query"], df["hits"], color=colors)
     ax.set_xlabel("Total hits")
-    ax.set_title("GitHub Search Hit Counts by Query and Surface")
+    ax.set_title(f"GitHub Search Hit Counts by Query and Surface — {technique_name}")
     ax.xaxis.set_major_locator(mticker.MaxNLocator(integer=True))
     _save(fig, out_dir, "query_hits", fmt, dpi)
 
@@ -117,7 +113,7 @@ def plot_query_hits(summary: dict, out_dir: Path, fmt: str, dpi: int) -> None:
 # 2. Classification tier distribution (from repo_scores.json)
 # ---------------------------------------------------------------------------
 
-def plot_classification_dist(repo_scores: list, out_dir: Path, fmt: str, dpi: int) -> None:
+def plot_classification_dist(repo_scores: list, out_dir: Path, fmt: str, dpi: int, technique_name: str = "Technique") -> None:
     if not repo_scores:
         return
 
@@ -131,7 +127,7 @@ def plot_classification_dist(repo_scores: list, out_dir: Path, fmt: str, dpi: in
     ax.bar_label(bars, padding=3, fontsize=10)
     ax.set_xlabel("Classification tier")
     ax.set_ylabel("Number of repositories")
-    ax.set_title("MT Classification Tier Distribution")
+    ax.set_title(f"{technique_name} Classification Tier Distribution")
     ax.set_xticklabels([t.replace("_", " ").title() for t in tiers], rotation=20, ha="right")
     _save(fig, out_dir, "classification_dist", fmt, dpi)
 
@@ -140,7 +136,7 @@ def plot_classification_dist(repo_scores: list, out_dir: Path, fmt: str, dpi: in
 # 3. Yearly trend (MT-adopting repos created per year)
 # ---------------------------------------------------------------------------
 
-def plot_yearly_trend(repo_scores: list, out_dir: Path, fmt: str, dpi: int) -> None:
+def plot_yearly_trend(repo_scores: list, out_dir: Path, fmt: str, dpi: int, technique_name: str = "Technique") -> None:
     if not repo_scores:
         return
 
@@ -167,8 +163,8 @@ def plot_yearly_trend(repo_scores: list, out_dir: Path, fmt: str, dpi: int) -> N
     ax.fill_between(yearly["year"], yearly["count"], alpha=0.15,
                     color=PALETTE["strong_explicit"])
     ax.set_xlabel("Year repository created")
-    ax.set_ylabel("Repositories with explicit MT adoption")
-    ax.set_title("Yearly Trend: Explicit MT Adoption in New Repositories")
+    ax.set_ylabel(f"Repositories with explicit {technique_name} adoption")
+    ax.set_title(f"Yearly Trend: Explicit {technique_name} Adoption in New Repositories")
     ax.xaxis.set_major_locator(mticker.MultipleLocator(1))
     ax.xaxis.set_tick_params(rotation=45)
     _save(fig, out_dir, "yearly_trend", fmt, dpi)
@@ -178,7 +174,7 @@ def plot_yearly_trend(repo_scores: list, out_dir: Path, fmt: str, dpi: int) -> N
 # 4. Language distribution (explicit MT repos only)
 # ---------------------------------------------------------------------------
 
-def plot_language_dist(repo_scores: list, out_dir: Path, fmt: str, dpi: int) -> None:
+def plot_language_dist(repo_scores: list, out_dir: Path, fmt: str, dpi: int, technique_name: str = "Technique") -> None:
     if not repo_scores:
         return
 
@@ -196,8 +192,8 @@ def plot_language_dist(repo_scores: list, out_dir: Path, fmt: str, dpi: int) -> 
     bars = ax.bar(labels, values, color=palette, edgecolor="white", linewidth=0.8)
     ax.bar_label(bars, padding=3, fontsize=9)
     ax.set_xlabel("Primary language")
-    ax.set_ylabel("Repositories with explicit MT adoption")
-    ax.set_title("Language Distribution — Explicit MT Repos (Top 15)")
+    ax.set_ylabel(f"Repositories with explicit {technique_name} adoption")
+    ax.set_title(f"Language Distribution — Explicit {technique_name} Repos (Top 15)")
     ax.set_xticklabels(labels, rotation=35, ha="right")
     _save(fig, out_dir, "language_dist", fmt, dpi)
 
@@ -206,7 +202,7 @@ def plot_language_dist(repo_scores: list, out_dir: Path, fmt: str, dpi: int) -> 
 # 5. Stars vs explicit hit count (scatter, log scale)
 # ---------------------------------------------------------------------------
 
-def plot_stars_scatter(repo_scores: list, out_dir: Path, fmt: str, dpi: int) -> None:
+def plot_stars_scatter(repo_scores: list, out_dir: Path, fmt: str, dpi: int, technique_name: str = "Technique") -> None:
     if not repo_scores:
         return
 
@@ -227,8 +223,8 @@ def plot_stars_scatter(repo_scores: list, out_dir: Path, fmt: str, dpi: int) -> 
                    color=PALETTE[tier], alpha=0.7, edgecolors="white", linewidth=0.5, s=60)
 
     ax.set_xlabel("√(Stars + 1)  (monotone proxy for popularity)")
-    ax.set_ylabel("Number of direct MT pattern matches")
-    ax.set_title("Repository Popularity vs Explicit MT Hit Count")
+    ax.set_ylabel(f"Number of direct {technique_name} pattern matches")
+    ax.set_title(f"Repository Popularity vs Explicit {technique_name} Hit Count")
     ax.legend(title="Classification", fontsize=9)
     _save(fig, out_dir, "stars_vs_score", fmt, dpi)
 
@@ -237,7 +233,7 @@ def plot_stars_scatter(repo_scores: list, out_dir: Path, fmt: str, dpi: int) -> 
 # 6. Explicit pattern hit frequency (from findings.json)
 # ---------------------------------------------------------------------------
 
-def plot_pattern_freq(findings: list, out_dir: Path, fmt: str, dpi: int) -> None:
+def plot_pattern_freq(findings: list, out_dir: Path, fmt: str, dpi: int, technique_name: str = "Technique") -> None:
     if not findings:
         return
 
@@ -253,7 +249,7 @@ def plot_pattern_freq(findings: list, out_dir: Path, fmt: str, dpi: int) -> None
     palette = sns.color_palette("Blues_d", n_colors=len(labels))
     ax.barh(labels, values, color=palette)
     ax.set_xlabel("Number of individual matches")
-    ax.set_title("Explicit Pattern Hit Frequency (top 20)")
+    ax.set_title(f"{technique_name} Explicit Pattern Hit Frequency (top 20)")
     ax.xaxis.set_major_locator(mticker.MaxNLocator(integer=True))
     _save(fig, out_dir, "pattern_freq", fmt, dpi)
 
@@ -332,8 +328,8 @@ def plot_query_overlap(repo_scores: list, out_dir: Path, fmt: str, dpi: int) -> 
 # 9. Author / organisation concentration (Q6)
 # ---------------------------------------------------------------------------
 
-def plot_author_dist(repo_scores: list, out_dir: Path, fmt: str, dpi: int) -> None:
-    """Top organisations/users by count of explicit MT repositories (Q6)."""
+def plot_author_dist(repo_scores: list, out_dir: Path, fmt: str, dpi: int, technique_name: str = "Technique") -> None:
+    """Top organisations/users by count of explicit repositories (Q6)."""
     if not repo_scores:
         return
 
@@ -354,8 +350,8 @@ def plot_author_dist(repo_scores: list, out_dir: Path, fmt: str, dpi: int) -> No
     fig, ax = plt.subplots(figsize=(10, max(6, len(labels) * 0.37)))
     palette = sns.color_palette("mako_r", n_colors=len(labels))
     ax.barh(labels, values, color=palette)
-    ax.set_xlabel("Repositories with explicit MT adoption")
-    ax.set_title("Top Organisations / Users by Explicit MT Repository Count (Q6)")
+    ax.set_xlabel(f"Repositories with explicit {technique_name} adoption")
+    ax.set_title(f"Top Organisations / Users by Explicit {technique_name} Repository Count (Q6)")
     ax.xaxis.set_major_locator(mticker.MaxNLocator(integer=True))
     _save(fig, out_dir, "author_dist", fmt, dpi)
 
@@ -364,8 +360,8 @@ def plot_author_dist(repo_scores: list, out_dir: Path, fmt: str, dpi: int) -> No
 # 10. MT coverage depth within repos (Q7)
 # ---------------------------------------------------------------------------
 
-def plot_coverage_depth(findings: list, repo_scores: list, out_dir: Path, fmt: str, dpi: int) -> None:
-    """Distribution of files-with-explicit-MT-signals per repo, by tier (Q7)."""
+def plot_coverage_depth(findings: list, repo_scores: list, out_dir: Path, fmt: str, dpi: int, technique_name: str = "Technique") -> None:
+    """Distribution of files-with-explicit-signals per repo, by tier (Q7)."""
     if not findings or not repo_scores:
         return
 
@@ -408,9 +404,9 @@ def plot_coverage_depth(findings: list, repo_scores: list, out_dir: Path, fmt: s
         color=[PALETTE["strong_explicit"], PALETTE["weak_explicit"]],
         edgecolor="white", linewidth=0.5,
     )
-    ax.set_xlabel("Number of files with explicit MT signals per repository")
+    ax.set_xlabel(f"Number of files with explicit {technique_name} signals per repository")
     ax.set_ylabel("Number of repositories")
-    ax.set_title("MT Coverage Depth within Repositories (Q7)")
+    ax.set_title(f"{technique_name} Coverage Depth within Repositories (Q7)")
     ax.legend(
         [t.replace("_", " ").title() for t in ["strong_explicit", "weak_explicit"]],
         title="Tier", fontsize=9,
@@ -549,36 +545,43 @@ def plot_query_repos(repo_scores: list, summary: dict | None, out_dir: Path, fmt
 # Main
 # ---------------------------------------------------------------------------
 
-def run(out_dir: Path, fmt: str, dpi: int) -> None:
+def run(out_dir: Path, fmt: str, dpi: int, profile=None) -> None:
     out_dir.mkdir(parents=True, exist_ok=True)
-    raw_dir      = RESULTS_DIR / "raw"
-    analysis_dir = RESULTS_DIR / "analysis"
+    raw_dir      = profile.results_dir / "raw"
+    analysis_dir = profile.results_dir / "analysis"
+    tech         = profile.name if profile else "Technique"
 
     data = load_all(raw_dir, analysis_dir)
 
-    console.rule("[bold blue]Generating plots[/]")
-    plot_query_hits(         data["summary"],                      out_dir, fmt, dpi)
-    plot_classification_dist(data["repo_scores"],                  out_dir, fmt, dpi)
-    plot_yearly_trend(       data["repo_scores"],                  out_dir, fmt, dpi)
-    plot_language_dist(      data["repo_scores"],                  out_dir, fmt, dpi)
-    plot_stars_scatter(      data["repo_scores"],                  out_dir, fmt, dpi)
-    plot_pattern_freq(       data["findings"],                     out_dir, fmt, dpi)
+    console.rule(f"[bold blue]Generating plots — {tech}[/]")
+    plot_query_hits(         data["summary"],                      out_dir, fmt, dpi, tech)
+    plot_classification_dist(data["repo_scores"],                  out_dir, fmt, dpi, tech)
+    plot_yearly_trend(       data["repo_scores"],                  out_dir, fmt, dpi, tech)
+    plot_language_dist(      data["repo_scores"],                  out_dir, fmt, dpi, tech)
+    plot_stars_scatter(      data["repo_scores"],                  out_dir, fmt, dpi, tech)
+    plot_pattern_freq(       data["findings"],                     out_dir, fmt, dpi, tech)
     plot_query_overlap(      data["repo_scores"],                  out_dir, fmt, dpi)
-    plot_author_dist(        data["repo_scores"],                  out_dir, fmt, dpi)
-    plot_coverage_depth(     data["findings"], data["repo_scores"],out_dir, fmt, dpi)
+    plot_author_dist(        data["repo_scores"],                  out_dir, fmt, dpi, tech)
+    plot_coverage_depth(     data["findings"], data["repo_scores"],out_dir, fmt, dpi, tech)
     plot_query_repos(        data["repo_scores"], data["summary"],  out_dir, fmt, dpi)
 
     console.print(f"\n[bold green]Done.[/]  All plots saved to [dim]{out_dir}[/]")
 
 
 def main() -> None:
-    default_out = RESULTS_DIR / "plots"
     parser = argparse.ArgumentParser(description="Phase 4: generate plots from mining results")
-    parser.add_argument("--output-dir", type=Path, default=default_out)
+    parser.add_argument("--technique",   required=True,
+                        help="Path to technique YAML file (e.g. techniques/metamorphic_testing.yaml)")
+    parser.add_argument("--output-dir", type=Path, default=None,
+                        help="Output directory (default: results/<slug>/plots/)")
     parser.add_argument("--dpi",        type=int,  default=150)
     parser.add_argument("--format",     choices=["png", "pdf", "svg"], default="png")
     args = parser.parse_args()
-    run(args.output_dir, args.format, args.dpi)
+
+    from config import load_technique
+    profile = load_technique(args.technique)
+    out_dir = args.output_dir or (profile.results_dir / "plots")
+    run(out_dir, args.format, args.dpi, profile=profile)
 
 
 if __name__ == "__main__":

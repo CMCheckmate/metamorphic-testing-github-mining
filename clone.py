@@ -1,17 +1,18 @@
 """
 Phase 2 — Clone Repos
 ======================
-Reads results/raw/repos.json and results/raw/code.json, builds a merged
-candidate list, then shallow-clones each repo into repos/<owner>/<name>/.
+Reads results/<slug>/raw/repos.json and results/<slug>/raw/code.json, builds a merged
+candidate list, then shallow-clones each repo into repos/<slug>/<owner>/<name>/.
 
 Repos that already exist on disk are skipped unless --refresh is passed.
-A clone manifest (results/cloned/manifest.json) is maintained so Phase 3
+A clone manifest (results/<slug>/cloned/manifest.json) is maintained so Phase 3
 always has a complete picture of what is available locally.
 
 Usage:
-    python clone.py [--source repos|code|both] [--limit N] [--offset N] [--refresh]
-                    [--min-stars N] [--skip-forks] [--lang LANG]
+    python clone.py --technique techniques/metamorphic_testing.yaml
+    python clone.py --technique techniques/fuzzing.yaml --min-stars 5 --workers 8
 
+    --technique PATH  Path to a technique YAML file (required)
     --source      Which search result file to pull candidates from (default: both)
     --limit       Max number of repos to clone in this run (default: unlimited)
     --offset      Skip the first N candidates after filtering/sorting
@@ -36,8 +37,6 @@ from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn, TimeEl
 import git  # GitPython
 
 from config import (
-    RESULTS_DIR,
-    REPOS_DIR,
     MAX_REPO_SIZE_KB,
     CLONE_DEPTH,
     CLONE_DELAY_SECONDS,
@@ -45,14 +44,12 @@ from config import (
 
 console = Console()
 
-MANIFEST_PATH = RESULTS_DIR / "cloned" / "manifest.json"
-
 
 # ---------------------------------------------------------------------------
 # Candidate building
 # ---------------------------------------------------------------------------
 
-def load_candidates(source: str) -> list[dict]:
+def load_candidates(source: str, profile) -> list[dict]:
     """
     Merge repo and/or code search results into a unified candidate list.
     Each candidate has at minimum: full_name, clone_url, size_kb, is_fork, stars, language.
@@ -60,7 +57,7 @@ def load_candidates(source: str) -> list[dict]:
     candidates: dict[str, dict] = {}
 
     if source in ("repos", "both"):
-        repo_file = RESULTS_DIR / "raw" / "repos.json"
+        repo_file = profile.results_dir / "raw" / "repos.json"
         if repo_file.exists():
             with open(repo_file) as f:
                 for rec in json.load(f):
@@ -69,7 +66,7 @@ def load_candidates(source: str) -> list[dict]:
             console.print(f"[yellow]repos.json not found — run search.py first[/]")
 
     if source in ("code", "both"):
-        code_file = RESULTS_DIR / "raw" / "code.json"
+        code_file = profile.results_dir / "raw" / "code.json"
         if code_file.exists():
             with open(code_file) as f:
                 for rec in json.load(f):
@@ -127,16 +124,16 @@ def filter_candidates(
 # Manifest helpers
 # ---------------------------------------------------------------------------
 
-def load_manifest() -> dict:
-    MANIFEST_PATH.parent.mkdir(parents=True, exist_ok=True)
-    if MANIFEST_PATH.exists():
-        with open(MANIFEST_PATH) as f:
+def load_manifest(manifest_path: Path) -> dict:
+    manifest_path.parent.mkdir(parents=True, exist_ok=True)
+    if manifest_path.exists():
+        with open(manifest_path) as f:
             return json.load(f)
     return {"repos": {}}
 
 
-def save_manifest(manifest: dict) -> None:
-    with open(MANIFEST_PATH, "w") as f:
+def save_manifest(manifest: dict, manifest_path: Path) -> None:
+    with open(manifest_path, "w") as f:
         json.dump(manifest, f, indent=2)
 
 
@@ -144,14 +141,14 @@ def save_manifest(manifest: dict) -> None:
 # Clone
 # ---------------------------------------------------------------------------
 
-def clone_repo(candidate: dict, refresh: bool, manifest: dict) -> str:
+def clone_repo(candidate: dict, refresh: bool, manifest: dict, repos_dir: Path) -> str:
     """
     Clone a single repo.  Returns one of: 'cloned', 'skipped', 'refreshed', 'error'.
     Updates manifest in-place.
     """
     full_name = candidate["full_name"]
     clone_url = candidate["clone_url"]
-    dest = REPOS_DIR / full_name
+    dest = repos_dir / full_name
 
     already_exists = dest.exists() and (dest / ".git").exists()
 
@@ -220,9 +217,12 @@ def _collect_queries(candidate: dict) -> list[str]:
 # ---------------------------------------------------------------------------
 
 def run(source: str, limit: int | None, offset: int, refresh: bool, min_stars: int,
-        skip_forks: bool, lang: str | None, workers: int = 4) -> None:
+        skip_forks: bool, lang: str | None, workers: int = 4, profile=None) -> None:
 
-    candidates = load_candidates(source)
+    manifest_path = profile.results_dir / "cloned" / "manifest.json"
+    repos_dir     = profile.repos_dir
+
+    candidates = load_candidates(source, profile)
     candidates, excluded, filter_skips = filter_candidates(candidates, min_stars, skip_forks, lang)
     candidates.sort(key=lambda c: c.get("stars", 0), reverse=True)
 
@@ -237,7 +237,7 @@ def run(source: str, limit: int | None, offset: int, refresh: bool, min_stars: i
         f"offset={offset}, workers={workers})"
     )
 
-    manifest = load_manifest()
+    manifest = load_manifest(manifest_path)
     for exc in excluded:
         name = exc["full_name"]
         manifest["repos"][name] = {
@@ -251,16 +251,16 @@ def run(source: str, limit: int | None, offset: int, refresh: bool, min_stars: i
             "skip_reason": exc["skip_reason"],
         }
     if excluded:
-        save_manifest(manifest)
+        save_manifest(manifest, manifest_path)
     manifest_lock = Lock()
     counts = {"cloned": 0, "skipped": 0, "refreshed": 0, "error": 0}
     counts_lock = Lock()
 
     def _clone_worker(candidate: dict) -> str:
-        result = clone_repo(candidate, refresh, manifest)
+        result = clone_repo(candidate, refresh, manifest, repos_dir)
         time.sleep(CLONE_DELAY_SECONDS)
         with manifest_lock:
-            save_manifest(manifest)
+            save_manifest(manifest, manifest_path)
         with counts_lock:
             counts[result] += 1
         return result
@@ -304,11 +304,13 @@ def run(source: str, limit: int | None, offset: int, refresh: bool, min_stars: i
         f"errors=[red]{counts['error']}[/]\n"
         f"Skipped:  " + "  |  ".join(skip_lines)
     )
-    console.print(f"Manifest updated: [dim]{MANIFEST_PATH}[/]")
+    console.print(f"Manifest updated: [dim]{manifest_path}[/]")
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Phase 2: clone candidate repositories")
+    parser.add_argument("--technique",   required=True,
+                        help="Path to technique YAML file (e.g. techniques/metamorphic_testing.yaml)")
     parser.add_argument("--source",     choices=["repos", "code", "both"], default="both")
     parser.add_argument("--limit",      type=int,  default=None, help="Max repos to clone")
     parser.add_argument("--offset",     type=int,  default=0, help="Skip the first N filtered repos")
@@ -319,7 +321,11 @@ def main() -> None:
     parser.add_argument("--workers",     type=int,  default=4,   help="Parallel clone workers (default: 4)")
     args = parser.parse_args()
 
-    run(args.source, args.limit, args.offset, args.refresh, args.min_stars, args.skip_forks, args.lang, args.workers)
+    from config import load_technique
+    profile = load_technique(args.technique)
+
+    run(args.source, args.limit, args.offset, args.refresh, args.min_stars,
+        args.skip_forks, args.lang, args.workers, profile=profile)
 
 
 if __name__ == "__main__":

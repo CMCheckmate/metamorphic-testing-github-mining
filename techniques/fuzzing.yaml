@@ -1,0 +1,208 @@
+# Technique profile: Fuzz Testing (Fuzzing)
+# Fuzzing generates semi-random or mutation-based inputs to find crashes,
+# assertion failures, and security vulnerabilities. Comparison with MT is
+# interesting because both target the oracle problem but from different angles:
+# fuzzing detects crashes/undefined behaviour, MT detects logical correctness faults.
+
+name: "Fuzz Testing"
+short_name: "Fuzzing"
+slug: "fuzzing"
+description: >
+  A dynamic testing technique that feeds semi-random, malformed, or mutation-derived
+  inputs to a program to trigger crashes, assertion failures, and security vulnerabilities.
+color: "#b71c1c"
+
+# -------------------------------------------------------------------
+# Search vocabulary
+# -------------------------------------------------------------------
+
+search_phrases:
+  - "fuzz testing"
+  - "fuzz test"
+  - "fuzz tests"
+  - "fuzzing"
+  - "fuzzy testing"
+  - "coverage guided fuzzing"
+  - "coverage-guided fuzzing"
+  - "mutation based fuzzing"
+  - "mutation-based fuzzing"
+  - "grammar based fuzzing"
+  - "grammar-based fuzzing"
+  - "generation based fuzzing"
+  - "generation-based fuzzing"
+  - "differential fuzzing"
+  - "structure aware fuzzing"
+  - "structure-aware fuzzing"
+  - "greybox fuzzing"
+  - "grey-box fuzzing"
+  - "black box fuzzing"
+  - "black-box fuzzing"
+
+identifiers:
+  # C/C++ — libFuzzer / AFL
+  - "LLVMFuzzerTestOneInput"
+  - "FuzzedDataProvider"
+  - "libFuzzer"
+  - "AFL"
+  - "AFL++"
+  - "afl-fuzz"
+  # Python
+  - "atheris"
+  - "python-afl"
+  - "pythonfuzz"
+  - "boofuzz"
+  # Go
+  - "testing.F"
+  - "f.Fuzz"
+  # Java
+  - "Jazzer"
+  - "JQF"
+  # Rust
+  - "cargo-fuzz"
+  - "libfuzzer-sys"
+  # Generic
+  - "FuzzTarget"
+  - "fuzz_target"
+  - "OSS-Fuzz"
+  - "ClusterFuzz"
+  - "honggfuzz"
+
+extra_queries:
+  repos:
+    - query: "topic:fuzzing"
+      label: "repo_fuzzing_topic"
+    - query: "topic:fuzz-testing"
+      label: "repo_fuzz_testing_topic"
+    - query: "topic:libfuzzer"
+      label: "repo_libfuzzer_topic"
+    - query: "topic:afl-fuzzer"
+      label: "repo_afl_topic"
+    - query: '"fuzz testing framework"'
+      label: "repo_fuzz_framework"
+  code: []
+  issues: []
+  commits: []
+  discussions: []
+
+# -------------------------------------------------------------------
+# Local analysis patterns (Phase 3)
+# -------------------------------------------------------------------
+
+patterns:
+  # --- libFuzzer / C++ ---
+  - id: "libfuzzer_entrypoint"
+    label: "libFuzzer entry point: LLVMFuzzerTestOneInput"
+    regex: "\\bLLVMFuzzerTestOneInput\\b"
+
+  - id: "fuzzed_data_provider"
+    label: "libFuzzer: FuzzedDataProvider"
+    regex: "\\bFuzzedDataProvider\\b"
+
+  - id: "include_fuzzer"
+    label: "Include: fuzzer/FuzzedDataProvider.h"
+    regex: '#include\\s+[<"]fuzzer/'
+
+  # --- Python atheris ---
+  - id: "import_atheris"
+    label: "Import: atheris (Python fuzzer)"
+    regex: "(?:import atheris|from atheris)"
+
+  - id: "atheris_setup"
+    label: "atheris.Setup / atheris.Fuzz"
+    regex: "\\batheris\\.(?:Setup|Fuzz|instrument_func|instrument_imports)\\b"
+
+  # --- Python boofuzz ---
+  - id: "import_boofuzz"
+    label: "Import: boofuzz"
+    regex: "(?:import boofuzz|from boofuzz)"
+
+  # --- Go native fuzzing (Go 1.18+) ---
+  - id: "go_fuzz_func"
+    label: "Go: f.Fuzz / testing.F"
+    regex: "\\bf\\.Fuzz\\s*\\(|\\btesting\\.F\\b"
+
+  # --- Java Jazzer ---
+  - id: "jazzer_fuzz_target"
+    label: "Jazzer: @FuzzTest / fuzzerTestOneInput"
+    regex: "@FuzzTest\\b|\\bfuzzerTestOneInput\\b"
+
+  - id: "import_jazzer"
+    label: "Import: com.code_intelligence.jazzer"
+    regex: "import\\s+com\\.code_intelligence\\.jazzer"
+
+  # --- Rust cargo-fuzz ---
+  - id: "fuzz_target_macro"
+    label: "Rust: fuzz_target! macro"
+    regex: "\\bfuzz_target!\\s*\\|"
+
+  - id: "use_libfuzzer_sys"
+    label: "Rust: use libfuzzer_sys"
+    regex: "use\\s+libfuzzer_sys"
+
+  # --- Generic fuzzing identifiers ---
+  - id: "identifier_fuzz_target"
+    label: "Identifier: FuzzTarget / fuzz_target"
+    regex: "\\b(?:FuzzTarget|fuzz_target)\\b"
+
+  - id: "identifier_fuzz_test"
+    label: "Identifier: FuzzTest / fuzz_test"
+    regex: "\\b(?:FuzzTest|fuzz_test)\\w*\\b"
+
+  # --- String literals ---
+  - id: "string_fuzz_phrase"
+    label: 'String: "fuzz testing" / "fuzzing"'
+    regex: '"[Ff]uzz(?:ing|\\s+test(?:ing|s)?)"'
+
+  - id: "string_coverage_guided"
+    label: 'String: "coverage-guided fuzzing"'
+    regex: '"[Cc]overage.guided\\s+fuzzing"'
+
+  # --- Comments ---
+  - id: "comment_fuzz"
+    label: "Comment: fuzz testing / fuzzing"
+    regex: "(?:#|//).*\\bfuzz(?:ing|\\s+test(?:ing|s)?)\\b"
+    flags: "IGNORECASE"
+
+  - id: "comment_coverage_guided"
+    label: "Comment: coverage-guided fuzzing"
+    regex: "(?:#|//).*\\bcoverage.guided\\s+fuzzing\\b"
+    flags: "IGNORECASE"
+
+  # --- OSS-Fuzz integration file ---
+  - id: "ossfuzz_build"
+    label: "OSS-Fuzz: build.sh integration"
+    regex: "\\$(?:OUT|LIB_FUZZING_ENGINE)|oss-fuzz|ossfuzz"
+    flags: "IGNORECASE"
+
+# -------------------------------------------------------------------
+# Scoring thresholds
+# -------------------------------------------------------------------
+classification:
+  strong_threshold: 3
+  weak_threshold: 1
+
+# -------------------------------------------------------------------
+# Lemmatization
+# -------------------------------------------------------------------
+lemmatization:
+  trigger: ""   # disabled — "fuzz" is short but distinctive enough for regex matching
+
+# -------------------------------------------------------------------
+# Report customization
+# -------------------------------------------------------------------
+extra_report_sections:
+  - "framework_vs_adopter"
+
+report_intro: |
+  **Fuzz Testing** (fuzzing) is a dynamic testing technique that automatically generates
+  semi-random, malformed, or mutation-derived inputs to find crashes, assertion failures,
+  buffer overflows, and security vulnerabilities in software.
+
+  Modern fuzzers use *coverage feedback* to guide input mutation toward unexplored code paths.
+  Key tools include **AFL/AFL++** (American Fuzzy Lop), **libFuzzer** (LLVM-based, in-process),
+  **honggfuzz**, **atheris** (Python), **Jazzer** (Java/JVM), Go's native `testing.F`, and
+  **cargo-fuzz** (Rust). **OSS-Fuzz** runs continuous fuzzing on open-source projects at scale.
+
+  Compared to Metamorphic Testing, fuzzing focuses on *crash/undefined-behaviour oracles* rather
+  than logical correctness — it finds "does the program survive?" rather than "does the program
+  produce the right answer?"
