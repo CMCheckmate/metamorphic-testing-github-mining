@@ -189,6 +189,8 @@ def clone_repo(candidate: dict, refresh: bool, manifest: dict, repos_dir: Path) 
         "stars":           candidate.get("stars", 0),
         "language":        candidate.get("language", ""),
         "created_at":      candidate.get("created_at", ""),
+        "description":     candidate.get("description", ""),
+        "topics":          candidate.get("topics", []),
         "size_kb":         candidate.get("size_kb", 0),
         "is_fork":         candidate.get("is_fork", False),
         "matched_queries": _collect_queries(candidate),

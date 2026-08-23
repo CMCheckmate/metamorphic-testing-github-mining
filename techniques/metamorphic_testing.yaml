@@ -57,6 +57,26 @@ extra_queries:
   discussions: []
 
 # -------------------------------------------------------------------
+# Commit keyword detection (Phase 3 git log analysis)
+# Commits whose messages contain any of these terms are counted as
+# "technique commits" in the timeline and ratio metrics.
+# Defaults to search_phrases if omitted.
+# -------------------------------------------------------------------
+commit_keywords:
+  - "metamorphic test"
+  - "metamorphic relation"
+  - "metamorphic relations"
+  - "metamorphic testing"
+  - "metamorphic property"
+
+# Domain hints — these domains are expected to be over-represented for MT
+# (used for context in combined report, not for filtering)
+domain_hints:
+  - machine_learning
+  - scientific
+  - compiler
+
+# -------------------------------------------------------------------
 # Local analysis patterns (Phase 3)
 # -------------------------------------------------------------------
 # Each pattern is matched against every source file in cloned repos.

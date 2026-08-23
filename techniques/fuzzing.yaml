@@ -85,11 +85,23 @@ extra_queries:
   discussions: []
 
 # -------------------------------------------------------------------
+# Commit keyword detection (Phase 3 git log analysis)
+# -------------------------------------------------------------------
+commit_keywords:
+  - "fuzz"
+  - "fuzzing"
+  - "fuzzer"
+  - "libfuzzer"
+  - "afl"
+  - "atheris"
+  - "cargo-fuzz"
+  - "oss-fuzz"
+
+# -------------------------------------------------------------------
 # Local analysis patterns (Phase 3)
 # -------------------------------------------------------------------
 
 patterns:
-  # --- libFuzzer / C++ ---
   - id: "libfuzzer_entrypoint"
     label: "libFuzzer entry point: LLVMFuzzerTestOneInput"
     regex: "\\bLLVMFuzzerTestOneInput\\b"

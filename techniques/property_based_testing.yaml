@@ -85,6 +85,19 @@ extra_queries:
   discussions: []
 
 # -------------------------------------------------------------------
+# Commit keyword detection (Phase 3 git log analysis)
+# -------------------------------------------------------------------
+commit_keywords:
+  - "property-based test"
+  - "property based test"
+  - "hypothesis"
+  - "quickcheck"
+  - "proptest"
+  - "fast-check"
+  - "jqwik"
+  - "scalacheck"
+
+# -------------------------------------------------------------------
 # Local analysis patterns (Phase 3)
 # -------------------------------------------------------------------
 

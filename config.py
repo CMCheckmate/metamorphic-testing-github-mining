@@ -35,17 +35,10 @@ GITHUB_GRAPHQL_URL = "https://api.github.com/graphql"
 
 # ---------------------------------------------------------------------------
 # Rate-limit delays (seconds between requests, per endpoint bucket)
-#
-# GitHub authenticated limits:
-#   Standard search (/repositories, /issues, /commits): 30 req/min → 2.0 s min gap
-#   Code search (/code):                                  9 req/min → 6.7 s min gap
-#   GraphQL (discussions):                         5 000 pts/hour  → ~0.72 s/query
-#
-# Values include ~10 % headroom to avoid edge-case 429 responses.
 # ---------------------------------------------------------------------------
-STANDARD_SEARCH_DELAY = 2.2   # /repositories, /issues, /commits
-CODE_SEARCH_DELAY     = 7.0   # /code (separate rate-limit bucket)
-GRAPHQL_DELAY         = 1.5   # GraphQL discussions (conservative)
+STANDARD_SEARCH_DELAY = 2.2
+CODE_SEARCH_DELAY     = 7.0
+GRAPHQL_DELAY         = 1.5
 
 # ---------------------------------------------------------------------------
 # Adaptive date-range slicing
@@ -55,28 +48,94 @@ SLICE_MAX_DEPTH  = 6
 SLICE_MIN_DAYS   = 7
 
 SLICE_START_DATE = "2010-01-01"
-SLICE_END_DATE   = "2026-06-30"   # update as needed
+SLICE_END_DATE   = "2026-06-30"
 
 # ---------------------------------------------------------------------------
 # File-extension filter for local analysis (Phase 3)
 # ---------------------------------------------------------------------------
-ANALYSIS_EXTENSIONS: set[str] = set()   # empty = accept all
+ANALYSIS_EXTENSIONS: set[str] = set()   # empty = accept all source-like files
 
-SKIP_DIRS = {
+SKIP_DIRS: set[str] = {
     ".git", "node_modules", "__pycache__", ".venv", "venv", "env",
-    "dist", "build", "target", ".tox", ".pytest_cache",
+    "dist", "build", "target", ".tox", ".pytest_cache", ".eggs",
+    "coverage", ".coverage", "htmlcov",
 }
 
 SKIP_EXTENSIONS: set[str] = {
     ".out", ".bin", ".pkl", ".npz", ".npy", ".h5", ".hdf5", ".parquet",
+    ".wasm", ".so", ".dylib", ".dll", ".exe", ".class", ".pyc",
+}
+
+# Extensions treated as documentation (not source code)
+DOC_EXTENSIONS: set[str] = {
+    ".md", ".rst", ".txt", ".tex", ".adoc", ".pdf", ".html", ".htm",
+}
+
+# Extensions treated as configuration (build/packaging)
+CONFIG_EXTENSIONS: set[str] = {
+    ".toml", ".cfg", ".ini", ".yaml", ".yml", ".xml", ".json",
+    ".gradle", ".properties", ".lock",
 }
 
 # ---------------------------------------------------------------------------
 # Clone settings
 # ---------------------------------------------------------------------------
-MAX_REPO_SIZE_KB    = 750_000   # skip repos larger than 750 MB
-CLONE_DEPTH         = 1         # shallow clone (latest commit only)
-CLONE_DELAY_SECONDS = 0.3       # inter-clone delay per worker thread
+MAX_REPO_SIZE_KB    = 750_000
+CLONE_DEPTH         = 500        # fetch last N commits for commit history analysis
+                                  # set to 0 for full history (slow, high disk usage)
+CLONE_DELAY_SECONDS = 0.3
+
+# ---------------------------------------------------------------------------
+# Domain keyword sets for project domain inference
+# Checked against repo name + description + topics (all lowercased).
+# ---------------------------------------------------------------------------
+DOMAIN_KEYWORDS: dict[str, list[str]] = {
+    "machine_learning": [
+        "machine learning", "neural network", "deep learning", "ml model",
+        "sklearn", "scikit-learn", "tensorflow", "pytorch", "keras",
+        "model training", "classification", "regression", "llm",
+        "large language model", "transformer", "computer vision", "nlp",
+        "natural language processing",
+    ],
+    "compiler": [
+        "compiler", "transpiler", "parser", "abstract syntax tree", "ast",
+        "bytecode", "llvm", "codegen", "syntax", "code generation",
+        "interpreter", "jit", "optimization pass",
+    ],
+    "database": [
+        "database", "sql", "query", "orm", "datalog", "nosql", "mongodb",
+        "elasticsearch", "query optimizer", "storage engine", "relational",
+        "key-value store",
+    ],
+    "scientific": [
+        "simulation", "numerical", "scientific computing", "physics",
+        "computational", "differential equation", "monte carlo",
+        "optimization algorithm", "finite element", "fluid dynamics",
+        "signal processing",
+    ],
+    "bioinformatics": [
+        "bioinformatics", "genome", "dna", "rna", "protein", "sequence alignment",
+        "blast", "genomics", "proteomics", "phylogenetic", "metagenomics",
+    ],
+    "security": [
+        "security", "vulnerability", "exploit", "penetration test",
+        "cryptograph", "authentication", "authorization", "injection",
+        "fuzzing", "malware", "reverse engineering",
+    ],
+    "web": [
+        "api", "rest", "http", "web server", "django", "flask", "fastapi",
+        "microservice", "frontend", "backend", "graphql", "web application",
+        "react", "angular", "vue",
+    ],
+    "autonomous_systems": [
+        "autonomous", "self-driving", "driverless", "robotics",
+        "perception module", "path planning", "lidar", "drone",
+    ],
+    "testing_infrastructure": [
+        "testing framework", "test runner", "test suite", "assertion library",
+        "mock", "stub", "fuzz", "property-based", "mutation testing",
+    ],
+}
 
 
 # ---------------------------------------------------------------------------
@@ -109,6 +168,11 @@ class TechniqueProfile:
             "discussions": raw_extra.get("discussions", []),
         }
 
+        # Commit keyword detection (used in Phase 3 git log analysis).
+        # Defaults to search_phrases if not explicitly specified.
+        raw_commit_kw = data.get("commit_keywords", [])
+        self.commit_keywords: list[str] = raw_commit_kw if raw_commit_kw else self.search_phrases
+
         # Analysis patterns (serialisable dicts — regex compiled separately)
         self.patterns_raw: list[dict] = data.get("patterns", [])
 
@@ -119,12 +183,15 @@ class TechniqueProfile:
 
         # Lemmatization
         lem = data.get("lemmatization", {})
-        self.lemma_trigger:   str  = lem.get("trigger", "")
-        self.concept_lemmas:  dict = lem.get("concept_lemmas", {})
+        self.lemma_trigger:  str  = lem.get("trigger", "")
+        self.concept_lemmas: dict = lem.get("concept_lemmas", {})
 
         # Report
         self.extra_report_sections: list[str] = data.get("extra_report_sections", [])
         self.report_intro:          str       = data.get("report_intro", "")
+
+        # Optional per-technique domain hints (e.g. ["machine_learning"] for MT)
+        self.domain_hints: list[str] = data.get("domain_hints", [])
 
         # Derived paths & queries
         self._setup_dirs()
@@ -164,22 +231,17 @@ class TechniqueProfile:
         idents  = self.identifiers
 
         def make(prefix: str, terms: list[str], kind: str | None = None) -> list[dict]:
-            q = [
-                {"query": t, "label": self._label(prefix, t)}
-                for t in terms
-            ]
+            q = [{"query": t, "label": self._label(prefix, t)} for t in terms]
             if kind:
                 for entry in q:
                     entry["kind"] = kind
             return q
 
         self.repo_queries: list[dict] = (
-            make("repo", phrases + idents)
-            + self.extra_queries["repos"]
+            make("repo", phrases + idents) + self.extra_queries["repos"]
         )
         self.code_queries: list[dict] = (
-            make("code", idents + phrases)
-            + self.extra_queries["code"]
+            make("code", idents + phrases) + self.extra_queries["code"]
         )
         self.issue_queries: list[dict] = (
             make("issue", phrases + idents, kind="issue")
@@ -187,10 +249,8 @@ class TechniqueProfile:
             + self.extra_queries["issues"]
         )
         self.commit_queries: list[dict] = (
-            make("commit", phrases + idents)
-            + self.extra_queries["commits"]
+            make("commit", phrases + idents) + self.extra_queries["commits"]
         )
-        # Discussion queries are plain strings (used by GraphQL search)
         disc_extras = [
             e if isinstance(e, str) else e.get("query", "")
             for e in self.extra_queries["discussions"]
@@ -198,16 +258,12 @@ class TechniqueProfile:
         self.discussion_queries: list[str] = phrases + idents + disc_extras
 
     def _compile_patterns(self) -> None:
-        """Compile regex patterns for use in the main process."""
         flag_map = {"IGNORECASE": re.IGNORECASE, "MULTILINE": re.MULTILINE}
         self.patterns: list[dict] = [
             {
                 "id":    p["id"],
                 "label": p["label"],
-                "regex": re.compile(
-                    p["regex"],
-                    flag_map.get(p.get("flags", ""), 0),
-                ),
+                "regex": re.compile(p["regex"], flag_map.get(p.get("flags", ""), 0)),
             }
             for p in self.patterns_raw
         ]
@@ -219,15 +275,20 @@ class TechniqueProfile:
     def worker_config(self) -> dict:
         """Return a JSON-serialisable dict for passing to subprocess workers."""
         return {
-            "patterns_raw":         self.patterns_raw,
-            "results_dir":          str(self.results_dir),
-            "analysis_extensions":  list(ANALYSIS_EXTENSIONS),
-            "skip_dirs":            list(SKIP_DIRS),
-            "skip_extensions":      list(SKIP_EXTENSIONS),
-            "lemma_trigger":        self.lemma_trigger,
-            "concept_lemmas":       self.concept_lemmas,
+            "patterns_raw":          self.patterns_raw,
+            "results_dir":           str(self.results_dir),
+            "analysis_extensions":   list(ANALYSIS_EXTENSIONS),
+            "skip_dirs":             list(SKIP_DIRS),
+            "skip_extensions":       list(SKIP_EXTENSIONS),
+            "doc_extensions":        list(DOC_EXTENSIONS),
+            "config_extensions":     list(CONFIG_EXTENSIONS),
+            "lemma_trigger":         self.lemma_trigger,
+            "concept_lemmas":        self.concept_lemmas,
             "classification_strong": self.classification_strong,
             "classification_weak":   self.classification_weak,
+            "commit_keywords":       self.commit_keywords,
+            "domain_keywords":       DOMAIN_KEYWORDS,
+            "short_name":            self.short_name,
         }
 
     def __repr__(self) -> str:
@@ -239,19 +300,11 @@ class TechniqueProfile:
 # ---------------------------------------------------------------------------
 
 def load_technique(yaml_path: str | Path) -> TechniqueProfile:
-    """
-    Load a technique profile from a YAML file.
-
-    Example:
-        profile = load_technique("techniques/metamorphic_testing.yaml")
-        search.run(..., profile=profile)
-    """
+    """Load a technique profile from a YAML file."""
     try:
         import yaml
     except ImportError as exc:
-        raise ImportError(
-            "PyYAML is required: pip install pyyaml"
-        ) from exc
+        raise ImportError("PyYAML is required: pip install pyyaml") from exc
 
     path = Path(yaml_path)
     if not path.exists():
