@@ -622,6 +622,7 @@ def run(
         }
         for entry in manifest.get("repos", {}).values()
         if entry.get("status") in ("cloned", "refreshed", "skipped_exists")
+        and entry.get("full_name")
         and entry["full_name"] not in already_done
     ]
     if target_repo:

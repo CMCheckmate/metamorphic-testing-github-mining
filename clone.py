@@ -160,8 +160,11 @@ def clone_repo(candidate: dict, refresh: bool, manifest: dict, repos_dir: Path) 
         already_exists = False
 
     if already_exists and not refresh:
-        manifest["repos"].setdefault(full_name, {})["local_path"] = str(dest)
-        manifest["repos"][full_name]["status"] = "skipped_exists"
+        manifest["repos"].setdefault(full_name, {}).update({
+            "full_name":  full_name,
+            "local_path": str(dest),
+            "status":     "skipped_exists",
+        })
         return "skipped"
 
     if already_exists and refresh:
