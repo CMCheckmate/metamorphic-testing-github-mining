@@ -844,6 +844,52 @@ def sec_pattern_index(profile) -> str:
 
 
 # ---------------------------------------------------------------------------
+
+def sec_clone_issues(data: dict) -> str:
+    """Appendix D — repos with clone errors or size skips."""
+    manifest = data.get("manifest") or {}
+    repos = manifest.get("repos", {})
+
+    error_rows: list[tuple[str, str]] = []
+    size_rows: list[tuple[str, int, str]] = []
+
+    for v in repos.values():
+        status = v.get("status", "")
+        name = v.get("full_name", v.get("clone_url", "?"))
+        if status == "error":
+            error_rows.append((name, (v.get("error") or "")[:120]))
+        elif status == "skipped_size":
+            size_rows.append((name, v.get("size_kb", 0), v.get("skip_reason", "")))
+
+    if not error_rows and not size_rows:
+        return ""
+
+    parts: list[str] = ["## Appendix D — Clone Issues\n"]
+
+    if error_rows:
+        rows = "\n".join(f"| `{n}` | {e} |" for n, e in sorted(error_rows))
+        parts.append(
+            f"### Clone Errors ({len(error_rows)} repos)\n\n"
+            "| Repository | Error |\n|---|---|\n"
+            f"{rows}\n"
+        )
+
+    if size_rows:
+        size_rows.sort(key=lambda x: x[1], reverse=True)
+        rows = "\n".join(
+            f"| `{n}` | {kb:,} KB | {reason} |"
+            for n, kb, reason in size_rows
+        )
+        parts.append(
+            f"### Skipped — Too Large ({len(size_rows)} repos)\n\n"
+            "| Repository | Size | Reason |\n|---|---|---|\n"
+            f"{rows}\n"
+        )
+
+    return "\n".join(parts)
+
+
+# ---------------------------------------------------------------------------
 # Report builder
 # ---------------------------------------------------------------------------
 
@@ -873,6 +919,8 @@ def build_report(data: dict, plots_rel: str, fmt: str, top_n: int, profile) -> s
         sec_query_stats(data),
         "---\n",
         sec_pattern_index(profile),
+        "---\n",
+        sec_clone_issues(data),
     ]
     return "\n".join(p for p in parts if p)
 

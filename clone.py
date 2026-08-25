@@ -152,6 +152,13 @@ def clone_repo(candidate: dict, refresh: bool, manifest: dict, repos_dir: Path) 
 
     already_exists = dest.exists() and (dest / ".git").exists()
 
+    # A prior run may have left a partial .git dir after a failed clone.
+    # Treat previous errors as not-yet-cloned so they are always retried.
+    prior_status = manifest.get("repos", {}).get(full_name, {}).get("status")
+    if prior_status == "error" and already_exists:
+        shutil.rmtree(dest)
+        already_exists = False
+
     if already_exists and not refresh:
         manifest["repos"].setdefault(full_name, {})["local_path"] = str(dest)
         manifest["repos"][full_name]["status"] = "skipped_exists"

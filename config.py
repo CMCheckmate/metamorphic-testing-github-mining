@@ -80,7 +80,7 @@ CONFIG_EXTENSIONS: set[str] = {
 # ---------------------------------------------------------------------------
 # Clone settings
 # ---------------------------------------------------------------------------
-MAX_REPO_SIZE_KB    = 750_000
+MAX_REPO_SIZE_KB    = 5_000_000   # 5 GB
 CLONE_DEPTH         = 500        # fetch last N commits for commit history analysis
                                   # set to 0 for full history (slow, high disk usage)
 CLONE_DELAY_SECONDS = 0.3
