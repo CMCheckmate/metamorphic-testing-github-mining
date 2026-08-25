@@ -85,19 +85,6 @@ extra_queries:
   discussions: []
 
 # -------------------------------------------------------------------
-# Commit keyword detection (Phase 3 git log analysis)
-# -------------------------------------------------------------------
-commit_keywords:
-  - "property-based test"
-  - "property based test"
-  - "hypothesis"
-  - "quickcheck"
-  - "proptest"
-  - "fast-check"
-  - "jqwik"
-  - "scalacheck"
-
-# -------------------------------------------------------------------
 # Local analysis patterns (Phase 3)
 # -------------------------------------------------------------------
 
@@ -205,34 +192,8 @@ patterns:
     regex: "(?<![A-Za-z0-9])PBT(?![A-Za-z0-9])"
 
 # -------------------------------------------------------------------
-# Scoring thresholds
-# -------------------------------------------------------------------
-classification:
-  strong_threshold: 3
-  weak_threshold: 1
-
-# -------------------------------------------------------------------
 # Lemmatization
 # -------------------------------------------------------------------
 lemmatization:
   trigger: ""   # disabled — "property" is too common a word for trigger-based filtering
 
-# -------------------------------------------------------------------
-# Report customization
-# -------------------------------------------------------------------
-extra_report_sections:
-  - "framework_vs_adopter"
-
-report_intro: |
-  **Property-Based Testing (PBT)** is a testing methodology in which the tester specifies
-  high-level *properties* (invariants that should hold for all valid inputs), and a framework
-  automatically generates diverse test cases to attempt to falsify those properties.
-
-  PBT originated with **QuickCheck** (Haskell, 1999) and has since been ported or reimplemented
-  across most major programming languages: **Hypothesis** (Python), **ScalaCheck** (Scala),
-  **FsCheck** (F#/C#), **jqwik** (Java), **fast-check** (JavaScript/TypeScript), **proptest** (Rust),
-  and many others.
-
-  *Metamorphic Testing (MT) is a specialised form of PBT* where the property is a metamorphic
-  relation between outputs of related inputs. This report analyses the broader PBT ecosystem
-  to provide comparison context for the MT research project.

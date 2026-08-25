@@ -85,19 +85,6 @@ extra_queries:
   discussions: []
 
 # -------------------------------------------------------------------
-# Commit keyword detection (Phase 3 git log analysis)
-# -------------------------------------------------------------------
-commit_keywords:
-  - "fuzz"
-  - "fuzzing"
-  - "fuzzer"
-  - "libfuzzer"
-  - "afl"
-  - "atheris"
-  - "cargo-fuzz"
-  - "oss-fuzz"
-
-# -------------------------------------------------------------------
 # Local analysis patterns (Phase 3)
 # -------------------------------------------------------------------
 
@@ -187,34 +174,8 @@ patterns:
     flags: "IGNORECASE"
 
 # -------------------------------------------------------------------
-# Scoring thresholds
-# -------------------------------------------------------------------
-classification:
-  strong_threshold: 3
-  weak_threshold: 1
-
-# -------------------------------------------------------------------
 # Lemmatization
 # -------------------------------------------------------------------
 lemmatization:
   trigger: ""   # disabled — "fuzz" is short but distinctive enough for regex matching
 
-# -------------------------------------------------------------------
-# Report customization
-# -------------------------------------------------------------------
-extra_report_sections:
-  - "framework_vs_adopter"
-
-report_intro: |
-  **Fuzz Testing** (fuzzing) is a dynamic testing technique that automatically generates
-  semi-random, malformed, or mutation-derived inputs to find crashes, assertion failures,
-  buffer overflows, and security vulnerabilities in software.
-
-  Modern fuzzers use *coverage feedback* to guide input mutation toward unexplored code paths.
-  Key tools include **AFL/AFL++** (American Fuzzy Lop), **libFuzzer** (LLVM-based, in-process),
-  **honggfuzz**, **atheris** (Python), **Jazzer** (Java/JVM), Go's native `testing.F`, and
-  **cargo-fuzz** (Rust). **OSS-Fuzz** runs continuous fuzzing on open-source projects at scale.
-
-  Compared to Metamorphic Testing, fuzzing focuses on *crash/undefined-behaviour oracles* rather
-  than logical correctness — it finds "does the program survive?" rather than "does the program
-  produce the right answer?"

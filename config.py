@@ -168,27 +168,16 @@ class TechniqueProfile:
             "discussions": raw_extra.get("discussions", []),
         }
 
-        # Commit keyword detection (used in Phase 3 git log analysis).
-        # Defaults to search_phrases if not explicitly specified.
-        raw_commit_kw = data.get("commit_keywords", [])
-        self.commit_keywords: list[str] = raw_commit_kw if raw_commit_kw else self.search_phrases
+        # Commit keywords for Phase 3 git log analysis — always the search phrases.
+        self.commit_keywords: list[str] = self.search_phrases
 
         # Analysis patterns (serialisable dicts — regex compiled separately)
         self.patterns_raw: list[dict] = data.get("patterns", [])
-
-        # Scoring
-        cls = data.get("classification", {})
-        self.classification_strong: int = cls.get("strong_threshold", 3)
-        self.classification_weak:   int = cls.get("weak_threshold",   1)
 
         # Lemmatization
         lem = data.get("lemmatization", {})
         self.lemma_trigger:  str  = lem.get("trigger", "")
         self.concept_lemmas: dict = lem.get("concept_lemmas", {})
-
-        # Report
-        self.extra_report_sections: list[str] = data.get("extra_report_sections", [])
-        self.report_intro:          str       = data.get("report_intro", "")
 
         # Optional per-technique domain hints (e.g. ["machine_learning"] for MT)
         self.domain_hints: list[str] = data.get("domain_hints", [])
@@ -284,8 +273,6 @@ class TechniqueProfile:
             "config_extensions":     list(CONFIG_EXTENSIONS),
             "lemma_trigger":         self.lemma_trigger,
             "concept_lemmas":        self.concept_lemmas,
-            "classification_strong": self.classification_strong,
-            "classification_weak":   self.classification_weak,
             "commit_keywords":       self.commit_keywords,
             "domain_keywords":       DOMAIN_KEYWORDS,
             "short_name":            self.short_name,

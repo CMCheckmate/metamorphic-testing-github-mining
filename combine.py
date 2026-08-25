@@ -827,14 +827,16 @@ All subsequent comparisons use only detected repos unless stated otherwise.
 
 
 def sec_adoption(techniques, plots_rel: str, fmt: str) -> str:
-    # Code vs non-code breakdown per technique
-    code_types = {"test_code", "source_code"}
-    cnc_rows = []
+    # Per-type artifact breakdown per technique
+    art_order  = ["test_code", "source_code", "documentation", "config", "other"]
+    art_header = "| Technique | " + " | ".join(k.replace("_", " ").title() for k in art_order) + " |"
+    art_sep    = "|---|" + "---|" * len(art_order)
+    art_rows   = []
     for t in techniques:
         pct_map = _artifact_pct(t["scores"])
-        code_pct = sum(pct_map.get(k, 0) for k in code_types)
-        cnc_rows.append(f"| {t['short_name']} | {_pct(code_pct)} | {_pct(100-code_pct)} |")
-    cnc_table = "\n".join(cnc_rows)
+        cells   = " | ".join(_pct(pct_map.get(k, 0)) for k in art_order)
+        art_rows.append(f"| {t['short_name']} | {cells} |")
+    art_table = "\n".join(art_rows)
 
     # Contributor stats
     contrib_rows = []
@@ -874,13 +876,13 @@ def sec_adoption(techniques, plots_rel: str, fmt: str) -> str:
     for t in techniques
 )}
 
-### Code vs Non-Code Mentions
+### Artifact Type Distribution
 
-Proportion of signal matches in code files (test + source) vs non-code (docs + config + other).
+Signal matches broken down by artifact type (test code, source code, documentation, config, other).
 
-| Technique | Code matches | Non-code matches |
-|---|---|---|
-{cnc_table}
+{art_header}
+{art_sep}
+{art_table}
 
 {_img(plots_rel, 'artifact_comparison', fmt, 'Artifact type distribution by technique')}
 

@@ -56,19 +56,6 @@ extra_queries:
   commits: []
   discussions: []
 
-# -------------------------------------------------------------------
-# Commit keyword detection (Phase 3 git log analysis)
-# Commits whose messages contain any of these terms are counted as
-# "technique commits" in the timeline and ratio metrics.
-# Defaults to search_phrases if omitted.
-# -------------------------------------------------------------------
-commit_keywords:
-  - "metamorphic test"
-  - "metamorphic relation"
-  - "metamorphic relations"
-  - "metamorphic testing"
-  - "metamorphic property"
-
 # Domain hints — these domains are expected to be over-represented for MT
 # (used for context in combined report, not for filtering)
 domain_hints:
@@ -155,13 +142,6 @@ patterns:
     regex: "(?<![A-Za-z0-9])MR(?![A-Za-z0-9])"
 
 # -------------------------------------------------------------------
-# Scoring thresholds
-# -------------------------------------------------------------------
-classification:
-  strong_threshold: 3   # >= strong_threshold matches → strong_explicit
-  weak_threshold: 1     # >= weak_threshold matches   → weak_explicit
-
-# -------------------------------------------------------------------
 # NLTK lemmatization second pass (catches inflected forms in comments/strings)
 # Set trigger to "" to disable.
 # -------------------------------------------------------------------
@@ -173,28 +153,3 @@ lemmatization:
     group:    "metamorphic group"
     property: "metamorphic property"
 
-# -------------------------------------------------------------------
-# Report customization
-# -------------------------------------------------------------------
-
-# Extra sections appended to the generic Q1–Q8 report structure.
-# "mt_context"          — detailed oracle-problem introduction specific to MT
-# "framework_vs_adopter" — classifies repos as MT frameworks vs. adopters
-extra_report_sections:
-  - "mt_context"
-  - "framework_vs_adopter"
-
-# Introductory text shown at the top of the generated report.
-report_intro: |
-  **Metamorphic Testing (MT)** is a software testing technique designed to address the
-  *test oracle problem* — the difficulty of determining correct expected outputs for complex,
-  non-deterministic, or underdetermined systems (e.g. machine learning models, scientific
-  simulations, compilers, search engines).
-
-  Instead of specifying exact expected outputs, MT defines **metamorphic relations (MRs)**:
-  properties that must hold between the outputs of multiple related inputs. For example,
-  "rotating an image 360° must return the original image." By generating *follow-up test
-  cases* derived from these relations, testers can detect faults without a traditional oracle.
-
-  This report analyses MT adoption across GitHub repositories, covering prevalence, temporal
-  trends, language distribution, project maturity, and the structure of MT usage.

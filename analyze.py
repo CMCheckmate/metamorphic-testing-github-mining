@@ -74,8 +74,6 @@ _W_DOC_EXTENSIONS:       set[str]   = set()
 _W_CONFIG_EXTENSIONS:    set[str]   = set()
 _W_CONCEPT_LEMMAS:       dict       = {}
 _W_LEMMA_TRIGGER:        str        = ""
-_W_CLASS_STRONG:         int        = 3
-_W_CLASS_WEAK:           int        = 1
 _W_COMMIT_KEYWORDS:      list[str]  = []
 _W_DOMAIN_KEYWORDS:      dict       = {}
 _W_SHORT_NAME:           str        = ""
@@ -100,7 +98,6 @@ def _worker_init(cfg: dict) -> None:
     global _W_PATTERNS, _W_RESULTS_DIR, _W_ANALYSIS_EXTENSIONS
     global _W_SKIP_DIRS, _W_SKIP_EXTENSIONS, _W_DOC_EXTENSIONS, _W_CONFIG_EXTENSIONS
     global _W_CONCEPT_LEMMAS, _W_LEMMA_TRIGGER
-    global _W_CLASS_STRONG, _W_CLASS_WEAK
     global _W_COMMIT_KEYWORDS, _W_DOMAIN_KEYWORDS, _W_SHORT_NAME
 
     flag_map = {"IGNORECASE": re.IGNORECASE, "MULTILINE": re.MULTILINE}
@@ -120,8 +117,6 @@ def _worker_init(cfg: dict) -> None:
     _W_CONFIG_EXTENSIONS   = set(cfg.get("config_extensions", []))
     _W_CONCEPT_LEMMAS      = cfg["concept_lemmas"]
     _W_LEMMA_TRIGGER       = cfg["lemma_trigger"]
-    _W_CLASS_STRONG        = cfg["classification_strong"]
-    _W_CLASS_WEAK          = cfg["classification_weak"]
     _W_COMMIT_KEYWORDS     = cfg.get("commit_keywords", [])
     _W_DOMAIN_KEYWORDS     = cfg.get("domain_keywords", {})
     _W_SHORT_NAME          = cfg.get("short_name", "")
@@ -130,6 +125,16 @@ def _worker_init(cfg: dict) -> None:
 # ---------------------------------------------------------------------------
 # Artifact type classification
 # ---------------------------------------------------------------------------
+
+_SOURCE_EXTENSIONS: frozenset[str] = frozenset({
+    ".py", ".java", ".js", ".ts", ".jsx", ".tsx", ".cpp", ".c", ".h", ".hpp",
+    ".hxx", ".cc", ".cxx", ".cs", ".go", ".rb", ".rs", ".swift", ".kt", ".kts",
+    ".scala", ".php", ".r", ".m", ".mm", ".sh", ".bash", ".zsh", ".pl", ".pm",
+    ".lua", ".dart", ".hs", ".ml", ".mli", ".clj", ".cljs", ".cljc", ".ex",
+    ".exs", ".erl", ".hrl", ".elm", ".groovy", ".f", ".f90", ".f95", ".f03",
+    ".jl", ".v", ".sv", ".vhd", ".vhdl", ".zig", ".nim", ".cr",
+})
+
 
 def _classify_artifact_type(rel_path_str: str) -> str:
     """
@@ -167,7 +172,12 @@ def _classify_artifact_type(rel_path_str: str) -> str:
     ):
         return "test_code"
 
-    return "source_code"
+    # Known source code extensions
+    if ext in _SOURCE_EXTENSIONS:
+        return "source_code"
+
+    # Unrecognized extension — catch-all
+    return "other"
 
 
 # ---------------------------------------------------------------------------
@@ -234,8 +244,13 @@ def _context_snippet(text: str, m: re.Match, context_lines: int = 1) -> str:
 
 
 def _analyze_file_text(file_path: Path, rel_path: Path, text: str) -> list[dict]:
-    """Scan pre-read file text against all patterns. Returns match records."""
+    """Scan pre-read file text against all patterns. Returns match records.
+
+    Lemmatized findings are only added for lines not already matched by a regex
+    pattern, preventing double-counting of the same (file, line) in the score.
+    """
     match_records: list[dict] = []
+    regex_lines: set[int] = set()
     for pattern in _W_PATTERNS:
         for m in pattern["regex"].finditer(text):
             line_number = text[:m.start()].count("\n") + 1
@@ -246,7 +261,10 @@ def _analyze_file_text(file_path: Path, rel_path: Path, text: str) -> list[dict]
                 "line":    line_number,
                 "snippet": _context_snippet(text, m),
             })
-    match_records.extend(_lemmatized_findings(text, rel_path))
+            regex_lines.add(line_number)
+    for lemma_rec in _lemmatized_findings(text, rel_path):
+        if lemma_rec["line"] not in regex_lines:
+            match_records.append(lemma_rec)
     return match_records
 
 
@@ -390,15 +408,8 @@ def score_repo(
     total_files:  int,
     total_lines:  int,
 ) -> dict:
-    """Compute score, classification tier, and all derived metrics for one repo."""
+    """Compute score and all derived metrics for one repo."""
     total_matches = len(findings)
-
-    if total_matches >= _W_CLASS_STRONG:
-        tier = "strong_explicit"
-    elif total_matches >= _W_CLASS_WEAK:
-        tier = "weak_explicit"
-    else:
-        tier = "none"
 
     # Files with technique signals
     files_with_matches = {f["file"] for f in findings}
@@ -425,7 +436,6 @@ def score_repo(
     return {
         "score":                     total_matches,
         "direct_matches":            total_matches,
-        "classification":            tier,
 
         # File and line coverage
         "total_files_scanned":       total_files,
@@ -699,7 +709,7 @@ def run(
     with open(out_dir / "repo_scores.json", "w") as fh:
         json.dump(combined_scores, fh, indent=2)
 
-    n_signal = sum(1 for s in scores_by_repo.values() if s.get("classification") != "none")
+    n_signal = sum(1 for s in scores_by_repo.values() if s.get("score", 0) > 0)
     console.print(
         f"\n[bold green]Done.[/]  "
         f"[cyan]{len(scores_by_repo)}[/] repos  •  "

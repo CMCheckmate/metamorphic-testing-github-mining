@@ -101,34 +101,29 @@ def _build_raw_to_surface(summary) -> dict:
 # ===========================================================================
 
 def plot_detection_count_hist(repo_scores, out_dir: Path, fmt: str, dpi: int, technique_name: str = "Technique") -> None:
-    """Histogram: number of detections (x) vs number of repositories (y)."""
+    """Line rank plot: detection counts sorted descending (rank vs count)."""
     detected = _detected(repo_scores)
-    scores   = [r["score"] for r in detected]
+    scores   = sorted([r["score"] for r in detected], reverse=True)
     if not scores:
         return
 
-    max_s = max(scores)
-    if max_s <= 25:
-        bins = list(range(1, max_s + 2))
-    else:
-        bins = list(range(1, 21)) + [25, 35, 50, 75, 100, max_s + 1]
-        bins = sorted(set(b for b in bins if b <= max_s + 1))
-
-    fig, ax = plt.subplots(figsize=(10, 5))
-    ax.hist(scores, bins=bins, color=PRIMARY_COLOR, edgecolor="white", linewidth=0.5)
     mean_v   = sum(scores) / len(scores)
     median_v = sorted(scores)[len(scores) // 2]
-    ax.axvline(mean_v,   color="#e15759", linestyle="--", linewidth=1.5, label=f"Mean = {mean_v:.1f}")
-    ax.axvline(median_v, color="#4e79a7", linestyle="--", linewidth=1.5, label=f"Median = {median_v:.1f}")
-    ax.set_xlabel("Detection count (pattern matches per repository)")
-    ax.set_ylabel("Number of repositories")
-    ax.set_title(f"{technique_name} — Detection Count Distribution")
+    ranks    = list(range(1, len(scores) + 1))
+
+    fig, ax = plt.subplots(figsize=(10, 5))
+    ax.plot(ranks, scores, color=PRIMARY_COLOR, linewidth=1.5, label="Detection count")
+    ax.axhline(mean_v,   color="#e15759", linestyle="--", linewidth=1.5, label=f"Mean = {mean_v:.1f}")
+    ax.axhline(median_v, color="#4e79a7", linestyle="--", linewidth=1.5, label=f"Median = {median_v:.1f}")
+    ax.set_xlabel("Repository rank (sorted by detection count)")
+    ax.set_ylabel("Detection count (pattern matches)")
+    ax.set_title(f"{technique_name} — Detection Count Distribution (Rank Plot)")
     ax.legend(fontsize=9)
     _save(fig, out_dir, "detection_count_hist", fmt, dpi)
 
 
 def plot_yearly_trend(repo_scores, out_dir: Path, fmt: str, dpi: int, technique_name: str = "Technique") -> None:
-    """Bar chart: all repos by creation year, detected highlighted."""
+    """Line chart: repos by creation year — total and detected as separate lines."""
     if not repo_scores:
         return
     rows = []
@@ -145,11 +140,14 @@ def plot_yearly_trend(repo_scores, out_dir: Path, fmt: str, dpi: int, technique_
     merged = all_yearly.merge(detected_yearly, on="year", how="left").fillna(0)
 
     fig, ax = plt.subplots(figsize=(11, 5))
-    ax.bar(merged["year"], merged["total"],    color="#d9d9d9", label="Not detected", zorder=2)
-    ax.bar(merged["year"], merged["detected"], color=PRIMARY_COLOR, label="Detected",     zorder=3)
+    ax.plot(merged["year"], merged["total"],    color="#9e9e9e", linewidth=2,
+            marker="o", markersize=5, label="Total repos")
+    ax.plot(merged["year"], merged["detected"], color=PRIMARY_COLOR, linewidth=2,
+            marker="o", markersize=5, label="Detected")
+    ax.fill_between(merged["year"], merged["detected"], alpha=0.15, color=PRIMARY_COLOR)
     ax.set_xlabel("Repository creation year")
     ax.set_ylabel("Repositories")
-    ax.set_title(f"{technique_name} — Detected Repos by Creation Year")
+    ax.set_title(f"{technique_name} — Repos by Creation Year")
     ax.xaxis.set_major_locator(mticker.MultipleLocator(1))
     ax.tick_params(axis="x", rotation=45)
     ax.legend()
@@ -564,6 +562,52 @@ def plot_test_structure(findings, repo_scores, out_dir: Path, fmt: str, dpi: int
     plt.tight_layout()
     _save(fig, out_dir, "test_structure", fmt, dpi)
 
+def plot_project_metadata(repo_scores, out_dir: Path, fmt: str, dpi: int, technique_name: str = "Technique") -> None:
+    """Three-panel: stars, repo age, and total files — detected vs not-detected."""
+    if not repo_scores:
+        return
+    detected = _detected(repo_scores)
+    not_det  = [r for r in repo_scores if r.get("score", 0) == 0]
+
+    now_year = 2026
+    det_stars = [r.get("stars", 0) for r in detected]
+    not_stars = [r.get("stars", 0) for r in not_det]
+    det_age   = [now_year - int(r["created_at"][:4]) for r in detected
+                 if (r.get("created_at") or "")[:4].isdigit()]
+    not_age   = [now_year - int(r["created_at"][:4]) for r in not_det
+                 if (r.get("created_at") or "")[:4].isdigit()]
+    det_files = [r.get("total_files_scanned", 0) for r in detected if r.get("total_files_scanned", 0) > 0]
+    not_files = [r.get("total_files_scanned", 0) for r in not_det  if r.get("total_files_scanned", 0) > 0]
+
+    fig, axes = plt.subplots(1, 3, figsize=(15, 5))
+    panels = [
+        (axes[0], det_stars, not_stars, "Stars",       "Stars (log scale)"),
+        (axes[1], det_age,   not_age,   "Age (years)", "Repo age (years)"),
+        (axes[2], det_files, not_files, "Total files", "Files scanned (log scale)"),
+    ]
+    for ax, det_v, not_v, title, ylabel in panels:
+        data_to_plot, tick_labels = [], []
+        if det_v:
+            data_to_plot.append(det_v)
+            tick_labels.append(f"Detected\n(n={len(det_v):,})")
+        if not_v:
+            data_to_plot.append(not_v)
+            tick_labels.append(f"Not Detected\n(n={len(not_v):,})")
+        if data_to_plot:
+            bp = ax.boxplot(data_to_plot, tick_labels=tick_labels, patch_artist=True, showfliers=False)
+            for patch, color in zip(bp["boxes"], [PRIMARY_COLOR, "#bdbdbd"]):
+                patch.set_facecolor(color)
+                patch.set_alpha(0.7)
+            if title != "Age (years)" and any(v > 0 for vals in data_to_plot for v in vals):
+                ax.set_yscale("log")
+            ax.set_ylabel(ylabel)
+            ax.set_title(title)
+
+    fig.suptitle(f"{technique_name} — Project Metadata: Detected vs Not Detected", fontweight="bold")
+    plt.tight_layout()
+    _save(fig, out_dir, "project_metadata", fmt, dpi)
+
+
 def plot_commit_first_last(repo_scores, out_dir: Path, fmt: str, dpi: int, technique_name: str = "Technique") -> None:
     """Overlaid histograms: first and last technique commit year per detected repo."""
     detected = _detected(repo_scores)
@@ -599,7 +643,7 @@ def plot_commit_first_last(repo_scores, out_dir: Path, fmt: str, dpi: int, techn
 
 
 def plot_technique_commit_timeline(repo_scores, out_dir: Path, fmt: str, dpi: int, technique_name: str = "Technique") -> None:
-    """Bar chart: total technique commits per year across all detected repos."""
+    """Line chart: total technique commits per year across all detected repos."""
     detected = _detected(repo_scores)
     year_counts: Counter = Counter()
     for r in detected:
@@ -615,7 +659,8 @@ def plot_technique_commit_timeline(repo_scores, out_dir: Path, fmt: str, dpi: in
     counts = [year_counts[y] for y in years]
 
     fig, ax = plt.subplots(figsize=(11, 5))
-    ax.bar(years, counts, color=PRIMARY_COLOR, edgecolor="white", linewidth=0.5)
+    ax.plot(years, counts, color=PRIMARY_COLOR, linewidth=2, marker="o", markersize=5)
+    ax.fill_between(years, counts, alpha=0.15, color=PRIMARY_COLOR)
     ax.set_xlabel("Year")
     ax.set_ylabel("Technique commits (across all detected repos)")
     ax.set_title(f"{technique_name} — Technique Commit Activity Over Time")
@@ -758,6 +803,7 @@ def run(out_dir: Path, fmt: str, dpi: int, profile=None) -> None:
     plot_yearly_trend(        scores,                out_dir, fmt, dpi, tech)
     plot_technique_ratios(    scores,                out_dir, fmt, dpi, tech)
     plot_contributor_dist(    scores,                out_dir, fmt, dpi, tech)
+    plot_project_metadata(    scores,                out_dir, fmt, dpi, tech)
 
     # Usage (RQ2) — project role first, then detection distribution, then language/artifact/extension
     plot_project_type_dist(   scores,                out_dir, fmt, dpi, tech)
