@@ -84,8 +84,6 @@ SKIP_EXTENSIONS: set[str] = {
     ".ttf", ".otf", ".woff", ".woff2", ".eot",
     # Databases
     ".db", ".sqlite", ".sqlite3", ".mdb",
-    # PDF (binary; also in DOC_EXTENSIONS but skip scanning entirely)
-    ".pdf",
 }
 
 # Extensions treated as documentation (not source code)

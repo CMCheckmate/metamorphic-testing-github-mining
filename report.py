@@ -421,8 +421,15 @@ def sec_usage(data: dict, plots_rel: str, fmt: str, profile) -> str:
 """
 
     # --- Language ---
-    lang_counts = Counter(r.get("language") for r in detected if r.get("language"))
-    top_langs   = lang_counts.most_common(15)
+    lang_counts: Counter = Counter()
+    for r in detected:
+        lb = r.get("language_breakdown") or {}
+        if lb:
+            for lang in lb:
+                lang_counts[lang] += 1     # repos containing this language
+        elif r.get("language"):
+            lang_counts[r["language"]] += 1  # fallback: GitHub-reported primary language
+    top_langs = lang_counts.most_common(15)
     lang_rows   = "\n".join(
         f"| {lang} | {cnt:,} | {_pct(cnt/n_det*100)} |"
         for lang, cnt in top_langs

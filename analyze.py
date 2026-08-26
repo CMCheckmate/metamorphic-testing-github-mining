@@ -135,6 +135,46 @@ _SOURCE_EXTENSIONS: frozenset[str] = frozenset({
     ".jl", ".v", ".sv", ".vhd", ".vhdl", ".zig", ".nim", ".cr",
 })
 
+# Maps file extension → human language name for language-distribution reporting.
+# Derived from scanning all source files in analysed repos (not GitHub API metadata).
+_EXT_TO_LANGUAGE: dict[str, str] = {
+    ".py": "Python",   ".pyw": "Python",
+    ".java": "Java",
+    ".js": "JavaScript", ".mjs": "JavaScript", ".cjs": "JavaScript",
+    ".jsx": "JavaScript",
+    ".ts": "TypeScript", ".tsx": "TypeScript",
+    ".cpp": "C++", ".cc": "C++", ".cxx": "C++", ".c++": "C++", ".hpp": "C++", ".hxx": "C++",
+    ".c": "C", ".h": "C/C++",
+    ".cs": "C#",
+    ".go": "Go",
+    ".rb": "Ruby",
+    ".rs": "Rust",
+    ".swift": "Swift",
+    ".kt": "Kotlin", ".kts": "Kotlin",
+    ".scala": "Scala",
+    ".php": "PHP",
+    ".r": "R",
+    ".m": "MATLAB",  ".mm": "Objective-C",
+    ".sh": "Shell", ".bash": "Shell", ".zsh": "Shell",
+    ".jl": "Julia",
+    ".hs": "Haskell",
+    ".clj": "Clojure", ".cljs": "Clojure", ".cljc": "Clojure",
+    ".ex": "Elixir", ".exs": "Elixir",
+    ".erl": "Erlang", ".hrl": "Erlang",
+    ".lua": "Lua",
+    ".dart": "Dart",
+    ".elm": "Elm",
+    ".groovy": "Groovy",
+    ".f": "Fortran", ".f90": "Fortran", ".f95": "Fortran", ".f03": "Fortran",
+    ".nim": "Nim",
+    ".zig": "Zig",
+    ".pl": "Perl", ".pm": "Perl",
+    ".cr": "Crystal",
+    ".ml": "OCaml", ".mli": "OCaml",
+    ".v": "Verilog", ".sv": "SystemVerilog",
+    ".vhd": "VHDL", ".vhdl": "VHDL",
+}
+
 
 def _classify_artifact_type(rel_path_str: str) -> str:
     """
@@ -475,12 +515,17 @@ def _analyse_repo(repo_meta: dict) -> tuple[list[dict], dict | None]:
     all_findings: list[dict] = []
     total_files  = 0
     total_lines  = 0
+    lang_file_counts: Counter = Counter()
     t0 = _time.monotonic()
 
     with open(log_path, "a", buffering=1, errors="replace") as log:
         log.write(f"\n=== {repo_name} ===\n")
         for file_path, rel_path in iter_source_files(local_path):
             total_files += 1
+            ext = file_path.suffix.lower()
+            lang = _EXT_TO_LANGUAGE.get(ext)
+            if lang:
+                lang_file_counts[lang] += 1
             try:
                 text = file_path.read_text(errors="replace")
             except Exception:
@@ -527,6 +572,9 @@ def _analyse_repo(repo_meta: dict) -> tuple[list[dict], dict | None]:
         "description":       repo_meta.get("description", ""),
         "topics":            repo_meta.get("topics", []),
         "found_by_queries":  repo_meta.get("matched_queries", []),
+
+        # Language breakdown from scanned file extensions
+        "language_breakdown": dict(lang_file_counts),
 
         # Project metadata
         "project_type":      project_type,

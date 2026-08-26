@@ -254,11 +254,18 @@ def plot_contributor_dist(repo_scores, out_dir: Path, fmt: str, dpi: int, techni
 # ===========================================================================
 
 def plot_language_dist(repo_scores, out_dir: Path, fmt: str, dpi: int, technique_name: str = "Technique") -> None:
-    """Bar chart: top languages by detected repo count."""
+    """Bar chart: top languages by detected repo count, derived from scanned file extensions."""
     detected = _detected(repo_scores)
     if not detected:
         return
-    langs  = Counter(r.get("language") for r in detected if r.get("language"))
+    langs: Counter = Counter()
+    for r in detected:
+        lb = r.get("language_breakdown") or {}
+        if lb:
+            for lang in lb:
+                langs[lang] += 1          # count repos containing this language
+        elif r.get("language"):
+            langs[r["language"]] += 1     # fallback: GitHub-reported primary language
     top    = langs.most_common(15)
     labels = [l for l, _ in top]
     values = [v for _, v in top]
