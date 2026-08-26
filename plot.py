@@ -258,7 +258,7 @@ def plot_language_dist(repo_scores, out_dir: Path, fmt: str, dpi: int, technique
     detected = _detected(repo_scores)
     if not detected:
         return
-    langs  = Counter(r.get("language") or "Unknown" for r in detected)
+    langs  = Counter(r.get("language") for r in detected if r.get("language"))
     top    = langs.most_common(15)
     labels = [l for l, _ in top]
     values = [v for _, v in top]

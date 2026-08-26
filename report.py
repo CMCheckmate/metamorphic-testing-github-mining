@@ -237,6 +237,46 @@ Proportion of each detected repo's content containing technique signals.
 | Repos with > 10% file coverage | {sum(1 for v in file_ratio if v > 0.1):,} |
 
 {_img(plots_rel, 'technique_ratios', fmt, f'{short} — technique line density and file ratio distributions')}
+"""
+
+    # Project metadata stats (stars, age, files) — detected vs not-detected
+    _now_year = 2026
+    def _mstats(vals):
+        if not vals:
+            return "—", "—", "—"
+        return f"{statistics.median(vals):.1f}", f"{statistics.mean(vals):.1f}", f"{max(vals):,}"
+
+    det_stars = [r.get("stars", 0) or 0 for r in detected]
+    not_stars = [r.get("stars", 0) or 0 for r in not_det]
+    det_age   = [_now_year - int(r["created_at"][:4])
+                 for r in detected if (r.get("created_at") or "")[:4].isdigit()]
+    not_age   = [_now_year - int(r["created_at"][:4])
+                 for r in not_det  if (r.get("created_at") or "")[:4].isdigit()]
+    det_files = [r.get("total_files_scanned", 0) for r in detected if r.get("total_files_scanned", 0) > 0]
+    not_files = [r.get("total_files_scanned", 0) for r in not_det  if r.get("total_files_scanned", 0) > 0]
+
+    metadata_section = ""
+    if detected:
+        ds_med, ds_mean, ds_max = _mstats(det_stars)
+        ns_med, ns_mean, ns_max = _mstats(not_stars)
+        da_med, _,       da_max = _mstats(det_age)
+        na_med, _,       na_max = _mstats(not_age)
+        df_med, df_mean, df_max = _mstats(det_files)
+        nf_med, nf_mean, nf_max = _mstats(not_files)
+        metadata_section = f"""\
+
+### Project Metadata (Detected vs Not Detected)
+
+| Metric | Detected (n={len(detected):,}) | Not Detected (n={len(not_det):,}) |
+|---|---|---|
+| Median stars | {ds_med} | {ns_med} |
+| Mean stars | {ds_mean} | {ns_mean} |
+| Max stars | {ds_max} | {ns_max} |
+| Median repo age (yrs) | {da_med} | {na_med} |
+| Max repo age (yrs) | {da_max} | {na_max} |
+| Median files scanned | {df_med} | {nf_med} |
+| Max files scanned | {df_max} | {nf_max} |
+
 {_img(plots_rel, 'project_metadata', fmt, f'{short} — project metadata: detected vs not-detected (stars, age, files)')}
 """
 
@@ -277,7 +317,7 @@ Unique author email addresses from sampled git history (≤ 500 commits per repo
 | Mean detection count | {mean_score:.1f} |
 | Maximum detection count | {max_score:,} |
 | Single-match detections | {n_single:,} ({_pct(n_single/n_det*100)}) |
-{cnc_section}{ratio_section}{contrib_section}
+{cnc_section}{ratio_section}{metadata_section}{contrib_section}
 """
 
 
@@ -381,7 +421,7 @@ def sec_usage(data: dict, plots_rel: str, fmt: str, profile) -> str:
 """
 
     # --- Language ---
-    lang_counts = Counter(r.get("language") or "Unknown" for r in detected)
+    lang_counts = Counter(r.get("language") for r in detected if r.get("language"))
     top_langs   = lang_counts.most_common(15)
     lang_rows   = "\n".join(
         f"| {lang} | {cnt:,} | {_pct(cnt/n_det*100)} |"
@@ -436,6 +476,19 @@ Files classified as *Other* (extension not in the known source-code whitelist):
 |---|---|
 {other_ext_rows}
 """
+
+    # Top file extensions across all findings (for the extension breakdown table)
+    ext_counts_all: Counter = Counter()
+    for f in findings:
+        fname = f.get("file", "")
+        if fname:
+            dot = fname.rfind(".")
+            ext = fname[dot:].lower() if dot >= 0 else "(none)"
+            ext_counts_all[ext] += 1
+    ext_table_rows = "\n".join(
+        f"| `{ext}` | {cnt:,} |"
+        for ext, cnt in ext_counts_all.most_common(15)
+    )
 
     # --- Domains ---
     domain_counts: Counter = Counter()
@@ -548,7 +601,11 @@ Where in the file tree signals appear across all {len(findings):,} total matches
 {other_ext_note}
 ### File Extension Breakdown
 
-Extension-level breakdown of files containing technique signals.
+Extension-level breakdown of files containing technique signals (top 15 by match count).
+
+| Extension | Signal matches |
+|---|---|
+{ext_table_rows}
 
 {_img(plots_rel, 'extension_breakdown', fmt, f'{short} — signal matches by file extension')}
 {domain_section}

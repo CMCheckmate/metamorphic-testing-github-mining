@@ -62,8 +62,30 @@ SKIP_DIRS: set[str] = {
 }
 
 SKIP_EXTENSIONS: set[str] = {
+    # Compiled / binary outputs
     ".out", ".bin", ".pkl", ".npz", ".npy", ".h5", ".hdf5", ".parquet",
-    ".wasm", ".so", ".dylib", ".dll", ".exe", ".class", ".pyc",
+    ".wasm", ".so", ".dylib", ".dll", ".exe", ".class", ".pyc", ".pyo",
+    ".obj", ".o", ".a", ".lib", ".pdb",
+    # Images — binary files; MT/MR abbreviation patterns match random bytes
+    ".jpg", ".jpeg", ".png", ".gif", ".bmp", ".ico", ".tiff", ".tif",
+    ".webp", ".eps", ".raw", ".heic", ".heif",
+    # Archives / compressed
+    ".zip", ".tar", ".gz", ".bz2", ".xz", ".rar", ".7z", ".lz4", ".zst",
+    ".cab", ".iso", ".img", ".dmg",
+    # ML model / data blobs
+    ".pth", ".pt", ".onnx", ".safetensors", ".mat", ".keras", ".pb",
+    ".tflite", ".mlmodel", ".ckpt", ".msgpack",
+    # Audio / video
+    ".mp4", ".avi", ".mov", ".mkv", ".webm", ".flv",
+    ".mp3", ".wav", ".ogg", ".flac", ".aac", ".m4a",
+    # JVM / package artifacts
+    ".jar", ".war", ".ear", ".apk", ".ipa", ".deb", ".rpm",
+    # Fonts
+    ".ttf", ".otf", ".woff", ".woff2", ".eot",
+    # Databases
+    ".db", ".sqlite", ".sqlite3", ".mdb",
+    # PDF (binary; also in DOC_EXTENSIONS but skip scanning entirely)
+    ".pdf",
 }
 
 # Extensions treated as documentation (not source code)

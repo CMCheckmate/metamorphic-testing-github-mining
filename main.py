@@ -33,6 +33,7 @@ Run  python main.py --help  for full parameter reference.
 
 import argparse
 import concurrent.futures
+import json
 import sys
 import time
 from pathlib import Path
@@ -60,6 +61,19 @@ def _elapsed(t0: float) -> str:
     s = time.time() - t0
     m, s = divmod(int(s), 60)
     return f"{m}m {s:02d}s" if m else f"{s}s"
+
+
+def _log_timing(profile, phase_n: int, phase_name: str, elapsed_s: float) -> None:
+    """Append a JSONL timing record to results/<slug>/pipeline.log."""
+    log_path = profile.results_dir / "pipeline.log"
+    record = json.dumps({
+        "phase":   phase_n,
+        "name":    phase_name,
+        "elapsed": round(elapsed_s, 2),
+        "ts":      time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+    })
+    with open(log_path, "a", encoding="utf-8") as fh:
+        fh.write(record + "\n")
 
 
 # ---------------------------------------------------------------------------
@@ -94,6 +108,7 @@ def _run_single(profile, args, stages=None) -> None:
             profile        =profile,
         )
         console.print(f"\n[dim]Phase 1 done in {_elapsed(t0)}[/]")
+        _log_timing(profile, 1, "Search", time.time() - t0)
 
     # ------------------------------------------------------------------ #
     # Phase 2 — Clone                                                      #
@@ -118,6 +133,7 @@ def _run_single(profile, args, stages=None) -> None:
             profile   =profile,
         )
         console.print(f"\n[dim]Phase 2 done in {_elapsed(t0)}[/]")
+        _log_timing(profile, 2, "Clone", time.time() - t0)
 
     # ------------------------------------------------------------------ #
     # Phase 3 — Analyse                                                    #
@@ -140,6 +156,7 @@ def _run_single(profile, args, stages=None) -> None:
             profile    =profile,
         )
         console.print(f"\n[dim]Phase 3 done in {_elapsed(t0)}[/]")
+        _log_timing(profile, 3, "Analyse", time.time() - t0)
 
     # ------------------------------------------------------------------ #
     # Phase 4 — Plot                                                       #
@@ -159,6 +176,7 @@ def _run_single(profile, args, stages=None) -> None:
             profile =profile,
         )
         console.print(f"\n[dim]Phase 4 done in {_elapsed(t0)}[/]")
+        _log_timing(profile, 4, "Plot", time.time() - t0)
 
     # ------------------------------------------------------------------ #
     # Phase 5 — Report                                                     #
@@ -183,6 +201,7 @@ def _run_single(profile, args, stages=None) -> None:
             profile       =profile,
         )
         console.print(f"\n[dim]Phase 5 done in {_elapsed(t0)}[/]")
+        _log_timing(profile, 5, "Report", time.time() - t0)
 
 
 # ---------------------------------------------------------------------------

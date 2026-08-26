@@ -602,8 +602,13 @@ def run(
             with open(repos_json_path) as fh:
                 for r in json.load(fh):
                     repo_meta_lookup[r.get("full_name", "")] = {
-                        "description": r.get("description", ""),
-                        "topics":      r.get("topics", []),
+                        "description":     r.get("description", ""),
+                        "topics":          r.get("topics", []),
+                        "language":        r.get("language") or "",
+                        "stars":           r.get("stars", 0) or 0,
+                        "created_at":      r.get("created_at", ""),
+                        "html_url":        r.get("html_url", ""),
+                        "matched_queries": r.get("matched_labels") or r.get("matched_queries", []),
                     }
         except Exception:
             pass
