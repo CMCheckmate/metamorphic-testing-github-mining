@@ -1,6 +1,6 @@
 # Metamorphic Testing — GitHub Mining Report
 
-*MT · Generated: 2026-08-23 16:00 UTC*
+*MT · Generated: 2026-08-28 02:00 UTC*
 
 ---
 
@@ -71,22 +71,34 @@ Signal matches classified by where they appear in the repository file tree.
 | Non-code (docs + config + other) | 700 | 18.3% |
 
 
-### Technique Lines and Files (Detected Repos)
+### Technique Coverage Ratios (Detected Repos)
 
-How much of each detected repo's content contains technique signals.
+Proportion of each detected repo's content containing technique signals.
 
 | Metric | Value |
 |---|---|
-| Median technique lines | 3.5 |
-| Mean technique lines | 45.5 |
 | Median technique line density | 0.0% |
-| Median technique files | 1.0 |
-| Mean technique files | 1.3 |
 | Median technique file ratio | 0.9% |
 | Repos with > 10% file coverage | 2 |
 
 ![MT — technique line density and file ratio distributions](../plots/technique_ratios.png)
 *MT — technique line density and file ratio distributions*
+
+
+### Project Metadata (Detected vs Not Detected)
+
+| Metric | Detected (n=186) | Not Detected (n=917) |
+|---|---|---|
+| Median stars | 11.0 | 4.0 |
+| Mean stars | 54.8 | 11.6 |
+| Max stars | 1,391 | 185 |
+| Median repo age (yrs) | 8.0 | 9.0 |
+| Max repo age (yrs) | 14 | 16 |
+| Median files scanned | 134.5 | 107.0 |
+| Max files scanned | 299 | 200 |
+
+![MT — project metadata: detected vs not-detected (stars, age, files)](../plots/project_metadata.png)
+*MT — project metadata: detected vs not-detected (stars, age, files)*
 
 
 ### Contributor Activity
@@ -134,15 +146,12 @@ Repos are classified by where technique signals appear in the directory tree. No
 ![MT — project role distribution (including not-detected)](../plots/project_type_dist.png)
 *MT — project role distribution (including not-detected)*
 
-
 ### Detection Distribution
 
 How technique signals are distributed within repos: spread across files, density per file, and location in test infrastructure.
 
 | Spread Metric | Value |
 |---|---|
-| Median signal-containing files per repo | 2.0 |
-| Mean signal-containing files per repo | 2.6 |
 | Single-file signal repos | 22 (22.2%) |
 | Median avg matches per technique file | 1.0 |
 | Mean avg matches per technique file | 18.7 |
@@ -214,7 +223,25 @@ Where in the file tree signals appear across all 3,825 total matches.
 
 ### File Extension Breakdown
 
-Extension-level breakdown of files containing technique signals.
+Extension-level breakdown of files containing technique signals (top 15 by match count).
+
+| Extension | Signal matches |
+|---|---|
+| `.java` | 1,208 |
+| `.py` | 1,159 |
+| `.md` | 385 |
+| `.rb` | 327 |
+| `.c` | 151 |
+| `.rst` | 127 |
+| `.cpp` | 113 |
+| `.scala` | 85 |
+| `.txt` | 70 |
+| `.js` | 37 |
+| `.ini` | 30 |
+| `.yml` | 30 |
+| `.toml` | 28 |
+| `.cs` | 24 |
+| `.gradle` | 21 |
 
 ![MT — signal matches by file extension](../plots/extension_breakdown.png)
 *MT — signal matches by file extension*
@@ -237,6 +264,10 @@ Inferred from repo name, description, and GitHub topics (keyword matching). A re
 
 ![MT — inferred domain distribution](../plots/domain_dist.png)
 *MT — inferred domain distribution*
+
+![MT — detected repos by domain and creation year](../plots/domain_activity_over_time.png)
+*MT — detected repos by domain and creation year*
+
 
 
 ---
@@ -287,14 +318,37 @@ Computed from up to 500 most-recent commits per repo (git log, no merges).
 ![MT — technique commit activity over time (commits per year)](../plots/commit_timeline.png)
 *MT — technique commit activity over time (commits per year)*
 
-![MT — first and last technique commit year (overlaid)](../plots/commit_first_last.png)
-*MT — first and last technique commit year (overlaid)*
+![MT — first technique commit year distribution](../plots/commit_first_year.png)
+*MT — first technique commit year distribution*
+
+![MT — last technique commit year distribution](../plots/commit_last_year.png)
+*MT — last technique commit year distribution*
 
 ![MT — first-to-last commit duration distribution (years)](../plots/commit_span.png)
 *MT — first-to-last commit duration distribution (years)*
 
 ![MT — technique commit ratio distribution](../plots/commit_ratio_dist.png)
 *MT — technique commit ratio distribution*
+
+
+### Technique Commits by Year of Repository Life
+
+Total technique commits in each year of a repo's existence, aggregated across all detected repos.
+Shows whether technique adoption is concentrated early or sustained over time.
+
+| Project life year | Technique commits |
+|---|---|
+| Yr 1 | 2,896 |
+| Yr 2 | 2,503 |
+| Yr 3 | 73 |
+| Yr 4 | 18 |
+| Yr 5 | 9 |
+| Yr 6 | 1 |
+| Yr 7 | 2 |
+
+![MT — technique commits by year of repository life](../plots/project_life_year.png)
+*MT — technique commits by year of repository life*
+
 
 
 ---
@@ -1322,3 +1376,5 @@ No MT pattern matches found in cloned default branch. Listed for manual review (
 | `comment_mr` | Comment: metamorphic relation |
 | `abbrev_MT` | Abbreviation: MT |
 | `abbrev_MR` | Abbreviation: MR |
+
+---

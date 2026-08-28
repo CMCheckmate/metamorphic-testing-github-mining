@@ -1,7 +1,7 @@
 # Comparative Testing Technique Analysis
 
 **Techniques:** Fuzzing, MT, PBT  
-*Generated: 2026-08-23 16:00 UTC*
+*Generated: 2026-08-28 02:00 UTC*
 
 ---
 
@@ -36,15 +36,15 @@ All subsequent comparisons use only detected repos unless stated otherwise.
 | MT | 2 | 21.8 | 500 |
 | PBT | 3 | 14.3 | 500 |
 
-### Code vs Non-Code Mentions
+### Artifact Type Distribution
 
-Proportion of signal matches in code files (test + source) vs non-code (docs + config + other).
+Signal matches broken down by artifact type (test code, source code, documentation, config, other).
 
-| Technique | Code matches | Non-code matches |
-|---|---|---|
-| Fuzzing | 82.6% | 17.4% |
-| MT | 81.7% | 18.3% |
-| PBT | 87.3% | 12.7% |
+| Technique | Test Code | Source Code | Documentation | Config | Other |
+|---|---|---|---|---|---|
+| Fuzzing | 52.4% | 30.2% | 14.3% | 3.1% | 0.0% |
+| MT | 43.6% | 38.1% | 15.2% | 3.1% | 0.0% |
+| PBT | 54.8% | 32.6% | 10.0% | 2.7% | 0.0% |
 
 ![Artifact type distribution by technique](plots/artifact_comparison.png)
 *Artifact type distribution by technique*
@@ -149,12 +149,18 @@ Commit metrics derived from up to 500 most-recent commits per repo.
 ![Technique commit activity over time per technique](plots/commit_timeline_comb.png)
 *Technique commit activity over time per technique*
 
-![First and last technique commit year distributions per technique](plots/commit_first_last.png)
-*First and last technique commit year distributions per technique*
+![First technique commit year distribution per technique](plots/commit_first_year.png)
+*First technique commit year distribution per technique*
+
+![Last technique commit year distribution per technique](plots/commit_last_year.png)
+*Last technique commit year distribution per technique*
 
 ![First-to-last commit duration per technique (years)](plots/commit_span.png)
 *First-to-last commit duration per technique (years)*
 
 ![Technique commit ratio per technique](plots/commit_ratio.png)
 *Technique commit ratio per technique*
+
+![Technique commits by year of repository life per technique](plots/project_life_year_comb.png)
+*Technique commits by year of repository life per technique*
 

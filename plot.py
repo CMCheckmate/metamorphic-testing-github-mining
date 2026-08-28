@@ -274,7 +274,14 @@ def plot_language_dist(repo_scores, out_dir: Path, fmt: str, dpi: int, technique
     palette = sns.color_palette("viridis", n_colors=len(labels))
     bars = ax.bar(labels, values, color=palette, edgecolor="white", linewidth=0.8)
     ax.bar_label(bars, padding=3, fontsize=9)
-    ax.set_ylabel("Detected repositories")
+    ylabel = "Detected repositories"
+    if len(values) > 1:
+        sv = sorted(values, reverse=True)
+        if sv[0] > 4 * sv[1]:
+            ax.set_yscale("log")
+            ax.yaxis.set_major_formatter(mticker.ScalarFormatter())
+            ylabel = "Detected repositories (log scale)"
+    ax.set_ylabel(ylabel)
     ax.set_title(f"{technique_name} — Language Distribution (Top 15, Detected Repos)")
     ax.set_xticks(range(len(labels)))
     ax.set_xticklabels(labels, rotation=35, ha="right")
@@ -615,38 +622,127 @@ def plot_project_metadata(repo_scores, out_dir: Path, fmt: str, dpi: int, techni
     _save(fig, out_dir, "project_metadata", fmt, dpi)
 
 
-def plot_commit_first_last(repo_scores, out_dir: Path, fmt: str, dpi: int, technique_name: str = "Technique") -> None:
-    """Overlaid histograms: first and last technique commit year per detected repo."""
+def plot_first_technique_commit_year(repo_scores, out_dir: Path, fmt: str, dpi: int, technique_name: str = "Technique") -> None:
+    """Histogram: year of first technique commit per detected repo."""
     detected = _detected(repo_scores)
-    first_years, last_years = [], []
+    years = []
     for r in detected:
         fd = r.get("first_technique_commit_date", "")
-        ld = r.get("last_technique_commit_date", "")
         if fd and len(fd) >= 4 and fd[:4].isdigit():
-            first_years.append(int(fd[:4]))
-        if ld and len(ld) >= 4 and ld[:4].isdigit():
-            last_years.append(int(ld[:4]))
-    if not first_years and not last_years:
+            years.append(int(fd[:4]))
+    if not years:
         return
-
-    all_years = first_years + last_years
-    min_y = max(min(all_years) - 1, 2008)
-    max_y = min(max(all_years) + 1, 2026)
+    min_y = max(min(years) - 1, 2008)
+    max_y = min(max(years) + 1, 2026)
     bins  = list(range(min_y, max_y + 2))
-
     fig, ax = plt.subplots(figsize=(10, 5))
-    if first_years:
-        ax.hist(first_years, bins=bins, alpha=0.65, color=PRIMARY_COLOR,
-                label=f"First commit (n={len(first_years):,})", edgecolor="white", linewidth=0.4)
-    if last_years:
-        ax.hist(last_years, bins=bins, alpha=0.55, color=SECONDARY_COLOR,
-                label=f"Last commit (n={len(last_years):,})", edgecolor="white", linewidth=0.4)
+    ax.hist(years, bins=bins, color=PRIMARY_COLOR, edgecolor="white", linewidth=0.4)
     ax.set_xlabel("Year")
     ax.set_ylabel("Repositories")
-    ax.set_title(f"{technique_name} — First and Last Technique Commit Year")
+    ax.set_title(f"{technique_name} — First Technique Commit Year (n={len(years):,})")
     ax.tick_params(axis="x", rotation=45)
-    ax.legend(fontsize=9)
-    _save(fig, out_dir, "commit_first_last", fmt, dpi)
+    _save(fig, out_dir, "commit_first_year", fmt, dpi)
+
+
+def plot_last_technique_commit_year(repo_scores, out_dir: Path, fmt: str, dpi: int, technique_name: str = "Technique") -> None:
+    """Histogram: year of last technique commit per detected repo."""
+    detected = _detected(repo_scores)
+    years = []
+    for r in detected:
+        ld = r.get("last_technique_commit_date", "")
+        if ld and len(ld) >= 4 and ld[:4].isdigit():
+            years.append(int(ld[:4]))
+    if not years:
+        return
+    min_y = max(min(years) - 1, 2008)
+    max_y = min(max(years) + 1, 2026)
+    bins  = list(range(min_y, max_y + 2))
+    fig, ax = plt.subplots(figsize=(10, 5))
+    ax.hist(years, bins=bins, color=SECONDARY_COLOR, edgecolor="white", linewidth=0.4)
+    ax.set_xlabel("Year")
+    ax.set_ylabel("Repositories")
+    ax.set_title(f"{technique_name} — Last Technique Commit Year (n={len(years):,})")
+    ax.tick_params(axis="x", rotation=45)
+    _save(fig, out_dir, "commit_last_year", fmt, dpi)
+
+
+def plot_domain_activity_over_time(repo_scores, out_dir: Path, fmt: str, dpi: int, technique_name: str = "Technique") -> None:
+    """Multi-line chart: detected repos created per year, broken down by top domains."""
+    detected = _detected(repo_scores)
+    all_dom: Counter = Counter()
+    for r in detected:
+        for d in (r.get("inferred_domains") or []):
+            all_dom[d] += 1
+    top_domains = [d for d, _ in all_dom.most_common(6)]
+    if not top_domains:
+        return
+
+    domain_by_year: dict = defaultdict(Counter)
+    all_years: set = set()
+    for r in detected:
+        created = (r.get("created_at") or "")[:4]
+        if not created or not created.isdigit():
+            continue
+        yr = int(created)
+        if 2010 <= yr <= 2026:
+            all_years.add(yr)
+            for d in (r.get("inferred_domains") or []):
+                if d in top_domains:
+                    domain_by_year[d][yr] += 1
+    if not all_years:
+        return
+
+    years   = sorted(all_years)
+    palette = sns.color_palette("Set2", n_colors=len(top_domains))
+    fig, ax = plt.subplots(figsize=(12, 5))
+    for i, domain in enumerate(top_domains):
+        counts = [domain_by_year[domain].get(y, 0) for y in years]
+        ax.plot(years, counts, marker="o", markersize=4, linewidth=1.8,
+                label=domain.replace("_", " ").title(), color=palette[i])
+    ax.set_xlabel("Repository creation year")
+    ax.set_ylabel("Detected repositories")
+    ax.set_title(f"{technique_name} — Detected Repos by Domain Over Time (Top 6 Domains)")
+    ax.xaxis.set_major_locator(mticker.MultipleLocator(1))
+    ax.tick_params(axis="x", rotation=45)
+    ax.legend(fontsize=9, bbox_to_anchor=(1.01, 1), loc="upper left")
+    plt.tight_layout()
+    _save(fig, out_dir, "domain_activity_over_time", fmt, dpi)
+
+
+def plot_project_life_year(repo_scores, out_dir: Path, fmt: str, dpi: int, technique_name: str = "Technique") -> None:
+    """Line chart: technique commits by year of repo life (1 = first year after creation)."""
+    detected = _detected(repo_scores)
+    life_counts: Counter = Counter()
+    for r in detected:
+        created = (r.get("created_at") or "")[:4]
+        if not created or not created.isdigit():
+            continue
+        created_year = int(created)
+        for dt in (r.get("technique_commit_dates") or []):
+            if isinstance(dt, str) and len(dt) >= 4 and dt[:4].isdigit():
+                yol = int(dt[:4]) - created_year + 1
+                if 1 <= yol <= 20:
+                    life_counts[yol] += 1
+    if not life_counts:
+        return
+    max_yr     = min(max(life_counts.keys()), 20)
+    life_years = list(range(1, max_yr + 1))
+    counts     = [life_counts.get(y, 0) for y in life_years]
+
+    fig, ax = plt.subplots(figsize=(11, 5))
+    ax.plot(life_years, counts, color=PRIMARY_COLOR, linewidth=2, marker="o", markersize=5)
+    ax.fill_between(life_years, counts, alpha=0.15, color=PRIMARY_COLOR)
+    ax.set_xlabel("Year of repository life (1 = first year after creation)")
+    ax.set_ylabel("Technique commits (across all detected repos)")
+    ax.set_title(f"{technique_name} — Technique Commits by Year of Repository Life")
+    if max_yr <= 15:
+        ax.set_xticks(life_years)
+        ax.set_xticklabels([f"Yr {y}" for y in life_years], rotation=45)
+    else:
+        tick_positions = list(range(1, max_yr + 1, 2))
+        ax.set_xticks(tick_positions)
+        ax.set_xticklabels([f"Yr {y}" for y in tick_positions], rotation=45)
+    _save(fig, out_dir, "project_life_year", fmt, dpi)
 
 
 def plot_technique_commit_timeline(repo_scores, out_dir: Path, fmt: str, dpi: int, technique_name: str = "Technique") -> None:
@@ -759,7 +855,14 @@ def plot_surface_breakdown(repo_scores, summary, out_dir: Path, fmt: str, dpi: i
     bars = ax.bar(labels, values, color=colors, edgecolor="white", linewidth=0.8)
     ax.bar_label(bars, padding=3, fontsize=10)
     ax.set_xlabel("Search surface")
-    ax.set_ylabel("Distinct repositories found")
+    ylabel = "Distinct repositories found"
+    if len(values) > 1:
+        sv = sorted(values, reverse=True)
+        if sv[0] > 4 * sv[1]:
+            ax.set_yscale("log")
+            ax.yaxis.set_major_formatter(mticker.ScalarFormatter())
+            ylabel = "Distinct repositories found (log scale)"
+    ax.set_ylabel(ylabel)
     ax.set_title(f"{technique_name} — Repositories Found per Search Surface")
     _save(fig, out_dir, "surface_breakdown", fmt, dpi)
 
@@ -785,7 +888,11 @@ def plot_query_overlap(repo_scores, out_dir: Path, fmt: str, dpi: int) -> None:
 
 
 def plot_commit_timeline(repo_scores, out_dir: Path, fmt: str, dpi: int, technique_name: str = "Technique") -> None:
-    pass  # replaced by plot_commit_first_last
+    pass  # replaced by plot_technique_commit_timeline
+
+
+def plot_commit_first_last(repo_scores, out_dir: Path, fmt: str, dpi: int, technique_name: str = "Technique") -> None:
+    pass  # replaced by plot_first_technique_commit_year + plot_last_technique_commit_year
 
 
 # ===========================================================================
@@ -813,21 +920,24 @@ def run(out_dir: Path, fmt: str, dpi: int, profile=None) -> None:
     plot_project_metadata(    scores,                out_dir, fmt, dpi, tech)
 
     # Usage (RQ2) — project role first, then detection distribution, then language/artifact/extension
-    plot_project_type_dist(   scores,                out_dir, fmt, dpi, tech)
-    plot_coverage_depth(      findings, scores,      out_dir, fmt, dpi, tech)
-    plot_keyword_density(     scores,                out_dir, fmt, dpi, tech)
-    plot_test_structure(      findings, scores,      out_dir, fmt, dpi, tech)
-    plot_language_dist(       scores,                out_dir, fmt, dpi, tech)
-    plot_artifact_breakdown(  scores,                out_dir, fmt, dpi, tech)
-    plot_extension_breakdown( findings,              out_dir, fmt, dpi, tech)
-    plot_domain_dist(         scores,                out_dir, fmt, dpi, tech)
-    plot_pattern_freq(        findings,              out_dir, fmt, dpi, tech)
+    plot_project_type_dist(           scores,                out_dir, fmt, dpi, tech)
+    plot_coverage_depth(              findings, scores,      out_dir, fmt, dpi, tech)
+    plot_keyword_density(             scores,                out_dir, fmt, dpi, tech)
+    plot_test_structure(              findings, scores,      out_dir, fmt, dpi, tech)
+    plot_language_dist(               scores,                out_dir, fmt, dpi, tech)
+    plot_artifact_breakdown(          scores,                out_dir, fmt, dpi, tech)
+    plot_extension_breakdown(         findings,              out_dir, fmt, dpi, tech)
+    plot_domain_dist(                 scores,                out_dir, fmt, dpi, tech)
+    plot_domain_activity_over_time(   scores,                out_dir, fmt, dpi, tech)
+    plot_pattern_freq(                findings,              out_dir, fmt, dpi, tech)
 
     # Timeline (RQ3)
-    plot_technique_commit_timeline(scores,                out_dir, fmt, dpi, tech)
-    plot_commit_first_last(        scores,                out_dir, fmt, dpi, tech)
-    plot_commit_span(              scores,                out_dir, fmt, dpi, tech)
-    plot_commit_ratio_dist(        scores,                out_dir, fmt, dpi, tech)
+    plot_technique_commit_timeline(   scores,                out_dir, fmt, dpi, tech)
+    plot_first_technique_commit_year( scores,                out_dir, fmt, dpi, tech)
+    plot_last_technique_commit_year(  scores,                out_dir, fmt, dpi, tech)
+    plot_commit_span(                 scores,                out_dir, fmt, dpi, tech)
+    plot_commit_ratio_dist(           scores,                out_dir, fmt, dpi, tech)
+    plot_project_life_year(           scores,                out_dir, fmt, dpi, tech)
 
     # Pipeline / search
     plot_surface_breakdown(   scores, summary,       out_dir, fmt, dpi, tech)

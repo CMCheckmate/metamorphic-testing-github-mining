@@ -1,6 +1,6 @@
 # Fuzzing — GitHub Mining Report
 
-*Fuzzing · Generated: 2026-08-23 16:00 UTC*
+*Fuzzing · Generated: 2026-08-28 02:00 UTC*
 
 ---
 
@@ -70,22 +70,34 @@ Signal matches classified by where they appear in the repository file tree.
 | Non-code (docs + config + other) | 2,579 | 17.4% |
 
 
-### Technique Lines and Files (Detected Repos)
+### Technique Coverage Ratios (Detected Repos)
 
-How much of each detected repo's content contains technique signals.
+Proportion of each detected repo's content containing technique signals.
 
 | Metric | Value |
 |---|---|
-| Median technique lines | 8.0 |
-| Mean technique lines | 53.7 |
 | Median technique line density | 0.0% |
-| Median technique files | 1.0 |
-| Mean technique files | 1.6 |
 | Median technique file ratio | 0.8% |
 | Repos with > 10% file coverage | 15 |
 
 ![Fuzzing — technique line density and file ratio distributions](../plots/technique_ratios.png)
 *Fuzzing — technique line density and file ratio distributions*
+
+
+### Project Metadata (Detected vs Not Detected)
+
+| Metric | Detected (n=534) | Not Detected (n=1,316) |
+|---|---|---|
+| Median stars | 10.5 | 4.0 |
+| Mean stars | 49.6 | 12.1 |
+| Max stars | 1,530 | 376 |
+| Median repo age (yrs) | 7.0 | 9.0 |
+| Max repo age (yrs) | 14 | 16 |
+| Median files scanned | 165.5 | 102.0 |
+| Max files scanned | 300 | 200 |
+
+![Fuzzing — project metadata: detected vs not-detected (stars, age, files)](../plots/project_metadata.png)
+*Fuzzing — project metadata: detected vs not-detected (stars, age, files)*
 
 
 ### Contributor Activity
@@ -133,15 +145,12 @@ Repos are classified by where technique signals appear in the directory tree. No
 ![Fuzzing — project role distribution (including not-detected)](../plots/project_type_dist.png)
 *Fuzzing — project role distribution (including not-detected)*
 
-
 ### Detection Distribution
 
 How technique signals are distributed within repos: spread across files, density per file, and location in test infrastructure.
 
 | Spread Metric | Value |
 |---|---|
-| Median signal-containing files per repo | 3.0 |
-| Mean signal-containing files per repo | 2.8 |
 | Single-file signal repos | 78 (22.3%) |
 | Median avg matches per technique file | 2.5 |
 | Mean avg matches per technique file | 22.2 |
@@ -210,7 +219,25 @@ Where in the file tree signals appear across all 14,805 total matches.
 
 ### File Extension Breakdown
 
-Extension-level breakdown of files containing technique signals.
+Extension-level breakdown of files containing technique signals (top 15 by match count).
+
+| Extension | Signal matches |
+|---|---|
+| `.cpp` | 3,297 |
+| `.c` | 3,198 |
+| `.py` | 2,340 |
+| `.java` | 1,004 |
+| `.md` | 909 |
+| `.rs` | 844 |
+| `.go` | 837 |
+| `.txt` | 812 |
+| `.js` | 707 |
+| `.rst` | 397 |
+| `.gradle` | 118 |
+| `.yml` | 92 |
+| `.toml` | 90 |
+| `.ini` | 80 |
+| `./makefile` | 80 |
 
 ![Fuzzing — signal matches by file extension](../plots/extension_breakdown.png)
 *Fuzzing — signal matches by file extension*
@@ -231,6 +258,10 @@ Inferred from repo name, description, and GitHub topics (keyword matching). A re
 
 ![Fuzzing — inferred domain distribution](../plots/domain_dist.png)
 *Fuzzing — inferred domain distribution*
+
+![Fuzzing — detected repos by domain and creation year](../plots/domain_activity_over_time.png)
+*Fuzzing — detected repos by domain and creation year*
+
 
 
 ---
@@ -281,14 +312,41 @@ Computed from up to 500 most-recent commits per repo (git log, no merges).
 ![Fuzzing — technique commit activity over time (commits per year)](../plots/commit_timeline.png)
 *Fuzzing — technique commit activity over time (commits per year)*
 
-![Fuzzing — first and last technique commit year (overlaid)](../plots/commit_first_last.png)
-*Fuzzing — first and last technique commit year (overlaid)*
+![Fuzzing — first technique commit year distribution](../plots/commit_first_year.png)
+*Fuzzing — first technique commit year distribution*
+
+![Fuzzing — last technique commit year distribution](../plots/commit_last_year.png)
+*Fuzzing — last technique commit year distribution*
 
 ![Fuzzing — first-to-last commit duration distribution (years)](../plots/commit_span.png)
 *Fuzzing — first-to-last commit duration distribution (years)*
 
 ![Fuzzing — technique commit ratio distribution](../plots/commit_ratio_dist.png)
 *Fuzzing — technique commit ratio distribution*
+
+
+### Technique Commits by Year of Repository Life
+
+Total technique commits in each year of a repo's existence, aggregated across all detected repos.
+Shows whether technique adoption is concentrated early or sustained over time.
+
+| Project life year | Technique commits |
+|---|---|
+| Yr 1 | 7,912 |
+| Yr 2 | 6,862 |
+| Yr 3 | 238 |
+| Yr 4 | 142 |
+| Yr 5 | 19 |
+| Yr 6 | 20 |
+| Yr 7 | 8 |
+| Yr 8 | 4 |
+| Yr 9 | 2 |
+| Yr 10 | 1 |
+| Yr 11 | 2 |
+
+![Fuzzing — technique commits by year of repository life](../plots/project_life_year.png)
+*Fuzzing — technique commits by year of repository life*
+
 
 
 ---
@@ -1713,3 +1771,5 @@ No Fuzzing pattern matches found in cloned default branch. Listed for manual rev
 | `comment_fuzz` | Comment: fuzzing/fuzzer |
 | `string_fuzz` | String: fuzz/fuzzer |
 | `identifier_fuzz` | Identifier: fuzz_/Fuzz |
+
+---

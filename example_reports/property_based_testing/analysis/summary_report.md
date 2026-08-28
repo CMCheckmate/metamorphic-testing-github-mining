@@ -1,6 +1,6 @@
 # Property-Based Testing — GitHub Mining Report
 
-*PBT · Generated: 2026-08-23 16:00 UTC*
+*PBT · Generated: 2026-08-28 02:00 UTC*
 
 ---
 
@@ -70,22 +70,34 @@ Signal matches classified by where they appear in the repository file tree.
 | Non-code (docs + config + other) | 1,172 | 12.7% |
 
 
-### Technique Lines and Files (Detected Repos)
+### Technique Coverage Ratios (Detected Repos)
 
-How much of each detected repo's content contains technique signals.
+Proportion of each detected repo's content containing technique signals.
 
 | Metric | Value |
 |---|---|
-| Median technique lines | 4.0 |
-| Mean technique lines | 28.6 |
 | Median technique line density | 0.0% |
-| Median technique files | 1.0 |
-| Mean technique files | 1.5 |
 | Median technique file ratio | 0.9% |
 | Repos with > 10% file coverage | 13 |
 
 ![PBT — technique line density and file ratio distributions](../plots/technique_ratios.png)
 *PBT — technique line density and file ratio distributions*
+
+
+### Project Metadata (Detected vs Not Detected)
+
+| Metric | Detected (n=712) | Not Detected (n=1,575) |
+|---|---|---|
+| Median stars | 14.0 | 4.0 |
+| Mean stars | 57.3 | 14.9 |
+| Max stars | 4,105 | 2,243 |
+| Median repo age (yrs) | 7.0 | 8.0 |
+| Max repo age (yrs) | 14 | 16 |
+| Median files scanned | 158.0 | 103.0 |
+| Max files scanned | 300 | 200 |
+
+![PBT — project metadata: detected vs not-detected (stars, age, files)](../plots/project_metadata.png)
+*PBT — project metadata: detected vs not-detected (stars, age, files)*
 
 
 ### Contributor Activity
@@ -133,15 +145,12 @@ Repos are classified by where technique signals appear in the directory tree. No
 ![PBT — project role distribution (including not-detected)](../plots/project_type_dist.png)
 *PBT — project role distribution (including not-detected)*
 
-
 ### Detection Distribution
 
 How technique signals are distributed within repos: spread across files, density per file, and location in test infrastructure.
 
 | Spread Metric | Value |
 |---|---|
-| Median signal-containing files per repo | 2.0 |
-| Mean signal-containing files per repo | 2.6 |
 | Single-file signal repos | 112 (27.1%) |
 | Median avg matches per technique file | 1.7 |
 | Mean avg matches per technique file | 11.7 |
@@ -212,7 +221,25 @@ Where in the file tree signals appear across all 9,218 total matches.
 
 ### File Extension Breakdown
 
-Extension-level breakdown of files containing technique signals.
+Extension-level breakdown of files containing technique signals (top 15 by match count).
+
+| Extension | Signal matches |
+|---|---|
+| `.py` | 2,645 |
+| `.scala` | 1,175 |
+| `.rs` | 1,104 |
+| `.java` | 883 |
+| `.cs` | 765 |
+| `.hs` | 514 |
+| `.md` | 485 |
+| `.js` | 463 |
+| `.kt` | 379 |
+| `.txt` | 229 |
+| `.rst` | 212 |
+| `.rb` | 118 |
+| `./makefile` | 75 |
+| `.toml` | 60 |
+| `.yml` | 41 |
 
 ![PBT — signal matches by file extension](../plots/extension_breakdown.png)
 *PBT — signal matches by file extension*
@@ -234,6 +261,10 @@ Inferred from repo name, description, and GitHub topics (keyword matching). A re
 
 ![PBT — inferred domain distribution](../plots/domain_dist.png)
 *PBT — inferred domain distribution*
+
+![PBT — detected repos by domain and creation year](../plots/domain_activity_over_time.png)
+*PBT — detected repos by domain and creation year*
+
 
 
 ---
@@ -284,14 +315,41 @@ Computed from up to 500 most-recent commits per repo (git log, no merges).
 ![PBT — technique commit activity over time (commits per year)](../plots/commit_timeline.png)
 *PBT — technique commit activity over time (commits per year)*
 
-![PBT — first and last technique commit year (overlaid)](../plots/commit_first_last.png)
-*PBT — first and last technique commit year (overlaid)*
+![PBT — first technique commit year distribution](../plots/commit_first_year.png)
+*PBT — first technique commit year distribution*
+
+![PBT — last technique commit year distribution](../plots/commit_last_year.png)
+*PBT — last technique commit year distribution*
 
 ![PBT — first-to-last commit duration distribution (years)](../plots/commit_span.png)
 *PBT — first-to-last commit duration distribution (years)*
 
 ![PBT — technique commit ratio distribution](../plots/commit_ratio_dist.png)
 *PBT — technique commit ratio distribution*
+
+
+### Technique Commits by Year of Repository Life
+
+Total technique commits in each year of a repo's existence, aggregated across all detected repos.
+Shows whether technique adoption is concentrated early or sustained over time.
+
+| Project life year | Technique commits |
+|---|---|
+| Yr 1 | 10,978 |
+| Yr 2 | 9,887 |
+| Yr 3 | 289 |
+| Yr 4 | 97 |
+| Yr 5 | 25 |
+| Yr 6 | 7 |
+| Yr 7 | 7 |
+| Yr 8 | 4 |
+| Yr 9 | 4 |
+| Yr 10 | 1 |
+| Yr 11 | 4 |
+
+![PBT — technique commits by year of repository life](../plots/project_life_year.png)
+*PBT — technique commits by year of repository life*
+
 
 
 ---
@@ -1975,3 +2033,5 @@ No PBT pattern matches found in cloned default branch. Listed for manual review 
 | `comment_pbt` | Comment: property-based testing |
 | `string_pbt` | String: property-based test |
 | `identifier_prop` | Identifier: prop_/Property |
+
+---

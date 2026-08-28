@@ -561,11 +561,13 @@ def main():
         combine_mod.plot_domain_comparison(          techniques, combined_plots, args.format, args.dpi)
 
         # Timeline (RQ3)
-        combine_mod.plot_yearly_trend(               techniques, combined_plots, args.format, args.dpi)
-        combine_mod.plot_technique_commit_timeline_comb(techniques, combined_plots, args.format, args.dpi)
-        combine_mod.plot_commit_first_last(          techniques, combined_plots, args.format, args.dpi)
-        combine_mod.plot_commit_span(                techniques, combined_plots, args.format, args.dpi)
-        combine_mod.plot_commit_ratio(               techniques, combined_plots, args.format, args.dpi)
+        combine_mod.plot_yearly_trend(                   techniques, combined_plots, args.format, args.dpi)
+        combine_mod.plot_technique_commit_timeline_comb( techniques, combined_plots, args.format, args.dpi)
+        combine_mod.plot_first_technique_commit_year(    techniques, combined_plots, args.format, args.dpi)
+        combine_mod.plot_last_technique_commit_year(     techniques, combined_plots, args.format, args.dpi)
+        combine_mod.plot_commit_span(                    techniques, combined_plots, args.format, args.dpi)
+        combine_mod.plot_commit_ratio(                   techniques, combined_plots, args.format, args.dpi)
+        combine_mod.plot_project_life_year_comb(         techniques, combined_plots, args.format, args.dpi)
 
         combined_out.parent.mkdir(parents=True, exist_ok=True)
         plots_rel = os.path.relpath(combined_plots.resolve(), combined_out.parent.resolve()).replace("\\", "/")

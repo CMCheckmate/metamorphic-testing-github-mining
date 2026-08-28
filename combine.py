@@ -679,43 +679,100 @@ def plot_yearly_trend(techniques, out_dir: Path, fmt: str, dpi: int) -> None:
     _save(fig, out_dir, "yearly_trend", fmt, dpi)
 
 
-def plot_commit_first_last(techniques, out_dir: Path, fmt: str, dpi: int) -> None:
-    """Overlaid histograms of first and last technique commit years per technique."""
-    from collections import defaultdict
+def plot_first_technique_commit_year(techniques, out_dir: Path, fmt: str, dpi: int) -> None:
+    """Overlaid histograms of first technique commit year per technique."""
     all_first = {t["short_name"]: _first_commit_years(t["scores"]) for t in techniques}
-    all_last  = {t["short_name"]: _last_commit_years(t["scores"])  for t in techniques}
-
-    all_years = []
-    for v in list(all_first.values()) + list(all_last.values()):
-        all_years.extend(v)
+    all_years = [y for v in all_first.values() for y in v]
     if not all_years:
         return
-
     min_y = max(min(all_years) - 1, 2008)
     max_y = min(max(all_years) + 1, 2026)
     bins  = list(range(min_y, max_y + 2))
-
     with plt.style.context(_PLOT_STYLE):
-        fig, axes = plt.subplots(1, 2, figsize=(14, 5))
-
-        for ax, data_map, title in [
-            (axes[0], all_first, "First Technique Commit Year"),
-            (axes[1], all_last,  "Last Technique Commit Year"),
-        ]:
-            for t in techniques:
-                vals = data_map[t["short_name"]]
-                if vals:
-                    ax.hist(vals, bins=bins, alpha=0.6, label=t["short_name"],
-                            color=t["color"], edgecolor="white", linewidth=0.4)
-            ax.set_xlabel("Year")
-            ax.set_ylabel("Repositories")
-            ax.set_title(title, fontweight="bold")
-            ax.tick_params(axis="x", rotation=45)
-            ax.legend(fontsize=9)
-
-        fig.suptitle("Technique Commit Date Distributions", fontsize=12, fontweight="bold")
+        fig, ax = plt.subplots(figsize=(10, 5))
+        for t in techniques:
+            vals = all_first[t["short_name"]]
+            if vals:
+                ax.hist(vals, bins=bins, alpha=0.6, label=t["short_name"],
+                        color=t["color"], edgecolor="white", linewidth=0.4)
+        ax.set_xlabel("Year")
+        ax.set_ylabel("Repositories")
+        ax.set_title("First Technique Commit Year", fontweight="bold")
+        ax.tick_params(axis="x", rotation=45)
+        ax.legend(fontsize=9)
         fig.tight_layout()
-    _save(fig, out_dir, "commit_first_last", fmt, dpi)
+    _save(fig, out_dir, "commit_first_year", fmt, dpi)
+
+
+def plot_last_technique_commit_year(techniques, out_dir: Path, fmt: str, dpi: int) -> None:
+    """Overlaid histograms of last technique commit year per technique."""
+    all_last = {t["short_name"]: _last_commit_years(t["scores"]) for t in techniques}
+    all_years = [y for v in all_last.values() for y in v]
+    if not all_years:
+        return
+    min_y = max(min(all_years) - 1, 2008)
+    max_y = min(max(all_years) + 1, 2026)
+    bins  = list(range(min_y, max_y + 2))
+    with plt.style.context(_PLOT_STYLE):
+        fig, ax = plt.subplots(figsize=(10, 5))
+        for t in techniques:
+            vals = all_last[t["short_name"]]
+            if vals:
+                ax.hist(vals, bins=bins, alpha=0.6, label=t["short_name"],
+                        color=t["color"], edgecolor="white", linewidth=0.4)
+        ax.set_xlabel("Year")
+        ax.set_ylabel("Repositories")
+        ax.set_title("Last Technique Commit Year", fontweight="bold")
+        ax.tick_params(axis="x", rotation=45)
+        ax.legend(fontsize=9)
+        fig.tight_layout()
+    _save(fig, out_dir, "commit_last_year", fmt, dpi)
+
+
+def plot_project_life_year_comb(techniques, out_dir: Path, fmt: str, dpi: int) -> None:
+    """Multi-line chart: technique commits per year of repo life, one line per technique."""
+    all_life_years: set = set()
+    year_data = {}
+    for t in techniques:
+        life_counts: Counter = Counter()
+        for r in _detected(t["scores"]):
+            created = (r.get("created_at") or "")[:4]
+            if not created or not created.isdigit():
+                continue
+            created_year = int(created)
+            for dt in (r.get("technique_commit_dates") or []):
+                if isinstance(dt, str) and len(dt) >= 4 and dt[:4].isdigit():
+                    yol = int(dt[:4]) - created_year + 1
+                    if 1 <= yol <= 20:
+                        life_counts[yol] += 1
+                        all_life_years.add(yol)
+        year_data[t["short_name"]] = life_counts
+
+    if not all_life_years:
+        return
+
+    max_yr     = min(max(all_life_years), 20)
+    life_years = list(range(1, max_yr + 1))
+    with plt.style.context(_PLOT_STYLE):
+        fig, ax = plt.subplots(figsize=(12, 5))
+        for t in techniques:
+            counts = year_data[t["short_name"]]
+            if counts:
+                ax.plot(life_years, [counts.get(y, 0) for y in life_years],
+                        marker="o", linewidth=2, label=t["short_name"], color=t["color"])
+        ax.set_xlabel("Year of repository life (1 = first year)")
+        ax.set_ylabel("Technique commits (across detected repos)")
+        ax.set_title("Technique Commits by Year of Repository Life", fontweight="bold")
+        if max_yr <= 15:
+            ax.set_xticks(life_years)
+            ax.set_xticklabels([f"Yr {y}" for y in life_years], rotation=45)
+        else:
+            tick_positions = list(range(1, max_yr + 1, 2))
+            ax.set_xticks(tick_positions)
+            ax.set_xticklabels([f"Yr {y}" for y in tick_positions], rotation=45)
+        ax.legend()
+        fig.tight_layout()
+    _save(fig, out_dir, "project_life_year_comb", fmt, dpi)
 
 
 def plot_technique_commit_timeline_comb(techniques, out_dir: Path, fmt: str, dpi: int) -> None:
@@ -993,9 +1050,11 @@ Commit metrics derived from up to 500 most-recent commits per repo.
 {commit_table}
 
 {_img(plots_rel, 'commit_timeline_comb', fmt, 'Technique commit activity over time per technique')}
-{_img(plots_rel, 'commit_first_last', fmt, 'First and last technique commit year distributions per technique')}
+{_img(plots_rel, 'commit_first_year', fmt, 'First technique commit year distribution per technique')}
+{_img(plots_rel, 'commit_last_year', fmt, 'Last technique commit year distribution per technique')}
 {_img(plots_rel, 'commit_span', fmt, 'First-to-last commit duration per technique (years)')}
 {_img(plots_rel, 'commit_ratio', fmt, 'Technique commit ratio per technique')}
+{_img(plots_rel, 'project_life_year_comb', fmt, 'Technique commits by year of repository life per technique')}
 """
 
 
@@ -1048,11 +1107,13 @@ def run(out_path: Path, plots_dir: Path, fmt: str, dpi: int, slug_filter=None) -
     plot_domain_comparison(     techniques, plots_dir, fmt, dpi)
 
     # Timeline (RQ3)
-    plot_yearly_trend(                  techniques, plots_dir, fmt, dpi)
-    plot_technique_commit_timeline_comb(techniques, plots_dir, fmt, dpi)
-    plot_commit_first_last(             techniques, plots_dir, fmt, dpi)
-    plot_commit_span(                   techniques, plots_dir, fmt, dpi)
-    plot_commit_ratio(                  techniques, plots_dir, fmt, dpi)
+    plot_yearly_trend(                   techniques, plots_dir, fmt, dpi)
+    plot_technique_commit_timeline_comb( techniques, plots_dir, fmt, dpi)
+    plot_first_technique_commit_year(    techniques, plots_dir, fmt, dpi)
+    plot_last_technique_commit_year(     techniques, plots_dir, fmt, dpi)
+    plot_commit_span(                    techniques, plots_dir, fmt, dpi)
+    plot_commit_ratio(                   techniques, plots_dir, fmt, dpi)
+    plot_project_life_year_comb(         techniques, plots_dir, fmt, dpi)
 
     out_path.parent.mkdir(parents=True, exist_ok=True)
     plots_rel = os.path.relpath(plots_dir.resolve(), out_path.parent.resolve()).replace("\\", "/")

@@ -363,23 +363,6 @@ def sec_usage(data: dict, plots_rel: str, fmt: str, profile) -> str:
         for k in type_order if type_counts.get(k, 0) > 0
     )
 
-    # Timeline metrics per project role
-    role_timeline_rows = []
-    for k in type_order:
-        repos_of_type = [r for r in detected if r.get("project_type", "unknown") == k]
-        if not repos_of_type:
-            continue
-        ratios = [r.get("technique_commit_ratio", 0.0) for r in repos_of_type
-                  if r.get("total_commits_sampled", 0) > 0]
-        spans  = [r.get("technique_commit_span_days", 0) / 365.25 for r in repos_of_type
-                  if r.get("technique_commit_span_days", 0) > 0]
-        med_ratio = f"{statistics.median(ratios)*100:.1f}%" if ratios else "—"
-        med_span  = f"{statistics.median(spans):.1f} yrs"  if spans  else "—"
-        role_timeline_rows.append(
-            f"| {type_display.get(k, k)} | {med_ratio} | {med_span} |"
-        )
-    role_timeline_table = "\n".join(role_timeline_rows)
-
     # --- Detection distribution (coverage depth + keyword density) ---
     files_per: dict = defaultdict(set)
     for f in findings:
@@ -509,21 +492,6 @@ Files classified as *Other* (extension not in the known source-code whitelist):
 
     domain_section = ""
     if domain_rows:
-        # Timeline metrics per domain
-        domain_timeline_rows = []
-        for d, _ in domain_counts.most_common():
-            repos_in_domain = [r for r in detected if d in (r.get("inferred_domains") or [])]
-            ratios = [r.get("technique_commit_ratio", 0.0) for r in repos_in_domain
-                      if r.get("total_commits_sampled", 0) > 0]
-            spans  = [r.get("technique_commit_span_days", 0) / 365.25 for r in repos_in_domain
-                      if r.get("technique_commit_span_days", 0) > 0]
-            med_ratio = f"{statistics.median(ratios)*100:.1f}%" if ratios else "—"
-            med_span  = f"{statistics.median(spans):.1f} yrs"  if spans  else "—"
-            domain_timeline_rows.append(
-                f"| {d.replace('_',' ').title()} | {med_ratio} | {med_span} |"
-            )
-        domain_timeline_table = "\n".join(domain_timeline_rows)
-
         domain_section = f"""\
 
 ### Application Domain
@@ -535,23 +503,7 @@ Inferred from repo name, description, and GitHub topics (keyword matching). A re
 {domain_rows}
 
 {_img(plots_rel, 'domain_dist', fmt, f'{short} — inferred domain distribution')}
-
-#### Domain — Timeline Metrics
-
-| Domain | Median commit ratio | Median span |
-|---|---|---|
-{domain_timeline_table}
-"""
-
-    role_timeline_section = ""
-    if role_timeline_table:
-        role_timeline_section = f"""\
-
-#### Role — Timeline Metrics
-
-| Classification | Median commit ratio | Median span |
-|---|---|---|
-{role_timeline_table}
+{_img(plots_rel, 'domain_activity_over_time', fmt, f'{short} — detected repos by domain and creation year')}
 """
 
     return f"""\
@@ -571,7 +523,6 @@ Repos are classified by where technique signals appear in the directory tree. No
 {type_desc_rows}
 
 {_img(plots_rel, 'project_type_dist', fmt, f'{short} — project role distribution (including not-detected)')}
-{role_timeline_section}
 ### Detection Distribution
 
 How technique signals are distributed within repos: spread across files, density per file, and location in test infrastructure.
@@ -665,45 +616,39 @@ def sec_temporal(data: dict, plots_rel: str, fmt: str, profile) -> str:
         if ld and len(ld) >= 4 and ld[:4].isdigit():
             last_years.append(int(ld[:4]))
 
-    # Commit activity per year-of-project-life
+    # Commit activity per year-of-project-life (using technique_commit_dates)
     yearly_of_life: Counter = Counter()
-    yearly_of_life_repos: Counter = Counter()
     for r in detected:
-        created = (r.get("created_at") or "")[:7]   # YYYY-MM
-        if not created or not created[:4].isdigit():
+        created = (r.get("created_at") or "")[:4]
+        if not created or not created.isdigit():
             continue
-        created_year = int(created[:4])
-        created_month = int(created[5:7]) if len(created) >= 7 and created[5:7].isdigit() else 1
-        for month_str, cnt in (r.get("monthly_technique_commits") or {}).items():
-            if not month_str or not month_str[:4].isdigit():
-                continue
-            commit_year  = int(month_str[:4])
-            commit_month = int(month_str[5:7]) if len(month_str) >= 7 and month_str[5:7].isdigit() else 1
-            # Year-of-project-life (1-indexed)
-            months_elapsed = (commit_year - created_year) * 12 + (commit_month - created_month)
-            year_of_life   = max(1, months_elapsed // 12 + 1)
-            if year_of_life <= 15:
-                yearly_of_life[year_of_life] += cnt
-                yearly_of_life_repos[year_of_life] += 1
+        created_year = int(created)
+        for dt in (r.get("technique_commit_dates") or []):
+            if isinstance(dt, str) and len(dt) >= 4 and dt[:4].isdigit():
+                yol = int(dt[:4]) - created_year + 1
+                if 1 <= yol <= 20:
+                    yearly_of_life[yol] += 1
 
     project_age_section = ""
     if yearly_of_life:
-        max_life_year = max(yearly_of_life.keys())
+        max_life_year = min(max(yearly_of_life.keys()), 20)
         life_rows = "\n".join(
-            f"| Year {y} | {yearly_of_life[y]:,} |"
+            f"| Yr {y} | {yearly_of_life[y]:,} |"
             for y in range(1, max_life_year + 1)
             if yearly_of_life.get(y, 0) > 0
         )
         project_age_section = f"""\
 
-### Technique Commits by Project Life Year
+### Technique Commits by Year of Repository Life
 
-Total technique commits occurring in each year of a repo's existence, aggregated across all
-detected repos. Shows whether technique adoption is concentrated early or sustained over time.
+Total technique commits in each year of a repo's existence, aggregated across all detected repos.
+Shows whether technique adoption is concentrated early or sustained over time.
 
 | Project life year | Technique commits |
 |---|---|
 {life_rows}
+
+{_img(plots_rel, 'project_life_year', fmt, f'{short} — technique commits by year of repository life')}
 """
 
     commit_section = ""
@@ -733,7 +678,8 @@ Computed from up to 500 most-recent commits per repo (git log, no merges).
 | Repos with > 10% technique commits | {n_high:,} ({_pct(n_high/len(commit_ratio)*100)}) |
 
 {_img(plots_rel, 'commit_timeline', fmt, f'{short} — technique commit activity over time (commits per year)')}
-{_img(plots_rel, 'commit_first_last', fmt, f'{short} — first and last technique commit year (overlaid)')}
+{_img(plots_rel, 'commit_first_year', fmt, f'{short} — first technique commit year distribution')}
+{_img(plots_rel, 'commit_last_year', fmt, f'{short} — last technique commit year distribution')}
 {_img(plots_rel, 'commit_span', fmt, f'{short} — first-to-last commit duration distribution (years)')}
 {_img(plots_rel, 'commit_ratio_dist', fmt, f'{short} — technique commit ratio distribution')}
 {project_age_section}"""
