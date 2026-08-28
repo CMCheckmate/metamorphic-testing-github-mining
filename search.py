@@ -81,17 +81,27 @@ def _headers(accept: str = "application/vnd.github+json") -> dict:
 
 
 def _get(url: str, params: dict | None = None, delay: float = STANDARD_SEARCH_DELAY) -> dict:
-    """GET with retry on 403/429 (rate limit).  Sleeps `delay` seconds before each call."""
+    """GET with retry on 403/429 (rate limit) and connection-level errors."""
+    import requests.exceptions as _rex
     time.sleep(delay)
-    for attempt in range(4):
-        resp = requests.get(url, headers=_headers(), params=params, timeout=30)
+    for attempt in range(5):
+        try:
+            resp = requests.get(url, headers=_headers(), params=params, timeout=30)
+        except (_rex.ConnectionError, _rex.Timeout) as exc:
+            wait = 30 * (attempt + 1)
+            console.print(
+                f"  [yellow]Connection error ({exc.__class__.__name__}) — "
+                f"sleeping {wait}s (attempt {attempt+1}/5)[/]"
+            )
+            time.sleep(wait)
+            continue
         if resp.status_code == 200:
             return resp.json()
         if resp.status_code in (403, 429):
             retry_after = int(resp.headers.get("Retry-After", 60))
             console.print(
                 f"  [yellow]Rate limited (HTTP {resp.status_code}) — "
-                f"sleeping {retry_after}s (attempt {attempt+1}/4)[/]"
+                f"sleeping {retry_after}s (attempt {attempt+1}/5)[/]"
             )
             time.sleep(retry_after)
         elif resp.status_code == 422:
