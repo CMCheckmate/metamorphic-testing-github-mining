@@ -1,8 +1,8 @@
 # Technique profile: Fuzz Testing (Fuzzing)
-# Fuzzing generates semi-random or mutation-based inputs to find crashes,
-# assertion failures, and security vulnerabilities. Comparison with MT is
-# interesting because both target the oracle problem but from different angles:
-# fuzzing detects crashes/undefined behaviour, MT detects logical correctness faults.
+# Coverage-guided and mutation-based fuzzing: inputs are generated/mutated to
+# trigger crashes, assertion failures, and security vulnerabilities.
+# Primary tools: libFuzzer, AFL/AFL++, honggfuzz, cargo-fuzz, Go testing.F,
+# Jazzer, atheris, boofuzz, go-fuzz, OSS-Fuzz, syzkaller.
 
 name: "Fuzz Testing"
 short_name: "Fuzzing"
@@ -10,172 +10,399 @@ slug: "fuzzing"
 description: >
   A dynamic testing technique that feeds semi-random, malformed, or mutation-derived
   inputs to a program to trigger crashes, assertion failures, and security vulnerabilities.
+  Includes coverage-guided (libFuzzer, AFL++, honggfuzz), language-native (Go testing.F,
+  cargo-fuzz, Jazzer), and protocol-based (boofuzz) approaches.
 color: "#b71c1c"
 
 # -------------------------------------------------------------------
 # Search vocabulary
+# These drive GitHub full-text and topic search.
+# "fuzzy" / "fuzzy testing" deliberately excluded: it matches fuzzy-logic
+# and string-similarity libraries (thefuzz/fuzzywuzzy) with near-zero
+# overlap with actual fuzz testing.
 # -------------------------------------------------------------------
 
 search_phrases:
   - "fuzz testing"
   - "fuzz test"
-  - "fuzz tests"
   - "fuzzing"
-  - "fuzzy testing"
-  - "coverage guided fuzzing"
   - "coverage-guided fuzzing"
-  - "mutation based fuzzing"
-  - "mutation-based fuzzing"
-  - "grammar based fuzzing"
-  - "grammar-based fuzzing"
-  - "generation based fuzzing"
-  - "generation-based fuzzing"
-  - "differential fuzzing"
-  - "structure aware fuzzing"
-  - "structure-aware fuzzing"
+  - "coverage guided fuzzing"
   - "greybox fuzzing"
   - "grey-box fuzzing"
-  - "black box fuzzing"
+  - "blackbox fuzzing"
   - "black-box fuzzing"
+  - "grammar-based fuzzing"
+  - "grammar based fuzzing"
+  - "structure-aware fuzzing"
+  - "structure aware fuzzing"
+  - "fuzz target"
+  - "fuzz harness"
+  - "fuzz corpus"
+  - "libfuzzer"
+  - "cargo-fuzz"
 
+# identifiers are used for code-surface GitHub search (exact string match).
+# "AFL" and "AFL++" deliberately excluded: too many unrelated acronym matches
+# (e.g. Australian Football League, AFL-CIO). __AFL_FUZZ_INIT is unambiguous.
 identifiers:
-  # C/C++ — libFuzzer / AFL
+  # C/C++ — libFuzzer
   - "LLVMFuzzerTestOneInput"
+  - "LLVMFuzzerInitialize"
   - "FuzzedDataProvider"
-  - "libFuzzer"
-  - "AFL"
-  - "AFL++"
+  - "FUZZING_BUILD_MODE_UNSAFE_FOR_PRODUCTION"
+  - "-fsanitize=fuzzer"
+  # C/C++ — AFL/AFL++ (persistent-mode macros, near-zero false positives)
+  - "__AFL_FUZZ_INIT"
+  - "__AFL_LOOP"
+  - "__AFL_FUZZ_TESTCASE_BUF"
   - "afl-fuzz"
+  - "afl-clang-fast"
+  # C — honggfuzz
+  - "HF_ITER"
+  - "honggfuzz"
+  # Rust — cargo-fuzz / libfuzzer-sys
+  - "libfuzzer-sys"
+  - "cargo-fuzz"
+  # Go — native (1.18+)
+  - "testing.F"
+  # Go — go-fuzz (pre-1.18, dvyukov)
+  - "go-fuzz-build"
+  # Java — Jazzer
+  - "fuzzerTestOneInput"
+  - "com.code_intelligence.jazzer"
+  - "FuzzerSecurityIssueMedium"
+  - "FuzzerSecurityIssueCritical"
   # Python
   - "atheris"
-  - "python-afl"
-  - "pythonfuzz"
   - "boofuzz"
-  # Go
-  - "testing.F"
-  - "f.Fuzz"
-  # Java
-  - "Jazzer"
-  - "JQF"
-  # Rust
-  - "cargo-fuzz"
-  - "libfuzzer-sys"
-  # Generic
-  - "FuzzTarget"
-  - "fuzz_target"
+  # Infrastructure
   - "OSS-Fuzz"
+  - "syzkaller"
   - "ClusterFuzz"
-  - "honggfuzz"
 
 extra_queries:
   repos:
     - query: "topic:fuzzing"
-      label: "repo_fuzzing_topic"
+      label: "repo_topic_fuzzing"
     - query: "topic:fuzz-testing"
-      label: "repo_fuzz_testing_topic"
+      label: "repo_topic_fuzz_testing"
+    - query: "topic:fuzzer"
+      label: "repo_topic_fuzzer"
     - query: "topic:libfuzzer"
-      label: "repo_libfuzzer_topic"
-    - query: "topic:afl-fuzzer"
-      label: "repo_afl_topic"
-    - query: '"fuzz testing framework"'
-      label: "repo_fuzz_framework"
-  code: []
-  issues: []
-  commits: []
+      label: "repo_topic_libfuzzer"
+    - query: "topic:afl-fuzz"
+      label: "repo_topic_afl_fuzz"
+    - query: "topic:oss-fuzz"
+      label: "repo_topic_oss_fuzz"
+    - query: "topic:honggfuzz"
+      label: "repo_topic_honggfuzz"
+    - query: "topic:cargo-fuzz"
+      label: "repo_topic_cargo_fuzz"
+    - query: "topic:syzkaller"
+      label: "repo_topic_syzkaller"
+  code:
+    - query: "LLVMFuzzerTestOneInput language:C"
+      label: "code_libfuzzer_c"
+    - query: "LLVMFuzzerTestOneInput language:C++"
+      label: "code_libfuzzer_cpp"
+    - query: "__AFL_FUZZ_INIT language:C"
+      label: "code_afl_init_c"
+    - query: "__AFL_LOOP language:C"
+      label: "code_afl_loop_c"
+    - query: "__AFL_FUZZ_INIT language:C++"
+      label: "code_afl_init_cpp"
+    - query: "HF_ITER language:C"
+      label: "code_honggfuzz_c"
+    - query: "fuzz_target! language:Rust"
+      label: "code_cargo_fuzz_rust"
+    - query: "libfuzzer_sys language:Rust"
+      label: "code_libfuzzer_sys_rust"
+    - query: "testing.F language:Go"
+      label: "code_go_fuzz_testing_f"
+    - query: "fuzzerTestOneInput language:Java"
+      label: "code_jazzer_java"
+    - query: "com.code_intelligence.jazzer language:Java"
+      label: "code_jazzer_import_java"
+    - query: "import atheris language:Python"
+      label: "code_atheris_python"
+    - query: "from boofuzz import language:Python"
+      label: "code_boofuzz_python"
+    - query: "$LIB_FUZZING_ENGINE language:Shell"
+      label: "code_ossfuzz_shell"
+  issues:
+    - query: "fuzz testing"
+      label: "issue_fuzz_testing"
+    - query: "libfuzzer crash"
+      label: "issue_libfuzzer_crash"
+    - query: "fuzzer found"
+      label: "issue_fuzzer_found"
+    - query: "oss-fuzz"
+      label: "issue_oss_fuzz"
+  commits:
+    - query: "fuzz target"
+      label: "commit_fuzz_target"
+    - query: "add fuzzer"
+      label: "commit_add_fuzzer"
+    - query: "fuzz harness"
+      label: "commit_fuzz_harness"
+    - query: "libfuzzer"
+      label: "commit_libfuzzer"
+    - query: "oss-fuzz"
+      label: "commit_oss_fuzz"
+    - query: "cargo-fuzz"
+      label: "commit_cargo_fuzz"
   discussions: []
 
 # -------------------------------------------------------------------
-# Local analysis patterns (Phase 3)
+# Local analysis patterns (Phase 3 — applied to cloned repos)
+# Ordered roughly by specificity (most precise first).
 # -------------------------------------------------------------------
 
 patterns:
+
+  # ===== C/C++ — libFuzzer =====
+
   - id: "libfuzzer_entrypoint"
     label: "libFuzzer entry point: LLVMFuzzerTestOneInput"
     regex: "\\bLLVMFuzzerTestOneInput\\b"
+
+  - id: "libfuzzer_initialize"
+    label: "libFuzzer optional init: LLVMFuzzerInitialize"
+    regex: "\\bLLVMFuzzerInitialize\\b"
+
+  - id: "libfuzzer_run_driver"
+    label: "libFuzzer library mode: LLVMFuzzerRunDriver"
+    regex: "\\bLLVMFuzzerRunDriver\\b"
 
   - id: "fuzzed_data_provider"
     label: "libFuzzer: FuzzedDataProvider"
     regex: "\\bFuzzedDataProvider\\b"
 
-  - id: "include_fuzzer"
+  - id: "include_fuzzer_header"
     label: "Include: fuzzer/FuzzedDataProvider.h"
-    regex: '#include\\s+[<"]fuzzer/'
+    regex: "#include\\s+[<\"]fuzzer/"
 
-  # --- Python atheris ---
+  - id: "fsanitize_fuzzer"
+    label: "Compiler flag: -fsanitize=fuzzer"
+    regex: "-fsanitize=fuzzer(?:-no-link)?"
+
+  - id: "fuzzing_build_mode"
+    label: "Preprocessor: FUZZING_BUILD_MODE_UNSAFE_FOR_PRODUCTION"
+    regex: "\\bFUZZING_BUILD_MODE_UNSAFE_FOR_PRODUCTION\\b"
+
+  # ===== C/C++ — AFL / AFL++ =====
+
+  - id: "afl_fuzz_init"
+    label: "AFL++: __AFL_FUZZ_INIT persistent mode"
+    regex: "__AFL_FUZZ_INIT\\b"
+
+  - id: "afl_loop"
+    label: "AFL++: __AFL_LOOP persistent mode"
+    regex: "__AFL_LOOP\\s*\\("
+
+  - id: "afl_testcase_buf"
+    label: "AFL++: __AFL_FUZZ_TESTCASE_BUF / _LEN"
+    regex: "__AFL_FUZZ_TESTCASE_(?:BUF|LEN)\\b"
+
+  - id: "afl_manual_control"
+    label: "AFL: __AFL_HAVE_MANUAL_CONTROL deferred forkserver"
+    regex: "__AFL_HAVE_MANUAL_CONTROL\\b"
+
+  - id: "afl_compiler"
+    label: "AFL: afl-clang-fast / afl-gcc / afl-fuzz compiler wrapper"
+    regex: "\\bafl-(?:fuzz|gcc|clang(?:-fast)?|cc|as|tmin|cmin|showmap|analyze)\\b"
+
+  # ===== C — honggfuzz =====
+
+  - id: "honggfuzz_hf_iter"
+    label: "honggfuzz: HF_ITER persistent mode"
+    regex: "\\bHF_ITER\\s*\\("
+
+  - id: "honggfuzz_include"
+    label: "honggfuzz: #include libhfuzz"
+    regex: "#include\\s+[\"<]libhfuzz/"
+
+  - id: "hfuzz_compiler"
+    label: "honggfuzz: hfuzz-clang / hfuzz-gcc compiler"
+    regex: "\\bhfuzz-(?:clang(?:\\+\\+)?|gcc|g\\+\\+)\\b"
+
+  # ===== Rust — cargo-fuzz / libfuzzer-sys =====
+
+  - id: "rust_fuzz_target_macro"
+    label: "Rust cargo-fuzz: fuzz_target! macro"
+    regex: "\\bfuzz_target!\\s*\\("
+
+  - id: "rust_libfuzzer_sys"
+    label: "Rust: use / extern crate libfuzzer_sys"
+    regex: "(?:use|extern crate)\\s+libfuzzer_sys\\b"
+
+  - id: "rust_cargo_fuzz_toml"
+    label: "Rust: cargo-fuzz = true in Cargo.toml"
+    regex: "cargo-fuzz\\s*=\\s*true"
+
+  # ===== Go — native fuzzing (Go 1.18+) =====
+
+  - id: "go_fuzz_func"
+    label: "Go: func FuzzXxx(*testing.F) entry point"
+    regex: "func\\s+Fuzz\\w+\\s*\\(\\s*\\w+\\s*\\*testing\\.F\\s*\\)"
+
+  - id: "go_testing_f_method"
+    label: "Go: f.Fuzz( / f.Add( calls"
+    regex: "\\bf\\.(?:Fuzz|Add)\\s*\\("
+
+  - id: "go_fuzz_corpus_header"
+    label: "Go: 'go test fuzz v1' corpus file header"
+    regex: "go test fuzz v1"
+
+  # ===== Go — go-fuzz (dvyukov, pre-1.18) =====
+
+  - id: "go_fuzz_legacy_func"
+    label: "go-fuzz: func Fuzz(data []byte) int"
+    regex: "func\\s+Fuzz\\s*\\(\\s*data\\s*\\[\\]byte\\s*\\)\\s*int"
+
+  - id: "go_fuzz_build_tag"
+    label: "go-fuzz: build tag gofuzz"
+    regex: "(?://go:build|//\\s*\\+build)\\s+gofuzz"
+
+  - id: "go_fuzz_build_cmd"
+    label: "go-fuzz: go-fuzz-build CLI"
+    regex: "\\bgo-fuzz(?:-build)?\\b"
+
+  # ===== Java — Jazzer =====
+
+  - id: "jazzer_fuzz_test_annotation"
+    label: "Jazzer: @FuzzTest annotation (JUnit 5 mode)"
+    regex: "@FuzzTest\\b"
+
+  - id: "jazzer_entry_point"
+    label: "Jazzer: fuzzerTestOneInput standalone"
+    regex: "\\bfuzzerTestOneInput\\b"
+
+  - id: "jazzer_import"
+    label: "Jazzer: import com.code_intelligence.jazzer"
+    regex: "import\\s+com\\.code_intelligence\\.jazzer"
+
+  - id: "jazzer_security_issue"
+    label: "Jazzer: FuzzerSecurityIssue{High,Medium,Low,Critical}"
+    regex: "\\bFuzzerSecurityIssue(?:High|Medium|Low|Critical)\\b"
+
+  - id: "jazzer_fuzzed_data_provider_java"
+    label: "Jazzer: FuzzedDataProvider (Java)"
+    regex: "\\bFuzzedDataProvider\\b"
+
+  # ===== Python — atheris =====
+
   - id: "import_atheris"
-    label: "Import: atheris (Python fuzzer)"
+    label: "Import: atheris (Python coverage-guided fuzzer)"
     regex: "(?:import atheris|from atheris)"
 
   - id: "atheris_setup"
-    label: "atheris.Setup / atheris.Fuzz"
-    regex: "\\batheris\\.(?:Setup|Fuzz|instrument_func|instrument_imports)\\b"
+    label: "atheris.Setup / atheris.Fuzz call"
+    regex: "\\batheris\\.(?:Setup|Fuzz|instrument_(?:imports|func|all))\\b"
 
-  # --- Python boofuzz ---
+  # ===== Python — python-afl =====
+
+  - id: "python_afl_import"
+    label: "python-afl: import afl module"
+    regex: "\\bimport afl\\b"
+
+  - id: "python_afl_calls"
+    label: "python-afl: afl.init() / afl.loop()"
+    regex: "\\bafl\\.(?:init|loop)\\s*\\("
+
+  # ===== Python — pythonfuzz =====
+
+  - id: "pythonfuzz_import"
+    label: "pythonfuzz: from pythonfuzz import"
+    regex: "from\\s+pythonfuzz(?:\\.main)?\\s+import"
+
+  - id: "pythonfuzz_decorator"
+    label: "pythonfuzz: @PythonFuzz decorator"
+    regex: "@PythonFuzz\\b"
+
+  # ===== Python — boofuzz (protocol/network fuzzing) =====
+
   - id: "import_boofuzz"
-    label: "Import: boofuzz"
+    label: "Import: boofuzz (protocol fuzzer)"
     regex: "(?:import boofuzz|from boofuzz)"
 
-  # --- Go native fuzzing (Go 1.18+) ---
-  - id: "go_fuzz_func"
-    label: "Go: f.Fuzz / testing.F"
-    regex: "\\bf\\.Fuzz\\s*\\(|\\btesting\\.F\\b"
+  - id: "boofuzz_session"
+    label: "boofuzz: Session( / session.fuzz()"
+    regex: "\\b(?:Session\\s*\\(|session\\.fuzz\\s*\\()"
 
-  # --- Java Jazzer ---
-  - id: "jazzer_fuzz_target"
-    label: "Jazzer: @FuzzTest / fuzzerTestOneInput"
-    regex: "@FuzzTest\\b|\\bfuzzerTestOneInput\\b"
+  - id: "boofuzz_s_initialize"
+    label: "boofuzz: s_initialize( message builder"
+    regex: "\\bs_initialize\\s*\\("
 
-  - id: "import_jazzer"
-    label: "Import: com.code_intelligence.jazzer"
-    regex: "import\\s+com\\.code_intelligence\\.jazzer"
+  # ===== OSS-Fuzz / build infrastructure =====
 
-  # --- Rust cargo-fuzz ---
-  - id: "fuzz_target_macro"
-    label: "Rust: fuzz_target! macro"
-    regex: "\\bfuzz_target!\\s*\\|"
+  - id: "lib_fuzzing_engine"
+    label: "OSS-Fuzz: $LIB_FUZZING_ENGINE env variable"
+    regex: "\\$(?:\\{)?LIB_FUZZING_ENGINE(?:\\})?"
 
-  - id: "use_libfuzzer_sys"
-    label: "Rust: use libfuzzer_sys"
-    regex: "use\\s+libfuzzer_sys"
+  - id: "ossfuzz_out"
+    label: "OSS-Fuzz: $OUT fuzzer output dir"
+    regex: "\\$(?:\\{)?OUT(?:\\})?/\\w"
 
-  # --- Generic fuzzing identifiers ---
+  - id: "compile_go_fuzzer"
+    label: "OSS-Fuzz: compile_go_fuzzer helper"
+    regex: "\\bcompile_go_fuzzer\\b"
+
+  # ===== Lower-specificity generic patterns =====
+
   - id: "identifier_fuzz_target"
     label: "Identifier: FuzzTarget / fuzz_target"
     regex: "\\b(?:FuzzTarget|fuzz_target)\\b"
 
   - id: "identifier_fuzz_test"
     label: "Identifier: FuzzTest / fuzz_test"
-    regex: "\\b(?:FuzzTest|fuzz_test)\\w*\\b"
-
-  # --- String literals ---
-  - id: "string_fuzz_phrase"
-    label: 'String: "fuzz testing" / "fuzzing"'
-    regex: '"[Ff]uzz(?:ing|\\s+test(?:ing|s)?)"'
+    regex: "\\b(?:FuzzTest|fuzz_test)\\b"
 
   - id: "string_coverage_guided"
-    label: 'String: "coverage-guided fuzzing"'
-    regex: '"[Cc]overage.guided\\s+fuzzing"'
+    label: "String/comment: coverage-guided fuzzing"
+    regex: "coverage[-.\\s]guided\\s+fuzzing"
+    flags: "IGNORECASE"
 
-  # --- Comments ---
   - id: "comment_fuzz"
     label: "Comment: fuzz testing / fuzzing"
     regex: "(?:#|//).*\\bfuzz(?:ing|\\s+test(?:ing|s)?)\\b"
     flags: "IGNORECASE"
 
-  - id: "comment_coverage_guided"
-    label: "Comment: coverage-guided fuzzing"
-    regex: "(?:#|//).*\\bcoverage.guided\\s+fuzzing\\b"
-    flags: "IGNORECASE"
+# -------------------------------------------------------------------
+# Commit keywords (Phase 3: tag technique-related commits)
+# -------------------------------------------------------------------
+commit_keywords:
+  - "fuzz target"
+  - "fuzz test"
+  - "fuzz harness"
+  - "add fuzzer"
+  - "fuzzer"
+  - "libfuzzer"
+  - "oss-fuzz"
+  - "cargo-fuzz"
+  - "afl-fuzz"
+  - "honggfuzz"
+  - "atheris"
+  - "jazzer"
+  - "boofuzz"
+  - "coverage-guided"
+  - "fuzz corpus"
+  - "seed corpus"
 
-  # --- OSS-Fuzz integration file ---
-  - id: "ossfuzz_build"
-    label: "OSS-Fuzz: build.sh integration"
-    regex: "\\$(?:OUT|LIB_FUZZING_ENGINE)|oss-fuzz|ossfuzz"
-    flags: "IGNORECASE"
+# -------------------------------------------------------------------
+# Domain keywords (Phase 3: inferred_domain classification)
+# -------------------------------------------------------------------
+domain_keywords:
+  security:               ["security", "vulnerability", "exploit", "cve", "bug-bounty", "pentest", "sanitizer"]
+  compiler:               ["compiler", "parser", "interpreter", "llvm", "clang", "gcc", "ast"]
+  networking:             ["protocol", "network", "http", "tcp", "socket", "packet", "rpc"]
+  testing_infrastructure: ["testing", "fuzzer", "harness", "oss-fuzz", "ci-fuzz", "clusterfuzz"]
+  systems:                ["kernel", "driver", "os", "syscall", "firmware", "embedded"]
+  database:               ["database", "sql", "query", "storage", "index"]
 
 # -------------------------------------------------------------------
 # Lemmatization
 # -------------------------------------------------------------------
 lemmatization:
-  trigger: ""   # disabled — "fuzz" is short but distinctive enough for regex matching
-
+  trigger: ""   # disabled — tool-specific identifiers need no stemming
