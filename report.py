@@ -141,6 +141,37 @@ def sec_pipeline_summary(data: dict, profile) -> str:
         if s in used_surfaces
     )
 
+    # Per-surface result counts from summary.json top-level fields
+    smry = data["summary"] or {}
+    surface_count_data = [
+        ("code",       "Code files",      smry.get("code_files",   0) or 0),
+        ("repo",       "Repositories",    smry.get("repos",        0) or 0),
+        ("commit",     "Commits",         smry.get("commits",      0) or 0),
+        ("issue",      "Issues",          smry.get("issues",       0) or 0),
+        ("pr",         "Pull requests",   smry.get("prs",          0) or 0),
+        ("discussion", "Discussions",     smry.get("discussions",  0) or 0),
+    ]
+    surface_count_rows = "\n".join(
+        f"| **{label}** | {count:,} |"
+        for _, label, count in surface_count_data
+        if count > 0
+    )
+    surface_counts_section = ""
+    if surface_count_rows:
+        surface_counts_section = f"""\
+
+### Results per Search Surface
+
+Total distinct results found across all search queries for each surface.
+Only repositories proceed to cloning and local analysis.
+
+| Surface | Results found |
+|---|---|
+{surface_count_rows}
+
+{_img('../plots', 'surface_breakdown', 'png', f'{short} — search results per surface')}
+"""
+
     return f"""\
 ## Pipeline Summary
 
@@ -168,7 +199,7 @@ Each surface corresponds to a distinct GitHub Search API endpoint.
 |---|---|
 {surface_rows}
 
-{_img('../plots', 'surface_breakdown', 'png', f'{short} — repositories found per search surface')}
+{surface_counts_section}
 {_img('../plots', 'query_hits', 'png', f'{short} — raw search hit counts per query')}
 """
 
@@ -193,51 +224,6 @@ def sec_adoption(data: dict, plots_rel: str, fmt: str, profile) -> str:
     mean_score = statistics.mean(det_scores)
     max_score  = max(det_scores)
     n_single   = sum(1 for s in det_scores if s == 1)
-
-    # Code vs non-code: artifact breakdown aggregated
-    total_art: Counter = Counter()
-    for r in detected:
-        for atype, cnt in (r.get("artifact_breakdown") or {}).items():
-            total_art[atype] += cnt
-    art_total   = sum(total_art.values())
-    code_types  = {"test_code", "source_code"}
-    code_total  = sum(v for k, v in total_art.items() if k in code_types)
-    noncode_total = art_total - code_total
-    cnc_section = ""
-    if art_total > 0:
-        cnc_section = f"""\
-
-### Code vs Non-Code Mentions
-
-Signal matches classified by where they appear in the repository file tree.
-
-| Category | Matches | % |
-|---|---|---|
-| Code (test code + source code) | {code_total:,} | {_pct(code_total/art_total*100)} |
-| Non-code (docs + config + other) | {noncode_total:,} | {_pct(noncode_total/art_total*100)} |
-
-"""
-
-    # Technique line/file ratios for detected repos (RQ1 coverage metrics)
-    line_density = [r.get("technique_line_density", 0) for r in detected if r.get("technique_line_density", 0) > 0]
-    file_ratio   = [r.get("technique_file_ratio", 0) for r in detected if r.get("technique_file_ratio", 0) > 0]
-
-    ratio_section = ""
-    if line_density or file_ratio:
-        ratio_section = f"""\
-
-### Technique Coverage Ratios (Detected Repos)
-
-Proportion of each detected repo's content containing technique signals.
-
-| Metric | Value |
-|---|---|
-| Median technique line density | {_pct(statistics.median(line_density)*100) if line_density else '—'} |
-| Median technique file ratio | {_pct(statistics.median(file_ratio)*100) if file_ratio else '—'} |
-| Repos with > 10% file coverage | {sum(1 for v in file_ratio if v > 0.1):,} |
-
-{_img(plots_rel, 'technique_ratios', fmt, f'{short} — technique line density and file ratio distributions')}
-"""
 
     # Project metadata stats (stars, age, files) — detected vs not-detected
     _now_year = 2026
@@ -317,7 +303,7 @@ Unique author email addresses from sampled git history (≤ 500 commits per repo
 | Mean detection count | {mean_score:.1f} |
 | Maximum detection count | {max_score:,} |
 | Single-match detections | {n_single:,} ({_pct(n_single/n_det*100)}) |
-{cnc_section}{ratio_section}{metadata_section}{contrib_section}
+{metadata_section}{contrib_section}
 """
 
 
@@ -362,6 +348,50 @@ def sec_usage(data: dict, plots_rel: str, fmt: str, profile) -> str:
         f"| {type_display.get(k, k)} | {type_desc.get(k, '')} |"
         for k in type_order if type_counts.get(k, 0) > 0
     )
+
+    # --- Code vs non-code (moved from sec_adoption) ---
+    cnc_total_art: Counter = Counter()
+    for r in detected:
+        for atype, cnt in (r.get("artifact_breakdown") or {}).items():
+            cnc_total_art[atype] += cnt
+    cnc_art_total    = sum(cnc_total_art.values())
+    cnc_code_types   = {"test_code", "source_code"}
+    cnc_code_total   = sum(v for k, v in cnc_total_art.items() if k in cnc_code_types)
+    cnc_section = ""
+    if cnc_art_total > 0:
+        cnc_nc = cnc_art_total - cnc_code_total
+        cnc_section = f"""\
+
+#### Code vs Non-Code Mentions
+
+Signal matches classified by where they appear in the repository file tree.
+
+| Category | Matches | % |
+|---|---|---|
+| Code (test code + source code) | {cnc_code_total:,} | {_pct(cnc_code_total/cnc_art_total*100)} |
+| Non-code (docs + config + other) | {cnc_nc:,} | {_pct(cnc_nc/cnc_art_total*100)} |
+
+"""
+
+    # --- Technique line/file ratios (moved from sec_adoption) ---
+    line_density = [r.get("technique_line_density", 0) for r in detected if r.get("technique_line_density", 0) > 0]
+    file_ratio   = [r.get("technique_file_ratio", 0) for r in detected if r.get("technique_file_ratio", 0) > 0]
+    ratio_section = ""
+    if line_density or file_ratio:
+        ratio_section = f"""\
+
+#### Technique Coverage Ratios
+
+Proportion of each detected repo's content containing technique signals.
+
+| Metric | Value |
+|---|---|
+| Median technique line density | {_pct(statistics.median(line_density)*100) if line_density else '—'} |
+| Median technique file ratio | {_pct(statistics.median(file_ratio)*100) if file_ratio else '—'} |
+| Repos with > 10% file coverage | {sum(1 for v in file_ratio if v > 0.1):,} |
+
+{_img(plots_rel, 'technique_ratios', fmt, f'{short} — technique code share and file coverage (detected repos)')}
+"""
 
     # --- Detection distribution (coverage depth + keyword density) ---
     files_per: dict = defaultdict(set)
@@ -496,12 +526,13 @@ Files classified as *Other* (extension not in the known source-code whitelist):
 
 ### Application Domain
 
-Inferred from repo name, description, and GitHub topics (keyword matching). A repo can match multiple domains.
+Inferred from repo name, description, GitHub topics, and README text (keyword matching). A repo can match multiple domains.
 
 | Domain | Repos | % of detected |
 |---|---|---|
 {domain_rows}
 
+{_img(plots_rel, 'domain_wordcloud', fmt, f'{short} — domain word cloud (detected repos)')}
 {_img(plots_rel, 'domain_dist', fmt, f'{short} — inferred domain distribution')}
 {_img(plots_rel, 'domain_activity_over_time', fmt, f'{short} — detected repos by domain and creation year')}
 """
@@ -525,15 +556,14 @@ Repos are classified by where technique signals appear in the directory tree. No
 {_img(plots_rel, 'project_type_dist', fmt, f'{short} — project role distribution (including not-detected)')}
 ### Detection Distribution
 
-How technique signals are distributed within repos: spread across files, density per file, and location in test infrastructure.
-{spread_stats}
+How technique signals are distributed within repos: signal type, code coverage, spread across files, and density per file.
+{cnc_section}{ratio_section}{spread_stats}
 | Files with signals | Repos |
 |---|---|
 {cov_rows}
 
 {_img(plots_rel, 'coverage_depth', fmt, f'{short} — signal coverage depth (files per repo)')}
 {_img(plots_rel, 'keyword_density', fmt, f'{short} — keyword density per technique file')}
-{_img(plots_rel, 'test_structure', fmt, f'{short} — signal location in test infrastructure')}
 
 ### Language Distribution
 

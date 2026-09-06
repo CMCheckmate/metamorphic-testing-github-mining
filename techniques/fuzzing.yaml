@@ -166,6 +166,7 @@ patterns:
   - id: "libfuzzer_entrypoint"
     label: "libFuzzer entry point: LLVMFuzzerTestOneInput"
     regex: "\\bLLVMFuzzerTestOneInput\\b"
+    scope: "block"
 
   - id: "libfuzzer_initialize"
     label: "libFuzzer optional init: LLVMFuzzerInitialize"
@@ -232,6 +233,7 @@ patterns:
   - id: "rust_fuzz_target_macro"
     label: "Rust cargo-fuzz: fuzz_target! macro"
     regex: "\\bfuzz_target!\\s*\\("
+    scope: "block"
 
   - id: "rust_libfuzzer_sys"
     label: "Rust: use / extern crate libfuzzer_sys"
@@ -246,6 +248,7 @@ patterns:
   - id: "go_fuzz_func"
     label: "Go: func FuzzXxx(*testing.F) entry point"
     regex: "func\\s+Fuzz\\w+\\s*\\(\\s*\\w+\\s*\\*testing\\.F\\s*\\)"
+    scope: "block"
 
   - id: "go_testing_f_method"
     label: "Go: f.Fuzz( / f.Add( calls"
@@ -260,6 +263,7 @@ patterns:
   - id: "go_fuzz_legacy_func"
     label: "go-fuzz: func Fuzz(data []byte) int"
     regex: "func\\s+Fuzz\\s*\\(\\s*data\\s*\\[\\]byte\\s*\\)\\s*int"
+    scope: "block"
 
   - id: "go_fuzz_build_tag"
     label: "go-fuzz: build tag gofuzz"
@@ -274,6 +278,7 @@ patterns:
   - id: "jazzer_fuzz_test_annotation"
     label: "Jazzer: @FuzzTest annotation (JUnit 5 mode)"
     regex: "@FuzzTest\\b"
+    scope: "block"
 
   - id: "jazzer_entry_point"
     label: "Jazzer: fuzzerTestOneInput standalone"

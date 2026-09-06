@@ -34,34 +34,32 @@ search_phrases:
   - "model based testing"
   - "QuickCheck testing"
 
+# identifiers drive code-surface GitHub search (exact string match). Generic
+# dictionary-word tokens ("Arbitrary", "hypothesis", "forAll", "PropEr",
+# "@settings", lowercase "quickcheck") are excluded — they match large amounts
+# of unrelated code. The Phase 3 local-scan patterns below still detect them
+# inside cloned repos.
 identifiers:
   # Haskell / original
   - "QuickCheck"
-  - "Arbitrary"
   # Python — Hypothesis
-  - "hypothesis"
   - "@given"
-  - "@settings"
   - "st.integers"
   - "st.text"
   - "st.composite"
   # Scala
   - "ScalaCheck"
   - "Gen.arbitrary"
-  - "forAll"
   # F# / C#
   - "FsCheck"
   # Java
   - "jqwik"
-  - "@Property"
   - "@ForAll"
   # JavaScript / TypeScript
   - "fast-check"
   # Rust
   - "proptest"
-  - "quickcheck"
   # Erlang / Elixir
-  - "PropEr"
   - "proper_gen"
   # Go
   - "gopter"
@@ -97,6 +95,7 @@ patterns:
   - id: "decorator_given"
     label: "Decorator: @given (Hypothesis)"
     regex: "@given\\s*\\("
+    scope: "block"
 
   - id: "decorator_settings"
     label: "Decorator: @settings (Hypothesis)"
@@ -128,6 +127,7 @@ patterns:
   - id: "annotation_Property"
     label: "Annotation: @Property (jqwik)"
     regex: "@Property\\b"
+    scope: "block"
 
   - id: "annotation_ForAll"
     label: "Annotation: @ForAll (jqwik)"
@@ -146,6 +146,7 @@ patterns:
   - id: "proptest_macro"
     label: "proptest! macro (Rust)"
     regex: "\\bproptest!\\s*\\{"
+    scope: "block"
 
   - id: "import_proptest"
     label: "Import: proptest (Rust)"

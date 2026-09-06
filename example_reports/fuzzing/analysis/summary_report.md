@@ -1,6 +1,6 @@
 # Fuzzing — GitHub Mining Report
 
-*Fuzzing · Generated: 2026-08-28 02:00 UTC*
+*Fuzzing · Generated: 2026-09-06 15:17 UTC*
 
 ---
 
@@ -33,8 +33,22 @@ Each surface corresponds to a distinct GitHub Search API endpoint.
 | **Commit** | Commit message text (not the diff/code itself) |
 | **Issue** | Issue titles and body text |
 
-![Fuzzing — repositories found per search surface](../plots/surface_breakdown.png)
-*Fuzzing — repositories found per search surface*
+
+### Results per Search Surface
+
+Total distinct results found across all search queries for each surface.
+Only repositories proceed to cloning and local analysis.
+
+| Surface | Results found |
+|---|---|
+| **Code files** | 31,854 |
+| **Repositories** | 18,102 |
+| **Commits** | 4,987 |
+| **Issues** | 4,102 |
+
+![Fuzzing — search results per surface](../plots/surface_breakdown.png)
+*Fuzzing — search results per surface*
+
 
 ![Fuzzing — raw search hit counts per query](../plots/query_hits.png)
 *Fuzzing — raw search hit counts per query*
@@ -59,30 +73,6 @@ Each surface corresponds to a distinct GitHub Search API endpoint.
 | Mean detection count | 29.2 |
 | Maximum detection count | 500 |
 | Single-match detections | 176 (33.0%) |
-
-### Code vs Non-Code Mentions
-
-Signal matches classified by where they appear in the repository file tree.
-
-| Category | Matches | % |
-|---|---|---|
-| Code (test code + source code) | 12,259 | 82.6% |
-| Non-code (docs + config + other) | 2,579 | 17.4% |
-
-
-### Technique Coverage Ratios (Detected Repos)
-
-Proportion of each detected repo's content containing technique signals.
-
-| Metric | Value |
-|---|---|
-| Median technique line density | 0.0% |
-| Median technique file ratio | 0.8% |
-| Repos with > 10% file coverage | 15 |
-
-![Fuzzing — technique line density and file ratio distributions](../plots/technique_ratios.png)
-*Fuzzing — technique line density and file ratio distributions*
-
 
 ### Project Metadata (Detected vs Not Detected)
 
@@ -147,7 +137,31 @@ Repos are classified by where technique signals appear in the directory tree. No
 
 ### Detection Distribution
 
-How technique signals are distributed within repos: spread across files, density per file, and location in test infrastructure.
+How technique signals are distributed within repos: signal type, code coverage, spread across files, and density per file.
+
+#### Code vs Non-Code Mentions
+
+Signal matches classified by where they appear in the repository file tree.
+
+| Category | Matches | % |
+|---|---|---|
+| Code (test code + source code) | 12,259 | 82.6% |
+| Non-code (docs + config + other) | 2,579 | 17.4% |
+
+
+#### Technique Coverage Ratios
+
+Proportion of each detected repo's content containing technique signals.
+
+| Metric | Value |
+|---|---|
+| Median technique line density | 0.0% |
+| Median technique file ratio | 0.8% |
+| Repos with > 10% file coverage | 15 |
+
+![Fuzzing — technique code share and file coverage (detected repos)](../plots/technique_ratios.png)
+*Fuzzing — technique code share and file coverage (detected repos)*
+
 
 | Spread Metric | Value |
 |---|---|
@@ -173,9 +187,6 @@ How technique signals are distributed within repos: spread across files, density
 
 ![Fuzzing — keyword density per technique file](../plots/keyword_density.png)
 *Fuzzing — keyword density per technique file*
-
-![Fuzzing — signal location in test infrastructure](../plots/test_structure.png)
-*Fuzzing — signal location in test infrastructure*
 
 
 ### Language Distribution
@@ -245,7 +256,7 @@ Extension-level breakdown of files containing technique signals (top 15 by match
 
 ### Application Domain
 
-Inferred from repo name, description, and GitHub topics (keyword matching). A repo can match multiple domains.
+Inferred from repo name, description, GitHub topics, and README text (keyword matching). A repo can match multiple domains.
 
 | Domain | Repos | % of detected |
 |---|---|---|
@@ -255,6 +266,9 @@ Inferred from repo name, description, and GitHub topics (keyword matching). A re
 | Testing Infrastructure | 69 | 12.9% |
 | Scientific | 51 | 9.6% |
 | Database | 50 | 9.4% |
+
+![Fuzzing — domain word cloud (detected repos)](../plots/domain_wordcloud.png)
+*Fuzzing — domain word cloud (detected repos)*
 
 ![Fuzzing — inferred domain distribution](../plots/domain_dist.png)
 *Fuzzing — inferred domain distribution*
