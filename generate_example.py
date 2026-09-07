@@ -16,9 +16,6 @@ Outputs to:
         property_based_testing/
             analysis/summary_report.md
             plots/*.png
-        combined/
-            comparative_report.md
-            plots/*.png
 """
 
 import argparse
@@ -36,6 +33,20 @@ sys.path.insert(0, str(BASE_DIR))
 
 random.seed(42)
 np.random.seed(42)
+
+# Domain → representative word corpus for synthetic word cloud data
+_DOMAIN_TEXT = {
+    "machine_learning":        "machine learning neural network model training deep learning inference optimizer gradient loss accuracy classification regression transformer attention",
+    "scientific":              "scientific computing numerical simulation experiment hypothesis invariant property physics chemistry biology algorithm solver differential equation",
+    "compiler":                "compiler parser AST optimization code generation interpreter transformation static analysis IR backend frontend lexer",
+    "testing_infrastructure":  "testing framework test harness CI continuous integration automated test suite regression coverage fuzz property oracle",
+    "security":                "security vulnerability exploit CVE fuzzing crash sanitizer buffer overflow memory corruption privilege escalation authentication cryptography",
+    "web":                     "web application HTTP REST API endpoint client server request response JSON microservice backend frontend routing middleware",
+    "database":                "database SQL query storage index transaction relational schema migration ORM NoSQL document graph cache",
+    "bioinformatics":          "bioinformatics genomics sequence alignment protein structure biology DNA RNA annotation variant calling pipeline",
+    "networking":              "network protocol TCP UDP socket packet communication distributed system HTTP proxy firewall RPC gRPC",
+    "systems":                 "kernel driver operating system firmware embedded syscall memory management process scheduler hardware interrupt",
+}
 
 
 # ---------------------------------------------------------------------------
@@ -308,6 +319,10 @@ def generate_repos(tech_key: str, cfg: dict) -> tuple:
         found_by = [random.choice([q[2] for q in cfg["queries"]]),
                     random.choice([f"repo_{short.lower()}_{j}" for j in range(3)])]
 
+        # Domain text sample for word cloud
+        dom_words = " ".join(_DOMAIN_TEXT.get(d, "") for d in domains[i])
+        _domain_text_sample = f"{short} testing in {langs[i]} {dom_words}"[:2048]
+
         r = {
             "repo":                          repo,
             "classification":                "strong_explicit" if score >= 3 else "weak_explicit",
@@ -315,9 +330,11 @@ def generate_repos(tech_key: str, cfg: dict) -> tuple:
             "direct_matches":                score,
             "stars":                         int(stars_det[i]),
             "language":                      langs[i],
+            "language_breakdown":            {langs[i]: n_files},
             "created_at":                    created,
             "technique_files":               n_files,
             "technique_lines":               technique_lines,
+            "technique_region_lines":        technique_lines,
             "total_files_scanned":           total_files_scanned,
             "total_lines_scanned":           total_lines_scanned,
             "technique_file_ratio":          round(file_ratio, 4),
@@ -328,6 +345,7 @@ def generate_repos(tech_key: str, cfg: dict) -> tuple:
             "project_type":                  ptype,
             "artifact_breakdown":            artifact_breakdown,
             "inferred_domains":              domains[i],
+            "domain_text_sample":            _domain_text_sample,
             "contributor_count_git":         max(1, int(np.random.lognormal(0.8, 1.0))),
             "total_commits_sampled":         total_commits,
             "technique_commits_count":       tech_commits,
@@ -415,8 +433,17 @@ def generate_repos(tech_key: str, cfg: dict) -> tuple:
             "found_by_queries":   [f"{random.choice(surfaces_none)}_{short.lower()}_{i % 5}"],
         })
 
-    # Summary
+    # Summary — include per-surface result counts so surface_breakdown chart renders
+    _hits_by_surface: dict = {}
+    for qtype, _, _, qhits in cfg["queries"]:
+        _hits_by_surface[qtype] = _hits_by_surface.get(qtype, 0) + qhits
     summary = {
+        "repos":       _hits_by_surface.get("repo",       0),
+        "code_files":  _hits_by_surface.get("code",       0),
+        "issues":      _hits_by_surface.get("issue",      0),
+        "prs":         _hits_by_surface.get("pr",         0),
+        "commits":     _hits_by_surface.get("commit",     0),
+        "discussions": _hits_by_surface.get("discussion", 0),
         "queries": [
             {"type": qtype, "query": qtext, "label": qlabel, "hits": qhits}
             for qtype, qtext, qlabel, qhits in cfg["queries"]
@@ -437,10 +464,6 @@ def make_profile(tech_key: str, cfg: dict, results_dir: Path) -> SimpleNamespace
         slug                  = tech_key,
         color                 = cfg["color"],
         results_dir           = results_dir,
-        report_intro          = "",
-        extra_report_sections = [],
-        classification_strong = 3,
-        classification_weak   = 1,
         patterns_raw          = cfg["patterns"],
         commit_keywords       = [],
         domain_keywords       = {},
@@ -530,60 +553,8 @@ def main():
 
     # Combined report
     print(f"\n{'='*60}")
-    print(f"  Generating: Combined Report (MT + Fuzzing + PBT)")
-    print(f"{'='*60}")
-
-    import combine as combine_mod
-    combined_plots = out_root / "combined" / "plots"
-    combined_out   = out_root / "combined" / "comparative_report.md"
-
-    # Temporarily point combine.py at our example_reports/ directory
-    original_results = combine_mod.RESULTS_DIR
-    combine_mod.RESULTS_DIR = out_root
-
-    techniques = combine_mod.discover_techniques(out_root)
-    if techniques:
-        print(f"  Found: {[t['short_name'] for t in techniques]}")
-        combined_plots.mkdir(parents=True, exist_ok=True)
-
-        # Adoption (RQ1)
-        combine_mod.plot_adoption_rates(        techniques, combined_plots, args.format, args.dpi)
-        combine_mod.plot_detection_depth(       techniques, combined_plots, args.format, args.dpi)
-        combine_mod.plot_contributor_comparison(techniques, combined_plots, args.format, args.dpi)
-        combine_mod.plot_technique_ratios(      techniques, combined_plots, args.format, args.dpi)
-
-        # Usage (RQ2)
-        combine_mod.plot_language_comparison(        techniques, combined_plots, args.format, args.dpi)
-        combine_mod.plot_project_type_comparison(    techniques, combined_plots, args.format, args.dpi)
-        combine_mod.plot_test_structure_comb(        techniques, combined_plots, args.format, args.dpi)
-        combine_mod.plot_artifact_comparison(        techniques, combined_plots, args.format, args.dpi)
-        combine_mod.plot_extension_comparison(       techniques, combined_plots, args.format, args.dpi)
-        combine_mod.plot_domain_comparison(          techniques, combined_plots, args.format, args.dpi)
-
-        # Timeline (RQ3)
-        combine_mod.plot_yearly_trend(                   techniques, combined_plots, args.format, args.dpi)
-        combine_mod.plot_technique_commit_timeline_comb( techniques, combined_plots, args.format, args.dpi)
-        combine_mod.plot_first_technique_commit_year(    techniques, combined_plots, args.format, args.dpi)
-        combine_mod.plot_last_technique_commit_year(     techniques, combined_plots, args.format, args.dpi)
-        combine_mod.plot_commit_span(                    techniques, combined_plots, args.format, args.dpi)
-        combine_mod.plot_commit_ratio(                   techniques, combined_plots, args.format, args.dpi)
-        combine_mod.plot_project_life_year_comb(         techniques, combined_plots, args.format, args.dpi)
-
-        combined_out.parent.mkdir(parents=True, exist_ok=True)
-        plots_rel = os.path.relpath(combined_plots.resolve(), combined_out.parent.resolve()).replace("\\", "/")
-        report_text = combine_mod.build_report(techniques, plots_rel, args.format)
-        with open(combined_out, "w", encoding="utf-8") as f:
-            f.write(report_text)
-        print(f"  Combined report saved: {combined_out}")
-    else:
-        print("  [WARN] No techniques discovered for combined report")
-
-    combine_mod.RESULTS_DIR = original_results
-
-    print(f"\n{'='*60}")
     print(f"  Done. Example reports in: {out_root}")
     print(f"  Individual:  {out_root}/{{technique}}/analysis/summary_report.md")
-    print(f"  Combined:    {out_root}/combined/comparative_report.md")
     print(f"{'='*60}")
 
 

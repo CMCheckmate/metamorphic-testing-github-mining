@@ -206,29 +206,40 @@ def plot_technique_ratios(repo_scores, out_dir: Path, fmt: str, dpi: int, techni
     if not line_density and not file_ratio:
         return
 
+    ld_main, ld_out = _split_outliers(line_density)
+    fr_main, fr_out = _split_outliers(file_ratio)
+
     fig, axes = plt.subplots(1, 2, figsize=(12, 5))
 
     if line_density:
-        axes[0].hist(line_density, bins=25, color=PRIMARY_COLOR, edgecolor="white", linewidth=0.5)
-        med = statistics.median(line_density)
+        plot_ld = ld_main if ld_main else line_density
+        axes[0].hist(plot_ld, bins=25, color=PRIMARY_COLOR, edgecolor="white", linewidth=0.5)
+        med = statistics.median(plot_ld)
         axes[0].axvline(med, color="#e15759", linestyle="--", linewidth=1.5, label=f"Median = {med*100:.2f}%")
         axes[0].xaxis.set_major_formatter(mticker.PercentFormatter(xmax=1.0, decimals=2))
-        axes[0].set_xlabel("Technique lines ÷ total lines scanned")
+        axes[0].set_xlabel("Technique code lines ÷ total lines")
         axes[0].set_ylabel("Repositories")
-        axes[0].set_title("Technique Line Density")
+        axes[0].set_title("Share of code that is technique code")
+        if ld_out:
+            axes[0].text(0.98, 0.96, f"+{len(ld_out)} outliers", transform=axes[0].transAxes,
+                         ha="right", va="top", fontsize=9, color="#e15759")
         axes[0].legend(fontsize=9)
 
     if file_ratio:
-        axes[1].hist(file_ratio, bins=25, color=PRIMARY_COLOR, edgecolor="white", linewidth=0.5)
-        med = statistics.median(file_ratio)
+        plot_fr = fr_main if fr_main else file_ratio
+        axes[1].hist(plot_fr, bins=25, color=PRIMARY_COLOR, edgecolor="white", linewidth=0.5)
+        med = statistics.median(plot_fr)
         axes[1].axvline(med, color="#e15759", linestyle="--", linewidth=1.5, label=f"Median = {med*100:.1f}%")
         axes[1].xaxis.set_major_formatter(mticker.PercentFormatter(xmax=1.0, decimals=0))
-        axes[1].set_xlabel("Technique files ÷ total files scanned")
+        axes[1].set_xlabel("Technique files ÷ total files")
         axes[1].set_ylabel("Repositories")
-        axes[1].set_title("Technique File Ratio")
+        axes[1].set_title("Share of files using the technique")
+        if fr_out:
+            axes[1].text(0.98, 0.96, f"+{len(fr_out)} outliers", transform=axes[1].transAxes,
+                         ha="right", va="top", fontsize=9, color="#e15759")
         axes[1].legend(fontsize=9)
 
-    fig.suptitle(f"{technique_name} — Detection Coverage Ratios (Detected Repos)", fontweight="bold")
+    fig.suptitle(f"{technique_name} — Technique Code & File Coverage", fontweight="bold")
     plt.tight_layout()
     _save(fig, out_dir, "technique_ratios", fmt, dpi)
 
@@ -400,6 +411,37 @@ def plot_extension_breakdown(findings, out_dir: Path, fmt: str, dpi: int, techni
     _save(fig, out_dir, "extension_breakdown", fmt, dpi)
 
 
+def plot_domain_wordcloud(repo_scores, out_dir: Path, fmt: str, dpi: int, technique_name: str = "Technique") -> None:
+    """Word cloud from domain_text_sample fields of detected repos (requires wordcloud package)."""
+    try:
+        from wordcloud import WordCloud, STOPWORDS as _WC_STOPWORDS
+    except ImportError:
+        console.print("[yellow]wordcloud not installed — skipping domain_wordcloud (pip install wordcloud)[/]")
+        return
+    detected = _detected(repo_scores)
+    corpus = " ".join(
+        r.get("domain_text_sample", "") or ""
+        for r in detected
+        if r.get("domain_text_sample")
+    )
+    if not corpus.strip():
+        return
+    stopwords = set(_WC_STOPWORDS) | {
+        "http", "https", "github", "com", "org", "www", "code",
+        "test", "testing", "repo", "repository", "project", "use", "used",
+    }
+    wc = WordCloud(
+        width=1200, height=600, background_color="white",
+        colormap="viridis", stopwords=stopwords,
+        max_words=150, collocations=False,
+    ).generate(corpus)
+    fig, ax = plt.subplots(figsize=(12, 6))
+    ax.imshow(wc, interpolation="bilinear")
+    ax.axis("off")
+    ax.set_title(f"{technique_name} — Domain Word Cloud (Detected Repos)", fontsize=13)
+    _save(fig, out_dir, "domain_wordcloud", fmt, dpi)
+
+
 def plot_domain_dist(repo_scores, out_dir: Path, fmt: str, dpi: int, technique_name: str = "Technique") -> None:
     """Horizontal bar: inferred domain frequencies for detected repos."""
     detected = _detected(repo_scores)
@@ -446,8 +488,21 @@ def plot_detection_spread(repo_scores, out_dir: Path, fmt: str, dpi: int, techni
 
 
 
+def _split_outliers(values: list) -> tuple[list, list]:
+    """Split values into main distribution and outliers using Tukey fence (Q3 + 1.5*IQR)."""
+    if len(values) < 4:
+        return list(values), []
+    sorted_v = sorted(values)
+    n   = len(sorted_v)
+    q1  = sorted_v[n // 4]
+    q3  = sorted_v[(3 * n) // 4]
+    iqr = q3 - q1
+    fence = q3 + 1.5 * iqr
+    return [v for v in values if v <= fence], [v for v in values if v > fence]
+
+
 def plot_coverage_depth(findings, repo_scores, out_dir: Path, fmt: str, dpi: int, technique_name: str = "Technique") -> None:
-    """Bar: distribution of files-with-signals per detected repo."""
+    """Histogram: files-with-signals per detected repo (outliers annotated separately)."""
     if not findings or not repo_scores:
         return
     detected_repos = {r["repo"] for r in repo_scores if r.get("score", 0) > 0}
@@ -463,31 +518,39 @@ def plot_coverage_depth(findings, repo_scores, out_dir: Path, fmt: str, dpi: int
     if not files_per_repo:
         return
     counts = [len(v) for v in files_per_repo.values()]
-    bins   = [(1, 1, "1"), (2, 2, "2"), (3, 5, "3–5"), (6, 10, "6–10"),
-              (11, 20, "11–20"), (21, 10**9, ">20")]
-    labels = [l for _, _, l in bins]
-    values = [sum(1 for c in counts if lo <= c <= hi) for lo, hi, _ in bins]
+    main, outliers = _split_outliers(counts)
 
-    fig, ax = plt.subplots(figsize=(8, 5))
-    bars = ax.bar(labels, values, color=PRIMARY_COLOR, edgecolor="white", linewidth=0.8)
-    ax.bar_label(bars, padding=3, fontsize=10)
+    fig, ax = plt.subplots(figsize=(9, 5))
+    if main:
+        max_val = max(main)
+        bins = list(range(1, max_val + 2))
+        ax.hist(main, bins=bins, color=PRIMARY_COLOR, edgecolor="white", linewidth=0.5)
+        if outliers:
+            ax.text(0.98, 0.96, f"+{len(outliers)} outliers (up to {max(outliers):,})",
+                    transform=ax.transAxes, ha="right", va="top", fontsize=9, color="#e15759")
     ax.set_xlabel("Files with technique signals per repository")
     ax.set_ylabel("Repositories")
     ax.set_title(f"{technique_name} — Signal Coverage Depth")
+    ax.xaxis.set_major_locator(mticker.MaxNLocator(integer=True))
     _save(fig, out_dir, "coverage_depth", fmt, dpi)
 
 
 def plot_keyword_density(repo_scores, out_dir: Path, fmt: str, dpi: int, technique_name: str = "Technique") -> None:
-    """Histogram: average technique mentions per technique-file."""
+    """Histogram: average technique mentions per technique-file (outliers annotated separately)."""
     detected = _detected(repo_scores)
     values = [r["avg_mentions_per_technique_file"] for r in detected
               if r.get("avg_mentions_per_technique_file", 0) > 0]
     if not values:
         return
+    main, outliers = _split_outliers(values)
     fig, ax = plt.subplots(figsize=(9, 5))
-    ax.hist(values, bins=30, color=PRIMARY_COLOR, edgecolor="white", linewidth=0.5)
-    mean_v = sum(values) / len(values)
+    plot_vals = main if main else values
+    ax.hist(plot_vals, bins=30, color=PRIMARY_COLOR, edgecolor="white", linewidth=0.5)
+    mean_v = sum(plot_vals) / len(plot_vals)
     ax.axvline(mean_v, color="#e15759", linestyle="--", linewidth=1.5, label=f"Mean = {mean_v:.1f}")
+    if outliers:
+        ax.text(0.98, 0.96, f"+{len(outliers)} outliers (up to {max(outliers):.0f})",
+                transform=ax.transAxes, ha="right", va="top", fontsize=9, color="#e15759")
     ax.set_xlabel("Average mentions per technique-containing file")
     ax.set_ylabel("Repositories")
     ax.set_title(f"{technique_name} — Keyword Density per Technique File")
@@ -533,48 +596,7 @@ def _classify_test_file(path: str) -> str:
 
 
 def plot_test_structure(findings, repo_scores, out_dir: Path, fmt: str, dpi: int, technique_name: str = "Technique") -> None:
-    """Two-panel: % of detected repos and % of signals in each test-infrastructure category."""
-    if not findings or not repo_scores:
-        return
-    detected_repos = {r["repo"] for r in repo_scores if r.get("score", 0) > 0}
-    n_det = len(detected_repos)
-    if not n_det:
-        return
-
-    repo_cats: dict = defaultdict(set)   # repo → set of categories
-    sig_counts: Counter = Counter()      # category → total signal count
-
-    for f in findings:
-        if f.get("repo") not in detected_repos:
-            continue
-        cat = _classify_test_file(f.get("file", ""))
-        repo_cats[f["repo"]].add(cat)
-        sig_counts[cat] += 1
-
-    cats   = ["Test case files", "Test suite directory", "Test fixtures / setup", "Source / non-test"]
-    colors = [PRIMARY_COLOR, "#4472c4", "#f0ad3a", "#bdbdbd"]
-
-    repo_pcts = [sum(1 for sets in repo_cats.values() if c in sets) / n_det * 100 for c in cats]
-    total_sig = max(sum(sig_counts.values()), 1)
-    sig_pcts  = [sig_counts[c] / total_sig * 100 for c in cats]
-
-    fig, axes = plt.subplots(1, 2, figsize=(13, 5))
-
-    for ax, vals, title, ylabel in [
-        (axes[0], repo_pcts, "% of detected repos with signals here",  "% of detected repos"),
-        (axes[1], sig_pcts,  "% of total signals in each category",    "% of signal matches"),
-    ]:
-        bars = ax.bar(cats, vals, color=colors, edgecolor="white", linewidth=0.7)
-        ax.bar_label(bars, fmt=lambda v: f"{v:.0f}%", padding=3, fontsize=9)
-        ax.yaxis.set_major_formatter(mticker.PercentFormatter())
-        ax.set_ylabel(ylabel)
-        ax.set_title(title)
-        ax.set_xticks(range(len(cats)))
-        ax.set_xticklabels(cats, rotation=15, ha="right", fontsize=9)
-
-    fig.suptitle(f"{technique_name} — Technique Signal Location in Test Infrastructure", fontweight="bold")
-    plt.tight_layout()
-    _save(fig, out_dir, "test_structure", fmt, dpi)
+    pass  # removed — "signal location in test infrastructure" section dropped
 
 def plot_project_metadata(repo_scores, out_dir: Path, fmt: str, dpi: int, technique_name: str = "Technique") -> None:
     """Three-panel: stars, repo age, and total files — detected vs not-detected."""
@@ -834,36 +856,38 @@ def plot_query_hits(summary, out_dir: Path, fmt: str, dpi: int, technique_name: 
 
 
 def plot_surface_breakdown(repo_scores, summary, out_dir: Path, fmt: str, dpi: int, technique_name: str = "Technique") -> None:
-    if not repo_scores:
+    """Bar: search results per surface using top-level counts from summary.json."""
+    if not summary:
         return
-    raw_to_surface = _build_raw_to_surface(summary)
-    surface_repo_sets: dict = defaultdict(set)
-    for r in repo_scores:
-        for entry in r.get("found_by_queries", []):
-            s = _query_surface(entry)
-            if s == "discussion":
-                s = raw_to_surface.get(entry, "discussion")
-            surface_repo_sets[s].add(r["repo"])
-    if not surface_repo_sets:
-        return
+    surface_counts = {
+        "repo":       summary.get("repos", 0) or 0,
+        "code":       summary.get("code_files", 0) or 0,
+        "commit":     summary.get("commits", 0) or 0,
+        "issue":      summary.get("issues", 0) or 0,
+        "pr":         summary.get("prs", 0) or 0,
+        "discussion": summary.get("discussions", 0) or 0,
+    }
     surface_order = ["code", "repo", "commit", "issue", "pr", "discussion"]
-    labels = [s.capitalize() for s in surface_order if s in surface_repo_sets]
-    values = [len(surface_repo_sets[s]) for s in surface_order if s in surface_repo_sets]
-    colors = [_SURFACE_COLORS[s] for s in surface_order if s in surface_repo_sets]
+    active = [s for s in surface_order if surface_counts[s] > 0]
+    if not active:
+        return
+    labels = [s.capitalize() for s in active]
+    values = [surface_counts[s] for s in active]
+    colors = [_SURFACE_COLORS[s] for s in active]
 
     fig, ax = plt.subplots(figsize=(9, 5))
     bars = ax.bar(labels, values, color=colors, edgecolor="white", linewidth=0.8)
     ax.bar_label(bars, padding=3, fontsize=10)
     ax.set_xlabel("Search surface")
-    ylabel = "Distinct repositories found"
+    ylabel = "Distinct results found"
     if len(values) > 1:
         sv = sorted(values, reverse=True)
         if sv[0] > 4 * sv[1]:
             ax.set_yscale("log")
             ax.yaxis.set_major_formatter(mticker.ScalarFormatter())
-            ylabel = "Distinct repositories found (log scale)"
+            ylabel = "Distinct results found (log scale)"
     ax.set_ylabel(ylabel)
-    ax.set_title(f"{technique_name} — Repositories Found per Search Surface")
+    ax.set_title(f"{technique_name} — Search Results per Surface")
     _save(fig, out_dir, "surface_breakdown", fmt, dpi)
 
 
@@ -923,11 +947,11 @@ def run(out_dir: Path, fmt: str, dpi: int, profile=None) -> None:
     plot_project_type_dist(           scores,                out_dir, fmt, dpi, tech)
     plot_coverage_depth(              findings, scores,      out_dir, fmt, dpi, tech)
     plot_keyword_density(             scores,                out_dir, fmt, dpi, tech)
-    plot_test_structure(              findings, scores,      out_dir, fmt, dpi, tech)
     plot_language_dist(               scores,                out_dir, fmt, dpi, tech)
     plot_artifact_breakdown(          scores,                out_dir, fmt, dpi, tech)
     plot_extension_breakdown(         findings,              out_dir, fmt, dpi, tech)
     plot_domain_dist(                 scores,                out_dir, fmt, dpi, tech)
+    plot_domain_wordcloud(            scores,                out_dir, fmt, dpi, tech)
     plot_domain_activity_over_time(   scores,                out_dir, fmt, dpi, tech)
     plot_pattern_freq(                findings,              out_dir, fmt, dpi, tech)
 

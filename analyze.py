@@ -106,6 +106,7 @@ def _worker_init(cfg: dict) -> None:
             "id":    p["id"],
             "label": p["label"],
             "regex": re.compile(p["regex"], flag_map.get(p.get("flags", ""), 0)),
+            "scope": p.get("scope", "line"),
         }
         for p in cfg["patterns_raw"]
     ]
@@ -283,15 +284,92 @@ def _context_snippet(text: str, m: re.Match, context_lines: int = 1) -> str:
     return "\n".join(lines[first_line:last_line]).strip()
 
 
-def _analyze_file_text(file_path: Path, rel_path: Path, text: str) -> list[dict]:
-    """Scan pre-read file text against all patterns. Returns match records.
+# Extensions that use indentation for block scoping (Python-like).
+_INDENT_LANG_EXTS: frozenset[str] = frozenset({".py", ".pyw", ".pyi"})
+# Definition-line heads for indent-based block detection.
+_PY_DEF_RE = re.compile(r"^(\s*)(?:async\s+def|def|class)\b")
+_BLOCK_SPAN_CAP = 2000   # max lines a single block may claim (bounds cost)
+
+
+def _block_line_span(lines: list[str], match_line0: int, ext: str) -> set[int]:
+    """
+    Estimate the 1-indexed line numbers belonging to the code block that a
+    structural match (class/function/decorator/macro) introduces.
+
+    - Python-like (indent): from the nearest enclosing/def-or-class line, include
+      every following line until a non-blank line dedents to <= the definition indent.
+    - C-like (braces): from the match line, scan forward tracking { } balance and
+      include lines until the balance returns to zero.
+    - Fallback: just the matched line.
+
+    match_line0 is 0-indexed into `lines`. Returns a set of 1-indexed line numbers.
+    """
+    n = len(lines)
+    if match_line0 < 0 or match_line0 >= n:
+        return {match_line0 + 1}
+
+    # ---- Python-like: indentation-based ----
+    if ext in _INDENT_LANG_EXTS:
+        # Find the definition line at or above the match (decorators sit above the def).
+        def_line = match_line0
+        for probe in range(match_line0, min(n, match_line0 + 6)):
+            if _PY_DEF_RE.match(lines[probe]):
+                def_line = probe
+                break
+        m = _PY_DEF_RE.match(lines[def_line])
+        if not m:
+            return {match_line0 + 1}
+        base_indent = len(m.group(1).expandtabs(4))
+        span = {def_line + 1}
+        for i in range(def_line + 1, min(n, def_line + 1 + _BLOCK_SPAN_CAP)):
+            line = lines[i]
+            if not line.strip():
+                span.add(i + 1)          # blank lines inside the block
+                continue
+            indent = len(line[: len(line) - len(line.lstrip())].expandtabs(4))
+            if indent <= base_indent:
+                break
+            span.add(i + 1)
+        return span
+
+    # ---- C-like: brace balance ----
+    # Only meaningful if there's an opening brace near the match.
+    depth = 0
+    started = False
+    span = {match_line0 + 1}
+    for i in range(match_line0, min(n, match_line0 + _BLOCK_SPAN_CAP)):
+        line = lines[i]
+        opens = line.count("{")
+        closes = line.count("}")
+        if opens:
+            started = True
+        if started:
+            span.add(i + 1)
+            depth += opens - closes
+            if depth <= 0:
+                break
+    return span if started else {match_line0 + 1}
+
+
+def _analyze_file_text(file_path: Path, rel_path: Path, text: str) -> tuple[list[dict], set[int]]:
+    """Scan pre-read file text against all patterns.
+
+    Returns (match_records, region_lines) where region_lines is the set of
+    1-indexed line numbers estimated to be *technique code*: every matched line,
+    plus — for patterns marked `scope: block` — the full enclosing class/function/
+    macro block (see _block_line_span). Region lines drive the region-based line
+    density metric.
 
     Lemmatized findings are only added for lines not already matched by a regex
     pattern, preventing double-counting of the same (file, line) in the score.
     """
     match_records: list[dict] = []
     regex_lines: set[int] = set()
+    region_lines: set[int] = set()
+    lines = text.splitlines()
+    ext   = file_path.suffix.lower()
     for pattern in _W_PATTERNS:
+        is_block = pattern.get("scope") == "block"
         for m in pattern["regex"].finditer(text):
             line_number = text[:m.start()].count("\n") + 1
             match_records.append({
@@ -302,10 +380,15 @@ def _analyze_file_text(file_path: Path, rel_path: Path, text: str) -> list[dict]
                 "snippet": _context_snippet(text, m),
             })
             regex_lines.add(line_number)
+            if is_block:
+                region_lines |= _block_line_span(lines, line_number - 1, ext)
+            else:
+                region_lines.add(line_number)
     for lemma_rec in _lemmatized_findings(text, rel_path):
         if lemma_rec["line"] not in regex_lines:
             match_records.append(lemma_rec)
-    return match_records
+            region_lines.add(lemma_rec["line"])
+    return match_records, region_lines
 
 
 # ---------------------------------------------------------------------------
@@ -390,12 +473,16 @@ def _analyze_git_commits(repo_path: Path) -> dict:
 # Domain inference
 # ---------------------------------------------------------------------------
 
-def _infer_domains(name: str, description: str, topics: list[str]) -> list[str]:
+def _infer_domains(name: str, description: str, topics: list[str], readme_text: str = "") -> list[str]:
     """
-    Keyword-based domain inference from repo name, description, and GitHub topics.
+    Keyword-based domain inference from repo name, description, GitHub topics, and README.
     Returns a (possibly empty) list of matched domain keys from DOMAIN_KEYWORDS.
     """
-    text = " ".join(filter(None, [name.split("/")[-1], description or "", " ".join(topics or [])])).lower()
+    text = " ".join(filter(None, [
+        name.split("/")[-1], description or "",
+        " ".join(topics or []),
+        readme_text[:4096] if readme_text else "",
+    ])).lower()
     matched = []
     for domain, keywords in _W_DOMAIN_KEYWORDS.items():
         if any(kw in text for kw in keywords):
@@ -444,9 +531,10 @@ def _classify_project_type(repo_name: str, description: str, artifact_counts: di
 # ---------------------------------------------------------------------------
 
 def score_repo(
-    findings:     list[dict],
-    total_files:  int,
-    total_lines:  int,
+    findings:              list[dict],
+    total_files:           int,
+    total_lines:           int,
+    technique_region_lines: int = 0,
 ) -> dict:
     """Compute score and all derived metrics for one repo."""
     total_matches = len(findings)
@@ -455,7 +543,7 @@ def score_repo(
     files_with_matches = {f["file"] for f in findings}
     n_technique_files  = len(files_with_matches)
 
-    # Unique (file, line) pairs with a match — technique line count
+    # Unique (file, line) pairs with a match — raw technique line count
     technique_lines = len({(f["file"], f["line"]) for f in findings})
 
     # Per-file mention counts
@@ -466,9 +554,10 @@ def score_repo(
     )
     max_mentions = max(mentions_per_file.values()) if mentions_per_file else 0
 
-    # Coverage ratios
-    file_ratio = n_technique_files / total_files if total_files > 0 else 0.0
-    line_density = technique_lines / total_lines if total_lines > 0 else 0.0
+    # Coverage ratios — line_density uses region-based count when available
+    region_lines = max(technique_region_lines, technique_lines)
+    file_ratio    = n_technique_files / total_files if total_files > 0 else 0.0
+    line_density  = region_lines / total_lines      if total_lines > 0 else 0.0
 
     # Artifact type breakdown (counts among findings)
     artifact_counts = dict(Counter(f.get("artifact_type", "other") for f in findings))
@@ -482,6 +571,7 @@ def score_repo(
         "total_lines_scanned":       total_lines,
         "technique_files":           n_technique_files,
         "technique_lines":           technique_lines,
+        "technique_region_lines":    region_lines,
         "technique_file_ratio":      round(file_ratio,    4),
         "technique_line_density":    round(line_density,  6),
 
@@ -513,10 +603,21 @@ def _analyse_repo(repo_meta: dict) -> tuple[list[dict], dict | None]:
     log_path = log_dir / f"{os.getpid()}.log"
 
     all_findings: list[dict] = []
-    total_files  = 0
-    total_lines  = 0
+    total_files        = 0
+    total_lines        = 0
+    total_region_lines = 0
     lang_file_counts: Counter = Counter()
     t0 = _time.monotonic()
+
+    # Capture top-level README for domain inference (first match, ≤ 40 KB)
+    readme_text = ""
+    for _readme_candidate in sorted(local_path.iterdir()) if local_path.exists() else []:
+        if _readme_candidate.is_file() and _readme_candidate.stem.lower() == "readme":
+            try:
+                readme_text = _readme_candidate.read_text(errors="replace")[:40_960]
+            except Exception:
+                pass
+            break
 
     with open(log_path, "a", buffering=1, errors="replace") as log:
         log.write(f"\n=== {repo_name} ===\n")
@@ -533,7 +634,9 @@ def _analyse_repo(repo_meta: dict) -> tuple[list[dict], dict | None]:
             total_lines += max(1, text.count("\n") + 1)
 
             artifact_type = _classify_artifact_type(str(rel_path))
-            for finding in _analyze_file_text(file_path, rel_path, text):
+            file_findings, file_region_lines = _analyze_file_text(file_path, rel_path, text)
+            total_region_lines += len(file_region_lines)
+            for finding in file_findings:
                 finding["repo"]          = repo_name
                 finding["artifact_type"] = artifact_type
                 all_findings.append(finding)
@@ -559,10 +662,14 @@ def _analyse_repo(repo_meta: dict) -> tuple[list[dict], dict | None]:
         repo_name,
         repo_meta.get("description", ""),
         repo_meta.get("topics", []),
+        readme_text,
     )
+    # Compact text sample for word cloud: description + README intro (~2 KB)
+    desc = repo_meta.get("description", "") or ""
+    domain_text_sample = (desc + " " + readme_text[:1800]).strip()[:2048]
 
     # --- Score record ---
-    base_score = score_repo(all_findings, total_files, total_lines)
+    base_score = score_repo(all_findings, total_files, total_lines, total_region_lines)
     score_record = {
         "repo":              repo_name,
         "url":               repo_meta.get("html_url", ""),
@@ -579,6 +686,7 @@ def _analyse_repo(repo_meta: dict) -> tuple[list[dict], dict | None]:
         # Project metadata
         "project_type":      project_type,
         "inferred_domains":  inferred_domains,
+        "domain_text_sample": domain_text_sample,
 
         # Commit analysis
         **commit_stats,

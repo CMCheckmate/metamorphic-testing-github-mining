@@ -11,7 +11,6 @@ description: >
   A testing approach where test cases are generated automatically to verify high-level
   properties (invariants) that should hold for all valid inputs.
 color: "#1565c0"
-
 # -------------------------------------------------------------------
 # Search vocabulary
 # -------------------------------------------------------------------
@@ -35,6 +34,17 @@ search_phrases:
   - "property based testing"
   - "property based test"
   - "property based tests"
+  - "property-based tests"
+  - "generative testing"
+  - "generator based testing"
+  - "invariant based testing"
+  - "randomized testing"
+  - "random test generation"
+  - "shrinking strategy"
+  - "test shrinkage"
+  - "arbitrary test data"
+  - "model based testing"
+  - "QuickCheck testing"
 
 identifiers:
   # Import patterns rather than bare library names — far more precise for code search.
@@ -93,6 +103,7 @@ patterns:
   - id: "decorator_given"
     label: "Decorator: @given (Hypothesis)"
     regex: "@given\\s*\\("
+    scope: "block"
 
   - id: "decorator_settings"
     label: "Decorator: @settings (Hypothesis)"
@@ -124,6 +135,7 @@ patterns:
   - id: "annotation_Property"
     label: "Annotation: @Property (jqwik)"
     regex: "@Property\\b"
+    scope: "block"
 
   - id: "annotation_ForAll"
     label: "Annotation: @ForAll (jqwik)"
@@ -142,6 +154,7 @@ patterns:
   - id: "proptest_macro"
     label: "proptest! macro (Rust)"
     regex: "\\bproptest!\\s*\\{"
+    scope: "block"
 
   - id: "import_proptest"
     label: "Import: proptest (Rust)"
@@ -206,5 +219,5 @@ patterns:
 # Lemmatization
 # -------------------------------------------------------------------
 lemmatization:
-  trigger: ""   # disabled — "property" is too common a word for trigger-based filtering
+  trigger: "" # disabled — "property" is too common a word for trigger-based filtering
 

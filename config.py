@@ -100,8 +100,8 @@ CONFIG_EXTENSIONS: set[str] = {
 # ---------------------------------------------------------------------------
 # Clone settings
 # ---------------------------------------------------------------------------
-MAX_REPO_SIZE_KB    = 5_000_000   # 5 GB
-CLONE_DEPTH         = 500        # fetch last N commits for commit history analysis
+MAX_REPO_SIZE_KB    = 750_000     # 750 MB — skip giant repos (logged in Appendix D)
+CLONE_DEPTH         = 100        # fetch last N commits for commit history analysis
                                   # set to 0 for full history (slow, high disk usage)
 CLONE_DELAY_SECONDS = 0.3
 
@@ -239,6 +239,9 @@ class TechniqueProfile:
         phrases = [f'"{p}"' for p in self.search_phrases]
         idents  = self.identifiers
 
+        # Identifiers are code-level tokens (class/decorator/function names). They only
+        # go to the code surface — searching them on repo/issue/commit/discussion surfaces
+        # matches large amounts of unrelated content (e.g. "AFL", "hypothesis").
         def make(prefix: str, terms: list[str], kind: str | None = None) -> list[dict]:
             q = [{"query": t, "label": self._label(prefix, t)} for t in terms]
             if kind:
@@ -247,24 +250,24 @@ class TechniqueProfile:
             return q
 
         self.repo_queries: list[dict] = (
-            make("repo", phrases + idents) + self.extra_queries["repos"]
+            make("repo", phrases) + self.extra_queries["repos"]
         )
         self.code_queries: list[dict] = (
             make("code", idents + phrases) + self.extra_queries["code"]
         )
         self.issue_queries: list[dict] = (
-            make("issue", phrases + idents, kind="issue")
-            + make("pr",    phrases + idents, kind="pr")
+            make("issue", phrases, kind="issue")
+            + make("pr",    phrases, kind="pr")
             + self.extra_queries["issues"]
         )
         self.commit_queries: list[dict] = (
-            make("commit", phrases + idents) + self.extra_queries["commits"]
+            make("commit", phrases) + self.extra_queries["commits"]
         )
         disc_extras = [
             e if isinstance(e, str) else e.get("query", "")
             for e in self.extra_queries["discussions"]
         ]
-        self.discussion_queries: list[str] = phrases + idents + disc_extras
+        self.discussion_queries: list[str] = phrases + disc_extras
 
     def _compile_patterns(self) -> None:
         flag_map = {"IGNORECASE": re.IGNORECASE, "MULTILINE": re.MULTILINE}

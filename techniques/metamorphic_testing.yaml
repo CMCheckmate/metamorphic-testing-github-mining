@@ -75,15 +75,18 @@ patterns:
   - id: "class_MetamorphicTest"
     label: "Class name: MetamorphicTest"
     regex: "\\bMetamorphicTest\\w*\\b"
+    scope: "block"
 
   - id: "class_MetamorphicRelation"
     label: "Class name: MetamorphicRelation"
     regex: "\\bMetamorphicRelation\\w*\\b"
+    scope: "block"
 
   # --- Decorator used by Python MT libraries ---
   - id: "decorator_metamorphic"
     label: "Decorator: @metamorphic"
     regex: "@metamorphic\\b"
+    scope: "block"
 
   # --- Snake_case identifiers common in MT code ---
   - id: "identifier_mr"

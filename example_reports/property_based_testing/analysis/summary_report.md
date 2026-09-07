@@ -1,6 +1,6 @@
 # Property-Based Testing — GitHub Mining Report
 
-*PBT · Generated: 2026-08-28 02:00 UTC*
+*PBT · Generated: 2026-09-06 15:17 UTC*
 
 ---
 
@@ -33,8 +33,22 @@ Each surface corresponds to a distinct GitHub Search API endpoint.
 | **Commit** | Commit message text (not the diff/code itself) |
 | **Issue** | Issue titles and body text |
 
-![PBT — repositories found per search surface](../plots/surface_breakdown.png)
-*PBT — repositories found per search surface*
+
+### Results per Search Surface
+
+Total distinct results found across all search queries for each surface.
+Only repositories proceed to cloning and local analysis.
+
+| Surface | Results found |
+|---|---|
+| **Code files** | 37,853 |
+| **Repositories** | 12,804 |
+| **Commits** | 3,912 |
+| **Issues** | 3,102 |
+
+![PBT — search results per surface](../plots/surface_breakdown.png)
+*PBT — search results per surface*
+
 
 ![PBT — raw search hit counts per query](../plots/query_hits.png)
 *PBT — raw search hit counts per query*
@@ -59,30 +73,6 @@ Each surface corresponds to a distinct GitHub Search API endpoint.
 | Mean detection count | 14.3 |
 | Maximum detection count | 500 |
 | Single-match detections | 285 (40.0%) |
-
-### Code vs Non-Code Mentions
-
-Signal matches classified by where they appear in the repository file tree.
-
-| Category | Matches | % |
-|---|---|---|
-| Code (test code + source code) | 8,090 | 87.3% |
-| Non-code (docs + config + other) | 1,172 | 12.7% |
-
-
-### Technique Coverage Ratios (Detected Repos)
-
-Proportion of each detected repo's content containing technique signals.
-
-| Metric | Value |
-|---|---|
-| Median technique line density | 0.0% |
-| Median technique file ratio | 0.9% |
-| Repos with > 10% file coverage | 13 |
-
-![PBT — technique line density and file ratio distributions](../plots/technique_ratios.png)
-*PBT — technique line density and file ratio distributions*
-
 
 ### Project Metadata (Detected vs Not Detected)
 
@@ -147,7 +137,31 @@ Repos are classified by where technique signals appear in the directory tree. No
 
 ### Detection Distribution
 
-How technique signals are distributed within repos: spread across files, density per file, and location in test infrastructure.
+How technique signals are distributed within repos: signal type, code coverage, spread across files, and density per file.
+
+#### Code vs Non-Code Mentions
+
+Signal matches classified by where they appear in the repository file tree.
+
+| Category | Matches | % |
+|---|---|---|
+| Code (test code + source code) | 8,090 | 87.3% |
+| Non-code (docs + config + other) | 1,172 | 12.7% |
+
+
+#### Technique Coverage Ratios
+
+Proportion of each detected repo's content containing technique signals.
+
+| Metric | Value |
+|---|---|
+| Median technique line density | 0.0% |
+| Median technique file ratio | 0.9% |
+| Repos with > 10% file coverage | 13 |
+
+![PBT — technique code share and file coverage (detected repos)](../plots/technique_ratios.png)
+*PBT — technique code share and file coverage (detected repos)*
+
 
 | Spread Metric | Value |
 |---|---|
@@ -173,9 +187,6 @@ How technique signals are distributed within repos: spread across files, density
 
 ![PBT — keyword density per technique file](../plots/keyword_density.png)
 *PBT — keyword density per technique file*
-
-![PBT — signal location in test infrastructure](../plots/test_structure.png)
-*PBT — signal location in test infrastructure*
 
 
 ### Language Distribution
@@ -247,7 +258,7 @@ Extension-level breakdown of files containing technique signals (top 15 by match
 
 ### Application Domain
 
-Inferred from repo name, description, and GitHub topics (keyword matching). A repo can match multiple domains.
+Inferred from repo name, description, GitHub topics, and README text (keyword matching). A repo can match multiple domains.
 
 | Domain | Repos | % of detected |
 |---|---|---|
@@ -258,6 +269,9 @@ Inferred from repo name, description, and GitHub topics (keyword matching). A re
 | Web | 82 | 11.5% |
 | Security | 66 | 9.3% |
 | Bioinformatics | 44 | 6.2% |
+
+![PBT — domain word cloud (detected repos)](../plots/domain_wordcloud.png)
+*PBT — domain word cloud (detected repos)*
 
 ![PBT — inferred domain distribution](../plots/domain_dist.png)
 *PBT — inferred domain distribution*
