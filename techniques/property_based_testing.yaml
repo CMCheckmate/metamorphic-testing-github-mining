@@ -34,18 +34,12 @@ search_phrases:
   - "property based testing"
   - "property based test"
   - "property based tests"
-  - "property-based tests"
-  - "generative testing"
-  - "generator based testing"
-  - "invariant based testing"
-  - "randomized testing"
-  - "random test generation"
-  - "shrinking strategy"
-  - "test shrinkage"
-  - "arbitrary test data"
-  - "model based testing"
-  - "QuickCheck testing"
 
+# identifiers drive code-surface GitHub search (exact string match). Generic
+# dictionary-word tokens ("Arbitrary", "hypothesis", "forAll", "PropEr",
+# "@settings", lowercase "quickcheck") are excluded — they match large amounts
+# of unrelated code. The Phase 3 local-scan patterns below still detect them
+# inside cloned repos.
 identifiers:
   # Import patterns rather than bare library names — far more precise for code search.
   # Generic API names (@given, @settings, forAll, Arbitrary, etc.) are excluded here
