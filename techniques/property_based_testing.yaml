@@ -15,59 +15,51 @@ color: "#1565c0"
 # -------------------------------------------------------------------
 # Search vocabulary
 # -------------------------------------------------------------------
+#
+# Rule: search_phrases / identifiers are matched against GitHub's search
+# index (millions of repos). Only use terms that are specific enough to
+# reliably identify PBT usage without flooding results with false positives.
+#
+# Generic terms (generative testing, randomized testing, shrinking,
+# invariant, arbitrary, model-based testing) and short identifiers that
+# collide with unrelated code (@given, @settings, forAll, Arbitrary,
+# hypothesis, QuickCheck, prop_test, property_test, Gen.arbitrary) belong
+# ONLY in the local-analysis patterns section below, not here.
 
 search_phrases:
-  - "property based testing"
+  # Core PBT phrase family — all lemma variants (singular / plural / gerund,
+  # hyphenated and unhyphenated spellings)
   - "property-based testing"
-  - "property based test"
   - "property-based test"
-  - "property based tests"
   - "property-based tests"
-  - "generative testing"
-  - "generator based testing"
-  - "invariant based testing"
-  - "randomized testing"
-  - "random test generation"
-  - "shrinking strategy"
-  - "test shrinkage"
-  - "arbitrary test data"
-  - "model based testing"
-  - "QuickCheck testing"
+  - "property based testing"
+  - "property based test"
+  - "property based tests"
 
 identifiers:
-  # Haskell / original
-  - "QuickCheck"
-  - "Arbitrary"
+  # Import patterns rather than bare library names — far more precise for code search.
+  # Generic API names (@given, @settings, forAll, Arbitrary, etc.) are excluded here
+  # and belong in the patterns section only.
+
   # Python — Hypothesis
-  - "hypothesis"
-  - "@given"
-  - "@settings"
-  - "st.integers"
-  - "st.text"
-  - "st.composite"
-  # Scala
-  - "ScalaCheck"
-  - "Gen.arbitrary"
-  - "forAll"
-  # F# / C#
-  - "FsCheck"
-  # Java
-  - "jqwik"
-  - "@Property"
-  - "@ForAll"
-  # JavaScript / TypeScript
+  - "import hypothesis"
+  - "from hypothesis import given"
+  # Scala — ScalaCheck
+  - "import org.scalacheck"
+  # F# — FsCheck
+  - "open FsCheck"
+  # C# — FsCheck
+  - "using FsCheck"
+  # Java — jqwik
+  - "import net.jqwik"
+  # JavaScript / TypeScript — fast-check (hyphenated name is specific in import/require context)
   - "fast-check"
-  # Rust
-  - "proptest"
-  - "quickcheck"
-  # Erlang / Elixir
+  # Rust — proptest
+  - "use proptest"
+  # Erlang / Elixir — PropEr (distinctive capitalisation; Elixir wrapper is PropCheck)
   - "PropEr"
-  - "proper_gen"
-  # Go
-  - "gopter"
-  # Generic
-  - "property_test"
-  - "prop_test"
+  # Go — gopter (full module path is unambiguous)
+  - "leanovate/gopter"
 
 extra_queries:
   repos:
@@ -75,8 +67,12 @@ extra_queries:
       label: "repo_pbt_topic"
     - query: "topic:quickcheck"
       label: "repo_quickcheck_topic"
-    - query: "topic:hypothesis"
-      label: "repo_hypothesis_topic"
+    - query: "topic:scalacheck"
+      label: "repo_scalacheck_topic"
+    - query: "topic:jqwik"
+      label: "repo_jqwik_topic"
+    - query: "topic:proptest"
+      label: "repo_proptest_topic"
     - query: '"property-based testing framework"'
       label: "repo_pbt_framework"
   code: []
@@ -155,6 +151,21 @@ patterns:
   - id: "import_fscheck"
     label: "Import: FsCheck"
     regex: "open\\s+FsCheck"
+
+  # --- Java jqwik ---
+  - id: "import_jqwik"
+    label: "Import: jqwik (net.jqwik)"
+    regex: "import\\s+net\\.jqwik"
+
+  # --- Erlang / Elixir PropEr ---
+  - id: "import_proper"
+    label: "Import/use: PropEr"
+    regex: "(?:-include_lib\\s*\\(\"proper/include/proper\\.hrl\"\\)|\\buse\\s+PropCheck\\b|\\bimport PropCheck\\b|\\bproper\\.quickcheck\\b|\\bprop_statem\\b)"
+
+  # --- Go gopter ---
+  - id: "import_gopter"
+    label: "Import: gopter"
+    regex: "\"github\\.com/leanovate/gopter"
 
   # --- Generic identifiers ---
   - id: "identifier_property_test"
