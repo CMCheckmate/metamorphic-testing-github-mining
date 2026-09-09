@@ -307,18 +307,21 @@ def compile_analysis_keywords(keywords: list[dict]) -> list[dict]:
 # ---------------------------------------------------------------------------
 
 def descriptive_stats(values: list[float]) -> dict:
-    """Return avg/median/max/min/range for a list of numbers."""
+    """Return avg/median/max/min/stdev/range for a list of numbers."""
+    import statistics as _stats
     if not values:
-        return {"avg": 0, "median": 0, "max": 0, "min": 0, "range": 0, "count": 0}
+        return {"avg": 0, "median": 0, "max": 0, "min": 0, "stdev": 0, "range": 0, "count": 0}
     sorted_v = sorted(values)
     n = len(sorted_v)
     mid = n // 2
     median = sorted_v[mid] if n % 2 else (sorted_v[mid - 1] + sorted_v[mid]) / 2
+    stdev = round(_stats.stdev(values), 2) if n >= 2 else 0
     return {
         "avg":    round(sum(values) / n, 2),
         "median": round(median, 2),
         "max":    round(max(values), 2),
         "min":    round(min(values), 2),
+        "stdev":  stdev,
         "range":  round(max(values) - min(values), 2),
         "count":  n,
     }

@@ -4,12 +4,6 @@ Analysis Orchestrator
 Runs code_analysis and non_code_analysis, optionally in parallel,
 then aggregates all results into overall.json.
 
-Modes:
-  default     — code + non-code in parallel
-  --code-only — code analysis only
-  --noncode-only — non-code analysis only
-  --restart   — reset all analysis data and history before running
-
 Overall.json is the single source of truth for the report phase.
 The report performs NO calculations — it reads stored values only.
 """
@@ -17,7 +11,6 @@ The report performs NO calculations — it reads stored values only.
 from __future__ import annotations
 
 import concurrent.futures
-import statistics
 from collections import Counter, defaultdict
 from pathlib import Path
 
@@ -25,6 +18,7 @@ import config as cfg
 from utils import (
     resolve_technique, technique_dirs, ensure_dirs,
     setup_logging, load_json, save_json, descriptive_stats,
+    load_analysis_keywords,
 )
 
 
@@ -36,24 +30,19 @@ def _aggregate_code(results: list[dict]) -> dict:
     if not results:
         return {}
 
-    # Per-repo stats
     specific_hits_per_repo = [r.get("scan", {}).get("total_specific_hits", 0) for r in results]
     general_hits_per_repo  = [r.get("scan", {}).get("total_general_hits",  0) for r in results]
     files_per_repo         = [r.get("scan", {}).get("total_files",         0) for r in results]
     hit_files_per_repo     = [r.get("scan", {}).get("total_hit_files",     0) for r in results]
     lines_per_repo         = [r.get("scan", {}).get("total_lines",         0) for r in results]
     hit_lines_per_repo     = [r.get("scan", {}).get("total_hit_lines",     0) for r in results]
-
-    # Contributor count (stars used as proxy; real contributor data requires API call)
     stars = [r.get("stars") for r in results if r.get("stars") is not None]
 
-    # Classification breakdown
     classifications: Counter = Counter()
     for r in results:
         for cls in r.get("classification", {}).get("classifications", []):
             classifications[cls] += 1
 
-    # Language distribution
     lang_counts: Counter = Counter()
     for r in results:
         lang = r.get("language")
@@ -63,15 +52,10 @@ def _aggregate_code(results: list[dict]) -> dict:
             if cnt > 0:
                 lang_counts[lang2] += 1
 
-    # File category breakdown (aggregated)
+    # File category breakdown
     cat_totals: dict[str, dict] = {}
     for cat in ["test_code", "source_code", "docs", "config", "other"]:
-        total_files = 0
-        hit_files   = 0
-        total_lines = 0
-        hit_lines   = 0
-        gen_hits    = 0
-        spec_hits   = 0
+        total_files = hit_files = total_lines = hit_lines = gen_hits = spec_hits = 0
         for r in results:
             bc = r.get("scan", {}).get("by_category", {}).get(cat, {})
             total_files += bc.get("file_count", 0)
@@ -91,23 +75,128 @@ def _aggregate_code(results: list[dict]) -> dict:
             "hit_line_pct":        round(hit_lines / max(total_lines, 1) * 100, 1),
         }
 
+    all_files_total = sum(v["total_files"] for v in cat_totals.values())
+    all_lines_total = sum(v["total_lines"] for v in cat_totals.values())
+    for cat, stats in cat_totals.items():
+        stats["pct_of_all_files"] = round(stats["total_files"] / max(all_files_total, 1) * 100, 1)
+        stats["pct_of_all_lines"] = round(stats["total_lines"] / max(all_lines_total, 1) * 100, 1)
+
     # Keyword hits aggregated
     kw_totals: dict[str, dict] = {}
     for r in results:
         for kw_id, kw_data in r.get("scan", {}).get("hits_by_keyword", {}).items():
-            entry = kw_totals.setdefault(kw_id, {"count": 0, "label": ""})
+            entry = kw_totals.setdefault(kw_id, {"count": 0, "label": "", "category": ""})
             entry["count"] += kw_data.get("count", 0) if isinstance(kw_data, dict) else kw_data
             if isinstance(kw_data, dict) and not entry["label"]:
-                entry["label"] = kw_data.get("label", kw_id)
+                entry["label"]    = kw_data.get("label", kw_id)
+                entry["category"] = kw_data.get("category", "")
 
     kw_ranked = sorted(kw_totals.items(), key=lambda x: x[1]["count"], reverse=True)
 
-    # Timeline aggregation
+    # Per-keyword, per-file-category breakdown (from file_details)
+    kw_by_cat: dict[str, dict[str, int]] = {}
+    kw_labels_map: dict[str, str] = {}
+    for r in results:
+        scan = r.get("scan", {})
+        for fdr in scan.get("file_details", []):
+            cat = fdr.get("category", "other")
+            for kw_id, cnt in fdr.get("specific_hits", {}).items():
+                if kw_id not in kw_by_cat:
+                    kw_by_cat[kw_id] = {"test_code": 0, "source_code": 0, "docs": 0, "config": 0, "other": 0}
+                kw_by_cat[kw_id][cat] = kw_by_cat[kw_id].get(cat, 0) + cnt
+        for kw_id, kw_data in scan.get("hits_by_keyword", {}).items():
+            if isinstance(kw_data, dict) and kw_id not in kw_labels_map:
+                kw_labels_map[kw_id] = kw_data.get("label", kw_id)
+
+    keywords_by_category = sorted(
+        [
+            {
+                "id":               kw_id,
+                "label":            kw_labels_map.get(kw_id, kw_id),
+                "total_count":      sum(cats.values()),
+                "hits_test_code":   cats.get("test_code", 0),
+                "hits_source_code": cats.get("source_code", 0),
+                "hits_docs":        cats.get("docs", 0),
+                "hits_config":      cats.get("config", 0),
+                "hits_other":       cats.get("other", 0),
+            }
+            for kw_id, cats in kw_by_cat.items()
+        ],
+        key=lambda x: x["total_count"], reverse=True,
+    )
+
+    # Test vs non-test stats
+    test_cat = cat_totals.get("test_code", {})
+    nontest_files     = sum(cat_totals.get(c, {}).get("total_files",         0) for c in ["source_code", "docs", "config", "other"])
+    nontest_lines     = sum(cat_totals.get(c, {}).get("total_lines",         0) for c in ["source_code", "docs", "config", "other"])
+    nontest_spec      = sum(cat_totals.get(c, {}).get("total_specific_hits", 0) for c in ["source_code", "docs", "config", "other"])
+    nontest_gen       = sum(cat_totals.get(c, {}).get("total_general_hits",  0) for c in ["source_code", "docs", "config", "other"])
+    nontest_hit_files = sum(cat_totals.get(c, {}).get("hit_file_count",      0) for c in ["source_code", "docs", "config", "other"])
+    nontest_hit_lines = sum(cat_totals.get(c, {}).get("hit_line_count",      0) for c in ["source_code", "docs", "config", "other"])
+    test_vs_nontest_stats = {
+        "test_code": {
+            "files":            test_cat.get("total_files", 0),
+            "lines":            test_cat.get("total_lines", 0),
+            "specific_hits":    test_cat.get("total_specific_hits", 0),
+            "general_hits":     test_cat.get("total_general_hits", 0),
+            "pct_of_all_files": test_cat.get("pct_of_all_files", 0),
+            "pct_of_all_lines": test_cat.get("pct_of_all_lines", 0),
+            "hit_file_pct":     test_cat.get("hit_file_pct", 0),
+            "hit_line_pct":     test_cat.get("hit_line_pct", 0),
+        },
+        "non_test_code": {
+            "files":            nontest_files,
+            "lines":            nontest_lines,
+            "specific_hits":    nontest_spec,
+            "general_hits":     nontest_gen,
+            "hit_files":        nontest_hit_files,
+            "hit_lines":        nontest_hit_lines,
+            "pct_of_all_files": round(nontest_files     / max(all_files_total, 1) * 100, 1),
+            "pct_of_all_lines": round(nontest_lines     / max(all_lines_total, 1) * 100, 1),
+            "hit_file_pct":     round(nontest_hit_files / max(nontest_files, 1) * 100, 1),
+            "hit_line_pct":     round(nontest_hit_lines / max(nontest_lines, 1) * 100, 1),
+        },
+        "total_files": all_files_total,
+        "total_lines": all_lines_total,
+    }
+
+    # Per-repo hit-% distribution (for exact ranked line charts)
+    hit_pct_distribution = sorted(
+        [
+            {
+                "name":          r.get("full_name") or r.get("repo_full_name", ""),
+                "specific_hits": r.get("scan", {}).get("total_specific_hits", 0),
+                "total_lines":   r.get("scan", {}).get("total_lines", 0),
+                "total_files":   r.get("scan", {}).get("total_files", 0),
+                "hit_pct_lines": round(r.get("scan", {}).get("total_hit_lines", 0) / max(r.get("scan", {}).get("total_lines", 1), 1) * 100, 2),
+                "hit_pct_files": round(r.get("scan", {}).get("total_hit_files", 0) / max(r.get("scan", {}).get("total_files", 1), 1) * 100, 2),
+            }
+            for r in results
+        ],
+        key=lambda x: x["hit_pct_lines"], reverse=True,
+    )
+
+    specific_hits_ranked = sorted(
+        [{"name": r.get("full_name") or r.get("repo_full_name", ""), "hits": r.get("scan", {}).get("total_specific_hits", 0)}
+         for r in results],
+        key=lambda x: x["hits"], reverse=True,
+    )
+
+    # Commit spans (exact, sorted)
+    commit_spans: list[float] = []
+    commit_spans_sorted: list[dict] = []
+    for r in results:
+        name = r.get("full_name") or r.get("repo_full_name", "")
+        span = r.get("commits", {}).get("commit_span_days")
+        if span is not None and span >= 0:
+            commit_spans.append(float(span))
+            commit_spans_sorted.append({"name": name, "span_days": float(span)})
+    commit_spans_sorted.sort(key=lambda x: x["span_days"], reverse=True)
+
+    # Timeline
     commits_by_month: Counter = Counter()
     tech_commits_by_month: Counter = Counter()
     creation_years: Counter = Counter()
-    commit_spans: list[float] = []
-
     for r in results:
         commits = r.get("commits", {})
         for month, cnt in commits.get("commits_by_month", {}).items():
@@ -120,42 +209,118 @@ def _aggregate_code(results: list[dict]) -> dict:
                 creation_years[int(created[:4])] += 1
             except ValueError:
                 pass
-        span = commits.get("commit_span_days")
-        if span is not None and span >= 0:
-            commit_spans.append(float(span))
 
-    # Density bands (per-repo specific hits)
-    density_bands_hits: dict[str, int] = _density_bands(specific_hits_per_repo)
-    density_bands_pct:  dict[str, int] = _density_bands_pct(
-        [r.get("scan", {}).get("total_specific_hits", 0) / max(r.get("scan", {}).get("total_lines", 1), 1) * 100
-         for r in results]
-    )
+    # Technique density labels (5-label scheme) + artifact classification — from file_details
+    _TD_LABELS = ["technique_file", "test_file", "technique_doc_file", "test_doc_file", "non_test_file"]
+    td_global: dict[str, dict] = {lbl: {"files": 0, "lines": 0, "hit_lines": 0, "gen_hits": 0, "spec_hits": 0}
+                                   for lbl in _TD_LABELS}
+    td_per_repo: dict[str, list[dict]] = {lbl: [] for lbl in _TD_LABELS}
+    art_ext_counts: Counter = Counter()
+    art_cat_counts = {"code": 0, "docs": 0, "config": 0, "other": 0}
+    has_file_details = False
+
+    for r in results:
+        file_details = r.get("scan", {}).get("file_details", [])
+        if not file_details:
+            continue
+        has_file_details = True
+        repo_td: dict[str, dict] = {lbl: {"files": 0, "lines": 0, "hit_lines": 0, "gen_hits": 0, "spec_hits": 0}
+                                     for lbl in _TD_LABELS}
+        for fdr in file_details:
+            is_code  = fdr.get("category") in {"test_code", "source_code"}
+            has_spec = fdr.get("total_specific", 0) > 0
+            has_gen  = fdr.get("total_general", 0) > 0
+            if has_spec and is_code:     lbl = "technique_file"
+            elif has_spec:               lbl = "technique_doc_file"
+            elif has_gen and is_code:    lbl = "test_file"
+            elif has_gen:                lbl = "test_doc_file"
+            else:                        lbl = "non_test_file"
+
+            nl = fdr.get("n_lines", 0)
+            hl = fdr.get("n_hit_lines", 0)
+            gh = fdr.get("total_general", 0)
+            sh = fdr.get("total_specific", 0)
+            for d in (repo_td[lbl], td_global[lbl]):
+                d["files"]    += 1
+                d["lines"]    += nl
+                d["hit_lines"] += hl
+                d["gen_hits"] += gh
+                d["spec_hits"] += sh
+
+            # Artifact classification by extension
+            ext = Path(fdr.get("path", "x")).suffix.lower()
+            art_ext_counts[ext] += 1
+            if ext in cfg.CODE_EXTENSIONS:     art_cat_counts["code"]   += 1
+            elif ext in cfg.DOC_EXTENSIONS:    art_cat_counts["docs"]   += 1
+            elif ext in cfg.CONFIG_EXTENSIONS: art_cat_counts["config"] += 1
+            else:                              art_cat_counts["other"]  += 1
+
+        for lbl, rs in repo_td.items():
+            td_per_repo[lbl].append(rs)
+
+    if has_file_details:
+        total_td_files = sum(v["files"] for v in td_global.values())
+        total_td_lines = sum(v["lines"] for v in td_global.values())
+        technique_density_labels = {
+            "by_label": {
+                lbl: {
+                    "files":            td_global[lbl]["files"],
+                    "lines":            td_global[lbl]["lines"],
+                    "gen_hits":         td_global[lbl]["gen_hits"],
+                    "spec_hits":        td_global[lbl]["spec_hits"],
+                    "pct_files":        round(td_global[lbl]["files"] / max(total_td_files, 1) * 100, 1),
+                    "pct_lines":        round(td_global[lbl]["lines"] / max(total_td_lines, 1) * 100, 1),
+                    "hit_line_pct":     round(td_global[lbl]["hit_lines"] / max(td_global[lbl]["lines"], 1) * 100, 1),
+                    "files_per_repo":   descriptive_stats([r["files"]    for r in td_per_repo[lbl]]),
+                    "lines_per_repo":   descriptive_stats([r["lines"]    for r in td_per_repo[lbl]]),
+                    "gen_per_repo":     descriptive_stats([r["gen_hits"] for r in td_per_repo[lbl]]),
+                    "spec_per_repo":    descriptive_stats([r["spec_hits"] for r in td_per_repo[lbl]]),
+                }
+                for lbl in _TD_LABELS
+            },
+            "total_files": total_td_files,
+            "total_lines": total_td_lines,
+        }
+        total_art_files = sum(art_cat_counts.values())
+        artifact_classification = {
+            "by_category":     art_cat_counts,
+            "by_category_pct": {k: round(v / max(total_art_files, 1) * 100, 1) for k, v in art_cat_counts.items()},
+            "by_extension":    dict(art_ext_counts.most_common(60)),
+            "total_files":     total_art_files,
+        }
+    else:
+        technique_density_labels = {}
+        artifact_classification  = {}
 
     return {
-        "repo_count": len(results),
-        "specific_hits_per_repo": descriptive_stats(specific_hits_per_repo),
-        "general_hits_per_repo":  descriptive_stats(general_hits_per_repo),
-        "files_per_repo":         descriptive_stats(files_per_repo),
-        "hit_files_per_repo":     descriptive_stats(hit_files_per_repo),
-        "lines_per_repo":         descriptive_stats(lines_per_repo),
-        "hit_lines_per_repo":     descriptive_stats(hit_lines_per_repo),
-        "stars_stats":            descriptive_stats([float(s) for s in stars]),
-        "classification_counts":  dict(classifications),
-        "language_distribution":  dict(lang_counts.most_common(30)),
-        "by_category":            cat_totals,
-        "keywords_ranked":        [
-            {"id": kid, "label": v["label"], "count": v["count"]}
+        "repo_count":               len(results),
+        "specific_hits_per_repo":   descriptive_stats(specific_hits_per_repo),
+        "general_hits_per_repo":    descriptive_stats(general_hits_per_repo),
+        "files_per_repo":           descriptive_stats(files_per_repo),
+        "hit_files_per_repo":       descriptive_stats(hit_files_per_repo),
+        "lines_per_repo":           descriptive_stats(lines_per_repo),
+        "hit_lines_per_repo":       descriptive_stats(hit_lines_per_repo),
+        "stars_stats":              descriptive_stats([float(s) for s in stars]),
+        "classification_counts":    dict(classifications),
+        "language_distribution":    dict(lang_counts.most_common(30)),
+        "by_category":              cat_totals,
+        "keywords_ranked":          [
+            {"id": kid, "label": v["label"], "count": v["count"], "category": v.get("category", "")}
             for kid, v in kw_ranked
         ],
+        "keywords_by_category":       keywords_by_category,
+        "test_vs_nontest_stats":      test_vs_nontest_stats,
+        "hit_pct_distribution":       hit_pct_distribution,
+        "specific_hits_ranked":       specific_hits_ranked,
+        "commit_spans_sorted":        commit_spans_sorted,
+        "technique_density_labels":   technique_density_labels,
+        "artifact_classification":    artifact_classification,
         "timeline": {
-            "creation_years":          dict(sorted(creation_years.items())),
-            "commits_by_month":        dict(sorted(commits_by_month.items())),
+            "creation_years":             dict(sorted(creation_years.items())),
+            "commits_by_month":           dict(sorted(commits_by_month.items())),
             "technique_commits_by_month": dict(sorted(tech_commits_by_month.items())),
-            "commit_span_stats":       descriptive_stats(commit_spans),
-            "repos_by_commit_span":    _span_bands(commit_spans),
+            "commit_span_stats":          descriptive_stats(commit_spans),
         },
-        "density_bands_hits": density_bands_hits,
-        "density_bands_pct":  density_bands_pct,
     }
 
 
@@ -170,31 +335,50 @@ def _aggregate_noncode(results: list[dict]) -> dict:
     surface_stats = {}
     for surface, items in by_surface.items():
         spec_hits = [i.get("total_specific_hits", 0) for i in items]
+        hits_ranked = sorted(
+            [{"id": str(i.get("id", "")), "title": str(i.get("title", ""))[:80], "hit_count": i.get("total_specific_hits", 0)}
+             for i in items],
+            key=lambda x: x["hit_count"], reverse=True,
+        )[:200]
+        surf_kw: Counter = Counter()
+        for i in items:
+            for label, cnt in i.get("hits_by_keyword", {}).items():
+                surf_kw[label] += cnt
         surface_stats[surface] = {
             "count":                  len(items),
             "total_specific_hits":    sum(spec_hits),
             "specific_hits_per_item": descriptive_stats(spec_hits),
+            "hits_ranked":            hits_ranked,
+            "keywords_ranked": [{"keyword": k, "count": v} for k, v in surf_kw.most_common(cfg.REPORT_TOP_N_KEYWORDS)],
         }
 
-    # Keyword hits across all non-code items
-    kw_counts: Counter = Counter()
+    # Cross-surface keyword table (same format as search keywords)
+    nc_cross: list[dict] = []
+    for surface, stats in surface_stats.items():
+        for kw_entry in stats.get("keywords_ranked", []):
+            nc_cross.append({
+                "surface":       surface,
+                "keyword":       kw_entry["keyword"],
+                "surface_label": f"{surface.upper()}: {kw_entry['keyword']}",
+                "count":         kw_entry["count"],
+            })
+    nc_cross.sort(key=lambda x: x["count"], reverse=True)
+
+    all_kw: Counter = Counter()
     for r in results:
         for label, cnt in r.get("hits_by_keyword", {}).items():
-            kw_counts[label] += cnt
+            all_kw[label] += cnt
 
-    # Domain distribution
     domain_counts: Counter = Counter()
     for r in results:
         for d in r.get("domains", []):
             domain_counts[d] += 1
 
-    # Word frequency for word cloud
     word_freq: Counter = Counter()
     for r in results:
         for w, cnt in r.get("word_freq", {}).items():
             word_freq[w] += cnt
 
-    # Language distribution (repos surface)
     lang_counts: Counter = Counter()
     for r in by_surface.get("repos", []):
         lang = r.get("language")
@@ -202,106 +386,97 @@ def _aggregate_noncode(results: list[dict]) -> dict:
             lang_counts[lang] += 1
 
     return {
-        "total_items":      len(results),
-        "by_surface":       surface_stats,
-        "keywords_ranked":  dict(kw_counts.most_common(cfg.REPORT_TOP_N_KEYWORDS)),
-        "domain_counts":    dict(domain_counts.most_common()),
-        "top_word_freq":    dict(word_freq.most_common(200)),
+        "total_items":          len(results),
+        "by_surface":           surface_stats,
+        "keywords_ranked":      dict(all_kw.most_common(cfg.REPORT_TOP_N_KEYWORDS)),
+        "keywords_cross_surface": nc_cross,
+        "domain_counts":        dict(domain_counts.most_common()),
+        "top_word_freq":        dict(word_freq.most_common(200)),
         "language_distribution": dict(lang_counts.most_common(30)),
     }
 
 
 def _aggregate_search_summary(search_dir: Path) -> dict:
-    summary_path = search_dir / "summary.json"
-    summary = load_json(summary_path, {})
+    summary = load_json(search_dir / "summary.json", {})
     if not summary:
         return {}
-    result = {}
-    for surface, data in summary.items():
-        if isinstance(data, dict):
-            result[surface] = {
-                "api_hit_count":  data.get("api_hit_count", 0),
-                "unique_results": data.get("unique_results", 0),
-            }
 
-    # Keyword hit distribution across all surfaces
+    result: dict = {}
+    cross_surface: list[dict] = []
     all_kw_hits: Counter = Counter()
-    for surface, data in summary.items():
-        if isinstance(data, dict):
-            for kw, kw_data in data.get("keywords", {}).items():
-                if isinstance(kw_data, dict):
-                    all_kw_hits[kw] += kw_data.get("unique_results", 0)
 
+    for surface, data in summary.items():
+        if not isinstance(data, dict):
+            continue
+        kw_list = []
+        for kw, kw_data in data.get("keywords", {}).items():
+            if not isinstance(kw_data, dict):
+                continue
+            hit_count = kw_data.get("api_hit_count", 0)
+            unique    = kw_data.get("unique_results", 0)
+            kw_list.append({"keyword": kw, "search_hit_count": hit_count, "unique_results": unique})
+            cross_surface.append({
+                "surface":          surface,
+                "keyword":          kw,
+                "surface_label":    f"{surface.upper()}: {kw}",
+                "search_hit_count": hit_count,
+                "unique_results":   unique,
+            })
+            all_kw_hits[kw] += unique
+        kw_list.sort(key=lambda x: x["unique_results"], reverse=True)
+        result[surface] = {
+            "search_hit_count": data.get("api_hit_count", 0),
+            "unique_results":   data.get("unique_results", 0),
+            "keywords_ranked":  kw_list,
+        }
+
+    cross_surface.sort(key=lambda x: x["unique_results"], reverse=True)
+    result["keywords_cross_surface"] = cross_surface
     result["keywords_total"] = dict(all_kw_hits.most_common())
     return result
 
 
 def _aggregate_repo_sizes(search_dir: Path) -> dict:
-    repos_file = search_dir / "repos.json"
-    code_file  = search_dir / "code.json"
     sizes_all: list[float] = []
     sizes_by_surface: dict[str, list[float]] = defaultdict(list)
-
-    for surface, path in [("repos", repos_file), ("code", code_file)]:
-        items = load_json(path, [])
-        for item in items:
+    for surface in ["code", "repos", "commits", "prs", "issues", "discussions"]:
+        for item in load_json(search_dir / f"{surface}.json", []):
             kb = item.get("size_kb", 0) or 0
             if kb > 0:
                 sizes_all.append(float(kb))
                 sizes_by_surface[surface].append(float(kb))
-
     return {
-        "overall": descriptive_stats(sizes_all),
+        "overall":    descriptive_stats(sizes_all),
         "by_surface": {s: descriptive_stats(v) for s, v in sizes_by_surface.items()},
     }
 
 
-def _density_bands(values: list[float]) -> dict[str, int]:
-    bands = {"0": 0, "1-9": 0, "10-49": 0, "50-199": 0, "200+": 0}
-    for v in values:
-        if v == 0:
-            bands["0"] += 1
-        elif v < 10:
-            bands["1-9"] += 1
-        elif v < 50:
-            bands["10-49"] += 1
-        elif v < 200:
-            bands["50-199"] += 1
-        else:
-            bands["200+"] += 1
-    return bands
-
-
-def _density_bands_pct(values: list[float]) -> dict[str, int]:
-    bands = {"0%": 0, "<1%": 0, "1-5%": 0, "5-20%": 0, ">20%": 0}
-    for v in values:
-        if v == 0:
-            bands["0%"] += 1
-        elif v < 1:
-            bands["<1%"] += 1
-        elif v < 5:
-            bands["1-5%"] += 1
-        elif v <= 20:
-            bands["5-20%"] += 1
-        else:
-            bands[">20%"] += 1
-    return bands
-
-
-def _span_bands(spans: list[float]) -> dict[str, int]:
-    bands = {"<30d": 0, "30-180d": 0, "180d-1yr": 0, "1-3yr": 0, ">3yr": 0}
-    for s in spans:
-        if s < 30:
-            bands["<30d"] += 1
-        elif s < 180:
-            bands["30-180d"] += 1
-        elif s < 365:
-            bands["180d-1yr"] += 1
-        elif s < 1095:
-            bands["1-3yr"] += 1
-        else:
-            bands[">3yr"] += 1
-    return bands
+def _aggregate_search_hit_distributions(search_dir: Path) -> dict:
+    """
+    Per-item hit counts (total and unique keywords matched) for each search surface,
+    sorted highest to lowest. Used for distribution line charts.
+    """
+    distributions: dict[str, list[dict]] = {}
+    for surface in ["code", "repos", "commits", "prs", "issues", "discussions"]:
+        items = load_json(search_dir / f"{surface}.json", [])
+        if not items:
+            continue
+        item_counts = []
+        for item in items:
+            kws = item.get("matched_keywords", [])
+            if not kws:
+                kw = item.get("matched_keyword")
+                kws = [kw] if kw else []
+            name = (item.get("repo_full_name") or item.get("full_name")
+                    or str(item.get("title", ""))[:60] or str(item.get("id", "")))
+            item_counts.append({
+                "name":                name,
+                "hit_count":           len(kws),
+                "unique_keyword_count": len(set(kws)),
+            })
+        item_counts.sort(key=lambda x: x["hit_count"], reverse=True)
+        distributions[surface] = item_counts
+    return distributions
 
 
 # ---------------------------------------------------------------------------
@@ -316,14 +491,13 @@ def run(
     workers: int = cfg.ANALYSIS_WORKERS,
 ) -> None:
     ensure_dirs(slug)
-    dirs = technique_dirs(slug)
+    dirs   = technique_dirs(slug)
     logger = setup_logging(slug, "analysis")
 
     import code_analysis
     import non_code_analysis
 
     if not noncode_only and not code_only:
-        # Run both in parallel
         logger.info("Running code and non-code analysis in parallel")
         with concurrent.futures.ThreadPoolExecutor(max_workers=2) as pool:
             code_fut    = pool.submit(code_analysis.run, slug, restart, workers)
@@ -338,46 +512,60 @@ def run(
     else:
         non_code_analysis.run(slug, restart)
 
-    # Aggregate into overall.json
     logger.info("Aggregating results into overall.json")
     _aggregate_overall(slug, dirs, logger)
 
 
-def _aggregate_overall(slug: str, dirs: dict, logger) -> None:
-    code_repos_path  = dirs["analysis"] / "code_repos.json"
-    noncode_path     = dirs["analysis"] / "noncode_results.json"
+def _aggregate_overall(slug: str, dirs: dict, logger=None) -> None:
+    code_repos: list[dict]    = load_json(dirs["analysis"] / "code_repos.json", [])
+    noncode_results: list[dict] = load_json(dirs["analysis"] / "noncode_results.json", [])
 
-    code_repos: list[dict]   = load_json(code_repos_path, [])
-    noncode_results: list[dict] = load_json(noncode_path, [])
-
-    code_agg   = _aggregate_code(code_repos)
+    code_agg    = _aggregate_code(code_repos)
     noncode_agg = _aggregate_noncode(noncode_results)
     search_agg  = _aggregate_search_summary(dirs["search"])
     size_agg    = _aggregate_repo_sizes(dirs["search"])
+    hit_dists   = _aggregate_search_hit_distributions(dirs["search"])
 
-    # Total unique repos found across all surfaces
+    # Enrich keyword categories from analysis keywords JSON (fills blanks from real data
+    # where code_analysis.py may not have stored category in hits_by_keyword)
+    try:
+        kws_raw = load_analysis_keywords(slug)
+        kw_cat  = {k["id"]: k.get("category", "") for k in kws_raw}
+        for entry in code_agg.get("keywords_ranked", []):
+            if not entry.get("category"):
+                entry["category"] = kw_cat.get(entry["id"], "")
+        for entry in code_agg.get("keywords_by_category", []):
+            if not entry.get("category"):
+                entry["category"] = kw_cat.get(entry["id"], "")
+    except Exception:
+        pass
+
     all_repo_names: set[str] = set()
     for surface in ["code", "repos", "commits", "prs", "issues", "discussions"]:
-        items = load_json(dirs["search"] / f"{surface}.json", [])
-        for item in items:
+        for item in load_json(dirs["search"] / f"{surface}.json", []):
             rn = item.get("repo_full_name", "")
             if rn:
                 all_repo_names.add(rn)
 
+    # Fix "All (combined)" count to be the true union, not count of items with size_kb
+    size_agg["overall"]["count"] = len(all_repo_names)
+
     overall = {
-        "slug":              slug,
-        "repos_found_total": len(all_repo_names),
-        "repos_by_surface":  {
+        "slug":                     slug,
+        "repos_found_total":        len(all_repo_names),
+        "repos_by_surface": {
             s: len({i.get("repo_full_name", "") for i in load_json(dirs["search"] / f"{s}.json", [])
                     if i.get("repo_full_name")})
             for s in ["code", "repos", "commits", "prs", "issues", "discussions"]
         },
-        "repo_size_stats":   size_agg,
-        "search_summary":    search_agg,
-        "code_analysis":     code_agg,
-        "noncode_analysis":  noncode_agg,
+        "repo_size_stats":          size_agg,
+        "search_summary":           search_agg,
+        "search_hit_distributions": hit_dists,
+        "code_analysis":            code_agg,
+        "noncode_analysis":         noncode_agg,
     }
 
     save_json(dirs["analysis"] / "overall.json", overall)
-    logger.info("overall.json written")
-    print(f"\nAggregation complete. overall.json saved.")
+    if logger:
+        logger.info("overall.json written")
+    print("\nAggregation complete. overall.json saved.")

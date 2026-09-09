@@ -31,7 +31,7 @@ FAKE_TOPICS = [
     "testing", "fuzzing", "security", "machine-learning", "compiler",
     "database", "web", "api", "open-source", "research",
 ]
-FAKE_CLASSIFS = ["actual_usage", "framework", "research_artifact"]
+FAKE_CLASSIFS = ["actual_usage", "framework", "research_artifact", "unclassified"]
 
 MT_KEYWORDS  = ["metamorphic testing", "metamorphic relation", "MetamorphicTest"]
 PBT_KEYWORDS = ["property-based testing", "import hypothesis", "forAll"]
@@ -133,6 +133,7 @@ def _make_issue_items(slug: str, surface: str, n: int = 20) -> list[dict]:
             "updated_at":     _rand_date(2022, 2024),
             "repo_full_name": repo,
             "matched_keyword": kw,
+            "size_kb":        random.randint(50, 100000),
         })
     return items
 
@@ -153,6 +154,7 @@ def _make_commit_items(slug: str, n: int = 25) -> list[dict]:
             "repo_full_name": repo,
             "repo_id":        400000 + i,
             "matched_keyword": kw,
+            "size_kb":        random.randint(50, 80000),
         })
     return items
 
@@ -176,17 +178,101 @@ def _make_discussion_items(slug: str, n: int = 10) -> list[dict]:
             "updated_at":     _rand_date(2022, 2024),
             "repo_full_name": repo,
             "matched_keyword": kw,
+            "size_kb":        random.randint(50, 60000),
         })
     return items
 
 
+_FAKE_EXTS_CODE   = [".py", ".java", ".go", ".ts", ".rs", ".cpp", ".rb"]
+_FAKE_EXTS_DOC    = [".md", ".rst", ".txt"]
+_FAKE_EXTS_CONFIG = [".yaml", ".toml", ".json", ".cfg"]
+
+_KW_DEFS = {
+    "metamorphic_testing": [
+        ("phrase_mt",  "metamorphic test(ing)",    "specific_technique"),
+        ("class_mt",   "class MetamorphicTest",    "specific_technique"),
+        ("abbrev_MT",  "abbreviation MT",           "specific_technique"),
+        ("assert_gen", "assertRelation",            "specific_technique"),
+        ("mr_def",     "metamorphic relation",      "specific_technique"),
+    ],
+    "fuzz_testing": [
+        ("libfuzz",    "LLVMFuzzerTestOneInput",   "specific_technique"),
+        ("aflpp",      "afl-fuzz / afl++",          "specific_technique"),
+        ("coverage",   "coverage-guided fuzzing",   "specific_technique"),
+        ("seed_corp",  "seed corpus",               "general_test"),
+        ("sanitizer",  "AddressSanitizer",          "specific_technique"),
+    ],
+    "property_based_testing": [
+        ("hypothesis", "import hypothesis",         "specific_technique"),
+        ("forall",     "forAll (QuickCheck style)", "specific_technique"),
+        ("prop_def",   "property definition",       "general_test"),
+        ("shrink",     "shrinking",                 "specific_technique"),
+        ("gen_arb",    "Arbitrary / Gen",           "specific_technique"),
+    ],
+}
+
+
+def _make_file_details(slug: str, n_files: int) -> list[dict]:
+    kw_defs = _KW_DEFS.get(slug, _KW_DEFS["metamorphic_testing"])
+    spec_kws = [kd[0] for kd in kw_defs if kd[2] == "specific_technique"]
+    details = []
+    categories = (
+        ["test_code"]   * max(1, n_files // 5) +
+        ["source_code"] * max(1, n_files // 2) +
+        ["docs"]        * max(1, n_files // 6) +
+        ["config"]      * max(1, n_files // 8) +
+        ["other"]       * max(1, n_files // 10)
+    )
+    categories = (categories * (n_files // max(len(categories), 1) + 1))[:n_files]
+    random.shuffle(categories)
+
+    for j, cat in enumerate(categories):
+        if cat == "test_code":
+            ext = random.choice(_FAKE_EXTS_CODE)
+            path = f"tests/test_module_{j}{ext}"
+        elif cat == "source_code":
+            ext = random.choice(_FAKE_EXTS_CODE)
+            path = f"src/module_{j}{ext}"
+        elif cat == "docs":
+            ext = random.choice(_FAKE_EXTS_DOC)
+            path = f"docs/guide_{j}{ext}"
+        elif cat == "config":
+            ext = random.choice(_FAKE_EXTS_CONFIG)
+            path = f"config/settings_{j}{ext}"
+        else:
+            path = f"misc/other_{j}.bin"
+
+        nl = random.randint(10, 500)
+        has_spec = random.random() < (0.4 if cat in ("test_code", "source_code") else 0.1)
+        has_gen  = random.random() < (0.6 if cat in ("test_code", "source_code") else 0.2)
+        spec_cnt = random.randint(1, 8) if has_spec else 0
+        gen_cnt  = random.randint(1, 15) if has_gen else 0
+        hl = random.randint(0, min(nl, spec_cnt + gen_cnt + random.randint(0, 5)))
+        specific_hits = {}
+        if has_spec and spec_kws:
+            kw = random.choice(spec_kws)
+            specific_hits[kw] = spec_cnt
+
+        details.append({
+            "path":           path,
+            "category":       cat,
+            "n_lines":        nl,
+            "n_hit_lines":    hl,
+            "total_general":  gen_cnt,
+            "total_specific": spec_cnt,
+            "specific_hits":  specific_hits,
+            "language":       random.choice(FAKE_LANGS),
+        })
+    return details
+
+
 def _make_code_repo_record(slug: str, i: int) -> dict:
     repo_name = _rand_repo_name(slug)
-    cls = random.choices(FAKE_CLASSIFS, weights=[0.6, 0.25, 0.15])[0]
+    cls = random.choices(FAKE_CLASSIFS, weights=[0.55, 0.22, 0.13, 0.10])[0]
     lang = random.choice(FAKE_LANGS)
     stars = random.randint(0, 5000)
     created_at = _rand_date()
-    n_files = random.randint(20, 500)
+    n_files = random.randint(20, 200)
     n_hit_files = random.randint(1, max(1, n_files // 3))
     n_lines = random.randint(1000, 100000)
     n_hit_lines = random.randint(5, max(5, n_lines // 20))
@@ -206,6 +292,14 @@ def _make_code_repo_record(slug: str, i: int) -> dict:
         }
         for cat in ["test_code", "source_code", "docs", "config", "other"]
     }
+
+    kw_defs = _KW_DEFS.get(slug, _KW_DEFS["metamorphic_testing"])
+    hits_by_keyword = {
+        kd[0]: {"count": random.randint(0, 30), "label": kd[1], "category": kd[2]}
+        for kd in kw_defs
+    }
+
+    file_details = _make_file_details(slug, n_files)
 
     n_commits = random.randint(10, 2000)
     tech_commits = random.randint(1, max(1, n_commits // 5))
@@ -230,12 +324,9 @@ def _make_code_repo_record(slug: str, i: int) -> dict:
             "total_general_hits": general_hits,
             "total_specific_hits":specific_hits,
             "by_category":        by_category,
-            "hits_by_keyword":    {
-                "phrase_mt":  {"count": random.randint(0, 30), "label": "metamorphic test(ing)"},
-                "class_mt":   {"count": random.randint(0, 20), "label": "class MetamorphicTest"},
-                "abbrev_MT":  {"count": random.randint(0, 50), "label": "abbreviation MT"},
-            },
+            "hits_by_keyword":    hits_by_keyword,
             "language_distribution": {lang: n_files},
+            "file_details":       file_details,
         },
         "commits": {
             "total_commits":          n_commits,
@@ -246,7 +337,8 @@ def _make_code_repo_record(slug: str, i: int) -> dict:
             "avg_commit_interval_days": round(span_days / max(n_commits - 1, 1), 2),
             "commits_by_month":       {f"202{random.randint(0,4)}-{random.randint(1,12):02d}": random.randint(1, 30)
                                        for _ in range(random.randint(3, 12))},
-            "technique_commits_by_month": {},
+            "technique_commits_by_month": {f"202{random.randint(0,4)}-{random.randint(1,12):02d}": random.randint(1, 10)
+                                           for _ in range(random.randint(2, 8))},
         },
         "classification": {
             "classifications": [cls],
@@ -340,37 +432,9 @@ def generate(slug: str) -> None:
 
     print(f"  Search, code, and non-code data written.")
 
-    # Overall aggregation
-    from analysis import _aggregate_code, _aggregate_noncode, _aggregate_search_summary, _aggregate_repo_sizes
-    code_agg    = _aggregate_code(code_repos)
-    nc_agg      = _aggregate_noncode(noncode)
-    search_agg  = _aggregate_search_summary(dirs["search"])
-    size_agg    = _aggregate_repo_sizes(dirs["search"])
-
-    all_repos: set[str] = set()
-    for surface in ["code", "repos", "commits", "prs", "issues", "discussions"]:
-        items_file = dirs["search"] / f"{surface}.json"
-        from utils import load_json
-        for item in load_json(items_file, []):
-            rn = item.get("repo_full_name", "")
-            if rn:
-                all_repos.add(rn)
-
-    overall = {
-        "slug":              slug,
-        "repos_found_total": len(all_repos),
-        "repos_by_surface": {
-            s: len({i.get("repo_full_name", "")
-                    for i in load_json(dirs["search"] / f"{s}.json", [])
-                    if i.get("repo_full_name")})
-            for s in ["code", "repos", "commits", "prs", "issues", "discussions"]
-        },
-        "repo_size_stats":  size_agg,
-        "search_summary":   search_agg,
-        "code_analysis":    code_agg,
-        "noncode_analysis": nc_agg,
-    }
-    save_json(dirs["analysis"] / "overall.json", overall)
+    # Overall aggregation via the canonical aggregator
+    from analysis import _aggregate_overall
+    _aggregate_overall(slug, dirs)
     print(f"  overall.json written.")
 
     # Generate the report
