@@ -1,0 +1,27 @@
+# Metamorphic Testing — search keywords
+# Applied directly to GitHub API (all surfaces unless noted).
+# Rules: wrapped in double-quotes for exact matching; all inflected forms explicit.
+# Lines with language:X qualifier are scoped to that language on code surface only.
+
+# Core phrase family — all lemma variants
+"metamorphic testing"
+"metamorphic test"
+"metamorphic tests"
+"metamorphic relation"
+"metamorphic relations"
+"metamorphic relationship"
+"metamorphic relationships"
+"metamorphic property"
+"metamorphic properties"
+"metamorphic group"
+"metamorphic groups"
+"metamorphic oracle"
+
+# Code-level identifiers (class names, decorators, snake_case)
+"MetamorphicTest"
+"MetamorphicRelation"
+"metamorphic_relation"
+"metamorphic_relations"
+"metamorphic_test"
+"metamorphic_tests"
+"@metamorphic"

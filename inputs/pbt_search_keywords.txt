@@ -1,0 +1,26 @@
+# Property-Based Testing — search keywords
+# Applied directly to GitHub API.
+# Generic terms (hypothesis alone, quickcheck alone, arbitrary, forAll, @given,
+# @settings, randomised testing, generation testing) excluded — too many false
+# positives on non-PBT code. Those go in pbt_analysis_keywords.json.
+
+# Core phrase family — hyphenated and unhyphenated, all inflected forms
+"property-based testing"
+"property-based test"
+"property-based tests"
+"property based testing"
+"property based test"
+"property based tests"
+
+# Library import patterns — more precise than bare library names
+"import hypothesis"
+"import org.scalacheck"
+"open FsCheck"
+"using FsCheck"
+"import net.jqwik"
+"use proptest"
+"leanovate/gopter"
+
+# Distinctive library names safe for full-text search
+"fast-check"
+"PropEr"
