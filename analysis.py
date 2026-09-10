@@ -210,44 +210,117 @@ def _aggregate_code(results: list[dict]) -> dict:
             except ValueError:
                 pass
 
-    # Technique density labels (5-label scheme) + artifact classification — from file_details
-    _TD_LABELS = ["technique_file", "test_file", "technique_doc_file", "test_doc_file", "non_test_file"]
-    td_global: dict[str, dict] = {lbl: {"files": 0, "lines": 0, "hit_lines": 0, "gen_hits": 0, "spec_hits": 0}
+    # Technique density labels (10-label scheme) + artifact classification — from file_details
+    #
+    # File class is derived from `fdr["category"]`:
+    #   code   = test_code | source_code
+    #   doc    = docs
+    #   config = config
+    #   other  = other
+    #
+    # Hit type:
+    #   technique = total_specific > 0
+    #   test      = total_general > 0, total_specific == 0
+    #   non_hit   = no hits
+    #
+    # Label matrix (4 types × 3 hit states but "non_hit" collapses non-code into one):
+    #   technique_code, technique_doc, technique_config, technique_other  (4)
+    #   test_code,      test_doc,      test_config,      test_other       (4)
+    #   non_hit_code,   non_hit_ncode                                     (2)
+    _TD_LABELS = [
+        "technique_code", "technique_doc", "technique_config", "technique_other",
+        "test_code",      "test_doc",      "test_config",      "test_other",
+        "non_hit_code",   "non_hit_ncode",
+    ]
+    td_global: dict[str, dict] = {lbl: {"files": 0, "lines": 0, "hit_lines": 0, "gen_hits": 0, "spec_hits": 0, "hit_files": 0}
                                    for lbl in _TD_LABELS}
     td_per_repo: dict[str, list[dict]] = {lbl: [] for lbl in _TD_LABELS}
     art_ext_counts: Counter = Counter()
     art_cat_counts = {"code": 0, "docs": 0, "config": 0, "other": 0}
+    technique_ext_counts: Counter = Counter()
+    technique_lang_repo: list[set] = []  # one set per repo, contains languages of technique files
     has_file_details = False
+
+    _BINARY_EXTS = {
+        ".jpg", ".jpeg", ".png", ".gif", ".bmp", ".svg", ".ico", ".webp",
+        ".mp4", ".mp3", ".wav", ".ogg", ".pdf", ".ttf", ".woff", ".woff2",
+        ".eot", ".zip", ".tar", ".gz", ".exe", ".bin", ".dll", ".so",
+        ".class", ".pyc", ".pyo", ".o", ".a", ".lib", ".pdb",
+    }
+    _EXT_TO_LANG: dict[str, str] = {
+        ".py": "Python", ".pyw": "Python",
+        ".js": "JavaScript", ".jsx": "JavaScript", ".mjs": "JavaScript",
+        ".ts": "TypeScript", ".tsx": "TypeScript",
+        ".java": "Java", ".kt": "Kotlin", ".kts": "Kotlin",
+        ".scala": "Scala", ".sc": "Scala",
+        ".go": "Go",
+        ".rs": "Rust",
+        ".c": "C", ".h": "C",
+        ".cpp": "C++", ".cc": "C++", ".cxx": "C++", ".hpp": "C++",
+        ".cs": "C#",
+        ".rb": "Ruby",
+        ".php": "PHP",
+        ".swift": "Swift",
+        ".m": "Objective-C",
+        ".sh": "Shell", ".bash": "Shell", ".zsh": "Shell",
+        ".r": "R", ".R": "R",
+        ".jl": "Julia",
+        ".hs": "Haskell",
+        ".ex": "Elixir", ".exs": "Elixir",
+        ".erl": "Erlang", ".hrl": "Erlang",
+        ".ml": "OCaml", ".mli": "OCaml",
+        ".clj": "Clojure", ".cljs": "Clojure",
+        ".lua": "Lua",
+        ".pl": "Perl", ".pm": "Perl",
+        ".dart": "Dart",
+        ".f90": "Fortran", ".f95": "Fortran", ".f": "Fortran",
+    }
 
     for r in results:
         file_details = r.get("scan", {}).get("file_details", [])
         if not file_details:
             continue
         has_file_details = True
-        repo_td: dict[str, dict] = {lbl: {"files": 0, "lines": 0, "hit_lines": 0, "gen_hits": 0, "spec_hits": 0}
+        repo_td: dict[str, dict] = {lbl: {"files": 0, "lines": 0, "hit_lines": 0, "gen_hits": 0, "spec_hits": 0, "hit_files": 0}
                                      for lbl in _TD_LABELS}
+        repo_tech_langs: set[str] = set()
+
         for fdr in file_details:
-            is_code  = fdr.get("category") in {"test_code", "source_code"}
+            cat      = fdr.get("category", "other")
+            is_code  = cat in {"test_code", "source_code"}
+            is_doc   = cat == "docs"
+            is_cfg   = cat == "config"
             has_spec = fdr.get("total_specific", 0) > 0
-            has_gen  = fdr.get("total_general", 0) > 0
-            if has_spec and is_code:     lbl = "technique_file"
-            elif has_spec:               lbl = "technique_doc_file"
-            elif has_gen and is_code:    lbl = "test_file"
-            elif has_gen:                lbl = "test_doc_file"
-            else:                        lbl = "non_test_file"
+            has_gen  = fdr.get("total_general",  0) > 0
+
+            if has_spec:
+                if is_code:   lbl = "technique_code"
+                elif is_doc:  lbl = "technique_doc"
+                elif is_cfg:  lbl = "technique_config"
+                else:         lbl = "technique_other"
+            elif has_gen:
+                if is_code:   lbl = "test_code"
+                elif is_doc:  lbl = "test_doc"
+                elif is_cfg:  lbl = "test_config"
+                else:         lbl = "test_other"
+            else:
+                lbl = "non_hit_code" if is_code else "non_hit_ncode"
 
             nl = fdr.get("n_lines", 0)
             hl = fdr.get("n_hit_lines", 0)
             gh = fdr.get("total_general", 0)
             sh = fdr.get("total_specific", 0)
+            is_hit = (gh > 0 or sh > 0)
             for d in (repo_td[lbl], td_global[lbl]):
-                d["files"]    += 1
-                d["lines"]    += nl
+                d["files"]     += 1
+                d["lines"]     += nl
                 d["hit_lines"] += hl
-                d["gen_hits"] += gh
+                d["gen_hits"]  += gh
                 d["spec_hits"] += sh
+                if is_hit:
+                    d["hit_files"] += 1
 
-            # Artifact classification by extension
+            # Artifact classification by extension (all files)
             ext = Path(fdr.get("path", "x")).suffix.lower()
             art_ext_counts[ext] += 1
             if ext in cfg.CODE_EXTENSIONS:     art_cat_counts["code"]   += 1
@@ -255,8 +328,16 @@ def _aggregate_code(results: list[dict]) -> dict:
             elif ext in cfg.CONFIG_EXTENSIONS: art_cat_counts["config"] += 1
             else:                              art_cat_counts["other"]  += 1
 
+            # Technique-file extension + language (skip binary/image)
+            if has_spec and ext not in _BINARY_EXTS:
+                technique_ext_counts[ext] += 1
+                lang = _EXT_TO_LANG.get(ext)
+                if lang:
+                    repo_tech_langs.add(lang)
+
         for lbl, rs in repo_td.items():
             td_per_repo[lbl].append(rs)
+        technique_lang_repo.append(repo_tech_langs)
 
     if has_file_details:
         total_td_files = sum(v["files"] for v in td_global.values())
@@ -264,17 +345,19 @@ def _aggregate_code(results: list[dict]) -> dict:
         technique_density_labels = {
             "by_label": {
                 lbl: {
-                    "files":            td_global[lbl]["files"],
-                    "lines":            td_global[lbl]["lines"],
-                    "gen_hits":         td_global[lbl]["gen_hits"],
-                    "spec_hits":        td_global[lbl]["spec_hits"],
-                    "pct_files":        round(td_global[lbl]["files"] / max(total_td_files, 1) * 100, 1),
-                    "pct_lines":        round(td_global[lbl]["lines"] / max(total_td_lines, 1) * 100, 1),
-                    "hit_line_pct":     round(td_global[lbl]["hit_lines"] / max(td_global[lbl]["lines"], 1) * 100, 1),
-                    "files_per_repo":   descriptive_stats([r["files"]    for r in td_per_repo[lbl]]),
-                    "lines_per_repo":   descriptive_stats([r["lines"]    for r in td_per_repo[lbl]]),
-                    "gen_per_repo":     descriptive_stats([r["gen_hits"] for r in td_per_repo[lbl]]),
-                    "spec_per_repo":    descriptive_stats([r["spec_hits"] for r in td_per_repo[lbl]]),
+                    "files":          td_global[lbl]["files"],
+                    "hit_files":      td_global[lbl]["hit_files"],
+                    "lines":          td_global[lbl]["lines"],
+                    "gen_hits":       td_global[lbl]["gen_hits"],
+                    "spec_hits":      td_global[lbl]["spec_hits"],
+                    "pct_files":      round(td_global[lbl]["files"]     / max(total_td_files, 1) * 100, 1),
+                    "pct_lines":      round(td_global[lbl]["lines"]     / max(total_td_lines, 1) * 100, 1),
+                    "hit_file_pct":   round(td_global[lbl]["hit_files"] / max(td_global[lbl]["files"], 1) * 100, 1),
+                    "hit_line_pct":   round(td_global[lbl]["hit_lines"] / max(td_global[lbl]["lines"], 1) * 100, 1),
+                    "files_per_repo": descriptive_stats([r["files"]    for r in td_per_repo[lbl]]),
+                    "lines_per_repo": descriptive_stats([r["lines"]    for r in td_per_repo[lbl]]),
+                    "gen_per_repo":   descriptive_stats([r["gen_hits"] for r in td_per_repo[lbl]]),
+                    "spec_per_repo":  descriptive_stats([r["spec_hits"] for r in td_per_repo[lbl]]),
                 }
                 for lbl in _TD_LABELS
             },
@@ -288,9 +371,20 @@ def _aggregate_code(results: list[dict]) -> dict:
             "by_extension":    dict(art_ext_counts.most_common(60)),
             "total_files":     total_art_files,
         }
+        # Extension + language distributions scoped to technique files only (Item 27, 28)
+        tech_lang_counter: Counter = Counter()
+        for repo_langs in technique_lang_repo:
+            for lang in repo_langs:
+                tech_lang_counter[lang] += 1
+        technique_file_stats = {
+            "ext_counts":           dict(technique_ext_counts.most_common(60)),
+            "lang_distribution":    dict(tech_lang_counter.most_common(30)),
+            "total_technique_files": sum(technique_ext_counts.values()),
+        }
     else:
         technique_density_labels = {}
         artifact_classification  = {}
+        technique_file_stats     = {}
 
     return {
         "repo_count":               len(results),
@@ -315,6 +409,7 @@ def _aggregate_code(results: list[dict]) -> dict:
         "commit_spans_sorted":        commit_spans_sorted,
         "technique_density_labels":   technique_density_labels,
         "artifact_classification":    artifact_classification,
+        "technique_file_stats":       technique_file_stats,
         "timeline": {
             "creation_years":             dict(sorted(creation_years.items())),
             "commits_by_month":           dict(sorted(commits_by_month.items())),
@@ -344,11 +439,22 @@ def _aggregate_noncode(results: list[dict]) -> dict:
         for i in items:
             for label, cnt in i.get("hits_by_keyword", {}).items():
                 surf_kw[label] += cnt
+        # Per-repo hit aggregation (Item 9)
+        repo_hits: Counter = Counter()
+        for i in items:
+            rn = i.get("repo_full_name", "")
+            if rn:
+                repo_hits[rn] += i.get("total_specific_hits", 0)
+        repos_ranked = [{"repo": rn, "hit_count": cnt}
+                        for rn, cnt in repo_hits.most_common()]
+        repo_hit_values = list(repo_hits.values())
         surface_stats[surface] = {
             "count":                  len(items),
             "total_specific_hits":    sum(spec_hits),
             "specific_hits_per_item": descriptive_stats(spec_hits),
             "hits_ranked":            hits_ranked,
+            "repos_ranked":           repos_ranked,
+            "repo_hit_stats":         descriptive_stats(repo_hit_values),
             "keywords_ranked": [{"keyword": k, "count": v} for k, v in surf_kw.most_common(cfg.REPORT_TOP_N_KEYWORDS)],
         }
 

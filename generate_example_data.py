@@ -16,7 +16,27 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 import config as cfg
-from utils import resolve_technique, technique_dirs, ensure_dirs, save_json, load_analysis_keywords
+import utils as _utils
+from utils import resolve_technique, save_json, load_analysis_keywords
+
+EXAMPLE_RESULTS_DIR = Path(__file__).parent / "example_results"
+
+
+def _example_dirs(slug: str) -> dict[str, Path]:
+    base = EXAMPLE_RESULTS_DIR / slug
+    return {
+        "base":     base,
+        "search":   base / "search",
+        "cloned":   base / "cloned",
+        "analysis": base / "analysis",
+        "report":   base / "report",
+        "plots":    base / "report" / "plots",
+    }
+
+
+def _ensure_example_dirs(slug: str) -> None:
+    for d in _example_dirs(slug).values():
+        d.mkdir(parents=True, exist_ok=True)
 
 random.seed(42)
 
@@ -400,8 +420,8 @@ def _make_summary(slug: str) -> dict:
 
 
 def generate(slug: str) -> None:
-    ensure_dirs(slug)
-    dirs = technique_dirs(slug)
+    _ensure_example_dirs(slug)
+    dirs = _example_dirs(slug)
 
     print(f"Generating example data for {slug}...")
 
@@ -437,9 +457,15 @@ def generate(slug: str) -> None:
     _aggregate_overall(slug, dirs)
     print(f"  overall.json written.")
 
-    # Generate the report
-    import report
-    report.run(slug)
+    # Generate the report — temporarily redirect utils.RESULTS_DIR so
+    # technique_dirs() inside report.run() resolves to the example directory.
+    _orig_results_dir = _utils.RESULTS_DIR
+    _utils.RESULTS_DIR = EXAMPLE_RESULTS_DIR
+    try:
+        import report
+        report.run(slug)
+    finally:
+        _utils.RESULTS_DIR = _orig_results_dir
     print(f"  Report generated.")
     print(f"Done for {slug}.\n")
 

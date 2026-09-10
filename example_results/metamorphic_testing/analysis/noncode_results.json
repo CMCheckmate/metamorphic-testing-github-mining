@@ -1,0 +1,2088 @@
+[
+  {
+    "id": "repos_000000",
+    "surface": "repos",
+    "url": "https://github.com/example/repo/issues/0",
+    "html_url": "https://github.com/example/repo/issues/0",
+    "title": "Discussion about metamorphic testing in project 0",
+    "repo_full_name": "university-test-lab/metamorphic-lib-56",
+    "created_at": "2018-02-11T05:13:30Z",
+    "updated_at": "2022-11-24T16:14:32Z",
+    "stars": 4222,
+    "language": "Haskell",
+    "topics": [
+      "research",
+      "compiler"
+    ],
+    "matched_keyword": "metamorphic testing",
+    "total_general_hits": 9,
+    "total_specific_hits": 4,
+    "hits_by_keyword": {
+      "metamorphic testing": 1
+    },
+    "domains": [
+      "web",
+      "machine_learning"
+    ],
+    "word_freq": {
+      "testing": 3,
+      "property": 4
+    }
+  },
+  {
+    "id": "commits_000001",
+    "surface": "commits",
+    "url": "https://github.com/example/repo/issues/1",
+    "html_url": "https://github.com/example/repo/issues/1",
+    "title": "Discussion about metamorphic testing in project 1",
+    "repo_full_name": "academic-proj/fuzz-harness-85",
+    "created_at": "2017-05-17T05:40:41Z",
+    "updated_at": "2022-02-10T20:47:39Z",
+    "stars": null,
+    "language": null,
+    "topics": [],
+    "matched_keyword": "metamorphic testing",
+    "total_general_hits": 3,
+    "total_specific_hits": 3,
+    "hits_by_keyword": {
+      "metamorphic testing": 1
+    },
+    "domains": [
+      "web",
+      "machine_learning"
+    ],
+    "word_freq": {
+      "testing": 4,
+      "property": 1
+    }
+  },
+  {
+    "id": "prs_000002",
+    "surface": "prs",
+    "url": "https://github.com/example/repo/issues/2",
+    "html_url": "https://github.com/example/repo/issues/2",
+    "title": "Discussion about metamorphic relation in project 2",
+    "repo_full_name": "google/fuzzer-85",
+    "created_at": "2015-06-20T10:34:10Z",
+    "updated_at": "2024-09-06T22:50:48Z",
+    "stars": null,
+    "language": null,
+    "topics": [],
+    "matched_keyword": "metamorphic relation",
+    "total_general_hits": 10,
+    "total_specific_hits": 5,
+    "hits_by_keyword": {
+      "metamorphic relation": 3
+    },
+    "domains": [],
+    "word_freq": {
+      "testing": 18,
+      "property": 1
+    }
+  },
+  {
+    "id": "issues_000003",
+    "surface": "issues",
+    "url": "https://github.com/example/repo/issues/3",
+    "html_url": "https://github.com/example/repo/issues/3",
+    "title": "Discussion about metamorphic testing in project 3",
+    "repo_full_name": "netflix/study-replication-74",
+    "created_at": "2023-09-23T09:25:47Z",
+    "updated_at": "2024-07-14T00:52:39Z",
+    "stars": null,
+    "language": null,
+    "topics": [],
+    "matched_keyword": "metamorphic testing",
+    "total_general_hits": 8,
+    "total_specific_hits": 4,
+    "hits_by_keyword": {
+      "metamorphic testing": 4
+    },
+    "domains": [],
+    "word_freq": {
+      "testing": 4,
+      "property": 1
+    }
+  },
+  {
+    "id": "discussions_000004",
+    "surface": "discussions",
+    "url": "https://github.com/example/repo/issues/4",
+    "html_url": "https://github.com/example/repo/issues/4",
+    "title": "Discussion about metamorphic relation in project 4",
+    "repo_full_name": "google/research-artifact-65",
+    "created_at": "2024-12-30T12:19:54Z",
+    "updated_at": "2023-03-27T03:17:01Z",
+    "stars": null,
+    "language": null,
+    "topics": [],
+    "matched_keyword": "metamorphic relation",
+    "total_general_hits": 10,
+    "total_specific_hits": 4,
+    "hits_by_keyword": {
+      "metamorphic relation": 1
+    },
+    "domains": [],
+    "word_freq": {
+      "testing": 18,
+      "property": 6
+    }
+  },
+  {
+    "id": "repos_000005",
+    "surface": "repos",
+    "url": "https://github.com/example/repo/issues/5",
+    "html_url": "https://github.com/example/repo/issues/5",
+    "title": "Discussion about metamorphic relation in project 5",
+    "repo_full_name": "facebook/research-artifact-18",
+    "created_at": "2017-09-25T15:45:18Z",
+    "updated_at": "2022-07-06T18:58:47Z",
+    "stars": 3696,
+    "language": "Scala",
+    "topics": [
+      "open-source",
+      "research"
+    ],
+    "matched_keyword": "metamorphic relation",
+    "total_general_hits": 3,
+    "total_specific_hits": 4,
+    "hits_by_keyword": {
+      "metamorphic relation": 4
+    },
+    "domains": [
+      "web",
+      "security"
+    ],
+    "word_freq": {
+      "testing": 1,
+      "property": 8
+    }
+  },
+  {
+    "id": "commits_000006",
+    "surface": "commits",
+    "url": "https://github.com/example/repo/issues/6",
+    "html_url": "https://github.com/example/repo/issues/6",
+    "title": "Discussion about metamorphic testing in project 6",
+    "repo_full_name": "google/testing-framework-34",
+    "created_at": "2024-03-10T00:48:04Z",
+    "updated_at": "2022-03-14T17:39:46Z",
+    "stars": null,
+    "language": null,
+    "topics": [],
+    "matched_keyword": "metamorphic testing",
+    "total_general_hits": 6,
+    "total_specific_hits": 3,
+    "hits_by_keyword": {
+      "metamorphic testing": 3
+    },
+    "domains": [
+      "security"
+    ],
+    "word_freq": {
+      "testing": 3,
+      "property": 2
+    }
+  },
+  {
+    "id": "prs_000007",
+    "surface": "prs",
+    "url": "https://github.com/example/repo/issues/7",
+    "html_url": "https://github.com/example/repo/issues/7",
+    "title": "Discussion about metamorphic testing in project 7",
+    "repo_full_name": "airbnb/study-replication-11",
+    "created_at": "2020-02-05T08:58:45Z",
+    "updated_at": "2024-07-14T08:34:28Z",
+    "stars": null,
+    "language": null,
+    "topics": [],
+    "matched_keyword": "metamorphic testing",
+    "total_general_hits": 6,
+    "total_specific_hits": 0,
+    "hits_by_keyword": {
+      "metamorphic testing": 1
+    },
+    "domains": [],
+    "word_freq": {
+      "testing": 17,
+      "property": 7
+    }
+  },
+  {
+    "id": "issues_000008",
+    "surface": "issues",
+    "url": "https://github.com/example/repo/issues/8",
+    "html_url": "https://github.com/example/repo/issues/8",
+    "title": "Discussion about MetamorphicTest in project 8",
+    "repo_full_name": "research-artifact/study-replication-35",
+    "created_at": "2017-10-24T10:41:40Z",
+    "updated_at": "2024-07-20T21:57:24Z",
+    "stars": null,
+    "language": null,
+    "topics": [],
+    "matched_keyword": "MetamorphicTest",
+    "total_general_hits": 10,
+    "total_specific_hits": 3,
+    "hits_by_keyword": {
+      "MetamorphicTest": 5
+    },
+    "domains": [
+      "machine_learning",
+      "web"
+    ],
+    "word_freq": {
+      "testing": 13,
+      "property": 9
+    }
+  },
+  {
+    "id": "discussions_000009",
+    "surface": "discussions",
+    "url": "https://github.com/example/repo/issues/9",
+    "html_url": "https://github.com/example/repo/issues/9",
+    "title": "Discussion about MetamorphicTest in project 9",
+    "repo_full_name": "academic-proj/pbt-demo-86",
+    "created_at": "2015-11-07T20:19:31Z",
+    "updated_at": "2023-02-19T23:29:41Z",
+    "stars": null,
+    "language": null,
+    "topics": [],
+    "matched_keyword": "MetamorphicTest",
+    "total_general_hits": 0,
+    "total_specific_hits": 4,
+    "hits_by_keyword": {
+      "MetamorphicTest": 3
+    },
+    "domains": [],
+    "word_freq": {
+      "testing": 4,
+      "property": 4
+    }
+  },
+  {
+    "id": "repos_000010",
+    "surface": "repos",
+    "url": "https://github.com/example/repo/issues/10",
+    "html_url": "https://github.com/example/repo/issues/10",
+    "title": "Discussion about metamorphic testing in project 10",
+    "repo_full_name": "university-test-lab/study-replication-55",
+    "created_at": "2016-11-30T00:10:19Z",
+    "updated_at": "2023-07-05T20:49:14Z",
+    "stars": 3499,
+    "language": "Python",
+    "topics": [
+      "api",
+      "open-source"
+    ],
+    "matched_keyword": "metamorphic testing",
+    "total_general_hits": 10,
+    "total_specific_hits": 1,
+    "hits_by_keyword": {
+      "metamorphic testing": 2
+    },
+    "domains": [
+      "web"
+    ],
+    "word_freq": {
+      "testing": 18,
+      "property": 8
+    }
+  },
+  {
+    "id": "commits_000011",
+    "surface": "commits",
+    "url": "https://github.com/example/repo/issues/11",
+    "html_url": "https://github.com/example/repo/issues/11",
+    "title": "Discussion about metamorphic testing in project 11",
+    "repo_full_name": "netflix/fuzz-harness-46",
+    "created_at": "2016-10-26T22:19:18Z",
+    "updated_at": "2023-12-16T22:58:19Z",
+    "stars": null,
+    "language": null,
+    "topics": [],
+    "matched_keyword": "metamorphic testing",
+    "total_general_hits": 9,
+    "total_specific_hits": 5,
+    "hits_by_keyword": {
+      "metamorphic testing": 4
+    },
+    "domains": [],
+    "word_freq": {
+      "testing": 10,
+      "property": 10
+    }
+  },
+  {
+    "id": "prs_000012",
+    "surface": "prs",
+    "url": "https://github.com/example/repo/issues/12",
+    "html_url": "https://github.com/example/repo/issues/12",
+    "title": "Discussion about metamorphic testing in project 12",
+    "repo_full_name": "academic-proj/study-replication-54",
+    "created_at": "2019-10-25T17:58:55Z",
+    "updated_at": "2024-08-05T07:54:59Z",
+    "stars": null,
+    "language": null,
+    "topics": [],
+    "matched_keyword": "metamorphic testing",
+    "total_general_hits": 6,
+    "total_specific_hits": 3,
+    "hits_by_keyword": {
+      "metamorphic testing": 5
+    },
+    "domains": [],
+    "word_freq": {
+      "testing": 9,
+      "property": 9
+    }
+  },
+  {
+    "id": "issues_000013",
+    "surface": "issues",
+    "url": "https://github.com/example/repo/issues/13",
+    "html_url": "https://github.com/example/repo/issues/13",
+    "title": "Discussion about metamorphic relation in project 13",
+    "repo_full_name": "google/mt-examples-58",
+    "created_at": "2023-09-15T14:19:39Z",
+    "updated_at": "2023-05-01T06:52:49Z",
+    "stars": null,
+    "language": null,
+    "topics": [],
+    "matched_keyword": "metamorphic relation",
+    "total_general_hits": 2,
+    "total_specific_hits": 0,
+    "hits_by_keyword": {
+      "metamorphic relation": 4
+    },
+    "domains": [],
+    "word_freq": {
+      "testing": 5,
+      "property": 8
+    }
+  },
+  {
+    "id": "discussions_000014",
+    "surface": "discussions",
+    "url": "https://github.com/example/repo/issues/14",
+    "html_url": "https://github.com/example/repo/issues/14",
+    "title": "Discussion about metamorphic relation in project 14",
+    "repo_full_name": "microsoft/fuzz-harness-19",
+    "created_at": "2017-09-20T00:10:59Z",
+    "updated_at": "2023-07-07T08:39:40Z",
+    "stars": null,
+    "language": null,
+    "topics": [],
+    "matched_keyword": "metamorphic relation",
+    "total_general_hits": 9,
+    "total_specific_hits": 1,
+    "hits_by_keyword": {
+      "metamorphic relation": 4
+    },
+    "domains": [
+      "security"
+    ],
+    "word_freq": {
+      "testing": 18,
+      "property": 2
+    }
+  },
+  {
+    "id": "repos_000015",
+    "surface": "repos",
+    "url": "https://github.com/example/repo/issues/15",
+    "html_url": "https://github.com/example/repo/issues/15",
+    "title": "Discussion about metamorphic testing in project 15",
+    "repo_full_name": "shopify/study-replication-29",
+    "created_at": "2019-07-11T08:35:59Z",
+    "updated_at": "2024-04-10T12:09:20Z",
+    "stars": 3277,
+    "language": "Ruby",
+    "topics": [
+      "open-source",
+      "machine-learning"
+    ],
+    "matched_keyword": "metamorphic testing",
+    "total_general_hits": 9,
+    "total_specific_hits": 0,
+    "hits_by_keyword": {
+      "metamorphic testing": 4
+    },
+    "domains": [],
+    "word_freq": {
+      "testing": 9,
+      "property": 6
+    }
+  },
+  {
+    "id": "commits_000016",
+    "surface": "commits",
+    "url": "https://github.com/example/repo/issues/16",
+    "html_url": "https://github.com/example/repo/issues/16",
+    "title": "Discussion about metamorphic relation in project 16",
+    "repo_full_name": "apache/research-artifact-57",
+    "created_at": "2024-10-17T14:06:00Z",
+    "updated_at": "2022-04-16T20:48:39Z",
+    "stars": null,
+    "language": null,
+    "topics": [],
+    "matched_keyword": "metamorphic relation",
+    "total_general_hits": 6,
+    "total_specific_hits": 0,
+    "hits_by_keyword": {
+      "metamorphic relation": 5
+    },
+    "domains": [],
+    "word_freq": {
+      "testing": 3,
+      "property": 4
+    }
+  },
+  {
+    "id": "prs_000017",
+    "surface": "prs",
+    "url": "https://github.com/example/repo/issues/17",
+    "html_url": "https://github.com/example/repo/issues/17",
+    "title": "Discussion about metamorphic testing in project 17",
+    "repo_full_name": "mozilla/test-utils-76",
+    "created_at": "2019-03-23T18:57:56Z",
+    "updated_at": "2023-07-10T17:46:44Z",
+    "stars": null,
+    "language": null,
+    "topics": [],
+    "matched_keyword": "metamorphic testing",
+    "total_general_hits": 10,
+    "total_specific_hits": 4,
+    "hits_by_keyword": {
+      "metamorphic testing": 2
+    },
+    "domains": [],
+    "word_freq": {
+      "testing": 14,
+      "property": 1
+    }
+  },
+  {
+    "id": "issues_000018",
+    "surface": "issues",
+    "url": "https://github.com/example/repo/issues/18",
+    "html_url": "https://github.com/example/repo/issues/18",
+    "title": "Discussion about metamorphic testing in project 18",
+    "repo_full_name": "mozilla/pbt-demo-93",
+    "created_at": "2021-12-07T22:33:51Z",
+    "updated_at": "2022-01-01T15:49:24Z",
+    "stars": null,
+    "language": null,
+    "topics": [],
+    "matched_keyword": "metamorphic testing",
+    "total_general_hits": 5,
+    "total_specific_hits": 1,
+    "hits_by_keyword": {
+      "metamorphic testing": 2
+    },
+    "domains": [],
+    "word_freq": {
+      "testing": 9,
+      "property": 5
+    }
+  },
+  {
+    "id": "discussions_000019",
+    "surface": "discussions",
+    "url": "https://github.com/example/repo/issues/19",
+    "html_url": "https://github.com/example/repo/issues/19",
+    "title": "Discussion about MetamorphicTest in project 19",
+    "repo_full_name": "shopify/test-utils-52",
+    "created_at": "2020-08-27T18:38:39Z",
+    "updated_at": "2024-12-23T22:15:35Z",
+    "stars": null,
+    "language": null,
+    "topics": [],
+    "matched_keyword": "MetamorphicTest",
+    "total_general_hits": 0,
+    "total_specific_hits": 1,
+    "hits_by_keyword": {
+      "MetamorphicTest": 3
+    },
+    "domains": [
+      "web"
+    ],
+    "word_freq": {
+      "testing": 16,
+      "property": 2
+    }
+  },
+  {
+    "id": "repos_000020",
+    "surface": "repos",
+    "url": "https://github.com/example/repo/issues/20",
+    "html_url": "https://github.com/example/repo/issues/20",
+    "title": "Discussion about metamorphic relation in project 20",
+    "repo_full_name": "microsoft/study-replication-13",
+    "created_at": "2022-04-19T04:50:48Z",
+    "updated_at": "2023-05-09T19:33:44Z",
+    "stars": 258,
+    "language": "Go",
+    "topics": [
+      "compiler",
+      "research"
+    ],
+    "matched_keyword": "metamorphic relation",
+    "total_general_hits": 0,
+    "total_specific_hits": 4,
+    "hits_by_keyword": {
+      "metamorphic relation": 4
+    },
+    "domains": [
+      "machine_learning"
+    ],
+    "word_freq": {
+      "testing": 16,
+      "property": 7
+    }
+  },
+  {
+    "id": "commits_000021",
+    "surface": "commits",
+    "url": "https://github.com/example/repo/issues/21",
+    "html_url": "https://github.com/example/repo/issues/21",
+    "title": "Discussion about MetamorphicTest in project 21",
+    "repo_full_name": "microsoft/research-artifact-17",
+    "created_at": "2019-05-27T10:55:35Z",
+    "updated_at": "2024-07-12T14:19:33Z",
+    "stars": null,
+    "language": null,
+    "topics": [],
+    "matched_keyword": "MetamorphicTest",
+    "total_general_hits": 8,
+    "total_specific_hits": 4,
+    "hits_by_keyword": {
+      "MetamorphicTest": 5
+    },
+    "domains": [
+      "machine_learning",
+      "security"
+    ],
+    "word_freq": {
+      "testing": 13,
+      "property": 7
+    }
+  },
+  {
+    "id": "prs_000022",
+    "surface": "prs",
+    "url": "https://github.com/example/repo/issues/22",
+    "html_url": "https://github.com/example/repo/issues/22",
+    "title": "Discussion about MetamorphicTest in project 22",
+    "repo_full_name": "apache/test-utils-35",
+    "created_at": "2016-05-09T17:42:51Z",
+    "updated_at": "2023-11-19T22:40:50Z",
+    "stars": null,
+    "language": null,
+    "topics": [],
+    "matched_keyword": "MetamorphicTest",
+    "total_general_hits": 4,
+    "total_specific_hits": 3,
+    "hits_by_keyword": {
+      "MetamorphicTest": 5
+    },
+    "domains": [],
+    "word_freq": {
+      "testing": 8,
+      "property": 5
+    }
+  },
+  {
+    "id": "issues_000023",
+    "surface": "issues",
+    "url": "https://github.com/example/repo/issues/23",
+    "html_url": "https://github.com/example/repo/issues/23",
+    "title": "Discussion about MetamorphicTest in project 23",
+    "repo_full_name": "apache/fuzz-harness-81",
+    "created_at": "2021-05-28T16:29:09Z",
+    "updated_at": "2023-02-16T16:54:08Z",
+    "stars": null,
+    "language": null,
+    "topics": [],
+    "matched_keyword": "MetamorphicTest",
+    "total_general_hits": 8,
+    "total_specific_hits": 3,
+    "hits_by_keyword": {
+      "MetamorphicTest": 5
+    },
+    "domains": [
+      "security",
+      "machine_learning"
+    ],
+    "word_freq": {
+      "testing": 19,
+      "property": 6
+    }
+  },
+  {
+    "id": "discussions_000024",
+    "surface": "discussions",
+    "url": "https://github.com/example/repo/issues/24",
+    "html_url": "https://github.com/example/repo/issues/24",
+    "title": "Discussion about MetamorphicTest in project 24",
+    "repo_full_name": "stripe/research-artifact-57",
+    "created_at": "2020-04-20T07:30:48Z",
+    "updated_at": "2024-02-27T04:00:34Z",
+    "stars": null,
+    "language": null,
+    "topics": [],
+    "matched_keyword": "MetamorphicTest",
+    "total_general_hits": 6,
+    "total_specific_hits": 4,
+    "hits_by_keyword": {
+      "MetamorphicTest": 3
+    },
+    "domains": [
+      "machine_learning",
+      "web"
+    ],
+    "word_freq": {
+      "testing": 11,
+      "property": 9
+    }
+  },
+  {
+    "id": "repos_000025",
+    "surface": "repos",
+    "url": "https://github.com/example/repo/issues/25",
+    "html_url": "https://github.com/example/repo/issues/25",
+    "title": "Discussion about metamorphic relation in project 25",
+    "repo_full_name": "netflix/testing-framework-15",
+    "created_at": "2017-02-10T05:38:30Z",
+    "updated_at": "2024-08-11T08:17:11Z",
+    "stars": 1104,
+    "language": "Erlang",
+    "topics": [
+      "research",
+      "security"
+    ],
+    "matched_keyword": "metamorphic relation",
+    "total_general_hits": 0,
+    "total_specific_hits": 5,
+    "hits_by_keyword": {
+      "metamorphic relation": 4
+    },
+    "domains": [
+      "machine_learning"
+    ],
+    "word_freq": {
+      "testing": 13,
+      "property": 0
+    }
+  },
+  {
+    "id": "commits_000026",
+    "surface": "commits",
+    "url": "https://github.com/example/repo/issues/26",
+    "html_url": "https://github.com/example/repo/issues/26",
+    "title": "Discussion about metamorphic relation in project 26",
+    "repo_full_name": "microsoft/test-utils-61",
+    "created_at": "2016-05-03T10:37:29Z",
+    "updated_at": "2023-10-19T07:16:35Z",
+    "stars": null,
+    "language": null,
+    "topics": [],
+    "matched_keyword": "metamorphic relation",
+    "total_general_hits": 10,
+    "total_specific_hits": 5,
+    "hits_by_keyword": {
+      "metamorphic relation": 1
+    },
+    "domains": [],
+    "word_freq": {
+      "testing": 20,
+      "property": 8
+    }
+  },
+  {
+    "id": "prs_000027",
+    "surface": "prs",
+    "url": "https://github.com/example/repo/issues/27",
+    "html_url": "https://github.com/example/repo/issues/27",
+    "title": "Discussion about MetamorphicTest in project 27",
+    "repo_full_name": "university-test-lab/fuzz-harness-27",
+    "created_at": "2022-03-02T13:10:40Z",
+    "updated_at": "2023-05-04T09:14:04Z",
+    "stars": null,
+    "language": null,
+    "topics": [],
+    "matched_keyword": "MetamorphicTest",
+    "total_general_hits": 3,
+    "total_specific_hits": 3,
+    "hits_by_keyword": {
+      "MetamorphicTest": 2
+    },
+    "domains": [],
+    "word_freq": {
+      "testing": 17,
+      "property": 9
+    }
+  },
+  {
+    "id": "issues_000028",
+    "surface": "issues",
+    "url": "https://github.com/example/repo/issues/28",
+    "html_url": "https://github.com/example/repo/issues/28",
+    "title": "Discussion about metamorphic relation in project 28",
+    "repo_full_name": "netflix/metamorphic-lib-77",
+    "created_at": "2015-12-13T19:11:36Z",
+    "updated_at": "2023-08-12T17:30:27Z",
+    "stars": null,
+    "language": null,
+    "topics": [],
+    "matched_keyword": "metamorphic relation",
+    "total_general_hits": 7,
+    "total_specific_hits": 0,
+    "hits_by_keyword": {
+      "metamorphic relation": 1
+    },
+    "domains": [],
+    "word_freq": {
+      "testing": 20,
+      "property": 10
+    }
+  },
+  {
+    "id": "discussions_000029",
+    "surface": "discussions",
+    "url": "https://github.com/example/repo/issues/29",
+    "html_url": "https://github.com/example/repo/issues/29",
+    "title": "Discussion about MetamorphicTest in project 29",
+    "repo_full_name": "stripe/mt-examples-18",
+    "created_at": "2020-01-31T03:22:00Z",
+    "updated_at": "2024-04-03T20:59:14Z",
+    "stars": null,
+    "language": null,
+    "topics": [],
+    "matched_keyword": "MetamorphicTest",
+    "total_general_hits": 9,
+    "total_specific_hits": 2,
+    "hits_by_keyword": {
+      "MetamorphicTest": 2
+    },
+    "domains": [],
+    "word_freq": {
+      "testing": 10,
+      "property": 6
+    }
+  },
+  {
+    "id": "repos_000030",
+    "surface": "repos",
+    "url": "https://github.com/example/repo/issues/30",
+    "html_url": "https://github.com/example/repo/issues/30",
+    "title": "Discussion about metamorphic relation in project 30",
+    "repo_full_name": "elastic/mt-examples-95",
+    "created_at": "2024-06-21T12:55:52Z",
+    "updated_at": "2024-08-10T20:51:14Z",
+    "stars": 3562,
+    "language": "C++",
+    "topics": [
+      "api",
+      "web"
+    ],
+    "matched_keyword": "metamorphic relation",
+    "total_general_hits": 0,
+    "total_specific_hits": 2,
+    "hits_by_keyword": {
+      "metamorphic relation": 4
+    },
+    "domains": [
+      "machine_learning"
+    ],
+    "word_freq": {
+      "testing": 1,
+      "property": 4
+    }
+  },
+  {
+    "id": "commits_000031",
+    "surface": "commits",
+    "url": "https://github.com/example/repo/issues/31",
+    "html_url": "https://github.com/example/repo/issues/31",
+    "title": "Discussion about metamorphic relation in project 31",
+    "repo_full_name": "airbnb/metamorphic-lib-63",
+    "created_at": "2022-07-16T07:16:26Z",
+    "updated_at": "2023-06-13T01:00:52Z",
+    "stars": null,
+    "language": null,
+    "topics": [],
+    "matched_keyword": "metamorphic relation",
+    "total_general_hits": 8,
+    "total_specific_hits": 0,
+    "hits_by_keyword": {
+      "metamorphic relation": 5
+    },
+    "domains": [
+      "web"
+    ],
+    "word_freq": {
+      "testing": 11,
+      "property": 3
+    }
+  },
+  {
+    "id": "prs_000032",
+    "surface": "prs",
+    "url": "https://github.com/example/repo/issues/32",
+    "html_url": "https://github.com/example/repo/issues/32",
+    "title": "Discussion about metamorphic testing in project 32",
+    "repo_full_name": "university-test-lab/research-artifact-78",
+    "created_at": "2015-06-29T12:35:16Z",
+    "updated_at": "2023-10-23T10:47:43Z",
+    "stars": null,
+    "language": null,
+    "topics": [],
+    "matched_keyword": "metamorphic testing",
+    "total_general_hits": 2,
+    "total_specific_hits": 1,
+    "hits_by_keyword": {
+      "metamorphic testing": 3
+    },
+    "domains": [
+      "web"
+    ],
+    "word_freq": {
+      "testing": 13,
+      "property": 2
+    }
+  },
+  {
+    "id": "issues_000033",
+    "surface": "issues",
+    "url": "https://github.com/example/repo/issues/33",
+    "html_url": "https://github.com/example/repo/issues/33",
+    "title": "Discussion about MetamorphicTest in project 33",
+    "repo_full_name": "apache/fuzz-harness-44",
+    "created_at": "2019-12-02T23:12:16Z",
+    "updated_at": "2022-03-26T04:26:21Z",
+    "stars": null,
+    "language": null,
+    "topics": [],
+    "matched_keyword": "MetamorphicTest",
+    "total_general_hits": 1,
+    "total_specific_hits": 3,
+    "hits_by_keyword": {
+      "MetamorphicTest": 3
+    },
+    "domains": [
+      "security",
+      "web"
+    ],
+    "word_freq": {
+      "testing": 8,
+      "property": 0
+    }
+  },
+  {
+    "id": "discussions_000034",
+    "surface": "discussions",
+    "url": "https://github.com/example/repo/issues/34",
+    "html_url": "https://github.com/example/repo/issues/34",
+    "title": "Discussion about metamorphic testing in project 34",
+    "repo_full_name": "hashicorp/fuzz-harness-21",
+    "created_at": "2018-03-06T08:23:49Z",
+    "updated_at": "2022-07-03T22:48:16Z",
+    "stars": null,
+    "language": null,
+    "topics": [],
+    "matched_keyword": "metamorphic testing",
+    "total_general_hits": 2,
+    "total_specific_hits": 1,
+    "hits_by_keyword": {
+      "metamorphic testing": 3
+    },
+    "domains": [],
+    "word_freq": {
+      "testing": 15,
+      "property": 6
+    }
+  },
+  {
+    "id": "repos_000035",
+    "surface": "repos",
+    "url": "https://github.com/example/repo/issues/35",
+    "html_url": "https://github.com/example/repo/issues/35",
+    "title": "Discussion about metamorphic relation in project 35",
+    "repo_full_name": "hashicorp/pbt-demo-40",
+    "created_at": "2021-10-29T04:39:51Z",
+    "updated_at": "2022-07-28T16:25:47Z",
+    "stars": 2588,
+    "language": "Kotlin",
+    "topics": [
+      "fuzzing",
+      "web"
+    ],
+    "matched_keyword": "metamorphic relation",
+    "total_general_hits": 0,
+    "total_specific_hits": 0,
+    "hits_by_keyword": {
+      "metamorphic relation": 1
+    },
+    "domains": [],
+    "word_freq": {
+      "testing": 9,
+      "property": 1
+    }
+  },
+  {
+    "id": "commits_000036",
+    "surface": "commits",
+    "url": "https://github.com/example/repo/issues/36",
+    "html_url": "https://github.com/example/repo/issues/36",
+    "title": "Discussion about metamorphic testing in project 36",
+    "repo_full_name": "netflix/research-artifact-33",
+    "created_at": "2024-01-28T11:42:02Z",
+    "updated_at": "2024-03-14T05:44:53Z",
+    "stars": null,
+    "language": null,
+    "topics": [],
+    "matched_keyword": "metamorphic testing",
+    "total_general_hits": 10,
+    "total_specific_hits": 3,
+    "hits_by_keyword": {
+      "metamorphic testing": 1
+    },
+    "domains": [],
+    "word_freq": {
+      "testing": 18,
+      "property": 0
+    }
+  },
+  {
+    "id": "prs_000037",
+    "surface": "prs",
+    "url": "https://github.com/example/repo/issues/37",
+    "html_url": "https://github.com/example/repo/issues/37",
+    "title": "Discussion about metamorphic testing in project 37",
+    "repo_full_name": "uber/study-replication-67",
+    "created_at": "2021-09-27T03:52:24Z",
+    "updated_at": "2024-01-18T12:26:58Z",
+    "stars": null,
+    "language": null,
+    "topics": [],
+    "matched_keyword": "metamorphic testing",
+    "total_general_hits": 7,
+    "total_specific_hits": 4,
+    "hits_by_keyword": {
+      "metamorphic testing": 2
+    },
+    "domains": [],
+    "word_freq": {
+      "testing": 3,
+      "property": 2
+    }
+  },
+  {
+    "id": "issues_000038",
+    "surface": "issues",
+    "url": "https://github.com/example/repo/issues/38",
+    "html_url": "https://github.com/example/repo/issues/38",
+    "title": "Discussion about MetamorphicTest in project 38",
+    "repo_full_name": "stripe/metamorphic-lib-57",
+    "created_at": "2015-03-26T15:09:26Z",
+    "updated_at": "2023-03-01T09:31:36Z",
+    "stars": null,
+    "language": null,
+    "topics": [],
+    "matched_keyword": "MetamorphicTest",
+    "total_general_hits": 7,
+    "total_specific_hits": 1,
+    "hits_by_keyword": {
+      "MetamorphicTest": 4
+    },
+    "domains": [
+      "machine_learning"
+    ],
+    "word_freq": {
+      "testing": 14,
+      "property": 1
+    }
+  },
+  {
+    "id": "discussions_000039",
+    "surface": "discussions",
+    "url": "https://github.com/example/repo/issues/39",
+    "html_url": "https://github.com/example/repo/issues/39",
+    "title": "Discussion about metamorphic testing in project 39",
+    "repo_full_name": "hashicorp/test-utils-22",
+    "created_at": "2015-11-29T06:12:21Z",
+    "updated_at": "2022-11-13T17:36:19Z",
+    "stars": null,
+    "language": null,
+    "topics": [],
+    "matched_keyword": "metamorphic testing",
+    "total_general_hits": 8,
+    "total_specific_hits": 2,
+    "hits_by_keyword": {
+      "metamorphic testing": 2
+    },
+    "domains": [
+      "web",
+      "security"
+    ],
+    "word_freq": {
+      "testing": 8,
+      "property": 6
+    }
+  },
+  {
+    "id": "repos_000040",
+    "surface": "repos",
+    "url": "https://github.com/example/repo/issues/40",
+    "html_url": "https://github.com/example/repo/issues/40",
+    "title": "Discussion about metamorphic relation in project 40",
+    "repo_full_name": "hashicorp/study-replication-94",
+    "created_at": "2021-07-25T17:01:21Z",
+    "updated_at": "2024-04-06T21:12:27Z",
+    "stars": 393,
+    "language": "C",
+    "topics": [
+      "open-source",
+      "database"
+    ],
+    "matched_keyword": "metamorphic relation",
+    "total_general_hits": 10,
+    "total_specific_hits": 1,
+    "hits_by_keyword": {
+      "metamorphic relation": 3
+    },
+    "domains": [
+      "security"
+    ],
+    "word_freq": {
+      "testing": 6,
+      "property": 4
+    }
+  },
+  {
+    "id": "commits_000041",
+    "surface": "commits",
+    "url": "https://github.com/example/repo/issues/41",
+    "html_url": "https://github.com/example/repo/issues/41",
+    "title": "Discussion about metamorphic testing in project 41",
+    "repo_full_name": "microsoft/research-artifact-89",
+    "created_at": "2018-12-16T01:58:09Z",
+    "updated_at": "2024-02-22T02:26:58Z",
+    "stars": null,
+    "language": null,
+    "topics": [],
+    "matched_keyword": "metamorphic testing",
+    "total_general_hits": 5,
+    "total_specific_hits": 2,
+    "hits_by_keyword": {
+      "metamorphic testing": 3
+    },
+    "domains": [
+      "machine_learning"
+    ],
+    "word_freq": {
+      "testing": 2,
+      "property": 10
+    }
+  },
+  {
+    "id": "prs_000042",
+    "surface": "prs",
+    "url": "https://github.com/example/repo/issues/42",
+    "html_url": "https://github.com/example/repo/issues/42",
+    "title": "Discussion about metamorphic relation in project 42",
+    "repo_full_name": "facebook/mt-examples-84",
+    "created_at": "2021-04-02T02:43:15Z",
+    "updated_at": "2023-03-20T01:17:08Z",
+    "stars": null,
+    "language": null,
+    "topics": [],
+    "matched_keyword": "metamorphic relation",
+    "total_general_hits": 10,
+    "total_specific_hits": 3,
+    "hits_by_keyword": {
+      "metamorphic relation": 3
+    },
+    "domains": [
+      "machine_learning",
+      "security"
+    ],
+    "word_freq": {
+      "testing": 3,
+      "property": 1
+    }
+  },
+  {
+    "id": "issues_000043",
+    "surface": "issues",
+    "url": "https://github.com/example/repo/issues/43",
+    "html_url": "https://github.com/example/repo/issues/43",
+    "title": "Discussion about metamorphic testing in project 43",
+    "repo_full_name": "mozilla/fuzzer-92",
+    "created_at": "2022-08-12T08:29:29Z",
+    "updated_at": "2023-03-20T10:56:32Z",
+    "stars": null,
+    "language": null,
+    "topics": [],
+    "matched_keyword": "metamorphic testing",
+    "total_general_hits": 8,
+    "total_specific_hits": 4,
+    "hits_by_keyword": {
+      "metamorphic testing": 4
+    },
+    "domains": [
+      "security",
+      "machine_learning"
+    ],
+    "word_freq": {
+      "testing": 15,
+      "property": 7
+    }
+  },
+  {
+    "id": "discussions_000044",
+    "surface": "discussions",
+    "url": "https://github.com/example/repo/issues/44",
+    "html_url": "https://github.com/example/repo/issues/44",
+    "title": "Discussion about metamorphic relation in project 44",
+    "repo_full_name": "university-test-lab/property-tests-32",
+    "created_at": "2019-12-29T13:23:32Z",
+    "updated_at": "2024-09-29T01:45:45Z",
+    "stars": null,
+    "language": null,
+    "topics": [],
+    "matched_keyword": "metamorphic relation",
+    "total_general_hits": 10,
+    "total_specific_hits": 5,
+    "hits_by_keyword": {
+      "metamorphic relation": 2
+    },
+    "domains": [
+      "machine_learning"
+    ],
+    "word_freq": {
+      "testing": 1,
+      "property": 3
+    }
+  },
+  {
+    "id": "repos_000045",
+    "surface": "repos",
+    "url": "https://github.com/example/repo/issues/45",
+    "html_url": "https://github.com/example/repo/issues/45",
+    "title": "Discussion about MetamorphicTest in project 45",
+    "repo_full_name": "shopify/fuzz-harness-88",
+    "created_at": "2017-11-20T13:52:39Z",
+    "updated_at": "2022-04-24T01:17:04Z",
+    "stars": 3889,
+    "language": "Scala",
+    "topics": [
+      "testing",
+      "open-source"
+    ],
+    "matched_keyword": "MetamorphicTest",
+    "total_general_hits": 0,
+    "total_specific_hits": 0,
+    "hits_by_keyword": {
+      "MetamorphicTest": 5
+    },
+    "domains": [
+      "machine_learning"
+    ],
+    "word_freq": {
+      "testing": 2,
+      "property": 4
+    }
+  },
+  {
+    "id": "commits_000046",
+    "surface": "commits",
+    "url": "https://github.com/example/repo/issues/46",
+    "html_url": "https://github.com/example/repo/issues/46",
+    "title": "Discussion about metamorphic relation in project 46",
+    "repo_full_name": "hashicorp/property-tests-5",
+    "created_at": "2021-07-30T07:54:35Z",
+    "updated_at": "2024-08-03T20:43:15Z",
+    "stars": null,
+    "language": null,
+    "topics": [],
+    "matched_keyword": "metamorphic relation",
+    "total_general_hits": 3,
+    "total_specific_hits": 2,
+    "hits_by_keyword": {
+      "metamorphic relation": 5
+    },
+    "domains": [
+      "machine_learning",
+      "web"
+    ],
+    "word_freq": {
+      "testing": 20,
+      "property": 3
+    }
+  },
+  {
+    "id": "prs_000047",
+    "surface": "prs",
+    "url": "https://github.com/example/repo/issues/47",
+    "html_url": "https://github.com/example/repo/issues/47",
+    "title": "Discussion about metamorphic relation in project 47",
+    "repo_full_name": "research-artifact/property-tests-40",
+    "created_at": "2015-03-15T10:01:32Z",
+    "updated_at": "2022-02-25T13:22:31Z",
+    "stars": null,
+    "language": null,
+    "topics": [],
+    "matched_keyword": "metamorphic relation",
+    "total_general_hits": 10,
+    "total_specific_hits": 5,
+    "hits_by_keyword": {
+      "metamorphic relation": 1
+    },
+    "domains": [
+      "machine_learning",
+      "web"
+    ],
+    "word_freq": {
+      "testing": 15,
+      "property": 7
+    }
+  },
+  {
+    "id": "issues_000048",
+    "surface": "issues",
+    "url": "https://github.com/example/repo/issues/48",
+    "html_url": "https://github.com/example/repo/issues/48",
+    "title": "Discussion about MetamorphicTest in project 48",
+    "repo_full_name": "facebook/research-artifact-9",
+    "created_at": "2022-03-25T18:18:16Z",
+    "updated_at": "2023-06-21T11:13:20Z",
+    "stars": null,
+    "language": null,
+    "topics": [],
+    "matched_keyword": "MetamorphicTest",
+    "total_general_hits": 2,
+    "total_specific_hits": 2,
+    "hits_by_keyword": {
+      "MetamorphicTest": 3
+    },
+    "domains": [
+      "security"
+    ],
+    "word_freq": {
+      "testing": 12,
+      "property": 4
+    }
+  },
+  {
+    "id": "discussions_000049",
+    "surface": "discussions",
+    "url": "https://github.com/example/repo/issues/49",
+    "html_url": "https://github.com/example/repo/issues/49",
+    "title": "Discussion about metamorphic relation in project 49",
+    "repo_full_name": "airbnb/testing-framework-69",
+    "created_at": "2018-07-30T13:08:27Z",
+    "updated_at": "2024-04-11T05:14:10Z",
+    "stars": null,
+    "language": null,
+    "topics": [],
+    "matched_keyword": "metamorphic relation",
+    "total_general_hits": 5,
+    "total_specific_hits": 5,
+    "hits_by_keyword": {
+      "metamorphic relation": 1
+    },
+    "domains": [
+      "security"
+    ],
+    "word_freq": {
+      "testing": 20,
+      "property": 3
+    }
+  },
+  {
+    "id": "repos_000050",
+    "surface": "repos",
+    "url": "https://github.com/example/repo/issues/50",
+    "html_url": "https://github.com/example/repo/issues/50",
+    "title": "Discussion about metamorphic relation in project 50",
+    "repo_full_name": "hashicorp/research-artifact-14",
+    "created_at": "2015-04-07T17:54:21Z",
+    "updated_at": "2024-09-23T23:33:10Z",
+    "stars": 2625,
+    "language": "Go",
+    "topics": [
+      "research",
+      "fuzzing"
+    ],
+    "matched_keyword": "metamorphic relation",
+    "total_general_hits": 2,
+    "total_specific_hits": 4,
+    "hits_by_keyword": {
+      "metamorphic relation": 4
+    },
+    "domains": [
+      "security",
+      "web"
+    ],
+    "word_freq": {
+      "testing": 18,
+      "property": 6
+    }
+  },
+  {
+    "id": "commits_000051",
+    "surface": "commits",
+    "url": "https://github.com/example/repo/issues/51",
+    "html_url": "https://github.com/example/repo/issues/51",
+    "title": "Discussion about MetamorphicTest in project 51",
+    "repo_full_name": "stripe/study-replication-55",
+    "created_at": "2024-12-22T07:14:50Z",
+    "updated_at": "2024-03-30T17:51:01Z",
+    "stars": null,
+    "language": null,
+    "topics": [],
+    "matched_keyword": "MetamorphicTest",
+    "total_general_hits": 8,
+    "total_specific_hits": 1,
+    "hits_by_keyword": {
+      "MetamorphicTest": 5
+    },
+    "domains": [],
+    "word_freq": {
+      "testing": 10,
+      "property": 5
+    }
+  },
+  {
+    "id": "prs_000052",
+    "surface": "prs",
+    "url": "https://github.com/example/repo/issues/52",
+    "html_url": "https://github.com/example/repo/issues/52",
+    "title": "Discussion about metamorphic relation in project 52",
+    "repo_full_name": "stripe/fuzzer-62",
+    "created_at": "2016-10-12T07:09:18Z",
+    "updated_at": "2023-03-03T00:26:23Z",
+    "stars": null,
+    "language": null,
+    "topics": [],
+    "matched_keyword": "metamorphic relation",
+    "total_general_hits": 7,
+    "total_specific_hits": 5,
+    "hits_by_keyword": {
+      "metamorphic relation": 2
+    },
+    "domains": [
+      "web"
+    ],
+    "word_freq": {
+      "testing": 8,
+      "property": 0
+    }
+  },
+  {
+    "id": "issues_000053",
+    "surface": "issues",
+    "url": "https://github.com/example/repo/issues/53",
+    "html_url": "https://github.com/example/repo/issues/53",
+    "title": "Discussion about metamorphic testing in project 53",
+    "repo_full_name": "research-artifact/study-replication-70",
+    "created_at": "2021-06-27T13:19:13Z",
+    "updated_at": "2023-01-28T10:50:58Z",
+    "stars": null,
+    "language": null,
+    "topics": [],
+    "matched_keyword": "metamorphic testing",
+    "total_general_hits": 2,
+    "total_specific_hits": 2,
+    "hits_by_keyword": {
+      "metamorphic testing": 2
+    },
+    "domains": [],
+    "word_freq": {
+      "testing": 18,
+      "property": 10
+    }
+  },
+  {
+    "id": "discussions_000054",
+    "surface": "discussions",
+    "url": "https://github.com/example/repo/issues/54",
+    "html_url": "https://github.com/example/repo/issues/54",
+    "title": "Discussion about metamorphic testing in project 54",
+    "repo_full_name": "stripe/pbt-demo-21",
+    "created_at": "2023-11-15T06:16:02Z",
+    "updated_at": "2023-01-01T18:48:08Z",
+    "stars": null,
+    "language": null,
+    "topics": [],
+    "matched_keyword": "metamorphic testing",
+    "total_general_hits": 3,
+    "total_specific_hits": 4,
+    "hits_by_keyword": {
+      "metamorphic testing": 1
+    },
+    "domains": [],
+    "word_freq": {
+      "testing": 4,
+      "property": 10
+    }
+  },
+  {
+    "id": "repos_000055",
+    "surface": "repos",
+    "url": "https://github.com/example/repo/issues/55",
+    "html_url": "https://github.com/example/repo/issues/55",
+    "title": "Discussion about MetamorphicTest in project 55",
+    "repo_full_name": "shopify/pbt-demo-4",
+    "created_at": "2021-09-01T03:56:30Z",
+    "updated_at": "2022-09-02T01:43:20Z",
+    "stars": 4641,
+    "language": "Go",
+    "topics": [
+      "security",
+      "open-source"
+    ],
+    "matched_keyword": "MetamorphicTest",
+    "total_general_hits": 8,
+    "total_specific_hits": 0,
+    "hits_by_keyword": {
+      "MetamorphicTest": 5
+    },
+    "domains": [
+      "machine_learning",
+      "security"
+    ],
+    "word_freq": {
+      "testing": 5,
+      "property": 1
+    }
+  },
+  {
+    "id": "commits_000056",
+    "surface": "commits",
+    "url": "https://github.com/example/repo/issues/56",
+    "html_url": "https://github.com/example/repo/issues/56",
+    "title": "Discussion about metamorphic testing in project 56",
+    "repo_full_name": "research-artifact/test-utils-2",
+    "created_at": "2018-02-24T06:14:29Z",
+    "updated_at": "2022-12-24T07:44:47Z",
+    "stars": null,
+    "language": null,
+    "topics": [],
+    "matched_keyword": "metamorphic testing",
+    "total_general_hits": 2,
+    "total_specific_hits": 0,
+    "hits_by_keyword": {
+      "metamorphic testing": 1
+    },
+    "domains": [],
+    "word_freq": {
+      "testing": 17,
+      "property": 6
+    }
+  },
+  {
+    "id": "prs_000057",
+    "surface": "prs",
+    "url": "https://github.com/example/repo/issues/57",
+    "html_url": "https://github.com/example/repo/issues/57",
+    "title": "Discussion about metamorphic relation in project 57",
+    "repo_full_name": "airbnb/fuzz-harness-15",
+    "created_at": "2015-10-09T13:03:29Z",
+    "updated_at": "2022-02-16T07:02:33Z",
+    "stars": null,
+    "language": null,
+    "topics": [],
+    "matched_keyword": "metamorphic relation",
+    "total_general_hits": 8,
+    "total_specific_hits": 5,
+    "hits_by_keyword": {
+      "metamorphic relation": 5
+    },
+    "domains": [
+      "security",
+      "web"
+    ],
+    "word_freq": {
+      "testing": 13,
+      "property": 1
+    }
+  },
+  {
+    "id": "issues_000058",
+    "surface": "issues",
+    "url": "https://github.com/example/repo/issues/58",
+    "html_url": "https://github.com/example/repo/issues/58",
+    "title": "Discussion about metamorphic testing in project 58",
+    "repo_full_name": "shopify/test-utils-38",
+    "created_at": "2018-03-22T14:02:34Z",
+    "updated_at": "2023-08-02T22:11:41Z",
+    "stars": null,
+    "language": null,
+    "topics": [],
+    "matched_keyword": "metamorphic testing",
+    "total_general_hits": 6,
+    "total_specific_hits": 0,
+    "hits_by_keyword": {
+      "metamorphic testing": 3
+    },
+    "domains": [],
+    "word_freq": {
+      "testing": 8,
+      "property": 8
+    }
+  },
+  {
+    "id": "discussions_000059",
+    "surface": "discussions",
+    "url": "https://github.com/example/repo/issues/59",
+    "html_url": "https://github.com/example/repo/issues/59",
+    "title": "Discussion about metamorphic relation in project 59",
+    "repo_full_name": "academic-proj/metamorphic-lib-84",
+    "created_at": "2019-02-24T23:14:16Z",
+    "updated_at": "2024-09-22T23:55:36Z",
+    "stars": null,
+    "language": null,
+    "topics": [],
+    "matched_keyword": "metamorphic relation",
+    "total_general_hits": 1,
+    "total_specific_hits": 4,
+    "hits_by_keyword": {
+      "metamorphic relation": 5
+    },
+    "domains": [],
+    "word_freq": {
+      "testing": 16,
+      "property": 4
+    }
+  },
+  {
+    "id": "repos_000060",
+    "surface": "repos",
+    "url": "https://github.com/example/repo/issues/60",
+    "html_url": "https://github.com/example/repo/issues/60",
+    "title": "Discussion about metamorphic relation in project 60",
+    "repo_full_name": "university-test-lab/research-artifact-83",
+    "created_at": "2017-05-09T01:44:12Z",
+    "updated_at": "2022-10-30T21:39:27Z",
+    "stars": 2579,
+    "language": "Rust",
+    "topics": [
+      "web",
+      "database"
+    ],
+    "matched_keyword": "metamorphic relation",
+    "total_general_hits": 10,
+    "total_specific_hits": 0,
+    "hits_by_keyword": {
+      "metamorphic relation": 1
+    },
+    "domains": [],
+    "word_freq": {
+      "testing": 7,
+      "property": 0
+    }
+  },
+  {
+    "id": "commits_000061",
+    "surface": "commits",
+    "url": "https://github.com/example/repo/issues/61",
+    "html_url": "https://github.com/example/repo/issues/61",
+    "title": "Discussion about metamorphic relation in project 61",
+    "repo_full_name": "research-artifact/fuzz-harness-24",
+    "created_at": "2015-01-22T19:11:49Z",
+    "updated_at": "2023-07-29T20:46:21Z",
+    "stars": null,
+    "language": null,
+    "topics": [],
+    "matched_keyword": "metamorphic relation",
+    "total_general_hits": 4,
+    "total_specific_hits": 2,
+    "hits_by_keyword": {
+      "metamorphic relation": 5
+    },
+    "domains": [
+      "web"
+    ],
+    "word_freq": {
+      "testing": 3,
+      "property": 5
+    }
+  },
+  {
+    "id": "prs_000062",
+    "surface": "prs",
+    "url": "https://github.com/example/repo/issues/62",
+    "html_url": "https://github.com/example/repo/issues/62",
+    "title": "Discussion about metamorphic testing in project 62",
+    "repo_full_name": "academic-proj/testing-framework-56",
+    "created_at": "2022-05-13T15:23:42Z",
+    "updated_at": "2024-11-04T09:19:21Z",
+    "stars": null,
+    "language": null,
+    "topics": [],
+    "matched_keyword": "metamorphic testing",
+    "total_general_hits": 6,
+    "total_specific_hits": 3,
+    "hits_by_keyword": {
+      "metamorphic testing": 3
+    },
+    "domains": [],
+    "word_freq": {
+      "testing": 3,
+      "property": 0
+    }
+  },
+  {
+    "id": "issues_000063",
+    "surface": "issues",
+    "url": "https://github.com/example/repo/issues/63",
+    "html_url": "https://github.com/example/repo/issues/63",
+    "title": "Discussion about MetamorphicTest in project 63",
+    "repo_full_name": "airbnb/metamorphic-lib-39",
+    "created_at": "2016-06-21T18:02:27Z",
+    "updated_at": "2022-05-21T06:29:20Z",
+    "stars": null,
+    "language": null,
+    "topics": [],
+    "matched_keyword": "MetamorphicTest",
+    "total_general_hits": 3,
+    "total_specific_hits": 2,
+    "hits_by_keyword": {
+      "MetamorphicTest": 1
+    },
+    "domains": [
+      "security"
+    ],
+    "word_freq": {
+      "testing": 11,
+      "property": 1
+    }
+  },
+  {
+    "id": "discussions_000064",
+    "surface": "discussions",
+    "url": "https://github.com/example/repo/issues/64",
+    "html_url": "https://github.com/example/repo/issues/64",
+    "title": "Discussion about metamorphic relation in project 64",
+    "repo_full_name": "stripe/study-replication-35",
+    "created_at": "2022-12-26T23:02:21Z",
+    "updated_at": "2022-03-07T04:17:42Z",
+    "stars": null,
+    "language": null,
+    "topics": [],
+    "matched_keyword": "metamorphic relation",
+    "total_general_hits": 8,
+    "total_specific_hits": 4,
+    "hits_by_keyword": {
+      "metamorphic relation": 1
+    },
+    "domains": [
+      "security"
+    ],
+    "word_freq": {
+      "testing": 7,
+      "property": 6
+    }
+  },
+  {
+    "id": "repos_000065",
+    "surface": "repos",
+    "url": "https://github.com/example/repo/issues/65",
+    "html_url": "https://github.com/example/repo/issues/65",
+    "title": "Discussion about metamorphic relation in project 65",
+    "repo_full_name": "shopify/property-tests-38",
+    "created_at": "2024-06-04T04:39:56Z",
+    "updated_at": "2022-08-07T18:24:01Z",
+    "stars": 3095,
+    "language": "Ruby",
+    "topics": [
+      "research",
+      "web"
+    ],
+    "matched_keyword": "metamorphic relation",
+    "total_general_hits": 2,
+    "total_specific_hits": 3,
+    "hits_by_keyword": {
+      "metamorphic relation": 5
+    },
+    "domains": [
+      "machine_learning"
+    ],
+    "word_freq": {
+      "testing": 17,
+      "property": 3
+    }
+  },
+  {
+    "id": "commits_000066",
+    "surface": "commits",
+    "url": "https://github.com/example/repo/issues/66",
+    "html_url": "https://github.com/example/repo/issues/66",
+    "title": "Discussion about MetamorphicTest in project 66",
+    "repo_full_name": "airbnb/research-artifact-72",
+    "created_at": "2023-11-06T09:50:17Z",
+    "updated_at": "2024-09-13T20:55:13Z",
+    "stars": null,
+    "language": null,
+    "topics": [],
+    "matched_keyword": "MetamorphicTest",
+    "total_general_hits": 9,
+    "total_specific_hits": 0,
+    "hits_by_keyword": {
+      "MetamorphicTest": 4
+    },
+    "domains": [
+      "security",
+      "web"
+    ],
+    "word_freq": {
+      "testing": 20,
+      "property": 1
+    }
+  },
+  {
+    "id": "prs_000067",
+    "surface": "prs",
+    "url": "https://github.com/example/repo/issues/67",
+    "html_url": "https://github.com/example/repo/issues/67",
+    "title": "Discussion about metamorphic relation in project 67",
+    "repo_full_name": "google/metamorphic-lib-76",
+    "created_at": "2022-04-18T04:28:43Z",
+    "updated_at": "2022-10-08T13:37:55Z",
+    "stars": null,
+    "language": null,
+    "topics": [],
+    "matched_keyword": "metamorphic relation",
+    "total_general_hits": 5,
+    "total_specific_hits": 3,
+    "hits_by_keyword": {
+      "metamorphic relation": 1
+    },
+    "domains": [
+      "web",
+      "security"
+    ],
+    "word_freq": {
+      "testing": 1,
+      "property": 9
+    }
+  },
+  {
+    "id": "issues_000068",
+    "surface": "issues",
+    "url": "https://github.com/example/repo/issues/68",
+    "html_url": "https://github.com/example/repo/issues/68",
+    "title": "Discussion about metamorphic testing in project 68",
+    "repo_full_name": "apache/testing-framework-12",
+    "created_at": "2017-04-04T13:48:52Z",
+    "updated_at": "2023-11-02T11:41:49Z",
+    "stars": null,
+    "language": null,
+    "topics": [],
+    "matched_keyword": "metamorphic testing",
+    "total_general_hits": 5,
+    "total_specific_hits": 3,
+    "hits_by_keyword": {
+      "metamorphic testing": 5
+    },
+    "domains": [
+      "security",
+      "machine_learning"
+    ],
+    "word_freq": {
+      "testing": 13,
+      "property": 0
+    }
+  },
+  {
+    "id": "discussions_000069",
+    "surface": "discussions",
+    "url": "https://github.com/example/repo/issues/69",
+    "html_url": "https://github.com/example/repo/issues/69",
+    "title": "Discussion about metamorphic relation in project 69",
+    "repo_full_name": "microsoft/research-artifact-1",
+    "created_at": "2024-09-22T01:05:11Z",
+    "updated_at": "2023-07-27T12:18:27Z",
+    "stars": null,
+    "language": null,
+    "topics": [],
+    "matched_keyword": "metamorphic relation",
+    "total_general_hits": 2,
+    "total_specific_hits": 0,
+    "hits_by_keyword": {
+      "metamorphic relation": 4
+    },
+    "domains": [
+      "web"
+    ],
+    "word_freq": {
+      "testing": 17,
+      "property": 5
+    }
+  },
+  {
+    "id": "repos_000070",
+    "surface": "repos",
+    "url": "https://github.com/example/repo/issues/70",
+    "html_url": "https://github.com/example/repo/issues/70",
+    "title": "Discussion about metamorphic testing in project 70",
+    "repo_full_name": "uber/pbt-demo-59",
+    "created_at": "2019-12-12T21:20:56Z",
+    "updated_at": "2022-05-21T03:21:34Z",
+    "stars": 1130,
+    "language": "C",
+    "topics": [
+      "compiler",
+      "web"
+    ],
+    "matched_keyword": "metamorphic testing",
+    "total_general_hits": 9,
+    "total_specific_hits": 1,
+    "hits_by_keyword": {
+      "metamorphic testing": 1
+    },
+    "domains": [],
+    "word_freq": {
+      "testing": 18,
+      "property": 10
+    }
+  },
+  {
+    "id": "commits_000071",
+    "surface": "commits",
+    "url": "https://github.com/example/repo/issues/71",
+    "html_url": "https://github.com/example/repo/issues/71",
+    "title": "Discussion about MetamorphicTest in project 71",
+    "repo_full_name": "shopify/fuzzer-36",
+    "created_at": "2016-07-25T01:25:42Z",
+    "updated_at": "2024-08-03T08:27:02Z",
+    "stars": null,
+    "language": null,
+    "topics": [],
+    "matched_keyword": "MetamorphicTest",
+    "total_general_hits": 9,
+    "total_specific_hits": 3,
+    "hits_by_keyword": {
+      "MetamorphicTest": 2
+    },
+    "domains": [
+      "web"
+    ],
+    "word_freq": {
+      "testing": 6,
+      "property": 2
+    }
+  },
+  {
+    "id": "prs_000072",
+    "surface": "prs",
+    "url": "https://github.com/example/repo/issues/72",
+    "html_url": "https://github.com/example/repo/issues/72",
+    "title": "Discussion about metamorphic testing in project 72",
+    "repo_full_name": "stripe/pbt-demo-43",
+    "created_at": "2023-09-18T20:47:30Z",
+    "updated_at": "2024-07-01T20:36:58Z",
+    "stars": null,
+    "language": null,
+    "topics": [],
+    "matched_keyword": "metamorphic testing",
+    "total_general_hits": 1,
+    "total_specific_hits": 3,
+    "hits_by_keyword": {
+      "metamorphic testing": 1
+    },
+    "domains": [
+      "web",
+      "security"
+    ],
+    "word_freq": {
+      "testing": 9,
+      "property": 2
+    }
+  },
+  {
+    "id": "issues_000073",
+    "surface": "issues",
+    "url": "https://github.com/example/repo/issues/73",
+    "html_url": "https://github.com/example/repo/issues/73",
+    "title": "Discussion about metamorphic testing in project 73",
+    "repo_full_name": "research-artifact/research-artifact-45",
+    "created_at": "2019-12-30T16:02:07Z",
+    "updated_at": "2023-08-03T04:47:46Z",
+    "stars": null,
+    "language": null,
+    "topics": [],
+    "matched_keyword": "metamorphic testing",
+    "total_general_hits": 7,
+    "total_specific_hits": 0,
+    "hits_by_keyword": {
+      "metamorphic testing": 3
+    },
+    "domains": [
+      "security"
+    ],
+    "word_freq": {
+      "testing": 5,
+      "property": 0
+    }
+  },
+  {
+    "id": "discussions_000074",
+    "surface": "discussions",
+    "url": "https://github.com/example/repo/issues/74",
+    "html_url": "https://github.com/example/repo/issues/74",
+    "title": "Discussion about MetamorphicTest in project 74",
+    "repo_full_name": "apache/fuzzer-47",
+    "created_at": "2023-06-15T21:48:14Z",
+    "updated_at": "2022-01-01T02:16:09Z",
+    "stars": null,
+    "language": null,
+    "topics": [],
+    "matched_keyword": "MetamorphicTest",
+    "total_general_hits": 9,
+    "total_specific_hits": 0,
+    "hits_by_keyword": {
+      "MetamorphicTest": 1
+    },
+    "domains": [],
+    "word_freq": {
+      "testing": 13,
+      "property": 3
+    }
+  },
+  {
+    "id": "repos_000075",
+    "surface": "repos",
+    "url": "https://github.com/example/repo/issues/75",
+    "html_url": "https://github.com/example/repo/issues/75",
+    "title": "Discussion about MetamorphicTest in project 75",
+    "repo_full_name": "academic-proj/metamorphic-lib-53",
+    "created_at": "2019-09-06T11:13:28Z",
+    "updated_at": "2022-03-24T02:03:37Z",
+    "stars": 3763,
+    "language": "TypeScript",
+    "topics": [
+      "machine-learning",
+      "security"
+    ],
+    "matched_keyword": "MetamorphicTest",
+    "total_general_hits": 4,
+    "total_specific_hits": 3,
+    "hits_by_keyword": {
+      "MetamorphicTest": 2
+    },
+    "domains": [
+      "machine_learning",
+      "web"
+    ],
+    "word_freq": {
+      "testing": 9,
+      "property": 0
+    }
+  },
+  {
+    "id": "commits_000076",
+    "surface": "commits",
+    "url": "https://github.com/example/repo/issues/76",
+    "html_url": "https://github.com/example/repo/issues/76",
+    "title": "Discussion about metamorphic testing in project 76",
+    "repo_full_name": "microsoft/pbt-demo-67",
+    "created_at": "2023-10-16T17:24:15Z",
+    "updated_at": "2022-10-11T22:05:35Z",
+    "stars": null,
+    "language": null,
+    "topics": [],
+    "matched_keyword": "metamorphic testing",
+    "total_general_hits": 2,
+    "total_specific_hits": 5,
+    "hits_by_keyword": {
+      "metamorphic testing": 3
+    },
+    "domains": [
+      "web",
+      "machine_learning"
+    ],
+    "word_freq": {
+      "testing": 3,
+      "property": 2
+    }
+  },
+  {
+    "id": "prs_000077",
+    "surface": "prs",
+    "url": "https://github.com/example/repo/issues/77",
+    "html_url": "https://github.com/example/repo/issues/77",
+    "title": "Discussion about metamorphic relation in project 77",
+    "repo_full_name": "microsoft/fuzz-harness-70",
+    "created_at": "2021-05-07T14:54:45Z",
+    "updated_at": "2022-01-10T16:54:17Z",
+    "stars": null,
+    "language": null,
+    "topics": [],
+    "matched_keyword": "metamorphic relation",
+    "total_general_hits": 7,
+    "total_specific_hits": 0,
+    "hits_by_keyword": {
+      "metamorphic relation": 1
+    },
+    "domains": [
+      "security"
+    ],
+    "word_freq": {
+      "testing": 2,
+      "property": 1
+    }
+  },
+  {
+    "id": "issues_000078",
+    "surface": "issues",
+    "url": "https://github.com/example/repo/issues/78",
+    "html_url": "https://github.com/example/repo/issues/78",
+    "title": "Discussion about metamorphic testing in project 78",
+    "repo_full_name": "stripe/metamorphic-lib-1",
+    "created_at": "2018-01-11T01:19:17Z",
+    "updated_at": "2023-12-22T12:31:55Z",
+    "stars": null,
+    "language": null,
+    "topics": [],
+    "matched_keyword": "metamorphic testing",
+    "total_general_hits": 1,
+    "total_specific_hits": 5,
+    "hits_by_keyword": {
+      "metamorphic testing": 1
+    },
+    "domains": [
+      "machine_learning"
+    ],
+    "word_freq": {
+      "testing": 14,
+      "property": 1
+    }
+  },
+  {
+    "id": "discussions_000079",
+    "surface": "discussions",
+    "url": "https://github.com/example/repo/issues/79",
+    "html_url": "https://github.com/example/repo/issues/79",
+    "title": "Discussion about MetamorphicTest in project 79",
+    "repo_full_name": "academic-proj/testing-framework-96",
+    "created_at": "2021-03-03T21:49:05Z",
+    "updated_at": "2022-12-20T06:33:44Z",
+    "stars": null,
+    "language": null,
+    "topics": [],
+    "matched_keyword": "MetamorphicTest",
+    "total_general_hits": 7,
+    "total_specific_hits": 0,
+    "hits_by_keyword": {
+      "MetamorphicTest": 5
+    },
+    "domains": [],
+    "word_freq": {
+      "testing": 7,
+      "property": 0
+    }
+  }
+]

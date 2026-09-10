@@ -1,0 +1,110 @@
+{
+  "code": {
+    "api_hit_count": 1577,
+    "unique_results": 833,
+    "keywords": {
+      "metamorphic testing": {
+        "api_hit_count": 229,
+        "unique_results": 208
+      },
+      "metamorphic relation": {
+        "api_hit_count": 262,
+        "unique_results": 219
+      },
+      "MetamorphicTest": {
+        "api_hit_count": 231,
+        "unique_results": 185
+      }
+    }
+  },
+  "repos": {
+    "api_hit_count": 1986,
+    "unique_results": 1542,
+    "keywords": {
+      "metamorphic testing": {
+        "api_hit_count": 308,
+        "unique_results": 241
+      },
+      "metamorphic relation": {
+        "api_hit_count": 31,
+        "unique_results": 19
+      },
+      "MetamorphicTest": {
+        "api_hit_count": 490,
+        "unique_results": 460
+      }
+    }
+  },
+  "issues": {
+    "api_hit_count": 923,
+    "unique_results": 746,
+    "keywords": {
+      "metamorphic testing": {
+        "api_hit_count": 125,
+        "unique_results": 110
+      },
+      "metamorphic relation": {
+        "api_hit_count": 113,
+        "unique_results": 71
+      },
+      "MetamorphicTest": {
+        "api_hit_count": 20,
+        "unique_results": 14
+      }
+    }
+  },
+  "prs": {
+    "api_hit_count": 353,
+    "unique_results": 186,
+    "keywords": {
+      "metamorphic testing": {
+        "api_hit_count": 17,
+        "unique_results": 14
+      },
+      "metamorphic relation": {
+        "api_hit_count": 37,
+        "unique_results": 30
+      },
+      "MetamorphicTest": {
+        "api_hit_count": 20,
+        "unique_results": 15
+      }
+    }
+  },
+  "commits": {
+    "api_hit_count": 1273,
+    "unique_results": 940,
+    "keywords": {
+      "metamorphic testing": {
+        "api_hit_count": 232,
+        "unique_results": 186
+      },
+      "metamorphic relation": {
+        "api_hit_count": 220,
+        "unique_results": 140
+      },
+      "MetamorphicTest": {
+        "api_hit_count": 58,
+        "unique_results": 54
+      }
+    }
+  },
+  "discussions": {
+    "api_hit_count": 1383,
+    "unique_results": 1237,
+    "keywords": {
+      "metamorphic testing": {
+        "api_hit_count": 282,
+        "unique_results": 250
+      },
+      "metamorphic relation": {
+        "api_hit_count": 110,
+        "unique_results": 84
+      },
+      "MetamorphicTest": {
+        "api_hit_count": 116,
+        "unique_results": 88
+      }
+    }
+  }
+}

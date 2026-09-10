@@ -11,8 +11,8 @@ Report structure (9 topic sections):
   2. Search keyword hit distribution
   3. Testing technique density
   4. Repo classification
-  5. Artifact classification
-  6. Language distribution
+  5. Technique file extensions and language distribution
+  6. Language distribution (all repos)
   7. Application domain
   8. Timeline
   9. All cloned repos
@@ -105,7 +105,7 @@ def _save(fig, path: Path) -> str:
 def _bar_chart(
     labels: list[str], values: list[float], title: str, xlabel: str, ylabel: str,
     path: Path, color: str = _PALETTE[0], horizontal: bool = False,
-    figsize: tuple = (8, 4), annotate: bool = False,
+    figsize: tuple = (8, 4), annotate: bool = True,
 ) -> str:
     fig, ax = plt.subplots(figsize=figsize)
     if horizontal:
@@ -280,54 +280,110 @@ def _section_search_distribution(
         "> **Data source:** Search phase — GitHub REST API hit counts per keyword per surface. "
         f"Keywords from `inputs/{technique_name}_search_keywords.txt`.\n"
     )
+    out.append(
+        "> **Note on 'unique results':** GitHub's API may return the same repository under "
+        "multiple keywords. 'Unique results' is the count of deduplicated items after "
+        "merging all keyword runs for a surface. A single repo can appear in multiple surfaces.\n"
+    )
 
     hit_dists  = overall.get("search_hit_distributions", {})
     search_sum = overall.get("search_summary", {})
 
-    # Aggregate totals per surface — two bar charts with count labels + median/mean lines
-    total_hits_per_surf  = [search_sum.get(s, {}).get("search_hit_count", 0) for s in _ALL_SURFACES]
-    unique_per_surf      = [search_sum.get(s, {}).get("unique_results", 0)   for s in _ALL_SURFACES]
-    surf_labels          = [s.upper() for s in _ALL_SURFACES]
+    # Aggregate totals per surface
+    total_hits_per_surf = [search_sum.get(s, {}).get("search_hit_count", 0) for s in _ALL_SURFACES]
+    unique_per_surf     = [search_sum.get(s, {}).get("unique_results",   0) for s in _ALL_SURFACES]
+    surf_labels         = [s.upper() for s in _ALL_SURFACES]
 
     out.append("### Total Search Hits per Surface\n")
+    out.append(
+        "_Total search hits = sum of `total_count` returned by the API for all keyword "
+        "queries on each surface (before deduplication). Reflects raw API exposure._\n"
+    )
     out.append(f"![Total search hits per surface]({_bar_chart_with_stats_lines(surf_labels, total_hits_per_surf, 'Total Search Hits per Surface (all keywords combined)', 'Surface', 'Total Search Hits', plots_dir / f'search_hits_per_surface.{cfg.PLOT_FORMAT}', color=_PALETTE[0])})\n")
+    out.append(_table(
+        ["Surface", "Total Search Hits"],
+        [[s, _fmt(v)] for s, v in zip(surf_labels, total_hits_per_surf)],
+    ) + "\n")
 
     out.append("### Unique Results per Surface\n")
+    out.append(
+        "_Unique results = distinct items collected after deduplication within each surface._\n"
+    )
     out.append(f"![Unique results per surface]({_bar_chart_with_stats_lines(surf_labels, unique_per_surf, 'Unique Results per Surface (all keywords combined)', 'Surface', 'Unique Results', plots_dir / f'search_unique_per_surface.{cfg.PLOT_FORMAT}', color=_PALETTE[1])})\n")
+    out.append(_table(
+        ["Surface", "Unique Results"],
+        [[s, _fmt(v)] for s, v in zip(surf_labels, unique_per_surf)],
+    ) + "\n")
 
-    # Cross-surface keyword ranked table + bar chart
+    # Distinct keywords with ≥1 result per surface (Item 5)
+    kw_with_results: dict[str, int] = {}
+    for s in _ALL_SURFACES:
+        surf_kws = search_sum.get(s, {}).get("keywords_ranked", [])
+        kw_with_results[s.upper()] = sum(1 for kw in surf_kws if kw.get("unique_results", 0) > 0)
+    kwsuf_labels = list(kw_with_results.keys())
+    kwsuf_vals   = [kw_with_results[s] for s in kwsuf_labels]
+    out.append("### Keywords with ≥1 Unique Result per Surface\n")
+    out.append(f"![Keywords with results per surface]({_bar_chart(kwsuf_labels, kwsuf_vals, 'Distinct Keywords Returning ≥1 Unique Result per Surface', 'Surface', 'Keywords with ≥1 Result', plots_dir / f'search_unique_keywords_per_surface.{cfg.PLOT_FORMAT}', color=_PALETTE[2])})\n")
+    out.append(_table(
+        ["Surface", "Keywords with ≥1 Result"],
+        [[s, _fmt(v)] for s, v in zip(kwsuf_labels, kwsuf_vals)],
+    ) + "\n")
+
+    # Cross-surface keyword ranked table + bar chart — ALL combinations (Item 7)
     cross = search_sum.get("keywords_cross_surface", [])
     if cross:
-        top_cross = cross[:cfg.REPORT_TOP_N_KEYWORDS]
         out.append("### Keyword Hits Across All Surfaces (Ranked)\n")
-        out.append("_Each row is one keyword on one surface, ranked by unique results (highest first)._\n")
+        out.append("_Each row is one keyword on one surface, ranked by unique results (highest first). All keyword × surface combinations are shown._\n")
         cross_rows = [
             [i + 1, _trunc(e.get("surface_label", ""), 55),
              _fmt(e.get("search_hit_count", 0)), _fmt(e.get("unique_results", 0))]
-            for i, e in enumerate(top_cross)
+            for i, e in enumerate(cross)
         ]
         out.append(_table(["#", "Surface: Keyword", "Search Hits", "Unique Results"], cross_rows) + "\n")
-        out.append(f"![Search keywords cross surface]({_bar_chart([_trunc(e.get('surface_label',''),45) for e in top_cross], [e.get('unique_results',0) for e in top_cross], 'Top Search Keywords by Unique Results (All Surfaces)', 'Surface: Keyword', 'Unique Results', plots_dir / f'search_keywords_cross.{cfg.PLOT_FORMAT}', horizontal=True, figsize=(10, max(5, len(top_cross)*0.3+2)))})\n")
+        out.append(f"![Search keywords cross surface]({_bar_chart([_trunc(e.get('surface_label',''),45) for e in cross], [e.get('unique_results',0) for e in cross], 'Search Keywords by Unique Results (All Surfaces)', 'Surface: Keyword', 'Unique Results', plots_dir / f'search_keywords_cross.{cfg.PLOT_FORMAT}', horizontal=True, figsize=(10, max(5, len(cross)*0.22+2)))})\n")
 
-    # Per-surface distribution line charts (total hits + unique keyword hits)
+    # Per-surface distribution line charts + per-surface repo ranking (Items 7, 9)
     for surface in _ALL_SURFACES:
         items = hit_dists.get(surface, [])
-        if not items:
-            continue
-        vals   = [it["hit_count"] for it in items]
-        u_vals = [it["unique_keyword_count"] for it in items]
-        ranks  = list(range(1, len(items) + 1))
-        out.append(f"**{surface.upper()} surface** — {len(items)} items\n")
-        out.append(f"![{surface} total hit dist]({_line_chart(ranks, vals, f'{surface.upper()}: Total Keyword Hits per Item (Ranked)', 'Rank (1 = most hits)', 'Total Keyword Hits', plots_dir / f'search_dist_{surface}.{cfg.PLOT_FORMAT}', x_labels=[str(r) for r in ranks])})\n")
-        out.append(f"![{surface} unique keyword dist]({_line_chart(ranks, u_vals, f'{surface.upper()}: Unique Keywords Matched per Item (Ranked)', 'Rank (1 = most unique keywords)', 'Unique Keywords Matched', plots_dir / f'search_unique_{surface}.{cfg.PLOT_FORMAT}', x_labels=[str(r) for r in ranks])})\n")
+        nca   = overall.get("noncode_analysis", {})
+        surf_nc_stats = nca.get("by_surface", {}).get(surface, {}) if surface != "code" else {}
+
+        out.append(f"### {surface.upper()} Surface\n")
+        if items:
+            vals   = [it["hit_count"] for it in items]
+            u_vals = [it["unique_keyword_count"] for it in items]
+            ranks  = list(range(1, len(items) + 1))
+            out.append(f"_Total unique items: {len(items)}_\n")
+            out.append(f"![{surface} total hit dist]({_line_chart(ranks, vals, f'{surface.upper()}: Total Keyword Hits per Item (Ranked)', 'Rank (1 = most hits)', 'Total Keyword Hits', plots_dir / f'search_dist_{surface}.{cfg.PLOT_FORMAT}', x_labels=[str(r) for r in ranks])})\n")
+            out.append(f"![{surface} unique keyword dist]({_line_chart(ranks, u_vals, f'{surface.upper()}: Unique Keywords Matched per Item (Ranked)', 'Rank (1 = most unique keywords)', 'Unique Keywords Matched', plots_dir / f'search_unique_{surface}.{cfg.PLOT_FORMAT}', x_labels=[str(r) for r in ranks])})\n")
+
+        # Per-surface keyword table — ALL keywords (Item 7)
         surf_kws = search_sum.get(surface, {}).get("keywords_ranked", [])
         if surf_kws:
-            out.append(f"Top keywords in {surface.upper()}:\n")
+            out.append(f"Keywords in {surface.upper()} (all, ranked by unique results):\n")
             out.append(_table(
-                ["Keyword", "Search Hits", "Unique Results"],
-                [[_trunc(kw.get("keyword",""),50), _fmt(kw.get("search_hit_count",0)), _fmt(kw.get("unique_results",0))]
-                 for kw in surf_kws[:10]],
+                ["#", "Keyword", "Search Hits", "Unique Results"],
+                [[i+1, _trunc(kw.get("keyword",""),50), _fmt(kw.get("search_hit_count",0)), _fmt(kw.get("unique_results",0))]
+                 for i, kw in enumerate(surf_kws)],
             ) + "\n")
+
+        # Per-surface repo ranking (Item 9) — from noncode_analysis
+        repos_ranked = surf_nc_stats.get("repos_ranked", [])
+        if repos_ranked:
+            out.append(f"Repositories ranked by keyword hits in {surface.upper()} body text:\n")
+            repo_hit_vals = [r["hit_count"] for r in repos_ranked]
+            repo_names    = [_trunc(r["repo"], 35) for r in repos_ranked]
+            out.append(f"![{surface} repo ranking]({_bar_chart(repo_names, repo_hit_vals, f'Top Repos by Keyword Hits — {surface.upper()}', 'Repository', 'Keyword Hits', plots_dir / f'search_repos_{surface}.{cfg.PLOT_FORMAT}', horizontal=True, figsize=(9, max(4, len(repo_names[:30])*0.25+2)))})\n")
+            out.append(_table(
+                ["#", "Repository", "Keyword Hits"],
+                [[i+1, r["repo"], _fmt(r["hit_count"])] for i, r in enumerate(repos_ranked[:50])],
+            ) + "\n")
+            rhs = surf_nc_stats.get("repo_hit_stats", {})
+            if rhs:
+                out.append(_table(
+                    ["Metric", "Avg", "Median", "Max", "Min", "Std Dev", "Repos"],
+                    [["Keyword hits per repo"] + _stat_cells(rhs)],
+                ) + "\n")
 
 
 def _section_technique_density(
@@ -336,7 +392,8 @@ def _section_technique_density(
     out.append("## 3. Testing Technique Density\n")
     out.append(
         "> **Data source:** Code analysis phase — repos cloned from the CODE search surface and "
-        f"scanned with regexes from `inputs/{technique_name}_analysis_keywords.json`. "
+        f"scanned with regexes from `inputs/{technique_name}_analysis_keywords.json` and "
+        "`inputs/shared_analysis_keywords.json`. "
         "Only repositories in `code_repos.json` contribute to this section.\n"
     )
     ca = overall.get("code_analysis", {})
@@ -349,115 +406,214 @@ def _section_technique_density(
         "`specific_technique` keywords are the primary adoption metric.\n"
     )
 
-    # Analysis keyword hits table (excluding test_file_detection)
-    kws_ranked   = ca.get("keywords_ranked", [])
-    kws_filtered = [k for k in kws_ranked if k.get("category") != "test_file_detection"]
-    if kws_filtered:
+    # Analysis keyword hits — ALL keywords (Item 15)
+    kws_ranked = ca.get("keywords_ranked", [])
+    if kws_ranked:
         out.append("### Analysis Keyword Hits (Code Repos)\n")
         out.append(
             "_`specific_technique` keywords are the primary metric. "
             "`general_test` keywords measure baseline testing activity. "
-            "`test_file_detection` keywords are used only for file classification and excluded here._\n"
+            "All keywords shown._\n"
         )
         out.append(_table(
             ["#", "Keyword", "Category", "Total Hits"],
             [[i+1, _trunc(k.get("label", k.get("id","")), 40), k.get("category",""), _fmt(k.get("count",0))]
-             for i, k in enumerate(kws_filtered[:cfg.REPORT_TOP_N_KEYWORDS])],
+             for i, k in enumerate(kws_ranked)],
         ) + "\n")
+        kw_labels = [_trunc(k.get("label", k.get("id","")), 35) for k in kws_ranked]
+        kw_vals   = [k.get("count", 0) for k in kws_ranked]
+        out.append(f"![Analysis keyword hits]({_bar_chart(kw_labels, kw_vals, 'Analysis Keyword Hits (Code Repos, All Keywords)', 'Keyword', 'Total Hits', plots_dir / f'analysis_keyword_hits.{cfg.PLOT_FORMAT}', horizontal=True, figsize=(10, max(5, len(kw_labels)*0.22+2)))})\n")
 
-    # Non-code cross-surface keyword ranked table + bar chart
+    # Non-code cross-surface keyword ranked table + bar chart — ALL (Item 15)
     nca      = overall.get("noncode_analysis", {})
     nc_cross = nca.get("keywords_cross_surface", [])
     if nc_cross:
-        top_nc = nc_cross[:cfg.REPORT_TOP_N_KEYWORDS]
         out.append("### Analysis Keyword Hits — Non-Code Surfaces (Cross-Surface Ranked)\n")
         out.append(
             "_Keyword hits in non-code item bodies (issues, PRs, commits, discussions, repo descriptions), "
-            "ranked highest to lowest across all non-code surfaces._\n"
+            "ranked highest to lowest across all non-code surfaces. All combinations shown._\n"
         )
         out.append(_table(
             ["#", "Surface: Keyword", "Hits"],
             [[i+1, _trunc(e.get("surface_label",""),55), _fmt(e.get("count",0))]
-             for i, e in enumerate(top_nc)],
+             for i, e in enumerate(nc_cross)],
         ) + "\n")
-        out.append(f"![Non-code keywords cross surface]({_bar_chart([_trunc(e.get('surface_label',''),45) for e in top_nc], [e.get('count',0) for e in top_nc], 'Analysis Keyword Hits — Non-Code Surfaces (Top Ranked)', 'Surface: Keyword', 'Hits', plots_dir / f'nc_keywords_cross.{cfg.PLOT_FORMAT}', horizontal=True, figsize=(10, max(5, len(top_nc)*0.3+2)), color=_PALETTE[1])})\n")
+        out.append(f"![Non-code keywords cross surface]({_bar_chart([_trunc(e.get('surface_label',''),45) for e in nc_cross], [e.get('count',0) for e in nc_cross], 'Analysis Keyword Hits — Non-Code Surfaces (All, Ranked)', 'Surface: Keyword', 'Hits', plots_dir / f'nc_keywords_cross.{cfg.PLOT_FORMAT}', horizontal=True, figsize=(10, max(5, len(nc_cross)*0.22+2)), color=_PALETTE[1])})\n")
 
-    # Technique density 5-label scheme
+    # Technique density 10-label scheme (Items 16-20)
     tdl = ca.get("technique_density_labels", {})
     if tdl:
         by_label    = tdl.get("by_label", {})
-        label_order = ["technique_file", "technique_doc_file", "test_file", "test_doc_file", "non_test_file"]
-        label_disp  = {
-            "technique_file":     "Technique File (code, ≥1 specific hit)",
-            "technique_doc_file": "Technique Doc File (non-code, ≥1 specific hit)",
-            "test_file":          "Test File (code, ≥1 general hit, no specific)",
-            "test_doc_file":      "Test Doc File (non-code, ≥1 general hit, no specific)",
-            "non_test_file":      "Non-Test File (no hits)",
+        label_order = [
+            "technique_code", "technique_doc", "technique_config", "technique_other",
+            "test_code",      "test_doc",      "test_config",      "test_other",
+            "non_hit_code",   "non_hit_ncode",
+        ]
+        label_disp = {
+            "technique_code":   "Technique Code (code file, ≥1 specific hit)",
+            "technique_doc":    "Technique Doc (doc file, ≥1 specific hit)",
+            "technique_config": "Technique Config (config file, ≥1 specific hit)",
+            "technique_other":  "Technique Other (other file, ≥1 specific hit)",
+            "test_code":        "Test Code (code file, general-only hits)",
+            "test_doc":         "Test Doc (doc file, general-only hits)",
+            "test_config":      "Test Config (config file, general-only hits)",
+            "test_other":       "Test Other (other file, general-only hits)",
+            "non_hit_code":     "Non-Hit Code (code file, no hits)",
+            "non_hit_ncode":    "Non-Hit Non-Code (non-code file, no hits)",
         }
-        out.append("### Technique Density by File Label\n")
+
+        out.append("### Technique Density by File Label (10-Label Scheme)\n")
         out.append(
-            "Files are assigned one of 5 mutually-exclusive labels:\n\n"
-            "- **technique_file** — code extension, ≥1 `specific_technique` hit\n"
-            "- **technique_doc_file** — non-code extension, ≥1 `specific_technique` hit\n"
-            "- **test_file** — code extension, ≥1 `general_test` hit, no specific hits\n"
-            "- **test_doc_file** — non-code extension, ≥1 `general_test` hit, no specific hits\n"
-            "- **non_test_file** — no hits from either category\n"
+            "Files are assigned one of 10 mutually-exclusive labels based on file type and keyword hits:\n\n"
+            "- **technique_\\*** — ≥1 `specific_technique` hit (code / doc / config / other)\n"
+            "- **test_\\*** — ≥1 `general_test` hit, no specific hits (code / doc / config / other)\n"
+            "- **non_hit_code** — code file with no keyword hits\n"
+            "- **non_hit_ncode** — non-code file with no keyword hits\n\n"
+            "_File class: code = test_code ∪ source_code, doc = docs, config = config, other = other._\n"
         )
-        out.append("#### File Count and Percentage per Label\n")
-        pct_rows   = []
-        chart_pcts = []
-        chart_lbls = []
+
+        # Combined density table (Item 17)
+        total_files = tdl.get("total_files", 1)
+        total_lines = tdl.get("total_lines", 1)
+        out.append("#### Combined Density Table\n")
+        density_rows = []
         for lbl in label_order:
             st = by_label.get(lbl, {})
-            pct_rows.append([label_disp[lbl], _fmt(st.get("files",0)), _pct(st.get("pct_files",0)),
-                             _fmt(st.get("lines",0)), _pct(st.get("pct_lines",0))])
-            chart_lbls.append(lbl.replace("_", "\n"))
-            chart_pcts.append(st.get("pct_files", 0))
-        out.append(_table(["Label", "Files", "% of All Files", "Lines", "% of All Lines"], pct_rows) + "\n")
-        out.append(f"![Density label %]({_bar_chart(chart_lbls, chart_pcts, '% of Files by Density Label', 'Label', '% of All Files', plots_dir / f'density_label_pct.{cfg.PLOT_FORMAT}', color=_PALETTE[2])})\n")
-
-        out.append("#### Average Hits per File by Label\n")
+            density_rows.append([
+                label_disp[lbl],
+                _fmt(st.get("files", 0)),
+                _pct(st.get("pct_files", 0)),
+                _fmt(st.get("lines", 0)),
+                _pct(st.get("pct_lines", 0)),
+                _fmt(st.get("gen_hits", 0)),
+                _fmt(st.get("spec_hits", 0)),
+                _pct(st.get("hit_line_pct", 0)),
+            ])
         out.append(_table(
-            ["Label", "Avg General Hits/File", "Avg Specific Hits/File", "Hit Line %"],
-            [[label_disp[lbl],
-              round(by_label.get(lbl,{}).get("gen_hits",0) / max(by_label.get(lbl,{}).get("files",1),1), 2),
-              round(by_label.get(lbl,{}).get("spec_hits",0) / max(by_label.get(lbl,{}).get("files",1),1), 2),
-              _pct(by_label.get(lbl,{}).get("hit_line_pct",0))]
-             for lbl in label_order],
+            ["Label", "Files", "% of All Files", "Lines", "% of All Lines",
+             "General Hits", "Specific Hits", "Hit Line %"],
+            density_rows,
+        ) + "\n")
+        chart_lbls = [lbl.replace("_", "\n") for lbl in label_order]
+        chart_pcts = [by_label.get(lbl, {}).get("pct_files", 0) for lbl in label_order]
+        out.append(f"![Density label %]({_bar_chart(chart_lbls, chart_pcts, '% of Files by Density Label (10-Label Scheme)', 'Label', '% of All Files', plots_dir / f'density_label_pct.{cfg.PLOT_FORMAT}', color=_PALETTE[2])})\n")
+
+        # Hit File % Summary (Item 18)
+        out.append("#### Hit File % Summary\n")
+        out.append("_Percentage of files in each label that have at least one general or specific keyword hit._\n")
+        hit_file_rows = []
+        for lbl in label_order:
+            st = by_label.get(lbl, {})
+            hit_file_rows.append([
+                label_disp[lbl],
+                _fmt(st.get("files", 0)),
+                _fmt(st.get("hit_files", 0)),
+                _pct(st.get("hit_file_pct", 0)),
+            ])
+        out.append(_table(["Label", "Total Files", "Hit Files", "Hit File %"], hit_file_rows) + "\n")
+
+        # Expanded hits-per-file statistics (Item 19)
+        out.append("#### Hits per File — Extended Statistics\n")
+        hits_per_file_rows = []
+        for lbl in label_order:
+            st   = by_label.get(lbl, {})
+            f    = max(st.get("files", 0), 1)
+            hits_per_file_rows.append([
+                label_disp[lbl],
+                _fmt(f - 1 if f == 1 else f, 0),
+                round(st.get("gen_hits",  0) / f, 2),
+                round(st.get("spec_hits", 0) / f, 2),
+                _pct(st.get("hit_line_pct", 0)),
+                _fmt(st.get("gen_hits",  0)),
+                _fmt(st.get("spec_hits", 0)),
+            ])
+        out.append(_table(
+            ["Label", "Files", "Avg Gen Hits/File", "Avg Spec Hits/File",
+             "Hit Line %", "Total Gen Hits", "Total Spec Hits"],
+            hits_per_file_rows,
         ) + "\n")
 
-    # Hit % per repo — exact ranked line charts
+        # Three type-restricted breakdowns (Item 20)
+        out.append("#### Code Files Only\n")
+        code_lbls = ["technique_code", "test_code", "non_hit_code"]
+        code_rows = []
+        for lbl in code_lbls:
+            st = by_label.get(lbl, {})
+            code_rows.append([label_disp[lbl], _fmt(st.get("files",0)),
+                              _pct(st.get("pct_files",0)), _fmt(st.get("gen_hits",0)),
+                              _fmt(st.get("spec_hits",0)), _pct(st.get("hit_line_pct",0))])
+        out.append(_table(["Label", "Files", "% of All Files", "Gen Hits", "Spec Hits", "Hit Line %"], code_rows) + "\n")
+
+        out.append("#### Doc Files Only\n")
+        doc_lbls = ["technique_doc", "test_doc", "non_hit_ncode"]
+        doc_rows = []
+        for lbl in doc_lbls:
+            st = by_label.get(lbl, {})
+            doc_rows.append([label_disp[lbl], _fmt(st.get("files",0)),
+                             _pct(st.get("pct_files",0)), _fmt(st.get("gen_hits",0)),
+                             _fmt(st.get("spec_hits",0)), _pct(st.get("hit_line_pct",0))])
+        out.append(_table(["Label", "Files", "% of All Files", "Gen Hits", "Spec Hits", "Hit Line %"], doc_rows) + "\n")
+
+        out.append("#### Config Files Only\n")
+        cfg_lbls = ["technique_config", "test_config"]
+        cfg_rows = []
+        for lbl in cfg_lbls:
+            st = by_label.get(lbl, {})
+            cfg_rows.append([label_disp[lbl], _fmt(st.get("files",0)),
+                             _pct(st.get("pct_files",0)), _fmt(st.get("gen_hits",0)),
+                             _fmt(st.get("spec_hits",0)), _pct(st.get("hit_line_pct",0))])
+        out.append(_table(["Label", "Files", "% of All Files", "Gen Hits", "Spec Hits", "Hit Line %"], cfg_rows) + "\n")
+
+    # Hit % per repo — exact ranked line charts (Items 23-25)
     hit_pct = ca.get("hit_pct_distribution", [])
     if hit_pct:
+        hit_line_vals = [r["hit_pct_lines"] for r in hit_pct]
+        hit_file_vals = sorted([r["hit_pct_files"] for r in hit_pct], reverse=True)
         ranks = list(range(1, len(hit_pct) + 1))
-        out.append(f"![Hit line % per repo]({_line_chart(ranks, [r['hit_pct_lines'] for r in hit_pct], 'Hit Line % per Repo (Ranked Highest → Lowest)', 'Rank (1 = highest hit line %)', 'Hit Line %', plots_dir / f'density_hit_line_pct.{cfg.PLOT_FORMAT}')})\n")
-        out.append(f"![Hit file % per repo]({_line_chart(ranks, [r['hit_pct_files'] for r in hit_pct], 'Hit File % per Repo (Ranked Highest → Lowest)', 'Rank (1 = highest hit file %)', 'Hit File %', plots_dir / f'density_hit_file_pct.{cfg.PLOT_FORMAT}')})\n")
 
-    # Specific hits ranked
-    spec_ranked = ca.get("specific_hits_ranked", [])[:cfg.REPORT_TOP_N_REPOS]
-    if spec_ranked:
-        out.append(f"![Top repos by specific hits]({_bar_chart([_trunc(r['name'],30) for r in spec_ranked], [r['hits'] for r in spec_ranked], f'Top {len(spec_ranked)} Repos by Specific Keyword Hits', 'Repository', 'Specific Hits', plots_dir / f'specific_hits_ranked.{cfg.PLOT_FORMAT}', horizontal=True, figsize=(9, max(4, len(spec_ranked)*0.22+2)))})\n")
+        out.append("### Hit Line % per Repo (Ranked)\n")
+        out.append(f"![Hit line % per repo]({_line_chart(ranks, hit_line_vals, 'Hit Line % per Repo (Ranked Highest → Lowest)', 'Rank (1 = highest hit line %)', 'Hit Line %', plots_dir / f'density_hit_line_pct.{cfg.PLOT_FORMAT}')})\n")
+        if hit_line_vals:
+            import statistics as _stats
+            hl_stats = {
+                "avg":    round(sum(hit_line_vals) / len(hit_line_vals), 2),
+                "median": round(_stats.median(hit_line_vals), 2),
+                "max":    round(max(hit_line_vals), 2),
+                "min":    round(min(hit_line_vals), 2),
+                "stdev":  round(_stats.stdev(hit_line_vals), 2) if len(hit_line_vals) >= 2 else 0,
+                "count":  len(hit_line_vals),
+            }
+            out.append(_table(
+                ["Metric", "Avg", "Median", "Max", "Min", "Std Dev", "N Repos"],
+                [["Hit Line % per repo"] + _stat_cells(hl_stats)],
+            ) + "\n")
 
-    # Test code vs non-test
-    tvn = ca.get("test_vs_nontest_stats", {})
-    if tvn:
-        tc = tvn.get("test_code", {})
-        nt = tvn.get("non_test_code", {})
-        out.append("### Test Code vs. Non-Test Code Summary\n")
-        out.append("_Test code = files matched by `test_file_detection` keywords._\n")
+        out.append("### Hit File % per Repo (Ranked)\n")
+        out.append(f"![Hit file % per repo]({_line_chart(ranks, hit_file_vals, 'Hit File % per Repo (Ranked Highest → Lowest)', 'Rank (1 = highest hit file %)', 'Hit File %', plots_dir / f'density_hit_file_pct.{cfg.PLOT_FORMAT}')})\n")
+        if hit_file_vals:
+            import statistics as _stats
+            hf_stats = {
+                "avg":    round(sum(hit_file_vals) / len(hit_file_vals), 2),
+                "median": round(_stats.median(hit_file_vals), 2),
+                "max":    round(max(hit_file_vals), 2),
+                "min":    round(min(hit_file_vals), 2),
+                "stdev":  round(_stats.stdev(hit_file_vals), 2) if len(hit_file_vals) >= 2 else 0,
+                "count":  len(hit_file_vals),
+            }
+            out.append(_table(
+                ["Metric", "Avg", "Median", "Max", "Min", "Std Dev", "N Repos"],
+                [["Hit File % per repo"] + _stat_cells(hf_stats)],
+            ) + "\n")
+
+    # Top 20 repos by specific hits — bar values + table (Item 26)
+    spec_ranked = ca.get("specific_hits_ranked", [])
+    top20 = spec_ranked[:20]
+    if top20:
+        out.append("### Top 20 Repos by Specific Keyword Hits\n")
+        out.append(f"![Top repos by specific hits]({_bar_chart([_trunc(r['name'],30) for r in top20], [r['hits'] for r in top20], 'Top 20 Repos by Specific Keyword Hits', 'Repository', 'Specific Hits', plots_dir / f'specific_hits_ranked.{cfg.PLOT_FORMAT}', horizontal=True, figsize=(9, max(4, len(top20)*0.22+2)))})\n")
         out.append(_table(
-            ["Category", "Files", "% of All Files", "Lines", "% of All Lines",
-             "General Hits", "Specific Hits", "Hit File %", "Hit Line %"],
-            [["Test code",
-              _fmt(tc.get("files",0)), _pct(tc.get("pct_of_all_files",0)),
-              _fmt(tc.get("lines",0)), _pct(tc.get("pct_of_all_lines",0)),
-              _fmt(tc.get("general_hits",0)), _fmt(tc.get("specific_hits",0)),
-              _pct(tc.get("hit_file_pct",0)), _pct(tc.get("hit_line_pct",0))],
-             ["Non-test code",
-              _fmt(nt.get("files",0)), _pct(nt.get("pct_of_all_files",0)),
-              _fmt(nt.get("lines",0)), _pct(nt.get("pct_of_all_lines",0)),
-              _fmt(nt.get("general_hits",0)), _fmt(nt.get("specific_hits",0)),
-              _pct(nt.get("hit_file_pct",0)), _pct(nt.get("hit_line_pct",0))]],
+            ["#", "Repository", "Specific Hits"],
+            [[i+1, r["name"], _fmt(r["hits"])] for i, r in enumerate(top20)],
         ) + "\n")
 
     # Density summary stats
@@ -499,41 +655,49 @@ def _section_repo_classification(
     out.append(f"![Repo classification]({_bar_chart(labels, vals, 'Repo Classification', 'Classification', 'Count', plots_dir / f'repo_classification.{cfg.PLOT_FORMAT}', color=_PALETTE[0])})\n")
 
 
-def _section_artifact_classification(
+def _section_technique_file_extensions(
     overall: dict, plots_dir: Path, technique_name: str, out: list[str]
 ) -> None:
-    out.append("## 5. Artifact Classification\n")
+    """Section 5: File extensions and language distribution scoped to technique files only."""
+    out.append("## 5. Technique File Extensions and Language Distribution\n")
     out.append(
-        "> **Data source:** Code analysis phase — all scanned files classified by file extension "
-        "(not keyword hits). Extensions are grouped into: code / docs / config / other.\n"
+        "> **Data source:** Code analysis phase — file extensions and language counts "
+        "restricted to files with ≥1 `specific_technique` keyword hit. "
+        "Binary and image files are excluded. Language is derived from file extension. "
+        "Language counts are deduplicated per repo (+1 per language per repo maximum).\n"
     )
     ca  = overall.get("code_analysis", {})
-    art = ca.get("artifact_classification", {})
-    if not art:
-        out.append("_No artifact classification data available._\n")
+    tfs = ca.get("technique_file_stats", {})
+    if not tfs:
+        out.append("_No technique file data available._\n")
         return
 
-    by_cat      = art.get("by_category", {})
-    by_cat_pct  = art.get("by_category_pct", {})
-    by_ext      = art.get("by_extension", {})
-    total_files = art.get("total_files", 1)
+    by_ext = tfs.get("ext_counts", {})
+    by_lang = tfs.get("lang_distribution", {})
+    total_tech_files = tfs.get("total_technique_files", 0)
 
-    out.append("### File Type Breakdown\n")
-    cat_rows = [[c.capitalize(), _fmt(by_cat.get(c,0)), _pct(by_cat_pct.get(c,0))]
-                for c in ["code", "docs", "config", "other"]]
-    out.append(_table(["Type", "Files", "% of All Files"], cat_rows) + "\n")
-    out.append(f"![Artifact type distribution]({_bar_chart([c.capitalize() for c in ['code','docs','config','other']], [by_cat.get(c,0) for c in ['code','docs','config','other']], 'File Type Distribution', 'File Type', 'File Count', plots_dir / f'artifact_type.{cfg.PLOT_FORMAT}', color=_PALETTE[3])})\n")
+    out.append(f"_Total technique files (≥1 specific hit, non-binary): **{_fmt(total_tech_files)}**_\n")
 
     if by_ext:
         sorted_exts = sorted(by_ext.items(), key=lambda x: x[1], reverse=True)
-        out.append("### File Extensions (All Detected, Ranked)\n")
+        out.append("### Technique File Extensions (Ranked)\n")
         out.append(_table(
-            ["Extension", "File Count", "% of All Files"],
-            [[ext or "(none)", _fmt(cnt), _pct(cnt / max(total_files,1) * 100)]
-             for ext, cnt in sorted_exts[:50]],
+            ["Extension", "File Count", "% of Technique Files"],
+            [[ext or "(none)", _fmt(cnt), _pct(cnt / max(total_tech_files, 1) * 100)]
+             for ext, cnt in sorted_exts],
         ) + "\n")
         top_ext = sorted_exts[:20]
-        out.append(f"![Top file extensions]({_bar_chart([e[0] or '(none)' for e in top_ext], [e[1] for e in top_ext], 'Top 20 File Extensions', 'Extension', 'File Count', plots_dir / f'artifact_extensions.{cfg.PLOT_FORMAT}', color=_PALETTE[4])})\n")
+        out.append(f"![Technique file extensions]({_bar_chart([e[0] or '(none)' for e in top_ext], [e[1] for e in top_ext], 'Top 20 Technique File Extensions', 'Extension', 'File Count', plots_dir / f'technique_extensions.{cfg.PLOT_FORMAT}', color=_PALETTE[4])})\n")
+
+    if by_lang:
+        top_lang = list(by_lang.items())[:20]
+        out.append("### Technique File Language Distribution (per-Repo Deduplicated)\n")
+        out.append("_Each language counted at most once per repo (repos using Python + Java = +1 for each)._\n")
+        out.append(_table(
+            ["Language", "Repos with Technique Files"],
+            [[lang, _fmt(cnt)] for lang, cnt in top_lang],
+        ) + "\n")
+        out.append(f"![Technique language distribution]({_bar_chart([t[0] for t in top_lang], [t[1] for t in top_lang], 'Language Distribution — Technique Files Only (per-Repo Deduplicated)', 'Language', 'Repos', plots_dir / f'technique_language_distribution.{cfg.PLOT_FORMAT}', color=_PALETTE[0], horizontal=True, figsize=(8, max(4, len(top_lang)*0.3+2)))})\n")
 
 
 def _section_language(
@@ -542,13 +706,14 @@ def _section_language(
     out.append("## 6. Language Distribution\n")
     out.append(
         "> **Data source:** Code analysis phase — primary language of each cloned repo "
-        "plus per-file language detection from the scan.\n"
+        "plus per-file language detection from the scan. "
+        "Each language is counted once per repo it appears in.\n"
     )
     lang_code = overall.get("code_analysis", {}).get("language_distribution", {})
     if not lang_code:
         return
     top = list(lang_code.items())[:20]
-    out.append(f"![Language distribution (code)]({_bar_chart([t[0] for t in top], [t[1] for t in top], 'Language Distribution (Code Repos)', 'Language', 'Repos', plots_dir / f'language_distribution.{cfg.PLOT_FORMAT}', color=_PALETTE[0], horizontal=True, figsize=(8, max(4, len(top)*0.3+2)))})\n")
+    out.append(f"![Language distribution (code)]({_bar_chart([t[0] for t in top], [t[1] for t in top], 'Language Distribution (Code Repos, All Files)', 'Language', 'Repos', plots_dir / f'language_distribution.{cfg.PLOT_FORMAT}', color=_PALETTE[0], horizontal=True, figsize=(8, max(4, len(top)*0.3+2)))})\n")
     out.append(_table(["Language", "Repos"], [[lang, _fmt(cnt)] for lang, cnt in top]) + "\n")
 
 
@@ -592,8 +757,10 @@ def _section_timeline(
 ) -> None:
     out.append("## 8. Timeline\n")
     out.append(
-        "> **Data source:** Code analysis phase — git commit history mined via PyDriller "
-        "(or `git log` fallback). Creation dates from GitHub API metadata.\n"
+        "> **Data source:** Code analysis phase — git commit history mined via PyDriller. "
+        "Only commits from the local git history of cloned repos are counted. "
+        "Technique commits are those touching files with ≥1 `specific_technique` hit. "
+        "Creation dates from GitHub API metadata.\n"
     )
     ca = overall.get("code_analysis", {})
     tl = ca.get("timeline", {})
@@ -604,30 +771,68 @@ def _section_timeline(
     cy = tl.get("creation_years", {})
     if cy:
         out.append(f"![Creation years]({_bar_chart([str(y) for y in sorted(cy)], [cy[y] for y in sorted(cy)], 'Repos by Creation Year', 'Year', 'Repos Created', plots_dir / f'creation_years.{cfg.PLOT_FORMAT}', color=_PALETTE[0])})\n")
+        out.append(_table(["Year", "Repos Created"], [[str(y), _fmt(cy[y])] for y in sorted(cy)]) + "\n")
 
+    # Technique Commit Span — avg interval between consecutive technique commits (Item 29)
     css = tl.get("commit_span_stats", {})
     if css:
-        out.append("#### Commit Span Statistics\n")
+        out.append("### Technique Commit Span\n")
+        out.append(
+            "_Technique Commit Span = total days between the first and last commit touching "
+            "a technique file in each repo (mined from PyDriller git history)._\n"
+        )
         out.append(_table(
             ["Metric", "Avg", "Median", "Max (days)", "Min (days)", "Std Dev", "N Repos"],
-            [["Commit span (days)"] + _stat_cells(css)],
+            [["Technique commit span (days)"] + _stat_cells(css)],
         ) + "\n")
 
     cs_sorted = ca.get("commit_spans_sorted", [])
     if cs_sorted:
         ranks = list(range(1, len(cs_sorted) + 1))
-        out.append(f"![Commit span distribution]({_line_chart(ranks, [r['span_days'] for r in cs_sorted], 'Commit Span per Repo (Ranked Longest → Shortest)', 'Rank (1 = longest span)', 'Span (days)', plots_dir / f'commit_span_distribution.{cfg.PLOT_FORMAT}')})\n")
+        out.append(f"![Commit span distribution]({_line_chart(ranks, [r['span_days'] for r in cs_sorted], 'Technique Commit Span per Repo (Ranked Longest → Shortest)', 'Rank (1 = longest span)', 'Span (days)', plots_dir / f'commit_span_distribution.{cfg.PLOT_FORMAT}')})\n")
 
     cbm  = tl.get("commits_by_month", {})
     tcbm = tl.get("technique_commits_by_month", {})
 
     if cbm:
-        months = sorted(cbm.keys())
-        out.append(f"![Commits by month]({_line_chart(list(range(len(months))), [cbm[m] for m in months], 'Monthly Commit Activity (All Repos)', 'Month', 'Commits', plots_dir / f'commits_by_month.{cfg.PLOT_FORMAT}', x_labels=months)})\n")
+        months     = sorted(cbm.keys())
+        cbm_vals   = [cbm[m] for m in months]
+        out.append("### Monthly Commit Activity (All Commits)\n")
+        out.append(f"![Commits by month]({_line_chart(list(range(len(months))), cbm_vals, 'Monthly Commit Activity (All Repos, All Commits)', 'Month', 'Commits', plots_dir / f'commits_by_month.{cfg.PLOT_FORMAT}', x_labels=months)})\n")
+        import statistics as _stats
+        if cbm_vals:
+            cbm_stats = {
+                "avg":    round(sum(cbm_vals) / len(cbm_vals), 2),
+                "median": round(_stats.median(cbm_vals), 2),
+                "max":    round(max(cbm_vals), 2),
+                "min":    round(min(cbm_vals), 2),
+                "stdev":  round(_stats.stdev(cbm_vals), 2) if len(cbm_vals) >= 2 else 0,
+                "count":  len(cbm_vals),
+            }
+            out.append(_table(
+                ["Metric", "Avg", "Median", "Max", "Min", "Std Dev", "Months"],
+                [["Commits per month"] + _stat_cells(cbm_stats)],
+            ) + "\n")
 
     if tcbm:
-        months = sorted(tcbm.keys())
-        out.append(f"![Technique commits by month]({_line_chart(list(range(len(months))), [tcbm[m] for m in months], 'Monthly Technique-Keyword Commits', 'Month', 'Technique Commits', plots_dir / f'technique_commits_by_month.{cfg.PLOT_FORMAT}', x_labels=months)})\n")
+        months    = sorted(tcbm.keys())
+        tcbm_vals = [tcbm[m] for m in months]
+        out.append("### Monthly Technique Commit Activity\n")
+        out.append(f"![Technique commits by month]({_line_chart(list(range(len(months))), tcbm_vals, 'Monthly Technique-Keyword Commits (PyDriller git history)', 'Month', 'Technique Commits', plots_dir / f'technique_commits_by_month.{cfg.PLOT_FORMAT}', x_labels=months)})\n")
+        import statistics as _stats
+        if tcbm_vals:
+            tcbm_stats = {
+                "avg":    round(sum(tcbm_vals) / len(tcbm_vals), 2),
+                "median": round(_stats.median(tcbm_vals), 2),
+                "max":    round(max(tcbm_vals), 2),
+                "min":    round(min(tcbm_vals), 2),
+                "stdev":  round(_stats.stdev(tcbm_vals), 2) if len(tcbm_vals) >= 2 else 0,
+                "count":  len(tcbm_vals),
+            }
+            out.append(_table(
+                ["Metric", "Avg", "Median", "Max", "Min", "Std Dev", "Months"],
+                [["Technique commits per month"] + _stat_cells(tcbm_stats)],
+            ) + "\n")
 
     # Proportion chart — technique commits vs total commits over time
     if cbm and tcbm:
@@ -645,7 +850,7 @@ def _section_timeline(
         ax.set_xticklabels(all_months[::step], rotation=35, ha="right", fontsize=6)
         ax.set_xlabel("Month")
         ax.set_ylabel("Commits")
-        ax.set_title("Total vs Technique Commits per Month")
+        ax.set_title("Total vs Technique Commits per Month (PyDriller git history)")
         ax.legend(fontsize=8)
         out.append(f"![Total vs technique commits]({_save(fig, plots_dir / f'commits_proportion.{cfg.PLOT_FORMAT}')})\n")
 
@@ -712,7 +917,7 @@ def run(slug: str) -> None:
     _section_search_distribution(overall, plots_dir, tech_name, out)
     _section_technique_density(overall, plots_dir, tech_name, out)
     _section_repo_classification(overall, plots_dir, tech_name, out)
-    _section_artifact_classification(overall, plots_dir, tech_name, out)
+    _section_technique_file_extensions(overall, plots_dir, tech_name, out)
     _section_language(overall, plots_dir, tech_name, out)
     _section_domain(overall, plots_dir, tech_name, out)
     _section_timeline(overall, plots_dir, tech_name, out)

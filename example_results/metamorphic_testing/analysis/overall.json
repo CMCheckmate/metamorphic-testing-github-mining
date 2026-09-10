@@ -1,0 +1,3356 @@
+{
+  "slug": "metamorphic_testing",
+  "repos_found_total": 140,
+  "repos_by_surface": {
+    "code": 30,
+    "repos": 40,
+    "commits": 25,
+    "prs": 15,
+    "issues": 20,
+    "discussions": 10
+  },
+  "repo_size_stats": {
+    "overall": {
+      "avg": 55795.73,
+      "median": 43213.5,
+      "max": 194670.0,
+      "min": 156.0,
+      "stdev": 45455.57,
+      "range": 194514.0,
+      "count": 140
+    },
+    "by_surface": {
+      "code": {
+        "avg": 22162.5,
+        "median": 20987.5,
+        "max": 49630.0,
+        "min": 525.0,
+        "stdev": 13422.61,
+        "range": 49105.0,
+        "count": 30
+      },
+      "repos": {
+        "avg": 97951.85,
+        "median": 108517.5,
+        "max": 194670.0,
+        "min": 156.0,
+        "stdev": 55333.37,
+        "range": 194514.0,
+        "count": 40
+      },
+      "commits": {
+        "avg": 38751.64,
+        "median": 38502.0,
+        "max": 76669.0,
+        "min": 1874.0,
+        "stdev": 21263.02,
+        "range": 74795.0,
+        "count": 25
+      },
+      "prs": {
+        "avg": 63987.8,
+        "median": 79856.0,
+        "max": 95214.0,
+        "min": 200.0,
+        "stdev": 33493.43,
+        "range": 95014.0,
+        "count": 15
+      },
+      "issues": {
+        "avg": 50762.95,
+        "median": 53406.0,
+        "max": 96326.0,
+        "min": 2769.0,
+        "stdev": 25471.02,
+        "range": 93557.0,
+        "count": 20
+      },
+      "discussions": {
+        "avg": 28458.6,
+        "median": 25176.0,
+        "max": 56306.0,
+        "min": 7498.0,
+        "stdev": 16382.88,
+        "range": 48808.0,
+        "count": 10
+      }
+    }
+  },
+  "search_summary": {
+    "code": {
+      "search_hit_count": 1577,
+      "unique_results": 833,
+      "keywords_ranked": [
+        {
+          "keyword": "metamorphic relation",
+          "search_hit_count": 262,
+          "unique_results": 219
+        },
+        {
+          "keyword": "metamorphic testing",
+          "search_hit_count": 229,
+          "unique_results": 208
+        },
+        {
+          "keyword": "MetamorphicTest",
+          "search_hit_count": 231,
+          "unique_results": 185
+        }
+      ]
+    },
+    "repos": {
+      "search_hit_count": 1986,
+      "unique_results": 1542,
+      "keywords_ranked": [
+        {
+          "keyword": "MetamorphicTest",
+          "search_hit_count": 490,
+          "unique_results": 460
+        },
+        {
+          "keyword": "metamorphic testing",
+          "search_hit_count": 308,
+          "unique_results": 241
+        },
+        {
+          "keyword": "metamorphic relation",
+          "search_hit_count": 31,
+          "unique_results": 19
+        }
+      ]
+    },
+    "issues": {
+      "search_hit_count": 923,
+      "unique_results": 746,
+      "keywords_ranked": [
+        {
+          "keyword": "metamorphic testing",
+          "search_hit_count": 125,
+          "unique_results": 110
+        },
+        {
+          "keyword": "metamorphic relation",
+          "search_hit_count": 113,
+          "unique_results": 71
+        },
+        {
+          "keyword": "MetamorphicTest",
+          "search_hit_count": 20,
+          "unique_results": 14
+        }
+      ]
+    },
+    "prs": {
+      "search_hit_count": 353,
+      "unique_results": 186,
+      "keywords_ranked": [
+        {
+          "keyword": "metamorphic relation",
+          "search_hit_count": 37,
+          "unique_results": 30
+        },
+        {
+          "keyword": "MetamorphicTest",
+          "search_hit_count": 20,
+          "unique_results": 15
+        },
+        {
+          "keyword": "metamorphic testing",
+          "search_hit_count": 17,
+          "unique_results": 14
+        }
+      ]
+    },
+    "commits": {
+      "search_hit_count": 1273,
+      "unique_results": 940,
+      "keywords_ranked": [
+        {
+          "keyword": "metamorphic testing",
+          "search_hit_count": 232,
+          "unique_results": 186
+        },
+        {
+          "keyword": "metamorphic relation",
+          "search_hit_count": 220,
+          "unique_results": 140
+        },
+        {
+          "keyword": "MetamorphicTest",
+          "search_hit_count": 58,
+          "unique_results": 54
+        }
+      ]
+    },
+    "discussions": {
+      "search_hit_count": 1383,
+      "unique_results": 1237,
+      "keywords_ranked": [
+        {
+          "keyword": "metamorphic testing",
+          "search_hit_count": 282,
+          "unique_results": 250
+        },
+        {
+          "keyword": "MetamorphicTest",
+          "search_hit_count": 116,
+          "unique_results": 88
+        },
+        {
+          "keyword": "metamorphic relation",
+          "search_hit_count": 110,
+          "unique_results": 84
+        }
+      ]
+    },
+    "keywords_cross_surface": [
+      {
+        "surface": "repos",
+        "keyword": "MetamorphicTest",
+        "surface_label": "REPOS: MetamorphicTest",
+        "search_hit_count": 490,
+        "unique_results": 460
+      },
+      {
+        "surface": "discussions",
+        "keyword": "metamorphic testing",
+        "surface_label": "DISCUSSIONS: metamorphic testing",
+        "search_hit_count": 282,
+        "unique_results": 250
+      },
+      {
+        "surface": "repos",
+        "keyword": "metamorphic testing",
+        "surface_label": "REPOS: metamorphic testing",
+        "search_hit_count": 308,
+        "unique_results": 241
+      },
+      {
+        "surface": "code",
+        "keyword": "metamorphic relation",
+        "surface_label": "CODE: metamorphic relation",
+        "search_hit_count": 262,
+        "unique_results": 219
+      },
+      {
+        "surface": "code",
+        "keyword": "metamorphic testing",
+        "surface_label": "CODE: metamorphic testing",
+        "search_hit_count": 229,
+        "unique_results": 208
+      },
+      {
+        "surface": "commits",
+        "keyword": "metamorphic testing",
+        "surface_label": "COMMITS: metamorphic testing",
+        "search_hit_count": 232,
+        "unique_results": 186
+      },
+      {
+        "surface": "code",
+        "keyword": "MetamorphicTest",
+        "surface_label": "CODE: MetamorphicTest",
+        "search_hit_count": 231,
+        "unique_results": 185
+      },
+      {
+        "surface": "commits",
+        "keyword": "metamorphic relation",
+        "surface_label": "COMMITS: metamorphic relation",
+        "search_hit_count": 220,
+        "unique_results": 140
+      },
+      {
+        "surface": "issues",
+        "keyword": "metamorphic testing",
+        "surface_label": "ISSUES: metamorphic testing",
+        "search_hit_count": 125,
+        "unique_results": 110
+      },
+      {
+        "surface": "discussions",
+        "keyword": "MetamorphicTest",
+        "surface_label": "DISCUSSIONS: MetamorphicTest",
+        "search_hit_count": 116,
+        "unique_results": 88
+      },
+      {
+        "surface": "discussions",
+        "keyword": "metamorphic relation",
+        "surface_label": "DISCUSSIONS: metamorphic relation",
+        "search_hit_count": 110,
+        "unique_results": 84
+      },
+      {
+        "surface": "issues",
+        "keyword": "metamorphic relation",
+        "surface_label": "ISSUES: metamorphic relation",
+        "search_hit_count": 113,
+        "unique_results": 71
+      },
+      {
+        "surface": "commits",
+        "keyword": "MetamorphicTest",
+        "surface_label": "COMMITS: MetamorphicTest",
+        "search_hit_count": 58,
+        "unique_results": 54
+      },
+      {
+        "surface": "prs",
+        "keyword": "metamorphic relation",
+        "surface_label": "PRS: metamorphic relation",
+        "search_hit_count": 37,
+        "unique_results": 30
+      },
+      {
+        "surface": "repos",
+        "keyword": "metamorphic relation",
+        "surface_label": "REPOS: metamorphic relation",
+        "search_hit_count": 31,
+        "unique_results": 19
+      },
+      {
+        "surface": "prs",
+        "keyword": "MetamorphicTest",
+        "surface_label": "PRS: MetamorphicTest",
+        "search_hit_count": 20,
+        "unique_results": 15
+      },
+      {
+        "surface": "issues",
+        "keyword": "MetamorphicTest",
+        "surface_label": "ISSUES: MetamorphicTest",
+        "search_hit_count": 20,
+        "unique_results": 14
+      },
+      {
+        "surface": "prs",
+        "keyword": "metamorphic testing",
+        "surface_label": "PRS: metamorphic testing",
+        "search_hit_count": 17,
+        "unique_results": 14
+      }
+    ],
+    "keywords_total": {
+      "metamorphic testing": 1009,
+      "MetamorphicTest": 816,
+      "metamorphic relation": 563
+    }
+  },
+  "search_hit_distributions": {
+    "code": [
+      {
+        "name": "elastic/test-utils-4",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "hashicorp/test-utils-87",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "google/test-utils-28",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "mozilla/research-artifact-54",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "university-test-lab/fuzzer-90",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "university-test-lab/metamorphic-lib-14",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "stripe/mt-examples-6",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "microsoft/research-artifact-38",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "hashicorp/test-utils-6",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "research-artifact/test-utils-49",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "netflix/property-tests-86",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "hashicorp/property-tests-21",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "elastic/metamorphic-lib-99",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "facebook/test-utils-28",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "uber/fuzz-harness-83",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "hashicorp/research-artifact-69",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "airbnb/metamorphic-lib-29",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "google/test-utils-20",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "airbnb/study-replication-60",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "hashicorp/test-utils-88",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "airbnb/fuzzer-59",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "shopify/test-utils-81",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "netflix/fuzzer-70",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "google/test-utils-47",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "microsoft/test-utils-94",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "elastic/pbt-demo-71",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "academic-proj/research-artifact-97",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "elastic/metamorphic-lib-57",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "microsoft/metamorphic-lib-3",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "microsoft/testing-framework-30",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      }
+    ],
+    "repos": [
+      {
+        "name": "mozilla/mt-examples-86",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "airbnb/fuzz-harness-60",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "apache/mt-examples-60",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "research-artifact/property-tests-22",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "hashicorp/research-artifact-85",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "shopify/research-artifact-21",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "academic-proj/study-replication-32",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "facebook/property-tests-86",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "stripe/test-utils-10",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "research-artifact/research-artifact-91",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "facebook/mt-examples-78",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "facebook/testing-framework-1",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "research-artifact/metamorphic-lib-75",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "mozilla/test-utils-46",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "university-test-lab/fuzz-harness-86",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "academic-proj/pbt-demo-45",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "shopify/fuzz-harness-87",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "university-test-lab/metamorphic-lib-56",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "shopify/property-tests-47",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "shopify/fuzzer-25",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "mozilla/fuzz-harness-75",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "elastic/study-replication-43",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "university-test-lab/test-utils-59",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "university-test-lab/research-artifact-60",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "airbnb/research-artifact-58",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "facebook/property-tests-35",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "microsoft/fuzz-harness-53",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "google/study-replication-49",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "airbnb/metamorphic-lib-86",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "google/test-utils-83",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "netflix/fuzz-harness-36",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "university-test-lab/testing-framework-97",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "mozilla/pbt-demo-90",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "facebook/study-replication-87",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "airbnb/metamorphic-lib-9",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "shopify/mt-examples-79",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "stripe/study-replication-86",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "stripe/mt-examples-72",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "hashicorp/pbt-demo-58",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "hashicorp/research-artifact-43",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      }
+    ],
+    "commits": [
+      {
+        "name": "hashicorp/fuzz-harness-84",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "netflix/pbt-demo-70",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "mozilla/test-utils-56",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "hashicorp/mt-examples-4",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "netflix/metamorphic-lib-56",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "stripe/fuzzer-22",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "uber/study-replication-19",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "facebook/testing-framework-60",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "netflix/study-replication-39",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "research-artifact/mt-examples-26",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "airbnb/study-replication-46",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "research-artifact/fuzz-harness-36",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "university-test-lab/property-tests-78",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "elastic/fuzzer-81",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "google/study-replication-47",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "netflix/fuzz-harness-23",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "shopify/research-artifact-35",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "hashicorp/metamorphic-lib-15",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "research-artifact/fuzz-harness-72",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "facebook/research-artifact-16",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "airbnb/metamorphic-lib-14",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "stripe/research-artifact-42",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "academic-proj/mt-examples-84",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "google/mt-examples-64",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "apache/fuzz-harness-59",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      }
+    ],
+    "prs": [
+      {
+        "name": "microsoft/metamorphic-lib-33",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "elastic/research-artifact-60",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "university-test-lab/pbt-demo-81",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "academic-proj/mt-examples-57",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "university-test-lab/property-tests-91",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "microsoft/property-tests-15",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "facebook/research-artifact-91",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "uber/research-artifact-19",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "facebook/fuzz-harness-44",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "facebook/study-replication-75",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "uber/metamorphic-lib-43",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "mozilla/study-replication-50",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "academic-proj/fuzz-harness-50",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "stripe/metamorphic-lib-13",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "apache/fuzz-harness-84",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      }
+    ],
+    "issues": [
+      {
+        "name": "university-test-lab/fuzzer-25",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "microsoft/property-tests-38",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "shopify/fuzzer-36",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "elastic/pbt-demo-14",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "apache/testing-framework-33",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "microsoft/study-replication-81",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "microsoft/property-tests-16",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "uber/pbt-demo-39",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "stripe/test-utils-98",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "apache/research-artifact-10",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "uber/mt-examples-5",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "microsoft/property-tests-34",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "elastic/fuzzer-35",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "hashicorp/study-replication-37",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "facebook/research-artifact-70",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "netflix/study-replication-33",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "university-test-lab/mt-examples-74",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "academic-proj/mt-examples-24",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "netflix/fuzz-harness-43",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "hashicorp/pbt-demo-37",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      }
+    ],
+    "discussions": [
+      {
+        "name": "academic-proj/fuzz-harness-84",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "facebook/testing-framework-89",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "research-artifact/metamorphic-lib-13",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "google/fuzz-harness-36",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "mozilla/study-replication-3",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "university-test-lab/study-replication-27",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "mozilla/property-tests-43",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "apache/fuzzer-70",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "research-artifact/testing-framework-17",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      },
+      {
+        "name": "google/fuzzer-34",
+        "hit_count": 1,
+        "unique_keyword_count": 1
+      }
+    ]
+  },
+  "code_analysis": {
+    "repo_count": 20,
+    "specific_hits_per_repo": {
+      "avg": 108.7,
+      "median": 120.0,
+      "max": 196,
+      "min": 5,
+      "stdev": 63.71,
+      "range": 191,
+      "count": 20
+    },
+    "general_hits_per_repo": {
+      "avg": 312.4,
+      "median": 218.5,
+      "max": 861,
+      "min": 10,
+      "stdev": 231.81,
+      "range": 851,
+      "count": 20
+    },
+    "files_per_repo": {
+      "avg": 98.0,
+      "median": 100.5,
+      "max": 197,
+      "min": 23,
+      "stdev": 46.09,
+      "range": 174,
+      "count": 20
+    },
+    "hit_files_per_repo": {
+      "avg": 17.95,
+      "median": 18.0,
+      "max": 36,
+      "min": 3,
+      "stdev": 9.75,
+      "range": 33,
+      "count": 20
+    },
+    "lines_per_repo": {
+      "avg": 52250.35,
+      "median": 53179.5,
+      "max": 99751,
+      "min": 3762,
+      "stdev": 33183.45,
+      "range": 95989,
+      "count": 20
+    },
+    "hit_lines_per_repo": {
+      "avg": 1429.7,
+      "median": 925.0,
+      "max": 3547,
+      "min": 41,
+      "stdev": 1199.2,
+      "range": 3506,
+      "count": 20
+    },
+    "stars_stats": {
+      "avg": 2703.85,
+      "median": 3014.5,
+      "max": 4965.0,
+      "min": 192.0,
+      "stdev": 1555.2,
+      "range": 4773.0,
+      "count": 20
+    },
+    "classification_counts": {
+      "actual_usage": 13,
+      "framework": 4,
+      "research_artifact": 2,
+      "unclassified": 1
+    },
+    "language_distribution": {
+      "TypeScript": 8,
+      "Java": 6,
+      "C++": 6,
+      "Haskell": 4,
+      "Python": 4,
+      "Rust": 2,
+      "Erlang": 2,
+      "C": 2,
+      "Scala": 2,
+      "Ruby": 2,
+      "Go": 2
+    },
+    "by_category": {
+      "test_code": {
+        "total_files": 438,
+        "hit_file_count": 104,
+        "total_lines": 182539,
+        "hit_line_count": 1125,
+        "total_general_hits": 2653,
+        "total_specific_hits": 471,
+        "hit_file_pct": 23.7,
+        "hit_line_pct": 0.6,
+        "pct_of_all_files": 17.0,
+        "pct_of_all_lines": 20.6
+      },
+      "source_code": {
+        "total_files": 499,
+        "hit_file_count": 104,
+        "total_lines": 172045,
+        "hit_line_count": 1053,
+        "total_general_hits": 1819,
+        "total_specific_hits": 423,
+        "hit_file_pct": 20.8,
+        "hit_line_pct": 0.6,
+        "pct_of_all_files": 19.4,
+        "pct_of_all_lines": 19.4
+      },
+      "docs": {
+        "total_files": 459,
+        "hit_file_count": 104,
+        "total_lines": 225170,
+        "hit_line_count": 1080,
+        "total_general_hits": 2367,
+        "total_specific_hits": 480,
+        "hit_file_pct": 22.7,
+        "hit_line_pct": 0.5,
+        "pct_of_all_files": 17.9,
+        "pct_of_all_lines": 25.4
+      },
+      "config": {
+        "total_files": 541,
+        "hit_file_count": 115,
+        "total_lines": 156662,
+        "hit_line_count": 1129,
+        "total_general_hits": 1771,
+        "total_specific_hits": 492,
+        "hit_file_pct": 21.3,
+        "hit_line_pct": 0.7,
+        "pct_of_all_files": 21.1,
+        "pct_of_all_lines": 17.7
+      },
+      "other": {
+        "total_files": 632,
+        "hit_file_count": 102,
+        "total_lines": 148363,
+        "hit_line_count": 1214,
+        "total_general_hits": 1964,
+        "total_specific_hits": 462,
+        "hit_file_pct": 16.1,
+        "hit_line_pct": 0.8,
+        "pct_of_all_files": 24.6,
+        "pct_of_all_lines": 16.8
+      }
+    },
+    "keywords_ranked": [
+      {
+        "id": "abbrev_MT",
+        "label": "abbreviation MT",
+        "count": 366,
+        "category": "specific_technique"
+      },
+      {
+        "id": "phrase_mt",
+        "label": "metamorphic test(ing)",
+        "count": 319,
+        "category": "specific_technique"
+      },
+      {
+        "id": "mr_def",
+        "label": "metamorphic relation",
+        "count": 287,
+        "category": "specific_technique"
+      },
+      {
+        "id": "assert_gen",
+        "label": "assertRelation",
+        "count": 265,
+        "category": "specific_technique"
+      },
+      {
+        "id": "class_mt",
+        "label": "class MetamorphicTest",
+        "count": 216,
+        "category": "specific_technique"
+      }
+    ],
+    "keywords_by_category": [
+      {
+        "id": "assert_gen",
+        "label": "assertRelation",
+        "total_count": 582,
+        "hits_test_code": 181,
+        "hits_source_code": 367,
+        "hits_docs": 20,
+        "hits_config": 14,
+        "hits_other": 0,
+        "category": ""
+      },
+      {
+        "id": "mr_def",
+        "label": "metamorphic relation",
+        "total_count": 567,
+        "hits_test_code": 113,
+        "hits_source_code": 396,
+        "hits_docs": 28,
+        "hits_config": 30,
+        "hits_other": 0,
+        "category": ""
+      },
+      {
+        "id": "abbrev_MT",
+        "label": "abbreviation MT",
+        "total_count": 549,
+        "hits_test_code": 157,
+        "hits_source_code": 359,
+        "hits_docs": 16,
+        "hits_config": 17,
+        "hits_other": 0,
+        "category": "specific_technique"
+      },
+      {
+        "id": "phrase_mt",
+        "label": "metamorphic test(ing)",
+        "total_count": 484,
+        "hits_test_code": 116,
+        "hits_source_code": 319,
+        "hits_docs": 23,
+        "hits_config": 26,
+        "hits_other": 0,
+        "category": "specific_technique"
+      },
+      {
+        "id": "class_mt",
+        "label": "class MetamorphicTest",
+        "total_count": 417,
+        "hits_test_code": 124,
+        "hits_source_code": 272,
+        "hits_docs": 6,
+        "hits_config": 12,
+        "hits_other": 3,
+        "category": "specific_technique"
+      }
+    ],
+    "test_vs_nontest_stats": {
+      "test_code": {
+        "files": 438,
+        "lines": 182539,
+        "specific_hits": 471,
+        "general_hits": 2653,
+        "pct_of_all_files": 17.0,
+        "pct_of_all_lines": 20.6,
+        "hit_file_pct": 23.7,
+        "hit_line_pct": 0.6
+      },
+      "non_test_code": {
+        "files": 2131,
+        "lines": 702240,
+        "specific_hits": 1857,
+        "general_hits": 7921,
+        "hit_files": 425,
+        "hit_lines": 4476,
+        "pct_of_all_files": 83.0,
+        "pct_of_all_lines": 79.4,
+        "hit_file_pct": 19.9,
+        "hit_line_pct": 0.6
+      },
+      "total_files": 2569,
+      "total_lines": 884779
+    },
+    "hit_pct_distribution": [
+      {
+        "name": "university-test-lab/fuzz-harness-71",
+        "specific_hits": 108,
+        "total_lines": 44150,
+        "total_files": 197,
+        "hit_pct_lines": 4.9,
+        "hit_pct_files": 18.27
+      },
+      {
+        "name": "uber/property-tests-36",
+        "specific_hits": 158,
+        "total_lines": 3762,
+        "total_files": 114,
+        "hit_pct_lines": 4.52,
+        "hit_pct_files": 17.54
+      },
+      {
+        "name": "stripe/property-tests-41",
+        "specific_hits": 151,
+        "total_lines": 31077,
+        "total_files": 96,
+        "hit_pct_lines": 4.42,
+        "hit_pct_files": 3.12
+      },
+      {
+        "name": "netflix/mt-examples-25",
+        "specific_hits": 64,
+        "total_lines": 7817,
+        "total_files": 101,
+        "hit_pct_lines": 4.31,
+        "hit_pct_files": 10.89
+      },
+      {
+        "name": "stripe/metamorphic-lib-30",
+        "specific_hits": 74,
+        "total_lines": 14489,
+        "total_files": 154,
+        "hit_pct_lines": 4.0,
+        "hit_pct_files": 9.09
+      },
+      {
+        "name": "academic-proj/fuzzer-84",
+        "specific_hits": 8,
+        "total_lines": 91778,
+        "total_files": 136,
+        "hit_pct_lines": 3.86,
+        "hit_pct_files": 25.0
+      },
+      {
+        "name": "airbnb/metamorphic-lib-29",
+        "specific_hits": 132,
+        "total_lines": 81199,
+        "total_files": 41,
+        "hit_pct_lines": 3.85,
+        "hit_pct_files": 31.71
+      },
+      {
+        "name": "stripe/testing-framework-40",
+        "specific_hits": 5,
+        "total_lines": 18984,
+        "total_files": 23,
+        "hit_pct_lines": 3.81,
+        "hit_pct_files": 26.09
+      },
+      {
+        "name": "netflix/fuzzer-42",
+        "specific_hits": 183,
+        "total_lines": 10506,
+        "total_files": 48,
+        "hit_pct_lines": 3.68,
+        "hit_pct_files": 25.0
+      },
+      {
+        "name": "netflix/fuzzer-94",
+        "specific_hits": 196,
+        "total_lines": 75420,
+        "total_files": 106,
+        "hit_pct_lines": 3.67,
+        "hit_pct_files": 17.92
+      },
+      {
+        "name": "netflix/property-tests-84",
+        "specific_hits": 106,
+        "total_lines": 88773,
+        "total_files": 122,
+        "hit_pct_lines": 3.65,
+        "hit_pct_files": 18.85
+      },
+      {
+        "name": "apache/test-utils-62",
+        "specific_hits": 163,
+        "total_lines": 99751,
+        "total_files": 83,
+        "hit_pct_lines": 3.4,
+        "hit_pct_files": 25.3
+      },
+      {
+        "name": "university-test-lab/test-utils-83",
+        "specific_hits": 45,
+        "total_lines": 25749,
+        "total_files": 40,
+        "hit_pct_lines": 3.38,
+        "hit_pct_files": 22.5
+      },
+      {
+        "name": "uber/study-replication-27",
+        "specific_hits": 46,
+        "total_lines": 66578,
+        "total_files": 91,
+        "hit_pct_lines": 3.05,
+        "hit_pct_files": 20.88
+      },
+      {
+        "name": "elastic/test-utils-11",
+        "specific_hits": 134,
+        "total_lines": 56299,
+        "total_files": 76,
+        "hit_pct_lines": 1.74,
+        "hit_pct_files": 32.89
+      },
+      {
+        "name": "elastic/study-replication-64",
+        "specific_hits": 32,
+        "total_lines": 96912,
+        "total_files": 32,
+        "hit_pct_lines": 1.29,
+        "hit_pct_files": 9.38
+      },
+      {
+        "name": "research-artifact/pbt-demo-52",
+        "specific_hits": 178,
+        "total_lines": 50060,
+        "total_files": 100,
+        "hit_pct_lines": 1.26,
+        "hit_pct_files": 17.0
+      },
+      {
+        "name": "hashicorp/metamorphic-lib-67",
+        "specific_hits": 172,
+        "total_lines": 91168,
+        "total_files": 150,
+        "hit_pct_lines": 0.9,
+        "hit_pct_files": 9.33
+      },
+      {
+        "name": "shopify/property-tests-2",
+        "specific_hits": 43,
+        "total_lines": 64556,
+        "total_files": 148,
+        "hit_pct_lines": 0.28,
+        "hit_pct_files": 17.57
+      },
+      {
+        "name": "airbnb/testing-framework-5",
+        "specific_hits": 176,
+        "total_lines": 25979,
+        "total_files": 102,
+        "hit_pct_lines": 0.16,
+        "hit_pct_files": 33.33
+      }
+    ],
+    "specific_hits_ranked": [
+      {
+        "name": "netflix/fuzzer-94",
+        "hits": 196
+      },
+      {
+        "name": "netflix/fuzzer-42",
+        "hits": 183
+      },
+      {
+        "name": "research-artifact/pbt-demo-52",
+        "hits": 178
+      },
+      {
+        "name": "airbnb/testing-framework-5",
+        "hits": 176
+      },
+      {
+        "name": "hashicorp/metamorphic-lib-67",
+        "hits": 172
+      },
+      {
+        "name": "apache/test-utils-62",
+        "hits": 163
+      },
+      {
+        "name": "uber/property-tests-36",
+        "hits": 158
+      },
+      {
+        "name": "stripe/property-tests-41",
+        "hits": 151
+      },
+      {
+        "name": "elastic/test-utils-11",
+        "hits": 134
+      },
+      {
+        "name": "airbnb/metamorphic-lib-29",
+        "hits": 132
+      },
+      {
+        "name": "university-test-lab/fuzz-harness-71",
+        "hits": 108
+      },
+      {
+        "name": "netflix/property-tests-84",
+        "hits": 106
+      },
+      {
+        "name": "stripe/metamorphic-lib-30",
+        "hits": 74
+      },
+      {
+        "name": "netflix/mt-examples-25",
+        "hits": 64
+      },
+      {
+        "name": "uber/study-replication-27",
+        "hits": 46
+      },
+      {
+        "name": "university-test-lab/test-utils-83",
+        "hits": 45
+      },
+      {
+        "name": "shopify/property-tests-2",
+        "hits": 43
+      },
+      {
+        "name": "elastic/study-replication-64",
+        "hits": 32
+      },
+      {
+        "name": "academic-proj/fuzzer-84",
+        "hits": 8
+      },
+      {
+        "name": "stripe/testing-framework-40",
+        "hits": 5
+      }
+    ],
+    "commit_spans_sorted": [
+      {
+        "name": "stripe/testing-framework-40",
+        "span_days": 2951.0
+      },
+      {
+        "name": "research-artifact/pbt-demo-52",
+        "span_days": 2551.0
+      },
+      {
+        "name": "netflix/property-tests-84",
+        "span_days": 2271.0
+      },
+      {
+        "name": "university-test-lab/test-utils-83",
+        "span_days": 2227.0
+      },
+      {
+        "name": "elastic/study-replication-64",
+        "span_days": 2065.0
+      },
+      {
+        "name": "airbnb/metamorphic-lib-29",
+        "span_days": 2058.0
+      },
+      {
+        "name": "stripe/metamorphic-lib-30",
+        "span_days": 1840.0
+      },
+      {
+        "name": "hashicorp/metamorphic-lib-67",
+        "span_days": 1708.0
+      },
+      {
+        "name": "university-test-lab/fuzz-harness-71",
+        "span_days": 1697.0
+      },
+      {
+        "name": "netflix/fuzzer-94",
+        "span_days": 1326.0
+      },
+      {
+        "name": "netflix/mt-examples-25",
+        "span_days": 1260.0
+      },
+      {
+        "name": "apache/test-utils-62",
+        "span_days": 1168.0
+      },
+      {
+        "name": "academic-proj/fuzzer-84",
+        "span_days": 1051.0
+      },
+      {
+        "name": "airbnb/testing-framework-5",
+        "span_days": 971.0
+      },
+      {
+        "name": "netflix/fuzzer-42",
+        "span_days": 826.0
+      },
+      {
+        "name": "stripe/property-tests-41",
+        "span_days": 760.0
+      },
+      {
+        "name": "elastic/test-utils-11",
+        "span_days": 739.0
+      },
+      {
+        "name": "uber/study-replication-27",
+        "span_days": 663.0
+      },
+      {
+        "name": "uber/property-tests-36",
+        "span_days": 347.0
+      },
+      {
+        "name": "shopify/property-tests-2",
+        "span_days": 119.0
+      }
+    ],
+    "technique_density_labels": {
+      "by_label": {
+        "technique_code": {
+          "files": 527,
+          "hit_files": 527,
+          "lines": 129048,
+          "gen_hits": 2498,
+          "spec_hits": 2404,
+          "pct_files": 26.9,
+          "pct_lines": 26.3,
+          "hit_file_pct": 100.0,
+          "hit_line_pct": 2.5,
+          "files_per_repo": {
+            "avg": 26.35,
+            "median": 26.0,
+            "max": 55,
+            "min": 6,
+            "stdev": 13.44,
+            "range": 49,
+            "count": 20
+          },
+          "lines_per_repo": {
+            "avg": 6452.4,
+            "median": 6329.0,
+            "max": 13853,
+            "min": 1197,
+            "stdev": 3348.24,
+            "range": 12656,
+            "count": 20
+          },
+          "gen_per_repo": {
+            "avg": 124.9,
+            "median": 121.5,
+            "max": 329,
+            "min": 20,
+            "stdev": 77.49,
+            "range": 309,
+            "count": 20
+          },
+          "spec_per_repo": {
+            "avg": 120.2,
+            "median": 117.5,
+            "max": 267,
+            "min": 23,
+            "stdev": 65.69,
+            "range": 244,
+            "count": 20
+          }
+        },
+        "technique_doc": {
+          "files": 23,
+          "hit_files": 23,
+          "lines": 6591,
+          "gen_hits": 30,
+          "spec_hits": 93,
+          "pct_files": 1.2,
+          "pct_lines": 1.3,
+          "hit_file_pct": 100.0,
+          "hit_line_pct": 1.4,
+          "files_per_repo": {
+            "avg": 1.15,
+            "median": 1.0,
+            "max": 5,
+            "min": 0,
+            "stdev": 1.35,
+            "range": 5,
+            "count": 20
+          },
+          "lines_per_repo": {
+            "avg": 329.55,
+            "median": 130.0,
+            "max": 1375,
+            "min": 0,
+            "stdev": 415.97,
+            "range": 1375,
+            "count": 20
+          },
+          "gen_per_repo": {
+            "avg": 1.5,
+            "median": 0.0,
+            "max": 15,
+            "min": 0,
+            "stdev": 4.31,
+            "range": 15,
+            "count": 20
+          },
+          "spec_per_repo": {
+            "avg": 4.65,
+            "median": 2.0,
+            "max": 24,
+            "min": 0,
+            "stdev": 6.24,
+            "range": 24,
+            "count": 20
+          }
+        },
+        "technique_config": {
+          "files": 21,
+          "hit_files": 21,
+          "lines": 5485,
+          "gen_hits": 32,
+          "spec_hits": 99,
+          "pct_files": 1.1,
+          "pct_lines": 1.1,
+          "hit_file_pct": 100.0,
+          "hit_line_pct": 2.1,
+          "files_per_repo": {
+            "avg": 1.05,
+            "median": 1.0,
+            "max": 4,
+            "min": 0,
+            "stdev": 1.05,
+            "range": 4,
+            "count": 20
+          },
+          "lines_per_repo": {
+            "avg": 274.25,
+            "median": 307.0,
+            "max": 855,
+            "min": 0,
+            "stdev": 254.14,
+            "range": 855,
+            "count": 20
+          },
+          "gen_per_repo": {
+            "avg": 1.6,
+            "median": 0.0,
+            "max": 13,
+            "min": 0,
+            "stdev": 3.57,
+            "range": 13,
+            "count": 20
+          },
+          "spec_per_repo": {
+            "avg": 4.95,
+            "median": 4.5,
+            "max": 20,
+            "min": 0,
+            "stdev": 5.08,
+            "range": 20,
+            "count": 20
+          }
+        },
+        "technique_other": {
+          "files": 1,
+          "hit_files": 1,
+          "lines": 174,
+          "gen_hits": 0,
+          "spec_hits": 3,
+          "pct_files": 0.1,
+          "pct_lines": 0.0,
+          "hit_file_pct": 100.0,
+          "hit_line_pct": 4.6,
+          "files_per_repo": {
+            "avg": 0.05,
+            "median": 0.0,
+            "max": 1,
+            "min": 0,
+            "stdev": 0.22,
+            "range": 1,
+            "count": 20
+          },
+          "lines_per_repo": {
+            "avg": 8.7,
+            "median": 0.0,
+            "max": 174,
+            "min": 0,
+            "stdev": 38.91,
+            "range": 174,
+            "count": 20
+          },
+          "gen_per_repo": {
+            "avg": 0.0,
+            "median": 0.0,
+            "max": 0,
+            "min": 0,
+            "stdev": 0.0,
+            "range": 0,
+            "count": 20
+          },
+          "spec_per_repo": {
+            "avg": 0.15,
+            "median": 0.0,
+            "max": 3,
+            "min": 0,
+            "stdev": 0.67,
+            "range": 3,
+            "count": 20
+          }
+        },
+        "test_code": {
+          "files": 514,
+          "hit_files": 514,
+          "lines": 133244,
+          "gen_hits": 4027,
+          "spec_hits": 0,
+          "pct_files": 26.2,
+          "pct_lines": 27.1,
+          "hit_file_pct": 100.0,
+          "hit_line_pct": 1.9,
+          "files_per_repo": {
+            "avg": 25.7,
+            "median": 25.5,
+            "max": 47,
+            "min": 4,
+            "stdev": 12.68,
+            "range": 43,
+            "count": 20
+          },
+          "lines_per_repo": {
+            "avg": 6662.2,
+            "median": 6115.5,
+            "max": 11692,
+            "min": 1078,
+            "stdev": 3487.45,
+            "range": 10614,
+            "count": 20
+          },
+          "gen_per_repo": {
+            "avg": 201.35,
+            "median": 207.0,
+            "max": 358,
+            "min": 20,
+            "stdev": 95.39,
+            "range": 338,
+            "count": 20
+          },
+          "spec_per_repo": {
+            "avg": 0.0,
+            "median": 0.0,
+            "max": 0,
+            "min": 0,
+            "stdev": 0.0,
+            "range": 0,
+            "count": 20
+          }
+        },
+        "test_doc": {
+          "files": 56,
+          "hit_files": 56,
+          "lines": 13835,
+          "gen_hits": 456,
+          "spec_hits": 0,
+          "pct_files": 2.9,
+          "pct_lines": 2.8,
+          "hit_file_pct": 100.0,
+          "hit_line_pct": 2.0,
+          "files_per_repo": {
+            "avg": 2.8,
+            "median": 2.5,
+            "max": 7,
+            "min": 0,
+            "stdev": 2.04,
+            "range": 7,
+            "count": 20
+          },
+          "lines_per_repo": {
+            "avg": 691.75,
+            "median": 586.0,
+            "max": 1569,
+            "min": 0,
+            "stdev": 524.91,
+            "range": 1569,
+            "count": 20
+          },
+          "gen_per_repo": {
+            "avg": 22.8,
+            "median": 20.0,
+            "max": 54,
+            "min": 0,
+            "stdev": 16.47,
+            "range": 54,
+            "count": 20
+          },
+          "spec_per_repo": {
+            "avg": 0.0,
+            "median": 0.0,
+            "max": 0,
+            "min": 0,
+            "stdev": 0.0,
+            "range": 0,
+            "count": 20
+          }
+        },
+        "test_config": {
+          "files": 39,
+          "hit_files": 39,
+          "lines": 9407,
+          "gen_hits": 288,
+          "spec_hits": 0,
+          "pct_files": 2.0,
+          "pct_lines": 1.9,
+          "hit_file_pct": 100.0,
+          "hit_line_pct": 2.4,
+          "files_per_repo": {
+            "avg": 1.95,
+            "median": 1.0,
+            "max": 5,
+            "min": 0,
+            "stdev": 1.47,
+            "range": 5,
+            "count": 20
+          },
+          "lines_per_repo": {
+            "avg": 470.35,
+            "median": 365.0,
+            "max": 1174,
+            "min": 0,
+            "stdev": 364.12,
+            "range": 1174,
+            "count": 20
+          },
+          "gen_per_repo": {
+            "avg": 14.4,
+            "median": 14.0,
+            "max": 36,
+            "min": 0,
+            "stdev": 11.51,
+            "range": 36,
+            "count": 20
+          },
+          "spec_per_repo": {
+            "avg": 0.0,
+            "median": 0.0,
+            "max": 0,
+            "min": 0,
+            "stdev": 0.0,
+            "range": 0,
+            "count": 20
+          }
+        },
+        "test_other": {
+          "files": 15,
+          "hit_files": 15,
+          "lines": 4969,
+          "gen_hits": 125,
+          "spec_hits": 0,
+          "pct_files": 0.8,
+          "pct_lines": 1.0,
+          "hit_file_pct": 100.0,
+          "hit_line_pct": 1.9,
+          "files_per_repo": {
+            "avg": 0.75,
+            "median": 1.0,
+            "max": 2,
+            "min": 0,
+            "stdev": 0.79,
+            "range": 2,
+            "count": 20
+          },
+          "lines_per_repo": {
+            "avg": 248.45,
+            "median": 171.0,
+            "max": 877,
+            "min": 0,
+            "stdev": 283.16,
+            "range": 877,
+            "count": 20
+          },
+          "gen_per_repo": {
+            "avg": 6.25,
+            "median": 4.0,
+            "max": 18,
+            "min": 0,
+            "stdev": 6.82,
+            "range": 18,
+            "count": 20
+          },
+          "spec_per_repo": {
+            "avg": 0.0,
+            "median": 0.0,
+            "max": 0,
+            "min": 0,
+            "stdev": 0.0,
+            "range": 0,
+            "count": 20
+          }
+        },
+        "non_hit_code": {
+          "files": 322,
+          "hit_files": 0,
+          "lines": 83003,
+          "gen_hits": 0,
+          "spec_hits": 0,
+          "pct_files": 16.4,
+          "pct_lines": 16.9,
+          "hit_file_pct": 0.0,
+          "hit_line_pct": 0.5,
+          "files_per_repo": {
+            "avg": 16.1,
+            "median": 14.5,
+            "max": 35,
+            "min": 3,
+            "stdev": 7.67,
+            "range": 32,
+            "count": 20
+          },
+          "lines_per_repo": {
+            "avg": 4150.15,
+            "median": 3977.5,
+            "max": 8390,
+            "min": 740,
+            "stdev": 2020.51,
+            "range": 7650,
+            "count": 20
+          },
+          "gen_per_repo": {
+            "avg": 0.0,
+            "median": 0.0,
+            "max": 0,
+            "min": 0,
+            "stdev": 0.0,
+            "range": 0,
+            "count": 20
+          },
+          "spec_per_repo": {
+            "avg": 0.0,
+            "median": 0.0,
+            "max": 0,
+            "min": 0,
+            "stdev": 0.0,
+            "range": 0,
+            "count": 20
+          }
+        },
+        "non_hit_ncode": {
+          "files": 442,
+          "hit_files": 0,
+          "lines": 105124,
+          "gen_hits": 0,
+          "spec_hits": 0,
+          "pct_files": 22.6,
+          "pct_lines": 21.4,
+          "hit_file_pct": 0.0,
+          "hit_line_pct": 0.5,
+          "files_per_repo": {
+            "avg": 22.1,
+            "median": 22.5,
+            "max": 45,
+            "min": 4,
+            "stdev": 10.21,
+            "range": 41,
+            "count": 20
+          },
+          "lines_per_repo": {
+            "avg": 5256.2,
+            "median": 5515.5,
+            "max": 10692,
+            "min": 681,
+            "stdev": 2478.05,
+            "range": 10011,
+            "count": 20
+          },
+          "gen_per_repo": {
+            "avg": 0.0,
+            "median": 0.0,
+            "max": 0,
+            "min": 0,
+            "stdev": 0.0,
+            "range": 0,
+            "count": 20
+          },
+          "spec_per_repo": {
+            "avg": 0.0,
+            "median": 0.0,
+            "max": 0,
+            "min": 0,
+            "stdev": 0.0,
+            "range": 0,
+            "count": 20
+          }
+        }
+      },
+      "total_files": 1960,
+      "total_lines": 490880
+    },
+    "artifact_classification": {
+      "by_category": {
+        "code": 1363,
+        "docs": 317,
+        "config": 238,
+        "other": 42
+      },
+      "by_category_pct": {
+        "code": 69.5,
+        "docs": 16.2,
+        "config": 12.1,
+        "other": 2.1
+      },
+      "by_extension": {
+        ".java": 210,
+        ".py": 207,
+        ".cpp": 206,
+        ".ts": 204,
+        ".go": 181,
+        ".rs": 178,
+        ".rb": 177,
+        ".txt": 115,
+        ".md": 103,
+        ".rst": 99,
+        ".cfg": 63,
+        ".toml": 63,
+        ".yaml": 57,
+        ".json": 55,
+        ".bin": 42
+      },
+      "total_files": 1960
+    },
+    "technique_file_stats": {
+      "ext_counts": {
+        ".py": 86,
+        ".cpp": 81,
+        ".java": 77,
+        ".ts": 77,
+        ".rs": 71,
+        ".rb": 68,
+        ".go": 67,
+        ".txt": 9,
+        ".rst": 8,
+        ".toml": 7,
+        ".cfg": 7,
+        ".md": 6,
+        ".yaml": 5,
+        ".json": 2
+      },
+      "lang_distribution": {
+        "TypeScript": 20,
+        "Python": 20,
+        "Ruby": 19,
+        "Java": 19,
+        "Rust": 18,
+        "Go": 18,
+        "C++": 18
+      },
+      "total_technique_files": 571
+    },
+    "timeline": {
+      "creation_years": {
+        "2015": 2,
+        "2016": 4,
+        "2017": 4,
+        "2018": 1,
+        "2019": 2,
+        "2020": 1,
+        "2021": 1,
+        "2022": 1,
+        "2023": 2,
+        "2024": 2
+      },
+      "commits_by_month": {
+        "2020-01": 20,
+        "2020-02": 70,
+        "2020-03": 119,
+        "2020-04": 19,
+        "2020-05": 43,
+        "2020-07": 46,
+        "2020-08": 12,
+        "2020-09": 63,
+        "2020-10": 71,
+        "2020-11": 38,
+        "2020-12": 41,
+        "2021-01": 69,
+        "2021-02": 34,
+        "2021-03": 26,
+        "2021-04": 7,
+        "2021-05": 32,
+        "2021-06": 8,
+        "2021-07": 42,
+        "2021-08": 74,
+        "2021-09": 31,
+        "2021-10": 7,
+        "2021-11": 8,
+        "2021-12": 14,
+        "2022-01": 28,
+        "2022-02": 39,
+        "2022-03": 29,
+        "2022-05": 20,
+        "2022-06": 7,
+        "2022-07": 88,
+        "2022-10": 8,
+        "2022-11": 90,
+        "2022-12": 27,
+        "2023-01": 55,
+        "2023-02": 29,
+        "2023-03": 36,
+        "2023-04": 34,
+        "2023-05": 25,
+        "2023-06": 30,
+        "2023-07": 87,
+        "2023-08": 34,
+        "2023-09": 29,
+        "2023-10": 26,
+        "2023-11": 9,
+        "2023-12": 21,
+        "2024-01": 34,
+        "2024-02": 25,
+        "2024-03": 19,
+        "2024-04": 6,
+        "2024-05": 11,
+        "2024-06": 51,
+        "2024-07": 49,
+        "2024-09": 30,
+        "2024-10": 38,
+        "2024-11": 9,
+        "2024-12": 33
+      },
+      "technique_commits_by_month": {
+        "2020-01": 12,
+        "2020-02": 2,
+        "2020-03": 15,
+        "2020-04": 5,
+        "2020-05": 10,
+        "2020-06": 6,
+        "2020-07": 4,
+        "2020-08": 20,
+        "2020-09": 8,
+        "2020-12": 13,
+        "2021-01": 7,
+        "2021-02": 18,
+        "2021-03": 5,
+        "2021-04": 24,
+        "2021-05": 18,
+        "2021-06": 19,
+        "2021-07": 4,
+        "2021-08": 2,
+        "2021-09": 13,
+        "2021-10": 12,
+        "2021-11": 12,
+        "2022-01": 2,
+        "2022-02": 3,
+        "2022-03": 6,
+        "2022-04": 19,
+        "2022-05": 8,
+        "2022-06": 2,
+        "2022-08": 10,
+        "2022-09": 27,
+        "2022-10": 22,
+        "2022-11": 2,
+        "2022-12": 18,
+        "2023-01": 13,
+        "2023-02": 20,
+        "2023-03": 7,
+        "2023-04": 6,
+        "2023-05": 23,
+        "2023-07": 6,
+        "2023-08": 8,
+        "2023-09": 13,
+        "2023-10": 2,
+        "2023-11": 3,
+        "2023-12": 10,
+        "2024-02": 10,
+        "2024-03": 25,
+        "2024-04": 12,
+        "2024-05": 21,
+        "2024-06": 2,
+        "2024-09": 11,
+        "2024-10": 12,
+        "2024-11": 19,
+        "2024-12": 7
+      },
+      "commit_span_stats": {
+        "avg": 1429.9,
+        "median": 1293.0,
+        "max": 2951.0,
+        "min": 119.0,
+        "stdev": 769.85,
+        "range": 2832.0,
+        "count": 20
+      }
+    }
+  },
+  "noncode_analysis": {
+    "total_items": 80,
+    "by_surface": {
+      "repos": {
+        "count": 16,
+        "total_specific_hits": 32,
+        "specific_hits_per_item": {
+          "avg": 2.0,
+          "median": 1.5,
+          "max": 5,
+          "min": 0,
+          "stdev": 1.83,
+          "range": 5,
+          "count": 16
+        },
+        "hits_ranked": [
+          {
+            "id": "repos_000025",
+            "title": "Discussion about metamorphic relation in project 25",
+            "hit_count": 5
+          },
+          {
+            "id": "repos_000000",
+            "title": "Discussion about metamorphic testing in project 0",
+            "hit_count": 4
+          },
+          {
+            "id": "repos_000005",
+            "title": "Discussion about metamorphic relation in project 5",
+            "hit_count": 4
+          },
+          {
+            "id": "repos_000020",
+            "title": "Discussion about metamorphic relation in project 20",
+            "hit_count": 4
+          },
+          {
+            "id": "repos_000050",
+            "title": "Discussion about metamorphic relation in project 50",
+            "hit_count": 4
+          },
+          {
+            "id": "repos_000065",
+            "title": "Discussion about metamorphic relation in project 65",
+            "hit_count": 3
+          },
+          {
+            "id": "repos_000075",
+            "title": "Discussion about MetamorphicTest in project 75",
+            "hit_count": 3
+          },
+          {
+            "id": "repos_000030",
+            "title": "Discussion about metamorphic relation in project 30",
+            "hit_count": 2
+          },
+          {
+            "id": "repos_000010",
+            "title": "Discussion about metamorphic testing in project 10",
+            "hit_count": 1
+          },
+          {
+            "id": "repos_000040",
+            "title": "Discussion about metamorphic relation in project 40",
+            "hit_count": 1
+          },
+          {
+            "id": "repos_000070",
+            "title": "Discussion about metamorphic testing in project 70",
+            "hit_count": 1
+          },
+          {
+            "id": "repos_000015",
+            "title": "Discussion about metamorphic testing in project 15",
+            "hit_count": 0
+          },
+          {
+            "id": "repos_000035",
+            "title": "Discussion about metamorphic relation in project 35",
+            "hit_count": 0
+          },
+          {
+            "id": "repos_000045",
+            "title": "Discussion about MetamorphicTest in project 45",
+            "hit_count": 0
+          },
+          {
+            "id": "repos_000055",
+            "title": "Discussion about MetamorphicTest in project 55",
+            "hit_count": 0
+          },
+          {
+            "id": "repos_000060",
+            "title": "Discussion about metamorphic relation in project 60",
+            "hit_count": 0
+          }
+        ],
+        "repos_ranked": [
+          {
+            "repo": "netflix/testing-framework-15",
+            "hit_count": 5
+          },
+          {
+            "repo": "university-test-lab/metamorphic-lib-56",
+            "hit_count": 4
+          },
+          {
+            "repo": "facebook/research-artifact-18",
+            "hit_count": 4
+          },
+          {
+            "repo": "microsoft/study-replication-13",
+            "hit_count": 4
+          },
+          {
+            "repo": "hashicorp/research-artifact-14",
+            "hit_count": 4
+          },
+          {
+            "repo": "shopify/property-tests-38",
+            "hit_count": 3
+          },
+          {
+            "repo": "academic-proj/metamorphic-lib-53",
+            "hit_count": 3
+          },
+          {
+            "repo": "elastic/mt-examples-95",
+            "hit_count": 2
+          },
+          {
+            "repo": "university-test-lab/study-replication-55",
+            "hit_count": 1
+          },
+          {
+            "repo": "hashicorp/study-replication-94",
+            "hit_count": 1
+          },
+          {
+            "repo": "uber/pbt-demo-59",
+            "hit_count": 1
+          },
+          {
+            "repo": "shopify/study-replication-29",
+            "hit_count": 0
+          },
+          {
+            "repo": "hashicorp/pbt-demo-40",
+            "hit_count": 0
+          },
+          {
+            "repo": "shopify/fuzz-harness-88",
+            "hit_count": 0
+          },
+          {
+            "repo": "shopify/pbt-demo-4",
+            "hit_count": 0
+          },
+          {
+            "repo": "university-test-lab/research-artifact-83",
+            "hit_count": 0
+          }
+        ],
+        "repo_hit_stats": {
+          "avg": 2.0,
+          "median": 1.5,
+          "max": 5,
+          "min": 0,
+          "stdev": 1.83,
+          "range": 5,
+          "count": 16
+        },
+        "keywords_ranked": [
+          {
+            "keyword": "metamorphic relation",
+            "count": 30
+          },
+          {
+            "keyword": "MetamorphicTest",
+            "count": 12
+          },
+          {
+            "keyword": "metamorphic testing",
+            "count": 8
+          }
+        ]
+      },
+      "commits": {
+        "count": 16,
+        "total_specific_hits": 38,
+        "specific_hits_per_item": {
+          "avg": 2.38,
+          "median": 2.5,
+          "max": 5,
+          "min": 0,
+          "stdev": 1.82,
+          "range": 5,
+          "count": 16
+        },
+        "hits_ranked": [
+          {
+            "id": "commits_000011",
+            "title": "Discussion about metamorphic testing in project 11",
+            "hit_count": 5
+          },
+          {
+            "id": "commits_000026",
+            "title": "Discussion about metamorphic relation in project 26",
+            "hit_count": 5
+          },
+          {
+            "id": "commits_000076",
+            "title": "Discussion about metamorphic testing in project 76",
+            "hit_count": 5
+          },
+          {
+            "id": "commits_000021",
+            "title": "Discussion about MetamorphicTest in project 21",
+            "hit_count": 4
+          },
+          {
+            "id": "commits_000001",
+            "title": "Discussion about metamorphic testing in project 1",
+            "hit_count": 3
+          },
+          {
+            "id": "commits_000006",
+            "title": "Discussion about metamorphic testing in project 6",
+            "hit_count": 3
+          },
+          {
+            "id": "commits_000036",
+            "title": "Discussion about metamorphic testing in project 36",
+            "hit_count": 3
+          },
+          {
+            "id": "commits_000071",
+            "title": "Discussion about MetamorphicTest in project 71",
+            "hit_count": 3
+          },
+          {
+            "id": "commits_000041",
+            "title": "Discussion about metamorphic testing in project 41",
+            "hit_count": 2
+          },
+          {
+            "id": "commits_000046",
+            "title": "Discussion about metamorphic relation in project 46",
+            "hit_count": 2
+          },
+          {
+            "id": "commits_000061",
+            "title": "Discussion about metamorphic relation in project 61",
+            "hit_count": 2
+          },
+          {
+            "id": "commits_000051",
+            "title": "Discussion about MetamorphicTest in project 51",
+            "hit_count": 1
+          },
+          {
+            "id": "commits_000016",
+            "title": "Discussion about metamorphic relation in project 16",
+            "hit_count": 0
+          },
+          {
+            "id": "commits_000031",
+            "title": "Discussion about metamorphic relation in project 31",
+            "hit_count": 0
+          },
+          {
+            "id": "commits_000056",
+            "title": "Discussion about metamorphic testing in project 56",
+            "hit_count": 0
+          },
+          {
+            "id": "commits_000066",
+            "title": "Discussion about MetamorphicTest in project 66",
+            "hit_count": 0
+          }
+        ],
+        "repos_ranked": [
+          {
+            "repo": "netflix/fuzz-harness-46",
+            "hit_count": 5
+          },
+          {
+            "repo": "microsoft/test-utils-61",
+            "hit_count": 5
+          },
+          {
+            "repo": "microsoft/pbt-demo-67",
+            "hit_count": 5
+          },
+          {
+            "repo": "microsoft/research-artifact-17",
+            "hit_count": 4
+          },
+          {
+            "repo": "academic-proj/fuzz-harness-85",
+            "hit_count": 3
+          },
+          {
+            "repo": "google/testing-framework-34",
+            "hit_count": 3
+          },
+          {
+            "repo": "netflix/research-artifact-33",
+            "hit_count": 3
+          },
+          {
+            "repo": "shopify/fuzzer-36",
+            "hit_count": 3
+          },
+          {
+            "repo": "microsoft/research-artifact-89",
+            "hit_count": 2
+          },
+          {
+            "repo": "hashicorp/property-tests-5",
+            "hit_count": 2
+          },
+          {
+            "repo": "research-artifact/fuzz-harness-24",
+            "hit_count": 2
+          },
+          {
+            "repo": "stripe/study-replication-55",
+            "hit_count": 1
+          },
+          {
+            "repo": "apache/research-artifact-57",
+            "hit_count": 0
+          },
+          {
+            "repo": "airbnb/metamorphic-lib-63",
+            "hit_count": 0
+          },
+          {
+            "repo": "research-artifact/test-utils-2",
+            "hit_count": 0
+          },
+          {
+            "repo": "airbnb/research-artifact-72",
+            "hit_count": 0
+          }
+        ],
+        "repo_hit_stats": {
+          "avg": 2.38,
+          "median": 2.5,
+          "max": 5,
+          "min": 0,
+          "stdev": 1.82,
+          "range": 5,
+          "count": 16
+        },
+        "keywords_ranked": [
+          {
+            "keyword": "metamorphic relation",
+            "count": 21
+          },
+          {
+            "keyword": "metamorphic testing",
+            "count": 16
+          },
+          {
+            "keyword": "MetamorphicTest",
+            "count": 16
+          }
+        ]
+      },
+      "prs": {
+        "count": 16,
+        "total_specific_hits": 50,
+        "specific_hits_per_item": {
+          "avg": 3.12,
+          "median": 3.0,
+          "max": 5,
+          "min": 0,
+          "stdev": 1.63,
+          "range": 5,
+          "count": 16
+        },
+        "hits_ranked": [
+          {
+            "id": "prs_000002",
+            "title": "Discussion about metamorphic relation in project 2",
+            "hit_count": 5
+          },
+          {
+            "id": "prs_000047",
+            "title": "Discussion about metamorphic relation in project 47",
+            "hit_count": 5
+          },
+          {
+            "id": "prs_000052",
+            "title": "Discussion about metamorphic relation in project 52",
+            "hit_count": 5
+          },
+          {
+            "id": "prs_000057",
+            "title": "Discussion about metamorphic relation in project 57",
+            "hit_count": 5
+          },
+          {
+            "id": "prs_000017",
+            "title": "Discussion about metamorphic testing in project 17",
+            "hit_count": 4
+          },
+          {
+            "id": "prs_000037",
+            "title": "Discussion about metamorphic testing in project 37",
+            "hit_count": 4
+          },
+          {
+            "id": "prs_000012",
+            "title": "Discussion about metamorphic testing in project 12",
+            "hit_count": 3
+          },
+          {
+            "id": "prs_000022",
+            "title": "Discussion about MetamorphicTest in project 22",
+            "hit_count": 3
+          },
+          {
+            "id": "prs_000027",
+            "title": "Discussion about MetamorphicTest in project 27",
+            "hit_count": 3
+          },
+          {
+            "id": "prs_000042",
+            "title": "Discussion about metamorphic relation in project 42",
+            "hit_count": 3
+          },
+          {
+            "id": "prs_000062",
+            "title": "Discussion about metamorphic testing in project 62",
+            "hit_count": 3
+          },
+          {
+            "id": "prs_000067",
+            "title": "Discussion about metamorphic relation in project 67",
+            "hit_count": 3
+          },
+          {
+            "id": "prs_000072",
+            "title": "Discussion about metamorphic testing in project 72",
+            "hit_count": 3
+          },
+          {
+            "id": "prs_000032",
+            "title": "Discussion about metamorphic testing in project 32",
+            "hit_count": 1
+          },
+          {
+            "id": "prs_000007",
+            "title": "Discussion about metamorphic testing in project 7",
+            "hit_count": 0
+          },
+          {
+            "id": "prs_000077",
+            "title": "Discussion about metamorphic relation in project 77",
+            "hit_count": 0
+          }
+        ],
+        "repos_ranked": [
+          {
+            "repo": "google/fuzzer-85",
+            "hit_count": 5
+          },
+          {
+            "repo": "research-artifact/property-tests-40",
+            "hit_count": 5
+          },
+          {
+            "repo": "stripe/fuzzer-62",
+            "hit_count": 5
+          },
+          {
+            "repo": "airbnb/fuzz-harness-15",
+            "hit_count": 5
+          },
+          {
+            "repo": "mozilla/test-utils-76",
+            "hit_count": 4
+          },
+          {
+            "repo": "uber/study-replication-67",
+            "hit_count": 4
+          },
+          {
+            "repo": "academic-proj/study-replication-54",
+            "hit_count": 3
+          },
+          {
+            "repo": "apache/test-utils-35",
+            "hit_count": 3
+          },
+          {
+            "repo": "university-test-lab/fuzz-harness-27",
+            "hit_count": 3
+          },
+          {
+            "repo": "facebook/mt-examples-84",
+            "hit_count": 3
+          },
+          {
+            "repo": "academic-proj/testing-framework-56",
+            "hit_count": 3
+          },
+          {
+            "repo": "google/metamorphic-lib-76",
+            "hit_count": 3
+          },
+          {
+            "repo": "stripe/pbt-demo-43",
+            "hit_count": 3
+          },
+          {
+            "repo": "university-test-lab/research-artifact-78",
+            "hit_count": 1
+          },
+          {
+            "repo": "airbnb/study-replication-11",
+            "hit_count": 0
+          },
+          {
+            "repo": "microsoft/fuzz-harness-70",
+            "hit_count": 0
+          }
+        ],
+        "repo_hit_stats": {
+          "avg": 3.12,
+          "median": 3.0,
+          "max": 5,
+          "min": 0,
+          "stdev": 1.63,
+          "range": 5,
+          "count": 16
+        },
+        "keywords_ranked": [
+          {
+            "keyword": "metamorphic testing",
+            "count": 17
+          },
+          {
+            "keyword": "metamorphic relation",
+            "count": 16
+          },
+          {
+            "keyword": "MetamorphicTest",
+            "count": 7
+          }
+        ]
+      },
+      "issues": {
+        "count": 16,
+        "total_specific_hits": 33,
+        "specific_hits_per_item": {
+          "avg": 2.06,
+          "median": 2.0,
+          "max": 5,
+          "min": 0,
+          "stdev": 1.61,
+          "range": 5,
+          "count": 16
+        },
+        "hits_ranked": [
+          {
+            "id": "issues_000078",
+            "title": "Discussion about metamorphic testing in project 78",
+            "hit_count": 5
+          },
+          {
+            "id": "issues_000003",
+            "title": "Discussion about metamorphic testing in project 3",
+            "hit_count": 4
+          },
+          {
+            "id": "issues_000043",
+            "title": "Discussion about metamorphic testing in project 43",
+            "hit_count": 4
+          },
+          {
+            "id": "issues_000008",
+            "title": "Discussion about MetamorphicTest in project 8",
+            "hit_count": 3
+          },
+          {
+            "id": "issues_000023",
+            "title": "Discussion about MetamorphicTest in project 23",
+            "hit_count": 3
+          },
+          {
+            "id": "issues_000033",
+            "title": "Discussion about MetamorphicTest in project 33",
+            "hit_count": 3
+          },
+          {
+            "id": "issues_000068",
+            "title": "Discussion about metamorphic testing in project 68",
+            "hit_count": 3
+          },
+          {
+            "id": "issues_000048",
+            "title": "Discussion about MetamorphicTest in project 48",
+            "hit_count": 2
+          },
+          {
+            "id": "issues_000053",
+            "title": "Discussion about metamorphic testing in project 53",
+            "hit_count": 2
+          },
+          {
+            "id": "issues_000063",
+            "title": "Discussion about MetamorphicTest in project 63",
+            "hit_count": 2
+          },
+          {
+            "id": "issues_000018",
+            "title": "Discussion about metamorphic testing in project 18",
+            "hit_count": 1
+          },
+          {
+            "id": "issues_000038",
+            "title": "Discussion about MetamorphicTest in project 38",
+            "hit_count": 1
+          },
+          {
+            "id": "issues_000013",
+            "title": "Discussion about metamorphic relation in project 13",
+            "hit_count": 0
+          },
+          {
+            "id": "issues_000028",
+            "title": "Discussion about metamorphic relation in project 28",
+            "hit_count": 0
+          },
+          {
+            "id": "issues_000058",
+            "title": "Discussion about metamorphic testing in project 58",
+            "hit_count": 0
+          },
+          {
+            "id": "issues_000073",
+            "title": "Discussion about metamorphic testing in project 73",
+            "hit_count": 0
+          }
+        ],
+        "repos_ranked": [
+          {
+            "repo": "stripe/metamorphic-lib-1",
+            "hit_count": 5
+          },
+          {
+            "repo": "netflix/study-replication-74",
+            "hit_count": 4
+          },
+          {
+            "repo": "mozilla/fuzzer-92",
+            "hit_count": 4
+          },
+          {
+            "repo": "research-artifact/study-replication-35",
+            "hit_count": 3
+          },
+          {
+            "repo": "apache/fuzz-harness-81",
+            "hit_count": 3
+          },
+          {
+            "repo": "apache/fuzz-harness-44",
+            "hit_count": 3
+          },
+          {
+            "repo": "apache/testing-framework-12",
+            "hit_count": 3
+          },
+          {
+            "repo": "facebook/research-artifact-9",
+            "hit_count": 2
+          },
+          {
+            "repo": "research-artifact/study-replication-70",
+            "hit_count": 2
+          },
+          {
+            "repo": "airbnb/metamorphic-lib-39",
+            "hit_count": 2
+          },
+          {
+            "repo": "mozilla/pbt-demo-93",
+            "hit_count": 1
+          },
+          {
+            "repo": "stripe/metamorphic-lib-57",
+            "hit_count": 1
+          },
+          {
+            "repo": "google/mt-examples-58",
+            "hit_count": 0
+          },
+          {
+            "repo": "netflix/metamorphic-lib-77",
+            "hit_count": 0
+          },
+          {
+            "repo": "shopify/test-utils-38",
+            "hit_count": 0
+          },
+          {
+            "repo": "research-artifact/research-artifact-45",
+            "hit_count": 0
+          }
+        ],
+        "repo_hit_stats": {
+          "avg": 2.06,
+          "median": 2.0,
+          "max": 5,
+          "min": 0,
+          "stdev": 1.61,
+          "range": 5,
+          "count": 16
+        },
+        "keywords_ranked": [
+          {
+            "keyword": "metamorphic testing",
+            "count": 24
+          },
+          {
+            "keyword": "MetamorphicTest",
+            "count": 21
+          },
+          {
+            "keyword": "metamorphic relation",
+            "count": 5
+          }
+        ]
+      },
+      "discussions": {
+        "count": 16,
+        "total_specific_hits": 41,
+        "specific_hits_per_item": {
+          "avg": 2.56,
+          "median": 3.0,
+          "max": 5,
+          "min": 0,
+          "stdev": 1.86,
+          "range": 5,
+          "count": 16
+        },
+        "hits_ranked": [
+          {
+            "id": "discussions_000044",
+            "title": "Discussion about metamorphic relation in project 44",
+            "hit_count": 5
+          },
+          {
+            "id": "discussions_000049",
+            "title": "Discussion about metamorphic relation in project 49",
+            "hit_count": 5
+          },
+          {
+            "id": "discussions_000004",
+            "title": "Discussion about metamorphic relation in project 4",
+            "hit_count": 4
+          },
+          {
+            "id": "discussions_000009",
+            "title": "Discussion about MetamorphicTest in project 9",
+            "hit_count": 4
+          },
+          {
+            "id": "discussions_000024",
+            "title": "Discussion about MetamorphicTest in project 24",
+            "hit_count": 4
+          },
+          {
+            "id": "discussions_000054",
+            "title": "Discussion about metamorphic testing in project 54",
+            "hit_count": 4
+          },
+          {
+            "id": "discussions_000059",
+            "title": "Discussion about metamorphic relation in project 59",
+            "hit_count": 4
+          },
+          {
+            "id": "discussions_000064",
+            "title": "Discussion about metamorphic relation in project 64",
+            "hit_count": 4
+          },
+          {
+            "id": "discussions_000029",
+            "title": "Discussion about MetamorphicTest in project 29",
+            "hit_count": 2
+          },
+          {
+            "id": "discussions_000039",
+            "title": "Discussion about metamorphic testing in project 39",
+            "hit_count": 2
+          },
+          {
+            "id": "discussions_000014",
+            "title": "Discussion about metamorphic relation in project 14",
+            "hit_count": 1
+          },
+          {
+            "id": "discussions_000019",
+            "title": "Discussion about MetamorphicTest in project 19",
+            "hit_count": 1
+          },
+          {
+            "id": "discussions_000034",
+            "title": "Discussion about metamorphic testing in project 34",
+            "hit_count": 1
+          },
+          {
+            "id": "discussions_000069",
+            "title": "Discussion about metamorphic relation in project 69",
+            "hit_count": 0
+          },
+          {
+            "id": "discussions_000074",
+            "title": "Discussion about MetamorphicTest in project 74",
+            "hit_count": 0
+          },
+          {
+            "id": "discussions_000079",
+            "title": "Discussion about MetamorphicTest in project 79",
+            "hit_count": 0
+          }
+        ],
+        "repos_ranked": [
+          {
+            "repo": "university-test-lab/property-tests-32",
+            "hit_count": 5
+          },
+          {
+            "repo": "airbnb/testing-framework-69",
+            "hit_count": 5
+          },
+          {
+            "repo": "google/research-artifact-65",
+            "hit_count": 4
+          },
+          {
+            "repo": "academic-proj/pbt-demo-86",
+            "hit_count": 4
+          },
+          {
+            "repo": "stripe/research-artifact-57",
+            "hit_count": 4
+          },
+          {
+            "repo": "stripe/pbt-demo-21",
+            "hit_count": 4
+          },
+          {
+            "repo": "academic-proj/metamorphic-lib-84",
+            "hit_count": 4
+          },
+          {
+            "repo": "stripe/study-replication-35",
+            "hit_count": 4
+          },
+          {
+            "repo": "stripe/mt-examples-18",
+            "hit_count": 2
+          },
+          {
+            "repo": "hashicorp/test-utils-22",
+            "hit_count": 2
+          },
+          {
+            "repo": "microsoft/fuzz-harness-19",
+            "hit_count": 1
+          },
+          {
+            "repo": "shopify/test-utils-52",
+            "hit_count": 1
+          },
+          {
+            "repo": "hashicorp/fuzz-harness-21",
+            "hit_count": 1
+          },
+          {
+            "repo": "microsoft/research-artifact-1",
+            "hit_count": 0
+          },
+          {
+            "repo": "apache/fuzzer-47",
+            "hit_count": 0
+          },
+          {
+            "repo": "academic-proj/testing-framework-96",
+            "hit_count": 0
+          }
+        ],
+        "repo_hit_stats": {
+          "avg": 2.56,
+          "median": 3.0,
+          "max": 5,
+          "min": 0,
+          "stdev": 1.86,
+          "range": 5,
+          "count": 16
+        },
+        "keywords_ranked": [
+          {
+            "keyword": "metamorphic relation",
+            "count": 18
+          },
+          {
+            "keyword": "MetamorphicTest",
+            "count": 17
+          },
+          {
+            "keyword": "metamorphic testing",
+            "count": 6
+          }
+        ]
+      }
+    },
+    "keywords_ranked": {
+      "metamorphic relation": 90,
+      "MetamorphicTest": 73,
+      "metamorphic testing": 71
+    },
+    "keywords_cross_surface": [
+      {
+        "surface": "repos",
+        "keyword": "metamorphic relation",
+        "surface_label": "REPOS: metamorphic relation",
+        "count": 30
+      },
+      {
+        "surface": "issues",
+        "keyword": "metamorphic testing",
+        "surface_label": "ISSUES: metamorphic testing",
+        "count": 24
+      },
+      {
+        "surface": "commits",
+        "keyword": "metamorphic relation",
+        "surface_label": "COMMITS: metamorphic relation",
+        "count": 21
+      },
+      {
+        "surface": "issues",
+        "keyword": "MetamorphicTest",
+        "surface_label": "ISSUES: MetamorphicTest",
+        "count": 21
+      },
+      {
+        "surface": "discussions",
+        "keyword": "metamorphic relation",
+        "surface_label": "DISCUSSIONS: metamorphic relation",
+        "count": 18
+      },
+      {
+        "surface": "prs",
+        "keyword": "metamorphic testing",
+        "surface_label": "PRS: metamorphic testing",
+        "count": 17
+      },
+      {
+        "surface": "discussions",
+        "keyword": "MetamorphicTest",
+        "surface_label": "DISCUSSIONS: MetamorphicTest",
+        "count": 17
+      },
+      {
+        "surface": "commits",
+        "keyword": "metamorphic testing",
+        "surface_label": "COMMITS: metamorphic testing",
+        "count": 16
+      },
+      {
+        "surface": "commits",
+        "keyword": "MetamorphicTest",
+        "surface_label": "COMMITS: MetamorphicTest",
+        "count": 16
+      },
+      {
+        "surface": "prs",
+        "keyword": "metamorphic relation",
+        "surface_label": "PRS: metamorphic relation",
+        "count": 16
+      },
+      {
+        "surface": "repos",
+        "keyword": "MetamorphicTest",
+        "surface_label": "REPOS: MetamorphicTest",
+        "count": 12
+      },
+      {
+        "surface": "repos",
+        "keyword": "metamorphic testing",
+        "surface_label": "REPOS: metamorphic testing",
+        "count": 8
+      },
+      {
+        "surface": "prs",
+        "keyword": "MetamorphicTest",
+        "surface_label": "PRS: MetamorphicTest",
+        "count": 7
+      },
+      {
+        "surface": "discussions",
+        "keyword": "metamorphic testing",
+        "surface_label": "DISCUSSIONS: metamorphic testing",
+        "count": 6
+      },
+      {
+        "surface": "issues",
+        "keyword": "metamorphic relation",
+        "surface_label": "ISSUES: metamorphic relation",
+        "count": 5
+      }
+    ],
+    "domain_counts": {
+      "web": 24,
+      "machine_learning": 23,
+      "security": 23
+    },
+    "top_word_freq": {
+      "testing": 841,
+      "property": 338
+    },
+    "language_distribution": {
+      "Go": 3,
+      "Scala": 2,
+      "Ruby": 2,
+      "C": 2,
+      "Haskell": 1,
+      "Python": 1,
+      "Erlang": 1,
+      "C++": 1,
+      "Kotlin": 1,
+      "Rust": 1,
+      "TypeScript": 1
+    }
+  }
+}

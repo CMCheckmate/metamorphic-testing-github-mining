@@ -1,0 +1,22 @@
+{
+  "research-artifact/pbt-demo-52": "done",
+  "netflix/fuzzer-94": "done",
+  "stripe/testing-framework-40": "done",
+  "netflix/fuzzer-42": "done",
+  "airbnb/testing-framework-5": "done",
+  "netflix/property-tests-84": "done",
+  "university-test-lab/fuzz-harness-71": "done",
+  "uber/property-tests-36": "done",
+  "uber/study-replication-27": "done",
+  "university-test-lab/test-utils-83": "done",
+  "hashicorp/metamorphic-lib-67": "done",
+  "stripe/metamorphic-lib-30": "done",
+  "shopify/property-tests-2": "done",
+  "academic-proj/fuzzer-84": "done",
+  "netflix/mt-examples-25": "done",
+  "apache/test-utils-62": "done",
+  "stripe/property-tests-41": "done",
+  "airbnb/metamorphic-lib-29": "done",
+  "elastic/test-utils-11": "done",
+  "elastic/study-replication-64": "done"
+}

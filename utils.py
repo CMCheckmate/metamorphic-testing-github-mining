@@ -71,6 +71,8 @@ def setup_logging(slug: str, phase: str) -> logging.Logger:
     logger = logging.getLogger(name)
     logger.setLevel(logging.DEBUG)
 
+    logger.propagate = False  # don't bleed into root logger / tqdm display
+
     if not any(isinstance(h, logging.FileHandler) and h.baseFilename == str(log_path.resolve())
                for h in logger.handlers):
         fh = logging.FileHandler(log_path, encoding="utf-8")
@@ -274,12 +276,25 @@ def load_search_keywords(slug: str) -> list[str]:
 
 
 def load_analysis_keywords(slug: str) -> list[dict]:
-    """Load and return raw analysis keyword entries (not compiled)."""
+    """Load shared + technique-specific analysis keywords, merged into one list.
+
+    shared_analysis_keywords.json contains general_test keywords (assert, test
+    framework detection, etc.) shared across all techniques. Technique files
+    contain only specific_technique keywords. The shared entries come first so
+    general hits are counted before technique-specific ones.
+    """
+    shared_path = INPUTS_DIR / "shared_analysis_keywords.json"
+    if not shared_path.exists():
+        raise FileNotFoundError(f"Shared analysis keyword file not found: {shared_path}")
+    shared = json.loads(shared_path.read_text(encoding="utf-8"))
+
     prefix = TECHNIQUE_INPUT_PREFIXES[slug]
-    path = INPUTS_DIR / f"{prefix}_analysis_keywords.json"
-    if not path.exists():
-        raise FileNotFoundError(f"Analysis keyword file not found: {path}")
-    return json.loads(path.read_text(encoding="utf-8"))
+    tech_path = INPUTS_DIR / f"{prefix}_analysis_keywords.json"
+    if not tech_path.exists():
+        raise FileNotFoundError(f"Analysis keyword file not found: {tech_path}")
+    technique = json.loads(tech_path.read_text(encoding="utf-8"))
+
+    return shared + technique
 
 
 def compile_analysis_keywords(keywords: list[dict]) -> list[dict]:
