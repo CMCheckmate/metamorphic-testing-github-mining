@@ -270,6 +270,17 @@ def _section_projects_and_sizes(
             ["Surface", "Avg (KB)", "Median (KB)", "Max (KB)", "Min (KB)", "Std Dev", "Count"],
             size_rows,
         ) + "\n")
+    metadata_path = plots_dir.parent.parent / "analysis" / "repo_metadata.json"
+    if metadata_path.exists():
+        out.append(
+            "_Repository size is fetched from the GitHub Metadata API (`/repos/{owner}/{repo}`) "
+            "for all repos across all surfaces. Repos where the API returns 404 (deleted or private) "
+            "are excluded from size statistics._\n"
+        )
+    else:
+        out.append(
+            "_Repository size data not yet available. Run the analysis phase to fetch metadata for all repos._\n"
+        )
 
 
 def _section_search_distribution(
@@ -304,6 +315,14 @@ def _section_search_distribution(
         ["Surface", "Total Search Hits"],
         [[s, _fmt(v)] for s, v in zip(surf_labels, total_hits_per_surf)],
     ) + "\n")
+    disc_hits   = search_sum.get("discussions", {}).get("search_hit_count", 0)
+    disc_unique = search_sum.get("discussions", {}).get("unique_results", 0)
+    if disc_hits == 0 and disc_unique > 0:
+        out.append(
+            "> _DISCUSSIONS search hits show 0 because the GraphQL `api_hit_count` was not correctly "
+            "tracked in this run. Unique results are accurate. Fix applied in `search.py` — "
+            "re-run search to populate._\n"
+        )
 
     out.append("### Unique Results per Surface\n")
     out.append(
@@ -371,12 +390,13 @@ def _section_search_distribution(
         repos_ranked = surf_nc_stats.get("repos_ranked", [])
         if repos_ranked:
             out.append(f"Repositories ranked by keyword hits in {surface.upper()} body text:\n")
+            out.append("_Showing top 100 repos by keyword hits on this surface._\n")
             repo_hit_vals = [r["hit_count"] for r in repos_ranked]
             repo_names    = [_trunc(r["repo"], 35) for r in repos_ranked]
             out.append(f"![{surface} repo ranking]({_bar_chart(repo_names, repo_hit_vals, f'Top Repos by Keyword Hits — {surface.upper()}', 'Repository', 'Keyword Hits', plots_dir / f'search_repos_{surface}.{cfg.PLOT_FORMAT}', horizontal=True, figsize=(9, max(4, len(repo_names[:30])*0.25+2)))})\n")
             out.append(_table(
                 ["#", "Repository", "Keyword Hits"],
-                [[i+1, r["repo"], _fmt(r["hit_count"])] for i, r in enumerate(repos_ranked[:50])],
+                [[i+1, r["repo"], _fmt(r["hit_count"])] for i, r in enumerate(repos_ranked[:100])],
             ) + "\n")
             rhs = surf_nc_stats.get("repo_hit_stats", {})
             if rhs:
@@ -442,6 +462,11 @@ def _section_technique_density(
 
     # Technique density 10-label scheme (Items 16-20)
     tdl = ca.get("technique_density_labels", {})
+    if not tdl:
+        out.append(
+            "> _Technique density data unavailable — file-level scan results (`file_details`) were not stored "
+            "in a prior run. Re-run the analysis phase to regenerate `code_repos.json` with file-level data._\n"
+        )
     if tdl:
         by_label    = tdl.get("by_label", {})
         label_order = [
@@ -653,6 +678,12 @@ def _section_repo_classification(
         [[lbl, _fmt(v), _pct(v / total * 100)] for lbl, v in zip(labels, vals)],
     ) + "\n")
     out.append(f"![Repo classification]({_bar_chart(labels, vals, 'Repo Classification', 'Classification', 'Count', plots_dir / f'repo_classification.{cfg.PLOT_FORMAT}', color=_PALETTE[0])})\n")
+    out.append(
+        "_A high unclassified rate is expected: the CODE search surface returns all files mentioning "
+        "the technique's keywords, including academic papers, blog posts, documentation, and incidental "
+        "references that do not implement the technique. Repos are classified as 'actual\\_usage' only "
+        "when file-level evidence (keyword hits in test or source files) is sufficient._\n"
+    )
 
 
 def _section_technique_file_extensions(
@@ -669,7 +700,10 @@ def _section_technique_file_extensions(
     ca  = overall.get("code_analysis", {})
     tfs = ca.get("technique_file_stats", {})
     if not tfs:
-        out.append("_No technique file data available._\n")
+        out.append(
+            "_No technique file data available — file-level scan results were not stored in a prior run. "
+            "Re-run the analysis phase to regenerate `code_repos.json` with file-level data._\n"
+        )
         return
 
     by_ext = tfs.get("ext_counts", {})
@@ -709,12 +743,26 @@ def _section_language(
         "plus per-file language detection from the scan. "
         "Each language is counted once per repo it appears in.\n"
     )
-    lang_code = overall.get("code_analysis", {}).get("language_distribution", {})
-    if not lang_code:
-        return
-    top = list(lang_code.items())[:20]
-    out.append(f"![Language distribution (code)]({_bar_chart([t[0] for t in top], [t[1] for t in top], 'Language Distribution (Code Repos, All Files)', 'Language', 'Repos', plots_dir / f'language_distribution.{cfg.PLOT_FORMAT}', color=_PALETTE[0], horizontal=True, figsize=(8, max(4, len(top)*0.3+2)))})\n")
-    out.append(_table(["Language", "Repos"], [[lang, _fmt(cnt)] for lang, cnt in top]) + "\n")
+    ca = overall.get("code_analysis", {})
+
+    # Prefer technique-file language distribution; fall back to general per-repo language
+    tfs_lang = ca.get("technique_file_stats", {}).get("lang_distribution", {})
+    if tfs_lang:
+        top = list(tfs_lang.items())[:20]
+        chart_title = "Language Distribution — Technique Files Only (per-Repo Deduplicated)"
+        out.append(f"![Language distribution (technique files)]({_bar_chart([t[0] for t in top], [t[1] for t in top], chart_title, 'Language', 'Repos', plots_dir / f'language_distribution.{cfg.PLOT_FORMAT}', color=_PALETTE[0], horizontal=True, figsize=(8, max(4, len(top)*0.3+2)))})\n")
+        out.append(_table(["Language", "Repos with Technique Files"], [[lang, _fmt(cnt)] for lang, cnt in top]) + "\n")
+    else:
+        lang_code = ca.get("language_distribution", {})
+        if not lang_code:
+            return
+        top = list(lang_code.items())[:20]
+        out.append(
+            "_Showing primary language of cloned repos (technique-file language data unavailable — "
+            "re-run analysis to populate)._\n"
+        )
+        out.append(f"![Language distribution (code)]({_bar_chart([t[0] for t in top], [t[1] for t in top], 'Language Distribution (Code Repos, All Files)', 'Language', 'Repos', plots_dir / f'language_distribution.{cfg.PLOT_FORMAT}', color=_PALETTE[0], horizontal=True, figsize=(8, max(4, len(top)*0.3+2)))})\n")
+        out.append(_table(["Language", "Repos"], [[lang, _fmt(cnt)] for lang, cnt in top]) + "\n")
 
 
 def _section_domain(
@@ -775,11 +823,14 @@ def _section_timeline(
 
     # Technique Commit Span — avg interval between consecutive technique commits (Item 29)
     css = tl.get("commit_span_stats", {})
+    excluded_n = tl.get("commit_span_excluded_count", 0)
     if css:
         out.append("### Technique Commit Span\n")
         out.append(
-            "_Technique Commit Span = total days between the first and last commit touching "
-            "a technique file in each repo (mined from PyDriller git history)._\n"
+            f"_Technique Commit Span = average number of days between consecutive commits containing "
+            f"technique keyword matches, per repo. "
+            f"Repos with fewer than 2 technique commits are excluded from this metric "
+            f"({excluded_n} repos excluded)._\n"
         )
         out.append(_table(
             ["Metric", "Avg", "Median", "Max (days)", "Min (days)", "Std Dev", "N Repos"],
@@ -790,6 +841,7 @@ def _section_timeline(
     if cs_sorted:
         ranks = list(range(1, len(cs_sorted) + 1))
         out.append(f"![Commit span distribution]({_line_chart(ranks, [r['span_days'] for r in cs_sorted], 'Technique Commit Span per Repo (Ranked Longest → Shortest)', 'Rank (1 = longest span)', 'Span (days)', plots_dir / f'commit_span_distribution.{cfg.PLOT_FORMAT}')})\n")
+        out.append(f"_Repos with fewer than 2 technique commits are excluded. {excluded_n} repos excluded._\n")
 
     cbm  = tl.get("commits_by_month", {})
     tcbm = tl.get("technique_commits_by_month", {})
@@ -861,15 +913,25 @@ def _section_all_repos(overall: dict, dirs: dict, out: list[str]) -> None:
     if not code_repos:
         out.append("_No code repos data available._\n")
         return
-    out.append(f"_{len(code_repos)} repositories were cloned and analysed._\n")
+    total_repos = len(code_repos)
     sorted_repos = sorted(code_repos,
                           key=lambda r: r.get("scan", {}).get("total_specific_hits", 0), reverse=True)
+    display_repos = sorted_repos[:200]
+    out.append(f"_{total_repos} repositories were cloned and analysed._\n")
+    if total_repos > 200:
+        slug = overall.get("slug", "")
+        out.append(
+            f"_Showing top 200 of {total_repos} repositories by specific keyword hits. "
+            f"Full data available in `results/{slug}/analysis/code_repos.json`._\n"
+        )
     repo_rows = []
-    for rank, r in enumerate(sorted_repos, 1):
+    for rank, r in enumerate(display_repos, 1):
         scan    = r.get("scan", {})
         n_lines = scan.get("total_lines", 0)
         hl      = scan.get("total_hit_lines", 0)
         cls_list = r.get("classification", {}).get("classifications", ["—"])
+        commits = r.get("commits", {})
+        span = commits.get("technique_commit_span_avg_days", commits.get("commit_span_days"))
         repo_rows.append([
             rank,
             _trunc(r.get("full_name", ""), 38),
@@ -878,12 +940,12 @@ def _section_all_repos(overall: dict, dirs: dict, out: list[str]) -> None:
             _fmt(scan.get("total_files", 0)),
             _fmt(scan.get("total_specific_hits", 0)),
             _pct(round(hl / max(n_lines, 1) * 100, 1)),
-            _fmt(r.get("commits", {}).get("commit_span_days")),
+            _fmt(span),
             ", ".join(cls_list),
         ])
     out.append(_table(
         ["#", "Repository", "Stars", "Language", "Files", "Specific Hits",
-         "Hit Line %", "Span (days)", "Classification"],
+         "Hit Line %", "Technique Span (days)", "Classification"],
         repo_rows,
     ) + "\n")
 

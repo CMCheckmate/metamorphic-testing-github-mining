@@ -31,7 +31,7 @@ GITHUB_API_PER_PAGE = 100   # max allowed by GitHub
 # ---------------------------------------------------------------------------
 # Rate limiting & retry
 # ---------------------------------------------------------------------------
-RATE_LIMIT_PAUSE     = 2.2   # base pause between standard requests (seconds)
+RATE_LIMIT_PAUSE     = 2.5   # base pause; ~24 req/min, headroom vs 30/min limit
 CODE_SEARCH_PAUSE    = 7.0   # code search has a tighter rate limit bucket
 GRAPHQL_PAUSE        = 1.5
 RETRY_ATTEMPTS       = 5

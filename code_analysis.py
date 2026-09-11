@@ -320,6 +320,7 @@ def _commits_pydriller(repo_path: Path, keywords: list[str], logger) -> dict:
     commits_by_month: dict[str, int] = defaultdict(int)
     technique_by_month: dict[str, int] = defaultdict(int)
     commit_dates: list[str] = []
+    technique_commit_dates: list[str] = []
 
     try:
         for commit in Repository(str(repo_path)).traverse_commits():
@@ -341,6 +342,7 @@ def _commits_pydriller(repo_path: Path, keywords: list[str], logger) -> dict:
             if any(p.search(msg) for p in kw_patterns):
                 technique_commits += 1
                 technique_by_month[month] += 1
+                technique_commit_dates.append(dt_str)
     except Exception as exc:
         logger.warning(f"PyDriller error on {repo_path}: {exc}")
 
@@ -348,6 +350,7 @@ def _commits_pydriller(repo_path: Path, keywords: list[str], logger) -> dict:
         total_commits, technique_commits,
         commit_dates, commits_by_month, technique_by_month,
         first_commit_date, last_commit_date,
+        technique_commit_dates,
     )
 
 
@@ -360,6 +363,7 @@ def _commits_git_log(repo_path: Path, keywords: list[str], logger) -> dict:
     commits_by_month: dict[str, int] = defaultdict(int)
     technique_by_month: dict[str, int] = defaultdict(int)
     commit_dates: list[str] = []
+    technique_commit_dates: list[str] = []
 
     try:
         result = subprocess.run(
@@ -384,6 +388,7 @@ def _commits_git_log(repo_path: Path, keywords: list[str], logger) -> dict:
             if any(p.search(msg) for p in kw_patterns):
                 technique_commits += 1
                 technique_by_month[month] += 1
+                technique_commit_dates.append(dt_str)
     except Exception as exc:
         logger.warning(f"git log error on {repo_path}: {exc}")
 
@@ -391,16 +396,18 @@ def _commits_git_log(repo_path: Path, keywords: list[str], logger) -> dict:
         total_commits, technique_commits,
         commit_dates, commits_by_month, technique_by_month,
         first_commit_date, last_commit_date,
+        technique_commit_dates,
     )
 
 
 def _build_commit_result(
     total: int, technique: int,
     commit_dates: list[str],
-    by_month: dict[str, int],
+    commits_by_month: dict[str, int],
     tech_by_month: dict[str, int],
     first: str | None,
     last: str | None,
+    technique_commit_dates: list[str] | None = None,
 ) -> dict:
     span_days = None
     if first and last and first != last:
@@ -416,15 +423,31 @@ def _build_commit_result(
     if total > 1 and span_days is not None:
         avg_commit_interval_days = round(span_days / (total - 1), 2)
 
+    # Technique Commit Span = avg interval between consecutive technique commits
+    technique_commit_span_avg_days = None
+    if technique_commit_dates and len(technique_commit_dates) >= 2:
+        from datetime import datetime
+        parsed = []
+        for ds in technique_commit_dates:
+            try:
+                parsed.append(datetime.fromisoformat(ds.replace("Z", "+00:00")))
+            except ValueError:
+                pass
+        parsed.sort()
+        if len(parsed) >= 2:
+            intervals = [(parsed[i+1] - parsed[i]).days for i in range(len(parsed)-1)]
+            technique_commit_span_avg_days = round(sum(intervals) / len(intervals), 2)
+
     return {
-        "total_commits":                total,
-        "technique_commits":            technique,
-        "first_commit_date":            first,
-        "last_commit_date":             last,
-        "commit_span_days":             span_days,
-        "avg_commit_interval_days":     avg_commit_interval_days,
-        "commits_by_month":             dict(by_month),
-        "technique_commits_by_month":   dict(tech_by_month),
+        "total_commits":                    total,
+        "technique_commits":                technique,
+        "first_commit_date":                first,
+        "last_commit_date":                 last,
+        "commit_span_days":                 span_days,
+        "avg_commit_interval_days":         avg_commit_interval_days,
+        "technique_commit_span_avg_days":   technique_commit_span_avg_days,
+        "commits_by_month":                 dict(commits_by_month),
+        "technique_commits_by_month":       dict(tech_by_month),
     }
 
 
@@ -742,8 +765,8 @@ def run(slug: str, restart: bool = False, workers: int = cfg.ANALYSIS_WORKERS) -
                 repo_meta = {
                     "full_name":   name,
                     "html_url":    candidate.get("html_url", ""),
-                    "stars":       candidate.get("stars"),
-                    "language":    candidate.get("language"),
+                    "stars":       candidate.get("stars"),        # None for code surface items; enriched from repo_metadata.json in analysis.py
+                    "language":    candidate.get("language"),     # None for code surface items; enriched from repo_metadata.json in analysis.py
                     "description": candidate.get("description", "") or "",
                     "topics":      candidate.get("topics", []),
                     "created_at":  candidate.get("created_at"),
@@ -760,11 +783,6 @@ def run(slug: str, restart: bool = False, workers: int = cfg.ANALYSIS_WORKERS) -
                     "domains":        domains,
                     "readme_snippet": readme_text[:2000],
                 }
-                # Strip large file_details to keep file manageable
-                if "file_details" in record.get("scan", {}):
-                    record["scan"] = dict(record["scan"])
-                    del record["scan"]["file_details"]
-
                 results.append(record)
                 save_json(results_path, results)
                 history[name] = "done"
