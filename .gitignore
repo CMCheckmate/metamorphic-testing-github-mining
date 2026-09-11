@@ -22,11 +22,10 @@ ENV/
 
 # Data outputs (large, generated)
 repos/
-results
+results/
 
-# Keep results structure but not data
+# Keep results directory itself
 !results/.gitkeep
-!results/raw/.gitkeep
 
 # Editor
 .vscode/

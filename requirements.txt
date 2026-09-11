@@ -1,13 +1,23 @@
-# Dependencies
+# Core
 requests>=2.31.0
 python-dotenv>=1.0.0
-GitPython>=3.1.40
-pandas>=2.1.0
-rich>=13.7.0
+
+# Git history mining (for commit timeline analysis)
+pydriller>=2.5
+
+# Progress
 tqdm>=4.66.0
+
+# Plotting & visualisation
 matplotlib>=3.8.0
-seaborn>=0.13.0
-nltk>=3.8.0
-pyyaml>=6.0
-wordcloud>=1.9
 numpy>=1.24.0
+wordcloud>=1.9
+
+# Report
+seaborn>=0.13.0
+
+# Optional: NLTK for lemmatisation (not strictly required)
+# nltk>=3.8.0
+
+# YAML technique profiles (legacy; inputs/ files are now primary)
+pyyaml>=6.0

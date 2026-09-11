@@ -1,0 +1,65 @@
+# Fuzz Testing — search keywords
+# Applied directly to GitHub API.
+# "fuzzy", "fuzzy testing" excluded: matches fuzzy-logic and string-similarity
+# libraries (thefuzz/fuzzywuzzy) with near-zero overlap with actual fuzz testing.
+# "AFL" and "AFL++" excluded: too many unrelated acronym matches.
+
+# Core phrase family
+"fuzz testing"
+"fuzz test"
+"fuzzing"
+"coverage-guided fuzzing"
+"coverage guided fuzzing"
+"greybox fuzzing"
+"grey-box fuzzing"
+"blackbox fuzzing"
+"black-box fuzzing"
+"grammar-based fuzzing"
+"grammar based fuzzing"
+"structure-aware fuzzing"
+"structure aware fuzzing"
+"fuzz target"
+"fuzz harness"
+"fuzz corpus"
+
+# Tool names safe for full-text search
+"libfuzzer"
+"cargo-fuzz"
+"honggfuzz"
+"boofuzz"
+"OSS-Fuzz"
+"syzkaller"
+"ClusterFuzz"
+"atheris"
+
+# C/C++ libFuzzer — unambiguous entrypoints
+"LLVMFuzzerTestOneInput"
+"LLVMFuzzerInitialize"
+"FuzzedDataProvider"
+"FUZZING_BUILD_MODE_UNSAFE_FOR_PRODUCTION"
+"-fsanitize=fuzzer"
+
+# AFL/AFL++ persistent-mode macros (near-zero false positives)
+"__AFL_FUZZ_INIT"
+"__AFL_LOOP"
+"__AFL_FUZZ_TESTCASE_BUF"
+"afl-fuzz"
+"afl-clang-fast"
+
+# Rust cargo-fuzz / libfuzzer-sys
+"libfuzzer-sys"
+
+# Java Jazzer
+"fuzzerTestOneInput"
+"com.code_intelligence.jazzer"
+"FuzzerSecurityIssueMedium"
+"FuzzerSecurityIssueCritical"
+
+# Go native fuzzing (1.18+)
+"testing.F"
+
+# Go go-fuzz
+"go-fuzz-build"
+
+# C honggfuzz macros
+"HF_ITER"

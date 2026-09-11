@@ -1,1039 +1,927 @@
 """
-Phase 5 — Results Report
-========================
-All analysis sections apply exclusively to repositories where at least one
-technique pattern was detected (score > 0). Non-detected repositories are
-listed in Appendix A for manual review.
+Report Generator
+================
+Reads overall.json (the single source of truth written by analysis.py) and
+code_repos.json, then writes report.md plus all plots to results/<slug>/report/.
 
-    python report.py --technique techniques/metamorphic_testing.yaml
+The report performs NO calculations — it reads stored values only.
+
+Report structure (9 topic sections):
+  1. Projects found & repo sizes
+  2. Search keyword hit distribution
+  3. Testing technique density
+  4. Repo classification
+  5. Technique file extensions and language distribution
+  6. Language distribution (all repos)
+  7. Application domain
+  8. Timeline
+  9. All cloned repos
 """
 
-import argparse
-import json
-import os
+from __future__ import annotations
+
 import statistics
-from collections import Counter, defaultdict
-from datetime import datetime, timezone
 from pathlib import Path
 
-from rich.console import Console
+import matplotlib
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt
+import numpy as np
 
-console = Console()
+import config as cfg
+from utils import technique_dirs, ensure_dirs, load_json
+
+plt.rcParams.update({
+    "figure.dpi":       cfg.PLOT_DPI,
+    "axes.spines.top":  False,
+    "axes.spines.right":False,
+    "font.size":        9,
+    "axes.titlesize":   10,
+    "axes.labelsize":   9,
+})
+_PALETTE = ["#4C72B0", "#DD8452", "#55A868", "#C44E52", "#8172B2", "#937860"]
+_ALL_SURFACES = ["code", "repos", "commits", "prs", "issues", "discussions"]
 
 
 # ---------------------------------------------------------------------------
-# Data loading
+# Formatting
 # ---------------------------------------------------------------------------
 
-def _load(path: Path):
-    if not path.exists():
-        return None
+def _fmt(n, decimals: int = 0) -> str:
+    if n is None:
+        return "—"
     try:
-        with open(path, encoding="utf-8") as f:
-            return json.load(f)
-    except Exception:
-        return None
+        v = float(n)
+    except (TypeError, ValueError):
+        return str(n)
+    if decimals == 0:
+        return f"{int(round(v)):,}"
+    return f"{v:,.{decimals}f}"
 
 
-def load_data(results_dir: Path) -> dict:
-    raw      = results_dir / "raw"
-    analysis = results_dir / "analysis"
-    cloned   = results_dir / "cloned"
-    return {
-        "summary":     _load(raw      / "summary.json"),
-        "repos":       _load(raw      / "repos.json"),
-        "repo_scores": _load(analysis / "repo_scores.json"),
-        "findings":    _load(analysis / "findings.json"),
-        "manifest":    _load(cloned   / "manifest.json"),
-    }
+def _trunc(s: str, max_len: int = 35) -> str:
+    s = str(s)
+    return s if len(s) <= max_len else s[:max_len - 1] + "…"
 
 
-# ---------------------------------------------------------------------------
-# Helpers
-# ---------------------------------------------------------------------------
-
-def _pct(v: float) -> str:
-    return f"{v:.1f}%"
-
-def _img(plots_rel: str, name: str, fmt: str, caption: str) -> str:
-    return f"![{caption}]({plots_rel}/{name}.{fmt})\n*{caption}*\n"
-
-def _med(lst) -> str:
-    return f"{statistics.median(lst):.1f}" if lst else "—"
-
-def _mean(lst) -> str:
-    return f"{statistics.mean(lst):.1f}" if lst else "—"
-
-def _detected(scores):
-    return [r for r in (scores or []) if r.get("score", 0) > 0]
-
-def _not_detected(scores):
-    return [r for r in (scores or []) if r.get("score", 0) == 0]
-
-_SURFACE_LABEL = {
-    "repo":       "Repo / README",
-    "code":       "Code (source files)",
-    "commit":     "Commit messages",
-    "issue":      "Issues",
-    "pr":         "Pull requests",
-    "discussion": "Discussions",
-}
-
-_SURFACE_DESC = {
-    "code":       "Contents of source files on the default branch",
-    "repo":       "Repository name, description, topic tags, and README",
-    "commit":     "Commit message text (not the diff/code itself)",
-    "issue":      "Issue titles and body text",
-    "pr":         "Pull request titles and body text",
-    "discussion": "GitHub Discussion titles and body text",
-}
-
-def _surface_of(query_label: str) -> str:
-    for prefix in ("code", "commit", "issue", "pr", "repo"):
-        if query_label.startswith(prefix + "_"):
-            return prefix
-    return "discussion"
+def _pct(n, decimals: int = 1) -> str:
+    if n is None:
+        return "—"
+    try:
+        return f"{float(n):.{decimals}f}%"
+    except (TypeError, ValueError):
+        return str(n)
 
 
-# ---------------------------------------------------------------------------
-# Pipeline Summary
-# ---------------------------------------------------------------------------
+def _table(headers: list[str], rows: list[list]) -> str:
+    sep  = "| " + " | ".join("---" for _ in headers) + " |"
+    head = "| " + " | ".join(str(h) for h in headers) + " |"
+    body = "\n".join("| " + " | ".join(str(c) for c in row) + " |" for row in rows)
+    return head + "\n" + sep + "\n" + body
 
-def sec_pipeline_summary(data: dict, profile) -> str:
-    short = profile.short_name
 
-    n_cloned = n_error = n_skipped_size = 0
-    if data["manifest"]:
-        for v in data["manifest"].get("repos", {}).values():
-            if v.get("status") in ("cloned", "refreshed", "skipped_exists"):
-                n_cloned += 1
-            elif v.get("status") == "error":
-                n_error += 1
-            elif v.get("status") == "skipped_size":
-                n_skipped_size += 1
-
-    scores   = data["repo_scores"] or []
-    n        = len(scores)
-    n_det    = sum(1 for r in scores if r.get("score", 0) > 0)
-    n_not    = n - n_det
-    det_rate = n_det / n * 100 if n else 0
-
-    total_hits = sum(q.get("hits", 0) for q in (data["summary"] or {}).get("queries", []))
-    n_queries  = len((data["summary"] or {}).get("queries", []))
-
-    repo_set: set = set()
-    for r in (data["repos"] or []):
-        repo_set.add(r.get("repo", "") or r.get("full_name", ""))
-    repo_set.discard("")
-
-    size_row = f"| Skipped — too large | {n_skipped_size:,} |\n" if n_skipped_size else ""
-
-    # Which search surfaces were actually used
-    used_surfaces: set = set()
-    for q in (data["summary"] or {}).get("queries", []):
-        s = q.get("type", "")
-        if s:
-            used_surfaces.add(s)
-
-    surface_rows = "\n".join(
-        f"| **{s.capitalize()}** | {_SURFACE_DESC.get(s, '')} |"
-        for s in ["code", "repo", "commit", "issue", "pr", "discussion"]
-        if s in used_surfaces
-    )
-
-    # Per-surface result counts from summary.json top-level fields
-    smry = data["summary"] or {}
-    surface_count_data = [
-        ("code",       "Code files",      smry.get("code_files",   0) or 0),
-        ("repo",       "Repositories",    smry.get("repos",        0) or 0),
-        ("commit",     "Commits",         smry.get("commits",      0) or 0),
-        ("issue",      "Issues",          smry.get("issues",       0) or 0),
-        ("pr",         "Pull requests",   smry.get("prs",          0) or 0),
-        ("discussion", "Discussions",     smry.get("discussions",  0) or 0),
+def _stat_cells(stats: dict) -> list:
+    return [
+        _fmt(stats.get("avg"),    1),
+        _fmt(stats.get("median"), 1),
+        _fmt(stats.get("max"),    0),
+        _fmt(stats.get("min"),    0),
+        _fmt(stats.get("stdev"),  1),
+        _fmt(stats.get("count"),  0),
     ]
-    surface_count_rows = "\n".join(
-        f"| **{label}** | {count:,} |"
-        for _, label, count in surface_count_data
-        if count > 0
-    )
-    surface_counts_section = ""
-    if surface_count_rows:
-        surface_counts_section = f"""\
-
-### Results per Search Surface
-
-Total distinct results found across all search queries for each surface.
-Only repositories proceed to cloning and local analysis.
-
-| Surface | Results found |
-|---|---|
-{surface_count_rows}
-
-{_img('../plots', 'surface_breakdown', 'png', f'{short} — search results per surface')}
-"""
-
-    return f"""\
-## Pipeline Summary
-
-| Stage | Count |
-|---|---|
-| Candidates found via search | {len(repo_set):,} |
-| Cloned | {n_cloned:,} |
-| Clone errors | {n_error:,} |
-{size_row}| Analysed | {n:,} |
-| **Detected** | **{n_det:,} ({_pct(det_rate)})** |
-| Not detected | {n_not:,} ({_pct(100 - det_rate)}) |
-
-| Search | Value |
-|---|---|
-| Total queries run | {n_queries:,} |
-| Total API hits | {total_hits:,} |
-
-> *Detected* = ≥ 1 pattern match found in the cloned default branch. Not detected means no matching signal was found in our patterns — not that the technique is absent (non-standard terminology, non-default branches, or vendored code all cause misses). All figures are lower-bound estimates.
-
-### Search Surfaces Used
-
-Each surface corresponds to a distinct GitHub Search API endpoint.
-
-| Surface | What is searched |
-|---|---|
-{surface_rows}
-
-{surface_counts_section}
-{_img('../plots', 'query_hits', 'png', f'{short} — raw search hit counts per query')}
-"""
 
 
 # ---------------------------------------------------------------------------
-# Adoption Overview — RQ1
+# Charts
 # ---------------------------------------------------------------------------
 
-def sec_adoption(data: dict, plots_rel: str, fmt: str, profile) -> str:
-    scores   = data["repo_scores"] or []
-    findings = data["findings"]    or []
-    short    = profile.short_name
-    detected = _detected(scores)
-    not_det  = _not_detected(scores)
-    n        = len(scores)
-    n_det    = len(detected)
-    if not n_det:
-        return ""
-
-    det_scores = [r["score"] for r in detected]
-    med_score  = statistics.median(det_scores)
-    mean_score = statistics.mean(det_scores)
-    max_score  = max(det_scores)
-    n_single   = sum(1 for s in det_scores if s == 1)
-
-    # Project metadata stats (stars, age, files) — detected vs not-detected
-    _now_year = 2026
-    def _mstats(vals):
-        if not vals:
-            return "—", "—", "—"
-        return f"{statistics.median(vals):.1f}", f"{statistics.mean(vals):.1f}", f"{max(vals):,}"
-
-    det_stars = [r.get("stars", 0) or 0 for r in detected]
-    not_stars = [r.get("stars", 0) or 0 for r in not_det]
-    det_age   = [_now_year - int(r["created_at"][:4])
-                 for r in detected if (r.get("created_at") or "")[:4].isdigit()]
-    not_age   = [_now_year - int(r["created_at"][:4])
-                 for r in not_det  if (r.get("created_at") or "")[:4].isdigit()]
-    det_files = [r.get("total_files_scanned", 0) for r in detected if r.get("total_files_scanned", 0) > 0]
-    not_files = [r.get("total_files_scanned", 0) for r in not_det  if r.get("total_files_scanned", 0) > 0]
-
-    metadata_section = ""
-    if detected:
-        ds_med, ds_mean, ds_max = _mstats(det_stars)
-        ns_med, ns_mean, ns_max = _mstats(not_stars)
-        da_med, _,       da_max = _mstats(det_age)
-        na_med, _,       na_max = _mstats(not_age)
-        df_med, df_mean, df_max = _mstats(det_files)
-        nf_med, nf_mean, nf_max = _mstats(not_files)
-        metadata_section = f"""\
-
-### Project Metadata (Detected vs Not Detected)
-
-| Metric | Detected (n={len(detected):,}) | Not Detected (n={len(not_det):,}) |
-|---|---|---|
-| Median stars | {ds_med} | {ns_med} |
-| Mean stars | {ds_mean} | {ns_mean} |
-| Max stars | {ds_max} | {ns_max} |
-| Median repo age (yrs) | {da_med} | {na_med} |
-| Max repo age (yrs) | {da_max} | {na_max} |
-| Median files scanned | {df_med} | {nf_med} |
-| Max files scanned | {df_max} | {nf_max} |
-
-{_img(plots_rel, 'project_metadata', fmt, f'{short} — project metadata: detected vs not-detected (stars, age, files)')}
-"""
-
-    # Contributor stats
-    git_c = [r.get("contributor_count_git", 0) for r in detected if r.get("contributor_count_git", 0) > 0]
-    contrib_section = ""
-    if git_c:
-        contrib_section = f"""\
-
-### Contributor Activity
-
-Unique author email addresses from sampled git history (≤ 500 commits per repo).
-
-| Metric | Value |
-|---|---|
-| Repos with contributor data | {len(git_c):,} |
-| Median contributors | {_med(git_c)} |
-| Mean contributors | {_mean(git_c)} |
-| Max contributors | {max(git_c):,} |
-| Single-contributor repos | {sum(1 for c in git_c if c == 1):,} ({_pct(sum(1 for c in git_c if c == 1)/len(git_c)*100)}) |
-| Repos with > 10 contributors | {sum(1 for c in git_c if c > 10):,} ({_pct(sum(1 for c in git_c if c > 10)/len(git_c)*100)}) |
-
-{_img(plots_rel, 'contributor_dist', fmt, f'{short} — contributor count distribution')}"""
-
-    return f"""\
-## Adoption Overview
-
-### Detection Count Distribution
-
-{_img(plots_rel, 'detection_count_hist', fmt, f'{short} — detection count distribution (detected repos)')}
-
-| Metric | Value |
-|---|---|
-| Total analysed | {n:,} |
-| Total detected | {n_det:,} ({_pct(n_det/n*100)}) |
-| Not detected | {len(not_det):,} ({_pct(len(not_det)/n*100)}) |
-| Median detection count | {med_score:.1f} |
-| Mean detection count | {mean_score:.1f} |
-| Maximum detection count | {max_score:,} |
-| Single-match detections | {n_single:,} ({_pct(n_single/n_det*100)}) |
-{metadata_section}{contrib_section}
-"""
-
-
-# ---------------------------------------------------------------------------
-# Usage Patterns — RQ2
-# ---------------------------------------------------------------------------
-
-def sec_usage(data: dict, plots_rel: str, fmt: str, profile) -> str:
-    scores   = data["repo_scores"] or []
-    findings = data["findings"]    or []
-    short    = profile.short_name
-    detected = _detected(scores)
-    not_det  = _not_detected(scores)
-    if not detected:
-        return ""
-    n_det   = len(detected)
-
-    # --- Project type ---
-    type_counts = Counter(r.get("project_type", "unknown") for r in detected)
-    type_order  = ["general_usage", "framework", "mixed", "research_artifact", "documentation_only", "unknown"]
-    type_display = {
-        "general_usage":      "Actual Usage",
-        "framework":          "Framework / Library",
-        "mixed":              "Mixed",
-        "research_artifact":  "Research Artifact",
-        "documentation_only": "Docs Only",
-        "unknown":            "Unknown",
-    }
-    type_desc = {
-        "general_usage":     "Signals in test dirs (`tests/`, `spec/`, `*_test.*`). Technique is actively used in the project's testing.",
-        "framework":         "Signals in source dirs (`src/`, `lib/`, `core/`). The project implements or extends the technique.",
-        "research_artifact": "Signals alongside paper markers (`paper`, `evaluation`, `artifact`). Replication study or benchmarking repo.",
-        "mixed":             "Signals in both source and test dirs. Technique used as both implementation target and test method.",
-        "unknown":           "No clear dir-based classification.",
-    }
-    type_rows = "\n".join(
-        f"| {type_display.get(k, k)} | {type_counts[k]:,} | {_pct(type_counts[k]/n_det*100)} |"
-        for k in type_order if type_counts.get(k, 0) > 0
-    )
-    excl_row = f"| **Not Detected (excluded)** | {len(not_det):,} | — |"
-    type_desc_rows = "\n".join(
-        f"| {type_display.get(k, k)} | {type_desc.get(k, '')} |"
-        for k in type_order if type_counts.get(k, 0) > 0
-    )
-
-    # --- Code vs non-code (moved from sec_adoption) ---
-    cnc_total_art: Counter = Counter()
-    for r in detected:
-        for atype, cnt in (r.get("artifact_breakdown") or {}).items():
-            cnc_total_art[atype] += cnt
-    cnc_art_total    = sum(cnc_total_art.values())
-    cnc_code_types   = {"test_code", "source_code"}
-    cnc_code_total   = sum(v for k, v in cnc_total_art.items() if k in cnc_code_types)
-    cnc_section = ""
-    if cnc_art_total > 0:
-        cnc_nc = cnc_art_total - cnc_code_total
-        cnc_section = f"""\
-
-#### Code vs Non-Code Mentions
-
-Signal matches classified by where they appear in the repository file tree.
-
-| Category | Matches | % |
-|---|---|---|
-| Code (test code + source code) | {cnc_code_total:,} | {_pct(cnc_code_total/cnc_art_total*100)} |
-| Non-code (docs + config + other) | {cnc_nc:,} | {_pct(cnc_nc/cnc_art_total*100)} |
-
-"""
-
-    # --- Technique line/file ratios (moved from sec_adoption) ---
-    line_density = [r.get("technique_line_density", 0) for r in detected if r.get("technique_line_density", 0) > 0]
-    file_ratio   = [r.get("technique_file_ratio", 0) for r in detected if r.get("technique_file_ratio", 0) > 0]
-    ratio_section = ""
-    if line_density or file_ratio:
-        ratio_section = f"""\
-
-#### Technique Coverage Ratios
-
-Proportion of each detected repo's content containing technique signals.
-
-| Metric | Value |
-|---|---|
-| Median technique line density | {_pct(statistics.median(line_density)*100) if line_density else '—'} |
-| Median technique file ratio | {_pct(statistics.median(file_ratio)*100) if file_ratio else '—'} |
-| Repos with > 10% file coverage | {sum(1 for v in file_ratio if v > 0.1):,} |
-
-{_img(plots_rel, 'technique_ratios', fmt, f'{short} — technique code share and file coverage (detected repos)')}
-"""
-
-    # --- Detection distribution (coverage depth + keyword density) ---
-    files_per: dict = defaultdict(set)
-    for f in findings:
-        if f.get("repo") in {r["repo"] for r in detected}:
-            files_per[f.get("repo")].add(f.get("file", ""))
-    if not files_per:
-        for r in detected:
-            for i in range(int(r.get("technique_files", 0))):
-                files_per[r["repo"]].add(f"f{i}")
-    file_cnts = [len(v) for v in files_per.values()]
-    n_cov     = len(file_cnts)
-
-    bins_spec = [(1, 1, "1"), (2, 2, "2"), (3, 5, "3–5"), (6, 10, "6–10"), (11, 20, "11–20"), (21, 10**9, ">20")]
-    cov_rows  = "\n".join(
-        f"| {lbl} | {sum(1 for c in file_cnts if lo <= c <= hi):,} |"
-        for lo, hi, lbl in bins_spec
-    )
-
-    avg_m = [r["avg_mentions_per_technique_file"] for r in detected
-             if r.get("avg_mentions_per_technique_file", 0) > 0]
-    max_m = [r.get("max_mentions_in_file", 0) for r in detected if r.get("max_mentions_in_file", 0) > 0]
-    conc  = [r.get("max_mentions_in_file", 0) / max(r.get("score", 1), 1)
-             for r in detected if r.get("score", 0) > 0]
-    pat_breadth = [len(r.get("patterns_matched", [])) for r in detected]
-
-    spread_stats = ""
-    if avg_m:
-        spread_stats = f"""\
-
-| Spread Metric | Value |
-|---|---|
-| Single-file signal repos | {sum(1 for c in file_cnts if c == 1):,} ({_pct(sum(1 for c in file_cnts if c == 1)/n_cov*100) if n_cov else '—'}) |
-| Median avg matches per technique file | {_med(avg_m)} |
-| Mean avg matches per technique file | {_mean(avg_m)} |
-| Median max matches in a single file | {_med(max_m)} |
-| Mean signal concentration (max/total) | {_pct(sum(conc)/len(conc)*100) if conc else '—'} |
-| Median unique pattern types per repo | {_med(pat_breadth)} |
-| Mean unique pattern types per repo | {_mean(pat_breadth)} |
-"""
-
-    # --- Language ---
-    lang_counts: Counter = Counter()
-    for r in detected:
-        lb = r.get("language_breakdown") or {}
-        if lb:
-            for lang in lb:
-                lang_counts[lang] += 1     # repos containing this language
-        elif r.get("language"):
-            lang_counts[r["language"]] += 1  # fallback: GitHub-reported primary language
-    top_langs = lang_counts.most_common(15)
-    lang_rows   = "\n".join(
-        f"| {lang} | {cnt:,} | {_pct(cnt/n_det*100)} |"
-        for lang, cnt in top_langs
-    )
-
-    # --- Artifact type ---
-    total_art: Counter = Counter()
-    for r in detected:
-        for atype, cnt in (r.get("artifact_breakdown") or {}).items():
-            total_art[atype] += cnt
-    art_total = sum(total_art.values())
-    art_order = ["test_code", "source_code", "documentation", "config", "other"]
-    art_desc  = {
-        "test_code":     "Files in test directories (`tests/`, `spec/`, `*test*`, `*_spec.*`)",
-        "source_code":   "Non-test source files (`src/`, `lib/`, `*.py`, `*.java`, `*.cpp`, etc.)",
-        "documentation": "Markdown, RST, and plain-text docs (`*.md`, `*.rst`, `*.txt`, `docs/`)",
-        "config":        "Config and build files (`*.yml`, `*.toml`, `*.ini`, `*.gradle`, `Makefile`)",
-        "other":         "All other file types not matched above",
-    }
-    art_rows = "\n".join(
-        f"| {k.replace('_',' ').title()} | {total_art.get(k, 0):,} | {_pct(total_art.get(k,0)/art_total*100) if art_total else '—'} |"
-        for k in art_order if total_art.get(k, 0) > 0
-    )
-    art_desc_rows = "\n".join(
-        f"| {k.replace('_',' ').title()} | {art_desc[k]} |"
-        for k in art_order if total_art.get(k, 0) > 0
-    )
-
-    # List top extensions in the "other" bucket
-    other_ext_counts: Counter = Counter()
-    for f in findings:
-        if f.get("artifact_type") == "other":
-            fname = f.get("file", "")
-            if fname:
-                dot = fname.rfind(".")
-                ext = fname[dot:].lower() if dot >= 0 else "(none)"
-                other_ext_counts[ext] += 1
-    other_ext_note = ""
-    if other_ext_counts:
-        top_other = other_ext_counts.most_common(15)
-        other_ext_rows = "\n".join(
-            f"| `{ext}` | {cnt:,} |" for ext, cnt in top_other
-        )
-        other_ext_note = f"""\
-
-#### Other — Unrecognized Extensions
-
-Files classified as *Other* (extension not in the known source-code whitelist):
-
-| Extension | Signal matches |
-|---|---|
-{other_ext_rows}
-"""
-
-    # Top file extensions across all findings (for the extension breakdown table)
-    ext_counts_all: Counter = Counter()
-    for f in findings:
-        fname = f.get("file", "")
-        if fname:
-            dot = fname.rfind(".")
-            ext = fname[dot:].lower() if dot >= 0 else "(none)"
-            ext_counts_all[ext] += 1
-    ext_table_rows = "\n".join(
-        f"| `{ext}` | {cnt:,} |"
-        for ext, cnt in ext_counts_all.most_common(15)
-    )
-
-    # --- Domains ---
-    domain_counts: Counter = Counter()
-    for r in detected:
-        for d in (r.get("inferred_domains") or []):
-            domain_counts[d] += 1
-    domain_rows = "\n".join(
-        f"| {k.replace('_',' ').title()} | {v:,} | {_pct(v/n_det*100)} |"
-        for k, v in domain_counts.most_common()
-    ) if domain_counts else ""
-
-    domain_section = ""
-    if domain_rows:
-        domain_section = f"""\
-
-### Application Domain
-
-Inferred from repo name, description, GitHub topics, and README text (keyword matching). A repo can match multiple domains.
-
-| Domain | Repos | % of detected |
-|---|---|---|
-{domain_rows}
-
-{_img(plots_rel, 'domain_wordcloud', fmt, f'{short} — domain word cloud (detected repos)')}
-{_img(plots_rel, 'domain_dist', fmt, f'{short} — inferred domain distribution')}
-{_img(plots_rel, 'domain_activity_over_time', fmt, f'{short} — detected repos by domain and creation year')}
-"""
-
-    return f"""\
-## Usage Patterns
-
-### Project Role Classification
-
-Repos are classified by where technique signals appear in the directory tree. Not-detected repos are excluded from the use-case stats below.
-
-| Classification | Repos | % of detected |
-|---|---|---|
-{type_rows}
-{excl_row}
-
-| Classification | Description |
-|---|---|
-{type_desc_rows}
-
-{_img(plots_rel, 'project_type_dist', fmt, f'{short} — project role distribution (including not-detected)')}
-### Detection Distribution
-
-How technique signals are distributed within repos: signal type, code coverage, spread across files, and density per file.
-{cnc_section}{ratio_section}{spread_stats}
-| Files with signals | Repos |
-|---|---|
-{cov_rows}
-
-{_img(plots_rel, 'coverage_depth', fmt, f'{short} — signal coverage depth (files per repo)')}
-{_img(plots_rel, 'keyword_density', fmt, f'{short} — keyword density per technique file')}
-
-### Language Distribution
-
-| Language | Detected repos | % |
-|---|---|---|
-{lang_rows}
-
-{_img(plots_rel, 'language_dist', fmt, f'{short} — language distribution (top 15)')}
-
-### Artifact Type Distribution
-
-Where in the file tree signals appear across all {len(findings):,} total matches.
-
-| Artifact Type | Matches | % |
-|---|---|---|
-{art_rows}
-
-| Artifact Type | Files included |
-|---|---|
-{art_desc_rows}
-
-{_img(plots_rel, 'artifact_breakdown', fmt, f'{short} — signal distribution by artifact type')}
-{other_ext_note}
-### File Extension Breakdown
-
-Extension-level breakdown of files containing technique signals (top 15 by match count).
-
-| Extension | Signal matches |
-|---|---|
-{ext_table_rows}
-
-{_img(plots_rel, 'extension_breakdown', fmt, f'{short} — signal matches by file extension')}
-{domain_section}
-"""
+def _save(fig, path: Path) -> str:
+    fig.tight_layout()
+    fig.savefig(path, dpi=cfg.PLOT_DPI, bbox_inches="tight")
+    plt.close(fig)
+    return f"plots/{path.name}"
+
+
+def _bar_chart(
+    labels: list[str], values: list[float], title: str, xlabel: str, ylabel: str,
+    path: Path, color: str = _PALETTE[0], horizontal: bool = False,
+    figsize: tuple = (8, 4), annotate: bool = True,
+) -> str:
+    fig, ax = plt.subplots(figsize=figsize)
+    if horizontal:
+        bars = ax.barh(list(reversed(labels)), list(reversed(values)), color=color)
+        ax.set_xlabel(xlabel)
+        ax.set_ylabel(ylabel)
+        if annotate:
+            for bar, v in zip(bars, list(reversed(values))):
+                ax.text(bar.get_width() + max(values) * 0.01, bar.get_y() + bar.get_height() / 2,
+                        _fmt(v), va="center", fontsize=7)
+    else:
+        xs   = range(len(labels))
+        bars = ax.bar(xs, values, color=color)
+        ax.set_xticks(list(xs))
+        ax.set_xticklabels(labels, rotation=35, ha="right", fontsize=7)
+        ax.set_xlabel(xlabel)
+        ax.set_ylabel(ylabel)
+        if annotate:
+            for bar, v in zip(bars, values):
+                ax.text(bar.get_x() + bar.get_width() / 2, bar.get_height() + max(values) * 0.01,
+                        _fmt(v), ha="center", va="bottom", fontsize=7)
+    ax.set_title(title)
+    return _save(fig, path)
+
+
+def _bar_chart_with_stats_lines(
+    labels: list[str], values: list[float], title: str, xlabel: str, ylabel: str,
+    path: Path, color: str = _PALETTE[0], figsize: tuple = (8, 4),
+) -> str:
+    """Bar chart with count labels, median and mean horizontal lines."""
+    fig, ax = plt.subplots(figsize=figsize)
+    xs   = range(len(labels))
+    bars = ax.bar(xs, values, color=color)
+    ax.set_xticks(list(xs))
+    ax.set_xticklabels(labels, rotation=20, ha="right", fontsize=8)
+    ax.set_xlabel(xlabel)
+    ax.set_ylabel(ylabel)
+    ax.set_title(title)
+    for bar, v in zip(bars, values):
+        ax.text(bar.get_x() + bar.get_width() / 2, bar.get_height() + max(values, default=1) * 0.01,
+                _fmt(v), ha="center", va="bottom", fontsize=7)
+    if len(values) >= 2:
+        med = statistics.median(values)
+        mn  = sum(values) / len(values)
+        ax.axhline(med, color=_PALETTE[2], linestyle="--", linewidth=1, label=f"Median {_fmt(med)}")
+        ax.axhline(mn,  color=_PALETTE[3], linestyle=":",  linewidth=1, label=f"Mean {_fmt(mn, 1)}")
+        ax.legend(fontsize=8)
+    return _save(fig, path)
+
+
+def _grouped_bar_chart(
+    groups: list[str], series: dict[str, list[float]],
+    title: str, xlabel: str, ylabel: str, path: Path,
+    figsize: tuple = (10, 5),
+) -> str:
+    n_groups = len(groups)
+    n_series = len(series)
+    width    = 0.8 / max(n_series, 1)
+    xs       = np.arange(n_groups)
+    fig, ax  = plt.subplots(figsize=figsize)
+    for idx, (label, vals) in enumerate(series.items()):
+        offset = (idx - n_series / 2 + 0.5) * width
+        ax.bar(xs + offset, vals, width=width * 0.9, label=label, color=_PALETTE[idx % len(_PALETTE)])
+    ax.set_xticks(xs)
+    ax.set_xticklabels(groups, rotation=20, ha="right", fontsize=8)
+    ax.set_xlabel(xlabel)
+    ax.set_ylabel(ylabel)
+    ax.set_title(title)
+    ax.legend(fontsize=8)
+    return _save(fig, path)
+
+
+def _line_chart(
+    xs: list, ys: list[float], title: str, xlabel: str, ylabel: str, path: Path,
+    add_median: bool = True, add_mean: bool = True, figsize: tuple = (10, 4),
+    x_labels: list[str] | None = None,
+    extra_lines: list[tuple[list[float], str, str]] | None = None,
+) -> str:
+    fig, ax = plt.subplots(figsize=figsize)
+    ax.plot(xs, ys, color=_PALETTE[0], linewidth=1.2, zorder=3, label=ylabel if extra_lines else None)
+    if extra_lines:
+        for i, (extra_ys, extra_label, extra_color) in enumerate(extra_lines):
+            ax.plot(xs[:len(extra_ys)], extra_ys, color=extra_color,
+                    linewidth=1.2, zorder=3, label=extra_label, linestyle="--")
+        ax.legend(fontsize=8)
+    if add_median and len(ys) > 1 and not extra_lines:
+        med = statistics.median(ys)
+        ax.axhline(med, color=_PALETTE[2], linestyle="--", linewidth=1, label=f"Median {med:.1f}")
+    if add_mean and len(ys) > 1 and not extra_lines:
+        mn = sum(ys) / len(ys)
+        ax.axhline(mn,  color=_PALETTE[3], linestyle=":",  linewidth=1, label=f"Mean {mn:.1f}")
+    if (add_median or add_mean) and not extra_lines and len(ys) > 1:
+        ax.legend(fontsize=8)
+    if x_labels is not None and len(x_labels) == len(xs):
+        step           = max(1, len(x_labels) // 20)
+        ax.set_xticks(xs[::step])
+        ax.set_xticklabels(x_labels[::step], rotation=35, ha="right", fontsize=6)
+    ax.set_xlabel(xlabel)
+    ax.set_ylabel(ylabel)
+    ax.set_title(title)
+    return _save(fig, path)
 
 
 # ---------------------------------------------------------------------------
-# Timeline — RQ3
+# Sections
 # ---------------------------------------------------------------------------
 
-def sec_temporal(data: dict, plots_rel: str, fmt: str, profile) -> str:
-    scores   = data["repo_scores"] or []
-    short    = profile.short_name
-    detected = _detected(scores)
-    if not scores:
-        return ""
-
-    # Yearly breakdown
-    by_year: dict = defaultdict(lambda: {"det": 0, "not": 0})
-    for r in scores:
-        d = r.get("created_at", "")
-        if d and len(d) >= 4 and d[:4].isdigit():
-            y = int(d[:4])
-            if 2010 <= y <= 2026:
-                if r.get("score", 0) > 0:
-                    by_year[y]["det"] += 1
-                else:
-                    by_year[y]["not"] += 1
-    year_rows = "\n".join(
-        f"| {y} | {by_year[y]['det']:,} | {by_year[y]['not']:,} | {by_year[y]['det']+by_year[y]['not']:,} |"
-        for y in sorted(by_year)
-    )
-
-    # Commit stats (detected only)
-    commit_ratio  = [r.get("technique_commit_ratio", 0.0) for r in detected
-                     if r.get("total_commits_sampled", 0) > 0]
-    commit_span   = [r.get("technique_commit_span_days", 0) / 365.25 for r in detected
-                     if r.get("technique_commit_span_days", 0) > 0]
-    total_sampled = [r.get("total_commits_sampled", 0) for r in detected
-                     if r.get("total_commits_sampled", 0) > 0]
-
-    # First / last commit years
-    first_years = []
-    last_years  = []
-    for r in detected:
-        fd = r.get("first_technique_commit_date", "")
-        ld = r.get("last_technique_commit_date", "")
-        if fd and len(fd) >= 4 and fd[:4].isdigit():
-            first_years.append(int(fd[:4]))
-        if ld and len(ld) >= 4 and ld[:4].isdigit():
-            last_years.append(int(ld[:4]))
-
-    # Commit activity per year-of-project-life (using technique_commit_dates)
-    yearly_of_life: Counter = Counter()
-    for r in detected:
-        created = (r.get("created_at") or "")[:4]
-        if not created or not created.isdigit():
-            continue
-        created_year = int(created)
-        for dt in (r.get("technique_commit_dates") or []):
-            if isinstance(dt, str) and len(dt) >= 4 and dt[:4].isdigit():
-                yol = int(dt[:4]) - created_year + 1
-                if 1 <= yol <= 20:
-                    yearly_of_life[yol] += 1
-
-    project_age_section = ""
-    if yearly_of_life:
-        max_life_year = min(max(yearly_of_life.keys()), 20)
-        life_rows = "\n".join(
-            f"| Yr {y} | {yearly_of_life[y]:,} |"
-            for y in range(1, max_life_year + 1)
-            if yearly_of_life.get(y, 0) > 0
-        )
-        project_age_section = f"""\
-
-### Technique Commits by Year of Repository Life
-
-Total technique commits in each year of a repo's existence, aggregated across all detected repos.
-Shows whether technique adoption is concentrated early or sustained over time.
-
-| Project life year | Technique commits |
-|---|---|
-{life_rows}
-
-{_img(plots_rel, 'project_life_year', fmt, f'{short} — technique commits by year of repository life')}
-"""
-
-    commit_section = ""
-    if commit_ratio:
-        n_high = sum(1 for v in commit_ratio if v >= 0.1)
-
-        first_yr_row = f"| Median first technique commit year | {_med(first_years)} |" if first_years else ""
-        last_yr_row  = f"| Median last technique commit year  | {_med(last_years)} |"  if last_years  else ""
-        span_row     = f"| Median technique commit span       | {_med(commit_span)} yrs |" if commit_span else ""
-
-        commit_section = f"""\
-
-### Commit Activity
-
-Computed from up to 500 most-recent commits per repo (git log, no merges).
-
-| Metric | Value |
-|---|---|
-| Repos with commit data | {len(commit_ratio):,} |
-| Median commits sampled | {_med(total_sampled)} |
-{first_yr_row}
-{last_yr_row}
-{span_row}
-| Mean technique commit span | {_mean(commit_span)} yrs |
-| Median technique commit ratio | {_med([v*100 for v in commit_ratio])}% |
-| Mean technique commit ratio | {_mean([v*100 for v in commit_ratio])}% |
-| Repos with > 10% technique commits | {n_high:,} ({_pct(n_high/len(commit_ratio)*100)}) |
-
-{_img(plots_rel, 'commit_timeline', fmt, f'{short} — technique commit activity over time (commits per year)')}
-{_img(plots_rel, 'commit_first_year', fmt, f'{short} — first technique commit year distribution')}
-{_img(plots_rel, 'commit_last_year', fmt, f'{short} — last technique commit year distribution')}
-{_img(plots_rel, 'commit_span', fmt, f'{short} — first-to-last commit duration distribution (years)')}
-{_img(plots_rel, 'commit_ratio_dist', fmt, f'{short} — technique commit ratio distribution')}
-{project_age_section}"""
-
-    return f"""\
-## Timeline
-
-### Repository Creation Trend
-
-| Year | Detected | Not detected | Total |
-|---|---|---|---|
-{year_rows}
-
-{_img(plots_rel, 'yearly_trend', fmt, f'{short} — detected repos by creation year')}
-{commit_section}
-"""
-
-
-# ---------------------------------------------------------------------------
-# Pattern Activity (from input YAML patterns)
-# ---------------------------------------------------------------------------
-
-def sec_pattern_activity(data: dict, plots_rel: str, fmt: str, profile) -> str:
-    scores   = data["repo_scores"] or []
-    findings = data["findings"]    or []
-    short    = profile.short_name
-    detected = _detected(scores)
-    n_det    = len(detected)
-    if not findings:
-        return ""
-
-    pat_totals: Counter = Counter(f["label"] for f in findings)
-    repos_per_pat: Counter = Counter()
-    for r in scores:
-        for lbl in r.get("patterns_matched", []):
-            repos_per_pat[lbl] += 1
-    if not repos_per_pat:
-        return ""
-
-    pat_rows = "\n".join(
-        f"| {lbl} | {repos_per_pat[lbl]:,} | {pat_totals[lbl]:,} |"
-        for lbl, _ in repos_per_pat.most_common()
-    )
-
-    return f"""\
-## Pattern Activity
-
-{len(findings):,} total pattern matches across {n_det:,} detected repositories.
-
-| Pattern | Repos | Total matches |
-|---|---|---|
-{pat_rows}
-
-{_img(plots_rel, 'pattern_freq', fmt, f'{short} — pattern match frequency')}
-"""
-
-
-# ---------------------------------------------------------------------------
-# Top Detected Repositories
-# ---------------------------------------------------------------------------
-
-def sec_top_repos(data: dict, profile, top_n: int = 30) -> str:
-    scores   = data["repo_scores"] or []
-    detected = _detected(scores)
-    if not detected:
-        return ""
-    top = sorted(detected, key=lambda r: (r.get("score", 0), r.get("stars", 0)), reverse=True)[:top_n]
-    rows = "\n".join(
-        f"| [{r['repo']}](https://github.com/{r['repo']}) "
-        f"| {r.get('score', 0):,} "
-        f"| {r.get('technique_files', 0):,} "
-        f"| {r.get('project_type', '—').replace('_',' ')} "
-        f"| {r.get('language') or '—'} "
-        f"| {r.get('stars', 0):,} "
-        f"| {(r.get('created_at') or '')[:4] or '—'} |"
-        for r in top
-    )
-    return f"""\
-## Top Detected Repositories
-
-Top {min(top_n, len(detected))} by detection count (then stars).
-
-| Repository | Detections | Signal files | Project type | Language | Stars | Year |
-|---|---|---|---|---|---|---|
-{rows}
-"""
-
-
-# ---------------------------------------------------------------------------
-# Appendix A — Not-Detected Repositories
-# ---------------------------------------------------------------------------
-
-def sec_non_detected(data: dict, profile) -> str:
-    scores  = data["repo_scores"] or []
-    not_det = _not_detected(scores)
-    if not not_det:
-        return ""
-    short = profile.short_name
-    sorted_repos = sorted(not_det, key=lambda r: r.get("stars", 0), reverse=True)
-
-    rows = "\n".join(
-        f"| [{r['repo']}](https://github.com/{r['repo']}) "
-        f"| {r.get('language') or '—'} "
-        f"| {r.get('stars', 0):,} "
-        f"| {(r.get('created_at') or '')[:4] or '—'} "
-        f"| {'; '.join({_surface_of(q) for q in r.get('found_by_queries', [])}) or '—'} |"
-        for r in sorted_repos
-    )
-    return f"""\
-## Appendix A — Not-Detected Repositories ({len(not_det):,})
-
-No {short} pattern matches found in cloned default branch. Listed for manual review (sorted by stars).
-
-| Repository | Language | Stars | Year | Found via |
-|---|---|---|---|---|
-{rows}
-"""
-
-
-# ---------------------------------------------------------------------------
-# Appendix B — Query Statistics
-# ---------------------------------------------------------------------------
-
-def sec_query_stats(data: dict) -> str:
-    summary = data["summary"]
-    if not summary:
-        return ""
-    queries = summary.get("queries", [])
-    if not queries:
-        return ""
-
-    repos_per_label: Counter = Counter()
-    for repo in (data["repo_scores"] or []):
-        for entry in repo.get("found_by_queries", []):
-            repos_per_label[entry] += 1
-
-    rows  = "\n".join(
-        f"| {q.get('type','').upper()} | {q.get('query','')[:60]} | {q.get('hits',0):,} | {repos_per_label.get(q.get('label',''), 0):,} |"
-        for q in sorted(queries, key=lambda q: q.get("hits", 0), reverse=True)
-    )
-    total = sum(q.get("hits", 0) for q in queries)
-
-    return f"""\
-## Appendix B — Search Query Statistics
-
-{len(queries)} queries · {total:,} total API hits
-
-| Surface | Query | API hits | Repos in analysis |
-|---|---|---|---|
-{rows}
-"""
-
-
-# ---------------------------------------------------------------------------
-# Appendix C — Pattern Reference
-# ---------------------------------------------------------------------------
-
-def sec_pattern_index(profile) -> str:
-    if not getattr(profile, "patterns_raw", None):
-        return ""
-    rows = "\n".join(
-        f"| `{p['id']}` | {p['label']} |"
-        for p in profile.patterns_raw
-    )
-    return f"""\
-## Appendix C — Pattern Reference
-
-| Pattern ID | Description |
-|---|---|
-{rows}
-"""
-
-
-# ---------------------------------------------------------------------------
-
-def sec_clone_issues(data: dict) -> str:
-    """Appendix D — repos with clone errors or size skips."""
-    manifest = data.get("manifest") or {}
-    repos = manifest.get("repos", {})
-
-    error_rows: list[tuple[str, str]] = []
-    size_rows: list[tuple[str, int, str]] = []
-
-    for v in repos.values():
-        status = v.get("status", "")
-        name = v.get("full_name", v.get("clone_url", "?"))
-        if status == "error":
-            error_rows.append((name, (v.get("error") or "")[:120]))
-        elif status == "skipped_size":
-            size_rows.append((name, v.get("size_kb", 0), v.get("skip_reason", "")))
-
-    if not error_rows and not size_rows:
-        return ""
-
-    parts: list[str] = ["## Appendix D — Clone Issues\n"]
-
-    if error_rows:
-        rows = "\n".join(f"| `{n}` | {e} |" for n, e in sorted(error_rows))
-        parts.append(
-            f"### Clone Errors ({len(error_rows)} repos)\n\n"
-            "| Repository | Error |\n|---|---|\n"
-            f"{rows}\n"
-        )
-
-    if size_rows:
-        size_rows.sort(key=lambda x: x[1], reverse=True)
-        rows = "\n".join(
-            f"| `{n}` | {kb:,} KB | {reason} |"
-            for n, kb, reason in size_rows
-        )
-        parts.append(
-            f"### Skipped — Too Large ({len(size_rows)} repos)\n\n"
-            "| Repository | Size | Reason |\n|---|---|---|\n"
-            f"{rows}\n"
-        )
-
-    return "\n".join(parts)
-
-
-# ---------------------------------------------------------------------------
-# Report builder
-# ---------------------------------------------------------------------------
-
-def build_report(data: dict, plots_rel: str, fmt: str, top_n: int, profile) -> str:
-    ts    = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
-    tech  = profile.name
-    short = profile.short_name
-
-    parts = [
-        f"# {tech} — GitHub Mining Report\n\n"
-        f"*{short} · Generated: {ts}*\n\n---\n",
-
-        sec_pipeline_summary(data, profile),
-        "---\n",
-        sec_adoption(data, plots_rel, fmt, profile),
-        "---\n",
-        sec_usage(data, plots_rel, fmt, profile),
-        "---\n",
-        sec_temporal(data, plots_rel, fmt, profile),
-        "---\n",
-        sec_top_repos(data, profile, top_n),
-        "---\n",
-        sec_pattern_activity(data, plots_rel, fmt, profile),
-        "---\n",
-        sec_non_detected(data, profile),
-        "---\n",
-        sec_query_stats(data),
-        "---\n",
-        sec_pattern_index(profile),
-        "---\n",
-        sec_clone_issues(data),
-    ]
-    return "\n".join(p for p in parts if p)
-
-
-# ---------------------------------------------------------------------------
-# Orchestrator
-# ---------------------------------------------------------------------------
-
-def run(
-    results_dir:   Path,
-    out_path:      Path,
-    plots_dir:     Path,
-    refresh_plots: bool,
-    top_n:         int,
-    fmt:           str,
-    dpi:           int,
-    profile,
+def _section_projects_and_sizes(
+    overall: dict, plots_dir: Path, technique_name: str, out: list[str]
 ) -> None:
-    console.rule(f"[bold blue]Phase 5: Report — {profile.name}[/]")
+    out.append("## 1. Projects Found and Repository Sizes\n")
+    out.append(
+        "> **Data source:** Search phase — GitHub REST API across all 6 search surfaces "
+        "(CODE, REPOS, COMMITS, PRs, ISSUES, DISCUSSIONS) using keywords from "
+        f"`inputs/{technique_name}_search_keywords.txt`.\n"
+    )
 
-    data    = load_data(results_dir)
-    missing = [k for k, v in data.items() if v is None]
-    if missing:
-        console.print(f"  [yellow]Missing (sections skipped):[/] {', '.join(missing)}")
-    if not data["repo_scores"]:
-        console.print("[red]repo_scores.json missing — run Phase 3 first.[/]")
+    by_surface  = overall.get("repos_by_surface", {})
+    total_repos = overall.get("repos_found_total", 0)
+
+    out.append(f"**{_fmt(total_repos)} distinct repositories** were found across all search surfaces.\n")
+    out.append(
+        "_A single repository may appear in multiple search surfaces. "
+        "'All surfaces combined' is the union — each repo counted once — across all 6 surfaces: "
+        "CODE, REPOS, COMMITS, PRs, ISSUES, DISCUSSIONS._\n"
+    )
+
+    surf_rows = [[s.upper(), _fmt(by_surface.get(s, 0))] for s in _ALL_SURFACES]
+    surf_rows.append(["**All surfaces combined**", f"**{_fmt(total_repos)}**"])
+    out.append(_table(["Surface", "Distinct Repos"], surf_rows) + "\n")
+
+    surf_vals   = [by_surface.get(s, 0) for s in _ALL_SURFACES]
+    surf_labels = [s.upper() for s in _ALL_SURFACES]
+    out.append(f"![Repos per surface]({_bar_chart(surf_labels, surf_vals, 'Distinct Repos per Search Surface', 'Surface', 'Distinct Repo Count', plots_dir / f'repos_per_surface.{cfg.PLOT_FORMAT}', color=_PALETTE[1])})\n")
+
+    # Size stats — grouped bar chart over all 6 surfaces (where data exists)
+    size_agg     = overall.get("repo_size_stats", {})
+    size_by_surf = size_agg.get("by_surface", {})
+    size_overall = size_agg.get("overall", {})
+    avail_surfs  = [s for s in _ALL_SURFACES if s in size_by_surf]
+
+    if avail_surfs:
+        stat_names  = ["avg", "median", "max", "min"]
+        stat_labels = ["Avg", "Median", "Max", "Min"]
+        series = {lbl: [size_by_surf[s].get(stat, 0) for s in avail_surfs]
+                  for stat, lbl in zip(stat_names, stat_labels)}
+        out.append(f"![Size statistics grouped]({_grouped_bar_chart([s.upper() for s in avail_surfs], series, 'Repository Size Statistics (KB) by Search Surface', 'Surface', 'Size (KB)', plots_dir / f'size_stats_grouped.{cfg.PLOT_FORMAT}')})\n")
+
+    size_rows = []
+    for s in _ALL_SURFACES:
+        st = size_by_surf.get(s)
+        if st:
+            size_rows.append([s.upper()] + _stat_cells(st))
+        else:
+            size_rows.append([s.upper(), "—", "—", "—", "—", "—", "0"])
+    if size_overall:
+        # count is the total union of distinct repos
+        row = [s.upper() for s in []]; row = ["**All (combined)**"] + _stat_cells(size_overall)
+        size_rows.append(row)
+    if size_rows:
+        out.append(_table(
+            ["Surface", "Avg (KB)", "Median (KB)", "Max (KB)", "Min (KB)", "Std Dev", "Count"],
+            size_rows,
+        ) + "\n")
+
+
+def _section_search_distribution(
+    overall: dict, plots_dir: Path, technique_name: str, out: list[str]
+) -> None:
+    out.append("## 2. Search Keyword Hit Distribution\n")
+    out.append(
+        "> **Data source:** Search phase — GitHub REST API hit counts per keyword per surface. "
+        f"Keywords from `inputs/{technique_name}_search_keywords.txt`.\n"
+    )
+    out.append(
+        "> **Note on 'unique results':** GitHub's API may return the same repository under "
+        "multiple keywords. 'Unique results' is the count of deduplicated items after "
+        "merging all keyword runs for a surface. A single repo can appear in multiple surfaces.\n"
+    )
+
+    hit_dists  = overall.get("search_hit_distributions", {})
+    search_sum = overall.get("search_summary", {})
+
+    # Aggregate totals per surface
+    total_hits_per_surf = [search_sum.get(s, {}).get("search_hit_count", 0) for s in _ALL_SURFACES]
+    unique_per_surf     = [search_sum.get(s, {}).get("unique_results",   0) for s in _ALL_SURFACES]
+    surf_labels         = [s.upper() for s in _ALL_SURFACES]
+
+    out.append("### Total Search Hits per Surface\n")
+    out.append(
+        "_Total search hits = sum of `total_count` returned by the API for all keyword "
+        "queries on each surface (before deduplication). Reflects raw API exposure._\n"
+    )
+    out.append(f"![Total search hits per surface]({_bar_chart_with_stats_lines(surf_labels, total_hits_per_surf, 'Total Search Hits per Surface (all keywords combined)', 'Surface', 'Total Search Hits', plots_dir / f'search_hits_per_surface.{cfg.PLOT_FORMAT}', color=_PALETTE[0])})\n")
+    out.append(_table(
+        ["Surface", "Total Search Hits"],
+        [[s, _fmt(v)] for s, v in zip(surf_labels, total_hits_per_surf)],
+    ) + "\n")
+
+    out.append("### Unique Results per Surface\n")
+    out.append(
+        "_Unique results = distinct items collected after deduplication within each surface._\n"
+    )
+    out.append(f"![Unique results per surface]({_bar_chart_with_stats_lines(surf_labels, unique_per_surf, 'Unique Results per Surface (all keywords combined)', 'Surface', 'Unique Results', plots_dir / f'search_unique_per_surface.{cfg.PLOT_FORMAT}', color=_PALETTE[1])})\n")
+    out.append(_table(
+        ["Surface", "Unique Results"],
+        [[s, _fmt(v)] for s, v in zip(surf_labels, unique_per_surf)],
+    ) + "\n")
+
+    # Distinct keywords with ≥1 result per surface (Item 5)
+    kw_with_results: dict[str, int] = {}
+    for s in _ALL_SURFACES:
+        surf_kws = search_sum.get(s, {}).get("keywords_ranked", [])
+        kw_with_results[s.upper()] = sum(1 for kw in surf_kws if kw.get("unique_results", 0) > 0)
+    kwsuf_labels = list(kw_with_results.keys())
+    kwsuf_vals   = [kw_with_results[s] for s in kwsuf_labels]
+    out.append("### Keywords with ≥1 Unique Result per Surface\n")
+    out.append(f"![Keywords with results per surface]({_bar_chart(kwsuf_labels, kwsuf_vals, 'Distinct Keywords Returning ≥1 Unique Result per Surface', 'Surface', 'Keywords with ≥1 Result', plots_dir / f'search_unique_keywords_per_surface.{cfg.PLOT_FORMAT}', color=_PALETTE[2])})\n")
+    out.append(_table(
+        ["Surface", "Keywords with ≥1 Result"],
+        [[s, _fmt(v)] for s, v in zip(kwsuf_labels, kwsuf_vals)],
+    ) + "\n")
+
+    # Cross-surface keyword ranked table + bar chart — ALL combinations (Item 7)
+    cross = search_sum.get("keywords_cross_surface", [])
+    if cross:
+        out.append("### Keyword Hits Across All Surfaces (Ranked)\n")
+        out.append("_Each row is one keyword on one surface, ranked by unique results (highest first). All keyword × surface combinations are shown._\n")
+        cross_rows = [
+            [i + 1, _trunc(e.get("surface_label", ""), 55),
+             _fmt(e.get("search_hit_count", 0)), _fmt(e.get("unique_results", 0))]
+            for i, e in enumerate(cross)
+        ]
+        out.append(_table(["#", "Surface: Keyword", "Search Hits", "Unique Results"], cross_rows) + "\n")
+        out.append(f"![Search keywords cross surface]({_bar_chart([_trunc(e.get('surface_label',''),45) for e in cross], [e.get('unique_results',0) for e in cross], 'Search Keywords by Unique Results (All Surfaces)', 'Surface: Keyword', 'Unique Results', plots_dir / f'search_keywords_cross.{cfg.PLOT_FORMAT}', horizontal=True, figsize=(10, max(5, len(cross)*0.22+2)))})\n")
+
+    # Per-surface distribution line charts + per-surface repo ranking (Items 7, 9)
+    for surface in _ALL_SURFACES:
+        items = hit_dists.get(surface, [])
+        nca   = overall.get("noncode_analysis", {})
+        surf_nc_stats = nca.get("by_surface", {}).get(surface, {}) if surface != "code" else {}
+
+        out.append(f"### {surface.upper()} Surface\n")
+        if items:
+            vals   = [it["hit_count"] for it in items]
+            u_vals = [it["unique_keyword_count"] for it in items]
+            ranks  = list(range(1, len(items) + 1))
+            out.append(f"_Total unique items: {len(items)}_\n")
+            out.append(f"![{surface} total hit dist]({_line_chart(ranks, vals, f'{surface.upper()}: Total Keyword Hits per Item (Ranked)', 'Rank (1 = most hits)', 'Total Keyword Hits', plots_dir / f'search_dist_{surface}.{cfg.PLOT_FORMAT}', x_labels=[str(r) for r in ranks])})\n")
+            out.append(f"![{surface} unique keyword dist]({_line_chart(ranks, u_vals, f'{surface.upper()}: Unique Keywords Matched per Item (Ranked)', 'Rank (1 = most unique keywords)', 'Unique Keywords Matched', plots_dir / f'search_unique_{surface}.{cfg.PLOT_FORMAT}', x_labels=[str(r) for r in ranks])})\n")
+
+        # Per-surface keyword table — ALL keywords (Item 7)
+        surf_kws = search_sum.get(surface, {}).get("keywords_ranked", [])
+        if surf_kws:
+            out.append(f"Keywords in {surface.upper()} (all, ranked by unique results):\n")
+            out.append(_table(
+                ["#", "Keyword", "Search Hits", "Unique Results"],
+                [[i+1, _trunc(kw.get("keyword",""),50), _fmt(kw.get("search_hit_count",0)), _fmt(kw.get("unique_results",0))]
+                 for i, kw in enumerate(surf_kws)],
+            ) + "\n")
+
+        # Per-surface repo ranking (Item 9) — from noncode_analysis
+        repos_ranked = surf_nc_stats.get("repos_ranked", [])
+        if repos_ranked:
+            out.append(f"Repositories ranked by keyword hits in {surface.upper()} body text:\n")
+            repo_hit_vals = [r["hit_count"] for r in repos_ranked]
+            repo_names    = [_trunc(r["repo"], 35) for r in repos_ranked]
+            out.append(f"![{surface} repo ranking]({_bar_chart(repo_names, repo_hit_vals, f'Top Repos by Keyword Hits — {surface.upper()}', 'Repository', 'Keyword Hits', plots_dir / f'search_repos_{surface}.{cfg.PLOT_FORMAT}', horizontal=True, figsize=(9, max(4, len(repo_names[:30])*0.25+2)))})\n")
+            out.append(_table(
+                ["#", "Repository", "Keyword Hits"],
+                [[i+1, r["repo"], _fmt(r["hit_count"])] for i, r in enumerate(repos_ranked[:50])],
+            ) + "\n")
+            rhs = surf_nc_stats.get("repo_hit_stats", {})
+            if rhs:
+                out.append(_table(
+                    ["Metric", "Avg", "Median", "Max", "Min", "Std Dev", "Repos"],
+                    [["Keyword hits per repo"] + _stat_cells(rhs)],
+                ) + "\n")
+
+
+def _section_technique_density(
+    overall: dict, plots_dir: Path, technique_name: str, out: list[str]
+) -> None:
+    out.append("## 3. Testing Technique Density\n")
+    out.append(
+        "> **Data source:** Code analysis phase — repos cloned from the CODE search surface and "
+        f"scanned with regexes from `inputs/{technique_name}_analysis_keywords.json` and "
+        "`inputs/shared_analysis_keywords.json`. "
+        "Only repositories in `code_repos.json` contribute to this section.\n"
+    )
+    ca = overall.get("code_analysis", {})
+
+    out.append(
+        "**Counting rules:** Each regex match counts as +1 hit. "
+        "Multiple matches on the same line each count as +1 hit, but only once toward "
+        "the _hit line_ count. "
+        "Keywords categorised `general_test` measure broad test presence; "
+        "`specific_technique` keywords are the primary adoption metric.\n"
+    )
+
+    # Analysis keyword hits — ALL keywords (Item 15)
+    kws_ranked = ca.get("keywords_ranked", [])
+    if kws_ranked:
+        out.append("### Analysis Keyword Hits (Code Repos)\n")
+        out.append(
+            "_`specific_technique` keywords are the primary metric. "
+            "`general_test` keywords measure baseline testing activity. "
+            "All keywords shown._\n"
+        )
+        out.append(_table(
+            ["#", "Keyword", "Category", "Total Hits"],
+            [[i+1, _trunc(k.get("label", k.get("id","")), 40), k.get("category",""), _fmt(k.get("count",0))]
+             for i, k in enumerate(kws_ranked)],
+        ) + "\n")
+        kw_labels = [_trunc(k.get("label", k.get("id","")), 35) for k in kws_ranked]
+        kw_vals   = [k.get("count", 0) for k in kws_ranked]
+        out.append(f"![Analysis keyword hits]({_bar_chart(kw_labels, kw_vals, 'Analysis Keyword Hits (Code Repos, All Keywords)', 'Keyword', 'Total Hits', plots_dir / f'analysis_keyword_hits.{cfg.PLOT_FORMAT}', horizontal=True, figsize=(10, max(5, len(kw_labels)*0.22+2)))})\n")
+
+    # Non-code cross-surface keyword ranked table + bar chart — ALL (Item 15)
+    nca      = overall.get("noncode_analysis", {})
+    nc_cross = nca.get("keywords_cross_surface", [])
+    if nc_cross:
+        out.append("### Analysis Keyword Hits — Non-Code Surfaces (Cross-Surface Ranked)\n")
+        out.append(
+            "_Keyword hits in non-code item bodies (issues, PRs, commits, discussions, repo descriptions), "
+            "ranked highest to lowest across all non-code surfaces. All combinations shown._\n"
+        )
+        out.append(_table(
+            ["#", "Surface: Keyword", "Hits"],
+            [[i+1, _trunc(e.get("surface_label",""),55), _fmt(e.get("count",0))]
+             for i, e in enumerate(nc_cross)],
+        ) + "\n")
+        out.append(f"![Non-code keywords cross surface]({_bar_chart([_trunc(e.get('surface_label',''),45) for e in nc_cross], [e.get('count',0) for e in nc_cross], 'Analysis Keyword Hits — Non-Code Surfaces (All, Ranked)', 'Surface: Keyword', 'Hits', plots_dir / f'nc_keywords_cross.{cfg.PLOT_FORMAT}', horizontal=True, figsize=(10, max(5, len(nc_cross)*0.22+2)), color=_PALETTE[1])})\n")
+
+    # Technique density 10-label scheme (Items 16-20)
+    tdl = ca.get("technique_density_labels", {})
+    if tdl:
+        by_label    = tdl.get("by_label", {})
+        label_order = [
+            "technique_code", "technique_doc", "technique_config", "technique_other",
+            "test_code",      "test_doc",      "test_config",      "test_other",
+            "non_hit_code",   "non_hit_ncode",
+        ]
+        label_disp = {
+            "technique_code":   "Technique Code (code file, ≥1 specific hit)",
+            "technique_doc":    "Technique Doc (doc file, ≥1 specific hit)",
+            "technique_config": "Technique Config (config file, ≥1 specific hit)",
+            "technique_other":  "Technique Other (other file, ≥1 specific hit)",
+            "test_code":        "Test Code (code file, general-only hits)",
+            "test_doc":         "Test Doc (doc file, general-only hits)",
+            "test_config":      "Test Config (config file, general-only hits)",
+            "test_other":       "Test Other (other file, general-only hits)",
+            "non_hit_code":     "Non-Hit Code (code file, no hits)",
+            "non_hit_ncode":    "Non-Hit Non-Code (non-code file, no hits)",
+        }
+
+        out.append("### Technique Density by File Label (10-Label Scheme)\n")
+        out.append(
+            "Files are assigned one of 10 mutually-exclusive labels based on file type and keyword hits:\n\n"
+            "- **technique_\\*** — ≥1 `specific_technique` hit (code / doc / config / other)\n"
+            "- **test_\\*** — ≥1 `general_test` hit, no specific hits (code / doc / config / other)\n"
+            "- **non_hit_code** — code file with no keyword hits\n"
+            "- **non_hit_ncode** — non-code file with no keyword hits\n\n"
+            "_File class: code = test_code ∪ source_code, doc = docs, config = config, other = other._\n"
+        )
+
+        # Combined density table (Item 17)
+        total_files = tdl.get("total_files", 1)
+        total_lines = tdl.get("total_lines", 1)
+        out.append("#### Combined Density Table\n")
+        density_rows = []
+        for lbl in label_order:
+            st = by_label.get(lbl, {})
+            density_rows.append([
+                label_disp[lbl],
+                _fmt(st.get("files", 0)),
+                _pct(st.get("pct_files", 0)),
+                _fmt(st.get("lines", 0)),
+                _pct(st.get("pct_lines", 0)),
+                _fmt(st.get("gen_hits", 0)),
+                _fmt(st.get("spec_hits", 0)),
+                _pct(st.get("hit_line_pct", 0)),
+            ])
+        out.append(_table(
+            ["Label", "Files", "% of All Files", "Lines", "% of All Lines",
+             "General Hits", "Specific Hits", "Hit Line %"],
+            density_rows,
+        ) + "\n")
+        chart_lbls = [lbl.replace("_", "\n") for lbl in label_order]
+        chart_pcts = [by_label.get(lbl, {}).get("pct_files", 0) for lbl in label_order]
+        out.append(f"![Density label %]({_bar_chart(chart_lbls, chart_pcts, '% of Files by Density Label (10-Label Scheme)', 'Label', '% of All Files', plots_dir / f'density_label_pct.{cfg.PLOT_FORMAT}', color=_PALETTE[2])})\n")
+
+        # Hit File % Summary (Item 18)
+        out.append("#### Hit File % Summary\n")
+        out.append("_Percentage of files in each label that have at least one general or specific keyword hit._\n")
+        hit_file_rows = []
+        for lbl in label_order:
+            st = by_label.get(lbl, {})
+            hit_file_rows.append([
+                label_disp[lbl],
+                _fmt(st.get("files", 0)),
+                _fmt(st.get("hit_files", 0)),
+                _pct(st.get("hit_file_pct", 0)),
+            ])
+        out.append(_table(["Label", "Total Files", "Hit Files", "Hit File %"], hit_file_rows) + "\n")
+
+        # Expanded hits-per-file statistics (Item 19)
+        out.append("#### Hits per File — Extended Statistics\n")
+        hits_per_file_rows = []
+        for lbl in label_order:
+            st   = by_label.get(lbl, {})
+            f    = max(st.get("files", 0), 1)
+            hits_per_file_rows.append([
+                label_disp[lbl],
+                _fmt(f - 1 if f == 1 else f, 0),
+                round(st.get("gen_hits",  0) / f, 2),
+                round(st.get("spec_hits", 0) / f, 2),
+                _pct(st.get("hit_line_pct", 0)),
+                _fmt(st.get("gen_hits",  0)),
+                _fmt(st.get("spec_hits", 0)),
+            ])
+        out.append(_table(
+            ["Label", "Files", "Avg Gen Hits/File", "Avg Spec Hits/File",
+             "Hit Line %", "Total Gen Hits", "Total Spec Hits"],
+            hits_per_file_rows,
+        ) + "\n")
+
+        # Three type-restricted breakdowns (Item 20)
+        out.append("#### Code Files Only\n")
+        code_lbls = ["technique_code", "test_code", "non_hit_code"]
+        code_rows = []
+        for lbl in code_lbls:
+            st = by_label.get(lbl, {})
+            code_rows.append([label_disp[lbl], _fmt(st.get("files",0)),
+                              _pct(st.get("pct_files",0)), _fmt(st.get("gen_hits",0)),
+                              _fmt(st.get("spec_hits",0)), _pct(st.get("hit_line_pct",0))])
+        out.append(_table(["Label", "Files", "% of All Files", "Gen Hits", "Spec Hits", "Hit Line %"], code_rows) + "\n")
+
+        out.append("#### Doc Files Only\n")
+        doc_lbls = ["technique_doc", "test_doc", "non_hit_ncode"]
+        doc_rows = []
+        for lbl in doc_lbls:
+            st = by_label.get(lbl, {})
+            doc_rows.append([label_disp[lbl], _fmt(st.get("files",0)),
+                             _pct(st.get("pct_files",0)), _fmt(st.get("gen_hits",0)),
+                             _fmt(st.get("spec_hits",0)), _pct(st.get("hit_line_pct",0))])
+        out.append(_table(["Label", "Files", "% of All Files", "Gen Hits", "Spec Hits", "Hit Line %"], doc_rows) + "\n")
+
+        out.append("#### Config Files Only\n")
+        cfg_lbls = ["technique_config", "test_config"]
+        cfg_rows = []
+        for lbl in cfg_lbls:
+            st = by_label.get(lbl, {})
+            cfg_rows.append([label_disp[lbl], _fmt(st.get("files",0)),
+                             _pct(st.get("pct_files",0)), _fmt(st.get("gen_hits",0)),
+                             _fmt(st.get("spec_hits",0)), _pct(st.get("hit_line_pct",0))])
+        out.append(_table(["Label", "Files", "% of All Files", "Gen Hits", "Spec Hits", "Hit Line %"], cfg_rows) + "\n")
+
+    # Hit % per repo — exact ranked line charts (Items 23-25)
+    hit_pct = ca.get("hit_pct_distribution", [])
+    if hit_pct:
+        hit_line_vals = [r["hit_pct_lines"] for r in hit_pct]
+        hit_file_vals = sorted([r["hit_pct_files"] for r in hit_pct], reverse=True)
+        ranks = list(range(1, len(hit_pct) + 1))
+
+        out.append("### Hit Line % per Repo (Ranked)\n")
+        out.append(f"![Hit line % per repo]({_line_chart(ranks, hit_line_vals, 'Hit Line % per Repo (Ranked Highest → Lowest)', 'Rank (1 = highest hit line %)', 'Hit Line %', plots_dir / f'density_hit_line_pct.{cfg.PLOT_FORMAT}')})\n")
+        if hit_line_vals:
+            import statistics as _stats
+            hl_stats = {
+                "avg":    round(sum(hit_line_vals) / len(hit_line_vals), 2),
+                "median": round(_stats.median(hit_line_vals), 2),
+                "max":    round(max(hit_line_vals), 2),
+                "min":    round(min(hit_line_vals), 2),
+                "stdev":  round(_stats.stdev(hit_line_vals), 2) if len(hit_line_vals) >= 2 else 0,
+                "count":  len(hit_line_vals),
+            }
+            out.append(_table(
+                ["Metric", "Avg", "Median", "Max", "Min", "Std Dev", "N Repos"],
+                [["Hit Line % per repo"] + _stat_cells(hl_stats)],
+            ) + "\n")
+
+        out.append("### Hit File % per Repo (Ranked)\n")
+        out.append(f"![Hit file % per repo]({_line_chart(ranks, hit_file_vals, 'Hit File % per Repo (Ranked Highest → Lowest)', 'Rank (1 = highest hit file %)', 'Hit File %', plots_dir / f'density_hit_file_pct.{cfg.PLOT_FORMAT}')})\n")
+        if hit_file_vals:
+            import statistics as _stats
+            hf_stats = {
+                "avg":    round(sum(hit_file_vals) / len(hit_file_vals), 2),
+                "median": round(_stats.median(hit_file_vals), 2),
+                "max":    round(max(hit_file_vals), 2),
+                "min":    round(min(hit_file_vals), 2),
+                "stdev":  round(_stats.stdev(hit_file_vals), 2) if len(hit_file_vals) >= 2 else 0,
+                "count":  len(hit_file_vals),
+            }
+            out.append(_table(
+                ["Metric", "Avg", "Median", "Max", "Min", "Std Dev", "N Repos"],
+                [["Hit File % per repo"] + _stat_cells(hf_stats)],
+            ) + "\n")
+
+    # Top 20 repos by specific hits — bar values + table (Item 26)
+    spec_ranked = ca.get("specific_hits_ranked", [])
+    top20 = spec_ranked[:20]
+    if top20:
+        out.append("### Top 20 Repos by Specific Keyword Hits\n")
+        out.append(f"![Top repos by specific hits]({_bar_chart([_trunc(r['name'],30) for r in top20], [r['hits'] for r in top20], 'Top 20 Repos by Specific Keyword Hits', 'Repository', 'Specific Hits', plots_dir / f'specific_hits_ranked.{cfg.PLOT_FORMAT}', horizontal=True, figsize=(9, max(4, len(top20)*0.22+2)))})\n")
+        out.append(_table(
+            ["#", "Repository", "Specific Hits"],
+            [[i+1, r["name"], _fmt(r["hits"])] for i, r in enumerate(top20)],
+        ) + "\n")
+
+    # Density summary stats
+    out.append("### Code Repo Density Summary Statistics\n")
+    stat_pairs = [
+        ("Specific keyword hits per repo", ca.get("specific_hits_per_repo", {})),
+        ("General keyword hits per repo",  ca.get("general_hits_per_repo", {})),
+        ("Files per repo",                 ca.get("files_per_repo", {})),
+        ("Hit files per repo",             ca.get("hit_files_per_repo", {})),
+        ("Lines per repo",                 ca.get("lines_per_repo", {})),
+        ("Hit lines per repo",             ca.get("hit_lines_per_repo", {})),
+    ]
+    stat_rows = [[metric] + _stat_cells(st) for metric, st in stat_pairs if st]
+    if stat_rows:
+        out.append(_table(
+            ["Metric", "Avg", "Median", "Max", "Min", "Std Dev", "N Repos"], stat_rows
+        ) + "\n")
+
+
+def _section_repo_classification(
+    overall: dict, plots_dir: Path, technique_name: str, out: list[str]
+) -> None:
+    out.append("## 4. Repo Classification\n")
+    out.append(
+        "> **Data source:** Code analysis phase — decision tree applied to each cloned repo. "
+        "Classifications are non-exclusive (a repo may satisfy multiple).\n"
+    )
+    ca         = overall.get("code_analysis", {})
+    cls_counts = ca.get("classification_counts", {})
+    # Always include all four classification categories, even at 0
+    order  = ["research_artifact", "framework", "actual_usage", "unclassified"]
+    labels = order + [c for c in cls_counts if c not in order]
+    vals   = [cls_counts.get(c, 0) for c in labels]
+    total  = max(sum(vals), 1)
+    out.append(_table(
+        ["Classification", "Count", "% of Code Repos"],
+        [[lbl, _fmt(v), _pct(v / total * 100)] for lbl, v in zip(labels, vals)],
+    ) + "\n")
+    out.append(f"![Repo classification]({_bar_chart(labels, vals, 'Repo Classification', 'Classification', 'Count', plots_dir / f'repo_classification.{cfg.PLOT_FORMAT}', color=_PALETTE[0])})\n")
+
+
+def _section_technique_file_extensions(
+    overall: dict, plots_dir: Path, technique_name: str, out: list[str]
+) -> None:
+    """Section 5: File extensions and language distribution scoped to technique files only."""
+    out.append("## 5. Technique File Extensions and Language Distribution\n")
+    out.append(
+        "> **Data source:** Code analysis phase — file extensions and language counts "
+        "restricted to files with ≥1 `specific_technique` keyword hit. "
+        "Binary and image files are excluded. Language is derived from file extension. "
+        "Language counts are deduplicated per repo (+1 per language per repo maximum).\n"
+    )
+    ca  = overall.get("code_analysis", {})
+    tfs = ca.get("technique_file_stats", {})
+    if not tfs:
+        out.append("_No technique file data available._\n")
         return
 
-    plots_dir.mkdir(parents=True, exist_ok=True)
-    has_plots = any(plots_dir.iterdir()) if plots_dir.exists() else False
-    if refresh_plots or not has_plots:
-        console.print("  Regenerating plots…")
-        import plot as plot_phase
-        plot_phase.run(plots_dir, fmt, dpi, profile=profile)
-    else:
-        console.print(f"  [dim]Using existing plots (--refresh-plots to regenerate)[/]")
+    by_ext = tfs.get("ext_counts", {})
+    by_lang = tfs.get("lang_distribution", {})
+    total_tech_files = tfs.get("total_technique_files", 0)
 
-    out_path.parent.mkdir(parents=True, exist_ok=True)
-    plots_rel = os.path.relpath(plots_dir.resolve(), out_path.parent.resolve()).replace("\\", "/")
+    out.append(f"_Total technique files (≥1 specific hit, non-binary): **{_fmt(total_tech_files)}**_\n")
 
-    report = build_report(data, plots_rel, fmt, top_n, profile)
-    with open(out_path, "w", encoding="utf-8") as f:
-        f.write(report)
-    console.print(f"[bold green]Saved:[/] {out_path}")
+    if by_ext:
+        sorted_exts = sorted(by_ext.items(), key=lambda x: x[1], reverse=True)
+        out.append("### Technique File Extensions (Ranked)\n")
+        out.append(_table(
+            ["Extension", "File Count", "% of Technique Files"],
+            [[ext or "(none)", _fmt(cnt), _pct(cnt / max(total_tech_files, 1) * 100)]
+             for ext, cnt in sorted_exts],
+        ) + "\n")
+        top_ext = sorted_exts[:20]
+        out.append(f"![Technique file extensions]({_bar_chart([e[0] or '(none)' for e in top_ext], [e[1] for e in top_ext], 'Top 20 Technique File Extensions', 'Extension', 'File Count', plots_dir / f'technique_extensions.{cfg.PLOT_FORMAT}', color=_PALETTE[4])})\n")
+
+    if by_lang:
+        top_lang = list(by_lang.items())[:20]
+        out.append("### Technique File Language Distribution (per-Repo Deduplicated)\n")
+        out.append("_Each language counted at most once per repo (repos using Python + Java = +1 for each)._\n")
+        out.append(_table(
+            ["Language", "Repos with Technique Files"],
+            [[lang, _fmt(cnt)] for lang, cnt in top_lang],
+        ) + "\n")
+        out.append(f"![Technique language distribution]({_bar_chart([t[0] for t in top_lang], [t[1] for t in top_lang], 'Language Distribution — Technique Files Only (per-Repo Deduplicated)', 'Language', 'Repos', plots_dir / f'technique_language_distribution.{cfg.PLOT_FORMAT}', color=_PALETTE[0], horizontal=True, figsize=(8, max(4, len(top_lang)*0.3+2)))})\n")
 
 
-def main() -> None:
-    parser = argparse.ArgumentParser(prog="python report.py")
-    parser.add_argument("--technique",    required=True)
-    parser.add_argument("--output",        type=Path, default=None)
-    parser.add_argument("--plots-dir",     type=Path, default=None)
-    parser.add_argument("--refresh-plots", action="store_true")
-    parser.add_argument("--top-repos",     type=int,  default=30)
-    parser.add_argument("--format",        choices=["png", "pdf", "svg"], default="png")
-    parser.add_argument("--dpi",           type=int,  default=150)
-    args = parser.parse_args()
+def _section_language(
+    overall: dict, plots_dir: Path, technique_name: str, out: list[str]
+) -> None:
+    out.append("## 6. Language Distribution\n")
+    out.append(
+        "> **Data source:** Code analysis phase — primary language of each cloned repo "
+        "plus per-file language detection from the scan. "
+        "Each language is counted once per repo it appears in.\n"
+    )
+    lang_code = overall.get("code_analysis", {}).get("language_distribution", {})
+    if not lang_code:
+        return
+    top = list(lang_code.items())[:20]
+    out.append(f"![Language distribution (code)]({_bar_chart([t[0] for t in top], [t[1] for t in top], 'Language Distribution (Code Repos, All Files)', 'Language', 'Repos', plots_dir / f'language_distribution.{cfg.PLOT_FORMAT}', color=_PALETTE[0], horizontal=True, figsize=(8, max(4, len(top)*0.3+2)))})\n")
+    out.append(_table(["Language", "Repos"], [[lang, _fmt(cnt)] for lang, cnt in top]) + "\n")
 
-    from config import load_technique
-    profile   = load_technique(args.technique)
-    out_path  = args.output    or (profile.results_dir / "analysis" / "summary_report.md")
-    plots_dir = args.plots_dir or (profile.results_dir / "plots")
 
-    run(
-        results_dir   = profile.results_dir,
-        out_path      = out_path,
-        plots_dir     = plots_dir,
-        refresh_plots = args.refresh_plots,
-        top_n         = args.top_repos,
-        fmt           = args.format,
-        dpi           = args.dpi,
-        profile       = profile,
+def _section_domain(
+    overall: dict, plots_dir: Path, technique_name: str, out: list[str]
+) -> None:
+    out.append("## 7. Application Domain\n")
+    out.append(
+        "> **Data source:** Code analysis and non-code analysis phases — domain keywords "
+        "matched against repo name, description, and topics; word cloud from "
+        "non-code surface body text.\n"
+    )
+    nca = overall.get("noncode_analysis", {})
+    wf  = nca.get("top_word_freq", {})
+    dc  = nca.get("domain_counts", {})
+
+    if dc:
+        top_dc = list(dc.items())[:15]
+        out.append(f"![Domain distribution]({_bar_chart([t[0] for t in top_dc], [t[1] for t in top_dc], 'Application Domain Distribution', 'Domain', 'Repo Count', plots_dir / f'domain_distribution.{cfg.PLOT_FORMAT}', color=_PALETTE[2])})\n")
+        out.append(_table(["Domain", "Repos"], [[d, _fmt(c)] for d, c in top_dc]) + "\n")
+
+    if wf:
+        wc_path = plots_dir / f"wordcloud.{cfg.PLOT_FORMAT}"
+        try:
+            from wordcloud import WordCloud
+            wc = WordCloud(width=900, height=450, background_color="white",
+                           max_words=150, colormap="tab10").generate_from_frequencies(wf)
+            fig, ax = plt.subplots(figsize=(9, 4.5))
+            ax.imshow(wc, interpolation="bilinear")
+            ax.axis("off")
+            ax.set_title("Word Cloud — Non-Code Body Text")
+            out.append(f"![Word cloud]({_save(fig, wc_path)})\n")
+        except ImportError:
+            # wordcloud not installed — fall back to bar chart
+            top_wf = list(wf.items())[:30]
+            out.append(f"![Word frequency]({_bar_chart([t[0] for t in top_wf], [t[1] for t in top_wf], 'Top Word Frequencies (Non-Code Bodies)', 'Word', 'Frequency', wc_path, horizontal=True, figsize=(9, max(5, len(top_wf)*0.3+2)), color=_PALETTE[1])})\n")
+
+
+def _section_timeline(
+    overall: dict, plots_dir: Path, technique_name: str, out: list[str]
+) -> None:
+    out.append("## 8. Timeline\n")
+    out.append(
+        "> **Data source:** Code analysis phase — git commit history mined via PyDriller. "
+        "Only commits from the local git history of cloned repos are counted. "
+        "Technique commits are those touching files with ≥1 `specific_technique` hit. "
+        "Creation dates from GitHub API metadata.\n"
+    )
+    ca = overall.get("code_analysis", {})
+    tl = ca.get("timeline", {})
+    if not tl:
+        out.append("_No timeline data available._\n")
+        return
+
+    cy = tl.get("creation_years", {})
+    if cy:
+        out.append(f"![Creation years]({_bar_chart([str(y) for y in sorted(cy)], [cy[y] for y in sorted(cy)], 'Repos by Creation Year', 'Year', 'Repos Created', plots_dir / f'creation_years.{cfg.PLOT_FORMAT}', color=_PALETTE[0])})\n")
+        out.append(_table(["Year", "Repos Created"], [[str(y), _fmt(cy[y])] for y in sorted(cy)]) + "\n")
+
+    # Technique Commit Span — avg interval between consecutive technique commits (Item 29)
+    css = tl.get("commit_span_stats", {})
+    if css:
+        out.append("### Technique Commit Span\n")
+        out.append(
+            "_Technique Commit Span = total days between the first and last commit touching "
+            "a technique file in each repo (mined from PyDriller git history)._\n"
+        )
+        out.append(_table(
+            ["Metric", "Avg", "Median", "Max (days)", "Min (days)", "Std Dev", "N Repos"],
+            [["Technique commit span (days)"] + _stat_cells(css)],
+        ) + "\n")
+
+    cs_sorted = ca.get("commit_spans_sorted", [])
+    if cs_sorted:
+        ranks = list(range(1, len(cs_sorted) + 1))
+        out.append(f"![Commit span distribution]({_line_chart(ranks, [r['span_days'] for r in cs_sorted], 'Technique Commit Span per Repo (Ranked Longest → Shortest)', 'Rank (1 = longest span)', 'Span (days)', plots_dir / f'commit_span_distribution.{cfg.PLOT_FORMAT}')})\n")
+
+    cbm  = tl.get("commits_by_month", {})
+    tcbm = tl.get("technique_commits_by_month", {})
+
+    if cbm:
+        months     = sorted(cbm.keys())
+        cbm_vals   = [cbm[m] for m in months]
+        out.append("### Monthly Commit Activity (All Commits)\n")
+        out.append(f"![Commits by month]({_line_chart(list(range(len(months))), cbm_vals, 'Monthly Commit Activity (All Repos, All Commits)', 'Month', 'Commits', plots_dir / f'commits_by_month.{cfg.PLOT_FORMAT}', x_labels=months)})\n")
+        import statistics as _stats
+        if cbm_vals:
+            cbm_stats = {
+                "avg":    round(sum(cbm_vals) / len(cbm_vals), 2),
+                "median": round(_stats.median(cbm_vals), 2),
+                "max":    round(max(cbm_vals), 2),
+                "min":    round(min(cbm_vals), 2),
+                "stdev":  round(_stats.stdev(cbm_vals), 2) if len(cbm_vals) >= 2 else 0,
+                "count":  len(cbm_vals),
+            }
+            out.append(_table(
+                ["Metric", "Avg", "Median", "Max", "Min", "Std Dev", "Months"],
+                [["Commits per month"] + _stat_cells(cbm_stats)],
+            ) + "\n")
+
+    if tcbm:
+        months    = sorted(tcbm.keys())
+        tcbm_vals = [tcbm[m] for m in months]
+        out.append("### Monthly Technique Commit Activity\n")
+        out.append(f"![Technique commits by month]({_line_chart(list(range(len(months))), tcbm_vals, 'Monthly Technique-Keyword Commits (PyDriller git history)', 'Month', 'Technique Commits', plots_dir / f'technique_commits_by_month.{cfg.PLOT_FORMAT}', x_labels=months)})\n")
+        import statistics as _stats
+        if tcbm_vals:
+            tcbm_stats = {
+                "avg":    round(sum(tcbm_vals) / len(tcbm_vals), 2),
+                "median": round(_stats.median(tcbm_vals), 2),
+                "max":    round(max(tcbm_vals), 2),
+                "min":    round(min(tcbm_vals), 2),
+                "stdev":  round(_stats.stdev(tcbm_vals), 2) if len(tcbm_vals) >= 2 else 0,
+                "count":  len(tcbm_vals),
+            }
+            out.append(_table(
+                ["Metric", "Avg", "Median", "Max", "Min", "Std Dev", "Months"],
+                [["Technique commits per month"] + _stat_cells(tcbm_stats)],
+            ) + "\n")
+
+    # Proportion chart — technique commits vs total commits over time
+    if cbm and tcbm:
+        all_months = sorted(set(cbm.keys()) | set(tcbm.keys()))
+        total_vals = [cbm.get(m, 0) for m in all_months]
+        tech_vals  = [tcbm.get(m, 0) for m in all_months]
+        xs         = list(range(len(all_months)))
+
+        fig, ax = plt.subplots(figsize=(10, 4))
+        ax.plot(xs, total_vals, color=_PALETTE[0], linewidth=1.2, label="All commits")
+        ax.plot(xs, tech_vals,  color=_PALETTE[1], linewidth=1.2, label="Technique commits", linestyle="--")
+        ax.fill_between(xs, tech_vals, alpha=0.25, color=_PALETTE[1])
+        step = max(1, len(all_months) // 20)
+        ax.set_xticks(xs[::step])
+        ax.set_xticklabels(all_months[::step], rotation=35, ha="right", fontsize=6)
+        ax.set_xlabel("Month")
+        ax.set_ylabel("Commits")
+        ax.set_title("Total vs Technique Commits per Month (PyDriller git history)")
+        ax.legend(fontsize=8)
+        out.append(f"![Total vs technique commits]({_save(fig, plots_dir / f'commits_proportion.{cfg.PLOT_FORMAT}')})\n")
+
+
+def _section_all_repos(overall: dict, dirs: dict, out: list[str]) -> None:
+    out.append("## 9. All Cloned Repositories\n")
+    code_repos = load_json(dirs["analysis"] / "code_repos.json", [])
+    if not code_repos:
+        out.append("_No code repos data available._\n")
+        return
+    out.append(f"_{len(code_repos)} repositories were cloned and analysed._\n")
+    sorted_repos = sorted(code_repos,
+                          key=lambda r: r.get("scan", {}).get("total_specific_hits", 0), reverse=True)
+    repo_rows = []
+    for rank, r in enumerate(sorted_repos, 1):
+        scan    = r.get("scan", {})
+        n_lines = scan.get("total_lines", 0)
+        hl      = scan.get("total_hit_lines", 0)
+        cls_list = r.get("classification", {}).get("classifications", ["—"])
+        repo_rows.append([
+            rank,
+            _trunc(r.get("full_name", ""), 38),
+            _fmt(r.get("stars", 0)),
+            r.get("language", "—"),
+            _fmt(scan.get("total_files", 0)),
+            _fmt(scan.get("total_specific_hits", 0)),
+            _pct(round(hl / max(n_lines, 1) * 100, 1)),
+            _fmt(r.get("commits", {}).get("commit_span_days")),
+            ", ".join(cls_list),
+        ])
+    out.append(_table(
+        ["#", "Repository", "Stars", "Language", "Files", "Specific Hits",
+         "Hit Line %", "Span (days)", "Classification"],
+        repo_rows,
+    ) + "\n")
+
+
+# ---------------------------------------------------------------------------
+# Runner
+# ---------------------------------------------------------------------------
+
+def run(slug: str) -> None:
+    ensure_dirs(slug)
+    dirs = technique_dirs(slug)
+
+    overall = load_json(dirs["analysis"] / "overall.json", {})
+    if not overall:
+        print("overall.json not found — run analysis phase first.")
+        return
+
+    tech_name   = cfg.TECHNIQUE_INPUT_PREFIXES.get(slug, slug)
+    full_name   = cfg.TECHNIQUE_DISPLAY_NAMES.get(slug, slug)
+    plots_dir   = dirs["plots"]
+    report_path = dirs["report"] / "report.md"
+
+    out: list[str] = []
+    out.append(f"# {full_name} — GitHub Mining Report\n")
+    out.append(
+        f"_Generated from `results/{slug}/analysis/overall.json`. "
+        "All statistics are sourced from the aggregation step; the report performs no calculations._\n"
     )
 
+    _section_projects_and_sizes(overall, plots_dir, tech_name, out)
+    _section_search_distribution(overall, plots_dir, tech_name, out)
+    _section_technique_density(overall, plots_dir, tech_name, out)
+    _section_repo_classification(overall, plots_dir, tech_name, out)
+    _section_technique_file_extensions(overall, plots_dir, tech_name, out)
+    _section_language(overall, plots_dir, tech_name, out)
+    _section_domain(overall, plots_dir, tech_name, out)
+    _section_timeline(overall, plots_dir, tech_name, out)
+    _section_all_repos(overall, dirs, out)
 
-if __name__ == "__main__":
-    main()
+    report_path.write_text("\n".join(out), encoding="utf-8")
+    print(f"Report written to {report_path}")

@@ -1,0 +1,23 @@
+[
+  {"id": "phrase_mt",            "label": "metamorphic test(ing)",               "category": "specific_technique", "regex": "\\bmetamorphic\\s+test(?:ing|s)?\\b",                          "flags": "IGNORECASE"},
+  {"id": "phrase_mr",            "label": "metamorphic relation",                "category": "specific_technique", "regex": "\\bmetamorphic\\s+relation(?:s|ship|ships)?\\b",               "flags": "IGNORECASE"},
+  {"id": "phrase_mp",            "label": "metamorphic property",                "category": "specific_technique", "regex": "\\bmetamorphic\\s+propert(?:y|ies)\\b",                        "flags": "IGNORECASE"},
+  {"id": "phrase_mg",            "label": "metamorphic group",                   "category": "specific_technique", "regex": "\\bmetamorphic\\s+groups?\\b",                                 "flags": "IGNORECASE"},
+  {"id": "phrase_moracle",       "label": "metamorphic oracle",                  "category": "specific_technique", "regex": "\\bmetamorphic\\s+oracle\\b",                                  "flags": "IGNORECASE"},
+
+  {"id": "class_mt",             "label": "class MetamorphicTest",               "category": "specific_technique", "regex": "\\bMetamorphicTest\\w*\\b"},
+  {"id": "class_mr",             "label": "class MetamorphicRelation",           "category": "specific_technique", "regex": "\\bMetamorphicRelation\\w*\\b"},
+  {"id": "decorator_mt",         "label": "@metamorphic decorator",              "category": "specific_technique", "regex": "@metamorphic\\b"},
+
+  {"id": "ident_mr_snake",       "label": "metamorphic_relation (snake_case)",   "category": "specific_technique", "regex": "\\bmetamorphic_relation\\w*\\b"},
+  {"id": "ident_mt_snake",       "label": "metamorphic_test (snake_case)",       "category": "specific_technique", "regex": "\\bmetamorphic_test\\w*\\b"},
+
+  {"id": "abbrev_MT",            "label": "abbreviation MT",                     "category": "specific_technique", "regex": "(?<![A-Za-z0-9_])MT(?![A-Za-z0-9_])"},
+  {"id": "abbrev_MR",            "label": "abbreviation MR",                     "category": "specific_technique", "regex": "(?<![A-Za-z0-9_])MR(?![A-Za-z0-9_])"},
+
+  {"id": "string_mt",            "label": "string literal: metamorphic test",    "category": "specific_technique", "regex": "\"[Mm]etamorphic\\s+[Tt]est(?:ing|s)?\""},
+  {"id": "string_mr",            "label": "string literal: metamorphic relation","category": "specific_technique", "regex": "\"[Mm]etamorphic\\s+[Rr]elation(?:s|ship|ships)?\""},
+
+  {"id": "comment_mt",           "label": "comment: metamorphic test",           "category": "specific_technique", "regex": "(?:#|//).*\\bmetamorphic\\s+test(?:ing|s)?\\b",               "flags": "IGNORECASE"},
+  {"id": "comment_mr",           "label": "comment: metamorphic relation",       "category": "specific_technique", "regex": "(?:#|//).*\\bmetamorphic\\s+relation(?:s|ship|ships)?\\b",    "flags": "IGNORECASE"}
+]
