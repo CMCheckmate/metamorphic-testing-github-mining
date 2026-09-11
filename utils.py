@@ -210,7 +210,18 @@ def gh_graphql(
             continue
 
         if resp.status_code == 200:
-            return resp.json()
+            body = resp.json()
+            errors = body.get("errors", [])
+            if errors:
+                if any(e.get("type") == "RATE_LIMITED" for e in errors):
+                    reset_ts = int(resp.headers.get("X-RateLimit-Reset", time.time() + 60))
+                    wait = max(reset_ts - time.time(), 5) + random.uniform(0, RETRY_BACKOFF_JITTER)
+                    _log(logger, "warning", f"GraphQL RATE_LIMITED — sleeping {wait:.0f}s")
+                    time.sleep(wait)
+                    continue
+                _log(logger, "warning", f"GraphQL errors: {errors}")
+            _check_remaining(resp.headers, logger)
+            return body
 
         wait = RETRY_BACKOFF_BASE ** (attempt + 1) + random.uniform(0, RETRY_BACKOFF_JITTER)
         _log(logger, "warning", f"GraphQL HTTP {resp.status_code} — sleeping {wait:.1f}s")

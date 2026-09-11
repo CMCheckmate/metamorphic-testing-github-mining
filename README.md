@@ -79,6 +79,7 @@ After both sub-phases finish, `analysis.py` aggregates everything into `overall.
 
 - `--restart` resets all analysis history and result files before running.
 - `--code-only` / `--noncode-only` run only one sub-phase.
+- `--aggregate-only` skips cloning and scanning entirely — reads whatever is already in `code_repos.json` and `noncode_results.json` and re-aggregates into `overall.json`. Useful after manually editing result files or after a keyword change that only affects aggregation. Cannot be combined with `--restart`, `--code-only`, or `--noncode-only`.
 
 ### Phase 3 — Report
 
@@ -107,6 +108,7 @@ metamorphic-testing-github-mining/
 ├── generate_example_data.py    Generate dummy data (no GitHub token needed)
 │
 ├── inputs/                     Technique keyword files
+│   ├── shared_analysis_keywords.json  (general_test keywords shared by all techniques)
 │   ├── mt_search_keywords.txt
 │   ├── mt_analysis_keywords.json
 │   ├── pbt_search_keywords.txt
@@ -114,7 +116,8 @@ metamorphic-testing-github-mining/
 │   ├── fuzz_search_keywords.txt
 │   └── fuzz_analysis_keywords.json
 │
-├── results/                    (git-ignored) generated outputs
+├── example_results/            example outputs from generate_example_data.py (committed)
+├── results/                    (git-ignored) real pipeline outputs
 │   ├── metamorphic_testing/
 │   │   ├── search/             code.json  repos.json  issues.json  prs.json
 │   │   │                       commits.json  discussions.json
@@ -149,6 +152,7 @@ python main.py --technique TECHNIQUE [--phase PHASE] [options]
 | `--code-only` | (analysis) Code sub-phase only |
 | `--noncode-only` | (analysis) Non-code sub-phase only |
 | `--workers N` | Worker processes for parallel file scanning (default: 4) |
+| `--aggregate-only` | (analysis) Skip clone/scan; re-aggregate existing data into `overall.json` |
 
 **Examples:**
 
@@ -157,6 +161,7 @@ python main.py --technique mt --phase search
 python main.py --technique mt --phase search --overwrite
 python main.py --technique pbt --phase analysis --code-only
 python main.py --technique fuzz --phase analysis --restart
+python main.py --technique mt --phase analysis --aggregate-only
 python main.py --technique mt --phase report
 python main.py --technique mt                     # all phases
 ```
@@ -183,17 +188,16 @@ JSON array of keyword objects, each with:
 |-------|-------------|
 | `id` | Unique identifier string |
 | `label` | Human-readable name shown in the report |
-| `category` | `general_test` \| `specific_technique` \| `test_file_detection` |
+| `category` | `general_test` \| `specific_technique` |
 | `regex` | Python regex pattern |
 | `flags` | Optional: `IGNORECASE`, `MULTILINE` |
-| `apply_to` | (`test_file_detection` only) `filename` \| `content` |
-| `language` | (`test_file_detection` content entries) scope to detected language |
+| `apply_to` | (`general_test` filename/content entries) `filename` \| `content` |
+| `language` | (content entries) scope to detected language |
 
 **Categories:**
 
-- **`general_test`** — broad test terms counted as a baseline (e.g. `\btest\b`, `\bassert\b`).
+- **`general_test`** — broad test terms and test-file-detection patterns counted as a baseline (e.g. `\btest\b`, `test_*.py`). Defined in `shared_analysis_keywords.json` and merged with every technique's keyword list. Filename-pattern and import/annotation entries that label a file as `test_code` also live here; only unambiguous toolchain-enforced conventions are accepted (e.g. `*Test.java`, `import pytest`). No directory checks.
 - **`specific_technique`** — technique-specific patterns; the primary adoption metric.
-- **`test_file_detection`** — labels a file `test_code`. Only unambiguous toolchain-enforced conventions are accepted: filename patterns like `test_*.py` / `*Test.java`, or unambiguous imports/annotations with a language guard. No directory checks.
 
 ---
 
@@ -271,7 +275,7 @@ python generate_example_data.py --technique mt    # one technique
 python generate_example_data.py --technique all   # all three
 ```
 
-This generates realistic dummy data for every search and analysis file, then runs the report phase. Use it to verify report output and plot rendering locally.
+This generates realistic dummy data for every search and analysis file, then runs the report phase. Output goes to `example_results/` (committed, not git-ignored) so it never overwrites real pipeline data in `results/`.
 
 ### Dependencies
 

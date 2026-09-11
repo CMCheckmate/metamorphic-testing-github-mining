@@ -182,15 +182,21 @@ def _aggregate_code(results: list[dict]) -> dict:
         key=lambda x: x["hits"], reverse=True,
     )
 
-    # Commit spans (exact, sorted)
+    # Technique Commit Spans — avg interval between consecutive technique commits
     commit_spans: list[float] = []
     commit_spans_sorted: list[dict] = []
+    commit_spans_excluded = 0
     for r in results:
         name = r.get("full_name") or r.get("repo_full_name", "")
-        span = r.get("commits", {}).get("commit_span_days")
+        commits = r.get("commits", {})
+        span = commits.get("technique_commit_span_avg_days")
+        if span is None:
+            span = commits.get("commit_span_days")  # backward compat with older code_repos.json
         if span is not None and span >= 0:
             commit_spans.append(float(span))
             commit_spans_sorted.append({"name": name, "span_days": float(span)})
+        else:
+            commit_spans_excluded += 1
     commit_spans_sorted.sort(key=lambda x: x["span_days"], reverse=True)
 
     # Timeline
@@ -415,6 +421,7 @@ def _aggregate_code(results: list[dict]) -> dict:
             "commits_by_month":           dict(sorted(commits_by_month.items())),
             "technique_commits_by_month": dict(sorted(tech_commits_by_month.items())),
             "commit_span_stats":          descriptive_stats(commit_spans),
+            "commit_span_excluded_count": commit_spans_excluded,
         },
     }
 
@@ -542,18 +549,124 @@ def _aggregate_search_summary(search_dir: Path) -> dict:
     return result
 
 
-def _aggregate_repo_sizes(search_dir: Path) -> dict:
-    sizes_all: list[float] = []
-    sizes_by_surface: dict[str, list[float]] = defaultdict(list)
+def fetch_repo_metadata(slug: str, token: str, logger) -> int:
+    """Fetch GitHub repo metadata (stars, language, size, etc.) for all repos seen across
+    all 6 search surfaces and save to analysis/repo_metadata.json.
+    Returns the number of new repos fetched.
+    """
+    import time as _time
+    import requests as _requests
+
+    dirs = technique_dirs(slug)
+    metadata_path = dirs["analysis"] / "repo_metadata.json"
+    repo_metadata: dict = load_json(metadata_path, {}) or {}
+
+    # Collect unique repo names from all surfaces
+    all_repos: set[str] = set()
     for surface in ["code", "repos", "commits", "prs", "issues", "discussions"]:
+        for item in load_json(dirs["search"] / f"{surface}.json", []):
+            rn = item.get("repo_full_name") or item.get("full_name", "")
+            if rn:
+                all_repos.add(rn)
+
+    to_fetch = [r for r in all_repos if r not in repo_metadata]
+    if not to_fetch:
+        return 0
+
+    headers = {"Accept": "application/vnd.github+json"}
+    if token:
+        headers["Authorization"] = f"token {token}"
+
+    fetched = 0
+    for i, repo_name in enumerate(to_fetch):
+        try:
+            _time.sleep(2)
+            url = f"{cfg.GITHUB_API_BASE}/repos/{repo_name}"
+            resp = _requests.get(url, headers=headers, timeout=30)
+            if resp.status_code == 404:
+                repo_metadata[repo_name] = None
+                continue
+            if resp.status_code in (403, 429):
+                reset_ts = int(resp.headers.get("X-RateLimit-Reset", _time.time() + 60))
+                wait = max(reset_ts - _time.time(), 5)
+                if logger:
+                    logger.warning(f"Rate limited fetching metadata — sleeping {wait:.0f}s")
+                _time.sleep(wait)
+                resp = _requests.get(url, headers=headers, timeout=30)
+            if resp.status_code != 200:
+                if logger:
+                    logger.warning(f"Metadata fetch HTTP {resp.status_code} for {repo_name}")
+                continue
+            data = resp.json()
+            topics = [t for t in data.get("topics", []) if isinstance(t, str)]
+            repo_metadata[repo_name] = {
+                "full_name":   data.get("full_name", repo_name),
+                "stars":       data.get("stargazers_count"),
+                "language":    data.get("language"),
+                "size_kb":     data.get("size", 0),
+                "created_at":  data.get("created_at"),
+                "description": data.get("description", "") or "",
+                "topics":      topics,
+            }
+            fetched += 1
+            if fetched % 50 == 0:
+                save_json(metadata_path, repo_metadata)
+                if logger:
+                    logger.info(f"repo_metadata: saved after {fetched} fetches ({i+1}/{len(to_fetch)})")
+        except Exception as exc:
+            if logger:
+                logger.warning(f"Metadata fetch error for {repo_name}: {exc}")
+            continue
+
+    save_json(metadata_path, repo_metadata)
+    if logger:
+        logger.info(f"repo_metadata: fetched {fetched} new entries, total={len(repo_metadata)}")
+    print(f"  Repo metadata: {fetched} new entries fetched, {len(repo_metadata)} total in repo_metadata.json")
+    return fetched
+
+
+def _aggregate_repo_sizes(analysis_dir: Path, search_dir: Path) -> dict:
+    """Compute size stats per surface using repo_metadata.json (accurate for all surfaces)."""
+    repo_metadata: dict = load_json(analysis_dir / "repo_metadata.json", {}) or {}
+    if not repo_metadata:
+        # Fall back to reading size_kb from surface items (only REPOS surface has it)
+        sizes_all: list[float] = []
+        sizes_by_surface: dict[str, list[float]] = defaultdict(list)
+        for surface in ["code", "repos", "commits", "prs", "issues", "discussions"]:
+            for item in load_json(search_dir / f"{surface}.json", []):
+                kb = item.get("size_kb", 0) or 0
+                if kb > 0:
+                    sizes_all.append(float(kb))
+                    sizes_by_surface[surface].append(float(kb))
+        return {
+            "overall":    descriptive_stats(sizes_all),
+            "by_surface": {s: descriptive_stats(v) for s, v in sizes_by_surface.items()},
+            "from_metadata": False,
+        }
+
+    sizes_by_surface: dict[str, list[float]] = defaultdict(list)
+    all_repos_with_size: set[str] = set()
+    for surface in ["code", "repos", "commits", "prs", "issues", "discussions"]:
+        repos_on_surface: set[str] = set()
         for item in load_json(search_dir / f"{surface}.json", []):
-            kb = item.get("size_kb", 0) or 0
-            if kb > 0:
-                sizes_all.append(float(kb))
-                sizes_by_surface[surface].append(float(kb))
+            rn = item.get("repo_full_name") or item.get("full_name", "")
+            if rn:
+                repos_on_surface.add(rn)
+        for rn in repos_on_surface:
+            meta = repo_metadata.get(rn)
+            if meta and isinstance(meta, dict):
+                kb = meta.get("size_kb", 0) or 0
+                if kb > 0:
+                    sizes_by_surface[surface].append(float(kb))
+                    all_repos_with_size.add(rn)
+
+    sizes_all = [float(repo_metadata[rn]["size_kb"])
+                 for rn in all_repos_with_size
+                 if isinstance(repo_metadata.get(rn), dict) and repo_metadata[rn].get("size_kb", 0) > 0]
     return {
         "overall":    descriptive_stats(sizes_all),
         "by_surface": {s: descriptive_stats(v) for s, v in sizes_by_surface.items()},
+        "from_metadata": True,
     }
 
 
@@ -595,10 +708,20 @@ def run(
     noncode_only: bool = False,
     restart: bool = False,
     workers: int = cfg.ANALYSIS_WORKERS,
+    aggregate_only: bool = False,
 ) -> None:
     ensure_dirs(slug)
     dirs   = technique_dirs(slug)
     logger = setup_logging(slug, "analysis")
+
+    if aggregate_only:
+        print("--aggregate-only: skipping clone/scan, aggregating from existing data on disk.")
+        logger.info("aggregate-only mode: skipping clone/scan")
+        _aggregate_overall(slug, dirs, logger)
+        return
+
+    print("Fetching repo metadata from GitHub API...")
+    fetch_repo_metadata(slug, cfg.GITHUB_TOKEN, logger)
 
     import code_analysis
     import non_code_analysis
@@ -626,10 +749,26 @@ def _aggregate_overall(slug: str, dirs: dict, logger=None) -> None:
     code_repos: list[dict]    = load_json(dirs["analysis"] / "code_repos.json", [])
     noncode_results: list[dict] = load_json(dirs["analysis"] / "noncode_results.json", [])
 
+    # Enrich code_repos with metadata (stars, language, size) from repo_metadata.json
+    metadata_path = dirs["analysis"] / "repo_metadata.json"
+    repo_metadata: dict = {}
+    if metadata_path.exists():
+        repo_metadata = load_json(metadata_path, {}) or {}
+    for entry in code_repos:
+        name = entry.get("full_name", "")
+        meta = repo_metadata.get(name)
+        if meta and isinstance(meta, dict):
+            if entry.get("stars") is None:
+                entry["stars"] = meta.get("stars")
+            if entry.get("language") is None:
+                entry["language"] = meta.get("language")
+            if not entry.get("size_kb"):
+                entry["size_kb"] = meta.get("size_kb", 0)
+
     code_agg    = _aggregate_code(code_repos)
     noncode_agg = _aggregate_noncode(noncode_results)
     search_agg  = _aggregate_search_summary(dirs["search"])
-    size_agg    = _aggregate_repo_sizes(dirs["search"])
+    size_agg    = _aggregate_repo_sizes(dirs["analysis"], dirs["search"])
     hit_dists   = _aggregate_search_hit_distributions(dirs["search"])
 
     # Enrich keyword categories from analysis keywords JSON (fills blanks from real data

@@ -34,6 +34,8 @@ _A single repository may appear in multiple search surfaces. 'All surfaces combi
 | DISCUSSIONS | 28,458.6 | 25,176.0 | 56,306 | 7,498 | 16,382.9 | 10 |
 | **All (combined)** | 55,795.7 | 43,213.5 | 194,670 | 156 | 45,455.6 | 140 |
 
+_Repository size data not yet available. Run the analysis phase to fetch metadata for all repos._
+
 ## 2. Search Keyword Hit Distribution
 
 > **Data source:** Search phase — GitHub REST API hit counts per keyword per surface. Keywords from `inputs/mt_search_keywords.txt`.
@@ -144,6 +146,8 @@ Keywords in REPOS (all, ranked by unique results):
 
 Repositories ranked by keyword hits in REPOS body text:
 
+_Showing top 100 repos by keyword hits on this surface._
+
 ![repos repo ranking](plots/search_repos_repos.png)
 
 | # | Repository | Keyword Hits |
@@ -186,6 +190,8 @@ Keywords in COMMITS (all, ranked by unique results):
 | 3 | MetamorphicTest | 58 | 54 |
 
 Repositories ranked by keyword hits in COMMITS body text:
+
+_Showing top 100 repos by keyword hits on this surface._
 
 ![commits repo ranking](plots/search_repos_commits.png)
 
@@ -230,6 +236,8 @@ Keywords in PRS (all, ranked by unique results):
 
 Repositories ranked by keyword hits in PRS body text:
 
+_Showing top 100 repos by keyword hits on this surface._
+
 ![prs repo ranking](plots/search_repos_prs.png)
 
 | # | Repository | Keyword Hits |
@@ -273,6 +281,8 @@ Keywords in ISSUES (all, ranked by unique results):
 
 Repositories ranked by keyword hits in ISSUES body text:
 
+_Showing top 100 repos by keyword hits on this surface._
+
 ![issues repo ranking](plots/search_repos_issues.png)
 
 | # | Repository | Keyword Hits |
@@ -315,6 +325,8 @@ Keywords in DISCUSSIONS (all, ranked by unique results):
 | 3 | metamorphic relation | 110 | 84 |
 
 Repositories ranked by keyword hits in DISCUSSIONS body text:
+
+_Showing top 100 repos by keyword hits on this surface._
 
 ![discussions repo ranking](plots/search_repos_discussions.png)
 
@@ -535,6 +547,8 @@ _Percentage of files in each label that have at least one general or specific ke
 
 ![Repo classification](plots/repo_classification.png)
 
+_A high unclassified rate is expected: the CODE search surface returns all files mentioning the technique's keywords, including academic papers, blog posts, documentation, and incidental references that do not implement the technique. Repos are classified as 'actual\_usage' only when file-level evidence (keyword hits in test or source files) is sufficient._
+
 ## 5. Technique File Extensions and Language Distribution
 
 > **Data source:** Code analysis phase — file extensions and language counts restricted to files with ≥1 `specific_technique` keyword hit. Binary and image files are excluded. Language is derived from file extension. Language counts are deduplicated per repo (+1 per language per repo maximum).
@@ -568,12 +582,12 @@ _Each language counted at most once per repo (repos using Python + Java = +1 for
 
 | Language | Repos with Technique Files |
 | --- | --- |
-| TypeScript | 20 |
 | Python | 20 |
+| TypeScript | 20 |
 | Ruby | 19 |
 | Java | 19 |
-| Rust | 18 |
 | Go | 18 |
+| Rust | 18 |
 | C++ | 18 |
 
 ![Technique language distribution](plots/technique_language_distribution.png)
@@ -582,21 +596,17 @@ _Each language counted at most once per repo (repos using Python + Java = +1 for
 
 > **Data source:** Code analysis phase — primary language of each cloned repo plus per-file language detection from the scan. Each language is counted once per repo it appears in.
 
-![Language distribution (code)](plots/language_distribution.png)
+![Language distribution (technique files)](plots/language_distribution.png)
 
-| Language | Repos |
+| Language | Repos with Technique Files |
 | --- | --- |
-| TypeScript | 8 |
-| Java | 6 |
-| C++ | 6 |
-| Haskell | 4 |
-| Python | 4 |
-| Rust | 2 |
-| Erlang | 2 |
-| C | 2 |
-| Scala | 2 |
-| Ruby | 2 |
-| Go | 2 |
+| Python | 20 |
+| TypeScript | 20 |
+| Ruby | 19 |
+| Java | 19 |
+| Go | 18 |
+| Rust | 18 |
+| C++ | 18 |
 
 ## 7. Application Domain
 
@@ -633,13 +643,15 @@ _Each language counted at most once per repo (repos using Python + Java = +1 for
 
 ### Technique Commit Span
 
-_Technique Commit Span = total days between the first and last commit touching a technique file in each repo (mined from PyDriller git history)._
+_Technique Commit Span = average number of days between consecutive commits containing technique keyword matches, per repo. Repos with fewer than 2 technique commits are excluded from this metric (0 repos excluded)._
 
 | Metric | Avg | Median | Max (days) | Min (days) | Std Dev | N Repos |
 | --- | --- | --- | --- | --- | --- | --- |
 | Technique commit span (days) | 1,429.9 | 1,293.0 | 2,951 | 119 | 769.9 | 20 |
 
 ![Commit span distribution](plots/commit_span_distribution.png)
+
+_Repos with fewer than 2 technique commits are excluded. 0 repos excluded._
 
 ### Monthly Commit Activity (All Commits)
 
@@ -663,7 +675,7 @@ _Technique Commit Span = total days between the first and last commit touching a
 
 _20 repositories were cloned and analysed._
 
-| # | Repository | Stars | Language | Files | Specific Hits | Hit Line % | Span (days) | Classification |
+| # | Repository | Stars | Language | Files | Specific Hits | Hit Line % | Technique Span (days) | Classification |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | 1 | netflix/fuzzer-94 | 1,525 | Rust | 106 | 196 | 3.7% | 1,326 | actual_usage |
 | 2 | netflix/fuzzer-42 | 4,805 | TypeScript | 48 | 183 | 3.7% | 826 | actual_usage |

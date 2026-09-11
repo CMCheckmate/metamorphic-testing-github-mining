@@ -74,7 +74,8 @@
         "range": 48808.0,
         "count": 10
       }
-    }
+    },
+    "from_metadata": false
   },
   "search_summary": {
     "code": {
@@ -2164,12 +2165,12 @@
         ".json": 2
       },
       "lang_distribution": {
-        "TypeScript": 20,
         "Python": 20,
+        "TypeScript": 20,
         "Ruby": 19,
         "Java": 19,
-        "Rust": 18,
         "Go": 18,
+        "Rust": 18,
         "C++": 18
       },
       "total_technique_files": 571
@@ -2306,7 +2307,8 @@
         "stdev": 769.85,
         "range": 2832.0,
         "count": 20
-      }
+      },
+      "commit_span_excluded_count": 0
     }
   },
   "noncode_analysis": {

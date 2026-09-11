@@ -65,17 +65,20 @@ def _fetch_code(q: str, logger) -> list[dict]:
         for item in items:
             repo = item.get("repository", {})
             results.append({
-                "id":             item.get("sha", ""),
-                "url":            item.get("url", ""),
-                "html_url":       item.get("html_url", ""),
-                "surface":        "code",
-                "file_path":      item.get("path", ""),
-                "repo_id":        repo.get("id"),
-                "repo_full_name": repo.get("full_name", ""),
-                "repo_html_url":  repo.get("html_url", ""),
-                "repo_clone_url": f"https://github.com/{repo.get('full_name', '')}.git",
-                "language":       item.get("language") or repo.get("language"),
-                "stars":          repo.get("stargazers_count"),
+                "id":              item.get("html_url", ""),
+                "sha":             item.get("sha", ""),
+                "url":             item.get("url", ""),
+                "html_url":        item.get("html_url", ""),
+                "surface":         "code",
+                "file_path":       item.get("path", ""),
+                "file_name":       item.get("name", ""),
+                "file_size_bytes": item.get("size"),
+                "repo_id":         repo.get("id"),
+                "repo_full_name":  repo.get("full_name", ""),
+                "repo_html_url":   repo.get("html_url", ""),
+                "repo_clone_url":  f"https://github.com/{repo.get('full_name', '')}.git",
+                "language":        item.get("language") or repo.get("language"),
+                "stars":           repo.get("stargazers_count"),
                 "matched_keyword": q,
             })
         if page * cfg.GITHUB_API_PER_PAGE >= min(t, 1000):
@@ -115,6 +118,8 @@ def _fetch_repos(q: str, logger) -> tuple[list[dict], int]:
                 "updated_at":     item.get("updated_at"),
                 "size_kb":        item.get("size", 0),
                 "is_fork":        item.get("fork", False),
+                "archived":       item.get("archived", False),
+                "pushed_at":      item.get("pushed_at"),
                 "matched_keyword": q,
             })
         if page * cfg.GITHUB_API_PER_PAGE >= min(t, 1000):
@@ -145,14 +150,17 @@ def _fetch_issues_prs(q: str, kind: str, logger) -> tuple[list[dict], int]:
                 "number":         item.get("number"),
                 "url":            item.get("url", ""),
                 "html_url":       item.get("html_url", ""),
-                "surface":        kind,
+                "surface":        "issues" if kind == "issue" else "prs",
                 "title":          item.get("title", ""),
                 "body":           item.get("body", "") or "",
                 "state":          item.get("state"),
                 "comment_count":  item.get("comments", 0),
                 "created_at":     item.get("created_at"),
                 "updated_at":     item.get("updated_at"),
+                "closed_at":      item.get("closed_at"),
                 "repo_full_name": repo_full_name,
+                "author_login":   item.get("user", {}).get("login", ""),
+                "labels":         [l.get("name", "") for l in item.get("labels", [])],
                 "matched_keyword": q,
             })
         if page * cfg.GITHUB_API_PER_PAGE >= min(t, 1000):
@@ -184,7 +192,9 @@ def _fetch_commits(q: str, logger) -> tuple[list[dict], int]:
                 "html_url":       item.get("html_url", ""),
                 "surface":        "commits",
                 "body":           commit.get("message", "") or "",
-                "created_at":     author.get("date"),
+                "created_at":     commit.get("committer", {}).get("date") or author.get("date"),
+                "author_date":    author.get("date"),
+                "committer_date": commit.get("committer", {}).get("date"),
                 "repo_full_name": repo.get("full_name", ""),
                 "repo_id":        repo.get("id"),
                 "matched_keyword": q,
@@ -198,8 +208,8 @@ def _fetch_commits(q: str, logger) -> tuple[list[dict], int]:
 
 _DISCUSSION_QUERY = """
 query($query: String!, $after: String) {
-  search(query: $query, type: DISCUSSION, first: 25, after: $after) {
-    issueCount
+  search(query: $query, type: DISCUSSION, first: 100, after: $after) {
+    discussionCount
     pageInfo { hasNextPage endCursor }
     nodes {
       ... on Discussion {
@@ -212,14 +222,35 @@ query($query: String!, $after: String) {
 }
 """
 
+_DISCUSSION_PROBE_QUERY = """
+query($query: String!) {
+  search(query: $query, type: DISCUSSION, first: 1) {
+    discussionCount
+  }
+}
+"""
+
+
+def _probe_discussion_count(q: str, logger) -> int:
+    resp = gh_graphql(_DISCUSSION_PROBE_QUERY, {"query": q}, logger=logger)
+    if resp.get("errors"):
+        if logger:
+            logger.warning(f"GraphQL probe errors for {q!r}: {resp['errors']}")
+        return 0
+    return resp.get("data", {}).get("search", {}).get("discussionCount", 0)
+
 
 def _fetch_discussions(q: str, logger) -> tuple[list[dict], int]:
     results, cursor, total = [], None, None
     while True:
         resp = gh_graphql(_DISCUSSION_QUERY, {"query": q, "after": cursor}, logger=logger)
+        if resp.get("errors"):
+            if logger:
+                logger.warning(f"GraphQL errors for {q!r}: {resp['errors']}")
+            break
         search = resp.get("data", {}).get("search", {})
         if total is None:
-            total = search.get("issueCount", 0)
+            total = search.get("discussionCount", 0)
         for node in search.get("nodes", []):
             if not node:
                 continue
@@ -304,6 +335,49 @@ def _sliced_date_search(
                         next_.isoformat(), end, depth + 1, logger, results, seen, surface_label)
 
 
+def _sliced_discussion_search(
+    keyword: str,
+    start: str,
+    end: str,
+    depth: int,
+    logger,
+    results: list,
+    seen: set,
+) -> None:
+    """
+    Recursively bisect [start, end] for discussions until each slice fits under SLICE_THRESHOLD.
+    Uses _probe_discussion_count (GraphQL discussionCount) for probing.
+    """
+    q = f"{keyword} created:{start}..{end}"
+    total = _probe_discussion_count(q, logger)
+    indent = "  " * depth
+    console.print(f"{indent}[dim]{start}..{end}[/]  total={total}")
+
+    if total == 0:
+        return
+
+    start_d = date.fromisoformat(start)
+    end_d   = date.fromisoformat(end)
+    span    = (end_d - start_d).days
+
+    if total <= cfg.SLICE_THRESHOLD or depth >= cfg.SLICE_MAX_DEPTH or span < cfg.SLICE_MIN_DAYS:
+        items, _ = _fetch_discussions(q, logger)
+        if total > 1000:
+            console.print(f"{indent}  [yellow]⚠ slice still >{1000} (total={total}), got {len(items)}[/]")
+        for item in items:
+            key = item.get("id", "")
+            if key not in seen:
+                seen.add(key)
+                results.append(item)
+        return
+
+    mid   = start_d + timedelta(days=span // 2)
+    next_ = mid + timedelta(days=1)
+    console.print(f"{indent}[yellow]↳ slicing (total={total} > {cfg.SLICE_THRESHOLD})[/]")
+    _sliced_discussion_search(keyword, start, mid.isoformat(), depth + 1, logger, results, seen)
+    _sliced_discussion_search(keyword, next_.isoformat(), end, depth + 1, logger, results, seen)
+
+
 # ---------------------------------------------------------------------------
 # Adaptive size-range slicing (code search only — no date qualifier support)
 # ---------------------------------------------------------------------------
@@ -332,7 +406,7 @@ def _sliced_code_search(
         if total > 1000:
             console.print(f"    [yellow]⚠ size range exhausted (total={total}), got {len(items)}[/]")
         for item in items:
-            key = (item.get("repo_full_name", ""), item.get("file_path", ""))
+            key = item.get("html_url") or f"{item.get('repo_full_name','')}:{item.get('file_path','')}"
             if key not in seen:
                 seen.add(key)
                 results.append(item)
@@ -355,7 +429,7 @@ def search_code_sliced(keyword: str, logger) -> tuple[list[dict], int]:
         return items, total
     console.print(f"  [yellow]→ size-slicing (0..{_CODE_SIZE_MAX} bytes)[/]")
     results: list[dict] = []
-    seen: set[tuple] = set()
+    seen: set[str] = set()
     _sliced_code_search(keyword, 0, _CODE_SIZE_MAX, logger, results, seen)
     console.print(f"  [green]code done:[/] {len(results)} unique (total_count was {total})")
     return results, total
@@ -374,6 +448,9 @@ def _dedup(existing: list[dict], new_items: list[dict], key: str = "id") -> tupl
             existing.append(item)
             added += 1
         elif k not in seen:
+            kw = item.get("matched_keyword", "")
+            if kw:
+                item.setdefault("matched_keywords", [kw])
             existing.append(item)
             seen[k] = len(existing) - 1
             added += 1
@@ -545,12 +622,20 @@ def run(slug: str, overwrite: bool = False) -> None:
             logger.info(f'KEYWORD SURFACE SAVED: "{keyword}" | COMMITS | new={commits_added} | total_on_disk={len(surface_data["commits"])}')
             _merge_counts(summary, "commits", keyword, total_commits, commits_added)
 
-            # ── discussions (paginate; GraphQL handles its own limits) ─────
+            # ── discussions (date-based slicing via GraphQL) ──────────────
             console.print("[bold]discussions[/]")
-            disc_new, disc_total = _fetch_discussions(keyword, logger)
+            disc_total = _probe_discussion_count(keyword, logger)
             logger.info(f'KEYWORD SURFACE: "{keyword}" | DISCUSSIONS | total_count={disc_total}')
             console.print(f"  total_count={disc_total}")
-            surface_data["discussions"], disc_added = _dedup(surface_data["discussions"], disc_new)
+            disc_results: list[dict] = []
+            disc_seen: set = set()
+            if disc_total <= cfg.SLICE_THRESHOLD:
+                disc_results, _ = _fetch_discussions(keyword, logger)
+            else:
+                console.print(f"  [yellow]→ date-slicing discussions[/]")
+                _sliced_discussion_search(keyword, cfg.SLICE_START_DATE, cfg.SLICE_END_DATE,
+                                          0, logger, disc_results, disc_seen)
+            surface_data["discussions"], disc_added = _dedup(surface_data["discussions"], disc_results)
             save_json(surface_files["discussions"], surface_data["discussions"])
             console.print(f"  → {keyword!r} DISCUSSIONS saved: {disc_added} new (total on disk: {len(surface_data['discussions'])})")
             logger.info(f'KEYWORD SURFACE SAVED: "{keyword}" | DISCUSSIONS | new={disc_added} | total_on_disk={len(surface_data["discussions"])}')

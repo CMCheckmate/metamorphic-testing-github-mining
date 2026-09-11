@@ -52,6 +52,7 @@ def _run_analysis(
     code_only: bool,
     noncode_only: bool,
     workers: int,
+    aggregate_only: bool,
 ) -> None:
     import analysis
     print(f"\n=== ANALYSIS phase — {slug} ===")
@@ -62,6 +63,7 @@ def _run_analysis(
         noncode_only=noncode_only,
         restart=restart,
         workers=workers,
+        aggregate_only=aggregate_only,
     )
     print(f"Analysis done in {_elapsed(t0)}")
 
@@ -119,6 +121,11 @@ def build_parser() -> argparse.ArgumentParser:
         "--workers", type=int, default=cfg.ANALYSIS_WORKERS, metavar="N",
         help=f"Worker processes for parallel file scanning (default: {cfg.ANALYSIS_WORKERS}).",
     )
+    ag.add_argument(
+        "--aggregate-only", action="store_true",
+        help="Skip cloning and scanning. Aggregate whatever is already in code_repos.json "
+             "and noncode_results.json into overall.json and exit.",
+    )
 
     return p
 
@@ -129,6 +136,8 @@ def main() -> None:
 
     if args.code_only and args.noncode_only:
         parser.error("--code-only and --noncode-only are mutually exclusive.")
+    if args.aggregate_only and (args.restart or args.code_only or args.noncode_only):
+        parser.error("--aggregate-only cannot be combined with --restart, --code-only, or --noncode-only")
 
     try:
         slug = resolve_technique(args.technique)
@@ -158,6 +167,7 @@ def main() -> None:
                 code_only=args.code_only,
                 noncode_only=args.noncode_only,
                 workers=args.workers,
+                aggregate_only=args.aggregate_only,
             )
         elif phase == "report":
             _run_report(slug)
