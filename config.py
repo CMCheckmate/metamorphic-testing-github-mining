@@ -51,7 +51,7 @@ SLICE_END_DATE   = "2026-09-01"
 # Clone settings
 # ---------------------------------------------------------------------------
 CLONE_BATCH_MAX_BYTES = 5 * 1024 ** 3   # 5 GB per batch
-CLONE_BATCH_MAX_REPOS = 50
+CLONE_BATCH_MAX_REPOS = 20
 CLONE_DEPTH           = 100             # 0 = full history (slow)
 
 # ---------------------------------------------------------------------------
