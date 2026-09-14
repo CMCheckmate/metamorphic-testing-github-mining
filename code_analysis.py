@@ -715,26 +715,25 @@ def run(slug: str, restart: bool = False, workers: int = cfg.ANALYSIS_WORKERS, n
 
     # Fetch / load cloned repo metadata for real size data
     cloned_meta_path = dirs["analysis"] / "cloned_repo_metadata.json"
-    cloned_repo_metadata: dict = load_json(cloned_meta_path, {})
+    cloned_repo_metadata: dict = {}
 
-    if cloned_meta_path.exists() and cloned_repo_metadata:
-        print(f"  cloned_repo_metadata.json found — {len(cloned_repo_metadata)} repos cached.")
+    if no_size_stats:
+        print("  --no-size-stats: skipping repo metadata (size statistics disabled).")
     else:
-        if no_size_stats:
-            print("  cloned_repo_metadata.json NOT FOUND — proceeding without size data (--no-size-stats).")
+        cloned_repo_metadata = load_json(cloned_meta_path, {})
+        if cloned_meta_path.exists() and cloned_repo_metadata:
+            print(f"  cloned_repo_metadata.json found — {len(cloned_repo_metadata)} repos cached.")
+            all_names = [c["repo_full_name"] for c in unprocessed]
+            cloned_repo_metadata = _fetch_cloned_repo_metadata(
+                all_names, cfg.GITHUB_TOKEN, cloned_repo_metadata, logger
+            )
+            save_json(cloned_meta_path, cloned_repo_metadata)
         else:
             print(
                 "  ERROR: cloned_repo_metadata.json not found.\n"
                 "  Run non-code analysis first to fetch repo metadata, or pass --no-size-stats to skip."
             )
             return
-
-    if not no_size_stats:
-        all_names = [c["repo_full_name"] for c in unprocessed]
-        cloned_repo_metadata = _fetch_cloned_repo_metadata(
-            all_names, cfg.GITHUB_TOKEN, cloned_repo_metadata, logger
-        )
-        save_json(cloned_meta_path, cloned_repo_metadata)
 
     batch_bytes = 0
     batch: list[dict] = []
