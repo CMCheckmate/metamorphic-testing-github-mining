@@ -751,7 +751,7 @@ def run(
     if not noncode_only and not code_only:
         logger.info("Running code and non-code analysis in parallel")
         with concurrent.futures.ThreadPoolExecutor(max_workers=2) as pool:
-            code_fut    = pool.submit(code_analysis.run, slug, restart, workers)
+            code_fut    = pool.submit(code_analysis.run, slug, restart, workers, no_size_stats)
             noncode_fut = pool.submit(non_code_analysis.run, slug, restart, no_size_stats)
             concurrent.futures.wait([code_fut, noncode_fut])
             for fut in [code_fut, noncode_fut]:
@@ -759,7 +759,7 @@ def run(
                 if exc:
                     logger.error(f"Analysis worker error: {exc}", exc_info=True)
     elif code_only:
-        code_analysis.run(slug, restart, workers)
+        code_analysis.run(slug, restart, workers, no_size_stats)
     else:
         non_code_analysis.run(slug, restart, no_size_stats)
 

@@ -657,7 +657,7 @@ def _clone_repo(repo_full_name: str, clone_url: str, target: Path, logger) -> bo
 # Main run function
 # ---------------------------------------------------------------------------
 
-def run(slug: str, restart: bool = False, workers: int = cfg.ANALYSIS_WORKERS) -> None:
+def run(slug: str, restart: bool = False, workers: int = cfg.ANALYSIS_WORKERS, no_size_stats: bool = False) -> None:
     ensure_dirs(slug)
     dirs = technique_dirs(slug)
     logger = setup_logging(slug, "code_analysis")
@@ -716,11 +716,25 @@ def run(slug: str, restart: bool = False, workers: int = cfg.ANALYSIS_WORKERS) -
     # Fetch / load cloned repo metadata for real size data
     cloned_meta_path = dirs["analysis"] / "cloned_repo_metadata.json"
     cloned_repo_metadata: dict = load_json(cloned_meta_path, {})
-    all_names = [c["repo_full_name"] for c in unprocessed]
-    cloned_repo_metadata = _fetch_cloned_repo_metadata(
-        all_names, cfg.GITHUB_TOKEN, cloned_repo_metadata, logger
-    )
-    save_json(cloned_meta_path, cloned_repo_metadata)
+
+    if cloned_meta_path.exists() and cloned_repo_metadata:
+        print(f"  cloned_repo_metadata.json found — {len(cloned_repo_metadata)} repos cached.")
+    else:
+        if no_size_stats:
+            print("  cloned_repo_metadata.json NOT FOUND — proceeding without size data (--no-size-stats).")
+        else:
+            print(
+                "  ERROR: cloned_repo_metadata.json not found.\n"
+                "  Run non-code analysis first to fetch repo metadata, or pass --no-size-stats to skip."
+            )
+            return
+
+    if not no_size_stats:
+        all_names = [c["repo_full_name"] for c in unprocessed]
+        cloned_repo_metadata = _fetch_cloned_repo_metadata(
+            all_names, cfg.GITHUB_TOKEN, cloned_repo_metadata, logger
+        )
+        save_json(cloned_meta_path, cloned_repo_metadata)
 
     batch_bytes = 0
     batch: list[dict] = []
@@ -728,7 +742,7 @@ def run(slug: str, restart: bool = False, workers: int = cfg.ANALYSIS_WORKERS) -
 
     for candidate in unprocessed:
         name = candidate["repo_full_name"]
-        meta = cloned_repo_metadata.get(name, {})
+        meta = cloned_repo_metadata.get(name) or {}
         size_bytes = (meta.get("size_kb", 0) or 0) * 1024
         if (batch and batch_bytes + size_bytes > cfg.CLONE_BATCH_MAX_BYTES) or len(batch) >= cfg.CLONE_BATCH_MAX_REPOS:
             batches.append(batch)
@@ -780,7 +794,7 @@ def run(slug: str, restart: bool = False, workers: int = cfg.ANALYSIS_WORKERS) -
                             pass
                         break
 
-                _meta = cloned_repo_metadata.get(name, {})
+                _meta = cloned_repo_metadata.get(name) or {}
                 repo_meta = {
                     "full_name":   name,
                     "html_url":    candidate.get("html_url", ""),
