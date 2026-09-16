@@ -17,6 +17,7 @@ import os
 import random
 import re
 import shutil
+import stat
 import subprocess
 import time
 from collections import defaultdict
@@ -631,6 +632,25 @@ def detect_domains(repo_meta: dict, readme_text: str) -> list[str]:
 # Clone helpers
 # ---------------------------------------------------------------------------
 
+def _force_rmtree(path: Path, logger=None) -> None:
+    """Remove a directory tree, retrying after clearing read-only bits (Windows .git objects)."""
+    def _on_error(func, failed_path, exc_info):
+        try:
+            os.chmod(failed_path, stat.S_IWRITE)
+            func(failed_path)
+        except Exception as e:
+            if logger:
+                logger.warning(f"rmtree retry failed for {failed_path}: {e}")
+    shutil.rmtree(path, onerror=_on_error)
+    # Remove empty owner directory (cloned/<owner>/) if nothing else is in it
+    parent = path.parent
+    try:
+        if parent.exists() and not any(parent.iterdir()):
+            parent.rmdir()
+    except Exception:
+        pass
+
+
 def _clone_repo(repo_full_name: str, clone_url: str, target: Path, logger) -> bool:
     if target.exists():
         logger.info(f"SKIP clone (exists): {repo_full_name}")
@@ -645,11 +665,11 @@ def _clone_repo(repo_full_name: str, clone_url: str, target: Path, logger) -> bo
         return True
     except subprocess.TimeoutExpired:
         logger.error(f"Clone timeout: {repo_full_name}")
-        shutil.rmtree(target, ignore_errors=True)
+        _force_rmtree(target, logger)
         return False
     except Exception as exc:
         logger.error(f"Clone failed for {repo_full_name}: {exc}")
-        shutil.rmtree(target, ignore_errors=True)
+        _force_rmtree(target, logger)
         return False
 
 
@@ -830,7 +850,7 @@ def run(slug: str, restart: bool = False, workers: int = cfg.ANALYSIS_WORKERS, n
         # --- Delete cloned repos ---
         for _, repo_path in cloned_paths:
             try:
-                shutil.rmtree(repo_path, ignore_errors=False)
+                _force_rmtree(repo_path, logger)
             except Exception as exc:
                 logger.warning(f"Failed to delete clone {repo_path}: {exc}")
         logger.info(f"Batch {batch_idx+1} complete — clones deleted")
@@ -915,16 +935,11 @@ def _cleanup_orphaned_clones(cloned_dir: Path, history: dict, logger) -> None:
             status = history.get(full_name)
             if status in ("done", "failed", "cloned", None):
                 try:
-                    shutil.rmtree(repo_dir, ignore_errors=False)
+                    _force_rmtree(repo_dir, logger)
                     removed += 1
                     logger.info(f"Cleaned orphaned clone: {full_name}")
                 except Exception as exc:
                     logger.warning(f"Failed to remove orphaned clone {full_name}: {exc}")
-        try:
-            if not any(owner_dir.iterdir()):
-                owner_dir.rmdir()
-        except Exception:
-            pass
     if removed:
         logger.info(f"Startup cleanup removed {removed} orphaned clone(s)")
         print(f"  Startup cleanup: removed {removed} orphaned clone(s) from prior run")
