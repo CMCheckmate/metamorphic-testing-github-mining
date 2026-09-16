@@ -180,10 +180,10 @@ def gh_get(
             total_wait_seconds += wait
             continue
 
-           if resp.status_code in (408, 500, 502, 503, 504):
+        if resp.status_code in (408, 500, 502, 503, 504):
             wait = RETRY_BACKOFF_BASE ** (attempt + 1) + random.uniform(0, RETRY_BACKOFF_JITTER)
             _log(logger, "warning",
-                  f"Transient HTTP error {resp.status_code} — sleeping {wait:.1f}s")
+                    f"Transient HTTP error {resp.status_code} — sleeping {wait:.1f}s")
             time.sleep(wait)
             total_wait_seconds += wait
             continue
