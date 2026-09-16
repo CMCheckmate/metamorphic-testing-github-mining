@@ -17,6 +17,7 @@ import os
 import random
 import re
 import shutil
+import stat
 import subprocess
 import time
 from collections import defaultdict
@@ -631,6 +632,25 @@ def detect_domains(repo_meta: dict, readme_text: str) -> list[str]:
 # Clone helpers
 # ---------------------------------------------------------------------------
 
+def _force_rmtree(path: Path, logger=None) -> None:
+    """Remove a directory tree, retrying after clearing read-only bits (Windows .git objects)."""
+    def _on_error(func, failed_path, exc_info):
+        try:
+            os.chmod(failed_path, stat.S_IWRITE)
+            func(failed_path)
+        except Exception as e:
+            if logger:
+                logger.warning(f"rmtree retry failed for {failed_path}: {e}")
+    shutil.rmtree(path, onerror=_on_error)
+    # Remove empty owner directory (cloned/<owner>/) if nothing else is in it
+    parent = path.parent
+    try:
+        if parent.exists() and not any(parent.iterdir()):
+            parent.rmdir()
+    except Exception:
+        pass
+
+
 def _clone_repo(repo_full_name: str, clone_url: str, target: Path, logger) -> bool:
     if target.exists():
         logger.info(f"SKIP clone (exists): {repo_full_name}")
@@ -645,11 +665,11 @@ def _clone_repo(repo_full_name: str, clone_url: str, target: Path, logger) -> bo
         return True
     except subprocess.TimeoutExpired:
         logger.error(f"Clone timeout: {repo_full_name}")
-        shutil.rmtree(target, ignore_errors=True)
+        _force_rmtree(target, logger)
         return False
     except Exception as exc:
         logger.error(f"Clone failed for {repo_full_name}: {exc}")
-        shutil.rmtree(target, ignore_errors=True)
+        _force_rmtree(target, logger)
         return False
 
 
@@ -657,7 +677,7 @@ def _clone_repo(repo_full_name: str, clone_url: str, target: Path, logger) -> bo
 # Main run function
 # ---------------------------------------------------------------------------
 
-def run(slug: str, restart: bool = False, workers: int = cfg.ANALYSIS_WORKERS) -> None:
+def run(slug: str, restart: bool = False, workers: int = cfg.ANALYSIS_WORKERS, no_size_stats: bool = False) -> None:
     ensure_dirs(slug)
     dirs = technique_dirs(slug)
     logger = setup_logging(slug, "code_analysis")
@@ -697,22 +717,52 @@ def run(slug: str, restart: bool = False, workers: int = cfg.ANALYSIS_WORKERS) -
 
     # Load analysis keywords (raw, passed to workers)
     from utils import load_analysis_keywords
-    keywords_raw = load_analysis_keywords(slug)
+    from non_code_analysis import _load_stopwords, _build_technique_stopwords
+    keywords_raw        = load_analysis_keywords(slug)
     tech_search_keywords = _load_search_phrases(slug)
+    base_stopwords      = _load_stopwords(logger)
+    technique_stopwords = _build_technique_stopwords(slug)
 
     cloned_dir = dirs["cloned"]
     cloned_dir.mkdir(parents=True, exist_ok=True)
 
-    # Shuffle and batch
+    # Shuffle and build unprocessed list
     unprocessed = [c for c in candidates if history.get(c["repo_full_name"]) not in ("done", "failed")]
     random.shuffle(unprocessed)
+
+    # Cleanup orphaned clones from interrupted prior runs
+    _cleanup_orphaned_clones(cloned_dir, history, logger)
+
+    # Fetch / load cloned repo metadata for real size data
+    cloned_meta_path = dirs["analysis"] / "cloned_repo_metadata.json"
+    cloned_repo_metadata: dict = {}
+
+    if no_size_stats:
+        print("  --no-size-stats: skipping repo metadata (size statistics disabled).")
+    else:
+        cloned_repo_metadata = load_json(cloned_meta_path, {})
+        if cloned_meta_path.exists() and cloned_repo_metadata:
+            print(f"  cloned_repo_metadata.json found — {len(cloned_repo_metadata)} repos cached.")
+            all_names = [c["repo_full_name"] for c in unprocessed]
+            cloned_repo_metadata = _fetch_cloned_repo_metadata(
+                all_names, cfg.GITHUB_TOKEN, cloned_repo_metadata, logger
+            )
+            save_json(cloned_meta_path, cloned_repo_metadata)
+        else:
+            print(
+                "  ERROR: cloned_repo_metadata.json not found.\n"
+                "  Run non-code analysis first to fetch repo metadata, or pass --no-size-stats to skip."
+            )
+            return
 
     batch_bytes = 0
     batch: list[dict] = []
     batches: list[list[dict]] = []
 
     for candidate in unprocessed:
-        size_bytes = (candidate.get("size_kb", 0) or 0) * 1024
+        name = candidate["repo_full_name"]
+        meta = cloned_repo_metadata.get(name) or {}
+        size_bytes = (meta.get("size_kb", 0) or 0) * 1024
         if (batch and batch_bytes + size_bytes > cfg.CLONE_BATCH_MAX_BYTES) or len(batch) >= cfg.CLONE_BATCH_MAX_REPOS:
             batches.append(batch)
             batch = []
@@ -750,6 +800,7 @@ def run(slug: str, restart: bool = False, workers: int = cfg.ANALYSIS_WORKERS) -
             try:
                 scan = scan_repo(repo_path, keywords_raw, workers=workers)
                 commits = analyse_commits(repo_path, tech_search_keywords, logger)
+                doc_word_set = _extract_doc_word_set(repo_path, base_stopwords, technique_stopwords)
 
                 # Read README for classification + domains
                 readme_text = ""
@@ -762,15 +813,16 @@ def run(slug: str, restart: bool = False, workers: int = cfg.ANALYSIS_WORKERS) -
                             pass
                         break
 
+                _meta = cloned_repo_metadata.get(name) or {}
                 repo_meta = {
                     "full_name":   name,
                     "html_url":    candidate.get("html_url", ""),
-                    "stars":       candidate.get("stars"),        # None for code surface items; enriched from repo_metadata.json in analysis.py
-                    "language":    candidate.get("language"),     # None for code surface items; enriched from repo_metadata.json in analysis.py
-                    "description": candidate.get("description", "") or "",
-                    "topics":      candidate.get("topics", []),
-                    "created_at":  candidate.get("created_at"),
-                    "size_kb":     candidate.get("size_kb", 0),
+                    "stars":       candidate.get("stars") if candidate.get("stars") is not None else _meta.get("stars"),
+                    "language":    candidate.get("language") if candidate.get("language") is not None else _meta.get("language"),
+                    "description": candidate.get("description", "") or _meta.get("description", "") or "",
+                    "topics":      candidate.get("topics") or _meta.get("topics", []),
+                    "created_at":  candidate.get("created_at") or _meta.get("created_at"),
+                    "size_kb":     _meta.get("size_kb", 0) or candidate.get("size_kb", 0),
                 }
                 classification = classify_repo(repo_path, scan, repo_meta, logger)
                 domains = detect_domains(repo_meta, readme_text)
@@ -782,6 +834,7 @@ def run(slug: str, restart: bool = False, workers: int = cfg.ANALYSIS_WORKERS) -
                     "classification": classification,
                     "domains":        domains,
                     "readme_snippet": readme_text[:2000],
+                    "doc_word_set":   doc_word_set,
                 }
                 results.append(record)
                 save_json(results_path, results)
@@ -796,11 +849,100 @@ def run(slug: str, restart: bool = False, workers: int = cfg.ANALYSIS_WORKERS) -
 
         # --- Delete cloned repos ---
         for _, repo_path in cloned_paths:
-            shutil.rmtree(repo_path, ignore_errors=True)
+            try:
+                _force_rmtree(repo_path, logger)
+            except Exception as exc:
+                logger.warning(f"Failed to delete clone {repo_path}: {exc}")
         logger.info(f"Batch {batch_idx+1} complete — clones deleted")
 
     print(f"\nCode analysis complete: {len(results)} repos analysed.")
     logger.info(f"Code analysis done: {len(results)} repos")
+
+
+def _fetch_cloned_repo_metadata(
+    repo_names: list[str],
+    token: str,
+    existing: dict,
+    logger,
+) -> dict:
+    """
+    Fetch GitHub API repo metadata for any repo in repo_names not already
+    present in existing. Returns merged dict keyed by full_name.
+
+    Stores per repo: size_kb, stars, language, created_at, description, topics.
+    Skips 404 (deleted/private). Rate-limited to 1 req/2s (safe for core API).
+    """
+    import time
+    import requests
+
+    headers = {
+        "Authorization": f"token {token}",
+        "Accept": "application/vnd.github+json",
+    }
+    result = dict(existing)
+    missing = [n for n in repo_names if n not in result]
+    if not missing:
+        return result
+
+    logger.info(f"Fetching cloned_repo_metadata for {len(missing)} repos")
+    print(f"  Fetching repo sizes for {len(missing)} repos ({len(existing)} already cached)...")
+    for i, name in enumerate(missing):
+        if i % 25 == 0 and i > 0:
+            print(f"  [{i}/{len(missing)}] ...")
+        url = f"https://api.github.com/repos/{name}"
+        try:
+            resp = requests.get(url, headers=headers, timeout=15)
+            if resp.status_code == 404:
+                result[name] = {"size_kb": 0, "stars": None, "language": None,
+                                "created_at": None, "description": "", "topics": []}
+            elif resp.status_code == 200:
+                data = resp.json()
+                result[name] = {
+                    "size_kb":     data.get("size", 0),
+                    "stars":       data.get("stargazers_count"),
+                    "language":    data.get("language"),
+                    "created_at":  data.get("created_at"),
+                    "description": data.get("description", "") or "",
+                    "topics":      data.get("topics", []),
+                }
+            else:
+                logger.warning(f"cloned_repo_metadata: {name} returned HTTP {resp.status_code}")
+        except Exception as exc:
+            logger.warning(f"cloned_repo_metadata: {name} fetch error — {exc}")
+        if (i + 1) % 50 == 0:
+            logger.info(f"  fetched {i+1}/{len(missing)} metadata entries")
+        time.sleep(2.0)
+
+    return result
+
+
+def _cleanup_orphaned_clones(cloned_dir: Path, history: dict, logger) -> None:
+    """
+    Remove any subdirectories in cloned_dir whose repo is not currently being
+    processed (history status done, failed, cloned, or absent). These are
+    leftovers from interrupted runs.
+    """
+    if not cloned_dir.exists():
+        return
+    removed = 0
+    for owner_dir in cloned_dir.iterdir():
+        if not owner_dir.is_dir():
+            continue
+        for repo_dir in owner_dir.iterdir():
+            if not repo_dir.is_dir():
+                continue
+            full_name = f"{owner_dir.name}/{repo_dir.name}"
+            status = history.get(full_name)
+            if status in ("done", "failed", "cloned", None):
+                try:
+                    _force_rmtree(repo_dir, logger)
+                    removed += 1
+                    logger.info(f"Cleaned orphaned clone: {full_name}")
+                except Exception as exc:
+                    logger.warning(f"Failed to remove orphaned clone {full_name}: {exc}")
+    if removed:
+        logger.info(f"Startup cleanup removed {removed} orphaned clone(s)")
+        print(f"  Startup cleanup: removed {removed} orphaned clone(s) from prior run")
 
 
 def _load_search_phrases(slug: str) -> list[str]:
@@ -813,3 +955,31 @@ def _load_search_phrases(slug: str) -> list[str]:
         if clean:
             phrases.append(clean)
     return phrases
+
+
+def _extract_doc_word_set(
+    repo_path: Path,
+    base_stopwords: frozenset[str],
+    technique_stopwords: frozenset[str],
+    max_bytes: int = 100_000,
+) -> list[str]:
+    """
+    Return sorted list of distinct content words from doc files in the repo.
+    Reads up to max_bytes per file; skips binary and oversized files.
+    """
+    from non_code_analysis import _clean_text, _word_set
+    doc_exts = {".md", ".rst", ".txt", ".adoc", ".tex"}
+    words: set[str] = set()
+    for fp in repo_path.rglob("*"):
+        if any(part in cfg.SKIP_DIRS for part in fp.parts):
+            continue
+        if fp.suffix.lower() not in doc_exts:
+            continue
+        try:
+            if fp.stat().st_size == 0 or fp.stat().st_size > max_bytes:
+                continue
+            text = fp.read_text(encoding="utf-8", errors="ignore")
+            words |= _word_set(_clean_text(text), base_stopwords, technique_stopwords)
+        except OSError:
+            pass
+    return sorted(words)

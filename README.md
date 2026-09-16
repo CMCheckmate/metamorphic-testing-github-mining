@@ -74,12 +74,15 @@ Two sub-phases run in parallel:
 - Extracts domain signals and word frequencies for the word cloud.
 - Writes to `results/<slug>/analysis/noncode_results.json`.
 - `noncode_history.json` tracks processed item IDs — resume-safe.
+- At the end of the run, fetches `cloned_repo_metadata.json` for all repos across all surfaces via a parallelised GitHub API fetch (4 workers, ~320 req/min). This file is required by code analysis for batch-size gating; run non-code analysis before (or in parallel with) code analysis.
 
 After both sub-phases finish, `analysis.py` aggregates everything into `overall.json`. The report phase reads only `overall.json` — it performs no calculations.
 
 - `--restart` resets all analysis history and result files before running.
 - `--code-only` / `--noncode-only` run only one sub-phase.
+- `--workers N` sets the number of parallel worker processes for file scanning (default: 4).
 - `--aggregate-only` skips cloning and scanning entirely — reads whatever is already in `code_repos.json` and `noncode_results.json` and re-aggregates into `overall.json`. Useful after manually editing result files or after a keyword change that only affects aggregation. Cannot be combined with `--restart`, `--code-only`, or `--noncode-only`.
+- `--no-size-stats` skips the `cloned_repo_metadata.json` fetch entirely (non-code analysis) and allows code analysis to proceed without the file. Size statistics will be unavailable in the report. Use this flag when you want to run code analysis without first completing a non-code run.
 
 ### Phase 3 — Report
 
@@ -125,6 +128,7 @@ metamorphic-testing-github-mining/
 │   │   ├── cloned/             temporary clones (deleted after each batch)
 │   │   ├── analysis/           code_repos.json  code_history.json
 │   │   │                       noncode_results.json  noncode_history.json
+│   │   │                       cloned_repo_metadata.json
 │   │   │                       overall.json
 │   │   └── report/             report.md  plots/
 │   ├── fuzz_testing/           (same structure)
@@ -153,6 +157,7 @@ python main.py --technique TECHNIQUE [--phase PHASE] [options]
 | `--noncode-only` | (analysis) Non-code sub-phase only |
 | `--workers N` | Worker processes for parallel file scanning (default: 4) |
 | `--aggregate-only` | (analysis) Skip clone/scan; re-aggregate existing data into `overall.json` |
+| `--no-size-stats` | (analysis) Skip `cloned_repo_metadata.json` fetch; allow code analysis to run without it |
 
 **Examples:**
 
@@ -162,6 +167,7 @@ python main.py --technique mt --phase search --overwrite
 python main.py --technique pbt --phase analysis --code-only
 python main.py --technique fuzz --phase analysis --restart
 python main.py --technique mt --phase analysis --aggregate-only
+python main.py --technique mt --phase analysis --code-only --no-size-stats
 python main.py --technique mt --phase report
 python main.py --technique mt                     # all phases
 ```
@@ -239,6 +245,7 @@ An ordered decision tree; a repo can satisfy multiple categories:
 | `analysis/code_history.json` | `{repo_name: "done"\|"failed"\|"cloned"}` — resume state |
 | `analysis/noncode_results.json` | Array of per-item non-code analysis results |
 | `analysis/noncode_history.json` | Array of processed `surface:id` strings |
+| `analysis/cloned_repo_metadata.json` | Per-repo metadata fetched from GitHub API: `size_kb`, `stars`, `language`, `created_at`, `description`, `topics`. Created at the end of non-code analysis; used by code analysis for batch-size gating and by the report for size statistics. |
 | `analysis/overall.json` | All aggregated stats — the report's sole data source |
 | `report/report.md` | Generated Markdown report |
 | `report/plots/` | Generated plot images |
@@ -252,12 +259,12 @@ All constants are in `config.py`. Notable settings:
 | Constant | Default | Description |
 |----------|---------|-------------|
 | `CLONE_BATCH_MAX_BYTES` | 5 GB | Max total clone size per batch |
-| `CLONE_BATCH_MAX_REPOS` | 50 | Max repos per clone batch |
+| `CLONE_BATCH_MAX_REPOS` | 20 | Max repos per clone batch |
 | `CLONE_DEPTH` | 100 | Shallow clone depth (0 = full history) |
 | `ANALYSIS_WORKERS` | 4 | Parallel worker processes for file scanning |
 | `MAX_FILE_SIZE_BYTES` | 5 MB | Files larger than this are skipped |
 | `GITHUB_API_PER_PAGE` | 100 | Results per API page |
-| `RATE_LIMIT_PAUSE` | 2.2 s | Base pause between standard API requests |
+| `RATE_LIMIT_PAUSE` | 2.5 s | Base pause between standard API requests |
 | `CODE_SEARCH_PAUSE` | 7.0 s | Pause between code search requests |
 | `RETRY_ATTEMPTS` | 5 | API retry attempts with exponential backoff |
 | `SLICE_THRESHOLD` | 900 | Results count above which date-range slicing kicks in |

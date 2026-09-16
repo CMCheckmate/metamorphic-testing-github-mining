@@ -53,6 +53,7 @@ def _run_analysis(
     noncode_only: bool,
     workers: int,
     aggregate_only: bool,
+    no_size_stats: bool = False,
 ) -> None:
     import analysis
     print(f"\n=== ANALYSIS phase — {slug} ===")
@@ -64,6 +65,7 @@ def _run_analysis(
         restart=restart,
         workers=workers,
         aggregate_only=aggregate_only,
+        no_size_stats=no_size_stats,
     )
     print(f"Analysis done in {_elapsed(t0)}")
 
@@ -126,6 +128,10 @@ def build_parser() -> argparse.ArgumentParser:
         help="Skip cloning and scanning. Aggregate whatever is already in code_repos.json "
              "and noncode_results.json into overall.json and exit.",
     )
+    ag.add_argument(
+        "--no-size-stats", action="store_true",
+        help="Skip fetching repo metadata (size statistics will be unavailable for non-REPOS surfaces).",
+    )
 
     return p
 
@@ -168,6 +174,7 @@ def main() -> None:
                 noncode_only=args.noncode_only,
                 workers=args.workers,
                 aggregate_only=args.aggregate_only,
+                no_size_stats=args.no_size_stats,
             )
         elif phase == "report":
             _run_report(slug)

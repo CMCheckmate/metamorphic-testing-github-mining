@@ -426,7 +426,8 @@ def _aggregate_code(results: list[dict]) -> dict:
     }
 
 
-def _aggregate_noncode(results: list[dict]) -> dict:
+def _aggregate_noncode(results: list[dict], code_repos: list[dict] | None = None) -> dict:
+    _code_repos_for_wordcloud = code_repos or []
     if not results:
         return {}
 
@@ -487,10 +488,23 @@ def _aggregate_noncode(results: list[dict]) -> dict:
         for d in r.get("domains", []):
             domain_counts[d] += 1
 
-    word_freq: Counter = Counter()
+    repo_word_sets: dict[str, set[str]] = defaultdict(set)
     for r in results:
-        for w, cnt in r.get("word_freq", {}).items():
-            word_freq[w] += cnt
+        repo = r.get("repo_full_name") or r.get("id", "unknown")
+        for w in r.get("word_set", []):
+            repo_word_sets[repo].add(w)
+
+    for entry in _code_repos_for_wordcloud:
+        repo = entry.get("full_name", "")
+        if not repo:
+            continue
+        for w in entry.get("doc_word_set", []):
+            repo_word_sets[repo].add(w)
+
+    word_freq: Counter = Counter()
+    for words in repo_word_sets.values():
+        for w in words:
+            word_freq[w] += 1
 
     lang_counts: Counter = Counter()
     for r in by_surface.get("repos", []):
@@ -549,19 +563,19 @@ def _aggregate_search_summary(search_dir: Path) -> dict:
     return result
 
 
-def fetch_repo_metadata(slug: str, token: str, logger) -> int:
-    """Fetch GitHub repo metadata (stars, language, size, etc.) for all repos seen across
-    all 6 search surfaces and save to analysis/repo_metadata.json.
-    Returns the number of new repos fetched.
+def fetch_cloned_repo_metadata(slug: str, token: str, logger) -> int:
+    """Fetch GitHub repo metadata for all repos across all 6 search surfaces.
+    Uses 4 concurrent workers (~320 req/min, well inside 5 000/hr limit).
+    Saves to analysis/cloned_repo_metadata.json; returns new fetch count.
     """
     import time as _time
     import requests as _requests
+    from concurrent.futures import ThreadPoolExecutor, as_completed
 
     dirs = technique_dirs(slug)
-    metadata_path = dirs["analysis"] / "repo_metadata.json"
+    metadata_path = dirs["analysis"] / "cloned_repo_metadata.json"
     repo_metadata: dict = load_json(metadata_path, {}) or {}
 
-    # Collect unique repo names from all surfaces
     all_repos: set[str] = set()
     for surface in ["code", "repos", "commits", "prs", "issues", "discussions"]:
         for item in load_json(dirs["search"] / f"{surface}.json", []):
@@ -571,35 +585,36 @@ def fetch_repo_metadata(slug: str, token: str, logger) -> int:
 
     to_fetch = [r for r in all_repos if r not in repo_metadata]
     if not to_fetch:
+        print(f"  Repo metadata: all {len(repo_metadata)} repos already cached — skipping fetch.")
         return 0
+
+    print(f"  {len(to_fetch)} repos to fetch ({len(repo_metadata)} already cached), 4 workers...")
 
     headers = {"Accept": "application/vnd.github+json"}
     if token:
         headers["Authorization"] = f"token {token}"
 
-    fetched = 0
-    for i, repo_name in enumerate(to_fetch):
+    def _fetch_one(repo_name: str) -> tuple[str, dict | None]:
+        _time.sleep(0.75)
+        url = f"{cfg.GITHUB_API_BASE}/repos/{repo_name}"
         try:
-            _time.sleep(2)
-            url = f"{cfg.GITHUB_API_BASE}/repos/{repo_name}"
             resp = _requests.get(url, headers=headers, timeout=30)
             if resp.status_code == 404:
-                repo_metadata[repo_name] = None
-                continue
+                return repo_name, None
             if resp.status_code in (403, 429):
                 reset_ts = int(resp.headers.get("X-RateLimit-Reset", _time.time() + 60))
                 wait = max(reset_ts - _time.time(), 5)
                 if logger:
-                    logger.warning(f"Rate limited fetching metadata — sleeping {wait:.0f}s")
+                    logger.warning(f"Rate limited — sleeping {wait:.0f}s")
                 _time.sleep(wait)
                 resp = _requests.get(url, headers=headers, timeout=30)
             if resp.status_code != 200:
                 if logger:
                     logger.warning(f"Metadata fetch HTTP {resp.status_code} for {repo_name}")
-                continue
+                return repo_name, repo_metadata.get(repo_name)
             data = resp.json()
             topics = [t for t in data.get("topics", []) if isinstance(t, str)]
-            repo_metadata[repo_name] = {
+            return repo_name, {
                 "full_name":   data.get("full_name", repo_name),
                 "stars":       data.get("stargazers_count"),
                 "language":    data.get("language"),
@@ -608,26 +623,35 @@ def fetch_repo_metadata(slug: str, token: str, logger) -> int:
                 "description": data.get("description", "") or "",
                 "topics":      topics,
             }
-            fetched += 1
-            if fetched % 50 == 0:
-                save_json(metadata_path, repo_metadata)
-                if logger:
-                    logger.info(f"repo_metadata: saved after {fetched} fetches ({i+1}/{len(to_fetch)})")
         except Exception as exc:
             if logger:
                 logger.warning(f"Metadata fetch error for {repo_name}: {exc}")
-            continue
+            return repo_name, repo_metadata.get(repo_name)
+
+    fetched = 0
+    with ThreadPoolExecutor(max_workers=4) as pool:
+        futs = {pool.submit(_fetch_one, r): r for r in to_fetch}
+        for i, fut in enumerate(as_completed(futs), 1):
+            name, data = fut.result()
+            repo_metadata[name] = data
+            if data is not None:
+                fetched += 1
+            if i % 500 == 0:
+                save_json(metadata_path, repo_metadata)
+                if logger:
+                    logger.info(f"cloned_repo_metadata: saved at {i} completions ({fetched} new)")
+                print(f"  [{i}/{len(to_fetch)}] {fetched} new entries so far...")
 
     save_json(metadata_path, repo_metadata)
     if logger:
-        logger.info(f"repo_metadata: fetched {fetched} new entries, total={len(repo_metadata)}")
-    print(f"  Repo metadata: {fetched} new entries fetched, {len(repo_metadata)} total in repo_metadata.json")
+        logger.info(f"cloned_repo_metadata: fetched {fetched} new entries, total={len(repo_metadata)}")
+    print(f"  Repo metadata: {fetched} new entries fetched, {len(repo_metadata)} total in cloned_repo_metadata.json")
     return fetched
 
 
 def _aggregate_repo_sizes(analysis_dir: Path, search_dir: Path) -> dict:
-    """Compute size stats per surface using repo_metadata.json (accurate for all surfaces)."""
-    repo_metadata: dict = load_json(analysis_dir / "repo_metadata.json", {}) or {}
+    """Compute size stats per surface using cloned_repo_metadata.json (accurate for all surfaces)."""
+    repo_metadata: dict = load_json(analysis_dir / "cloned_repo_metadata.json", {}) or {}
     if not repo_metadata:
         # Fall back to reading size_kb from surface items (only REPOS surface has it)
         sizes_all: list[float] = []
@@ -709,6 +733,7 @@ def run(
     restart: bool = False,
     workers: int = cfg.ANALYSIS_WORKERS,
     aggregate_only: bool = False,
+    no_size_stats: bool = False,
 ) -> None:
     ensure_dirs(slug)
     dirs   = technique_dirs(slug)
@@ -720,26 +745,23 @@ def run(
         _aggregate_overall(slug, dirs, logger)
         return
 
-    print("Fetching repo metadata from GitHub API...")
-    fetch_repo_metadata(slug, cfg.GITHUB_TOKEN, logger)
-
     import code_analysis
     import non_code_analysis
 
     if not noncode_only and not code_only:
         logger.info("Running code and non-code analysis in parallel")
         with concurrent.futures.ThreadPoolExecutor(max_workers=2) as pool:
-            code_fut    = pool.submit(code_analysis.run, slug, restart, workers)
-            noncode_fut = pool.submit(non_code_analysis.run, slug, restart)
+            code_fut    = pool.submit(code_analysis.run, slug, restart, workers, no_size_stats)
+            noncode_fut = pool.submit(non_code_analysis.run, slug, restart, no_size_stats)
             concurrent.futures.wait([code_fut, noncode_fut])
             for fut in [code_fut, noncode_fut]:
                 exc = fut.exception()
                 if exc:
                     logger.error(f"Analysis worker error: {exc}", exc_info=True)
     elif code_only:
-        code_analysis.run(slug, restart, workers)
+        code_analysis.run(slug, restart, workers, no_size_stats)
     else:
-        non_code_analysis.run(slug, restart)
+        non_code_analysis.run(slug, restart, no_size_stats)
 
     logger.info("Aggregating results into overall.json")
     _aggregate_overall(slug, dirs, logger)
@@ -749,8 +771,8 @@ def _aggregate_overall(slug: str, dirs: dict, logger=None) -> None:
     code_repos: list[dict]    = load_json(dirs["analysis"] / "code_repos.json", [])
     noncode_results: list[dict] = load_json(dirs["analysis"] / "noncode_results.json", [])
 
-    # Enrich code_repos with metadata (stars, language, size) from repo_metadata.json
-    metadata_path = dirs["analysis"] / "repo_metadata.json"
+    # Enrich code_repos with metadata (stars, language, size) from cloned_repo_metadata.json
+    metadata_path = dirs["analysis"] / "cloned_repo_metadata.json"
     repo_metadata: dict = {}
     if metadata_path.exists():
         repo_metadata = load_json(metadata_path, {}) or {}
@@ -766,7 +788,7 @@ def _aggregate_overall(slug: str, dirs: dict, logger=None) -> None:
                 entry["size_kb"] = meta.get("size_kb", 0)
 
     code_agg    = _aggregate_code(code_repos)
-    noncode_agg = _aggregate_noncode(noncode_results)
+    noncode_agg = _aggregate_noncode(noncode_results, code_repos)
     search_agg  = _aggregate_search_summary(dirs["search"])
     size_agg    = _aggregate_repo_sizes(dirs["analysis"], dirs["search"])
     hit_dists   = _aggregate_search_hit_distributions(dirs["search"])

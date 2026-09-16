@@ -112,9 +112,12 @@ def _bar_chart(
         bars = ax.barh(list(reversed(labels)), list(reversed(values)), color=color)
         ax.set_xlabel(xlabel)
         ax.set_ylabel(ylabel)
-        if annotate:
+        if annotate and values:
+            max_v = max(values)
+            ax.set_xlim(0, max_v * 1.18)
             for bar, v in zip(bars, list(reversed(values))):
-                ax.text(bar.get_width() + max(values) * 0.01, bar.get_y() + bar.get_height() / 2,
+                ax.text(bar.get_width() + max_v * 0.01,
+                        bar.get_y() + bar.get_height() / 2,
                         _fmt(v), va="center", fontsize=7)
     else:
         xs   = range(len(labels))
@@ -123,7 +126,7 @@ def _bar_chart(
         ax.set_xticklabels(labels, rotation=35, ha="right", fontsize=7)
         ax.set_xlabel(xlabel)
         ax.set_ylabel(ylabel)
-        if annotate:
+        if annotate and values and max(values) > 0:
             for bar, v in zip(bars, values):
                 ax.text(bar.get_x() + bar.get_width() / 2, bar.get_height() + max(values) * 0.01,
                         _fmt(v), ha="center", va="bottom", fontsize=7)
@@ -246,6 +249,15 @@ def _section_projects_and_sizes(
     size_by_surf = size_agg.get("by_surface", {})
     size_overall = size_agg.get("overall", {})
     avail_surfs  = [s for s in _ALL_SURFACES if s in size_by_surf]
+    from_metadata = size_agg.get("from_metadata", False)
+
+    if not from_metadata:
+        out.append(
+            "> ⚠️ **Size statistics are partial** — `cloned_repo_metadata.json` has not been "
+            "generated yet. Only the REPOS search surface includes `size_kb` in raw search "
+            "results; all other surfaces show `—`. Run the analysis phase to fetch full "
+            "repository metadata and populate size statistics for all surfaces.\n"
+        )
 
     if avail_surfs:
         stat_names  = ["avg", "median", "max", "min"]
@@ -270,7 +282,7 @@ def _section_projects_and_sizes(
             ["Surface", "Avg (KB)", "Median (KB)", "Max (KB)", "Min (KB)", "Std Dev", "Count"],
             size_rows,
         ) + "\n")
-    metadata_path = plots_dir.parent.parent / "analysis" / "repo_metadata.json"
+    metadata_path = plots_dir.parent.parent / "analysis" / "cloned_repo_metadata.json"
     if metadata_path.exists():
         out.append(
             "_Repository size is fetched from the GitHub Metadata API (`/repos/{owner}/{repo}`) "
@@ -359,7 +371,8 @@ def _section_search_distribution(
             for i, e in enumerate(cross)
         ]
         out.append(_table(["#", "Surface: Keyword", "Search Hits", "Unique Results"], cross_rows) + "\n")
-        out.append(f"![Search keywords cross surface]({_bar_chart([_trunc(e.get('surface_label',''),45) for e in cross], [e.get('unique_results',0) for e in cross], 'Search Keywords by Unique Results (All Surfaces)', 'Surface: Keyword', 'Unique Results', plots_dir / f'search_keywords_cross.{cfg.PLOT_FORMAT}', horizontal=True, figsize=(10, max(5, len(cross)*0.22+2)))})\n")
+        cross_top = cross[:20]
+        out.append(f"![Search keywords cross surface]({_bar_chart([_trunc(e.get('surface_label',''),45) for e in cross_top], [e.get('unique_results',0) for e in cross_top], 'Top 20 Search Keywords by Unique Results (All Surfaces)', 'Surface: Keyword', 'Unique Results', plots_dir / f'search_keywords_cross.{cfg.PLOT_FORMAT}', horizontal=True, figsize=(10, max(5, len(cross_top)*0.35+2)))})\n")
 
     # Per-surface distribution line charts + per-surface repo ranking (Items 7, 9)
     for surface in _ALL_SURFACES:
@@ -393,7 +406,7 @@ def _section_search_distribution(
             out.append("_Showing top 100 repos by keyword hits on this surface._\n")
             repo_hit_vals = [r["hit_count"] for r in repos_ranked]
             repo_names    = [_trunc(r["repo"], 35) for r in repos_ranked]
-            out.append(f"![{surface} repo ranking]({_bar_chart(repo_names, repo_hit_vals, f'Top Repos by Keyword Hits — {surface.upper()}', 'Repository', 'Keyword Hits', plots_dir / f'search_repos_{surface}.{cfg.PLOT_FORMAT}', horizontal=True, figsize=(9, max(4, len(repo_names[:30])*0.25+2)))})\n")
+            out.append(f"![{surface} repo ranking]({_bar_chart(repo_names[:10], repo_hit_vals[:10], f'Top 10 Repos by Keyword Hits — {surface.upper()}', 'Repository', 'Keyword Hits', plots_dir / f'search_repos_{surface}.{cfg.PLOT_FORMAT}', horizontal=True, figsize=(9, max(4, len(repo_names[:10])*0.35+2)))})\n")
             out.append(_table(
                 ["#", "Repository", "Keyword Hits"],
                 [[i+1, r["repo"], _fmt(r["hit_count"])] for i, r in enumerate(repos_ranked[:100])],
@@ -442,7 +455,9 @@ def _section_technique_density(
         ) + "\n")
         kw_labels = [_trunc(k.get("label", k.get("id","")), 35) for k in kws_ranked]
         kw_vals   = [k.get("count", 0) for k in kws_ranked]
-        out.append(f"![Analysis keyword hits]({_bar_chart(kw_labels, kw_vals, 'Analysis Keyword Hits (Code Repos, All Keywords)', 'Keyword', 'Total Hits', plots_dir / f'analysis_keyword_hits.{cfg.PLOT_FORMAT}', horizontal=True, figsize=(10, max(5, len(kw_labels)*0.22+2)))})\n")
+        kw_labels_top = kw_labels[:20]
+        kw_vals_top   = kw_vals[:20]
+        out.append(f"![Analysis keyword hits]({_bar_chart(kw_labels_top, kw_vals_top, 'Top 20 Analysis Keyword Hits (Code Repos)', 'Keyword', 'Total Hits', plots_dir / f'analysis_keyword_hits.{cfg.PLOT_FORMAT}', horizontal=True, figsize=(10, max(5, len(kw_labels_top)*0.35+2)))})\n")
 
     # Non-code cross-surface keyword ranked table + bar chart — ALL (Item 15)
     nca      = overall.get("noncode_analysis", {})
@@ -458,7 +473,8 @@ def _section_technique_density(
             [[i+1, _trunc(e.get("surface_label",""),55), _fmt(e.get("count",0))]
              for i, e in enumerate(nc_cross)],
         ) + "\n")
-        out.append(f"![Non-code keywords cross surface]({_bar_chart([_trunc(e.get('surface_label',''),45) for e in nc_cross], [e.get('count',0) for e in nc_cross], 'Analysis Keyword Hits — Non-Code Surfaces (All, Ranked)', 'Surface: Keyword', 'Hits', plots_dir / f'nc_keywords_cross.{cfg.PLOT_FORMAT}', horizontal=True, figsize=(10, max(5, len(nc_cross)*0.22+2)), color=_PALETTE[1])})\n")
+        nc_cross_top = nc_cross[:20]
+        out.append(f"![Non-code keywords cross surface]({_bar_chart([_trunc(e.get('surface_label',''),45) for e in nc_cross_top], [e.get('count',0) for e in nc_cross_top], 'Top 20 Analysis Keyword Hits — Non-Code Surfaces', 'Surface: Keyword', 'Hits', plots_dir / f'nc_keywords_cross.{cfg.PLOT_FORMAT}', horizontal=True, figsize=(10, max(5, len(nc_cross_top)*0.35+2)), color=_PALETTE[1])})\n")
 
     # Technique density 10-label scheme (Items 16-20)
     tdl = ca.get("technique_density_labels", {})
@@ -635,7 +651,7 @@ def _section_technique_density(
     top20 = spec_ranked[:20]
     if top20:
         out.append("### Top 20 Repos by Specific Keyword Hits\n")
-        out.append(f"![Top repos by specific hits]({_bar_chart([_trunc(r['name'],30) for r in top20], [r['hits'] for r in top20], 'Top 20 Repos by Specific Keyword Hits', 'Repository', 'Specific Hits', plots_dir / f'specific_hits_ranked.{cfg.PLOT_FORMAT}', horizontal=True, figsize=(9, max(4, len(top20)*0.22+2)))})\n")
+        out.append(f"![Top repos by specific hits]({_bar_chart([_trunc(r['name'],30) for r in top20], [r['hits'] for r in top20], 'Top 20 Repos by Specific Keyword Hits', 'Repository', 'Specific Hits', plots_dir / f'specific_hits_ranked.{cfg.PLOT_FORMAT}', horizontal=True, figsize=(9, max(4, len(top20)*0.35+2)))})\n")
         out.append(_table(
             ["#", "Repository", "Specific Hits"],
             [[i+1, r["name"], _fmt(r["hits"])] for i, r in enumerate(top20)],
@@ -770,10 +786,23 @@ def _section_domain(
 ) -> None:
     out.append("## 7. Application Domain\n")
     out.append(
-        "> **Data source:** Code analysis and non-code analysis phases — domain keywords "
-        "matched against repo name, description, and topics; word cloud from "
-        "non-code surface body text.\n"
+        "> **Data source:** Domain distribution — code and non-code analysis phases; "
+        "keywords matched against repo name, description, and topics (see table below). "
+        "Word cloud — natural-language body text from issues, PRs, discussions, commit "
+        "messages, repo descriptions, and documentation files from cloned repos; "
+        "each word counted once per repo regardless of how many times it appears.\n"
     )
+
+    out.append("### Detection Keywords by Domain\n")
+    out.append(
+        "Repos are classified into a domain when **any** of the following keywords "
+        "appear in the repo name, description, or topics. A repo can match multiple domains.\n"
+    )
+    for domain, keywords in cfg.DOMAIN_KEYWORDS.items():
+        label   = domain.replace("_", " ").title()
+        kw_list = ", ".join(f"`{k}`" for k in keywords)
+        out.append(f"**{label}**: {kw_list}\n\n")
+
     nca = overall.get("noncode_analysis", {})
     wf  = nca.get("top_word_freq", {})
     dc  = nca.get("domain_counts", {})
@@ -786,14 +815,26 @@ def _section_domain(
     if wf:
         wc_path = plots_dir / f"wordcloud.{cfg.PLOT_FORMAT}"
         try:
+            import math
             from wordcloud import WordCloud
+            wf_scaled = {w: math.sqrt(cnt) for w, cnt in wf.items()}
             wc = WordCloud(width=900, height=450, background_color="white",
-                           max_words=150, colormap="tab10").generate_from_frequencies(wf)
+                           max_words=150, colormap="tab10",
+                           relative_scaling=0.5).generate_from_frequencies(wf_scaled)
             fig, ax = plt.subplots(figsize=(9, 4.5))
             ax.imshow(wc, interpolation="bilinear")
             ax.axis("off")
-            ax.set_title("Word Cloud — Non-Code Body Text")
+            ax.set_title("Word Cloud — Non-Code Text & Documentation")
             out.append(f"![Word cloud]({_save(fig, wc_path)})\n")
+            out.append(
+                "_Word frequency across repo descriptions, commit messages, issues, PRs, "
+                "discussions, and documentation files from cloned repos. Each word counted "
+                "once per repository — repeated occurrences within one project contribute +1, "
+                "not +N. A word present in 10 repos has frequency 10. Search keywords and "
+                "common English stopwords are excluded. "
+                "Word sizes use square-root scaling of cross-repo frequency to prevent any "
+                "single term from visually dominating while preserving relative rank order._\n"
+            )
         except ImportError:
             # wordcloud not installed — fall back to bar chart
             top_wf = list(wf.items())[:30]
