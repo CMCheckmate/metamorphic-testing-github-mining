@@ -327,7 +327,7 @@ def _aggregate_code(results: list[dict]) -> dict:
                     d["hit_files"] += 1
 
             # Artifact classification by extension (all files)
-            ext = Path(fdr.get("path", "x")).suffix.lower()
+            ext = Path(fdr.get("rel_path", fdr.get("path", "x"))).suffix.lower()
             art_ext_counts[ext] += 1
             if ext in cfg.CODE_EXTENSIONS:     art_cat_counts["code"]   += 1
             elif ext in cfg.DOC_EXTENSIONS:    art_cat_counts["docs"]   += 1
