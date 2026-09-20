@@ -517,6 +517,7 @@ def _section_technique_density(
         total_files = tdl.get("total_files", 1)
         total_lines = tdl.get("total_lines", 1)
         out.append("#### Combined Density Table\n")
+        out.append("_% of All Files and % of All Lines are shares of the combined total across **all cloned repos**, not per-repo averages._\n")
         density_rows = []
         for lbl in label_order:
             st = by_label.get(lbl, {})
@@ -552,27 +553,6 @@ def _section_technique_density(
                 _pct(st.get("hit_file_pct", 0)),
             ])
         out.append(_table(["Label", "Total Files", "Hit Files", "Hit File %"], hit_file_rows) + "\n")
-
-        # Expanded hits-per-file statistics (Item 19)
-        out.append("#### Hits per File — Extended Statistics\n")
-        hits_per_file_rows = []
-        for lbl in label_order:
-            st   = by_label.get(lbl, {})
-            f    = max(st.get("files", 0), 1)
-            hits_per_file_rows.append([
-                label_disp[lbl],
-                _fmt(f - 1 if f == 1 else f, 0),
-                round(st.get("gen_hits",  0) / f, 2),
-                round(st.get("spec_hits", 0) / f, 2),
-                _pct(st.get("hit_line_pct", 0)),
-                _fmt(st.get("gen_hits",  0)),
-                _fmt(st.get("spec_hits", 0)),
-            ])
-        out.append(_table(
-            ["Label", "Files", "Avg Gen Hits/File", "Avg Spec Hits/File",
-             "Hit Line %", "Total Gen Hits", "Total Spec Hits"],
-            hits_per_file_rows,
-        ) + "\n")
 
         # Three type-restricted breakdowns (Item 20)
         out.append("#### Code Files Only\n")
@@ -675,7 +655,7 @@ def _section_technique_density(
 
 
 def _section_repo_classification(
-    overall: dict, plots_dir: Path, technique_name: str, out: list[str]
+    overall: dict, plots_dir: Path, technique_name: str, out: list[str], dirs: dict | None = None
 ) -> None:
     out.append("## 4. Repo Classification\n")
     out.append(
@@ -700,6 +680,79 @@ def _section_repo_classification(
         "references that do not implement the technique. Repos are classified as 'actual\\_usage' only "
         "when file-level evidence (keyword hits in test or source files) is sufficient._\n"
     )
+    out.append("### Classification Methodology\n")
+    out.append(
+        "Each cloned repo is passed through an ordered, score-based decision tree. "
+        "Classifications are **non-exclusive** — a repo may satisfy more than one. "
+        "If no signal fires the repo is marked **unclassified**.\n"
+    )
+    out.append(_table(
+        ["Category", "Signal", "Points", "Threshold"],
+        [
+            ["research\\_artifact", "DOI or arXiv link found in README", "+3", "≥ 3"],
+            ["",                   "Conference or journal name found in README", "+2", ""],
+            ["",                   "Research keywords (replication, experiment, evaluation…) in README", "+2", ""],
+            ["",                   "Research keywords in repo name or description", "+1", ""],
+            ["",                   "`data/` or `results/` dir **and** at least one `rq*/` dir present", "+3", ""],
+            ["",                   "`.ipynb` or `.R` files present anywhere in repo", "+2", ""],
+            ["framework",          "≥ 50 % of technique keyword hits are in source (non-test) files", "+2", "≥ 2"],
+            ["",                   "Technique library found in runtime (non-dev) dependencies", "+3", ""],
+            ["",                   '"testing framework" or "testing library" phrase in README', "+1", ""],
+            ["actual\\_usage",     "Technique library found in dev/test dependencies", "+2", "≥ 1"],
+            ["",                   "≥ 80 % of technique keyword hits are in test files", "+2", ""],
+            ["",                   "Any technique keyword hit in test files (fallback, no dep/framework)", "+1", ""],
+            ["unclassified",       "No other classification reached its threshold", "—", "—"],
+        ],
+    ) + "\n")
+    out.append(
+        "_Dependency checks scan `requirements*.txt`, `pyproject.toml`, `package.json`, `build.gradle`, "
+        "and similar manifest files for known technique libraries (e.g. `hypothesis`, `quickcheck`, "
+        "`proptest`). Runtime and dev/test sections are distinguished where the manifest format allows._\n"
+    )
+
+    if dirs is None:
+        return
+    code_repos: list[dict] = load_json(dirs["analysis"] / "code_repos.json", [])
+    if not code_repos:
+        return
+
+    categories = ["research_artifact", "framework", "actual_usage", "unclassified"]
+    cat_labels  = {
+        "research_artifact": "Research Artifact",
+        "framework":         "Framework / Library",
+        "actual_usage":      "Actual Usage",
+        "unclassified":      "Unclassified",
+    }
+
+    out.append("### Sample Repositories by Category\n")
+    out.append("_Up to 20 repositories per category, sorted by specific keyword hits (descending)._\n")
+
+    for cat in categories:
+        repos_in_cat = [
+            r for r in code_repos
+            if cat in r.get("classification", {}).get("classifications", [])
+        ]
+        repos_in_cat.sort(key=lambda r: r.get("scan", {}).get("total_specific_hits", 0), reverse=True)
+        sample = repos_in_cat[:20]
+        out.append(f"#### {cat_labels[cat]} ({len(repos_in_cat)} repos)\n")
+        if not sample:
+            out.append("_No repositories in this category._\n")
+            continue
+        rows = []
+        for r in sample:
+            scan = r.get("scan", {})
+            signals = r.get("classification", {}).get("signals", [])
+            rows.append([
+                _trunc(r.get("full_name", ""), 40),
+                _fmt(r.get("stars", 0)),
+                r.get("language", "—") or "—",
+                _fmt(scan.get("total_specific_hits", 0)),
+                _trunc(", ".join(signals), 60),
+            ])
+        out.append(_table(
+            ["Repository", "Stars", "Language", "Specific Hits", "Signals"],
+            rows,
+        ) + "\n")
 
 
 def _section_technique_file_extensions(
@@ -740,14 +793,7 @@ def _section_technique_file_extensions(
         out.append(f"![Technique file extensions]({_bar_chart([e[0] or '(none)' for e in top_ext], [e[1] for e in top_ext], 'Top 20 Technique File Extensions', 'Extension', 'File Count', plots_dir / f'technique_extensions.{cfg.PLOT_FORMAT}', color=_PALETTE[4])})\n")
 
     if by_lang:
-        top_lang = list(by_lang.items())[:20]
-        out.append("### Technique File Language Distribution (per-Repo Deduplicated)\n")
-        out.append("_Each language counted at most once per repo (repos using Python + Java = +1 for each)._\n")
-        out.append(_table(
-            ["Language", "Repos with Technique Files"],
-            [[lang, _fmt(cnt)] for lang, cnt in top_lang],
-        ) + "\n")
-        out.append(f"![Technique language distribution]({_bar_chart([t[0] for t in top_lang], [t[1] for t in top_lang], 'Language Distribution — Technique Files Only (per-Repo Deduplicated)', 'Language', 'Repos', plots_dir / f'technique_language_distribution.{cfg.PLOT_FORMAT}', color=_PALETTE[0], horizontal=True, figsize=(8, max(4, len(top_lang)*0.3+2)))})\n")
+        pass  # language distribution is covered in section 6
 
 
 def _section_language(
@@ -1019,7 +1065,7 @@ def run(slug: str) -> None:
     _section_projects_and_sizes(overall, plots_dir, tech_name, out)
     _section_search_distribution(overall, plots_dir, tech_name, out)
     _section_technique_density(overall, plots_dir, tech_name, out)
-    _section_repo_classification(overall, plots_dir, tech_name, out)
+    _section_repo_classification(overall, plots_dir, tech_name, out, dirs)
     _section_technique_file_extensions(overall, plots_dir, tech_name, out)
     _section_language(overall, plots_dir, tech_name, out)
     _section_domain(overall, plots_dir, tech_name, out)
