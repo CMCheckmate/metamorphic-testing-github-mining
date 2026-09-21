@@ -3,6 +3,7 @@ Central configuration — tuneable constants only.
 No business logic, no technique-specific data.
 All technique vocabulary lives in inputs/*.txt and inputs/*.json.
 """
+import json
 from pathlib import Path
 from dotenv import load_dotenv
 import os
@@ -155,52 +156,15 @@ TECHNIQUE_INPUT_PREFIXES: dict[str, str] = {
 }
 
 # ---------------------------------------------------------------------------
-# Domain keywords — checked against repo name + description + topics
+# Domain keywords — loaded from inputs/domain_keywords.json (ACM CCS 2012)
 # ---------------------------------------------------------------------------
-DOMAIN_KEYWORDS: dict[str, list[str]] = {
-    "machine_learning": [
-        "machine learning", "neural network", "deep learning", "ml model",
-        "sklearn", "scikit-learn", "tensorflow", "pytorch", "keras",
-        "model training", "classification", "regression", "llm",
-        "large language model", "transformer", "computer vision", "nlp",
-        "natural language processing",
-    ],
-    "compiler": [
-        "compiler", "transpiler", "parser", "abstract syntax tree", "ast",
-        "bytecode", "llvm", "codegen", "syntax", "code generation",
-        "interpreter", "jit", "optimization pass",
-    ],
-    "database": [
-        "database", "sql", "query", "orm", "datalog", "nosql", "mongodb",
-        "elasticsearch", "query optimizer", "storage engine", "relational",
-        "key-value store",
-    ],
-    "scientific": [
-        "simulation", "numerical", "scientific computing", "physics",
-        "computational", "differential equation", "monte carlo",
-        "optimization algorithm", "finite element", "fluid dynamics",
-        "signal processing",
-    ],
-    "bioinformatics": [
-        "bioinformatics", "genome", "dna", "rna", "protein", "sequence alignment",
-        "blast", "genomics", "proteomics", "phylogenetic", "metagenomics",
-    ],
-    "security": [
-        "security", "vulnerability", "exploit", "penetration test",
-        "cryptograph", "authentication", "authorization", "injection",
-        "fuzzing", "malware", "reverse engineering",
-    ],
-    "web": [
-        "api", "rest", "http", "web server", "django", "flask", "fastapi",
-        "microservice", "frontend", "backend", "graphql", "web application",
-        "react", "angular", "vue",
-    ],
-    "autonomous_systems": [
-        "autonomous", "self-driving", "driverless", "robotics",
-        "perception module", "path planning", "lidar", "drone",
-    ],
-    "testing_infrastructure": [
-        "testing framework", "test runner", "test suite", "assertion library",
-        "mock", "stub", "fuzz", "property-based", "mutation testing",
-    ],
-}
+
+def _load_domain_keywords() -> dict[str, list[str]]:
+    p = Path(__file__).parent / "inputs" / "domain_keywords.json"
+    if not p.exists():
+        return {}
+    data = json.loads(p.read_text(encoding="utf-8"))
+    return {k: v for k, v in data.items() if not k.startswith("_")}
+
+
+DOMAIN_KEYWORDS: dict[str, list[str]] = _load_domain_keywords()

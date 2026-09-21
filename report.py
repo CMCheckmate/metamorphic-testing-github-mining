@@ -105,7 +105,7 @@ def _save(fig, path: Path) -> str:
 def _bar_chart(
     labels: list[str], values: list[float], title: str, xlabel: str, ylabel: str,
     path: Path, color: str = _PALETTE[0], horizontal: bool = False,
-    figsize: tuple = (8, 4), annotate: bool = True,
+    figsize: tuple = (8, 4), annotate: bool = True, bar_fmt: str = "{:.0f}",
 ) -> str:
     fig, ax = plt.subplots(figsize=figsize)
     if horizontal:
@@ -118,7 +118,7 @@ def _bar_chart(
             for bar, v in zip(bars, list(reversed(values))):
                 ax.text(bar.get_width() + max_v * 0.01,
                         bar.get_y() + bar.get_height() / 2,
-                        _fmt(v), va="center", fontsize=7)
+                        bar_fmt.format(v), va="center", fontsize=7)
     else:
         xs   = range(len(labels))
         bars = ax.bar(xs, values, color=color)
@@ -129,7 +129,7 @@ def _bar_chart(
         if annotate and values and max(values) > 0:
             for bar, v in zip(bars, values):
                 ax.text(bar.get_x() + bar.get_width() / 2, bar.get_height() + max(values) * 0.01,
-                        _fmt(v), ha="center", va="bottom", fontsize=7)
+                        bar_fmt.format(v), ha="center", va="bottom", fontsize=7)
     ax.set_title(title)
     return _save(fig, path)
 
@@ -517,7 +517,7 @@ def _section_technique_density(
         total_files = tdl.get("total_files", 1)
         total_lines = tdl.get("total_lines", 1)
         out.append("#### Combined Density Table\n")
-        out.append("_% of All Files and % of All Lines are shares of the combined total across **all cloned repos**, not per-repo averages._\n")
+        out.append("_% of All Files and % of All Lines are **per-repo averages**: for each repo the label's share of that repo's total files/lines is computed, then averaged across all repos._\n")
         density_rows = []
         for lbl in label_order:
             st = by_label.get(lbl, {})
@@ -538,7 +538,7 @@ def _section_technique_density(
         ) + "\n")
         chart_lbls = [lbl.replace("_", "\n") for lbl in label_order]
         chart_pcts = [by_label.get(lbl, {}).get("pct_files", 0) for lbl in label_order]
-        out.append(f"![Density label %]({_bar_chart(chart_lbls, chart_pcts, '% of Files by Density Label (10-Label Scheme)', 'Label', '% of All Files', plots_dir / f'density_label_pct.{cfg.PLOT_FORMAT}', color=_PALETTE[2])})\n")
+        out.append(f"![Density label %]({_bar_chart(chart_lbls, chart_pcts, '% of Files by Density Label (10-Label Scheme)', 'Label', '% of All Files (per-repo avg)', plots_dir / f'density_label_pct.{cfg.PLOT_FORMAT}', color=_PALETTE[2], bar_fmt='{:.1f}%')})\n")
 
         # Hit File % Summary (Item 18)
         out.append("#### Hit File % Summary\n")

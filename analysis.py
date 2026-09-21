@@ -23,6 +23,130 @@ from utils import (
 
 
 # ---------------------------------------------------------------------------
+# Word-cloud custom stopwords (applied at aggregation, not collection)
+# ---------------------------------------------------------------------------
+
+def _load_custom_stopwords() -> frozenset[str]:
+    return frozenset({
+        # --- URL / domain fragments ---
+        "com", "org", "net", "github", "http", "https", "www", "html",
+        "blob", "tree", "main", "master", "refs", "head", "raw", "git",
+
+        # --- Generic dev/repo noise ---
+        "repo", "repos", "repository", "repositories",
+        "issue", "issues", "pull", "request", "requests",
+        "commit", "commits", "branch", "branches",
+        "merge", "merged", "release", "releases",
+        "build", "built", "update", "updated", "change", "changes",
+        "file", "files", "line", "lines", "path", "paths",
+        "version", "feature", "support", "implement", "implementation",
+        "function", "method", "class", "module", "package",
+        "import", "return", "value", "type", "string", "object",
+        "true", "false", "none", "null", "bool", "int", "str",
+        "var", "val", "arg", "param", "config", "option", "default",
+        "data", "result", "output", "input", "user", "name", "number",
+        "project", "work", "step", "note", "example", "open", "close",
+
+        # --- 3-letter words not caught by built-in STOPWORDS ---
+        "add", "new", "one", "run", "per", "now", "non",
+        "set", "use", "via", "end", "pre", "self", "key",
+        "two", "three", "zero", "pass", "full", "real",
+        "make", "read", "end", "let", "got", "ago",
+        "way", "yes", "yet", "old", "put", "say", "see",
+        "top", "sub", "pro", "ref", "src", "tmp", "log",
+        "bit", "big", "cut", "due", "far", "hit", "low",
+
+        # --- Generic English verbs ---
+        "every", "first", "still", "must", "never", "rather",
+        "instead", "already", "without", "across", "based",
+        "existing", "exactly", "check", "checks", "source",
+        "added", "adds", "runs", "passed", "used", "using",
+        "generated", "verified", "closed", "missing", "required",
+        "including", "exact", "clean", "single", "current",
+        "local", "cross", "plus", "level", "order", "time",
+        "case", "cases", "target", "results", "runtime", "core",
+        "scope", "context", "found", "review",
+
+        # --- Process / documentation noise ---
+        "summary", "plan", "design", "docs", "report",
+        "code", "authored",
+
+        # --- Platform / CI noise ---
+        "noreply",
+
+        # --- Reference / generic nouns ---
+        "reference", "identity", "production", "integration",
+        "execution", "harness", "surface", "schema",
+        "agent", "agents", "decision", "rule", "field", "point",
+        "text", "list", "dict", "args", "docs", "spec",
+
+        # --- Common English words absent from wordcloud built-in STOPWORDS ---
+        "may", "back", "high", "create", "entry", "remain", "remains",
+        "small", "future", "notes", "root", "round", "need", "needs",
+        "follow", "whole", "types", "section", "workflow", "findings",
+        "artifact", "external", "explicitly", "candidate", "records",
+        "process",
+
+        # --- Domain-agnostic testing vocabulary ---
+        "coverage", "validation", "suite", "failure", "failures",
+        "regression", "behavior", "verification", "independent",
+        "evidence", "unit", "verify", "expected", "stable",
+        "valid", "explicit", "analysis", "tool", "comparison",
+        "evaluation", "quality", "research", "tdd",
+
+        # --- Confirmed high-frequency noise ---
+        "four", "second",
+        "feat", "silently", "audit", "status", "documented",
+        "different", "complete", "correct", "live", "changed",
+        "specific", "known", "free", "shared", "final", "nothing",
+        "green",
+        "uses", "fails", "passes", "makes", "keep", "call", "calls",
+        "claim", "claims",
+        "json", "multi", "separate", "wrong", "table", "record",
+        "next", "mode", "gap", "phase", "documentation",
+        "block", "public", "content", "names", "base", "reports",
+        "count", "will",
+
+        # --- Basic dev vocab (high freq, no domain signal) ---
+        "fix", "fixed", "fixes", "bug",
+        "error", "errors", "values",
+        "fail", "failed",
+
+        # --- Generic code-level terms ---
+        "empty", "layer", "dependency",
+        "written", "write", "returns", "requires", "exists",
+        "include", "checked", "removed", "named", "adding",
+        "made", "measured", "recorded", "whether",
+
+        # --- Generic nouns ---
+        "loop", "post", "document", "problem", "cost", "part",
+        "row", "form", "hand", "task", "comment", "total",
+        "side", "readme", "metadata", "index", "counts",
+        "examples", "features",
+
+        # --- Generic adjectives / adverbs ---
+        "directly", "inside", "start", "actually", "within",
+        "stays", "whose", "five", "even", "actual", "distinct",
+        "independently", "deliberately", "hard", "finding",
+        "closes", "done", "want", "fine", "good", "things",
+        "working", "show", "help", "much", "know",
+
+        # --- Platform noise ---
+        "pinned", "session", "agentic", "worktree",
+
+        # --- AI model / tool names ---
+        "opus", "sonnet", "gpt", "chatgpt", "gemini", "openai",
+        "copilot", "coderabbit",
+
+        # --- Geology contamination (metamorphic rocks repos) ---
+        "sedimentary", "igneous", "geology", "rocks",
+
+        # --- Generic language tooling ---
+        "ruff", "clippy", "mypy", "cargo",
+    })
+
+
+# ---------------------------------------------------------------------------
 # Aggregation helpers
 # ---------------------------------------------------------------------------
 
@@ -348,6 +472,21 @@ def _aggregate_code(results: list[dict]) -> dict:
     if has_file_details:
         total_td_files = sum(v["files"] for v in td_global.values())
         total_td_lines = sum(v["lines"] for v in td_global.values())
+        n_rp = len(td_per_repo[_TD_LABELS[0]]) if (_TD_LABELS and td_per_repo) else 0
+        if n_rp:
+            _rp_totalf = [sum(td_per_repo[l][i]["files"] for l in _TD_LABELS) for i in range(n_rp)]
+            _rp_totall = [sum(td_per_repo[l][i]["lines"] for l in _TD_LABELS) for i in range(n_rp)]
+            _td_avg = {
+                lbl: {
+                    "pct_files":    round(sum(td_per_repo[lbl][i]["files"]     / max(_rp_totalf[i], 1) for i in range(n_rp)) / n_rp * 100, 1),
+                    "pct_lines":    round(sum(td_per_repo[lbl][i]["lines"]     / max(_rp_totall[i], 1) for i in range(n_rp)) / n_rp * 100, 1),
+                    "hit_file_pct": round(sum(td_per_repo[lbl][i]["hit_files"] / max(td_per_repo[lbl][i]["files"], 1) for i in range(n_rp)) / n_rp * 100, 1),
+                    "hit_line_pct": round(sum(td_per_repo[lbl][i]["hit_lines"] / max(td_per_repo[lbl][i]["lines"], 1) for i in range(n_rp)) / n_rp * 100, 1),
+                }
+                for lbl in _TD_LABELS
+            }
+        else:
+            _td_avg = {lbl: {"pct_files": 0.0, "pct_lines": 0.0, "hit_file_pct": 0.0, "hit_line_pct": 0.0} for lbl in _TD_LABELS}
         technique_density_labels = {
             "by_label": {
                 lbl: {
@@ -356,10 +495,10 @@ def _aggregate_code(results: list[dict]) -> dict:
                     "lines":          td_global[lbl]["lines"],
                     "gen_hits":       td_global[lbl]["gen_hits"],
                     "spec_hits":      td_global[lbl]["spec_hits"],
-                    "pct_files":      round(td_global[lbl]["files"]     / max(total_td_files, 1) * 100, 1),
-                    "pct_lines":      round(td_global[lbl]["lines"]     / max(total_td_lines, 1) * 100, 1),
-                    "hit_file_pct":   round(td_global[lbl]["hit_files"] / max(td_global[lbl]["files"], 1) * 100, 1),
-                    "hit_line_pct":   round(td_global[lbl]["hit_lines"] / max(td_global[lbl]["lines"], 1) * 100, 1),
+                    "pct_files":      _td_avg[lbl]["pct_files"],
+                    "pct_lines":      _td_avg[lbl]["pct_lines"],
+                    "hit_file_pct":   _td_avg[lbl]["hit_file_pct"],
+                    "hit_line_pct":   _td_avg[lbl]["hit_line_pct"],
                     "files_per_repo": descriptive_stats([r["files"]    for r in td_per_repo[lbl]]),
                     "lines_per_repo": descriptive_stats([r["lines"]    for r in td_per_repo[lbl]]),
                     "gen_per_repo":   descriptive_stats([r["gen_hits"] for r in td_per_repo[lbl]]),
@@ -501,10 +640,12 @@ def _aggregate_noncode(results: list[dict], code_repos: list[dict] | None = None
         for w in entry.get("doc_word_set", []):
             repo_word_sets[repo].add(w)
 
+    _custom_stops = _load_custom_stopwords()
     word_freq: Counter = Counter()
     for words in repo_word_sets.values():
         for w in words:
-            word_freq[w] += 1
+            if w not in _custom_stops:
+                word_freq[w] += 1
 
     lang_counts: Counter = Counter()
     for r in by_surface.get("repos", []):
