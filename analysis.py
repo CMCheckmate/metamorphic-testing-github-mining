@@ -301,8 +301,12 @@ def _aggregate_code(results: list[dict]) -> dict:
     )
 
     specific_hits_ranked = sorted(
-        [{"name": r.get("full_name") or r.get("repo_full_name", ""), "hits": r.get("scan", {}).get("total_specific_hits", 0)}
-         for r in results],
+        [{
+            "name":         r.get("full_name") or r.get("repo_full_name", ""),
+            "hits":         r.get("scan", {}).get("total_specific_hits", 0),
+            "hit_file_pct": round(r.get("scan", {}).get("total_hit_files", 0) / max(r.get("scan", {}).get("total_files",  1), 1) * 100, 1),
+            "hit_line_pct": round(r.get("scan", {}).get("total_hit_lines", 0) / max(r.get("scan", {}).get("total_lines",  1), 1) * 100, 1),
+        } for r in results],
         key=lambda x: x["hits"], reverse=True,
     )
 
@@ -353,14 +357,14 @@ def _aggregate_code(results: list[dict]) -> dict:
     #   test      = total_general > 0, total_specific == 0
     #   non_hit   = no hits
     #
-    # Label matrix (4 types × 3 hit states but "non_hit" collapses non-code into one):
+    # Label matrix (4 types × 3 hit states):
     #   technique_code, technique_doc, technique_config, technique_other  (4)
     #   test_code,      test_doc,      test_config,      test_other       (4)
-    #   non_hit_code,   non_hit_ncode                                     (2)
+    #   non_hit_code, non_hit_doc, non_hit_config, non_hit_other          (4)
     _TD_LABELS = [
-        "technique_code", "technique_doc", "technique_config", "technique_other",
-        "test_code",      "test_doc",      "test_config",      "test_other",
-        "non_hit_code",   "non_hit_ncode",
+        "technique_code",   "technique_doc",   "technique_config",   "technique_other",
+        "test_code",        "test_doc",        "test_config",        "test_other",
+        "non_hit_code",     "non_hit_doc",     "non_hit_config",     "non_hit_other",
     ]
     td_global: dict[str, dict] = {lbl: {"files": 0, "lines": 0, "hit_lines": 0, "gen_hits": 0, "spec_hits": 0, "hit_files": 0}
                                    for lbl in _TD_LABELS}
@@ -406,6 +410,20 @@ def _aggregate_code(results: list[dict]) -> dict:
         ".f90": "Fortran", ".f95": "Fortran", ".f": "Fortran",
     }
 
+    _GRP = ["docs_only", "usage"]
+    _repo_group: dict[str, str] = {}
+    for _r in results:
+        _bc = _r.get("scan", {}).get("by_category", {})
+        _code_files = (_bc.get("test_code",   {}).get("file_count", 0) +
+                       _bc.get("source_code", {}).get("file_count", 0))
+        _rn = _r.get("full_name") or _r.get("repo_full_name", "")
+        _repo_group[_rn] = "usage" if _code_files > 0 else "docs_only"
+
+    td_global_grp   = {g: {lbl: {"files": 0, "lines": 0, "hit_lines": 0,
+                                  "gen_hits": 0, "spec_hits": 0, "hit_files": 0}
+                             for lbl in _TD_LABELS} for g in _GRP}
+    td_per_repo_grp = {g: {lbl: [] for lbl in _TD_LABELS} for g in _GRP}
+
     for r in results:
         file_details = r.get("scan", {}).get("file_details", [])
         if not file_details:
@@ -434,7 +452,10 @@ def _aggregate_code(results: list[dict]) -> dict:
                 elif is_cfg:  lbl = "test_config"
                 else:         lbl = "test_other"
             else:
-                lbl = "non_hit_code" if is_code else "non_hit_ncode"
+                if is_code:     lbl = "non_hit_code"
+                elif is_doc:    lbl = "non_hit_doc"
+                elif is_cfg:    lbl = "non_hit_config"
+                else:           lbl = "non_hit_other"
 
             nl = fdr.get("n_lines", 0)
             hl = fdr.get("n_hit_lines", 0)
@@ -469,6 +490,12 @@ def _aggregate_code(results: list[dict]) -> dict:
             td_per_repo[lbl].append(rs)
         technique_lang_repo.append(repo_tech_langs)
 
+        _grp_key = _repo_group.get(r.get("full_name") or r.get("repo_full_name", ""), "docs_only")
+        for lbl in _TD_LABELS:
+            for k, v in repo_td[lbl].items():
+                td_global_grp[_grp_key][lbl][k] += v
+            td_per_repo_grp[_grp_key][lbl].append(repo_td[lbl])
+
     if has_file_details:
         total_td_files = sum(v["files"] for v in td_global.values())
         total_td_lines = sum(v["lines"] for v in td_global.values())
@@ -478,37 +505,143 @@ def _aggregate_code(results: list[dict]) -> dict:
             _rp_totall = [sum(td_per_repo[l][i]["lines"] for l in _TD_LABELS) for i in range(n_rp)]
             _td_avg = {
                 lbl: {
-                    "pct_files":    round(sum(td_per_repo[lbl][i]["files"]     / max(_rp_totalf[i], 1) for i in range(n_rp)) / n_rp * 100, 1),
-                    "pct_lines":    round(sum(td_per_repo[lbl][i]["lines"]     / max(_rp_totall[i], 1) for i in range(n_rp)) / n_rp * 100, 1),
-                    "hit_file_pct": round(sum(td_per_repo[lbl][i]["hit_files"] / max(td_per_repo[lbl][i]["files"], 1) for i in range(n_rp)) / n_rp * 100, 1),
-                    "hit_line_pct": round(sum(td_per_repo[lbl][i]["hit_lines"] / max(td_per_repo[lbl][i]["lines"], 1) for i in range(n_rp)) / n_rp * 100, 1),
+                    "pct_files":       round(sum(td_per_repo[lbl][i]["files"] / max(_rp_totalf[i], 1) for i in range(n_rp)) / n_rp * 100, 1),
+                    "pct_lines":       round(sum(td_per_repo[lbl][i]["lines"] / max(_rp_totall[i], 1) for i in range(n_rp)) / n_rp * 100, 1),
+                    "hit_line_pct":    round(
+                        sum(td_per_repo[lbl][i]["hit_lines"] / td_per_repo[lbl][i]["lines"]
+                            for i in range(n_rp) if td_per_repo[lbl][i]["lines"] > 0) /
+                        max(sum(1 for i in range(n_rp) if td_per_repo[lbl][i]["lines"] > 0), 1) * 100, 1),
+                    "repos_with_files": sum(1 for i in range(n_rp) if td_per_repo[lbl][i]["files"] > 0),
                 }
                 for lbl in _TD_LABELS
             }
         else:
-            _td_avg = {lbl: {"pct_files": 0.0, "pct_lines": 0.0, "hit_file_pct": 0.0, "hit_line_pct": 0.0} for lbl in _TD_LABELS}
+            _td_avg = {lbl: {"pct_files": 0.0, "pct_lines": 0.0, "hit_line_pct": 0.0, "repos_with_files": 0} for lbl in _TD_LABELS}
+
+        _CAT_GROUPS = {
+            "code":   ["technique_code",   "test_code",   "non_hit_code"],
+            "doc":    ["technique_doc",    "test_doc",    "non_hit_doc"],
+            "config": ["technique_config", "test_config", "non_hit_config"],
+            "other":  ["technique_other",  "test_other",  "non_hit_other"],
+        }
+        _td_within_cat: dict[str, float] = {}
+        for cat_lbls in _CAT_GROUPS.values():
+            for lbl in cat_lbls:
+                _td_within_cat[lbl] = round(
+                    sum(
+                        td_per_repo[lbl][i]["files"] /
+                        max(sum(td_per_repo[l][i]["files"] for l in cat_lbls), 1)
+                        for i in range(n_rp)
+                    ) / max(n_rp, 1) * 100, 1) if n_rp else 0.0
+
         technique_density_labels = {
             "by_label": {
                 lbl: {
-                    "files":          td_global[lbl]["files"],
-                    "hit_files":      td_global[lbl]["hit_files"],
-                    "lines":          td_global[lbl]["lines"],
-                    "gen_hits":       td_global[lbl]["gen_hits"],
-                    "spec_hits":      td_global[lbl]["spec_hits"],
-                    "pct_files":      _td_avg[lbl]["pct_files"],
-                    "pct_lines":      _td_avg[lbl]["pct_lines"],
-                    "hit_file_pct":   _td_avg[lbl]["hit_file_pct"],
-                    "hit_line_pct":   _td_avg[lbl]["hit_line_pct"],
-                    "files_per_repo": descriptive_stats([r["files"]    for r in td_per_repo[lbl]]),
-                    "lines_per_repo": descriptive_stats([r["lines"]    for r in td_per_repo[lbl]]),
-                    "gen_per_repo":   descriptive_stats([r["gen_hits"] for r in td_per_repo[lbl]]),
-                    "spec_per_repo":  descriptive_stats([r["spec_hits"] for r in td_per_repo[lbl]]),
+                    "files":            td_global[lbl]["files"],
+                    "hit_files":        td_global[lbl]["hit_files"],
+                    "lines":            td_global[lbl]["lines"],
+                    "gen_hits":         td_global[lbl]["gen_hits"],
+                    "spec_hits":        td_global[lbl]["spec_hits"],
+                    "pct_files":        _td_avg[lbl]["pct_files"],
+                    "pct_lines":        _td_avg[lbl]["pct_lines"],
+                    "hit_line_pct":     _td_avg[lbl]["hit_line_pct"],
+                    "pct_within_cat":   _td_within_cat.get(lbl, 0.0),
+                    "repos_with_files": _td_avg[lbl]["repos_with_files"],
+                    "files_per_repo":   descriptive_stats([r["files"]    for r in td_per_repo[lbl]]),
+                    "lines_per_repo":   descriptive_stats([r["lines"]    for r in td_per_repo[lbl]]),
+                    "gen_per_repo":     descriptive_stats([r["gen_hits"] for r in td_per_repo[lbl]]),
+                    "spec_per_repo":    descriptive_stats([r["spec_hits"] for r in td_per_repo[lbl]]),
                 }
                 for lbl in _TD_LABELS
             },
             "total_files": total_td_files,
             "total_lines": total_td_lines,
+            "repos_total": n_rp,
         }
+
+        def _grp_density(g: str) -> dict:
+            rp = td_per_repo_grp[g]
+            n  = len(rp[_TD_LABELS[0]])
+            if n == 0:
+                return {"count": 0, "by_label": {}, "avg_hit_file_pct": 0.0,
+                        "avg_hit_line_pct": 0.0, "bucket_avgs": {}}
+
+            totf = [sum(rp[l][i]["files"] for l in _TD_LABELS) for i in range(n)]
+            totl = [sum(rp[l][i]["lines"] for l in _TD_LABELS) for i in range(n)]
+
+            def _excl_avg(vals_fn, denom_fn):
+                pairs = [(vals_fn(i), denom_fn(i)) for i in range(n) if denom_fn(i) > 0]
+                return round(sum(v / d for v, d in pairs) / max(len(pairs), 1) * 100, 1)
+
+            avg_lbl = {
+                lbl: {
+                    "pct_files":    round(sum(rp[lbl][i]["files"] / max(totf[i], 1) for i in range(n)) / n * 100, 1),
+                    "pct_lines":    round(sum(rp[lbl][i]["lines"] / max(totl[i], 1) for i in range(n)) / n * 100, 1),
+                    "hit_line_pct": _excl_avg(lambda i, l=lbl: rp[l][i]["hit_lines"],
+                                              lambda i, l=lbl: rp[l][i]["lines"]),
+                }
+                for lbl in _TD_LABELS
+            }
+            wcat: dict[str, float] = {}
+            for cat_lbls in _CAT_GROUPS.values():
+                for lbl in cat_lbls:
+                    wcat[lbl] = round(
+                        sum(rp[lbl][i]["files"] /
+                            max(sum(rp[l][i]["files"] for l in cat_lbls), 1)
+                            for i in range(n)) / n * 100, 1)
+
+            by_lbl = {
+                lbl: {
+                    "files":          td_global_grp[g][lbl]["files"],
+                    "hit_files":      td_global_grp[g][lbl]["hit_files"],
+                    "lines":          td_global_grp[g][lbl]["lines"],
+                    "gen_hits":       td_global_grp[g][lbl]["gen_hits"],
+                    "spec_hits":      td_global_grp[g][lbl]["spec_hits"],
+                    "pct_files":      avg_lbl[lbl]["pct_files"],
+                    "pct_lines":      avg_lbl[lbl]["pct_lines"],
+                    "hit_line_pct":   avg_lbl[lbl]["hit_line_pct"],
+                    "pct_within_cat": wcat.get(lbl, 0.0),
+                }
+                for lbl in _TD_LABELS
+            }
+
+            grp_results = [r for r in results
+                           if _repo_group.get(r.get("full_name") or r.get("repo_full_name", ""), "docs_only") == g]
+            a_l, b_l, c_l, d_l, hf_l, hl_l = [], [], [], [], [], []
+            bk = ["test_hit", "test_nohit", "nontest_hit", "nontest_nohit"]
+            for r in grp_results:
+                sc = r.get("scan", {})
+                bc = sc.get("by_category", {})
+                nf = max(sc.get("total_files", 0), 1)
+                nl = max(sc.get("total_lines", 0), 1)
+                hf_l.append(sc.get("total_hit_files", 0) / nf * 100)
+                hl_l.append(sc.get("total_hit_lines", 0) / nl * 100)
+                if g == "docs_only":
+                    bk = ["doc_hit", "doc_nohit", "nondoc_hit", "nondoc_nohit"]
+                    a = bc.get("docs", {}).get("hit_file_count", 0)
+                    b = bc.get("docs", {}).get("file_count", 0) - a
+                    c = sum(bc.get(cat, {}).get("hit_file_count", 0) for cat in ["config", "other"])
+                    d = sum(bc.get(cat, {}).get("file_count", 0) - bc.get(cat, {}).get("hit_file_count", 0) for cat in ["config", "other"])
+                else:
+                    bk = ["test_hit", "test_nohit", "nontest_hit", "nontest_nohit"]
+                    a = bc.get("test_code",   {}).get("hit_file_count", 0)
+                    b = bc.get("test_code",   {}).get("file_count", 0) - a
+                    c = bc.get("source_code", {}).get("hit_file_count", 0)
+                    d = bc.get("source_code", {}).get("file_count", 0) - c
+                tot = max(a + b + c + d, 1)
+                a_l.append(a / tot * 100); b_l.append(b / tot * 100)
+                c_l.append(c / tot * 100); d_l.append(d / tot * 100)
+
+            def _avg(lst): return round(sum(lst) / max(len(lst), 1), 1)
+            return {
+                "count":            n,
+                "avg_hit_file_pct": _avg(hf_l),
+                "avg_hit_line_pct": _avg(hl_l),
+                "bucket_avgs":      dict(zip(bk, [_avg(a_l), _avg(b_l), _avg(c_l), _avg(d_l)])),
+                "by_label":         by_lbl,
+            }
+
+        group_density = {g: _grp_density(g) for g in _GRP}
         total_art_files = sum(art_cat_counts.values())
         artifact_classification = {
             "by_category":     art_cat_counts,
@@ -553,6 +686,7 @@ def _aggregate_code(results: list[dict]) -> dict:
         "specific_hits_ranked":       specific_hits_ranked,
         "commit_spans_sorted":        commit_spans_sorted,
         "technique_density_labels":   technique_density_labels,
+        "group_density":              group_density,
         "artifact_classification":    artifact_classification,
         "technique_file_stats":       technique_file_stats,
         "timeline": {
