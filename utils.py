@@ -165,8 +165,16 @@ def gh_get(
             return resp.json()
 
         if resp.status_code in (403, 429):
-            reset_ts = int(resp.headers.get("X-RateLimit-Reset", time.time() + 60))
-            wait = max(reset_ts - time.time(), 5) + random.uniform(0, RETRY_BACKOFF_JITTER)
+            retry_after = resp.headers.get("Retry-After")
+            if retry_after is not None:
+                try:
+                    wait = max(float(retry_after), 5)
+                except ValueError:
+                    wait = 60
+            else:
+                reset_ts = int(resp.headers.get("X-RateLimit-Reset", time.time() + 60))
+                wait = max(reset_ts - time.time(), 5)
+            wait += random.uniform(0, RETRY_BACKOFF_JITTER)
             _log(logger, "warning",
                  f"Rate limited (HTTP {resp.status_code}) — sleeping {wait:.0f}s")
             time.sleep(wait)
