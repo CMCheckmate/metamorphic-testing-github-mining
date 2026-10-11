@@ -12,9 +12,6 @@
   {"id": "ident_mr_snake",       "label": "metamorphic_relation (snake_case)",   "category": "specific_technique", "regex": "\\bmetamorphic_relation\\w*\\b"},
   {"id": "ident_mt_snake",       "label": "metamorphic_test (snake_case)",       "category": "specific_technique", "regex": "\\bmetamorphic_test\\w*\\b"},
 
-  {"id": "abbrev_MT",            "label": "abbreviation MT",                     "category": "specific_technique", "regex": "(?<![A-Za-z0-9_])MT(?![A-Za-z0-9_])"},
-  {"id": "abbrev_MR",            "label": "abbreviation MR",                     "category": "specific_technique", "regex": "(?<![A-Za-z0-9_])MR(?![A-Za-z0-9_])"},
-
   {"id": "string_mt",            "label": "string literal: metamorphic test",    "category": "specific_technique", "regex": "\"[Mm]etamorphic\\s+[Tt]est(?:ing|s)?\""},
   {"id": "string_mr",            "label": "string literal: metamorphic relation","category": "specific_technique", "regex": "\"[Mm]etamorphic\\s+[Rr]elation(?:s|ship|ships)?\""},
 

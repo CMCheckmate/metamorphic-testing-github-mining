@@ -1,0 +1,106 @@
+{
+  "_source": "ACM CCS 2012 (acm.org/ccs) — keyword lists derived from taxonomy categories. Edit here to adjust domain detection without touching source code.",
+
+  "machine_learning": [
+    "machine learning", "neural network", "deep learning", "reinforcement learning",
+    "ml model", "sklearn", "scikit-learn", "tensorflow", "pytorch", "keras",
+    "model training", "classification", "regression", "llm",
+    "large language model", "transformer", "computer vision", "nlp",
+    "natural language processing", "gradient descent", "backpropagation",
+    "convolutional", "recurrent", "generative", "diffusion model"
+  ],
+
+  "compiler_pl": [
+    "compiler", "transpiler", "parser", "abstract syntax tree", "ast",
+    "bytecode", "llvm", "codegen", "code generation", "jit",
+    "type system", "type checker", "type inference", "static analysis",
+    "interpreter", "optimization pass", "register allocation",
+    "programming language", "language design", "formal semantics",
+    "denotational", "operational semantics"
+  ],
+
+  "database": [
+    "database", "sql", "query", "orm", "nosql", "mongodb",
+    "elasticsearch", "query optimizer", "storage engine", "relational",
+    "key-value store", "transaction", "acid", "indexing",
+    "query planner", "b-tree", "lsm tree", "data warehouse",
+    "olap", "oltp", "schema", "normalization", "postgresql", "sqlite"
+  ],
+
+  "scientific_computing": [
+    "simulation", "numerical", "scientific computing", "physics",
+    "computational", "differential equation", "monte carlo",
+    "finite element", "fluid dynamics", "signal processing",
+    "linear algebra", "matrix", "eigenvalue", "fourier",
+    "climate model", "molecular dynamics", "computational chemistry",
+    "astrophysics", "numerical methods", "solver"
+  ],
+
+  "bioinformatics": [
+    "bioinformatics", "genome", "dna", "rna", "protein",
+    "sequence alignment", "blast", "genomics", "proteomics",
+    "phylogenetic", "metagenomics", "variant calling", "snp",
+    "gene expression", "rna-seq", "chip-seq", "gwas",
+    "transcriptomics", "epigenomics", "structural biology"
+  ],
+
+  "security_crypto": [
+    "security", "vulnerability", "exploit", "penetration test",
+    "cryptograph", "encryption", "decryption", "authentication",
+    "authorization", "injection", "malware", "reverse engineering",
+    "side channel", "zero-day", "cve", "buffer overflow",
+    "privilege escalation", "tls", "ssl", "certificate",
+    "public key", "private key", "hash function", "digital signature"
+  ],
+
+  "web_api": [
+    "rest", "http", "web server", "django", "flask", "fastapi",
+    "microservice", "frontend", "backend", "graphql", "web application",
+    "react", "angular", "vue", "express", "spring boot",
+    "websocket", "oauth", "jwt", "cors", "swagger", "openapi",
+    "endpoint", "web framework", "http client", "json api"
+  ],
+
+  "autonomous_robotics": [
+    "autonomous", "self-driving", "driverless", "robotics",
+    "perception module", "path planning", "lidar", "drone",
+    "slam", "localization", "mapping", "sensor fusion",
+    "ros", "robot operating system", "motion planning",
+    "object detection", "point cloud", "autonomous vehicle",
+    "uav", "unmanned"
+  ],
+
+  "distributed_systems": [
+    "distributed", "consensus", "raft", "paxos", "replication",
+    "fault tolerance", "distributed hash table", "dht",
+    "message queue", "kafka", "rabbitmq", "grpc", "rpc",
+    "service mesh", "load balancing", "sharding", "partitioning",
+    "eventual consistency", "cap theorem", "zookeeper"
+  ],
+
+  "operating_systems": [
+    "operating system", "kernel", "scheduler", "process management",
+    "memory management", "file system", "device driver",
+    "system call", "interrupt", "virtual memory", "page fault",
+    "deadlock", "semaphore", "mutex", "concurrency",
+    "thread", "hypervisor", "virtualization", "container",
+    "linux kernel", "posix"
+  ],
+
+  "embedded_iot": [
+    "embedded", "firmware", "microcontroller", "real-time",
+    "rtos", "iot", "internet of things", "arduino", "raspberry",
+    "fpga", "bare metal", "bootloader", "interrupt handler",
+    "peripheral", "gpio", "uart", "spi", "i2c", "can bus",
+    "low-power", "sensor", "actuator"
+  ],
+
+  "finance": [
+    "finance", "trading", "stock", "portfolio", "risk",
+    "quantitative", "algorithmic trading", "backtesting",
+    "market", "option pricing", "black-scholes", "derivative",
+    "asset pricing", "hedge fund", "financial model",
+    "time series", "volatility", "cryptocurrency", "blockchain",
+    "smart contract", "defi", "exchange"
+  ]
+}

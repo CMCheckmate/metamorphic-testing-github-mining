@@ -25,6 +25,73 @@ python generate_example_data.py --technique mt
 
 ---
 
+## Running with Docker
+
+Docker isolates the pipeline from your host: cloned repos, git operations, and file scanning all run inside the container. Results are written to your local `results/` via a volume mount, so nothing is lost when the container exits.
+
+### Prerequisites
+
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/) (Windows / macOS) or Docker Engine (Linux)
+- A `.env` file with your GitHub token (same as the non-Docker setup)
+
+### Build the image
+
+```bash
+docker compose build
+```
+
+This only needs to be done once, and again whenever `requirements.txt` or source files change.
+
+### Run the full pipeline
+
+```bash
+docker compose run --rm pipeline --technique mt
+docker compose run --rm pipeline --technique pbt
+docker compose run --rm pipeline --technique fuzz
+```
+
+### Run individual phases
+
+```bash
+# Search only
+docker compose run --rm pipeline --technique mt --phase search
+
+# Analysis only (code + non-code)
+docker compose run --rm pipeline --technique mt --phase analysis --workers 4
+
+# Code analysis only, skip metadata fetch
+docker compose run --rm pipeline --technique mt --phase analysis --code-only --no-size-stats
+
+# Report only (no network needed — use --network none for extra isolation)
+docker compose run --rm --network none pipeline --technique mt --phase report
+
+# Re-aggregate existing results without re-cloning
+docker compose run --rm pipeline --technique mt --phase analysis --aggregate-only
+```
+
+### Accessing results
+
+Results are written to `./results/` on your host machine (via the volume mount). The report is at:
+
+```
+results/metamorphic_testing/report/report.md
+results/metamorphic_testing/report/plots/
+```
+
+### Resource limits
+
+The default limits in `docker-compose.yml` are `8 GB` RAM and `4` CPUs. Adjust the `deploy.resources.limits` block if your machine has more or less available.
+
+### Security notes
+
+- The container runs as a non-root user (`pipeline`, uid 1000).
+- Cloned repos are written inside the container's filesystem (under the mounted `results/` volume). Symlinks in cloned repos cannot escape to your host filesystem.
+- The `inputs/` volume is mounted read-only.
+- The report phase does not need network access — pass `--network none` to `docker compose run` for that phase.
+- Search and analysis phases require outbound HTTPS to `api.github.com`.
+
+---
+
 ## Pipeline Architecture
 
 ```
@@ -112,6 +179,7 @@ metamorphic-testing-github-mining/
 │
 ├── inputs/                     Technique keyword files
 │   ├── shared_analysis_keywords.json  (general_test keywords shared by all techniques)
+│   ├── domain_keywords.json           (ACM CCS 2012 domain taxonomy — edit to tune domain detection)
 │   ├── mt_search_keywords.txt
 │   ├── mt_analysis_keywords.json
 │   ├── pbt_search_keywords.txt
@@ -135,6 +203,9 @@ metamorphic-testing-github-mining/
 │   └── property_based_testing/ (same structure)
 │
 ├── requirements.txt
+├── Dockerfile
+├── docker-compose.yml
+├── .dockerignore
 ├── .env                        GITHUB_TOKEN (git-ignored)
 └── .env.example
 ```

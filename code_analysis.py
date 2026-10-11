@@ -73,6 +73,16 @@ def detect_language(path: Path) -> str | None:
 # File category classification
 # ---------------------------------------------------------------------------
 
+# Matches any path component that is (or contains) a test/spec directory name.
+# [\W_] treats underscores as separators so __tests__, .test, unit_tests all match.
+_TEST_DIR_RE = re.compile(
+    r'(?i)'
+    r'(^|[\W_])tests?(ing)?($|[\W_])'   # test / tests / testing / unit_tests / integration_tests
+    r'|(^|[\W_])specs?($|[\W_])'         # spec / specs / __spec__
+    r'|(^|[\W_])e2e($|[\W_])'            # e2e
+)
+
+
 def classify_file(
     path: Path,
     content: str,
@@ -81,8 +91,7 @@ def classify_file(
 ) -> str:
     """
     Returns: test_code | source_code | docs | config | other
-    test_file_detection takes precedence; then extension-based.
-    No directory name checks.
+    Priority: tfd keyword match → test directory path → extension-based.
     """
     fname = path.name
     for kw in tfd_keywords:
@@ -101,7 +110,10 @@ def classify_file(
                 return "test_code"
 
     ext = path.suffix.lower()
+    # Code file inside a test/spec directory → test_code
     if ext in cfg.CODE_EXTENSIONS:
+        if any(_TEST_DIR_RE.search(part) for part in path.parts[:-1]):
+            return "test_code"
         return "source_code"
     if ext in cfg.DOC_EXTENSIONS:
         return "docs"

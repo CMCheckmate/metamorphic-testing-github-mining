@@ -105,7 +105,7 @@ def _save(fig, path: Path) -> str:
 def _bar_chart(
     labels: list[str], values: list[float], title: str, xlabel: str, ylabel: str,
     path: Path, color: str = _PALETTE[0], horizontal: bool = False,
-    figsize: tuple = (8, 4), annotate: bool = True,
+    figsize: tuple = (8, 4), annotate: bool = True, bar_fmt: str = "{:.0f}",
 ) -> str:
     fig, ax = plt.subplots(figsize=figsize)
     if horizontal:
@@ -118,7 +118,7 @@ def _bar_chart(
             for bar, v in zip(bars, list(reversed(values))):
                 ax.text(bar.get_width() + max_v * 0.01,
                         bar.get_y() + bar.get_height() / 2,
-                        _fmt(v), va="center", fontsize=7)
+                        bar_fmt.format(v), va="center", fontsize=7)
     else:
         xs   = range(len(labels))
         bars = ax.bar(xs, values, color=color)
@@ -129,7 +129,7 @@ def _bar_chart(
         if annotate and values and max(values) > 0:
             for bar, v in zip(bars, values):
                 ax.text(bar.get_x() + bar.get_width() / 2, bar.get_height() + max(values) * 0.01,
-                        _fmt(v), ha="center", va="bottom", fontsize=7)
+                        bar_fmt.format(v), ha="center", va="bottom", fontsize=7)
     ax.set_title(title)
     return _save(fig, path)
 
@@ -485,10 +485,11 @@ def _section_technique_density(
         )
     if tdl:
         by_label    = tdl.get("by_label", {})
+        repos_total = tdl.get("repos_total", 0)
         label_order = [
             "technique_code", "technique_doc", "technique_config", "technique_other",
             "test_code",      "test_doc",      "test_config",      "test_other",
-            "non_hit_code",   "non_hit_ncode",
+            "non_hit_code",   "non_hit_doc",   "non_hit_config",   "non_hit_other",
         ]
         label_disp = {
             "technique_code":   "Technique Code (code file, ≥1 specific hit)",
@@ -500,23 +501,25 @@ def _section_technique_density(
             "test_config":      "Test Config (config file, general-only hits)",
             "test_other":       "Test Other (other file, general-only hits)",
             "non_hit_code":     "Non-Hit Code (code file, no hits)",
-            "non_hit_ncode":    "Non-Hit Non-Code (non-code file, no hits)",
+            "non_hit_doc":      "Non-Hit Doc (doc file, no hits)",
+            "non_hit_config":   "Non-Hit Config (config file, no hits)",
+            "non_hit_other":    "Non-Hit Other (other file, no hits)",
         }
 
-        out.append("### Technique Density by File Label (10-Label Scheme)\n")
+        out.append("### Technique Density by File Label (12-Label Scheme)\n")
         out.append(
-            "Files are assigned one of 10 mutually-exclusive labels based on file type and keyword hits:\n\n"
+            "Files are assigned one of 12 mutually-exclusive labels based on file type and keyword hits:\n\n"
             "- **technique_\\*** — ≥1 `specific_technique` hit (code / doc / config / other)\n"
             "- **test_\\*** — ≥1 `general_test` hit, no specific hits (code / doc / config / other)\n"
-            "- **non_hit_code** — code file with no keyword hits\n"
-            "- **non_hit_ncode** — non-code file with no keyword hits\n\n"
+            "- **non_hit_\\*** — no keyword hits (code / doc / config / other)\n\n"
             "_File class: code = test_code ∪ source_code, doc = docs, config = config, other = other._\n"
         )
 
-        # Combined density table (Item 17)
+        # Combined density table
         total_files = tdl.get("total_files", 1)
         total_lines = tdl.get("total_lines", 1)
         out.append("#### Combined Density Table\n")
+        out.append("_% of All Files and % of All Lines are **per-repo averages**: for each repo the label's share of that repo's total files/lines is computed, then averaged across all repos._\n")
         density_rows = []
         for lbl in label_order:
             st = by_label.get(lbl, {})
@@ -537,73 +540,63 @@ def _section_technique_density(
         ) + "\n")
         chart_lbls = [lbl.replace("_", "\n") for lbl in label_order]
         chart_pcts = [by_label.get(lbl, {}).get("pct_files", 0) for lbl in label_order]
-        out.append(f"![Density label %]({_bar_chart(chart_lbls, chart_pcts, '% of Files by Density Label (10-Label Scheme)', 'Label', '% of All Files', plots_dir / f'density_label_pct.{cfg.PLOT_FORMAT}', color=_PALETTE[2])})\n")
+        out.append(f"![Density label %]({_bar_chart(chart_lbls, chart_pcts, '% of Files by Density Label (12-Label Scheme)', 'Label', '% of All Files (per-repo avg)', plots_dir / f'density_label_pct.{cfg.PLOT_FORMAT}', color=_PALETTE[2], bar_fmt='{:.1f}%')})\n")
 
-        # Hit File % Summary (Item 18)
-        out.append("#### Hit File % Summary\n")
-        out.append("_Percentage of files in each label that have at least one general or specific keyword hit._\n")
-        hit_file_rows = []
-        for lbl in label_order:
-            st = by_label.get(lbl, {})
-            hit_file_rows.append([
-                label_disp[lbl],
-                _fmt(st.get("files", 0)),
-                _fmt(st.get("hit_files", 0)),
-                _pct(st.get("hit_file_pct", 0)),
-            ])
-        out.append(_table(["Label", "Total Files", "Hit Files", "Hit File %"], hit_file_rows) + "\n")
+        # Repos contributing to per-label averages (Change 23)
+        if repos_total:
+            out.append("#### Repos Contributing to Per-Label Averages\n")
+            out.append(f"_Out of {repos_total} repos total. A repo contributes to a label's average only if it has ≥1 file in that label._\n")
+            contrib_rows = []
+            for lbl in label_order:
+                st = by_label.get(lbl, {})
+                rwf = st.get("repos_with_files", 0)
+                contrib_rows.append([
+                    label_disp[lbl],
+                    _fmt(rwf),
+                    _pct(rwf / repos_total * 100) if repos_total else "0.0%",
+                ])
+            out.append(_table(["Label", "Repos With ≥1 File", "% of All Repos"], contrib_rows) + "\n")
 
-        # Expanded hits-per-file statistics (Item 19)
-        out.append("#### Hits per File — Extended Statistics\n")
-        hits_per_file_rows = []
-        for lbl in label_order:
-            st   = by_label.get(lbl, {})
-            f    = max(st.get("files", 0), 1)
-            hits_per_file_rows.append([
-                label_disp[lbl],
-                _fmt(f - 1 if f == 1 else f, 0),
-                round(st.get("gen_hits",  0) / f, 2),
-                round(st.get("spec_hits", 0) / f, 2),
-                _pct(st.get("hit_line_pct", 0)),
-                _fmt(st.get("gen_hits",  0)),
-                _fmt(st.get("spec_hits", 0)),
-            ])
-        out.append(_table(
-            ["Label", "Files", "Avg Gen Hits/File", "Avg Spec Hits/File",
-             "Hit Line %", "Total Gen Hits", "Total Spec Hits"],
-            hits_per_file_rows,
-        ) + "\n")
-
-        # Three type-restricted breakdowns (Item 20)
+        # Per-category breakdowns
         out.append("#### Code Files Only\n")
         code_lbls = ["technique_code", "test_code", "non_hit_code"]
         code_rows = []
         for lbl in code_lbls:
             st = by_label.get(lbl, {})
-            code_rows.append([label_disp[lbl], _fmt(st.get("files",0)),
-                              _pct(st.get("pct_files",0)), _fmt(st.get("gen_hits",0)),
-                              _fmt(st.get("spec_hits",0)), _pct(st.get("hit_line_pct",0))])
-        out.append(_table(["Label", "Files", "% of All Files", "Gen Hits", "Spec Hits", "Hit Line %"], code_rows) + "\n")
+            code_rows.append([label_disp[lbl], _fmt(st.get("files", 0)),
+                              _pct(st.get("pct_within_cat", 0)), _fmt(st.get("gen_hits", 0)),
+                              _fmt(st.get("spec_hits", 0)), _pct(st.get("hit_line_pct", 0))])
+        out.append(_table(["Label", "Files", "% Within Code Files", "Gen Hits", "Spec Hits", "Hit Line %"], code_rows) + "\n")
 
         out.append("#### Doc Files Only\n")
-        doc_lbls = ["technique_doc", "test_doc", "non_hit_ncode"]
+        doc_lbls = ["technique_doc", "test_doc", "non_hit_doc"]
         doc_rows = []
         for lbl in doc_lbls:
             st = by_label.get(lbl, {})
-            doc_rows.append([label_disp[lbl], _fmt(st.get("files",0)),
-                             _pct(st.get("pct_files",0)), _fmt(st.get("gen_hits",0)),
-                             _fmt(st.get("spec_hits",0)), _pct(st.get("hit_line_pct",0))])
-        out.append(_table(["Label", "Files", "% of All Files", "Gen Hits", "Spec Hits", "Hit Line %"], doc_rows) + "\n")
+            doc_rows.append([label_disp[lbl], _fmt(st.get("files", 0)),
+                             _pct(st.get("pct_within_cat", 0)), _fmt(st.get("gen_hits", 0)),
+                             _fmt(st.get("spec_hits", 0)), _pct(st.get("hit_line_pct", 0))])
+        out.append(_table(["Label", "Files", "% Within Doc Files", "Gen Hits", "Spec Hits", "Hit Line %"], doc_rows) + "\n")
 
         out.append("#### Config Files Only\n")
-        cfg_lbls = ["technique_config", "test_config"]
+        cfg_lbls = ["technique_config", "test_config", "non_hit_config"]
         cfg_rows = []
         for lbl in cfg_lbls:
             st = by_label.get(lbl, {})
-            cfg_rows.append([label_disp[lbl], _fmt(st.get("files",0)),
-                             _pct(st.get("pct_files",0)), _fmt(st.get("gen_hits",0)),
-                             _fmt(st.get("spec_hits",0)), _pct(st.get("hit_line_pct",0))])
-        out.append(_table(["Label", "Files", "% of All Files", "Gen Hits", "Spec Hits", "Hit Line %"], cfg_rows) + "\n")
+            cfg_rows.append([label_disp[lbl], _fmt(st.get("files", 0)),
+                             _pct(st.get("pct_within_cat", 0)), _fmt(st.get("gen_hits", 0)),
+                             _fmt(st.get("spec_hits", 0)), _pct(st.get("hit_line_pct", 0))])
+        out.append(_table(["Label", "Files", "% Within Config Files", "Gen Hits", "Spec Hits", "Hit Line %"], cfg_rows) + "\n")
+
+        out.append("#### Other Files Only\n")
+        oth_lbls = ["technique_other", "test_other", "non_hit_other"]
+        oth_rows = []
+        for lbl in oth_lbls:
+            st = by_label.get(lbl, {})
+            oth_rows.append([label_disp[lbl], _fmt(st.get("files", 0)),
+                             _pct(st.get("pct_within_cat", 0)), _fmt(st.get("gen_hits", 0)),
+                             _fmt(st.get("spec_hits", 0)), _pct(st.get("hit_line_pct", 0))])
+        out.append(_table(["Label", "Files", "% Within Other Files", "Gen Hits", "Spec Hits", "Hit Line %"], oth_rows) + "\n")
 
     # Hit % per repo — exact ranked line charts (Items 23-25)
     hit_pct = ca.get("hit_pct_distribution", [])
@@ -653,8 +646,10 @@ def _section_technique_density(
         out.append("### Top 20 Repos by Specific Keyword Hits\n")
         out.append(f"![Top repos by specific hits]({_bar_chart([_trunc(r['name'],30) for r in top20], [r['hits'] for r in top20], 'Top 20 Repos by Specific Keyword Hits', 'Repository', 'Specific Hits', plots_dir / f'specific_hits_ranked.{cfg.PLOT_FORMAT}', horizontal=True, figsize=(9, max(4, len(top20)*0.35+2)))})\n")
         out.append(_table(
-            ["#", "Repository", "Specific Hits"],
-            [[i+1, r["name"], _fmt(r["hits"])] for i, r in enumerate(top20)],
+            ["#", "Repository", "Specific Hits", "Hit File %", "Hit Line %"],
+            [[i+1, r["name"], _fmt(r["hits"]),
+              _pct(r.get("hit_file_pct", 0)), _pct(r.get("hit_line_pct", 0))]
+             for i, r in enumerate(top20)],
         ) + "\n")
 
     # Density summary stats
@@ -675,31 +670,152 @@ def _section_technique_density(
 
 
 def _section_repo_classification(
-    overall: dict, plots_dir: Path, technique_name: str, out: list[str]
+    overall: dict, plots_dir: Path, dirs: dict | None, out: list[str]
 ) -> None:
     out.append("## 4. Repo Classification\n")
     out.append(
-        "> **Data source:** Code analysis phase — decision tree applied to each cloned repo. "
-        "Classifications are non-exclusive (a repo may satisfy multiple).\n"
+        "> **Groups:** **Docs-Only** — repos with 0 files with code extensions "
+        "(test_code + source_code `file_count` = 0); "
+        "**Usage** — repos with ≥1 file with a code extension. "
+        "Classification is based on file presence, not keyword hits.\n"
     )
-    ca         = overall.get("code_analysis", {})
-    cls_counts = ca.get("classification_counts", {})
-    # Always include all four classification categories, even at 0
-    order  = ["research_artifact", "framework", "actual_usage", "unclassified"]
-    labels = order + [c for c in cls_counts if c not in order]
-    vals   = [cls_counts.get(c, 0) for c in labels]
-    total  = max(sum(vals), 1)
+    ca            = overall.get("code_analysis", {})
+    group_density = ca.get("group_density", {})
+    if not group_density:
+        out.append("_Group density data unavailable — re-run the analysis phase._\n")
+        return
+
+    docs  = group_density.get("docs_only", {})
+    usage = group_density.get("usage",     {})
+
+    out.append("### Group Overview\n")
     out.append(_table(
-        ["Classification", "Count", "% of Code Repos"],
-        [[lbl, _fmt(v), _pct(v / total * 100)] for lbl, v in zip(labels, vals)],
+        ["Group", "Repos", "Avg Hit File %", "Avg Hit Line %"],
+        [
+            ["Docs-Only (0 code-extension files)", _fmt(docs.get("count", 0)),
+             _pct(docs.get("avg_hit_file_pct", 0)),  _pct(docs.get("avg_hit_line_pct", 0))],
+            ["Usage (≥1 code-extension file)", _fmt(usage.get("count", 0)),
+             _pct(usage.get("avg_hit_file_pct", 0)), _pct(usage.get("avg_hit_line_pct", 0))],
+        ],
     ) + "\n")
-    out.append(f"![Repo classification]({_bar_chart(labels, vals, 'Repo Classification', 'Classification', 'Count', plots_dir / f'repo_classification.{cfg.PLOT_FORMAT}', color=_PALETTE[0])})\n")
+
+    _label_order = [
+        "technique_code",   "technique_doc",   "technique_config",   "technique_other",
+        "test_code",        "test_doc",        "test_config",        "test_other",
+        "non_hit_code",     "non_hit_doc",     "non_hit_config",     "non_hit_other",
+    ]
+    _label_disp = {
+        "technique_code":   "Technique Code",   "technique_doc":    "Technique Doc",
+        "technique_config": "Technique Config", "technique_other":  "Technique Other",
+        "test_code":        "Test Code",        "test_doc":         "Test Doc",
+        "test_config":      "Test Config",      "test_other":       "Test Other",
+        "non_hit_code":     "Non-Hit Code",     "non_hit_doc":      "Non-Hit Doc",
+        "non_hit_config":   "Non-Hit Config",   "non_hit_other":    "Non-Hit Other",
+    }
+
+    # Plot 1 — Docs-Only 4-bucket breakdown
+    out.append("### Docs-Only Repos: File Composition (per-repo avg %)\n")
     out.append(
-        "_A high unclassified rate is expected: the CODE search surface returns all files mentioning "
-        "the technique's keywords, including academic papers, blog posts, documentation, and incidental "
-        "references that do not implement the technique. Repos are classified as 'actual\\_usage' only "
-        "when file-level evidence (keyword hits in test or source files) is sufficient._\n"
+        "_Repos with 0 code-extension files. Per-repo averages of: "
+        "doc files with hits / doc files without hits / non-doc files (config+other) with hits / "
+        "non-doc files without hits — each as % of total non-code files. Buckets sum to ~100%._\n"
     )
+    d_bk   = docs.get("bucket_avgs", {})
+    d_lbls = ["Doc — Technique Hit", "Doc — No Hit", "Non-Doc — Technique Hit", "Non-Doc — No Hit"]
+    d_vals = [d_bk.get("doc_hit", 0), d_bk.get("doc_nohit", 0),
+              d_bk.get("nondoc_hit", 0), d_bk.get("nondoc_nohit", 0)]
+    out.append(f"![Docs-only file breakdown]({_bar_chart(d_lbls, d_vals, 'Docs-Only Repos: File Composition (Avg % per Repo)', 'File Bucket', 'Avg % of Files', plots_dir / f'group_docs_only_buckets.{cfg.PLOT_FORMAT}', color=_PALETTE[1], bar_fmt='{:.1f}%')})\n")
+
+    # Plot 2 — Usage 4-bucket breakdown
+    out.append("### Usage Repos: Code File Composition (per-repo avg %)\n")
+    out.append(
+        "_Repos with ≥1 code-extension file. Per-repo averages of: "
+        "test code files with hits / test code files without hits / non-test code files with hits / "
+        "non-test code files without hits — each as % of total code files. Buckets sum to ~100%._\n"
+    )
+    u_bk   = usage.get("bucket_avgs", {})
+    u_lbls = ["Test — Technique Hit", "Test — No Hit", "Non-Test — Technique Hit", "Non-Test — No Hit"]
+    u_vals = [u_bk.get("test_hit", 0), u_bk.get("test_nohit", 0),
+              u_bk.get("nontest_hit", 0), u_bk.get("nontest_nohit", 0)]
+    out.append(f"![Usage file breakdown]({_bar_chart(u_lbls, u_vals, 'Usage Repos: Code File Composition (Avg % per Repo)', 'File Bucket', 'Avg % of Code Files', plots_dir / f'group_usage_buckets.{cfg.PLOT_FORMAT}', color=_PALETTE[0], bar_fmt='{:.1f}%')})\n")
+
+    # Per-group density tables
+    grp_disp = {"docs_only": "Docs-Only", "usage": "Usage"}
+    for g in ["docs_only", "usage"]:
+        gd = group_density.get(g, {})
+        if not gd.get("count"):
+            continue
+        out.append(f"### {grp_disp[g]} Repos: Density by File Label\n")
+        out.append(f"_{gd.get('count', 0)} repos — per-repo averages._\n")
+        by_lbl = gd.get("by_label", {})
+        d_rows = []
+        for lbl in _label_order:
+            st = by_lbl.get(lbl, {})
+            d_rows.append([
+                _label_disp.get(lbl, lbl),
+                _fmt(st.get("files", 0)),
+                _pct(st.get("pct_files", 0)),
+                _fmt(st.get("lines", 0)),
+                _pct(st.get("pct_lines", 0)),
+                _fmt(st.get("gen_hits", 0)),
+                _fmt(st.get("spec_hits", 0)),
+                _pct(st.get("hit_line_pct", 0)),
+            ])
+        out.append(_table(
+            ["Label", "Files", "% of All Files", "Lines", "% of All Lines",
+             "Gen Hits", "Spec Hits", "Hit Line %"],
+            d_rows,
+        ) + "\n")
+
+    # Sample repos per group
+    if dirs is None:
+        return
+    code_repos = load_json(dirs["analysis"] / "code_repos.json", [])
+    if not code_repos:
+        return
+
+    for g, grp_label in [("docs_only", "Docs-Only"), ("usage", "Usage")]:
+        grp_repos = []
+        for r in code_repos:
+            bc = r.get("scan", {}).get("by_category", {})
+            n_code = (bc.get("test_code",   {}).get("file_count", 0) +
+                      bc.get("source_code", {}).get("file_count", 0))
+            is_docs_only = n_code == 0
+            if is_docs_only == (g == "docs_only"):
+                grp_repos.append(r)
+        grp_repos.sort(
+            key=lambda r: r.get("scan", {}).get("total_specific_hits", 0),
+            reverse=True,
+        )
+        sample = grp_repos[:20]
+        if not sample:
+            continue
+        out.append(f"\n### {grp_label} — Sample Repos (Top 20 by Specific Hits)\n")
+        rows = []
+        for r in sample:
+            sc  = r.get("scan", {})
+            bc  = sc.get("by_category", {})
+            nf  = max(sc.get("total_files", 0), 1)
+            nl  = max(sc.get("total_lines", 0), 1)
+            n_code = (bc.get("test_code",   {}).get("file_count", 0) +
+                      bc.get("source_code", {}).get("file_count", 0))
+            n_doc  = bc.get("docs", {}).get("file_count", 0)
+            rows.append([
+                _trunc(r.get("full_name", ""), 45),
+                _fmt(r.get("stars", 0)),
+                r.get("language", "—") or "—",
+                _fmt(sc.get("total_files", 0)),
+                _fmt(n_code),
+                _fmt(n_doc),
+                _fmt(sc.get("total_specific_hits", 0)),
+                _pct(sc.get("total_hit_files", 0) / nf * 100),
+                _pct(sc.get("total_hit_lines", 0) / nl * 100),
+            ])
+        out.append(_table(
+            ["Repository", "Stars", "Language", "Total Files", "Code Files",
+             "Doc Files", "Specific Hits", "Hit File %", "Hit Line %"],
+            rows,
+        ) + "\n")
 
 
 def _section_technique_file_extensions(
@@ -740,14 +856,7 @@ def _section_technique_file_extensions(
         out.append(f"![Technique file extensions]({_bar_chart([e[0] or '(none)' for e in top_ext], [e[1] for e in top_ext], 'Top 20 Technique File Extensions', 'Extension', 'File Count', plots_dir / f'technique_extensions.{cfg.PLOT_FORMAT}', color=_PALETTE[4])})\n")
 
     if by_lang:
-        top_lang = list(by_lang.items())[:20]
-        out.append("### Technique File Language Distribution (per-Repo Deduplicated)\n")
-        out.append("_Each language counted at most once per repo (repos using Python + Java = +1 for each)._\n")
-        out.append(_table(
-            ["Language", "Repos with Technique Files"],
-            [[lang, _fmt(cnt)] for lang, cnt in top_lang],
-        ) + "\n")
-        out.append(f"![Technique language distribution]({_bar_chart([t[0] for t in top_lang], [t[1] for t in top_lang], 'Language Distribution — Technique Files Only (per-Repo Deduplicated)', 'Language', 'Repos', plots_dir / f'technique_language_distribution.{cfg.PLOT_FORMAT}', color=_PALETTE[0], horizontal=True, figsize=(8, max(4, len(top_lang)*0.3+2)))})\n")
+        pass  # language distribution is covered in section 6
 
 
 def _section_language(
@@ -973,20 +1082,23 @@ def _section_all_repos(overall: dict, dirs: dict, out: list[str]) -> None:
         cls_list = r.get("classification", {}).get("classifications", ["—"])
         commits = r.get("commits", {})
         span = commits.get("technique_commit_span_avg_days", commits.get("commit_span_days"))
+        n_files = scan.get("total_files", 0)
+        hf      = scan.get("total_hit_files", 0)
         repo_rows.append([
             rank,
             _trunc(r.get("full_name", ""), 38),
             _fmt(r.get("stars", 0)),
             r.get("language", "—"),
-            _fmt(scan.get("total_files", 0)),
+            _fmt(n_files),
             _fmt(scan.get("total_specific_hits", 0)),
+            _pct(round(hf / max(n_files, 1) * 100, 1)),
             _pct(round(hl / max(n_lines, 1) * 100, 1)),
             _fmt(span),
             ", ".join(cls_list),
         ])
     out.append(_table(
         ["#", "Repository", "Stars", "Language", "Files", "Specific Hits",
-         "Hit Line %", "Technique Span (days)", "Classification"],
+         "Hit File %", "Hit Line %", "Technique Span (days)", "Classification"],
         repo_rows,
     ) + "\n")
 
@@ -1019,7 +1131,7 @@ def run(slug: str) -> None:
     _section_projects_and_sizes(overall, plots_dir, tech_name, out)
     _section_search_distribution(overall, plots_dir, tech_name, out)
     _section_technique_density(overall, plots_dir, tech_name, out)
-    _section_repo_classification(overall, plots_dir, tech_name, out)
+    _section_repo_classification(overall, plots_dir, dirs, out)
     _section_technique_file_extensions(overall, plots_dir, tech_name, out)
     _section_language(overall, plots_dir, tech_name, out)
     _section_domain(overall, plots_dir, tech_name, out)
