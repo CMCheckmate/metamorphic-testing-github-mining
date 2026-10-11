@@ -20,6 +20,7 @@ from config import (
     GITHUB_TOKEN, GITHUB_API_BASE, GITHUB_GRAPHQL_URL,
     RATE_LIMIT_PAUSE, CODE_SEARCH_PAUSE, GRAPHQL_PAUSE,
     RETRY_ATTEMPTS, RETRY_BACKOFF_BASE, RETRY_BACKOFF_JITTER,
+    RATE_LIMIT_MAX_WAIT,
     MAX_PATH_LENGTH, RESULTS_DIR, INPUTS_DIR,
     TECHNIQUE_SLUGS, TECHNIQUE_DISPLAY_NAMES, TECHNIQUE_INPUT_PREFIXES,
 )
@@ -141,12 +142,15 @@ def gh_get(
     logger: logging.Logger | None = None,
 ) -> dict:
     """
-    GET with exponential backoff on rate-limit (403/429) and transient errors.
-    Respects X-RateLimit-Remaining / X-RateLimit-Reset headers.
+    GET with exponential backoff on transient failures and a reset-aware wait for
+    rate-limit responses (403/429). This keeps retrying long enough to wait out
+    GitHub's quota reset window rather than giving up after only a few attempts.
     """
     if delay is None:
         delay = CODE_SEARCH_PAUSE if is_code_search else RATE_LIMIT_PAUSE
     time.sleep(delay)
+
+    total_wait_seconds = 0.0
 
     for attempt in range(RETRY_ATTEMPTS):
         try:
@@ -158,6 +162,7 @@ def gh_get(
             _log(logger, "warning",
                  f"Request error ({exc.__class__.__name__}) — sleeping {wait:.1f}s (attempt {attempt+1})")
             time.sleep(wait)
+            total_wait_seconds += wait
             continue
 
         if resp.status_code == 200:
@@ -165,31 +170,29 @@ def gh_get(
             return resp.json()
 
         if resp.status_code in (403, 429):
-            retry_after = resp.headers.get("Retry-After")
-            if retry_after is not None:
-                try:
-                    wait = max(float(retry_after), 5)
-                except ValueError:
-                    wait = 60
-            else:
-                reset_ts = int(resp.headers.get("X-RateLimit-Reset", time.time() + 60))
-                wait = max(reset_ts - time.time(), 5)
-            wait += random.uniform(0, RETRY_BACKOFF_JITTER)
+            reset_ts = int(resp.headers.get("X-RateLimit-Reset", time.time() + 60))
+            wait = max(reset_ts - time.time(), 5) + random.uniform(0, RETRY_BACKOFF_JITTER)
+            if total_wait_seconds + wait > RATE_LIMIT_MAX_WAIT:
+                wait = max(RATE_LIMIT_MAX_WAIT - total_wait_seconds, 5)
             _log(logger, "warning",
                  f"Rate limited (HTTP {resp.status_code}) — sleeping {wait:.0f}s")
             time.sleep(wait)
+            total_wait_seconds += wait
             continue
 
-        if resp.status_code in (500, 502, 503, 504):
+        if resp.status_code in (408, 500, 502, 503, 504):
             wait = RETRY_BACKOFF_BASE ** (attempt + 1) + random.uniform(0, RETRY_BACKOFF_JITTER)
             _log(logger, "warning",
-                 f"Server error {resp.status_code} — sleeping {wait:.1f}s")
+                    f"Transient HTTP error {resp.status_code} — sleeping {wait:.1f}s")
             time.sleep(wait)
+            total_wait_seconds += wait
             continue
 
         resp.raise_for_status()
 
-    raise RuntimeError(f"gh_get failed after {RETRY_ATTEMPTS} attempts: GET {url}")
+    raise RuntimeError(
+        f"gh_get failed after {RETRY_ATTEMPTS} attempts or {RATE_LIMIT_MAX_WAIT:.0f}s total wait: GET {url}"
+    )
 
 
 def gh_graphql(
@@ -203,6 +206,8 @@ def gh_graphql(
     if variables:
         payload["variables"] = variables
 
+    total_wait_seconds = 0.0
+
     for attempt in range(RETRY_ATTEMPTS):
         try:
             resp = requests.post(
@@ -215,6 +220,7 @@ def gh_graphql(
             wait = RETRY_BACKOFF_BASE ** (attempt + 1) + random.uniform(0, RETRY_BACKOFF_JITTER)
             _log(logger, "warning", f"GraphQL request error — sleeping {wait:.1f}s")
             time.sleep(wait)
+            total_wait_seconds += wait
             continue
 
         if resp.status_code == 200:
@@ -224,8 +230,11 @@ def gh_graphql(
                 if any(e.get("type") == "RATE_LIMITED" for e in errors):
                     reset_ts = int(resp.headers.get("X-RateLimit-Reset", time.time() + 60))
                     wait = max(reset_ts - time.time(), 5) + random.uniform(0, RETRY_BACKOFF_JITTER)
+                    if total_wait_seconds + wait > RATE_LIMIT_MAX_WAIT:
+                        wait = max(RATE_LIMIT_MAX_WAIT - total_wait_seconds, 5)
                     _log(logger, "warning", f"GraphQL RATE_LIMITED — sleeping {wait:.0f}s")
                     time.sleep(wait)
+                    total_wait_seconds += wait
                     continue
                 _log(logger, "warning", f"GraphQL errors: {errors}")
             _check_remaining(resp.headers, logger)
@@ -234,8 +243,11 @@ def gh_graphql(
         wait = RETRY_BACKOFF_BASE ** (attempt + 1) + random.uniform(0, RETRY_BACKOFF_JITTER)
         _log(logger, "warning", f"GraphQL HTTP {resp.status_code} — sleeping {wait:.1f}s")
         time.sleep(wait)
+        total_wait_seconds += wait
 
-    raise RuntimeError(f"gh_graphql failed after {RETRY_ATTEMPTS} attempts")
+    raise RuntimeError(
+        f"gh_graphql failed after {RETRY_ATTEMPTS} attempts or {RATE_LIMIT_MAX_WAIT:.0f}s total wait"
+    )
 
 
 def _check_remaining(headers: dict, logger: logging.Logger | None) -> None:
