@@ -1,17 +1,20 @@
 """
 GitHub Mining Pipeline — CLI Entry Point
 =========================================
-Three phases: search → analysis → report.
-Technique-specific vocabulary lives in inputs/ keyword files.
+Phases: search -> analysis -> report. Technique-specific vocabulary lives in inputs/.
+
+Full analysis: the original clone-everything pipeline. It clones every CODE-surface repository
+(with history) and scans every file, producing far more data (commit spans, per-file details,
+word clouds, report.md) than the sections report uses, and takes days instead of hours. The
+sections report is produced by the specialised pipeline in the project root (see README.md).
 
 Usage examples:
-  python main.py --technique mt --phase search
-  python main.py --technique mt --phase search --overwrite
-  python main.py --technique pbt --phase analysis --code-only
-  python main.py --technique fuzz --phase analysis --noncode-only
-  python main.py --technique mt --phase analysis --restart
-  python main.py --technique mt --phase report
-  python main.py --technique mt                  # all phases in sequence
+  python -m full_analysis --technique mt --phase search
+  python -m full_analysis --technique pbt --phase analysis --code-only
+  python -m full_analysis --technique fuzz --phase analysis --noncode-only
+  python -m full_analysis --technique mt --phase analysis --restart
+  python -m full_analysis --technique mt --phase report
+  python -m full_analysis --technique mt                  # all phases in sequence
 
 Techniques:  mt / metamorphic_testing
              fuzz / fuzz_testing
@@ -28,8 +31,8 @@ import sys
 import time
 from pathlib import Path
 
-import config as cfg
-from utils import resolve_technique, ensure_dirs, technique_dirs
+from core_helpers import config as cfg
+from core_helpers.utils import resolve_technique, ensure_dirs, technique_dirs
 
 
 def _elapsed(t0: float) -> str:
@@ -39,7 +42,7 @@ def _elapsed(t0: float) -> str:
 
 
 def _run_search(slug: str, overwrite: bool) -> None:
-    import search
+    from core_helpers import github_search as search
     print(f"\n=== SEARCH phase — {slug} ===")
     t0 = time.time()
     search.run(slug, overwrite=overwrite)
@@ -55,7 +58,7 @@ def _run_analysis(
     aggregate_only: bool,
     no_size_stats: bool = False,
 ) -> None:
-    import analysis
+    from full_analysis import analysis
     print(f"\n=== ANALYSIS phase — {slug} ===")
     t0 = time.time()
     analysis.run(
@@ -71,7 +74,7 @@ def _run_analysis(
 
 
 def _run_report(slug: str) -> None:
-    import report
+    from full_analysis import report
     print(f"\n=== REPORT phase — {slug} ===")
     t0 = time.time()
     report.run(slug)
@@ -80,7 +83,7 @@ def _run_report(slug: str) -> None:
 
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(
-        prog="python main.py",
+        prog="python -m full_analysis",
         description="GitHub Mining Pipeline — study testing technique adoption.",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog=__doc__,

@@ -28,8 +28,8 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 
-import config as cfg
-from utils import technique_dirs, ensure_dirs, load_json
+from core_helpers import config as cfg
+from core_helpers.utils import technique_dirs, ensure_dirs, load_json
 
 plt.rcParams.update({
     "figure.dpi":       cfg.PLOT_DPI,
@@ -674,10 +674,9 @@ def _section_repo_classification(
 ) -> None:
     out.append("## 4. Repo Classification\n")
     out.append(
-        "> **Groups:** **Docs-Only** — repos with 0 files with code extensions "
-        "(test_code + source_code `file_count` = 0); "
-        "**Usage** — repos with ≥1 file with a code extension. "
-        "Classification is based on file presence, not keyword hits.\n"
+        "> **Groups:** **Usage** — repos with ≥1 code file (test or source) containing a "
+        "`specific_technique` hit; **Non-Usage** — all other cloned repos (no code file with a "
+        "technique hit). Test/source split uses the repaired classification (see `data_repair.py`).\n"
     )
     ca            = overall.get("code_analysis", {})
     group_density = ca.get("group_density", {})
@@ -685,17 +684,19 @@ def _section_repo_classification(
         out.append("_Group density data unavailable — re-run the analysis phase._\n")
         return
 
-    docs  = group_density.get("docs_only", {})
+    docs  = group_density.get("non_usage", {})
     usage = group_density.get("usage",     {})
 
     out.append("### Group Overview\n")
     out.append(_table(
         ["Group", "Repos", "Avg Hit File %", "Avg Hit Line %"],
         [
-            ["Docs-Only (0 code-extension files)", _fmt(docs.get("count", 0)),
+            ["Non-Usage (≥1 technique hit, none in code files)", _fmt(docs.get("count", 0)),
              _pct(docs.get("avg_hit_file_pct", 0)),  _pct(docs.get("avg_hit_line_pct", 0))],
-            ["Usage (≥1 code-extension file)", _fmt(usage.get("count", 0)),
+            ["Usage (≥1 code file with a technique hit)", _fmt(usage.get("count", 0)),
              _pct(usage.get("avg_hit_file_pct", 0)), _pct(usage.get("avg_hit_line_pct", 0))],
+            ["No technique hit (excluded; see sections_issues.md)", _fmt(group_density.get("no_hit", {}).get("count", 0)),
+             "—", "—"],
         ],
     ) + "\n")
 
@@ -713,10 +714,10 @@ def _section_repo_classification(
         "non_hit_config":   "Non-Hit Config",   "non_hit_other":    "Non-Hit Other",
     }
 
-    # Plot 1 — Docs-Only 4-bucket breakdown
-    out.append("### Docs-Only Repos: File Composition (per-repo avg %)\n")
+    # Plot 1 — Non-Usage 4-bucket breakdown
+    out.append("### Non-Usage Repos: File Composition (per-repo avg %)\n")
     out.append(
-        "_Repos with 0 code-extension files. Per-repo averages of: "
+        "_Repos with no code file containing a technique hit. Per-repo averages of: "
         "doc files with hits / doc files without hits / non-doc files (config+other) with hits / "
         "non-doc files without hits — each as % of total non-code files. Buckets sum to ~100%._\n"
     )
@@ -724,12 +725,12 @@ def _section_repo_classification(
     d_lbls = ["Doc — Technique Hit", "Doc — No Hit", "Non-Doc — Technique Hit", "Non-Doc — No Hit"]
     d_vals = [d_bk.get("doc_hit", 0), d_bk.get("doc_nohit", 0),
               d_bk.get("nondoc_hit", 0), d_bk.get("nondoc_nohit", 0)]
-    out.append(f"![Docs-only file breakdown]({_bar_chart(d_lbls, d_vals, 'Docs-Only Repos: File Composition (Avg % per Repo)', 'File Bucket', 'Avg % of Files', plots_dir / f'group_docs_only_buckets.{cfg.PLOT_FORMAT}', color=_PALETTE[1], bar_fmt='{:.1f}%')})\n")
+    out.append(f"![Docs-only file breakdown]({_bar_chart(d_lbls, d_vals, 'Non-Usage Repos: File Composition (Avg % per Repo)', 'File Bucket', 'Avg % of Files', plots_dir / f'group_non_usage_buckets.{cfg.PLOT_FORMAT}', color=_PALETTE[1], bar_fmt='{:.1f}%')})\n")
 
     # Plot 2 — Usage 4-bucket breakdown
     out.append("### Usage Repos: Code File Composition (per-repo avg %)\n")
     out.append(
-        "_Repos with ≥1 code-extension file. Per-repo averages of: "
+        "_Repos with ≥1 code file containing a technique hit. Per-repo averages of: "
         "test code files with hits / test code files without hits / non-test code files with hits / "
         "non-test code files without hits — each as % of total code files. Buckets sum to ~100%._\n"
     )
@@ -740,8 +741,8 @@ def _section_repo_classification(
     out.append(f"![Usage file breakdown]({_bar_chart(u_lbls, u_vals, 'Usage Repos: Code File Composition (Avg % per Repo)', 'File Bucket', 'Avg % of Code Files', plots_dir / f'group_usage_buckets.{cfg.PLOT_FORMAT}', color=_PALETTE[0], bar_fmt='{:.1f}%')})\n")
 
     # Per-group density tables
-    grp_disp = {"docs_only": "Docs-Only", "usage": "Usage"}
-    for g in ["docs_only", "usage"]:
+    grp_disp = {"non_usage": "Non-Usage", "usage": "Usage"}
+    for g in ["non_usage", "usage"]:
         gd = group_density.get(g, {})
         if not gd.get("count"):
             continue
@@ -767,50 +768,24 @@ def _section_repo_classification(
             d_rows,
         ) + "\n")
 
-    # Sample repos per group
-    if dirs is None:
-        return
-    code_repos = load_json(dirs["analysis"] / "code_repos.json", [])
-    if not code_repos:
-        return
-
-    for g, grp_label in [("docs_only", "Docs-Only"), ("usage", "Usage")]:
-        grp_repos = []
-        for r in code_repos:
-            bc = r.get("scan", {}).get("by_category", {})
-            n_code = (bc.get("test_code",   {}).get("file_count", 0) +
-                      bc.get("source_code", {}).get("file_count", 0))
-            is_docs_only = n_code == 0
-            if is_docs_only == (g == "docs_only"):
-                grp_repos.append(r)
-        grp_repos.sort(
-            key=lambda r: r.get("scan", {}).get("total_specific_hits", 0),
-            reverse=True,
-        )
-        sample = grp_repos[:20]
+    # Sample repos per group — from the compact repo_table in overall.json
+    repo_table = ca.get("repo_table", [])
+    for g, grp_label in [("non_usage", "Non-Usage"), ("usage", "Usage")]:
+        sample = [r for r in repo_table if r.get("group") == g][:20]
         if not sample:
             continue
         out.append(f"\n### {grp_label} — Sample Repos (Top 20 by Specific Hits)\n")
-        rows = []
-        for r in sample:
-            sc  = r.get("scan", {})
-            bc  = sc.get("by_category", {})
-            nf  = max(sc.get("total_files", 0), 1)
-            nl  = max(sc.get("total_lines", 0), 1)
-            n_code = (bc.get("test_code",   {}).get("file_count", 0) +
-                      bc.get("source_code", {}).get("file_count", 0))
-            n_doc  = bc.get("docs", {}).get("file_count", 0)
-            rows.append([
-                _trunc(r.get("full_name", ""), 45),
-                _fmt(r.get("stars", 0)),
-                r.get("language", "—") or "—",
-                _fmt(sc.get("total_files", 0)),
-                _fmt(n_code),
-                _fmt(n_doc),
-                _fmt(sc.get("total_specific_hits", 0)),
-                _pct(sc.get("total_hit_files", 0) / nf * 100),
-                _pct(sc.get("total_hit_lines", 0) / nl * 100),
-            ])
+        rows = [[
+            _trunc(r.get("full_name", ""), 45),
+            _fmt(r.get("stars") or 0),
+            r.get("language") or "—",
+            _fmt(r.get("total_files", 0)),
+            _fmt(r.get("code_files", 0)),
+            _fmt(r.get("doc_files", 0)),
+            _fmt(r.get("specific_hits", 0)),
+            _pct(r.get("hit_file_pct", 0)),
+            _pct(r.get("hit_line_pct", 0)),
+        ] for r in sample]
         out.append(_table(
             ["Repository", "Stars", "Language", "Total Files", "Code Files",
              "Doc Files", "Specific Hits", "Hit File %", "Hit Line %"],
@@ -895,17 +870,19 @@ def _section_domain(
 ) -> None:
     out.append("## 7. Application Domain\n")
     out.append(
-        "> **Data source:** Domain distribution — code and non-code analysis phases; "
-        "keywords matched against repo name, description, and topics (see table below). "
-        "Word cloud — natural-language body text from issues, PRs, discussions, commit "
-        "messages, repo descriptions, and documentation files from cloned repos; "
+        "> **Data source:** Non-CODE surfaces only (REPOS, COMMITS, PRS, ISSUES, DISCUSSIONS), "
+        "restricted to items containing ≥1 technique analysis keyword. Domain distribution — "
+        "keywords matched on word boundaries against each repository's description, topics "
+        "(and README when fetched) plus the text of its relevant items; **one count per "
+        "repository**. Word cloud — the same text with AI-agent trailer lines removed; "
         "each word counted once per repo regardless of how many times it appears.\n"
     )
 
     out.append("### Detection Keywords by Domain\n")
     out.append(
         "Repos are classified into a domain when **any** of the following keywords "
-        "appear in the repo name, description, or topics. A repo can match multiple domains.\n"
+        "appears as a whole word (keywords of ≥6 characters also match as a prefix). "
+        "A repo can match multiple domains.\n"
     )
     for domain, keywords in cfg.DOMAIN_KEYWORDS.items():
         label   = domain.replace("_", " ").title()
@@ -936,8 +913,8 @@ def _section_domain(
             ax.set_title("Word Cloud — Non-Code Text & Documentation")
             out.append(f"![Word cloud]({_save(fig, wc_path)})\n")
             out.append(
-                "_Word frequency across repo descriptions, commit messages, issues, PRs, "
-                "discussions, and documentation files from cloned repos. Each word counted "
+                "_Word frequency across repo descriptions/topics, commit messages, issues, PRs "
+                "and discussions from non-CODE surfaces (cloned-repo documentation is excluded). Each word counted "
                 "once per repository — repeated occurrences within one project contribute +1, "
                 "not +N. A word present in 10 repos has frequency 10. Search keywords and "
                 "common English stopwords are excluded. "
@@ -955,150 +932,62 @@ def _section_timeline(
 ) -> None:
     out.append("## 8. Timeline\n")
     out.append(
-        "> **Data source:** Code analysis phase — git commit history mined via PyDriller. "
-        "Only commits from the local git history of cloned repos are counted. "
-        "Technique commits are those touching files with ≥1 `specific_technique` hit. "
-        "Creation dates from GitHub API metadata.\n"
+        "> **Data source:** COMMITS surface only — commits returned by GitHub commit search. "
+        "CODE-surface data (creation years of cloned repos, cloned commit histories, technique "
+        "commit span) was removed: GitHub code search only indexes repositories active in the "
+        "last year, and cloned histories were shallow.\n"
     )
-    ca = overall.get("code_analysis", {})
-    tl = ca.get("timeline", {})
-    if not tl:
+    cst = overall.get("commit_surface_timeline", {})
+    if not cst.get("years"):
         out.append("_No timeline data available._\n")
         return
-
-    cy = tl.get("creation_years", {})
-    if cy:
-        out.append(f"![Creation years]({_bar_chart([str(y) for y in sorted(cy)], [cy[y] for y in sorted(cy)], 'Repos by Creation Year', 'Year', 'Repos Created', plots_dir / f'creation_years.{cfg.PLOT_FORMAT}', color=_PALETTE[0])})\n")
-        out.append(_table(["Year", "Repos Created"], [[str(y), _fmt(cy[y])] for y in sorted(cy)]) + "\n")
-
-    # Technique Commit Span — avg interval between consecutive technique commits (Item 29)
-    css = tl.get("commit_span_stats", {})
-    excluded_n = tl.get("commit_span_excluded_count", 0)
-    if css:
-        out.append("### Technique Commit Span\n")
-        out.append(
-            f"_Technique Commit Span = average number of days between consecutive commits containing "
-            f"technique keyword matches, per repo. "
-            f"Repos with fewer than 2 technique commits are excluded from this metric "
-            f"({excluded_n} repos excluded)._\n"
-        )
-        out.append(_table(
-            ["Metric", "Avg", "Median", "Max (days)", "Min (days)", "Std Dev", "N Repos"],
-            [["Technique commit span (days)"] + _stat_cells(css)],
-        ) + "\n")
-
-    cs_sorted = ca.get("commit_spans_sorted", [])
-    if cs_sorted:
-        ranks = list(range(1, len(cs_sorted) + 1))
-        out.append(f"![Commit span distribution]({_line_chart(ranks, [r['span_days'] for r in cs_sorted], 'Technique Commit Span per Repo (Ranked Longest → Shortest)', 'Rank (1 = longest span)', 'Span (days)', plots_dir / f'commit_span_distribution.{cfg.PLOT_FORMAT}')})\n")
-        out.append(f"_Repos with fewer than 2 technique commits are excluded. {excluded_n} repos excluded._\n")
-
-    cbm  = tl.get("commits_by_month", {})
-    tcbm = tl.get("technique_commits_by_month", {})
-
-    if cbm:
-        months     = sorted(cbm.keys())
-        cbm_vals   = [cbm[m] for m in months]
-        out.append("### Monthly Commit Activity (All Commits)\n")
-        out.append(f"![Commits by month]({_line_chart(list(range(len(months))), cbm_vals, 'Monthly Commit Activity (All Repos, All Commits)', 'Month', 'Commits', plots_dir / f'commits_by_month.{cfg.PLOT_FORMAT}', x_labels=months)})\n")
-        import statistics as _stats
-        if cbm_vals:
-            cbm_stats = {
-                "avg":    round(sum(cbm_vals) / len(cbm_vals), 2),
-                "median": round(_stats.median(cbm_vals), 2),
-                "max":    round(max(cbm_vals), 2),
-                "min":    round(min(cbm_vals), 2),
-                "stdev":  round(_stats.stdev(cbm_vals), 2) if len(cbm_vals) >= 2 else 0,
-                "count":  len(cbm_vals),
-            }
-            out.append(_table(
-                ["Metric", "Avg", "Median", "Max", "Min", "Std Dev", "Months"],
-                [["Commits per month"] + _stat_cells(cbm_stats)],
-            ) + "\n")
-
-    if tcbm:
-        months    = sorted(tcbm.keys())
-        tcbm_vals = [tcbm[m] for m in months]
-        out.append("### Monthly Technique Commit Activity\n")
-        out.append(f"![Technique commits by month]({_line_chart(list(range(len(months))), tcbm_vals, 'Monthly Technique-Keyword Commits (PyDriller git history)', 'Month', 'Technique Commits', plots_dir / f'technique_commits_by_month.{cfg.PLOT_FORMAT}', x_labels=months)})\n")
-        import statistics as _stats
-        if tcbm_vals:
-            tcbm_stats = {
-                "avg":    round(sum(tcbm_vals) / len(tcbm_vals), 2),
-                "median": round(_stats.median(tcbm_vals), 2),
-                "max":    round(max(tcbm_vals), 2),
-                "min":    round(min(tcbm_vals), 2),
-                "stdev":  round(_stats.stdev(tcbm_vals), 2) if len(tcbm_vals) >= 2 else 0,
-                "count":  len(tcbm_vals),
-            }
-            out.append(_table(
-                ["Metric", "Avg", "Median", "Max", "Min", "Std Dev", "Months"],
-                [["Technique commits per month"] + _stat_cells(tcbm_stats)],
-            ) + "\n")
-
-    # Proportion chart — technique commits vs total commits over time
-    if cbm and tcbm:
-        all_months = sorted(set(cbm.keys()) | set(tcbm.keys()))
-        total_vals = [cbm.get(m, 0) for m in all_months]
-        tech_vals  = [tcbm.get(m, 0) for m in all_months]
-        xs         = list(range(len(all_months)))
-
-        fig, ax = plt.subplots(figsize=(10, 4))
-        ax.plot(xs, total_vals, color=_PALETTE[0], linewidth=1.2, label="All commits")
-        ax.plot(xs, tech_vals,  color=_PALETTE[1], linewidth=1.2, label="Technique commits", linestyle="--")
-        ax.fill_between(xs, tech_vals, alpha=0.25, color=_PALETTE[1])
-        step = max(1, len(all_months) // 20)
-        ax.set_xticks(xs[::step])
-        ax.set_xticklabels(all_months[::step], rotation=35, ha="right", fontsize=6)
-        ax.set_xlabel("Month")
-        ax.set_ylabel("Commits")
-        ax.set_title("Total vs Technique Commits per Month (PyDriller git history)")
-        ax.legend(fontsize=8)
-        out.append(f"![Total vs technique commits]({_save(fig, plots_dir / f'commits_proportion.{cfg.PLOT_FORMAT}')})\n")
+    years = cst["years"]
+    g = lambda d, y: (d or {}).get(str(y), (d or {}).get(y, 0))
+    out.append("### Commit Activity (COMMITS Surface)\n")
+    out.append(
+        "_Relevant = commit message contains ≥1 technique analysis keyword. Capped = at most "
+        "5 relevant commits per repository per month. Agent-marked = message carries an AI-agent "
+        "authorship line._\n"
+    )
+    out.append(_table(
+        ["Year", "All Commits", "Relevant", "Relevant (capped)", "Agent-marked", "Repos (relevant)"],
+        [[y, _fmt(g(cst.get("all"), y)), _fmt(g(cst.get("relevant"), y)), _fmt(g(cst.get("relevant_capped"), y)),
+          _fmt(g(cst.get("agent_marked"), y)), _fmt(g(cst.get("repos"), y))] for y in years],
+    ) + "\n")
+    out.append(f"![Commits per year]({_grouped_bar_chart([str(y) for y in years], {'Relevant': [g(cst.get('relevant'), y) for y in years], 'Relevant (capped)': [g(cst.get('relevant_capped'), y) for y in years]}, 'Technique Commits per Year (COMMITS Surface)', 'Year', 'Commits', plots_dir / f'commit_surface_by_year.{cfg.PLOT_FORMAT}')})\n")
+    rbm = cst.get("relevant_by_month", {})
+    if rbm:
+        months = sorted(rbm)
+        out.append(f"![Commits per month]({_line_chart(list(range(len(months))), [rbm[m] for m in months], 'Relevant Technique Commits per Month (COMMITS Surface)', 'Month', 'Commits', plots_dir / f'commit_surface_by_month.{cfg.PLOT_FORMAT}', add_median=False, add_mean=False, x_labels=months)})\n")
 
 
 def _section_all_repos(overall: dict, dirs: dict, out: list[str]) -> None:
     out.append("## 9. All Cloned Repositories\n")
-    code_repos = load_json(dirs["analysis"] / "code_repos.json", [])
-    if not code_repos:
-        out.append("_No code repos data available._\n")
+    repo_table = overall.get("code_analysis", {}).get("repo_table", [])
+    if not repo_table:
+        out.append("_No code repos data available — re-run `--phase analysis --aggregate-only`._\n")
         return
-    total_repos = len(code_repos)
-    sorted_repos = sorted(code_repos,
-                          key=lambda r: r.get("scan", {}).get("total_specific_hits", 0), reverse=True)
-    display_repos = sorted_repos[:200]
+    total_repos = len(repo_table)
     out.append(f"_{total_repos} repositories were cloned and analysed._\n")
     if total_repos > 200:
-        slug = overall.get("slug", "")
-        out.append(
-            f"_Showing top 200 of {total_repos} repositories by specific keyword hits. "
-            f"Full data available in `results/{slug}/analysis/code_repos.json`._\n"
-        )
+        out.append(f"_Showing top 200 of {total_repos} repositories by specific keyword hits "
+                   "(full list: `code_analysis.repo_table` in overall.json)._\n")
     repo_rows = []
-    for rank, r in enumerate(display_repos, 1):
-        scan    = r.get("scan", {})
-        n_lines = scan.get("total_lines", 0)
-        hl      = scan.get("total_hit_lines", 0)
-        cls_list = r.get("classification", {}).get("classifications", ["—"])
-        commits = r.get("commits", {})
-        span = commits.get("technique_commit_span_avg_days", commits.get("commit_span_days"))
-        n_files = scan.get("total_files", 0)
-        hf      = scan.get("total_hit_files", 0)
+    for rank, r in enumerate(repo_table[:200], 1):
         repo_rows.append([
             rank,
             _trunc(r.get("full_name", ""), 38),
-            _fmt(r.get("stars", 0)),
-            r.get("language", "—"),
-            _fmt(n_files),
-            _fmt(scan.get("total_specific_hits", 0)),
-            _pct(round(hf / max(n_files, 1) * 100, 1)),
-            _pct(round(hl / max(n_lines, 1) * 100, 1)),
-            _fmt(span),
-            ", ".join(cls_list),
+            _fmt(r.get("stars") or 0),
+            r.get("language") or "—",
+            _fmt(r.get("total_files", 0)),
+            _fmt(r.get("specific_hits", 0)),
+            _pct(r.get("hit_file_pct", 0)),
+            _pct(r.get("hit_line_pct", 0)),
+            {"usage": "Usage", "non_usage": "Non-Usage"}.get(r.get("group"), "No hit"),
         ])
     out.append(_table(
         ["#", "Repository", "Stars", "Language", "Files", "Specific Hits",
-         "Hit File %", "Hit Line %", "Technique Span (days)", "Classification"],
+         "Hit File %", "Hit Line %", "Group"],
         repo_rows,
     ) + "\n")
 

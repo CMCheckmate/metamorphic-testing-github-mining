@@ -13,7 +13,7 @@ load_dotenv()
 # ---------------------------------------------------------------------------
 # Paths
 # ---------------------------------------------------------------------------
-BASE_DIR        = Path(__file__).parent
+BASE_DIR        = Path(__file__).resolve().parent.parent    # project root (config.py is in core_helpers/)
 RESULTS_DIR     = Path(os.getenv("RESULTS_DIR", str(BASE_DIR / "results")))
 INPUTS_DIR      = Path(os.getenv("INPUTS_DIR",  str(BASE_DIR / "inputs")))
 CLONED_DIR_NAME = "cloned"
@@ -85,6 +85,10 @@ IGNORED_EXTENSIONS: set[str] = {
     ".ttf", ".otf", ".woff", ".woff2", ".eot",
     # Databases
     ".db", ".sqlite", ".sqlite3", ".mdb",
+    # Binary documents / generated artefacts (hits come from embedded text streams,
+    # not from technique files). Also dropped from legacy data by data_repair.py.
+    ".pdf", ".doc", ".docx", ".ppt", ".pptx", ".xls", ".xlsx", ".odt", ".odp", ".ods",
+    ".svg", ".log",
 }
 
 SKIP_DIRS: set[str] = {
@@ -99,6 +103,7 @@ CODE_EXTENSIONS: set[str] = {
     ".kt", ".kts", ".scala", ".clj", ".cljs", ".hs", ".ml", ".mli",
     ".fs", ".fsx", ".erl", ".ex", ".exs", ".r", ".jl", ".lua",
     ".sh", ".bash", ".zsh", ".ps1", ".dart", ".m", ".mm",
+    ".ipynb",   # notebooks hold executable code; previously classed as 'other'
 }
 
 DOC_EXTENSIONS: set[str] = {
@@ -156,11 +161,21 @@ TECHNIQUE_INPUT_PREFIXES: dict[str, str] = {
 }
 
 # ---------------------------------------------------------------------------
+# Timeline analysis
+# ---------------------------------------------------------------------------
+TIMELINE_SNAPSHOTS          = 10             # commit snapshots per repo (time-division)
+TIMELINE_RANDOM_SEED        = 42             # reproducible repo sampling
+TIMELINE_CLONE_DEPTH        = 0              # 0 = full history required for early snapshots
+TIMELINE_WORKERS            = 1              # file-scan workers per snapshot (keep low)
+TIMELINE_BATCH_MAX_REPOS    = 5              # smaller batches — full-history clones are large
+TIMELINE_BATCH_MAX_BYTES    = 5 * 1024 ** 3 # 5 GB per batch (same limit as analysis phase)
+
+# ---------------------------------------------------------------------------
 # Domain keywords — loaded from inputs/domain_keywords.json (ACM CCS 2012)
 # ---------------------------------------------------------------------------
 
 def _load_domain_keywords() -> dict[str, list[str]]:
-    p = Path(__file__).parent / "inputs" / "domain_keywords.json"
+    p = BASE_DIR / "inputs" / "domain_keywords.json"
     if not p.exists():
         return {}
     data = json.loads(p.read_text(encoding="utf-8"))

@@ -27,8 +27,8 @@ from typing import Any
 
 from tqdm import tqdm
 
-import config as cfg
-from utils import (
+from core_helpers import config as cfg
+from core_helpers.utils import (
     resolve_technique, technique_dirs, ensure_dirs,
     setup_logging, load_json, save_json,
     safe_clone_path, load_analysis_keywords, compile_analysis_keywords,
@@ -63,6 +63,7 @@ _EXT_LANG: dict[str, str] = {
     ".fs": "F#", ".fsx": "F#", ".erl": "Erlang", ".ex": "Elixir", ".exs": "Elixir",
     ".r": "R", ".jl": "Julia", ".lua": "Lua",
     ".sh": "Shell", ".bash": "Shell", ".zsh": "Shell", ".ps1": "PowerShell",
+    ".ipynb": "Jupyter Notebook",
 }
 
 def detect_language(path: Path) -> str | None:
@@ -83,15 +84,23 @@ _TEST_DIR_RE = re.compile(
 )
 
 
+# Bumped when the stored scan format/semantics change. data_repair.py only re-derives
+# file categories for scans below version 2 (absolute-path test-dir bug, tfd rules unused).
+SCANNER_VERSION = 2
+
+
 def classify_file(
     path: Path,
     content: str,
     tfd_keywords: list[dict],
     detected_language: str | None,
+    rel_dirs: tuple[str, ...] = (),
 ) -> str:
     """
     Returns: test_code | source_code | docs | config | other
     Priority: tfd keyword match → test directory path → extension-based.
+    rel_dirs are the directory components *relative to the repo root* — never the
+    absolute path, whose components (e.g. 'metamorphic_testing') would match.
     """
     fname = path.name
     for kw in tfd_keywords:
@@ -112,7 +121,7 @@ def classify_file(
     ext = path.suffix.lower()
     # Code file inside a test/spec directory → test_code
     if ext in cfg.CODE_EXTENSIONS:
-        if any(_TEST_DIR_RE.search(part) for part in path.parts[:-1]):
+        if any(_TEST_DIR_RE.search(part) for part in rel_dirs):
             return "test_code"
         return "source_code"
     if ext in cfg.DOC_EXTENSIONS:
@@ -161,12 +170,16 @@ def _scan_file(args: tuple) -> dict | None:
     lines = content.splitlines()
     n_lines = len(lines)
 
-    tfd_kws = [k for k in _W_KWS if k["category"] == "test_file_detection"]
-    category = classify_file(path, content, tfd_kws, detected_language)
+    # Test-file-detection rules are the keywords with an `apply_to` field (their
+    # category is general_test so they also count as general line hits).
+    tfd_kws  = [k for k in _W_KWS if k.get("apply_to")]
+    rel      = path.relative_to(repo_root)
+    category = classify_file(path, content, tfd_kws, detected_language, rel.parts[:-1])
 
     general_hits: dict[str, int] = defaultdict(int)
     specific_hits: dict[str, int] = defaultdict(int)
     hit_lines: set[int] = set()
+    specific_lines: set[int] = set()
 
     for lineno, line in enumerate(lines, 1):
         for kw in _W_KWS:
@@ -177,19 +190,24 @@ def _scan_file(args: tuple) -> dict | None:
                     general_hits[kw["id"]] += 1
                 else:
                     specific_hits[kw["id"]] += 1
+                    specific_lines.add(lineno)
                 hit_lines.add(lineno)
 
-    rel_path = str(path.relative_to(repo_root))
+    # Keywords with `subset_of` only ever match lines their parent also matches
+    # (e.g. comment_mt ⊂ phrase_mt), so they are kept as a breakdown but excluded
+    # from the total to avoid double-counting.
+    subset_ids = {k["id"] for k in _W_KWS if k.get("subset_of")}
     return {
-        "rel_path":       rel_path,
-        "category":       category,
-        "language":       detected_language,
-        "n_lines":        n_lines,
-        "n_hit_lines":    len(hit_lines),
-        "general_hits":   dict(general_hits),
-        "specific_hits":  dict(specific_hits),
-        "total_general":  sum(general_hits.values()),
-        "total_specific": sum(specific_hits.values()),
+        "rel_path":             str(rel),
+        "category":             category,
+        "language":             detected_language,
+        "n_lines":              n_lines,
+        "n_hit_lines":          len(hit_lines),
+        "n_specific_hit_lines": len(specific_lines),
+        "general_hits":         dict(general_hits),
+        "specific_hits":        dict(specific_hits),
+        "total_general":        sum(general_hits.values()),
+        "total_specific":       sum(v for k, v in specific_hits.items() if k not in subset_ids),
     }
 
 
@@ -205,9 +223,6 @@ def scan_repo(
     """
     Walk repo_path, scan all eligible files, return aggregate stats.
     """
-    compiled_kws = compile_analysis_keywords(keywords_raw)
-    tfd_kws = [k for k in compiled_kws if k["category"] == "test_file_detection"]
-
     tasks = []
     for root, dirs, files in os.walk(repo_path):
         dirs[:] = [d for d in dirs if d not in cfg.SKIP_DIRS]
@@ -238,7 +253,9 @@ def scan_repo(
                 except Exception as exc:
                     pass  # logged at higher level
 
-    return _aggregate_file_results(file_results, keywords_raw)
+    result = _aggregate_file_results(file_results, keywords_raw)
+    result["scanner_version"] = SCANNER_VERSION
+    return result
 
 
 def _aggregate_file_results(file_results: list[dict], keywords_raw: list[dict]) -> dict:
@@ -728,8 +745,8 @@ def run(slug: str, restart: bool = False, workers: int = cfg.ANALYSIS_WORKERS, n
     logger.info(f"Found {len(candidates)} unique repos on code surface")
 
     # Load analysis keywords (raw, passed to workers)
-    from utils import load_analysis_keywords
-    from non_code_analysis import _load_stopwords, _build_technique_stopwords
+    from core_helpers.utils import load_analysis_keywords
+    from full_analysis.non_code_analysis import _load_stopwords, _build_technique_stopwords
     keywords_raw        = load_analysis_keywords(slug)
     tech_search_keywords = _load_search_phrases(slug)
     base_stopwords      = _load_stopwords(logger)
@@ -959,7 +976,7 @@ def _cleanup_orphaned_clones(cloned_dir: Path, history: dict, logger) -> None:
 
 def _load_search_phrases(slug: str) -> list[str]:
     """Return bare keyword strings (no quotes) for commit message matching."""
-    from utils import load_search_keywords
+    from core_helpers.utils import load_search_keywords
     raw = load_search_keywords(slug)
     phrases = []
     for kw in raw:
@@ -979,7 +996,7 @@ def _extract_doc_word_set(
     Return sorted list of distinct content words from doc files in the repo.
     Reads up to max_bytes per file; skips binary and oversized files.
     """
-    from non_code_analysis import _clean_text, _word_set
+    from full_analysis.non_code_analysis import _clean_text, _word_set
     doc_exts = {".md", ".rst", ".txt", ".adoc", ".tex"}
     words: set[str] = set()
     for fp in repo_path.rglob("*"):

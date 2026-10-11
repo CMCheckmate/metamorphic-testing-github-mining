@@ -10,10 +10,11 @@
   {"id": "tfd_spec_ts",          "label": "*.spec.ts filename",                "category": "general_test", "regex": "^.+\\.spec\\.tsx?$",               "apply_to": "filename"},
   {"id": "tfd_spec_rb",          "label": "*_spec.rb filename",                "category": "general_test", "regex": "^.+_spec\\.rb$",                   "apply_to": "filename"},
   {"id": "tfd_spec_js",          "label": "*.spec.js filename",                "category": "general_test", "regex": "^.+\\.spec\\.jsx?$",               "apply_to": "filename"},
-  {"id": "tfd_import_pytest",    "label": "import pytest (content)",           "category": "general_test", "regex": "^import pytest$|^from pytest",     "apply_to": "content", "language": "Python"},
+  {"id": "tfd_import_pytest",    "label": "import pytest (content)",           "category": "general_test", "regex": "^import pytest$|^from pytest",     "apply_to": "content", "language": "Python", "flags": "MULTILINE"},
   {"id": "tfd_import_junit",     "label": "import org.junit (content)",        "category": "general_test", "regex": "import org\\.junit",               "apply_to": "content", "language": "Java"},
   {"id": "tfd_import_junit_kt",  "label": "import org.junit (Kotlin content)", "category": "general_test", "regex": "import org\\.junit",               "apply_to": "content", "language": "Kotlin"},
-  {"id": "tfd_cfg_test_rust",    "label": "#[cfg(test)] (Rust content)",       "category": "general_test", "regex": "#\\[cfg\\(test\\)\\]",             "apply_to": "content", "language": "Rust"},
+  {"id": "tfd_cfg_test_rust",    "label": "#[cfg(test)] (Rust content)",       "category": "general_test", "regex": "#\\[cfg\\(test\\)\\]",             "language": "Rust",
+   "_note": "No apply_to on purpose: #[cfg(test)] marks an inline test module inside a source file, so it must not classify the whole file as a test. It is still counted as a general-test line hit."},
   {"id": "tfd_ann_test_java",    "label": "@Test annotation (Java content)",   "category": "general_test", "regex": "@Test\\b",                         "apply_to": "content", "language": "Java"},
   {"id": "tfd_ann_test_kt",      "label": "@Test annotation (Kotlin content)", "category": "general_test", "regex": "@Test\\b",                         "apply_to": "content", "language": "Kotlin"}
 ]

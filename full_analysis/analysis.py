@@ -14,8 +14,8 @@ import concurrent.futures
 from collections import Counter, defaultdict
 from pathlib import Path
 
-import config as cfg
-from utils import (
+from core_helpers import config as cfg
+from core_helpers.utils import (
     resolve_technique, technique_dirs, ensure_dirs,
     setup_logging, load_json, save_json, descriptive_stats,
     load_analysis_keywords,
@@ -410,14 +410,22 @@ def _aggregate_code(results: list[dict]) -> dict:
         ".f90": "Fortran", ".f95": "Fortran", ".f": "Fortran",
     }
 
-    _GRP = ["docs_only", "usage"]
+    # Spec definition: Usage = ≥1 code file (test or source) with a technique hit;
+    # Non-Usage = ≥1 technique hit, but none in a code file; no_hit = no technique hit
+    # anywhere (GitHub search matches our regexes do not confirm — investigated separately).
+    _GRP = ["non_usage", "usage", "no_hit"]
     _repo_group: dict[str, str] = {}
     for _r in results:
         _bc = _r.get("scan", {}).get("by_category", {})
-        _code_files = (_bc.get("test_code",   {}).get("file_count", 0) +
-                       _bc.get("source_code", {}).get("file_count", 0))
+        _code_hit_files = (_bc.get("test_code",   {}).get("hit_file_count", 0) +
+                           _bc.get("source_code", {}).get("hit_file_count", 0))
         _rn = _r.get("full_name") or _r.get("repo_full_name", "")
-        _repo_group[_rn] = "usage" if _code_files > 0 else "docs_only"
+        if _code_hit_files > 0:
+            _repo_group[_rn] = "usage"
+        elif _r.get("scan", {}).get("total_specific_hits", 0) > 0:
+            _repo_group[_rn] = "non_usage"
+        else:
+            _repo_group[_rn] = "no_hit"
 
     td_global_grp   = {g: {lbl: {"files": 0, "lines": 0, "hit_lines": 0,
                                   "gen_hits": 0, "spec_hits": 0, "hit_files": 0}
@@ -490,7 +498,7 @@ def _aggregate_code(results: list[dict]) -> dict:
             td_per_repo[lbl].append(rs)
         technique_lang_repo.append(repo_tech_langs)
 
-        _grp_key = _repo_group.get(r.get("full_name") or r.get("repo_full_name", ""), "docs_only")
+        _grp_key = _repo_group.get(r.get("full_name") or r.get("repo_full_name", ""), "non_usage")
         for lbl in _TD_LABELS:
             for k, v in repo_td[lbl].items():
                 td_global_grp[_grp_key][lbl][k] += v
@@ -606,7 +614,7 @@ def _aggregate_code(results: list[dict]) -> dict:
             }
 
             grp_results = [r for r in results
-                           if _repo_group.get(r.get("full_name") or r.get("repo_full_name", ""), "docs_only") == g]
+                           if _repo_group.get(r.get("full_name") or r.get("repo_full_name", ""), "non_usage") == g]
             a_l, b_l, c_l, d_l, hf_l, hl_l = [], [], [], [], [], []
             bk = ["test_hit", "test_nohit", "nontest_hit", "nontest_nohit"]
             for r in grp_results:
@@ -616,7 +624,7 @@ def _aggregate_code(results: list[dict]) -> dict:
                 nl = max(sc.get("total_lines", 0), 1)
                 hf_l.append(sc.get("total_hit_files", 0) / nf * 100)
                 hl_l.append(sc.get("total_hit_lines", 0) / nl * 100)
-                if g == "docs_only":
+                if g != "usage":
                     bk = ["doc_hit", "doc_nohit", "nondoc_hit", "nondoc_nohit"]
                     a = bc.get("docs", {}).get("hit_file_count", 0)
                     b = bc.get("docs", {}).get("file_count", 0) - a
@@ -642,6 +650,30 @@ def _aggregate_code(results: list[dict]) -> dict:
             }
 
         group_density = {g: _grp_density(g) for g in _GRP}
+
+        # Compact per-repo table so report.py never re-reads the >1 GB code_repos.json
+        # (whose stored categories are pre-repair).
+        repo_table = []
+        for r in results:
+            sc = r.get("scan", {})
+            bc = sc.get("by_category", {})
+            nf, nl = max(sc.get("total_files", 0), 1), max(sc.get("total_lines", 0), 1)
+            cm = r.get("commits", {})
+            repo_table.append({
+                "full_name":     r.get("full_name", ""),
+                "stars":         r.get("stars"),
+                "language":      r.get("language"),
+                "group":         _repo_group.get(r.get("full_name", ""), "non_usage"),
+                "total_files":   sc.get("total_files", 0),
+                "code_files":    bc.get("test_code", {}).get("file_count", 0) + bc.get("source_code", {}).get("file_count", 0),
+                "doc_files":     bc.get("docs", {}).get("file_count", 0),
+                "specific_hits": sc.get("total_specific_hits", 0),
+                "hit_file_pct":  round(sc.get("total_hit_files", 0) / nf * 100, 2),
+                "hit_line_pct":  round(sc.get("total_hit_lines", 0) / nl * 100, 2),
+                "technique_span_days": cm.get("technique_commit_span_avg_days", cm.get("commit_span_days")),
+                "classification":    r.get("classification", {}).get("classifications", []),
+            })
+        repo_table.sort(key=lambda x: x["specific_hits"], reverse=True)
         total_art_files = sum(art_cat_counts.values())
         artifact_classification = {
             "by_category":     art_cat_counts,
@@ -663,6 +695,9 @@ def _aggregate_code(results: list[dict]) -> dict:
         technique_density_labels = {}
         artifact_classification  = {}
         technique_file_stats     = {}
+        group_density            = {}
+        repo_table               = []
+
 
     return {
         "repo_count":               len(results),
@@ -674,6 +709,7 @@ def _aggregate_code(results: list[dict]) -> dict:
         "hit_lines_per_repo":       descriptive_stats(hit_lines_per_repo),
         "stars_stats":              descriptive_stats([float(s) for s in stars]),
         "classification_counts":    dict(classifications),
+        "repo_table":               repo_table,
         "language_distribution":    dict(lang_counts.most_common(30)),
         "by_category":              cat_totals,
         "keywords_ranked":          [
@@ -736,7 +772,7 @@ def _aggregate_noncode(results: list[dict], code_repos: list[dict] | None = None
             "hits_ranked":            hits_ranked,
             "repos_ranked":           repos_ranked,
             "repo_hit_stats":         descriptive_stats(repo_hit_values),
-            "keywords_ranked": [{"keyword": k, "count": v} for k, v in surf_kw.most_common(cfg.REPORT_TOP_N_KEYWORDS)],
+            "keywords_ranked": [{"keyword": k, "count": v} for k, v in surf_kw.most_common()],
         }
 
     # Cross-surface keyword table (same format as search keywords)
@@ -767,13 +803,9 @@ def _aggregate_noncode(results: list[dict], code_repos: list[dict] | None = None
         for w in r.get("word_set", []):
             repo_word_sets[repo].add(w)
 
-    for entry in _code_repos_for_wordcloud:
-        repo = entry.get("full_name", "")
-        if not repo:
-            continue
-        for w in entry.get("doc_word_set", []):
-            repo_word_sets[repo].add(w)
-
+    # The spec restricts the word cloud to non-CODE surfaces, so cloned CODE-surface
+    # doc_word_set is no longer merged in. (_aggregate_overall then replaces this with
+    # sections_aggregate's version, which also strips agent trailers.)
     _custom_stops = _load_custom_stopwords()
     word_freq: Counter = Counter()
     for words in repo_word_sets.values():
@@ -790,7 +822,7 @@ def _aggregate_noncode(results: list[dict], code_repos: list[dict] | None = None
     return {
         "total_items":          len(results),
         "by_surface":           surface_stats,
-        "keywords_ranked":      dict(all_kw.most_common(cfg.REPORT_TOP_N_KEYWORDS)),
+        "keywords_ranked":      dict(all_kw.most_common()),
         "keywords_cross_surface": nc_cross,
         "domain_counts":        dict(domain_counts.most_common()),
         "top_word_freq":        dict(word_freq.most_common(200)),
@@ -1020,8 +1052,8 @@ def run(
         _aggregate_overall(slug, dirs, logger)
         return
 
-    import code_analysis
-    import non_code_analysis
+    from full_analysis import code_analysis
+    from full_analysis import non_code_analysis
 
     if not noncode_only and not code_only:
         logger.info("Running code and non-code analysis in parallel")
@@ -1042,11 +1074,61 @@ def run(
     _aggregate_overall(slug, dirs, logger)
 
 
+def _is_gone(rec: dict) -> bool:
+    """Scan failure meaning the repository no longer exists publicly (not a transient error)."""
+    e = (rec.get("error") or "").lower()
+    return any(s in e for s in ("repository not found", "is disabled", "access to this repository",
+                                "dmca", "could not read username", "authentication failed"))
+
+
+def _load_code_records(slug: str, dirs: dict, logger=None, use_legacy: bool = False) -> tuple[list[dict], dict]:
+    """
+    Analysed CODE-surface records for the comparable population (specialised_analysis.
+    build_population: CODE repos minus those found only by excluded search keywords),
+    using specialised_analysis records (analysis/specialised_repos.json = current
+    snapshots) only. Repositories deleted/private since the search are dropped from the
+    population. use_legacy=True re-enables the old fallback to repaired code_repos.json
+    records (search-time snapshots) for repos the specialised scan has not covered.
+    """
+    from code_specialised_analysis import build_population
+    pop        = build_population(slug, dirs)
+    searched   = set(pop["phase1"]) | set(pop["phase2"])
+    spec       = load_json(dirs["analysis"] / "specialised_repos.json", {}) or {}
+    # Repositories deleted, made private or disabled since the search no longer exist
+    # "now", so they leave the population (they are not "not analysed").
+    gone       = {n for n, r in spec.items() if n in searched and r.get("status") != "ok" and _is_gone(r)}
+    population = searched - gone
+    spec_ok    = {n: r for n, r in spec.items() if r.get("status") == "ok" and n in population}
+    legacy: list[dict] = []
+    if use_legacy:
+        history = load_json(dirs["analysis"] / "code_history.json", {}) or {}
+        need_legacy = {n for n in population - set(spec_ok) if history.get(n) == "done"}
+        if need_legacy:
+            legacy = [r for r in load_json(dirs["analysis"] / "code_repos.json", []) or []
+                      if r.get("full_name") in need_legacy]
+    records = list(spec_ok.values()) + legacy
+    status = {
+        "searched": len(searched), "gone": len(gone), "gone_repos": sorted(gone),
+        "population": len(population), "phase1": len(pop["phase1"]), "phase2": len(pop["phase2"]),
+        "excluded": len(pop["excluded"]), "excluded_keywords": pop["exclude_keywords"],
+        "specialised_ok": len(spec_ok),
+        "specialised_failed": sum(1 for n, r in spec.items() if n in population and r.get("status") != "ok"),
+        "failed_repos": {n: (r.get("error") or "")[:160] for n, r in spec.items()
+                         if n in population and r.get("status") != "ok"},
+        "not_scanned_repos": sorted(population - set(spec)),
+        "legacy_fallback": len(legacy),
+        "not_analysed": len(population) - len(spec_ok) - len(legacy),
+    }
+    if logger:
+        logger.info(f"code records: {status}")
+    return records, status
+
+
 def _aggregate_overall(slug: str, dirs: dict, logger=None) -> None:
-    code_repos: list[dict]    = load_json(dirs["analysis"] / "code_repos.json", [])
+    code_repos, code_status = _load_code_records(slug, dirs, logger)
     noncode_results: list[dict] = load_json(dirs["analysis"] / "noncode_results.json", [])
 
-    # Enrich code_repos with metadata (stars, language, size) from cloned_repo_metadata.json
+    # Enrich records with metadata (stars, language, size, description…) from cloned_repo_metadata.json
     metadata_path = dirs["analysis"] / "cloned_repo_metadata.json"
     repo_metadata: dict = {}
     if metadata_path.exists():
@@ -1054,19 +1136,40 @@ def _aggregate_overall(slug: str, dirs: dict, logger=None) -> None:
     for entry in code_repos:
         name = entry.get("full_name", "")
         meta = repo_metadata.get(name)
+        entry.setdefault("html_url", f"https://github.com/{name}")
         if meta and isinstance(meta, dict):
-            if entry.get("stars") is None:
-                entry["stars"] = meta.get("stars")
-            if entry.get("language") is None:
-                entry["language"] = meta.get("language")
+            for key in ("stars", "language", "created_at", "description", "topics"):
+                if entry.get(key) in (None, "", []):
+                    entry[key] = meta.get(key)
             if not entry.get("size_kb"):
                 entry["size_kb"] = meta.get("size_kb", 0)
+
+    # Repair legacy scan data in memory (test/source split, .ipynb, binary files,
+    # subset keywords) and summarise every record — see data_repair.py.
+    # code_repos.json on disk is left untouched.
+    from report_helpers.data_repair import RepairContext, repair_record
+    from report_helpers import sections_aggregate
+    rctx      = RepairContext(slug, dirs["analysis"])
+    summaries = [repair_record(r, rctx) for r in code_repos]
+    if logger:
+        logger.info(f"data_repair: {dict(rctx.totals)}")
 
     code_agg    = _aggregate_code(code_repos)
     noncode_agg = _aggregate_noncode(noncode_results, code_repos)
     search_agg  = _aggregate_search_summary(dirs["search"])
     size_agg    = _aggregate_repo_sizes(dirs["analysis"], dirs["search"])
     hit_dists   = _aggregate_search_hit_distributions(dirs["search"])
+    sections    = sections_aggregate.build(slug, dirs, summaries, noncode_results, repo_metadata, rctx, code_status)
+    code_agg["data_repair"] = dict(rctx.totals)
+    code_agg["record_sources"] = code_status
+
+    # Legacy keys read by report.py now carry the corrected semantics:
+    #  domain_counts — per repository, word-boundary matching, relevant items only
+    #  top_word_freq — non-CODE sources only (no cloned-repo doc words), agent trailers stripped
+    if noncode_agg:
+        noncode_agg["domain_counts_items_legacy"] = noncode_agg.get("domain_counts", {})
+        noncode_agg["domain_counts"] = sections["a6"]["domain_counts"]
+        noncode_agg["top_word_freq"] = dict(list(sections["a7"]["freq"].items())[:200])
 
     # Enrich keyword categories from analysis keywords JSON (fills blanks from real data
     # where code_analysis.py may not have stored category in hits_by_keyword)
@@ -1089,8 +1192,10 @@ def _aggregate_overall(slug: str, dirs: dict, logger=None) -> None:
             if rn:
                 all_repo_names.add(rn)
 
-    # Fix "All (combined)" count to be the true union, not count of items with size_kb
-    size_agg["overall"]["count"] = len(all_repo_names)
+    # "count" stays the number of repos the statistics were computed over (repos with a
+    # size); the union of all repos is reported separately.
+    size_agg["overall"]["union_count"] = len(all_repo_names)
+    size_agg["overall"]["no_size_count"] = len(all_repo_names) - size_agg["overall"].get("count", 0)
 
     overall = {
         "slug":                     slug,
@@ -1105,6 +1210,8 @@ def _aggregate_overall(slug: str, dirs: dict, logger=None) -> None:
         "search_hit_distributions": hit_dists,
         "code_analysis":            code_agg,
         "noncode_analysis":         noncode_agg,
+        "commit_surface_timeline":  sections["t9"],
+        "sections":                 sections,
     }
 
     save_json(dirs["analysis"] / "overall.json", overall)

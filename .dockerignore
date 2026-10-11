@@ -5,6 +5,7 @@ __pycache__
 *.pyo
 results/
 example_results/
+old/
+dev_notes/
 *.zip
-inspect_*.py
-inspect_*.txt
+.venv/

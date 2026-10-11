@@ -1,20 +1,29 @@
 [
-  {"id": "phrase_mt",            "label": "metamorphic test(ing)",               "category": "specific_technique", "regex": "\\bmetamorphic\\s+test(?:ing|s)?\\b",                          "flags": "IGNORECASE"},
-  {"id": "phrase_mr",            "label": "metamorphic relation",                "category": "specific_technique", "regex": "\\bmetamorphic\\s+relation(?:s|ship|ships)?\\b",               "flags": "IGNORECASE"},
-  {"id": "phrase_mp",            "label": "metamorphic property",                "category": "specific_technique", "regex": "\\bmetamorphic\\s+propert(?:y|ies)\\b",                        "flags": "IGNORECASE"},
-  {"id": "phrase_mg",            "label": "metamorphic group",                   "category": "specific_technique", "regex": "\\bmetamorphic\\s+groups?\\b",                                 "flags": "IGNORECASE"},
-  {"id": "phrase_moracle",       "label": "metamorphic oracle",                  "category": "specific_technique", "regex": "\\bmetamorphic\\s+oracle\\b",                                  "flags": "IGNORECASE"},
+  {"_note": "Keyword set v2 (2026-10-10). Phrases use ASCII-only boundaries (?<![A-Za-z0-9]) / (?![A-Za-z0-9]) instead of \\b, so text in CJK/Korean directly next to a phrase still matches; separators allow spaces or hyphens. Identifiers have no leading boundary (es3fShaderMetamorphicTests, x_metamorphic_test). split_first/split_second: a phrase wrapped over two lines counts as one hit on the first line (applied by specialised_analysis.py and the non-code recompute)."},
 
-  {"id": "class_mt",             "label": "class MetamorphicTest",               "category": "specific_technique", "regex": "\\bMetamorphicTest\\w*\\b"},
-  {"id": "class_mr",             "label": "class MetamorphicRelation",           "category": "specific_technique", "regex": "\\bMetamorphicRelation\\w*\\b"},
-  {"id": "decorator_mt",         "label": "@metamorphic decorator",              "category": "specific_technique", "regex": "@metamorphic\\b"},
+  {"id": "phrase_mt",            "label": "metamorphic test(ing)",                    "category": "specific_technique", "regex": "(?<![A-Za-z0-9])metamorphic[\\s-]+test(?:ing|s|ers?)?(?![A-Za-z0-9])",                 "flags": "IGNORECASE",
+   "split_first": "(?<![A-Za-z0-9])metamorphic[\\s-]*$", "split_second": "^[\\W_]*test(?:ing|s|ers?)?(?![A-Za-z0-9])"},
+  {"id": "phrase_mr",            "label": "metamorphic relation",                     "category": "specific_technique", "regex": "(?<![A-Za-z0-9])metamorphic[\\s-]+relation(?:s|ship|ships)?(?![A-Za-z0-9])",      "flags": "IGNORECASE",
+   "split_first": "(?<![A-Za-z0-9])metamorphic[\\s-]*$", "split_second": "^[\\W_]*relation(?:s|ship|ships)?(?![A-Za-z0-9])"},
+  {"id": "phrase_mp",            "label": "metamorphic property",                     "category": "specific_technique", "regex": "(?<![A-Za-z0-9])metamorphic[\\s-]+propert(?:y|ies)(?![A-Za-z0-9])",               "flags": "IGNORECASE",
+   "split_first": "(?<![A-Za-z0-9])metamorphic[\\s-]*$", "split_second": "^[\\W_]*propert(?:y|ies)(?![A-Za-z0-9])"},
+  {"id": "phrase_mg",            "label": "metamorphic group",                        "category": "specific_technique", "regex": "(?<![A-Za-z0-9])metamorphic[\\s-]+groups?(?![A-Za-z0-9])",                        "flags": "IGNORECASE",
+   "split_first": "(?<![A-Za-z0-9])metamorphic[\\s-]*$", "split_second": "^[\\W_]*groups?(?![A-Za-z0-9])"},
+  {"id": "phrase_moracle",       "label": "metamorphic oracle",                       "category": "specific_technique", "regex": "(?<![A-Za-z0-9])metamorphic[\\s-]+oracles?(?![A-Za-z0-9])",                       "flags": "IGNORECASE",
+   "split_first": "(?<![A-Za-z0-9])metamorphic[\\s-]*$", "split_second": "^[\\W_]*oracles?(?![A-Za-z0-9])"},
 
-  {"id": "ident_mr_snake",       "label": "metamorphic_relation (snake_case)",   "category": "specific_technique", "regex": "\\bmetamorphic_relation\\w*\\b"},
-  {"id": "ident_mt_snake",       "label": "metamorphic_test (snake_case)",       "category": "specific_technique", "regex": "\\bmetamorphic_test\\w*\\b"},
+  {"id": "class_mt",             "label": "identifier MetamorphicTest*",              "category": "specific_technique", "regex": "MetamorphicTest\\w*"},
+  {"id": "class_mr",             "label": "identifier MetamorphicRelation*",          "category": "specific_technique", "regex": "MetamorphicRelation\\w*"},
+  {"id": "class_mother",         "label": "identifier MetamorphicProperty/Oracle/Group*", "category": "specific_technique", "regex": "Metamorphic(?:Propert|Oracle|Group)\\w*"},
+  {"id": "decorator_mt",         "label": "@metamorphic decorator",                   "category": "specific_technique", "regex": "@metamorphic(?![A-Za-z0-9_])"},
 
-  {"id": "string_mt",            "label": "string literal: metamorphic test",    "category": "specific_technique", "regex": "\"[Mm]etamorphic\\s+[Tt]est(?:ing|s)?\""},
-  {"id": "string_mr",            "label": "string literal: metamorphic relation","category": "specific_technique", "regex": "\"[Mm]etamorphic\\s+[Rr]elation(?:s|ship|ships)?\""},
+  {"id": "ident_mr_snake",       "label": "metamorphic_relation* (snake_case)",       "category": "specific_technique", "regex": "metamorphic_relation\\w*",                        "flags": "IGNORECASE"},
+  {"id": "ident_mt_snake",       "label": "metamorphic_test* (snake_case)",           "category": "specific_technique", "regex": "metamorphic_test\\w*",                            "flags": "IGNORECASE"},
+  {"id": "ident_mother_snake",   "label": "metamorphic_property/oracle/group* (snake_case)", "category": "specific_technique", "regex": "metamorphic_(?:propert|oracle|group)\\w*", "flags": "IGNORECASE"},
 
-  {"id": "comment_mt",           "label": "comment: metamorphic test",           "category": "specific_technique", "regex": "(?:#|//).*\\bmetamorphic\\s+test(?:ing|s)?\\b",               "flags": "IGNORECASE"},
-  {"id": "comment_mr",           "label": "comment: metamorphic relation",       "category": "specific_technique", "regex": "(?:#|//).*\\bmetamorphic\\s+relation(?:s|ship|ships)?\\b",    "flags": "IGNORECASE"}
+  {"id": "string_mt",            "label": "string literal: metamorphic test",         "category": "specific_technique", "regex": "\"[Mm]etamorphic[\\s-]+[Tt]est(?:ing|s|ers?)?\"",                   "subset_of": "phrase_mt"},
+  {"id": "string_mr",            "label": "string literal: metamorphic relation",     "category": "specific_technique", "regex": "\"[Mm]etamorphic[\\s-]+[Rr]elation(?:s|ship|ships)?\"",        "subset_of": "phrase_mr"},
+
+  {"id": "comment_mt",           "label": "comment: metamorphic test",                "category": "specific_technique", "regex": "(?:#|//).*(?<![A-Za-z0-9])metamorphic[\\s-]+test(?:ing|s|ers?)?(?![A-Za-z0-9])",            "flags": "IGNORECASE", "subset_of": "phrase_mt"},
+  {"id": "comment_mr",           "label": "comment: metamorphic relation",            "category": "specific_technique", "regex": "(?:#|//).*(?<![A-Za-z0-9])metamorphic[\\s-]+relation(?:s|ship|ships)?(?![A-Za-z0-9])", "flags": "IGNORECASE", "subset_of": "phrase_mr"}
 ]

@@ -16,7 +16,7 @@ from typing import Any
 
 import requests
 
-from config import (
+from core_helpers.config import (
     GITHUB_TOKEN, GITHUB_API_BASE, GITHUB_GRAPHQL_URL,
     RATE_LIMIT_PAUSE, CODE_SEARCH_PAUSE, GRAPHQL_PAUSE,
     RETRY_ATTEMPTS, RETRY_BACKOFF_BASE, RETRY_BACKOFF_JITTER,
@@ -305,7 +305,8 @@ def load_analysis_keywords(slug: str) -> list[dict]:
         raise FileNotFoundError(f"Analysis keyword file not found: {tech_path}")
     technique = json.loads(tech_path.read_text(encoding="utf-8"))
 
-    return shared + technique
+    # Entries without an "id" are documentation notes (e.g. {"_note": ...}).
+    return [k for k in shared + technique if k.get("id")]
 
 
 def compile_analysis_keywords(keywords: list[dict]) -> list[dict]:

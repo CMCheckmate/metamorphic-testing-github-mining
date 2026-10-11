@@ -3,8 +3,8 @@ Generate realistic dummy data for all search and analysis result files.
 Used for development and testing without a live GitHub token.
 
 Usage:
-  python generate_example_data.py --technique mt
-  python generate_example_data.py --technique all
+  python -m full_analysis.generate_example_data --technique mt
+  python -m full_analysis.generate_example_data --technique all
 """
 
 from __future__ import annotations
@@ -15,11 +15,11 @@ import string
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
-import config as cfg
-import utils as _utils
-from utils import resolve_technique, save_json, load_analysis_keywords
+from core_helpers import config as cfg
+from core_helpers import utils as _utils
+from core_helpers.utils import resolve_technique, save_json, load_analysis_keywords
 
-EXAMPLE_RESULTS_DIR = Path(__file__).parent / "example_results"
+EXAMPLE_RESULTS_DIR = Path(__file__).resolve().parent.parent / "example_results"
 
 
 def _example_dirs(slug: str) -> dict[str, Path]:
@@ -453,7 +453,7 @@ def generate(slug: str) -> None:
     print(f"  Search, code, and non-code data written.")
 
     # Overall aggregation via the canonical aggregator
-    from analysis import _aggregate_overall
+    from full_analysis.analysis import _aggregate_overall
     _aggregate_overall(slug, dirs)
     print(f"  overall.json written.")
 
@@ -462,7 +462,7 @@ def generate(slug: str) -> None:
     _orig_results_dir = _utils.RESULTS_DIR
     _utils.RESULTS_DIR = EXAMPLE_RESULTS_DIR
     try:
-        import report
+        from full_analysis import report
         report.run(slug)
     finally:
         _utils.RESULTS_DIR = _orig_results_dir
@@ -472,7 +472,7 @@ def generate(slug: str) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Generate example pipeline data.")
-    parser.add_argument("--technique", default="mt",
+    parser.add_argument("--technique", "-t", default="mt",
                         help="mt, fuzz, pbt, or 'all' (default: mt)")
     args = parser.parse_args()
 
@@ -480,7 +480,7 @@ def main() -> None:
         for slug in ["metamorphic_testing", "fuzz_testing", "property_based_testing"]:
             generate(slug)
     else:
-        from utils import resolve_technique
+        from core_helpers.utils import resolve_technique
         slug = resolve_technique(args.technique)
         generate(slug)
 

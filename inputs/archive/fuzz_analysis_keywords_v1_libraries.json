@@ -1,0 +1,46 @@
+[
+  {"id": "phrase_fuzz",           "label": "fuzz test(ing)",             "category": "specific_technique", "regex": "\\bfuzz\\s+test(?:ing|s)?\\b",                "flags": "IGNORECASE"},
+  {"id": "phrase_fuzzing",        "label": "fuzzing (word)",             "category": "specific_technique", "regex": "\\bfuzzing\\b",                               "flags": "IGNORECASE"},
+  {"id": "phrase_coverage_guided","label": "coverage-guided fuzzing",   "category": "specific_technique", "regex": "\\bcoverage[- ]guided\\s+fuzzing\\b",          "flags": "IGNORECASE"},
+  {"id": "phrase_greybox",        "label": "greybox/grey-box fuzzing",  "category": "specific_technique", "regex": "\\bgrey[- ]?box\\s+fuzzing\\b",               "flags": "IGNORECASE"},
+  {"id": "phrase_blackbox",       "label": "blackbox fuzzing",           "category": "specific_technique", "regex": "\\bblack[- ]?box\\s+fuzzing\\b",              "flags": "IGNORECASE"},
+  {"id": "phrase_grammar_fuzz",   "label": "grammar-based fuzzing",     "category": "specific_technique", "regex": "\\bgrammar[- ]based\\s+fuzzing\\b",            "flags": "IGNORECASE"},
+  {"id": "phrase_struct_fuzz",    "label": "structure-aware fuzzing",   "category": "specific_technique", "regex": "\\bstructure[- ]aware\\s+fuzzing\\b",          "flags": "IGNORECASE"},
+  {"id": "phrase_fuzz_target",    "label": "fuzz target",               "category": "specific_technique", "regex": "\\bfuzz\\s+target\\b",                         "flags": "IGNORECASE"},
+  {"id": "phrase_fuzz_harness",   "label": "fuzz harness",              "category": "specific_technique", "regex": "\\bfuzz\\s+harness\\b",                        "flags": "IGNORECASE"},
+  {"id": "phrase_fuzz_corpus",    "label": "fuzz corpus",               "category": "specific_technique", "regex": "\\bfuzz\\s+corpus\\b",                         "flags": "IGNORECASE"},
+
+  {"id": "libfuzzer_entry",       "label": "LLVMFuzzerTestOneInput",    "category": "specific_technique", "regex": "LLVMFuzzerTestOneInput"},
+  {"id": "libfuzzer_init",        "label": "LLVMFuzzerInitialize",      "category": "specific_technique", "regex": "LLVMFuzzerInitialize"},
+  {"id": "libfuzzer_fdp",         "label": "FuzzedDataProvider",        "category": "specific_technique", "regex": "FuzzedDataProvider"},
+  {"id": "libfuzzer_build_mode",  "label": "FUZZING_BUILD_MODE_*",      "category": "specific_technique", "regex": "FUZZING_BUILD_MODE_UNSAFE_FOR_PRODUCTION"},
+  {"id": "libfuzzer_sanitize",    "label": "-fsanitize=fuzzer",         "category": "specific_technique", "regex": "-fsanitize=fuzzer"},
+
+  {"id": "afl_init",              "label": "__AFL_FUZZ_INIT",           "category": "specific_technique", "regex": "__AFL_FUZZ_INIT"},
+  {"id": "afl_loop",              "label": "__AFL_LOOP",                "category": "specific_technique", "regex": "__AFL_LOOP"},
+  {"id": "afl_buf",               "label": "__AFL_FUZZ_TESTCASE_BUF",   "category": "specific_technique", "regex": "__AFL_FUZZ_TESTCASE_BUF"},
+  {"id": "afl_fuzz_cmd",          "label": "afl-fuzz command",          "category": "specific_technique", "regex": "\\bafl-fuzz\\b"},
+  {"id": "afl_clang",             "label": "afl-clang-fast",            "category": "specific_technique", "regex": "\\bafl-clang-fast\\b"},
+
+  {"id": "honggfuzz_iter",        "label": "HF_ITER (honggfuzz)",       "category": "specific_technique", "regex": "\\bHF_ITER\\b"},
+  {"id": "honggfuzz_name",        "label": "honggfuzz",                 "category": "specific_technique", "regex": "\\bhonggfuzz\\b",                              "flags": "IGNORECASE"},
+
+  {"id": "libfuzzer_sys",         "label": "libfuzzer-sys (Rust)",      "category": "specific_technique", "regex": "libfuzzer-sys"},
+  {"id": "cargo_fuzz",            "label": "cargo-fuzz",                "category": "specific_technique", "regex": "cargo-fuzz"},
+
+  {"id": "go_fuzz_fn",            "label": "func Fuzz* (Go testing.F)", "category": "specific_technique", "regex": "func\\s+Fuzz[A-Z]\\w*\\s*\\(.*\\*testing\\.F\\)"},
+  {"id": "go_fuzz_build",         "label": "go-fuzz-build",             "category": "specific_technique", "regex": "go-fuzz-build"},
+
+  {"id": "jazzer_entry",          "label": "fuzzerTestOneInput (Jazzer)","category": "specific_technique", "regex": "fuzzerTestOneInput"},
+  {"id": "jazzer_import",         "label": "com.code_intelligence.jazzer","category": "specific_technique","regex": "com\\.code_intelligence\\.jazzer"},
+  {"id": "jazzer_sec_medium",     "label": "FuzzerSecurityIssueMedium", "category": "specific_technique", "regex": "FuzzerSecurityIssueMedium"},
+  {"id": "jazzer_sec_critical",   "label": "FuzzerSecurityIssueCritical","category": "specific_technique","regex": "FuzzerSecurityIssueCritical"},
+
+  {"id": "atheris_import",        "label": "import atheris (Python)",   "category": "specific_technique", "regex": "import\\s+atheris"},
+  {"id": "boofuzz_import",        "label": "import boofuzz",            "category": "specific_technique", "regex": "import\\s+boofuzz|from\\s+boofuzz"},
+  {"id": "ossfuzz_ref",           "label": "OSS-Fuzz reference",        "category": "specific_technique", "regex": "OSS-Fuzz",                                     "flags": "IGNORECASE"},
+  {"id": "syzkaller_ref",         "label": "syzkaller",                 "category": "specific_technique", "regex": "\\bsyzkaller\\b",                              "flags": "IGNORECASE"},
+
+  {"id": "comment_fuzz",          "label": "comment: fuzz/fuzzing",     "category": "specific_technique", "regex": "(?:#|//).*\\bfuzz(?:ing)?\\b",                 "flags": "IGNORECASE"},
+  {"id": "abbrev_fuzz",           "label": "FUZZ identifier",           "category": "specific_technique", "regex": "\\bFUZZ(?:ER|ING|_TARGET)?\\b"}
+]

@@ -3,12 +3,12 @@ services:
     build: .
     env_file:
       - path: .env
-        required: false          # allows running without .env (e.g. GITHUB_TOKEN in shell)
+        required: false          # allows running without .env (e.g. GITHUB_TOKEN in the shell)
     environment:
-      - GITHUB_TOKEN             # also picked up from host shell if set there
+      - GITHUB_TOKEN             # also picked up from the host shell if set there
     volumes:
-      - ./results:/app/results   # persist search/analysis/report output
-      - ./inputs:/app/inputs:ro  # keyword files — read-only inside container
+      - ./results:/app/results   # all data and reports persist on the host
+      - ./inputs:/app/inputs:ro  # keyword files — read-only inside the container
     cap_drop:
       - ALL
     security_opt:
@@ -18,6 +18,9 @@ services:
         limits:
           memory: 8g
           cpus: "4"
-    # Override the command at runtime:
-    #   docker compose run --rm pipeline --technique mt
-    #   docker compose run --rm pipeline --technique mt --phase analysis --workers 4
+    # Usage (any script, same arguments as without Docker):
+    #   docker compose run --rm pipeline search.py -t mt
+    #   docker compose run --rm pipeline code_specialised_analysis.py -t mt
+    #   docker compose run --rm pipeline non_code_specialised_analysis.py -t mt --metadata --readmes
+    #   docker compose run --rm --network none pipeline specialised_report.py -t mt
+    #   docker compose run --rm pipeline -m full_analysis -t mt --phase analysis

@@ -20,8 +20,8 @@ from pathlib import Path
 
 from tqdm import tqdm
 
-import config as cfg
-from utils import (
+from core_helpers import config as cfg
+from core_helpers.utils import (
     technique_dirs, ensure_dirs,
     setup_logging, load_json, save_json,
     load_analysis_keywords, compile_analysis_keywords,
@@ -88,7 +88,7 @@ def _build_technique_stopwords(slug: str) -> frozenset[str]:
     are suppressed in the word cloud. We already know the technique is present.
     e.g. '"metamorphic testing"' -> {"metamorphic", "testing"}
     """
-    from utils import load_search_keywords
+    from core_helpers.utils import load_search_keywords
     words: set[str] = set()
     for kw in load_search_keywords(slug):
         clean = kw.strip('"').strip("'").lower()
@@ -258,5 +258,5 @@ def run(slug: str, restart: bool = False, no_size_stats: bool = False) -> None:
     logger.info(f"Non-code analysis done: {len(results)} items")
 
     if not no_size_stats:
-        from analysis import fetch_cloned_repo_metadata
+        from full_analysis.analysis import fetch_cloned_repo_metadata
         fetch_cloned_repo_metadata(slug, cfg.GITHUB_TOKEN, logger)

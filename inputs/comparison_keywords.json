@@ -1,0 +1,23 @@
+{
+  "_note": "Search keywords whose results are excluded from the reported population. Items/repositories found ONLY by these keywords are excluded from S1/S2 counts, the code-analysis population and every downstream section. MT: '@metamorphic' is excluded because GitHub ignores punctuation, so it searches the bare word 'metamorphic' (6,764 of 6,771 non-code items found only by it contain no technique phrase). PBT / fuzz (team decision 2026-10-11): only explicit technique phrases are kept; every tool, library and API keyword is excluded. 'fuzzing' is kept (results found only by it are mostly about fuzz testing). See OTHER_TECHNIQUES_PLAN.md.",
+  "metamorphic_testing": {
+    "exclude_search_keywords": ["\"@metamorphic\""]
+  },
+  "property_based_testing": {
+    "exclude_reason": "tool / library / API keywords (explicit phrases only)",
+    "exclude_search_keywords": ["\"import hypothesis\"", "\"import org.scalacheck\"", "\"open FsCheck\"", "\"using FsCheck\"",
+                                "\"import net.jqwik\"", "\"use proptest\"", "\"leanovate/gopter\"", "\"fast-check\"", "\"PropEr\""],
+    "not_run_search_keywords": ["\"property-based test\"", "\"property based testing\""],
+    "not_run_note": "These two phrase keywords never ran (connection errors during the search) and the search was not repeated. Non-CODE surfaces are unaffected: GitHub ignores the hyphen, so the variants that ran return the same items. On the CODE surface the hyphen/space variants return different counts, so the CODE population is slightly undercounted."
+  },
+  "fuzz_testing": {
+    "exclude_reason": "tool / library / API keywords (explicit phrases only)",
+    "exclude_search_keywords": ["\"libfuzzer\"", "\"cargo-fuzz\"", "\"honggfuzz\"", "\"boofuzz\"", "\"OSS-Fuzz\"", "\"syzkaller\"",
+                                "\"ClusterFuzz\"", "\"atheris\"", "\"LLVMFuzzerTestOneInput\"", "\"LLVMFuzzerInitialize\"",
+                                "\"FuzzedDataProvider\"", "\"FUZZING_BUILD_MODE_UNSAFE_FOR_PRODUCTION\"", "\"-fsanitize=fuzzer\"",
+                                "\"__AFL_FUZZ_INIT\"", "\"__AFL_LOOP\"", "\"__AFL_FUZZ_TESTCASE_BUF\"", "\"afl-fuzz\"",
+                                "\"afl-clang-fast\"", "\"libfuzzer-sys\"", "\"fuzzerTestOneInput\"", "\"com.code_intelligence.jazzer\"",
+                                "\"FuzzerSecurityIssueMedium\"", "\"FuzzerSecurityIssueCritical\"", "\"testing.F\"",
+                                "\"go-fuzz-build\"", "\"HF_ITER\""]
+  }
+}

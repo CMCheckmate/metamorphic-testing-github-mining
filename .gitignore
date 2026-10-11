@@ -38,3 +38,11 @@ Thumbs.db
 # Logs
 *.log
 logs/
+specialised_package_*.zip
+
+# Archived / local-only
+old/
+*.zip
+
+# Development notes (change logs, plans) — kept locally, not committed
+dev_notes/
