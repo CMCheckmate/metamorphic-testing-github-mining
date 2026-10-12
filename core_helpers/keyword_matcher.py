@@ -28,11 +28,27 @@ PREFILTER = {
 }
 
 
+_COMMENT_PREFIX = "(?:#|//).*"
+_COMMENT_MARK = re.compile(r"#|//")
+
+
+def _comment_search(tail: re.Pattern, line: str) -> bool:
+    """Same result as re.search('(?:#|//).*' + tail, line), in linear time: the pattern matches
+    iff `tail` matches somewhere after the first comment marker. The regex form backtracks from
+    every '#' / '//' and is quadratic on long lines (minified JS / data files with many URLs
+    took hours and froze the scan)."""
+    m = _COMMENT_MARK.search(line)
+    return bool(m and tail.search(line, m.end()))
+
+
 class TechniqueMatcher:
     def __init__(self, slug: str) -> None:
         kws = [k for k in compile_analysis_keywords(load_analysis_keywords(slug))
                if k["category"] == "specific_technique"]
         flags_of = lambda k: re.IGNORECASE if "IGNORECASE" in k.get("flags", "") else 0
+        for k in kws:                                  # "comment: …" keywords → linear-time check
+            if k["regex"].startswith(_COMMENT_PREFIX):
+                k["_comment_tail"] = re.compile(k["regex"][len(_COMMENT_PREFIX):], flags_of(k))
         self.keywords = kws
         self.labels   = {k["id"]: k.get("label", k["id"]) for k in kws}
         self.subset   = {k["id"]: k["subset_of"] for k in kws if k.get("subset_of")}
@@ -57,7 +73,8 @@ class TechniqueMatcher:
             if self.prefilter and not any(t in line.lower() for t in self.prefilter):
                 continue
             for kw in self.keywords:
-                if kw["compiled"].search(line):
+                tail = kw.get("_comment_tail")
+                if (_comment_search(tail, line) if tail is not None else kw["compiled"].search(line)):
                     hits[kw["id"]] = hits.get(kw["id"], 0) + 1
                     hit_lines.add(i)
             for kid, first, second in self.split:

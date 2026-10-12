@@ -188,9 +188,38 @@ def assign_shards(pop: dict, weights: list[float], big_kb: float) -> list[list[d
 # Git helpers
 # ---------------------------------------------------------------------------
 
+# A stalled download (no data for LOW_SPEED_TIME seconds) makes git fail instead of waiting
+# forever — git has no network timeout of its own.
+LOW_SPEED_LIMIT, LOW_SPEED_TIME = 1000, 120          # bytes/s, seconds
+
+
+def _kill_tree(proc: subprocess.Popen) -> None:
+    """Kill git and every child it started (git-remote-https, index-pack). On Windows,
+    Popen.kill() only ends the top process; the children keep the output pipes open."""
+    if sys.platform == "win32":
+        subprocess.run(["taskkill", "/F", "/T", "/PID", str(proc.pid)], capture_output=True)
+    else:
+        proc.kill()
+
+
 def _git(args: list[str], cwd=None, timeout: int = 600, input_: bytes | None = None) -> subprocess.CompletedProcess:
-    return subprocess.run(["git", "-c", "core.longpaths=true", "-c", "core.quotepath=false", *args],
-                          cwd=cwd, capture_output=True, timeout=timeout, env=GIT_ENV, input=input_)
+    """Run git with a hard timeout that cannot hang: on timeout the whole process tree is
+    killed and the pipes are abandoned after 30 s (subprocess.run would wait on them forever
+    on Windows when a child process survives — the cause of scans freezing mid-run)."""
+    cmd = ["git", "-c", "core.longpaths=true", "-c", "core.quotepath=false",
+           "-c", f"http.lowSpeedLimit={LOW_SPEED_LIMIT}", "-c", f"http.lowSpeedTime={LOW_SPEED_TIME}", *args]
+    proc = subprocess.Popen(cmd, cwd=cwd, env=GIT_ENV, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                            stdin=subprocess.PIPE if input_ is not None else subprocess.DEVNULL)
+    try:
+        out, err = proc.communicate(input=input_, timeout=timeout)
+    except subprocess.TimeoutExpired:
+        _kill_tree(proc)
+        try:
+            proc.communicate(timeout=30)
+        except subprocess.TimeoutExpired:
+            pass                                       # a child still holds the pipes: give up on them
+        raise subprocess.TimeoutExpired(cmd, timeout)
+    return subprocess.CompletedProcess(cmd, proc.returncode, out, err)
 
 
 def _rmtree(p: Path) -> None:
@@ -516,7 +545,10 @@ def _quickedit(off: bool) -> None:
 def _retryable(rec: dict) -> bool:
     """Timeouts (usually caused by the PC sleeping, or a transient network stall) are retried;
     'repository not found / disabled' and similar permanent failures are not."""
-    return rec.get("status") != "ok" and "imeout" in (rec.get("error") or "")
+    err = (rec.get("error") or "").lower()
+    transient = ("imeout", "too slow", "rpc failed", "early eof", "unexpected disconnect", "connection reset",
+                 "could not resolve host", "failed to connect", "remote end hung up", "ssl", "index-pack failed")
+    return rec.get("status") != "ok" and any(t in err for t in transient)
 
 
 def _out_path(dirs: dict, shard: int, n: int) -> Path:
@@ -581,6 +613,10 @@ def run(args) -> None:
               f"{len(pop['excluded'])} excluded — found only by {', '.join(pop['exclude_keywords']) or '—'})")
     print(f"Shard {k}/{n} (weights {args.weights or 'equal'}): {len(jobs):,} repos "
           f"(phase 1: {ph[1]:,}, phase 2: {ph[2]:,}); already done: {len(jobs) - len(todo):,}; to do: {len(todo):,}")
+    n_ok = sum(1 for j in jobs if done.get(j["name"], {}).get("status") == "ok")
+    if len(jobs) - len(todo) > n_ok:
+        print(f"  of which scanned: {n_ok:,}; permanently failed (deleted / private / disabled, not retried): "
+              f"{len(jobs) - len(todo) - n_ok:,} -- use --retry-failed to try them anyway")
     print(f"Output: {out}")
     if args.status:
         st = Counter(done[j["name"]].get("status") for j in jobs if j["name"] in done)
@@ -626,8 +662,11 @@ def run(args) -> None:
                 pass_failed = 0
                 with ThreadPoolExecutor(max_workers=args.workers) as pool:
                     futs = {pool.submit(work, j): j for j in batch}
-                    bar  = tqdm(as_completed(futs), total=len(futs), unit="repo",
-                                desc=f"shard {k}/{n}" + (" (retry)" if attempt else ""))
+                    # ASCII bar sized to the window, redrawn at most once a second: Unicode block
+                    # characters or a bar wider than the console make Windows consoles print a new
+                    # line on every update instead of redrawing in place.
+                    bar  = tqdm(as_completed(futs), total=len(futs), unit="repo", ascii=True, dynamic_ncols=True,
+                                mininterval=1.0, desc=f"shard {k}/{n}" + (" (retry)" if attempt else ""))
                     for fut in bar:
                         rec = fut.result()
                         job = futs[fut]

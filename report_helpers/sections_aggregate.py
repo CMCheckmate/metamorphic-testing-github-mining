@@ -639,6 +639,7 @@ def excluded_results(items: dict, fl, all_summaries: list[dict], status: dict,
             reason, detail = "not scanned yet", ""
         else:
             reason, detail = "not scanned", ""
+        detail = " ".join(str(detail).split()).replace("|", "/")      # one line: git errors are multi-line
         code_rows.append({"repo": rn, "reason": reason, "detail": detail})
 
     nc_rows, dropped = [], {}

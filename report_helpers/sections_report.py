@@ -231,8 +231,8 @@ def _a2(ctx: Ctx, out: list[str]) -> None:
         ctx.note("A2", "info", f"{st['excluded']} CODE repos found only by {', '.join(st.get('excluded_keywords', []))} "
                  "are not part of the search results (bare-word search).")
     if st.get("specialised_failed"):
-        ctx.note("A2", "action", f"{st['specialised_failed']:,} repos timed out in the scan and are excluded. Re-run each "
-                 "shard's command once more (timed-out repos are retried), then --merge and specialised_report.py.")
+        ctx.note("A2", "action", f"{st['specialised_failed']:,} repos failed to clone (connection stalled or timed out) and are excluded. Re-run "
+                 "the shard's command to retry them, then --merge and specialised_report.py.")
 
 def _bucket_table(ctx: Ctx, out: list[str], d: dict, labels: list[tuple[str, str]], title: str, plot: str,
                   color: str, of_what: str) -> None:
@@ -537,7 +537,7 @@ def _sources_table(ctx: Ctx) -> str:
             ["Current population", _fmt(st.get("population"))],
             ["Analysed on the current snapshot (code_specialised_analysis.py)", _fmt(st.get("specialised_ok"))],
             ["Included (current snapshot has a technique hit)", _fmt(ctx.sec["a2"]["usage"] + ctx.sec["a2"]["non_usage"])],
-            ["Scan timed out (retry by re-running the shard)", _fmt(st.get("specialised_failed"))],
+            ["Clone failed: stalled or timed out (retry by re-running the shard)", _fmt(st.get("specialised_failed"))],
             ["Not analysed", _fmt(st.get("not_analysed"))]]
     if st.get("legacy_fallback"):
         rows.append(["Legacy search-time records used (use_legacy=True)", _fmt(st.get("legacy_fallback"))])

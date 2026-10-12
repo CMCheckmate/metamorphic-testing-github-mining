@@ -53,8 +53,12 @@ Replace `pbt` with `fuzz` for fuzz testing.
 | 3 | `python code_specialised_analysis.py -t pbt`, then `--merge "results/property_based_testing/specialised/*.jsonl"` | Clone and scan the CODE sample (~1,150 repositories) | ~1–2 h |
 | 4 | `python non_code_specialised_analysis.py -t pbt --metadata --readmes --lang-baseline` | Sample metadata and READMEs (A5–A7), language counts | ~40 min (API) |
 | 4b | PBT: `python non_code_specialised_analysis.py -t pbt --commit-sampling adoption --exhaustive` | Recounts the commit-search ranges that hit GitHub's 1,000-result cap: exact per-year first-commit counts and agent shares | ~30 min (API) |
-| 4b | fuzz: `--commit-sampling agent`, then `--commit-sampling adoption --years 2024 2025 2026 --target 0.2` | Same, estimated by random time-window sampling with 95% confidence intervals. `--commit-sampling estimate` prints time projections per option. | ~15 min + ~2 h (API) |
+| 4b | fuzz: `--commit-sampling agent`, then `--commit-sampling adoption --years 2024 2025 2026 --target 0.2` | Same, estimated by random time-window sampling with 95% confidence intervals. `--commit-sampling estimate` prints time projections per option. | ~15 min + 10–15 h (API; each 2026 window needs ~36 requests for repo checks) |
 | 5 | `python specialised_report.py -t pbt` | Aggregate and render the report | local, seconds |
+
+### Shared write-up data
+
+`python writing_data/make_writing_data.py` builds `writing_data/shared_data.tex` and `writing_data/figures/` (tables and plots for the final paper) from the three techniques' report data. Run it after `specialised_report.py` for all techniques; compile the `.tex` with pdfLaTeX (e.g. on Overleaf, uploading the `figures/` folder).
 
 ### Splitting the scan across several PCs
 
@@ -137,6 +141,7 @@ full_analysis/     the original clone-everything pipeline (python -m full_analys
                    parts are imported by the specialised pipeline (file-type rules, helpers)
 inputs/            search keywords, technique regexes, domain taxonomy, excluded keywords
                    (archive/: earlier PBT/fuzz library-based regexes)
+writing_data/      shared_data.tex + figures/ for the paper (make_writing_data.py)
 example_results/   dummy data for the full analysis report (python -m full_analysis.generate_example_data)
 results/           all data and reports (git-ignored)
 ```

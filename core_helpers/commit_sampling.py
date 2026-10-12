@@ -287,8 +287,16 @@ def check_repo(store: Store, repo: str, before: datetime, matcher, logger) -> di
     while not found:
         try:
             data = store.get({"q": q, "per_page": 100, "page": page}, logger)
-        except Exception as exc:                            # e.g. 422 for a deleted repository
-            return {"repo": repo, "before": _iso(before), "error": str(exc)[:200], "requests": store.requests - r0}
+        except Exception as exc:                            # e.g. 422 for a deleted / renamed repository
+            rec = {"repo": repo, "before": _iso(before), "error": str(exc)[:200], "requests": store.requests - r0}
+            status = getattr(getattr(exc, "response", None), "status_code", None)
+            if status in (404, 422):
+                # Permanent: record it so it is not re-asked every round (that kept the year
+                # "not enough data" forever). Unverifiable → not counted as a first commit.
+                rec["earlier"] = None
+                store.append("checks.jsonl", rec)
+                logger.info(f"check {repo}: HTTP {status}, treated as not verifiable")
+            return rec
         total = data.get("total_count", 0)
         items = data.get("items", [])
         found = any(matcher.total(matcher.scan_text(strip_agent_lines((it.get("commit") or {}).get("message") or "")[0])[0]) > 0
@@ -461,7 +469,7 @@ def compute_estimates(slug: str) -> dict:
         if _strata_complete_before(strata, done, a):
             return True
         c = checks.get(_check_key(repo, a))
-        return None if c is None else not c["earlier"]
+        return None if c is None else c["earlier"] is False
 
     cands = candidates_by_year(strata, done, existing, years)
     ex_first = existing_first(strata, done, existing)
@@ -474,7 +482,7 @@ def compute_estimates(slug: str) -> dict:
         checked = [(r, t) for r, t in cy if _check_key(r, t) in checks]
         if cy and not checked:
             continue
-        k = sum(not checks[_check_key(r, t)]["earlier"] for r, t in checked)
+        k = sum(checks[_check_key(r, t)]["earlier"] is False for r, t in checked)
         n, N = len(checked), len(cy)
         p1 = k / n if n else 0.0
         est1 = certain + N * p1
@@ -507,16 +515,17 @@ def compute_estimates(slug: str) -> dict:
 # Runner
 # ---------------------------------------------------------------------------
 
+def _year_met(est: dict, mode: str, y: int, target: float) -> bool:
+    e = est[mode].get(y)
+    if e is None:
+        return False
+    if mode == "agent":
+        return e["ci"] <= target
+    return not e["estimate"] or e["ci"] / e["estimate"] <= target
+
+
 def _targets_met(est: dict, mode: str, years: list[int], target: float) -> bool:
-    for y in years:
-        e = est[mode].get(y)
-        if e is None:
-            return False
-        if mode == "agent" and e["ci"] > target:
-            return False
-        if mode == "adoption" and e["estimate"] and e["ci"] / e["estimate"] > target:
-            return False
-    return True
+    return all(_year_met(est, mode, y, target) for y in years)
 
 
 def run(mode: str, slug: str, years: list[int] | None, target: float, exhaustive: bool, max_hours: float,
@@ -537,15 +546,20 @@ def run(mode: str, slug: str, years: list[int] | None, target: float, exhaustive
     print(f"{slug} {mode}: years {years}, {len(scope)} capped ranges, {sum(s['n_windows'] for s in scope):,} windows; "
           f"already sampled {sum(len(done.get(s['id'], {})) for s in scope):,}; budget "
           f"{'none' if budget >= 10 ** 9 else f'{budget:,} requests (~{max_hours} h)'}")
-    frac = 1.0 if exhaustive else max(start_frac, max((len(done.get(s["id"], {})) / s["n_windows"] for s in scope), default=0))
+    # Sampling fraction per year: a year that already meets the target is not sampled further
+    # (growing every year together wasted hours re-sampling years that were already precise).
+    frac = {y: 1.0 if exhaustive else max(start_frac, max((len(done.get(s["id"], {})) / s["n_windows"]
+                                                           for s in scope if s["year"] == y), default=0))
+            for y in years}
     existing = existing_outside(store, strata)
     t0 = time.time()
     while True:
-        tgt = {s["id"]: min(s["n_windows"], max(2, math.ceil(frac * s["n_windows"]))) for s in scope}
+        tgt = {s["id"]: min(s["n_windows"], max(2, math.ceil(frac[s["year"]] * s["n_windows"]))) for s in scope}
         ok = sample_windows(store, scope, tgt, done, matcher, logger, budget)
         if ok and mode == "adoption":
             checks = {_check_key(c["repo"], _utc(c["before"])): c for c in store.read_jsonl("checks.jsonl") if "earlier" in c}
-            cand_frac = 1.0 if frac >= 1.0 else min(1.0, max(0.05, frac * 4))
+            top = max(frac.values())
+            cand_frac = 1.0 if top >= 1.0 else min(1.0, max(0.05, top * 4))
             for repo, a in needed_checks(strata, done, existing, checks, years, cand_frac):
                 if store.requests >= budget:
                     ok = False
@@ -553,13 +567,19 @@ def run(mode: str, slug: str, years: list[int] | None, target: float, exhaustive
                 check_repo(store, repo, a, matcher, logger)
         est = compute_estimates(slug)
         _print(est, mode, years, store.requests, time.time() - t0)
-        if _targets_met(est, mode, years, target) or frac >= 1.0:
-            print("Target precision reached." if frac < 1.0 else "All windows downloaded (exact).")
+        grow = [y for y in years if not _year_met(est, mode, y, target) and frac[y] < 1.0]
+        if not grow:
+            print("Target precision reached." if _targets_met(est, mode, years, target) else "All windows downloaded (exact).")
             break
         if not ok:
             print("Budget reached — rerun the same command to continue.")
             break
-        frac = min(1.0, frac * 1.6)
+        for y in grow:
+            # CI shrinks ~ 1/sqrt(windows): grow just enough to reach the target (+15% margin), at most x1.6.
+            e = est[mode].get(y)
+            rel = (e["ci"] / target if mode == "agent" else (e.get("rel_ci") or 0) / target) if e else 0
+            frac[y] = min(1.0, frac[y] * (min(1.6, max(1.15, 1.15 * rel * rel)) if rel else 1.6))
+        print(f"  next round samples more windows for: {', '.join(map(str, grow))}")
     print(f"Saved: {store.dir}. Next: python specialised_report.py -t {cfg.TECHNIQUE_INPUT_PREFIXES[slug]}")
 
 
@@ -629,7 +649,7 @@ def estimate_time(slug: str, pilot: int, target_agent: float, target_adopt: list
                     continue
                 c = checks.get(_check_key(r, a))
                 nchk += c is not None
-                k += c is not None and not c["earlier"]
+                k += c is not None and c["earlier"] is False
             adopt.append(k)
             chk.append(nchk)
         cpw = statistics.mean(chk) * req_check
