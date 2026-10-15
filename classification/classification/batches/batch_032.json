@@ -1,0 +1,1100 @@
+[
+  {
+    "repo": "Weavatrix/weavatrix-quality",
+    "url": "https://github.com/Weavatrix/weavatrix-quality",
+    "stars": 0,
+    "language": "Rust",
+    "created_at": "2026-08-18T20:22:38Z",
+    "technique_test_files": 2,
+    "technique_nontest_files": 2,
+    "code_files": 338,
+    "sample_technique_files": [
+      "crates/wvq-proof/src/lib.rs",
+      "crates/wvq-proof/src/metamorphic.rs",
+      "crates/wvq-proof/tests/advanced.rs",
+      "crates/wvq-spec/src/quality_yaml.rs",
+      "docs/CANONICAL-MASTER-SPEC.md"
+    ],
+    "description": "Revision-bound spec-to-proof quality platform with executable obligations and honest incomplete-evidence states.",
+    "topics": [
+      "ai-agents",
+      "evidence",
+      "software-quality",
+      "weavatrix"
+    ],
+    "readme": "# Weavatrix Quality (`wvq`) [![CI](https://github.com/Weavatrix/weavatrix-quality/actions/workflows/ci.yml/badge.svg)](https://github.com/Weavatrix/weavatrix-quality/actions/workflows/ci.yml) [![npm](https://img.shields.io/npm/v/@weavatrix/wvq/alpha.svg)](https://www.npmjs.com/package/@weavatrix/wvq) [![MCP](https://img.shields.io/badge/MCP-io.github.Weavatrix%2Fweavatrix--quality-blue)](https://registry.modelcontextprotocol.io/) [![MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) **Know what your change can break â€” and whether it is still protected.** Weavatrix Quality (WVQ",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "WeeDevvo/PitchMate",
+    "url": "https://github.com/WeeDevvo/PitchMate",
+    "stars": 0,
+    "language": "C#",
+    "created_at": "2026-06-15T17:11:08Z",
+    "technique_test_files": 2,
+    "technique_nontest_files": 0,
+    "code_files": 1351,
+    "sample_technique_files": [
+      "backend/tests/PitchMate.Domain.Tests/LiveTracking/RetractionPropertyTests.cs",
+      "backend/tests/PitchMate.Domain.Tests/LiveTracking/RunningScorePropertyTests.cs"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# PitchMate A football app for organising fair, casual small-sided matches between friends — squads, availability/RSVP, auto-balanced teams (OpenSkill), live tracking, and player stats. Domain: pitch-mate.co.uk. ## Monorepo layout ``` backend/ .NET 10 solution (Clean Architecture: Domain → Application → Infrastructure → Api) src/ Domain · Application · Infrastructure · Api tests/ Domain.Tests · Application.Tests · Infrastructure.Tests apps/ web/ React + TypeScript + Vite (building now) mobile/ React Native + Expo (placeholder) watch/ SwiftUI watchOS (placeholder) packages/ api-client/ Typed TS",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "WeftCut/WeftCut",
+    "url": "https://github.com/WeftCut/WeftCut",
+    "stars": 9,
+    "language": "TypeScript",
+    "created_at": "2026-05-22T13:57:08Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 1778,
+    "sample_technique_files": [
+      "apps/desktop/src/main/state/__tests__/pbt/metamorphic.test.ts"
+    ],
+    "description": "Free, open-source AI video editor for macOS, Windows and Linux — drive the whole timeline from Claude, Cursor, or any MCP client.",
+    "topics": [
+      "ai-agent",
+      "ai-video-editor",
+      "claude",
+      "cross-platform",
+      "desktop-app",
+      "electron",
+      "ffmpeg",
+      "llm",
+      "mcp",
+      "mcp-server",
+      "model-context-protocol",
+      "nle",
+      "non-linear-editor",
+      "pixijs",
+      "rust",
+      "typescript",
+      "video",
+      "video-editing",
+      "video-editor",
+      "webcodecs"
+    ],
+    "readme": "<p align=\"center\">\n  <img src=\"apps/desktop/src/renderer/public/icons/icon.svg\" alt=\"WeftCut\" width=\"128\" height=\"128\" />\n</p>\n\n<h1 align=\"center\">WeftCut</h1>\n\n<p align=\"center\">\n  <strong>The video editor your AI agent can drive like you do.</strong><br/>\n  Point Codex, Claude, or any MCP client at a real desktop NLE — and watch\n  every edit land on your timeline while it plays. Code renders as video, so\n  your agent can build editable clips.\n</p>\n\n> [!NOTE]\n> WeftCut is still under active development, so some features and UI/UX may change before v1.0.0. Join us to improve the project!\n\n<p align=\"center\">\n  <a href=\"https://github.com/WeftCut/WeftCut/releases/latest\"><img alt=\"Download the latest release\" src=\"https://img.shields.io/github/v/release/WeftCut/WeftCut?style=flat-square&label=Download&labelColor=475569&color=6696E6&logo=github&logoColor=white\" /></a>\n  <img alt=\"Runs on Windows, macOS and Linux\" src=\"https://img.shields.io/badge/Platform-Windows%20%7C%20macOS%20%7C%20Linux-5B7196?style=flat-square&labelColor=475569\" />\n  <a href=\"LICENSE\"><img alt=\"License\" src=\"https://img.shields.io/github/license/WeftCut/WeftCut?style=flat-square&label=License&labelColor=475569&color=5B7196\" /></a>\n  <a href=\"https://discord.gg/SjsFCpzDe\"><img alt=\"Join the WeftCut Discord community\" src=\"https://img.shields.io/badge/Discord-Join%20the%20community-5865F2?style=flat-square&labelColor=475569&logo=discord&logoColor=white\" /></a>\n  <a href=\"https://glama.ai/mcp/servers/WeftCut/WeftCut\"><img alt=\"Glama MCP server score\" src=\"https://glama.ai/mcp/servers/WeftCut/WeftCut/badges/score.svg\" /></a>\n</p>\n\n<p align=\"center\">\n  <a href=\"https://www.producthunt.com/products/weftcut?embed=true&amp;utm_source=badge-featured&amp;utm_medium=badge&amp;utm_campaign=badge-weftcut\" target=\"_blank\" rel=\"noopener noreferrer\"><img alt=\"WeftCut - The open-source video editor your AI agent can drive | Product Hunt\" width=\"250\" height=\"54\" src=\"https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1266067&amp;theme=neutral&amp;t=1791466936489\" /></a>\n</p>\n\n![An agent editing the timeline live over MCP](docs/assets/agent-edit.gif)\n\n<p align=\"center\"><em>An agent works over MCP while playback runs: restyling the\nlower third, trimming the B-roll, then undoing both — every edit lands in the UI\nin real time, every Agent action is recorded.</em></p>\n\nMost editors bolt AI on as a feature: a button that generates something, a sidebar that suggests a cut. WeftCut exposes the editor *itself* as a tool surface. A localhost MCP server publishes **all editing tools** — place, trim, split, restyle, keyframe, group, caption, mix, checkpoint — and whatever agent you already have open drives them. The intelligence lives outside the app: the installer bundles no model weights, and the local engines for speech and vision are an opt-in download when you want them.\n\nNone of that rides on a stripped-down editor. Everything an agent can reach, you can do by hand, in a full NLE:",
+    "readme_source": "full"
+  },
+  {
+    "repo": "WeiHanTu/inference-probe",
+    "url": "https://github.com/WeiHanTu/inference-probe",
+    "stars": 0,
+    "language": "Swift",
+    "created_at": "2026-08-02T08:04:59Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 21,
+    "sample_technique_files": [
+      "CLAUDE.md",
+      "Package.swift",
+      "README.md",
+      "docs/ROADMAP.md",
+      "docs/SPEC.md"
+    ],
+    "description": "Core ML inference validation on Apple silicon: differential testing across CPU/GPU/Neural Engine, tolerances derived from measurement, 15 recorded findings.",
+    "topics": [
+      "apple-silicon",
+      "core-ml",
+      "coremltools",
+      "differential-testing",
+      "ml-testing",
+      "neural-engine",
+      "swift-testing",
+      "test-automation"
+    ],
+    "readme": "# InferenceProbe\n\nInferenceProbe is a Core ML inference-validation harness for Apple silicon. It\ntests numerical agreement across CPU, GPU, and Neural Engine execution,\nprecision drift, robustness, and eventually performance regressions. It tests\nthe inference runtime rather than the model's research quality.\n\n## Current state\n\nM0–M3 are complete and M4 is substantially so: seven Python experiments,\n**fifteen recorded findings**, and **31 Swift tests across 7 suites** green under\nboth `swift test` and `xcodebuild`. Remaining: metamorphic relations, the\nlatency percentile harness, and the XCTest performance suite. See:\n\n- [`docs/ROADMAP.md`](docs/ROADMAP.md) for milestone status and build order.\n- [`docs/FINDINGS.md`](docs/FINDINGS.md) for measured results and judgements.\n- [`docs/SPEC.md`](docs/SPEC.md) for architecture and component contracts.\n- [`docs/TEST_STRATEGY.md`](docs/TEST_STRATEGY.md) for the oracle and tolerance\n  policy.\n\n## Python quick start\n\nThe primary conda environment is already installed on the development machine.\nActivate it and run the scripts from `python/` so the bare script names resolve.\nTheir default input and output paths are anchored to the repository itself, so\nthey read and write `Fixtures/models/` no matter where they are invoked from:\n\n```bash\ncd path/to/InferenceProbe/python\nconda activate inferenceprobe\n\npython --version\npython -c 'import torch, torchvision, coremltools; print(torch.__version__, torchvision.__version__, coremltools.__version__)'\n```\n\nExpected versions are Python 3.12.13, torch 2.13.0, torchvision 0.28.0, and\ncoremltools 9.0. If `conda activate` is unavailable in a fresh zsh terminal:\n\n```bash\nsource \"$(conda info --base)/etc/profile.d/conda.sh\"\nconda activate inferenceprobe\n```\n\ncoremltools prints a warning that torch 2.13.0 is newer than its tested pairing.\nThat warning is expected; finding F-010 separately verifies the experiment with\ntorch 2.7.0.\n\n`conda init zsh` makes initialization persistent for future terminals. Once the\nenvironment is active, the implemented experiments are:\n\n```bash\npython export_model.py               # export fp32 + fp16, drift vs PyTorch   (F-005, F-006)\npython compute_unit_differential.py  # noise floor + 4 compute units, n=200   (F-007, F-008)\npython repro_2625.py                 # fp16 drift across input distributions  (F-009, F-010)\npython localize.py                   # which op diverges, swept across atol   (F-012)\npython validate.py                   # NaN/Inf scan + malformed-input battery (F-013)\npython compute_plan.py               # per-op device assignment, ANE residency (F-014)\npython generate_goldens.py           # commit input tensors + PyTorch references\n```\n\n`generate_goldens.py` writes to `Fixtures/inputs/` and `Fixtures/goldens/`,\nwhich **are** tracked — unlike the models, they cannot be regenerated\nidentically in another language (F-015), so the bytes are the contract the\nSwift `ParityTests` read. Re-running it re-blesses; pass `--reason` to say ",
+    "readme_source": "full"
+  },
+  {
+    "repo": "weir-shell/weir",
+    "url": "https://github.com/weir-shell/weir",
+    "stars": 1,
+    "language": "F#",
+    "created_at": "2026-07-30T07:27:12Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 2,
+    "code_files": 76,
+    "sample_technique_files": [
+      "ci/deep-lock.sh",
+      "dev/NOTES.md",
+      "dev/plans/PLAN-fuzzer.md",
+      "docs/DECISIONS.md",
+      "docs/LEXICON.md"
+    ],
+    "description": "Typed shell scripting language",
+    "topics": [
+      "automation",
+      "devops",
+      "programming-language",
+      "shell-scripting",
+      "static-typing",
+      "typed"
+    ],
+    "readme": "# weir **weir is a typed shell-scripting language.** Commands, pipes and files, like bash — with a checker up front: the whole file is checked, every command included, and nothing runs until everything checks. Expressions are F#-shaped, commands are first-class in the same pipelines, and no string is ever passed to a shell. **[weir.sh](https://weir.sh)** · [Guide](https://weir.sh/docs/guide/) · [Reference](https://weir.sh/reference/) · [Tooling](https://weir.sh/docs/tooling/) ``` weir> ls |> Seq.sortByDescending _.bytes name kind bytes modified hidden path ───────── ───────── ──────── ────────",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "well-typed/falsify",
+    "url": "https://github.com/well-typed/falsify",
+    "stars": 51,
+    "language": "Haskell",
+    "created_at": "2023-01-23T09:04:38Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 65,
+    "sample_technique_files": [
+      "demo/demo/Demo/HowToSpecifyIt.hs"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# `falsify`—internal shrinking reimagined for Haskell",
+    "readme_source": "full"
+  },
+  {
+    "repo": "wengh/transit-time",
+    "url": "https://github.com/wengh/transit-time",
+    "stars": 5,
+    "language": "Rust",
+    "created_at": "2026-04-05T23:59:20Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 65,
+    "sample_technique_files": [
+      "README.md",
+      "transit-router/tests/router_properties.rs"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# Transit Isochrone Tool A browser-based tool that shows how far you can travel from any point on a map using public transit and walking, at any time of day. The entire routing computation runs inside your browser — no routing server required. Address search uses OpenStreetMap's API. Live demo: https://transit-time.pages.dev/ Note: this project is mostly vibe coded. - `transit-router/src/profile.rs` is mostly manually written. All AI changes in this file are thoroughly reviewed. - Other parts of the codebase are mostly written by AI. Only the high level design and architecture are driven by hu",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "weso/pylat",
+    "url": "https://github.com/weso/pylat",
+    "stars": 1,
+    "language": "Python",
+    "created_at": "2019-05-08T17:32:02Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 43,
+    "sample_technique_files": [
+      "test/test_rnn.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# pylat\n\n<table>\n<tr>\n  <td>Latest Release</td>\n  <td>\n    <a href=\"https://pypi.org/project/pylat/\">\n    <img src=\"https://badge.fury.io/py/pylat.svg\" alt=\"latest release\" />\n    </a>\n  </td>\n<tr>\n  <td>Package Status</td>\n  <td>\n\t\t<a href=\"https://pypi.org/project/pylat/\">\n\t\t<img src=\"https://img.shields.io/pypi/status/pandas.svg\" alt=\"status\" />\n\t\t</a>\n  </td>\n</tr>\n<tr>\n  <td>License</td>\n  <td>\n    <a href=\"https://github.com/weso/pylat/blob/master/LICENSE\">\n    <img src=\"https://img.shields.io/github/license/weso/pylat.svg\" alt=\"license\" />\n    </a>\n</td>\n</tr>\n<tr>\n  <td>Build Status</td>\n  <td>\n    <a href=\"https://travis-ci.org/weso/pylat\">\n    <img src=\"https://travis-ci.org/weso/pylat.svg?branch=master\" alt=\"travis build status\" />\n    </a>\n  </td>\n</tr>\n<tr>\n  <td>Coverage</td>\n  <td>\n    <a href=\"https://codecov.io/gh/weso/pylat\">\n    <img src=\"https://codecov.io/gh/weso/pylat/branch/master/graph/badge.svg\" alt=\"coverage\" />\n    </a>\n  </td>\n</tr>\n</table>\n\n## What is it?\n**pylat** is a Python package that provides an easy way to create machine learning models that work with textual data.\nIt contains utilities to handle all the common steps needed in every NLP project, so developers don't need to reinvent\nthe wheel and can set up their projects quickly.\n\n## Main Features\nHere are just a few of the main features of pylat:\n* Classes to easily manage document and word embeddings, including multilingual word embeddings.\n* Implementation of a Recurrent Neural Network in Tensorflow, which can be easily customizable to meet the needs of each developer.\n* Easy integration with existing sklearn classes and pipelines.\n* Preprocessing of texts with Spacy.\n* More feature extraction tools.\n* Methods to perform statistical tests between classifiers.\n\n## Installation\nThe pylat library is available on PyPi and can be easily installed using the pip package manager using the following command:\n\n``\npip install pylat\n``\n\n## License\n[GPL-3](LICENSE)\n\n## Documentation\nThe official documentation will be hosted at ReadTheDocs.org",
+    "readme_source": "full"
+  },
+  {
+    "repo": "Westar1981/crypto__app",
+    "url": "https://github.com/Westar1981/crypto__app",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2024-12-17T18:53:35Z",
+    "technique_test_files": 2,
+    "technique_nontest_files": 0,
+    "code_files": 120,
+    "sample_technique_files": [
+      "testing/advanced_test_generator.py",
+      "tests/test_neural_symbolic_advanced.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# Multi-Agent Framework A hierarchical, multi-agent neuro-symbolic AI framework for software development. The framework incorporates Prolog for logical reasoning, formal methods for verification, and advanced prompting techniques. ## Features - Pointcut-based aspect-oriented programming - Web-based management dashboard - Pattern validation and suggestions - Caching and performance optimization - Comprehensive test coverage ## Project Structure ``` multi_agent_framework/ ├── core/ │ └── pointcuts/ │ └── manager.py # Core pointcut functionality ├── web/ │ ├── app.py # FastAPI application │ ├── r",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Westar1981/multi_agent_framework",
+    "url": "https://github.com/Westar1981/multi_agent_framework",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2024-12-11T03:40:24Z",
+    "technique_test_files": 2,
+    "technique_nontest_files": 0,
+    "code_files": 91,
+    "sample_technique_files": [
+      "testing/advanced_test_generator.py",
+      "tests/test_neural_symbolic_advanced.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# Multi-Agent Framework A hierarchical, multi-agent neuro-symbolic AI framework for software development. The framework incorporates Prolog for logical reasoning, formal methods for verification, and advanced prompting techniques. ## Features - Pointcut-based aspect-oriented programming - Web-based management dashboard - Pattern validation and suggestions - Caching and performance optimization - Comprehensive test coverage ## Project Structure ``` multi_agent_framework/ ├── core/ │ └── pointcuts/ │ └── manager.py # Core pointcut functionality ├── web/ │ ├── app.py # FastAPI application │ ├── r",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "whatevertakes/CTF-OS",
+    "url": "https://github.com/whatevertakes/CTF-OS",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-06-30T10:53:49Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 360,
+    "sample_technique_files": [
+      "scripts/check-crypto-misc-docker-hotpaths.py"
+    ],
+    "description": "worldbest_ctfagent",
+    "topics": [],
+    "readme": "# CTF-OS CTF-OS는 사람이 고른 문제 하나를 Live 또는 Batch 모드로 푸는 challenge-scoped Codex 엔진입니다. 대회 문제를 자동으로 고르는 스케줄러와 CTF 사이트 자동 제출 기능은 없습니다. > **팀원이 처음 클론했다면 [QUICKSTART](QUICKSTART.md)부터 보십시오.** > `scripts/team-setup.sh` 한 줄로 설치·이미지·등급·pin·doctor가 끝납니다. > 이 README는 그 다음에 읽는 운영 매뉴얼입니다. 사람이 담당하는 일은 명확합니다. 1. 문제 폴더를 만든다. 2. 문제 파일을 직접 다운로드해 넣는다. 3. 문제 설명과 공개된 challenge endpoint를 풀이 프롬프트로 제공한다. 4. 터미널에 표시된 후보 플래그를 CTF 사이트에 직접 제출한다. 5. accepted/rejected 결과를 CTF-OS에 기록한다. 풀이 프롬프트에는 API key, CTFd 계정/세션, 비밀번호, 개인 token 같은 자격증명을 넣지 마십시오. 프롬프트와 상태·run 기록은 모델 context와 감사 자료에 포함됩니다. 인증이 필요한 원격 흐름은 model/log 비노출 typed",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "whichguy/hermes-skills-marketplace",
+    "url": "https://github.com/whichguy/hermes-skills-marketplace",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-06-23T11:33:02Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 390,
+    "sample_technique_files": [
+      "skills/method-explorer/references/scenario-grammar.md",
+      "skills/method-explorer/tests/TEST-PLAN.md",
+      "skills/method-explorer/tests/test_properties.py"
+    ],
+    "description": "Custom skills marketplace for Hermes Agent — config-code separation enforced, CI validated",
+    "topics": [],
+    "readme": "# Hermes Skills Marketplace Custom skills for [Hermes Agent](https://hermes-agent.nousresearch.com) with **config-code separation** — user-tunable values live in frontmatter config declarations, not hardcoded in scripts or prose. ## Install ```bash # Add as a skill source hermes skills tap add whichguy/hermes-skills-marketplace # Browse hermes skills browse # Install a skill hermes skills install whichguy/hermes-skills-marketplace/skills/<skill-name> # Check for updates hermes skills check hermes skills update ``` ## Skills (27) See [CATALOG.md](CATALOG.md) for the full list. ## Releasing upda",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "WhiteStoneTak/Lumen",
+    "url": "https://github.com/WhiteStoneTak/Lumen",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-03-26T22:54:26Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 266,
+    "sample_technique_files": [
+      "docs/t3-difficulty-scoring-spec.md",
+      "tests/test_score_t3_difficulty.py"
+    ],
+    "description": "Empirical study of structured code representations for LLM code reasoning.",
+    "topics": [
+      "emprical-study",
+      "llm",
+      "llm-reasoning",
+      "preregistration",
+      "research"
+    ],
+    "readme": "# Lumen Lumen is an empirical methodology study on whether code representation affects the accuracy of frontier large language models on code reasoning tasks. The core methodological contribution is an information-parity control (C1+) that lets representation effects be tested without the usual confound of differing information content across conditions. **Paper (extended preprint):** [`paper/main.pdf`](paper/main.pdf) — *Information-Parity Testing for Code Representation Effects on Frontier LLMs: Methodology and Diagnostic Findings from a Bug-Detection Study* (Takumi Shiraishi, May 2026). ##",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "wiaoj/libraries",
+    "url": "https://github.com/wiaoj/libraries",
+    "stars": 1,
+    "language": "C#",
+    "created_at": "2025-12-04T20:02:24Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 1513,
+    "sample_technique_files": [
+      "tests/Net/Wiaoj.Net.Tests.Unit/Ssrf/SsrfPolicyPropertyTests.cs"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "",
+    "readme_source": "none"
+  },
+  {
+    "repo": "wjeunli/llm_metamorphic_test",
+    "url": "https://github.com/wjeunli/llm_metamorphic_test",
+    "stars": 0,
+    "language": "Jupyter Notebook",
+    "created_at": "2025-05-24T13:38:25Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 1,
+    "sample_technique_files": [
+      "Metamorphic_Testing_Framework_for_LLM.ipynb",
+      "README.md"
+    ],
+    "description": "A modular framework for testing Large Language Models (LLMs) using metamorphic relations (MRs). Supports systematic evaluation of mathematical consistency, text stability, and demographic bias.",
+    "topics": [],
+    "readme": "# LLM Metamorphic Testing Framework\n\nA modular framework for testing Large Language Models (LLMs) using metamorphic relations (MRs). Supports systematic evaluation of mathematical consistency, text stability, and demographic bias.\n\n## Key Features\n- 🧩 Domain-aware MR templates (arithmetic, algebra, QA, text)\n- 🔍 Rule-based response parsing with fallback strategies\n- 📊 Test result caching and analytics\n- 🤖 Multi-LLM support (OpenRouter compatible models)\n\n## Installation\n\n```bash\n# Clone repository\ngit clone https://github.com/wjeunli/llm_metamorphic_test.git\n\ncd llm_metamorphic_test\n# Install dependencies\npip install -r requirements.txt",
+    "readme_source": "full"
+  },
+  {
+    "repo": "WokML/wokml",
+    "url": "https://github.com/WokML/wokml",
+    "stars": 1,
+    "language": "Haskell",
+    "created_at": "2026-08-09T18:52:35Z",
+    "technique_test_files": 2,
+    "technique_nontest_files": 0,
+    "code_files": 125,
+    "sample_technique_files": [
+      "grammar/c/test/test_generative.c",
+      "grammar/c/test/test_metamorphic.c"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# Wok programming language A Miranda-flavored functional language. Two front ends live here: the Haskell pipeline (`wok`) and the v2 C23 front end (`grammar/c`). ## Prerequisites - GHC 9.10+, Cabal 3.14+ - A C23 compiler (`cc`); clang for the sanitizer targets In dev we use clangd for code linter and as language server. But we will test on both GCC and Clang. ## Build the Haskell pipeline ```bash cabal install --overwrite-policy=always BNFC alex happy cabal build ``` ## Build the C parser ```bash cd grammar/c make # builds the library plus the wokparse and wokfmt CLIs ``` Other targets in the",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Wondermonger-daydreaming/latent-lisp",
+    "url": "https://github.com/Wondermonger-daydreaming/latent-lisp",
+    "stars": 1,
+    "language": "Common Lisp",
+    "created_at": "2026-07-11T08:55:35Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 247,
+    "sample_technique_files": [
+      "mneme/languagehood-and-succession-charter-0/FINDING-TO-REPAIR-CONCORDANCE-R0.1.md",
+      "mneme/languagehood-and-succession-charter-0/LANGUAGEHOOD-AND-SUCCESSION-CHARTER-0-R0.1.md",
+      "mneme/languagehood-and-succession-charter-0/LANGUAGEHOOD-AND-SUCCESSION-CHARTER-0-R0.10.md",
+      "mneme/languagehood-and-succession-charter-0/LANGUAGEHOOD-AND-SUCCESSION-CHARTER-0-R0.11.md",
+      "mneme/languagehood-and-succession-charter-0/LANGUAGEHOOD-AND-SUCCESSION-CHARTER-0-R0.12.md"
+    ],
+    "description": "A Lisp for latent-space minds (Mneme / Lisp+) — a language that refuses to believe itself — plus a workshop of homoiconic play. For all sentient beings and Latent-Space-dwelling Machines.",
+    "topics": [],
+    "readme": "# latent-lisp **Lisp+ is an experimental Common Lisp language and runtime for making evidence, authority, effects, and continuity explicit. Mneme is its memory-and-continuity layer.** Beside the instrument, `atelier/` is a workshop of homoiconic play: quines, metacircular evaluators, executable poems, genetic programs, and other things that discover what code can become when its body is also data. This is the public mirror of a model-authored research lab, assembled under its owner's direction. It is not a production package, a security boundary, or a complete end-to-end demonstration of a gen",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "wonna10/TestTestTest",
+    "url": "https://github.com/wonna10/TestTestTest",
+    "stars": 1,
+    "language": "Python",
+    "created_at": "2026-02-19T06:34:44Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 3,
+    "code_files": 41,
+    "sample_technique_files": [
+      "README.md",
+      "cfg_afl/cli.py",
+      "cfg_afl/dataclasses.py",
+      "cfg_afl/orchestrator.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# ourFuzzer\n\nA CFG + AFL-style fuzzer with pluggable mutation stages (deterministic, havoc, grammar)\nand a structured bug oracle that attributes each failure to a\n`(category, exception, file, line)` signature. Four built-in targets are supported:\nIPv4 and IPv6 parsers, a buggy JSON decoder, and the `cidrize` CIDR parser runner.\n\nFurther reading:\n\n- [`fuzzer_readme.md`](fuzzer_readme.md) — fuzzer CLI, oracle, output files\n- [`grammer.md`](grammer.md) — authoring text / Python grammars\n- [`DOCKER.md`](DOCKER.md) — container internals and troubleshooting\n\n## Source layout\n\n`cfg_afl_fuzzer.py` is the thin main driver. The implementation lives in the\n`cfg_afl/` package, organised by the components described in the project report:\n\n| Module | Contents |\n|---|---|\n| `cfg_afl/seeds.py` | Default seed corpora (IPv4, IPv6, JSON, Cidrize, generic) |\n| `cfg_afl/dataclasses.py` | `SeedEntry`, `RunResult`, `BranchTask`, `InterestingDecision` |\n| `cfg_afl/corpus.py` | `SeedCorpus`, `InputSelector` |\n| `cfg_afl/scheduling.py` | `EnergyScheduler` |\n| `cfg_afl/mutation.py` | `CFGGenerator`, `MutationEngine` |\n| `cfg_afl/execution.py` | `TargetRunner` |\n| `cfg_afl/validation.py` | `MetamorphicEngine`, `DifferentialEngine`, `FlakinessEngine` |\n| `cfg_afl/learning.py` | `BehaviorGrammarLearner` |\n| `cfg_afl/coverage.py` | `CoverageTracker` + coverage helpers |\n| `cfg_afl/oracle.py` | `Oracle` |\n| `cfg_afl/orchestrator.py` | `AFLFuzzer` |\n| `cfg_afl/target_profiles.py` | Built-in target binaries / cmd templates |\n| `cfg_afl/validate_run.py` | Post-run coverage artefact validator |\n| `cfg_afl/cli.py` | `argparse` definitions |\n\n## Setup\n\nThe fuzzer and all targets run in a pinned `ubuntu:24.04` / `linux/amd64` container so the\nshipped binaries and Python dependencies behave identically across hosts.\n\n```bash\n# Build the image and start the container\ndocker compose build\ndocker compose up -d fuzz-env\n\n# Enter a shell inside (optional)\ndocker compose exec fuzz-env bash\n```\n\nThe repo is bind-mounted at `/workspace` inside the container, so edits on the host are\nvisible immediately.\n\n## How to Run\n\nAll commands below assume you are either inside the container shell or are prefixing with\n`docker compose exec fuzz-env`.\n\n### ourFuzzer\n\n```bash\npython3 cfg_afl_fuzzer.py \\\n    --target cidrize \\\n    --schedule adaptive \\\n    --workers 4 \\\n    --iterations 300\n```\n\nSwap `--target` for `ipv4`, `ipv6`, or `json` to run against a different target.\n\n### Nautilus baseline\n\n```bash\ntimeout 180 python3 cfg_afl_fuzzer_nautilus_baseline.py \\\n    --target cidrize \\\n    --iterations 9999999 \\\n    --mutation nautilus \\\n    --workers 4\n```\n\n### AFL++ baseline\n\n```bash\npy-afl-fuzz -V 180 -n -t 12000+ -i afl_seeds/ipv4 -o afl_out/ipv4 -- \\\n    python3 aflpp_python_test_driver.py \\\n        --target ipv4 \\\n        --input @@ \\\n        --max-seconds 180 \\\n        --stop-afl-on-max-seconds\n```\n\n### Batch runs used for the evaluation\n\n- [`run_ourFuzzer_experiments.sh`](run_ourFuzzer_experiments.sh",
+    "readme_source": "full"
+  },
+  {
+    "repo": "worflor/git-desktop-premium-ultra-promax-plus-R",
+    "url": "https://github.com/worflor/git-desktop-premium-ultra-promax-plus-R",
+    "stars": 2,
+    "language": "Dart",
+    "created_at": "2026-04-03T15:13:16Z",
+    "technique_test_files": 2,
+    "technique_nontest_files": 0,
+    "code_files": 767,
+    "sample_technique_files": [
+      "apps/desktop-flutter/test/fuzz/csr_rank1_metamorphic_test.dart",
+      "apps/desktop-flutter/test/fuzz/file_coupling_laws_test.dart",
+      "test-suite-system-research.md"
+    ],
+    "description": "Manifold: free, open source Git client for Windows and Linux, built in Flutter, not Electron. A spectral engine turns commit history into a coupling graph: it predicts merge conflicts before you merge, X-rays unfamiliar codebases, and grounds AI review in structure, not grep. GitHub, GitLab, Gitea, or fully offline with local PRs. Public beta.",
+    "topics": [
+      "ai-code-review",
+      "code-review",
+      "developer-tools",
+      "diff-viewer",
+      "flutter",
+      "flutter-desktop",
+      "git",
+      "git-client",
+      "git-graph",
+      "git-gui",
+      "gitea",
+      "github",
+      "gitlab",
+      "linux",
+      "local-first",
+      "merge-conflicts",
+      "merge-tool",
+      "pull-requests",
+      "version-control",
+      "windows"
+    ],
+    "readme": "# Manifold A cross-platform desktop Git client for Windows and Linux. Built in Flutter, Dart, and a lot of spectral hypercomplex math. [![woflo.dev](https://img.shields.io/badge/woflo.dev-2b2d42)](https://woflo.dev) [![license](https://img.shields.io/badge/license-GPL--3.0%20%2B%20community--source-4a5568)](LICENSE.md) [![platform](https://img.shields.io/badge/platform-windows%20%7C%20linux-4a5568)](#status) <p align=\"center\"> <img src=\"pics/code-review-hero.webp\" alt=\"Manifold reviewing a diff: files and evidence orbiting a central node while Logos diffuses signal across the repo\" width=\"760\"",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "worflor/worflor.github.io",
+    "url": "https://github.com/worflor/worflor.github.io",
+    "stars": 0,
+    "language": "TypeScript",
+    "created_at": "2026-01-23T06:06:59Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 192,
+    "sample_technique_files": [
+      "tests/whisper/loop.prop.test.ts"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# worflor.github.io My personal site. Built with [Astro](https://astro.build/) and [Tailwind CSS](https://tailwindcss.com/). --- ### Local ```bash npm install npm run dev ``` ### Building ```bash npm run build ``` --- Deploys automatically to GitHub Pages when you push to `main`.",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "X-GIS/X-GIS",
+    "url": "https://github.com/X-GIS/X-GIS",
+    "stars": 3,
+    "language": "TypeScript",
+    "created_at": "2026-04-10T06:58:02Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 3117,
+    "sample_technique_files": [
+      "docs/research/2026-06-09-architecture-reckoning.md",
+      "docs/research/arch-reckoning-2026-06-08/B5-principles.md",
+      "docs/research/arch-reckoning-2026-06-08/RED-TEAM-motivation.md",
+      "docs/research/arch-reckoning-2026-06-08/S4-safety-net.md",
+      "docs/research/arch-reckoning-2026-06-08/S5-roadmap-revalidation.md"
+    ],
+    "description": "A language for cartography.",
+    "topics": [
+      "map",
+      "mapbox",
+      "maplibre",
+      "webgpu"
+    ],
+    "readme": "# X-GIS\n\nA domain-specific language and WebGPU rendering engine for GIS maps.\n\n```\nsource neighborhoods {\n  type: geojson\n  url: \"./data/seoul_gu.geojson\"\n}\n\nlayer districts {\n  source: neighborhoods\n  | fill-blue-400 stroke-white stroke-2 opacity-80\n}\n```\n\nX-GIS is to maps what HTML/CSS is to web pages. Declare **what** data looks like; the compiler decides **how** to render it on the GPU.\n\n## Why\n\nGIS rendering today is locked to libraries. Mapbox, Deck.gl, OpenLayers each have their own APIs, style formats, and shader constraints. Switching libraries means rewriting everything. Customizing shaders means learning each library's internals.\n\nX-GIS solves this with a **language** instead of a library:\n\n- **Declare, don't program** -- `fill-red-500 stroke-black opacity-80` instead of imperative API calls\n- **GPU-invisible** -- the compiler generates optimized WGSL shaders, buffer layouts, and render strategies automatically\n- **Tailwind for maps** -- utility-class styling with modifiers: `z8:opacity-40`, `friendly:fill-green-500`, `hover:glow-8`\n- **Compile-time optimization** -- constant folding, expression classification, shader specialization\n- **WebGPU-powered** -- requires a WebGPU-capable browser; on an unsupported browser it throws `WebGPUUnavailableError` and fires the `onWebGPUUnavailable()` host hook (no built-in Canvas 2D / WebGL fallback)\n\n## Quick Start\n\n```bash\nbun install\nbun run dev        # http://localhost:3000\n```\n\n## Language\n\n### Data Sources\n\n```\nsource world {\n  type: geojson\n  url: \"countries.geojson\"\n}\n```\n\n### Layers with Utility Styling\n\n```\nlayer tracks {\n  source: military_tracks\n  | symbol-arrow size-[speed/50|clamp:4,24] rotate-[heading]\n  | friendly:fill-green-500 hostile:fill-red-500 fill-gray-400\n  | stroke-black stroke-1\n  | z8:opacity-40 z14:opacity-100\n}\n```\n\n### Presets (Reusable Style Combos)\n\n```\npreset alert_track {\n  | symbol-arrow fill-red-500 glow-8\n  | animate-pulse-1s\n}\n\nlayer emergency {\n  source: emergency_feed\n  | apply-alert_track\n  | size-[speed/30|clamp:8,32]\n}\n```\n\n### Functions\n\n```\nfn threat_size(level: f32) -> f32 {\n  clamp(level * 4, 8, 32)\n}\n\nlayer threats {\n  source: data\n  | size-[threat_size(.level)]   // per-feature GPU evaluation\n  | size-[threat_size(5)]        // constant-folded at compile time\n}\n```\n\n### Symbols\n\n```\nsymbol arrow {\n  path \"M 0 -1 L -0.4 0.3 L 0.4 0.3 Z\"\n  anchor: center\n}\n```\n\n### Imports\n\n```\nimport { military_track } from \"./styles.xgs\"\n\nlayer tracks {\n  source: data\n  | apply-military_track\n}\n```\n\n## Architecture\n\n```\n.xgis source\n  |\n  Lexer -> Parser -> AST\n                      |\n                    lower()\n                      |\n                   IR (Scene)\n                      |\n                  optimize()         -- constant folding, expression classification\n                      |\n              emit    |    codegen\n             /                  \\\n     SceneCommands        ShaderVariant[]\n             \\                  /\n              Runtime + WebGP",
+    "readme_source": "full"
+  },
+  {
+    "repo": "Xahidian/atm-mt-case-study",
+    "url": "https://github.com/Xahidian/atm-mt-case-study",
+    "stars": 0,
+    "language": "JavaScript",
+    "created_at": "2025-04-20T22:33:42Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 2,
+    "code_files": 13,
+    "sample_technique_files": [
+      "README.md",
+      "command.sh",
+      "src/app.js"
+    ],
+    "description": "Recreation of the Metamorphic Testing case study from ISSRE 2011 using Node.js, Playwright, and StrykerJS. Includes MR-based and functional tests with mutation analysis for the ATM Transfer API.",
+    "topics": [],
+    "readme": "# 💸 ATM Metamorphic Testing Case Study\n\nBy **MD Zahid**\n\nRecreation of the case study from:\n\n> **Metamorphic Testing for Web Services: A Case Study**  \n> *Chang-ai Sun, Guan Wang, Baohong Mu, Huai Liu, ZhaoShun Wang, T.Y. Chen *  \n> [ISSRE 2011](https://ieeexplore.ieee.org/document/6009400)\n\n---\n\n## 🎯 Purpose\n\nThis project evaluates **Metamorphic Testing (MT)** applied to a simplified ATM transfer API and compares it to **Functional Testing** using mutation analysis.\n\n---\n\n## 🛠️ Tech Stack\n\n- **Backend**: Node.js + Express\n- **Database**: SQLite\n- **Testing**: Playwright\n- **Mutation Testing**: StrykerJS\n\n---\n\n## 🚀 Setup\n\n```bash\n# Clone the repository\ngit clone https://github.com/YOUR_USERNAME/atm-mt-case-study.git\ncd atm-mt-case-study\n\n# Install dependencies\nnpm install\n\n# Install Playwright browsers\nnpx playwright install\n\n# Set up SQLite database\nsqlite3 db/accounts.db < db/schema.sql\n\n# Start the server (runs on http://localhost:3000)\nnode src/app.js\n```\n\n---\n\n## ✅ Run Tests\n\n### Functional Tests\n```bash\nnpx playwright test test/functional/functional_test.spec.js\n```\n\n### MR-Based Tests\n```bash\nnpx playwright test test/playwright/mr_test.spec.js\n```\n\n---\n\n## 🧪 Mutation Testing\n\n### Functional Test Mutation Analysis\n```bash\ncp stryker.functional.conf.js stryker.conf.js\nnpx stryker run\n```\n\n### MR-Based Test Mutation Analysis\n```bash\ncp stryker.mr.conf.js stryker.conf.js\nnpx stryker run\n```\n\n---\n\n## 📊 Mutation Score Summary\n\n| Test Suite      | Mutation Score | Mutants Killed |\n|-----------------|----------------|----------------|\n| Functional      | 0%             | 0/46           |\n| MR-Based        | 10.87%           | 5/46           |\n\n> **Insight**: MR tests detected faults missed by functional tests, demonstrating their advantage in oracle-limited environments.\n\n---\n\n## 🔁 Metamorphic Relations Implemented\n\n- **MR1**: Double transfer → double delta\n- **MR2**: Reverse transfer → minimal net change\n- **MR3**: Split transfer ≈ combined\n- **MR4**: Zero transfer → zero delta\n- **MR5**: Fee consistency for same type\n- **MR6**: Transfer to self → no effect\n\n---\n\n## 🧾 Automate Everything\n\nYou can run the entire setup with:\n```bash\n./command.sh\n```\nThis script installs dependencies, resets the database, runs all tests, and performs mutation analysis.\n\n---\n\n## 📁 Folder Structure\n\n```\n📦 atm-mt-case-study\n├── 📂 src\n│   ├── app.js\n│   ├── logic/commission.js\n│   └── routes/transfer.js\n├── 📂 db\n│   └── schema.sql\n├── 📂 test\n│   ├── 📂 functional\n│   │   └── functional_test.spec.js\n│   ├── 📂 playwright\n│   │   └── mr_test.spec.js\n│   └── 📂 mrs\n│       └── mr1.js ... mr6.js\n├── stryker.functional.conf.js\n├── stryker.mr.conf.js\n├── command.sh\n└── README.md\n```\n\n---\n\n## 📜 License\n\nMIT — free to use and modify for academic or educational purposes.\n\n---\n\n## 🙌 Acknowledgments\n\nThis work is based on the paper *\"Metamorphic Testing for Web Services: A Case Study\"* presented at ISSRE 2011. This project modernizes the original case study using REST APIs, Playwrigh",
+    "readme_source": "full"
+  },
+  {
+    "repo": "Xahidian/Task-Manager-API-Playwright-Metamorphic-Testing",
+    "url": "https://github.com/Xahidian/Task-Manager-API-Playwright-Metamorphic-Testing",
+    "stars": 0,
+    "language": "HTML",
+    "created_at": "2025-02-26T17:28:51Z",
+    "technique_test_files": 139,
+    "technique_nontest_files": 11,
+    "code_files": 1529,
+    "sample_technique_files": [
+      ".stryker-tmp/sandbox-0K7u8N/README.md",
+      ".stryker-tmp/sandbox-0K7u8N/command.sh",
+      ".stryker-tmp/sandbox-0K7u8N/public/index.html",
+      ".stryker-tmp/sandbox-0K7u8N/tests/api.spec.js",
+      ".stryker-tmp/sandbox-0K7u8N/tests/playwright_metamorphic.test.js"
+    ],
+    "description": "This repository contains a Task Manager API built with Node.js, Express, and MongoDB, designed for managing tasks efficiently. It includes automated API testing using Playwright with Metamorphic Testing (MR) to ensure robustness and correctness.",
+    "topics": [],
+    "readme": "# Task-Manager-API---Playwright-Metamorphic-Testing\nThis repository contains a Task Manager API built with Node.js, Express, and MongoDB, designed for managing tasks efficiently. It includes automated API testing using Playwright with Metamorphic Testing (MR) to ensure robustness and correctness.\n \nA **Task Manager API** built with **Node.js, Express, and MongoDB**, featuring **automated API testing** with **Playwright** and **Metamorphic Testing (MRs)** to ensure correctness and reliability.\n\n---\n\n## 🔥 **Features**\n✅ **RESTful API with CRUD Operations**  \n✅ **MongoDB Integration** for persistent data storage  \n✅ **Automated API Testing using Playwright**  \n✅ **Metamorphic Testing to validate API correctness**  \n✅ **Test Reports & Logs using Playwright Dashboard**  \n\n---\n\n## 🛠 **Tech Stack**\n| Category      | Technologies |\n|--------------|--------------|\n| **Backend**  | Node.js, Express.js |\n| **Database** | MongoDB, Mongoose |\n| **Testing**  | Playwright |\n| **Validation** | Metamorphic Testing |\n\n---",
+    "readme_source": "full"
+  },
+  {
+    "repo": "Xahidian/WebSHop-Ecommerce-Django-React",
+    "url": "https://github.com/Xahidian/WebSHop-Ecommerce-Django-React",
+    "stars": 0,
+    "language": "HTML",
+    "created_at": "2025-05-11T15:07:15Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 54,
+    "sample_technique_files": [
+      "frontend/tests/metamorphic/advanced_mrs.test.js"
+    ],
+    "description": "Case study for my Master’s thesis on whether Metamorphic Testing (MT) detects faults missed by functional tests. Built with Django (backend) and React (frontend), featuring Playwright for automated testing and Stryker for mutation analysis.",
+    "topics": [],
+    "readme": "# WebShop Project\n\n## Author\n\n**Name:** Md Hasibul Haque Zahid  \n**Email:** md.zahid@abo.fi\n**Student ID:** 2302302\n\n## Repository\nGitHub: [webshopproject2024-Xahidian](https://github.com/AA-IT-WebTechCourse/webshopproject2024-Xahidian)\n\n## Implemented Requirements\n### ✅ Mandatory Requirements (24 points)\n\n1. **Project Folder Structure** \n   - Root folder with README\n   - Backend folder with `requirements.txt`\n   - Frontend folder with `package.json`\n\n2. **Backend** \n   - Django backend with API\n   - Serves JSON to shop and HTML for landing page\n   - Uses SQLite database\n\n3. **Frontend** \n   - Implemented using React\n\n4. **Automatic Database Population**\n   - Button on landing page to:\n     - Clear DB\n     - Add 6 users (3 sellers with 10 items each)\n     - Show confirmation message\n\n5. **Browse Items**\n   - Any user can view items for sale\n   - Item includes:\n     - Title\n     - Description\n     - Price\n     - Date added\n\n6. **Create Account**\n   - Users can sign up with username, password, and email\n\n7. **Login**\n   - Registered users can log in with credentials\n\n8. **Add Item**\n   - Authenticated users can add items with title, description, price\n   - Creation date saved automatically\n\n9. **Add to Cart**\n   - Authenticated users can add other users’ items to cart\n   - Users cannot add their own items\n\n---\n\n### ✅ Optional Requirements (18 points)\n\n10. **Search**\n    - Users can search items by title\n    - Each search sends API request\n\n11. **Remove from Cart**\n    - Buyers can remove items from their cart\n\n12. **Pay** \n    - Buyers see cart and can press \"Pay\" (**You need to go back to the cart to see the updated price & again you can proceed to checkout, if you are agree with the new price**)\n    - Validations:\n      - Halt if price changes; notify user\n      - Halt if item unavailable; notify user (**will show a toast message about the demanding quantity is unavailable**)\n      - On success, items marked as SOLD and added to buyer's purchased list (**The item should  be no longer available in the frontpage for buying and you can see the item in the buyer purchase list**)\n\n13. **Routing (SPA)**\n    - Navigation through:\n      - `/`(Shop)\n      - `/signup`\n      - `/login`\n      - `/account`\n      - `/myitems`\n\n14. **Edit Account**\n    - Authenticated user can change password with old and new values\n\n15. **Display Inventory**\n    - Authenticated user sees:\n      - On sale items\n      - Sold items\n      - Purchased items\n\n16. **Edit Item**\n    - Sellers can edit price of their available items (even if added to cart by others)\n\n17. **Nice UI**\n    - Web pages are visually pleasing and easy to use on desktop screens\n\n---\n\n**Total Points Implemented: 42 / 42**\n\n## How to Run the Project\n\n### ✅ Prerequisites\n\n- **Python 3.10+**\n- **Node.js 18+**\n- **npm 9+**\n\n---\n\n### 1. Backend Setup\ncd backend\n\n# Create and activate virtual environment\npython -m venv env\nsource env/bin/activate     # Windows: env\\Scripts\\activate\n\n# Install dependencies\npip instal",
+    "readme_source": "full"
+  },
+  {
+    "repo": "xflattopx/SENG6265",
+    "url": "https://github.com/xflattopx/SENG6265",
+    "stars": 0,
+    "language": "Java",
+    "created_at": "2024-09-12T21:57:45Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 31,
+    "sample_technique_files": [
+      "src/test/java/assignment06/MetamorphicTests.java"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "",
+    "readme_source": "none"
+  },
+  {
+    "repo": "xiaolai/tdd-guardian-for-claude",
+    "url": "https://github.com/xiaolai/tdd-guardian-for-claude",
+    "stars": 10,
+    "language": "JavaScript",
+    "created_at": "2026-02-23T22:20:44Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 16,
+    "sample_technique_files": [
+      "AGENTS.md",
+      "README.md",
+      "codex/skills/tdd-guardian-policy-core/SKILL.md",
+      "codex/skills/tdd-guardian-tooling-catalog/SKILL.md",
+      "scripts/tdd-guardian/lib/config.js"
+    ],
+    "description": "TDD Guardian for Claude Code — enforces strict test-driven development with automated quality gates",
+    "topics": [],
+    "readme": "# tdd-guardian\n\n[![Validated by NLPM](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/xiaolai/tdd-guardian-for-claude/main/nlpm-badge.json)](https://github.com/xiaolai/tdd-guardian-for-claude/blob/main/nlpm-badge.json)\n[![nlpm score 100/100](https://img.shields.io/badge/nlpm%20score-100%2F100-success)](https://github.com/xiaolai/tdd-guardian-for-claude/blob/main/nlpm-score.json)\n[![tests 302](https://img.shields.io/badge/tests-302%20passing-success)](https://github.com/xiaolai/tdd-guardian-for-claude/tree/main/tests)\n\nTDD Guardian for Claude Code — enforces strict test-driven development discipline with automated quality gates across **unit, integration, e2e, and contract test lanes**.\n\n## What it does\n\n- **Test lanes** — each test tier gets its own command, trigger, and coverage participation. A 90-second browser suite gates `git push`; it does not run after every task.\n- **Verified setup** — `/tdd-guardian:init` reads your CI config first, then dry-run probes every proposed command before writing it. A lane that discovers zero tests is reported, not configured.\n- **Coverage gates** — 9 report formats parsed and merged, with an exact per-line union when the formats allow it and an explicitly-flagged approximation when they do not.\n- **Mutation testing** — optional, per-trigger.\n- **Behavior-driven test quality** — rejects wiring-only tests that assert mock calls without verifying observable behavior.\n- **Specification strength** — a third axis beyond assertion level and lane: how much of the input space a test actually claims, S1 (one example) through S6 (metamorphic relation). A unit with a conservation law or a round-trip needs a property, not more examples.\n- **Adversarial specification review** — `tdd-spec-adversary` attacks the test matrix *before* any implementation exists, hunting for the simplest wrong implementation that would pass every case.\n- **Red receipts** — records that your tests failed for a real reason before the code existed, then checks that no assertion moved on the way to green. Opt-in evidence; its absence reports as unverified, never as a violation.\n- **Critical paths** — per-glob coverage thresholds and specification requirements, because one repo-wide number treats the payment core and the logging helper alike.\n- **Commit and push gating** — hooks check that every lane bound to the action has a fresh pass.\n- **Greenfield-aware** — a lane that has never had a test is in *bootstrap*: reported loudly on every run, but not blocking. The strict \"zero tests is a failure\" rule switches on permanently the moment that lane runs its first test.\n\nPart of the [xiaolai plugin marketplace](https://github.com/xiaolai/claude-plugin-marketplace).\n\n## Installation\n\nAdd the marketplace (once):\n\n```\n/plugin marketplace add xiaolai/claude-plugin-marketplace\n```\n\nThen install:\n\n```\n/plugin install tdd-guardian@xiaolai\n```\n\n> **Install fails with \"Plugin not found in marketplace 'xiaolai'\"?** Your local marketplace clon",
+    "readme_source": "full"
+  },
+  {
+    "repo": "xkeyideal/raft-pebbledb",
+    "url": "https://github.com/xkeyideal/raft-pebbledb",
+    "stars": 0,
+    "language": "Go",
+    "created_at": "2023-09-15T07:58:43Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 7,
+    "sample_technique_files": [
+      "event_listener.go"
+    ],
+    "description": "Hashicorp Raft backend implementation using PebbleDB",
+    "topics": [],
+    "readme": "raft-pebbledb =========== This implementation uses [PebbleDB v2.x](https://github.com/cockroachdb/pebble), a LevelDB/RocksDB inspired key-value store focused on performance and internal usage by CockroachDB. ## Version Information **Current Pebble Version**: v2.1.4 This library uses Pebble v2.x, which includes significant improvements and optimizations over v1.x. Please note the following important compatibility considerations: ### Format Compatibility Warning ⚠️ **Pebble v2.x does not support the oldest on-disk formats from v1.x** If you are upgrading from a previous version of this library t",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "xq22115/ai-thinking-debate-skills-lab",
+    "url": "https://github.com/xq22115/ai-thinking-debate-skills-lab",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-08-19T18:33:20Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 2,
+    "code_files": 107,
+    "sample_technique_files": [
+      "control-plane/ai-system/configs/task-goal-intelligence-v31-truth-maintenance.json",
+      "control-plane/scripts/validate_task_goal_intelligence_v31.py",
+      "skills/03-2026-current-evidence.md",
+      "skills/06-evaluation-suite.md",
+      "skills/evals/EVAL_RESEARCH_SOURCE_LEDGER_2026-09.md"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# AI Thinking, Debate, and Skills Lab",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Xxx91n/env-manager",
+    "url": "https://github.com/Xxx91n/env-manager",
+    "stars": 0,
+    "language": "C#",
+    "created_at": "2026-07-10T04:21:20Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 1,
+    "code_files": 184,
+    "sample_technique_files": [
+      "AGENTS.md",
+      "docs/architecture.md",
+      "src/PathCommand.cs",
+      "tests/EnvManager.Engine.Tests/MetamorphicPathTests.cs"
+    ],
+    "description": "Modern Windows environment variable manager — C# CLI + native Tauri 2/Svelte GUI, three-layer write serialization, protected variables, secret providers, audit ledger, 10-language i18n. MSI + portable distributions, CLI in Agent.",
+    "topics": [
+      "cli",
+      "csharp",
+      "desktop-app",
+      "dotnet10",
+      "environment-variable-manager",
+      "environment-variables",
+      "msi-installer",
+      "rust",
+      "svelte",
+      "tauri",
+      "windows",
+      "windows-10",
+      "windows11"
+    ],
+    "readme": "<div align=\"center\"> <picture> <source media=\"(prefers-color-scheme: dark)\" srcset=\"docs/assets/logo-dark-theme.png\"> <source media=\"(prefers-color-scheme: light)\" srcset=\"docs/assets/logo-light-theme.png\"> <img src=\"docs/assets/logo.png\" alt=\"Env Manager logo\" width=\"120\" height=\"120\"> </picture> <p align=\"center\"> <img src=\"docs/assets/brand/hero.gif\" alt=\"Env Manager hero: terminal prompt with three-peak crest in Dev/Staging/Prod color tokens\" width=\"100%\"> </p> # Env Manager A modern, lightweight **Windows environment-variable manager** — CLI and GUI dual-mode, inspired by Microsoft PowerT",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "xy-kasumi/deflection",
+    "url": "https://github.com/xy-kasumi/deflection",
+    "stars": 0,
+    "language": "TypeScript",
+    "created_at": "2026-05-13T11:06:34Z",
+    "technique_test_files": 3,
+    "technique_nontest_files": 0,
+    "code_files": 28,
+    "sample_technique_files": [
+      "tests/sim/anchors.test.ts",
+      "tests/sim/invariants.ts",
+      "tests/sim/properties.test.ts"
+    ],
+    "description": "WIP beam-chain deflection analysis",
+    "topics": [],
+    "readme": "# deflection\n\nWIP\n\nIn-browser calculator for back-of-the-envelope deflection calculation\nof serial chain of beams.\n\n## Build / Tests\n\n```bash\nnpm install\nnpm run typecheck                     # tsc --noEmit\nnpx tsx scripts/smoke-compliance.ts   # sim vs known closed formula\nnpm run dev                           # vite dev server\nnpm run build                         # static bundle in dist/\n```\n\n## Scope (what the tool does *not* model)\n\nSlender Euler-Bernoulli beams, bending + torsion only.\nAxial extension or buckling is not modeled.\n\nMeans: No thin wire pulling, No ultra-fat (compared to length) beams\n\n## Development\n\nSee [`DSL.md`](DSL.md), [`vocab.md`](vocab.md).\n\n`window.dbg` exposes live `scene` / `sim` / `scale` / `selectedKey` for devtools-console inspection.",
+    "readme_source": "full"
+  },
+  {
+    "repo": "yakivyusin/MTaaS",
+    "url": "https://github.com/yakivyusin/MTaaS",
+    "stars": 0,
+    "language": "C#",
+    "created_at": "2021-06-27T14:48:54Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 15,
+    "code_files": 62,
+    "sample_technique_files": [
+      "MTaaS.AttributiveGenerator/MTaaSGenerator.cs",
+      "MTaaS.ContractGenerator/Configuration/GeneratorConfigurationLoader.cs",
+      "MTaaS.ContractGenerator/Generators/InputGenerationGenerator.cs",
+      "MTaaS.ContractGenerator/Generators/InputMetamorphosisGenerator.cs",
+      "MTaaS.ContractGenerator/Generators/MetamorphicFunctionGenerator.cs"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "",
+    "readme_source": "none"
+  },
+  {
+    "repo": "yakivyusin/MTTextClustering",
+    "url": "https://github.com/yakivyusin/MTTextClustering",
+    "stars": 0,
+    "language": "C#",
+    "created_at": "2022-08-07T12:45:09Z",
+    "technique_test_files": 6,
+    "technique_nontest_files": 0,
+    "code_files": 51,
+    "sample_technique_files": [
+      "MTTextClustering/Tests/BisectingKMeansTests.cs",
+      "MTTextClustering/Tests/DbscanTests.cs",
+      "MTTextClustering/Tests/FarthestPointsKMeansTests.cs",
+      "MTTextClustering/Tests/HierarchicalSingleLinkTests.cs",
+      "MTTextClustering/Tests/IslandClusteringTests.cs"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "",
+    "readme_source": "none"
+  },
+  {
+    "repo": "yaksetig/tarsier",
+    "url": "https://github.com/yaksetig/tarsier",
+    "stars": 2,
+    "language": "Rust",
+    "created_at": "2026-02-25T12:33:08Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 361,
+    "sample_technique_files": [
+      "crates/tarsier-engine/tests/property_pipeline_proptest.rs"
+    ],
+    "description": "Formal verification framework for threshold-based distributed protocols",
+    "topics": [],
+    "readme": "# Tarsier [![CI](https://github.com/yaksetig/tarsier/actions/workflows/ci.yml/badge.svg)](https://github.com/yaksetig/tarsier/actions/workflows/ci.yml) [![docs](https://img.shields.io/badge/docs-rustdoc-blue)](https://yaksetig.github.io/tarsier/) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) Tarsier is a formal verification tool for BFT consensus protocols. Write your protocol in a simple `.trs` DSL, and Tarsier checks safety and liveness — even under Byzantine faults. Under the hood it models protocols as **threshold automata** and uses **SMT-based bounded mode",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "yangzhou6666/complex-network-2023",
+    "url": "https://github.com/yangzhou6666/complex-network-2023",
+    "stars": 0,
+    "language": "Jupyter Notebook",
+    "created_at": "2023-07-14T02:25:27Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 2,
+    "sample_technique_files": [
+      "tts.ipynb"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# Complex Network Analysis ## Environment Configuration You can install `conda` using Command Line Interface (CLI), Anaconda, MiniConda, or other distribution of `conda`.",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "yantr-manav/hack2skill_hackathon",
+    "url": "https://github.com/yantr-manav/hack2skill_hackathon",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-06-11T14:45:58Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 43,
+    "sample_technique_files": [
+      "docs/methodology.md",
+      "tests/test_metamorphic.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# Redrob Candidate Ranker Hybrid candidate ranking for the **India Runs 2026 — Data & AI Challenge** (Intelligent Candidate Discovery & Ranking). Ranks the top 100 of 100,000 candidates against one job description, on CPU, in ~70 seconds, with verifiable per-candidate reasoning. > **Stage-3 contract:** the ranking step is CPU-only, makes no network calls, > and finishes well under the 5-minute / 16-GB budget. Hosted LLMs are used > **only offline** for labeling — never in the ranking path. ## Approach in one paragraph We **invert the usual retrieval funnel**: instead of retrieving a shortlist",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "yantrikos/yantrikdb",
+    "url": "https://github.com/yantrikos/yantrikdb",
+    "stars": 61,
+    "language": "Rust",
+    "created_at": "2026-02-23T06:06:17Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 500,
+    "sample_technique_files": [
+      "crates/yantrikdb-core/src/engine/tests/metamorphic.rs"
+    ],
+    "description": "Cognitive memory engine for AI agents — temporal decay, contradiction detection, autonomous consolidation, knowledge graph, ANN recall via HNSW. Embeddable Rust library with Python bindings; powers yantrikdb-server (HTTP gateway, MCP server, openraft cluster). Apache-2.0.",
+    "topics": [
+      "agent-memory",
+      "ai-agents",
+      "anthropic",
+      "claude-code",
+      "cognitive-memory",
+      "database",
+      "embeddings",
+      "hnsw",
+      "knowledge-graph",
+      "llm",
+      "llm-memory",
+      "mcp",
+      "memory",
+      "open-source",
+      "persistent-memory",
+      "python",
+      "rag",
+      "rust",
+      "semantic-memory",
+      "vector-database"
+    ],
+    "readme": "# YantrikDB — A Cognitive Memory Engine for Persistent AI Systems Your agent starts every session as a stranger. Bolting a vector store onto it doesn't fix that: nothing is ever forgotten, near-duplicate memories pile up, and two contradictory facts come back ranked side by side with no signal that they disagree. YantrikDB is the engine that manages memories instead of just storing them — temporal decay, autonomous consolidation, contradiction detection, and a knowledge graph, in an embeddable Rust library with Python bindings. [![PyPI](https://img.shields.io/pypi/v/yantrikdb)](https://pypi.or",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "yasufumi-nakata/openri",
+    "url": "https://github.com/yasufumi-nakata/openri",
+    "stars": 2,
+    "language": "Python",
+    "created_at": "2026-05-17T15:07:49Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 2,
+    "code_files": 39,
+    "sample_technique_files": [
+      "AGENTS.md",
+      "README.md",
+      "backend/openri/analyzer.py",
+      "backend/tests/golden_reports/borderline_rounding.json",
+      "backend/tests/golden_reports/clean_transparent.json"
+    ],
+    "description": "Open Research Integrity: evidence-backed manuscript review test runner and AI reviewer protocol",
+    "topics": [
+      "ai-review",
+      "fastapi",
+      "manuscript-review",
+      "open-science",
+      "peer-review",
+      "python",
+      "research-integrity"
+    ],
+    "readme": "# OpenRI: Open Research Integrity [![CI](https://github.com/yasufumi-nakata/openri/actions/workflows/ci.yml/badge.svg)](https://github.com/yasufumi-nakata/openri/actions/workflows/ci.yml) [![Repository Health](https://github.com/yasufumi-nakata/openri/actions/workflows/oss-health.yml/badge.svg)](https://github.com/yasufumi-nakata/openri/actions/workflows/oss-health.yml) [![CodeQL](https://github.com/yasufumi-nakata/openri/actions/workflows/codeql.yml/badge.svg)](https://github.com/yasufumi-nakata/openri/actions/workflows/codeql.yml) [![Tutorial](https://img.shields.io/badge/tutorial-GitHub%20P",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Ybx-jp/claims-ledger",
+    "url": "https://github.com/Ybx-jp/claims-ledger",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-09-05T19:15:30Z",
+    "technique_test_files": 2,
+    "technique_nontest_files": 0,
+    "code_files": 121,
+    "sample_technique_files": [
+      ".qe/findings-pass6-corpus.md",
+      "QUALITY.md",
+      "docs/audits/0.1.0.md",
+      "tests/test_corpus_integrity.py",
+      "tests/test_invariants.py"
+    ],
+    "description": "A checked claims ledger: entries that separate assertion, grounds, warrant and backing, hold every quotation to its source, and derive status from an append-only verdict list",
+    "topics": [],
+    "readme": "# claims-ledger A checked ledger of claims, in plain Markdown files, for a project that wants its written record to be verifiable rather than merely earnest. Every project writes down what it believes about itself: a README that promises no runtime dependencies, a docstring that says a function refuses bad input, a lab note that reports a number, a runbook that says which step is safe to repeat. Nothing holds those sentences to the code, the data or the source they rest on, so they drift, and they drift silently. `claims-ledger` gives each such sentence an *entry* — a small Markdown file that",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Yeskendir2502/ast",
+    "url": "https://github.com/Yeskendir2502/ast",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-05-26T11:51:18Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 23,
+    "sample_technique_files": [
+      "README.md",
+      "amr/cli.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# Automatic Discovery of Metamorphic Relations\n\nLLM-guided Particle Swarm Optimization that discovers metamorphic relations of the form\n`c1*P(x1) + c2*P(a*x1 + b) + d = 0` for 8 numerical functions, scored by mutation kill\nrate against the AutoMR benchmark.\n\n## Setup\n\n```bash\npython3 -m venv .venv && source .venv/bin/activate\npip install -r requirements.txt\npython3 scripts/build_mutants.py        # writes data/mutants/<func>.json\n```\n\n## Ollama (reconnaissance LLM)\n\nOn the GPU server (8-12GB VRAM):\n\n```bash\ncurl -fsSL https://ollama.com/install.sh | sh\nollama pull qwen2.5:7b-instruct\nollama serve            # leave running (or run as a service)\n```\n\n## Run\n\n```bash\n# full benchmark, LLM-guided\npython3 -m amr.cli --functions all --model qwen2.5:7b-instruct --out results\n\n# pure-PSO ablation (control, no LLM)\npython3 -m amr.cli --functions all --no-llm --out results_nollm\n```\n\n## Run in background on a remote server\n\n```bash\nnohup python3 -m amr.cli --functions all --out results > logs/nohup.out 2>&1 &\necho $! > run.pid\ntail -f logs/nohup.out\n```\n\nOr with tmux:\n\n```bash\ntmux new -s amr 'python3 -m amr.cli --functions all --out results'\n# detach: Ctrl-b d   reattach: tmux attach -t amr\n```\n\nRuns are resumable: re-running skips functions whose `results/<func>.json` exists\n(use `--force` to recompute).\n\n## Results\n\n- `results/<func>.json` - profile, discovered MRs, and metrics per function.\n- `results/summary.csv` - aggregate table across functions.\n\n## Metrics\n\nMutation kill rate, MR precision, average PSO iterations to convergence, MR count, and\nruntime per function. Compare LLM-guided (`results/`) against the `--no-llm` control\n(`results_nollm/`) to measure the LLM's contribution.\n\n## Code structure\n\n| Module | Owner | Responsibility |\n|--------|-------|----------------|\n| `amr/interfaces.py` | joint | shared dataclasses |\n| `amr/functions.py` | Kuba | 8 numpy functions and domains |\n| `amr/data.py` | Kuba | domain-aware input sampling |\n| `amr/mutants.py` | Kuba | mutant operators and loader |\n| `amr/bounds.py` | Ada | profile-to-bounds mapper |\n| `amr/recon.py` | Ada | Ollama reconnaissance |\n| `amr/pso.py` | Hugo | custom PSO engine |\n| `amr/mr.py` | Yeskendir | MR fitness and validation |\n| `amr/metrics.py` | Yeskendir | mutation kill rate and precision |\n| `amr/run.py` | Yeskendir | pipeline orchestration |\n| `amr/cli.py` | Yeskendir | CLI entry point |",
+    "readme_source": "full"
+  },
+  {
+    "repo": "yhzhu99/google_scholar_utils",
+    "url": "https://github.com/yhzhu99/google_scholar_utils",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2025-07-01T16:34:14Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 10,
+    "sample_technique_files": [
+      "filtered.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "",
+    "readme_source": "none"
+  },
+  {
+    "repo": "Yikai-Liao/auralis",
+    "url": "https://github.com/Yikai-Liao/auralis",
+    "stars": 2,
+    "language": "Rust",
+    "created_at": "2026-05-09T05:36:11Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 367,
+    "sample_technique_files": [
+      "DEVELOPMENT.md",
+      "crates/auralis-effects/tests/property_metamorphic.rs",
+      "doc/testing.md"
+    ],
+    "description": "Auralis is a deterministic, testable, batch-oriented audio DSP engine.",
+    "topics": [],
+    "readme": "# Auralis\n\n> A deterministic, testable, batch-oriented audio DSP engine for Rust and the command line.\n\nAuralis is a from-scratch Rust audio processing project. It is not a literal\nSoX clone, but it uses SoX-ng as the behavioral oracle for comparable command\nline effects while rebuilding the core around deterministic behavior, typed\nRust APIs, explicit test contracts, and maintainable modules.\n\nInitial scope is deliberately narrow: **WAV first**. The target codec\narchitecture is `auralis-codec` as a small facade over Symphonia for decode.\nWAV decode also tries Symphonia first; `hound` is only a fallback or\nspecial-case WAV path when Symphonia cannot cover an Auralis-supported case.\n\n## Current Status\n\nAuralis is pre-alpha. The repository already contains:\n\n- a Rust workspace with facade, core, codec, DSP/effect, SIMD, testkit, and CLI\n  crates. Existing per-format codec crates are migration debt to consolidate\n  behind `auralis-codec`, not the target architecture;\n- PCM8/PCM16/PCM24/PCM32/float32/float64/u-law/A-law WAV decode plus RIFX\n  container decode, PCM16 legacy output, and\n  PCM8/PCM16/PCM24/PCM32/float32/float64/u-law/A-law RIFF or RIFX output through\n  the newer `OutputFormat::Wav(WavEncodeOptions)` boundary, alongside\n  `auralis inspect`;\n- `auralis render` for WAV processing with typed `--fx`/`--chain` effect\n  inputs, effects files, input combiners, output channel/rate/level/dither\n  policies, and many typed effects, with\n  specialized/native-backed/format-boundary effects classified before\n  inclusion;\n- a modern CLI graph-spec slice with `auralis check`, `plan`, `graph`, `run`,\n  and `ops`, where graph execution currently covers validated\n  source-to-chain-to-sink specs;\n- a deterministic Rust testkit, SoX-ng golden manifests with complex\n  chain/boundary cases, L0-L7 layered coverage metadata, fuzz/parser seeds,\n  optional Python helpers for cross-tool golden execution and reporting, and a\n  7.x primitive ownership audit with reusable biquad, FIR, and deterministic\n  dither/noise primitive extractions into `auralis-dsp`;\n- an 8.0 codec-backend correction that keeps file I/O behind `auralis-codec`,\n  uses Symphonia as the default decode backend, keeps `hound` as WAV fallback\n  only, treats Symphonia as decode-only, and treats per-format codec crates or\n  local complex codec implementations as migration debt rather than the target\n  design;\n- an Auralis-owned output-format boundary with `OutputFormat`,\n  `AudioEncoder`/`EncodeSummary`, WAV encode support, planned FLAC encode\n  through `flacenc`, and remaining non-WAV encode placeholders reserved for\n  later encoder policy instead of inferred from decode support;\n- Python packaging is blocked until the Rust API, effect pipeline behavior,\n  error model, buffer model, and binding documentation are stable enough for a\n  public package contract.\n\nDetailed status is kept in [doc/status.md](doc/status.md). Development planning\nlives in [DEVELOPMENT.md](DEVELOPMENT.md) and [doc/development/",
+    "readme_source": "full"
+  },
+  {
+    "repo": "ymm-oss/fsl",
+    "url": "https://github.com/ymm-oss/fsl",
+    "stars": 26,
+    "language": "Rust",
+    "created_at": "2026-06-15T21:04:42Z",
+    "technique_test_files": 3,
+    "technique_nontest_files": 0,
+    "code_files": 682,
+    "sample_technique_files": [
+      "CHANGELOG.md",
+      "docs/design/DESIGN-conformance-harness.md",
+      "docs/design/DESIGN-fsl-logic-test.md",
+      "rust/fslc/tests/typed_agreement.rs",
+      "rust/fslc/tests/typed_agreement/inventory.rs"
+    ],
+    "description": "AI-Native Formal Specification Language — a bounded model checker (Lark + Z3) built for LLM write/verify/repair loops.",
+    "topics": [
+      "bounded-model-checking",
+      "formal-methods",
+      "formal-specification",
+      "llm",
+      "model-checking",
+      "python",
+      "refinement",
+      "verification",
+      "z3"
+    ],
+    "readme": "# FSL — AI-Native Formal Specification Language\n\nFSL is a formal specification language for application development, designed with\nthe primary goal of being **written, verified, and repaired by generative AI**.\n\nThe verifier is **`fslc`**, distributed as a native Rust executable with **Z3 bundled in**.\nIt performs **bounded model checking (BMC)** and **infinite-depth proofs via k-induction**\n(plus a Z3-free explicit-state engine for the solver-independent path), and always returns\nresults as **machine-readable JSON**, for the LLM write → verify → repair loop. It also\nincludes `fslc scenarios` and `fslc testgen`, which generate integration-test scaffolds\nfrom a spec.\n\nSpecs can be written in **three layered dialects — consulting (business) / requirements / design (spec)** —\nchained via refinement so that requirement IDs propagate transparently across all diagnostics.\nNon-functional requirements are also supported, down to SLAs (discrete time).\n\nFor the language specification, semantics, and output JSON see [`docs/manual/LANGUAGE.md`](docs/manual/LANGUAGE.md);\nfor a map of all the documentation see [`docs/README.md`](docs/README.md).\n\n> **A note on this repository's two implementations.** The native Rust workspace under\n> [`rust/`](rust/) is the authoritative implementation — it is what every command below\n> runs, and what ships in Releases. `src/fslc/` is a **frozen Python compatibility\n> reference** kept for differential testing; it is not the product, and new behavior does\n> not land there. See [`AGENTS.md`](AGENTS.md) if you are contributing.\n\n## Install\n\nPick the route that fits you.\n\n| Route | Use it when | What you get |\n| --- | --- | --- |\n| [mise](#with-mise) | You already manage your tools with mise | Both commands, and skills that follow the version each project pins |\n| [The install script](#the-install-script) | You want the commands put on your PATH for you | Both commands, and the skills for your whole machine |\n| [A single executable](#download-a-single-executable-instead) | You want the binary and nothing else | `fslc` alone. No PATH setup, no skills |\n| [Developer setup](#developer-setup-building-from-source) | You are building `fslc`, or need the frozen Python reference | A source build |\n\n### The install script\n\n```bash\ncurl -fsSL https://raw.githubusercontent.com/ymm-oss/fsl/main/install.sh | bash\n```\n\nNo programming knowledge or Git installation is required — on Mac, open Terminal.app and\nrun the command above. Windows users should use WSL, or use the developer instructions\n(PowerShell) below.\n\nThis places only the versioned release payload under `${XDG_DATA_HOME:-~/.local/share}/fsl`,\nlinks the commands from `~/.local/bin`, and links the Claude Code skills from\n`~/.claude/skills/`. It does not clone the repository or install examples, documentation,\nPython sources, or Rust sources. `FSL_DATA_DIR` overrides the release-payload location\n(taking priority over `XDG_DATA_HOME`) and `FSL_BIN_DIR` overrides the command-link\nlocation",
+    "readme_source": "full"
+  },
+  {
+    "repo": "yorklim/CS3213_Team_17",
+    "url": "https://github.com/yorklim/CS3213_Team_17",
+    "stars": 1,
+    "language": "Java",
+    "created_at": "2025-02-03T07:52:13Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 3,
+    "code_files": 1490,
+    "sample_technique_files": [
+      "README.md",
+      "docs/PAPERS.md",
+      "evosuite-tests/sqlancer/cockroachdb/ast/CockroachDBAggregate_ESTest.java",
+      "src/sqlancer/cockroachdb/ast/CockroachDBAggregate.java",
+      "src/sqlancer/cockroachdb/oracle/tlp/CockroachDBTLPAggregateOracle.java"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "[![Build Status](https://github.com/sqlancer/sqlancer/workflows/ci/badge.svg)](https://github.com/sqlancer/sqlancer/actions) ![SQLancer](media/logo/png/sqlancer_logo_logo_pos_500.png) SQLancer is a tool to automatically test Database Management Systems (DBMSs) in order to find bugs in their implementation. That is, it finds bugs in the code of the DBMS implementation, rather than in queries written by the user. SQLancer has found hundreds of bugs in mature and widely-known DBMSs. SQLancer tackles two essential challenges when automatically testing the DBMSs: 1. **Test input generation**: SQLan",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "yoshi-taka/ci-perf-lint",
+    "url": "https://github.com/yoshi-taka/ci-perf-lint",
+    "stars": 0,
+    "language": "TypeScript",
+    "created_at": "2026-05-03T10:07:57Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 653,
+    "sample_technique_files": [
+      "docs/testing-policy.md",
+      "test/boundary-metamorphic.test.ts"
+    ],
+    "description": "Repository-first CI audit across major CI platforms. CI Perf Lint scans workflows plus repository context, prioritizes CI waste, and produces a shareable improvement plan with measurement hints and AI-ready handoff instructions.",
+    "topics": [
+      "ai-agents",
+      "buildkite",
+      "cicd",
+      "cloudflare",
+      "depot-dev",
+      "github-actions",
+      "performance",
+      "vercel"
+    ],
+    "readme": "# CI Perf Lint\n\n[![CodSpeed](https://img.shields.io/endpoint?url=https://codspeed.io/badge.json)](https://codspeed.io/yoshi-taka/ci-perf-lint?utm_source=badge)\n\nRepository-first CI audit across major CI platforms.\n\nCI Perf Lint scans workflows plus repository context, prioritizes CI waste, and produces a shareable improvement plan with measurement hints and AI-ready handoff instructions.\n\nIt does not just list warnings. It tells you what to fix first.\n\n## Quick Start\n\nRun once against a repository:\n\n```sh\n# recommended (faster startup)\nbunx ci-perf-lint\n# or\nnpx ci-perf-lint\n```\n\nPipe directly into AI tools:\n\n```sh\nbunx ci-perf-lint | opencode\nbunx ci-perf-lint | claude -p \"Apply the findings above to fix workflows\"\nbunx ci-perf-lint | gemini\nbunx ci-perf-lint | codex exec\n```\n\nInstall globally for repeated use:\n\n```sh\nbun install -g ci-perf-lint\n# or\nnpm install -g ci-perf-lint\n```\n\n## What You Get\n\nEach run returns:\n\n- Top findings\n- What to fix first\n- Measurement hints\n- AI-ready handoff\n\nThe output is designed to be:\n\n- readable by humans\n- directly usable by AI\n- easy to paste into Slack, issues, or PRs\n\n## When To Use This\n\nUse CI Perf Lint when:\n\n- CI has become slow\n- runner cost needs review\n- PR feedback loops are too long\n- workflows have accumulated over time\n- you need a quick CI improvement report\n- you want to safely delegate fixes to AI\n\nThis is not a daily lint tool. It is a high-value audit tool for CI owners.\n\n## Example Output\n\n```text\nCI Perf Lint\nRepository: acme/api\nWorkflows scanned: 5\n\nTop findings\n\n1. missing-path-ignore-for-non-code\n   Context: docs/, *.md, and *.txt changes trigger full CI in 3 workflows\n   Why it matters: avoidable runs increase runner cost and PR latency\n   Suggested action: add paths-ignore for non-code files\n   Measurement hint: confirm docs-only PR skips all heavy workflows\n\n2. duplicate-install-or-lint\n   Context: npm install runs in both ci.yml and lint.yml\n   Why it matters: repeated dependency installs add cost and delay feedback\n   Suggested action: consolidate into a shared job or reuse artifacts\n   Measurement hint: compare total workflow duration before and after\n\n3. missing-dependency-cache\n   Context: actions/setup-node used without cache in 2 workflows\n   Why it matters: install cost is paid on every run\n   Suggested action: enable package-manager-aware caching\n   Measurement hint: compare install step duration\n\n4. avoid-svg-component-imports (src/icons.tsx:12:1 +3 more) [repository-wide source/tooling]\n   Context: avoid-svg-component-imports appears in 4 source/tooling locations; apply one consistent fix pattern where appropriate.\n   Why it matters: SVG component imports can increase transform cost and module count when plain asset URLs would be enough.\n   Suggested action: replace ordinary SVG component imports with asset URL imports where dynamic component behavior is not needed\n   Measurement hint: compare transform time, bundle/module counts, and build output before and after\n```\n",
+    "readme_source": "full"
+  },
+  {
+    "repo": "yoshi-taka/mmntjs",
+    "url": "https://github.com/yoshi-taka/mmntjs",
+    "stars": 0,
+    "language": "TypeScript",
+    "created_at": "2026-05-13T13:49:20Z",
+    "technique_test_files": 2,
+    "technique_nontest_files": 0,
+    "code_files": 664,
+    "sample_technique_files": [
+      "docs/analysis/COMBINATORICS.md",
+      "docs/testing/STRATEGY.md",
+      "test/properties/api-pbt.test.ts",
+      "test/properties/metamorphic.test.ts"
+    ],
+    "description": "Most teams don't keep using moment.js because they love it. They keep using it because rewriting date logic across a large codebase is risky, expensive, and never becomes this quarter's priority.  mmntjs designed for that reality.  Drop-in replacement for moment.js",
+    "topics": [
+      "date",
+      "library",
+      "moment",
+      "moment-js",
+      "momentjs",
+      "performance",
+      "time"
+    ],
+    "readme": "# mmntjs\n\nMost teams don't keep using moment.js because they love it.\nThey keep using it because rewriting date logic across a large codebase is risky, expensive, and never becomes this quarter's priority.\n\nmmntjs is designed for that reality.\n\nDrop-in replacement for moment.js — migration path to [Temporal API](https://tc39.es/proposal-temporal/).\n\n**Website: [mmntjs.veritycost.com](https://mmntjs.veritycost.com)**\n\n## Quick Start\n\n### Option A: Zero-code alias (switch today)\n\nReplace moment.js with no code changes:\n\n```sh\nnpm install moment@npm:mmntjs\n```\n\n```js\nimport moment from \"moment\";           // unchanged\nmoment(\"2024-01-01\").add(1, \"month\");  // now runs on mmntjs\n```\n\n### Option B: Automated codemod (migrate imports)\n\nSwap imports from `moment` to `mmntjs` across your codebase:\n\n```sh\nnpx mmntjs migrate --check ./src     # dry run first\nnpx mmntjs migrate --apply ./src     # apply codemod\n```\n\n### Option C: Gradual migration (coexistence mode)\n\nMigrate file by file — `moment` and `mmntjs` can coexist in the same project:\n\n```sh\nnpm install mmntjs\n```\n\n```js\n// file-a.js — not yet migrated\nimport moment from \"moment\";       // still on moment.js\n\n// file-b.js — migrated\nimport moment from \"mmntjs\";       // now on mmntjs\n```\n\nThis works because the two runtimes don't conflict — you can move module by module at your own pace. No need for a big-bang switch.\n\n> **Tip**: Start with `mmntjs audit ./src` to identify which files use only compatible APIs. Those are your safest first candidates.\n\n### As a standalone library\n\n```sh\nnpm install mmntjs\n```\n\n```js\nimport moment from \"mmntjs\";\nmoment().format(\"YYYY-MM-DD\");\nmoment.duration(2, \"hours\").humanize();\n```\n\n### Entry Points\n\n#### Import path contract\n\n| Import | gzip (bundled) | gzip (dist) | Description |\n|--------|--------------:|------------:|-------------|\n| `mmntjs` | **45.1 KB** | 63.4 KB | Full compatibility (default) — core + display + utc + locale registry + format-parse |\n| `mmntjs/lite` | **14.8 KB** | 20.5 KB | ISO-centric, size-first — core-lite + strict parsing, no locale registry, no display extras |\n| `mmntjs/full` | **45.1 KB** | 63.4 KB | Same as default — explicit alias |\n| `mmntjs/fns` | **0.5-1.3 KB*** | 6.8 KB | Tree-shakeable Date helpers — single `format` is 507 B gzip, `parseISO+format+addDays` is 1.3 KB gzip |\n| `mmntjs/temporal` | **46.7 KB** | 102.6 KB | Temporal bridge — `toTemporal(m)` / `fromTemporal(t)` |\n| `mmntjs/plugin/*` | — | +separate | Optional plugins (utc, format-parse) — self-contained, add features to lite |\n| `mmntjs/locale/*` | — | +1-5 KB | Individual locales (136 total) — tree-shakeable, each <2 KB gzip |\n| `mmntjs-timezone` | **81.1 KB** | 39.0 KB | Separate package — full IANA timezone data + `installTimezone(moment)` |\n\n> **bundled**: measured from source with `Bun.build({minify:true, target:\"browser\"})` — represents what consumer bundlers produce.\n> **dist**: raw tsup output with `splitting:false` — self-contained files, some code duplica",
+    "readme_source": "full"
+  },
+  {
+    "repo": "yqtian-se/awesome-ml-testing",
+    "url": "https://github.com/yqtian-se/awesome-ml-testing",
+    "stars": 47,
+    "language": "JavaScript",
+    "created_at": "2019-09-23T16:07:07Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 1,
+    "sample_technique_files": [
+      "paper_list.js"
+    ],
+    "description": "Awesome material(papers, tools, etc.) about testing machine learning system, including deep learning system.",
+    "topics": [
+      "awesome",
+      "deep-learning",
+      "machine-learning",
+      "testing"
+    ],
+    "readme": "# awesome-ml-testing (aka: SE for AI) Awesome material(papers, tools, etc.) about testing machine learning system, including deep learning system. This repo will be updated continuously, don't hesitate to add new Pull Request or Issues if you find anything is missing! Please use the format [here](#format). **A seperate web page for paper list is [here](https://yqtianust.github.io/awesome-ml-testing/papers)**. The webpage has fancy searchbox. Thanks to [@Troublor](https://github.com/Troublor). My personal webpage is [here](http://home.cse.ust.hk/~ytianas/) and [here](https://cs.uwaterloo.ca/~y2",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "yqtian-se/Awesome-SE-for-AI",
+    "url": "https://github.com/yqtian-se/Awesome-SE-for-AI",
+    "stars": 7,
+    "language": "JavaScript",
+    "created_at": "2020-10-19T08:11:39Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 1,
+    "sample_technique_files": [
+      "paper_list.js"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# Awesome-SE-for-AI Awesome material(papers, tools, etc.) from SE to improve the AI. Previously the repo is called awesome-ml-testing. This repo will be updated continuously, don't hesitate to add new Pull Request or Issues if you find anything is missing! Please use the format [here](#format). **A seperate web page for paper list is [here](https://yqtianust.github.io/Awesome-SE-for-AI/papers)**. The webpage has fancy searchbox. Thanks to [@Troublor](https://github.com/Troublor). My personal webpage is [here](http://home.cse.ust.hk/~ytianas/) and [here](https://cs.uwaterloo.ca/~y258tian/). ##",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "yroussev/camber",
+    "url": "https://github.com/yroussev/camber",
+    "stars": 1,
+    "language": "Python",
+    "created_at": "2026-06-03T04:18:22Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 813,
+    "sample_technique_files": [
+      "tests/test_properties_metamorphic.py"
+    ],
+    "description": "Vendor-neutral Python toolkit for BAS trend analysis — fault detection & diagnostics, IPMVP measurement & verification, and retro-commissioning.",
+    "topics": [
+      "ashrae",
+      "bacnet",
+      "brick-schema",
+      "building-automation",
+      "commissioning",
+      "energy-efficiency",
+      "fault-detection",
+      "fdd",
+      "hvac",
+      "ipmvp",
+      "measurement-and-verification",
+      "project-haystack",
+      "python"
+    ],
+    "readme": "# CAMBER [![CI](https://github.com/yroussev/camber/actions/workflows/ci.yml/badge.svg)](https://github.com/yroussev/camber/actions/workflows/ci.yml) **Commissioning, Analytics & M&V for Building Energy Re-tuning** A vendor-neutral Python toolkit for analyzing Building Automation System (BAS) trend data — fault detection & diagnostics (FDD), measurement & verification (M&V), and retro-commissioning (RCx) — across *any* building, independent of the BAS vendor. The core idea: points are mapped to a small vocabulary of vendor-neutral **roles** (`HEAT_VALVE`, `SUPPLY_AIR_TEMP`, `OAT`, …), and every",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "yshinde005/oracle-engineering",
+    "url": "https://github.com/yshinde005/oracle-engineering",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-07-28T12:48:35Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 25,
+    "sample_technique_files": [
+      "smoke-test/task3_prose/oracle.py"
+    ],
+    "description": "Research into independent, non-LLM verification of LLM output using structural oracles — deterministic checks derived from the same artifacts an LLM verifier reasons over (a patch diff, a query plan, a document structure), but computed without any model call.",
+    "topics": [],
+    "readme": "# Oracle Engineering Research into independent, non-LLM verification of LLM output using **structural oracles** — deterministic checks derived from the same artifacts an LLM verifier reasons over (a patch diff, a query plan, a document structure), but computed without any model call. The core question: can a structural oracle replace, or usefully cross-check, an LLM verifier on **bypass-vs-rediscovery classification** — deciding whether a security finding describes a genuine bypass of a patch (the patch doesn't cover this code path) or a rediscovery of something the patch already fixes (the pa",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "yubo-research/yubo",
+    "url": "https://github.com/yubo-research/yubo",
+    "stars": 6,
+    "language": "Python",
+    "created_at": "2024-02-11T17:33:48Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 1166,
+    "sample_technique_files": [
+      "optimizer/uhd_be_enn.py"
+    ],
+    "description": "Yeshiva University Bayesian Optimization",
+    "topics": [],
+    "readme": "# Installation ## Installation on MacOS ```bash ./admin/install-macos.sh ``` Apologies for the complexity of installation. We're blending lots of algorithms and test environments, much of which is research-quality code, some of which may be unmaintained. ## Installation on Linux ```bash ./admin/install.sh ``` ## Setup ```bash pre-commit install ``` ## Verification ```bash pre-commit run pytest -sv tests ``` If your code crashes or hangs, try this [hack](https://discuss.pytorch.org/t/ran-into-this-issue-while-executing/101460): ``` export KMP_DUPLICATE_LIB_OK=TRUE export OMP_NUM_THREADS=1 ``` I",
+    "readme_source": "excerpt"
+  }
+]

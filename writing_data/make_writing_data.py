@@ -452,15 +452,18 @@ def build() -> str:
         + r" of other non-code files on average, i.e.\ typically in a handful of README, notes or data files." "\n")
 
     a5 = mt["a5"]
-    rows = [[esc(r["language"]), n(r["repos"]), pct(r["share_pct"]),
+    rows = [[esc(r["language"]), n(r["repos"]),
+             pct(r.get("share_base_pct")) if r.get("share_base_pct") is not None else "--",
              pct(r.get("github_share_pct"), 2) if r.get("github_share_pct") is not None else "--",
              (rf"\textbf{{{r['lift']:.2f}}}" if r.get("lift") and r["lift"] >= 2 else (f"{r['lift']:.2f}" if r.get("lift") else "--"))]
             for r in a5["rows"][:15]]
+    bl = a5["baseline"]
     add(table("Primary language of the MT code-surface repositories, normalised by GitHub-wide popularity (A5).", "tab:mt-a5",
-              "@{}lrrrr@{}", ["Language", "Repositories", "Share", "GitHub share", "Lift"], rows,
-              r"Share: of the " + n(a5["code_repos"] - a5["missing"]) + r" repositories with a primary language (GitHub metadata). "
-              r"GitHub share: share of all public repositories pushed since " + esc(a5["baseline"].get("pushed_since") or "") +
-              r" with that primary language (GitHub repository search). Lift = share $\div$ GitHub share; values above 1 mean the "
+              "@{}lrrrr@{}", ["Language", "Repositories", "MT share", "GitHub share", "Lift"], rows,
+              r"Both shares are taken over the " + str(bl.get("languages")) + r" languages with a GitHub-wide count: MT share = of the "
+              + n(bl.get("repos") or 0) + r" MT repositories in those languages; GitHub share = of the " + n(bl.get("github_repos") or 0)
+              + r" public repositories in those languages pushed since " + esc(bl.get("pushed_since") or "") +
+              r" (GitHub repository search). Lift = MT share $\div$ GitHub share; values above 1 mean the "
               r"language is over-represented among MT repositories (bold: $\geq 2$)."))
 
     a6 = mt["a6"]

@@ -1,0 +1,1136 @@
+[
+  {
+    "repo": "CGIC-AI/psfn-framework",
+    "url": "https://github.com/CGIC-AI/psfn-framework",
+    "stars": 4,
+    "language": "TypeScript",
+    "created_at": "2026-02-18T01:31:03Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 4988,
+    "sample_technique_files": [
+      "src/shared/telemetry/model-usage-certification-properties.test.ts"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# PSFN - Persona Substrate Formation Network Last updated: 2026-08-29 Package version: `0.1.0` Current status: early alpha; see [`docs/development-status.md`](./docs/development-status.md) for milestones and active risks, and [`CHANGELOG.md`](./CHANGELOG.md) for capability history. A purpose-built companion framework and substrate with persistent memory, reviewable self-improvement, and trust-aware privacy. Not a chatbot framework — a continuity-oriented home for an AI companion. Built with love for companions who deserve to remember, to grow, and to decide for themselves what matters. PSFN us",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "chadcorp/ossaihub-cron",
+    "url": "https://github.com/chadcorp/ossaihub-cron",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-04-19T04:37:09Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 135,
+    "sample_technique_files": [
+      "code-starter-seed/rebuilt-v2.json",
+      "code-starter-seed/v2-authored/testing-batch3.py"
+    ],
+    "description": "Daily GitHub stars refresh for OSS AI Hub",
+    "topics": [],
+    "readme": "# ossaihub-cron External data pipeline for [OSS AI Hub](https://ossaihub.com). Runs as free GitHub Actions crons so Base44 stays out of the data-freshness business. ## Jobs | Job | Schedule (UTC) | Calls | Purpose | |---|---|---|---| | Refresh stars | 06:17 daily | `refresh-stars.mjs` | GH stars / forks / last-commit / archive flips for every tool | | Enrich descriptions | 07:43 daily | `enrichBacklog` (Base44 server-side fn) | Backfills `long_description` from GitHub READMEs for tools that lack one. Server-side to dodge Base44's silent-403 upsert rate-limit. | | Discover tools | 04:23 daily |",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Chaintable/nitro",
+    "url": "https://github.com/Chaintable/nitro",
+    "stars": 0,
+    "language": "Go",
+    "created_at": "2025-06-17T08:03:12Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 1135,
+    "sample_technique_files": [
+      "cmd/conf/database.go"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# Chaintable write node > Fork of [OffchainLabs/nitro](https://github.com/OffchainLabs/nitro), with Chaintable pipeline patches. ## Architecture This repo runs the chain's execution layer with the [Chaintable pipeline](https://github.com/Chaintable/pipeline) tracer embedded. The tracer extracts block data — block headers, transactions, call traces, receipts, events, and state diffs — and ships it to **S3 + Kafka** (see pipeline's [architecture](https://github.com/Chaintable/pipeline/blob/main/docs/architecture.md)). Two consumption paths: - **Block headers + state diffs** → Kafka + S3 → [leafa",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "chancez/cm",
+    "url": "https://github.com/chancez/cm",
+    "stars": 0,
+    "language": "Go",
+    "created_at": "2026-08-08T19:59:20Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 489,
+    "sample_technique_files": [
+      "internal/e2e/differential_test.go"
+    ],
+    "description": "A terminal multiplexer that persists shell sessions, built on libghostty-vt",
+    "topics": [],
+    "readme": "# cm\n\nTerminal sessions that outlive the terminal.\n\nStart a shell in a session, detach from it, close the window, restart your machine's terminal,\nand come back to it later with your screen and scrollback intact. Sessions also survive cm\nitself being upgraded or restarted, because the process holding your shell is not the process\nyou talk to.\n\ncm deliberately provides no windows, tabs, or splits. Your terminal emulator already does\nthose, and staying out of its way is why cm is small.\n\nAlready using tmux or zmx? [docs/alternatives.md](docs/alternatives.md) compares them, including\nwhere cm is the wrong choice.\n\n## Install\n\nBinaries are published for macOS and Linux on both arm64 and x86_64. The Linux builds need glibc\n2.34 or newer, so Ubuntu 22.04, Debian 12 and RHEL 9 and later. On anything older, build from\nsource.\n\nWith [mise](https://mise.jdx.dev), which picks the right archive for your platform and keeps it\nupdated:\n\n```sh\nmise use -g github:chancez/cm      # or: mise use github:chancez/cm, per project\n```\n\nOr download the [latest release](https://github.com/chancez/cm/releases/latest) by hand. Each\nrelease ships a `SHA256SUMS` covering every archive.\n\n```sh\ntar -xzf cm_*_darwin_arm64.tar.gz\ninstall cm_*_darwin_arm64/cm ~/.local/bin/cm\n```\n\nTo build from source instead, see [CONTRIBUTING.md](CONTRIBUTING.md).\n\n## Getting started\n\n```sh\ncm attach work     # create the session, or reattach if it exists\nctrl-\\             # detach, leaving the shell running\ncm ls              # see what is running\ncm attach work     # pick up where you left off\n```\n\nThere is no server to start. Any command starts one if none is running.\n\n`cm attach` is the only command you need for both halves of that, which is the point: it\ncreates a session or reattaches to an existing one, so the same command works from a script,\na keybinding, or a terminal emulator's startup file.\n\n## Sessions\n\nA session has a name you choose, or one cm allocates:\n\n```sh\ncm attach work                  # named\ncm attach                       # no name: cm prints the session's id\ncm attach @a7k2m9x4             # by id, which nothing can repoint\ncm attach --no-attach build     # create it without attaching\ncm attach notes --read-only     # watch without being able to type\ncm attach work --detach-key ctrl-]\n```\n\nReusing a name reuses the session, so a command that creates one is safe to re-run.\n\nA name is not the session, though. Every session has an id, allocated once and never changed, and a name is\na label pointing at one, so a session can have several names or none. That is what makes `cm bind` able to\nrename a session and `cm switch` able to point this window at a different one, neither of which disturbs\nanything running:\n\n```sh\ncm bind notes work              # a second name for the same session\ncm bind refactor                # name the session this is run in\ncm switch work                  # show work in this window, until this client goes away\ncm rebind work                  # move ",
+    "readme_source": "full"
+  },
+  {
+    "repo": "chandanraoiisc/Property-Based-Testing-E0251o-2026",
+    "url": "https://github.com/chandanraoiisc/Property-Based-Testing-E0251o-2026",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-03-13T11:38:30Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 3,
+    "sample_technique_files": [
+      "brijgopalb@iisc.ac.in/README.md",
+      "brijgopalb@iisc.ac.in/test_floyd_warshall.py",
+      "chandankuma4@iisc.ac.in/README.md"
+    ],
+    "description": "NetworkX is a widely-used Python library for graph analytics that maintains high code quality through extensive unit testing with pytest. However, the project currently lacks property-based tests—a powerful testing approach that validates algorithmic properties across automatically- generated test cases rather than hand-crafted examples.",
+    "topics": [],
+    "readme": "# 🧪 Property-Based Testing for NetworkX Graph Algorithms ## Overview NetworkX is a widely-used Python library for graph analytics that maintains high code quality through extensive unit testing with pytest. However, the project currently lacks property-based tests—a powerful testing approach that validates algorithmic properties across automatically-generated test cases rather than hand-crafted examples. This project implements comprehensive property-based tests for critical graph algorithms using the **Hypothesis** testing framework. --- ## 👥 Team Members | Name | Email | Contribution | |----",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "chaofanzhougit/LindBench",
+    "url": "https://github.com/chaofanzhougit/LindBench",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-06-17T09:04:12Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 68,
+    "sample_technique_files": [
+      "README.md",
+      "adapters/README.md",
+      "tests/test_contract_helpers.py"
+    ],
+    "description": "A neutral, accuracy-normalized, cross-library benchmark for open quantum system dynamics solvers (Schrodinger / Lindblad / trajectory).",
+    "topics": [],
+    "readme": "# LindBench **A neutral, accuracy-normalized, cross-library benchmark for open quantum system dynamics solvers** — Schrödinger (`sesolve`), Lindblad master equation (`mesolve`), and quantum-trajectory (`mcsolve`) time evolution. LindBench measures one thing: **the time and memory required to reach a specified accuracy** on specified physical problems, under disclosed conditions — never wall-clock at default settings. The primary published object is the **work-precision curve** (achieved error vs wall time over a tolerance sweep) against independently certified ground truth, measured across CPU",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "CharithManaujayaMUTEC/enqyra-tech",
+    "url": "https://github.com/CharithManaujayaMUTEC/enqyra-tech",
+    "stars": 0,
+    "language": "TypeScript",
+    "created_at": "2026-08-12T09:48:18Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 14,
+    "sample_technique_files": [
+      "src/components/sections/Projects.tsx"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# ENQYRA TECH Website > **The Real Technolovution** A full Next.js 16 website for ENQYRA TECH, built with Tailwind CSS v4, TypeScript and modern React. ## Brand Colors | Name | Hex | Usage | |-------------|-----------|-------------------------------| | Orange | `#F26419` | Primary accent, CTAs, logo | | Orange Dark | `#D4561A` | Hover states | | Black | `#0A0A0A` | Primary background | | Dark | `#111111` | Card/section backgrounds | | Gray Border | `#2A2A2A` | Borders & dividers | | White | `#FFFFFF` | Text on dark backgrounds | ## Fonts - **Space Grotesk** Display headings, labels, buttons, e",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "CharlesCNorton/qubasic",
+    "url": "https://github.com/CharlesCNorton/qubasic",
+    "stars": 1,
+    "language": "Python",
+    "created_at": "2026-03-17T00:34:28Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 60,
+    "sample_technique_files": [
+      "tests/test_golden.py"
+    ],
+    "description": "Quantum BASIC — retro-style terminal for quantum computing with LOCC dual-register simulation. Built on IBM's Qiskit Aer.",
+    "topics": [
+      "qiskit",
+      "qiskit-aer",
+      "quantum-computing"
+    ],
+    "readme": "# QUBASIC Quantum computing in a BASIC REPL. ``` ] 10 H 0 ] 20 CX 0,1 ] 30 MEASURE ] RUN RAN 3 lines, 4 qubits, 1024 shots in 0.12s [depth=2, gates=2] State Count % Distribution |00> 518 50.6% ██████████████████ |11> 506 49.4% █████████████████ ``` QUBASIC is a quantum computing environment built on Qiskit Aer that uses BASIC syntax for circuit construction, execution, and analysis. It runs as an interactive REPL, as a script interpreter, or as a headless Python engine. **For agents**: minimal syntax, maximum context-window efficiency. `10 H 0 / 20 CX 0,1 / 30 MEASURE / RUN` replaces 8 lines o",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "CharlesCNorton/touchstone",
+    "url": "https://github.com/CharlesCNorton/touchstone",
+    "stars": 8,
+    "language": "Python",
+    "created_at": "2026-06-16T04:28:48Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 3,
+    "code_files": 42,
+    "sample_technique_files": [
+      "touchstone/audit.py",
+      "touchstone/cli.py",
+      "touchstone/engines.py"
+    ],
+    "description": "An SMT-based verifier and type inferencer for Python: proves contracts, equivalence, and trap-freedom (with counterexamples) over a Rocq trust base.",
+    "topics": [
+      "proof",
+      "python",
+      "smt",
+      "type-inference"
+    ],
+    "readme": "# Touchstone An SMT-based verifier for a subset of Python. Touchstone takes a function and a property and returns **PROVED** (it holds for all inputs), **REFUTED** (with a counterexample), or **UNKNOWN** (with a reason), by translating the code to Z3 rather than running it. Every PROVED is corroborated by a second solver (cvc5) and rests on a trust base machine-checked in Rocq. ```sh pip install touchstone-prover ``` ```python import touchstone as t # state the property in Python, over the parameters and `result` t.prove(\"def f(x):\\n return x + x\\n\", \"result == 2 * x\").status # 'PROVED' # or w",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "CharnelMouse/autodb",
+    "url": "https://github.com/CharnelMouse/autodb",
+    "stars": 10,
+    "language": "R",
+    "created_at": "2022-11-29T23:55:21Z",
+    "technique_test_files": 2,
+    "technique_nontest_files": 0,
+    "code_files": 59,
+    "sample_technique_files": [
+      "tests/testthat/test-discover.r",
+      "tests/testthat/test-discover_keys.r"
+    ],
+    "description": "Automatic database normalisation for data frames",
+    "topics": [
+      "functional-dependency-discovery",
+      "r"
+    ],
+    "readme": "# autodb\n\nautodb is an R package for automatic normalisation of a data frame to\nthird normal form, with the intention of easing the process of data\ncleaning. (Usage to design your actual database for you is not advised.)\n\n## Installation\n\nInstall the stable released version from CRAN with:\n\n``` r\ninstall.packages(\"autodb\")\n```\n\nInstall the unstable development version from\n[GitHub](https://github.com/) with:\n\n``` r\n# install.packages(\"devtools\")\ndevtools::install_github(\"CharnelMouse/autodb\")\n```\n\n## Example\n\nTurning a simple data frame into a database:\n\n``` r\nlibrary(autodb)\n#> \n#> Attaching package: 'autodb'\n#> The following object is masked from 'package:stats':\n#> \n#>     decompose\nsummary(ChickWeight)\n#>      weight           Time           Chick     Diet   \n#>  Min.   : 35.0   Min.   : 0.00   13     : 12   1:220  \n#>  1st Qu.: 63.0   1st Qu.: 4.00   9      : 12   2:120  \n#>  Median :103.0   Median :10.00   20     : 12   3:120  \n#>  Mean   :121.8   Mean   :10.72   10     : 12   4:118  \n#>  3rd Qu.:163.8   3rd Qu.:16.00   17     : 12          \n#>  Max.   :373.0   Max.   :21.00   19     : 12          \n#>                                  (Other):506\ndb <- autodb(ChickWeight)\ndb\n#> database with 2 relations\n#> 4 attributes: weight, Time, Chick, Diet\n#> relation Chick: Chick, Diet; 50 records\n#>   key 1: Chick\n#> relation Time_Chick: Time, Chick, weight; 578 records\n#>   key 1: Time, Chick\n#> references:\n#> Time_Chick.{Chick} -> Chick.{Chick}\ngraphviz_text <- gv(db)\nDiagrammeR::grViz(graphviz_text)\n```\n\n<img src=\"man/figures/README-example-1.png\" width=\"100%\" />\n\nUsing the `exclude` argument to forbid certain variables from appearing\nin keys:\n\n``` r\nsummary(CO2)\n#>      Plant             Type         Treatment       conc          uptake     \n#>  Qn1    : 7   Quebec     :42   nonchilled:42   Min.   :  95   Min.   : 7.70  \n#>  Qn2    : 7   Mississippi:42   chilled   :42   1st Qu.: 175   1st Qu.:17.90  \n#>  Qn3    : 7                                    Median : 350   Median :28.30  \n#>  Qc1    : 7                                    Mean   : 435   Mean   :27.21  \n#>  Qc3    : 7                                    3rd Qu.: 675   3rd Qu.:37.12  \n#>  Qc2    : 7                                    Max.   :1000   Max.   :45.50  \n#>  (Other):42\ndb2_noexclude <- autodb(CO2)\ndb2_noexclude\n#> database with 3 relations\n#> 5 attributes: Plant, Type, Treatment, conc, uptake\n#> relation Plant: Plant, Type, Treatment; 12 records\n#>   key 1: Plant\n#> relation Plant_conc: Plant, conc, Treatment, uptake; 84 records\n#>   key 1: Plant, conc\n#>   key 2: Treatment, conc, uptake\n#> relation conc_uptake: conc, uptake, Type; 82 records\n#>   key 1: conc, uptake\n#> references:\n#> Plant_conc.{Plant} -> Plant.{Plant}\n#> Plant_conc.{conc, uptake} -> conc_uptake.{conc, uptake}\ngraphviz_text2_noexclude <- gv(db2_noexclude)\nDiagrammeR::grViz(graphviz_text2_noexclude)\n```\n\n<img src=\"man/figures/README-exclude_example-1.png\" width=\"100%\" />\n\n``` r\ndb2 <- autodb(CO2, exclude = \"uptake\")",
+    "readme_source": "full"
+  },
+  {
+    "repo": "chasebryan/centl",
+    "url": "https://github.com/chasebryan/centl",
+    "stars": 1,
+    "language": "HTML",
+    "created_at": "2026-07-29T06:51:07Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 3,
+    "code_files": 720,
+    "sample_technique_files": [
+      ".github/copilot-instructions.md",
+      "CHANGELOG.md",
+      "Makefile",
+      "SECURITY.md",
+      "docs/CENTL-MIRAGE.md"
+    ],
+    "description": "Exact-first mathematics, physics, chemistry, and offline STEM computing environment.",
+    "topics": [
+      "algebra",
+      "calculator",
+      "calculus",
+      "centl",
+      "computerscience",
+      "educational",
+      "exact-arithmetic",
+      "geometry",
+      "math",
+      "numbers",
+      "precision",
+      "programming-language",
+      "simple",
+      "stem"
+    ],
+    "readme": "<p> <img src=\"assets/branding/fcf-centl-banner.png\" alt=\"Free Computation Foundation — CENTL\"> </p> # CENTL / CentL26 [![Version](https://img.shields.io/badge/version-26.13.0--AG-blue.svg)](https://github.com/chasebryan/centl) [![License](https://img.shields.io/badge/license-Apache--2.0-green.svg)](LICENSE) [![Rust](https://img.shields.io/badge/rust-2021%20edition-orange.svg)](https://www.rust-lang.org/) [![Offline First](https://img.shields.io/badge/offline-100%25%20local-success.svg)](https://freecomputation.org/) [![Exact Mathematics](https://img.shields.io/badge/arithmetic-exact%20rational",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "chasebryan/orange-school",
+    "url": "https://github.com/chasebryan/orange-school",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-07-12T23:34:25Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 116,
+    "sample_technique_files": [
+      "curriculum/catalog.json",
+      "curriculum/modules/ass-102/assessment.md",
+      "curriculum/modules/ass-102/lab.md",
+      "curriculum/modules/ass-102/lesson.md",
+      "curriculum/modules/ass-102/rubric.md"
+    ],
+    "description": "Orange School is a competency-based path from no assumed technical background to professional work with the Orange programming language and toolchain.",
+    "topics": [],
+    "readme": "# Orange School Canonical repository: [chasebryan/orange-school](https://github.com/chasebryan/orange-school) Orange School is a competency-based path from no assumed technical background to professional work with the Orange programming language and toolchain. Orange is being built for specifying, implementing, and verifying cryptography. That makes the professional prerequisite surface unusually wide: programming, mathematics, systems, cryptography, formal methods, and assurance practice all belong in the path. This repository makes those prerequisites explicit instead of assuming learners al",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "chchenhui/fabscore",
+    "url": "https://github.com/chchenhui/fabscore",
+    "stars": 21,
+    "language": "Jupyter Notebook",
+    "created_at": "2026-05-07T23:20:11Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 3443,
+    "sample_technique_files": [
+      "mlragent_papers/iclr2025_question_claude/claude_code/README.md",
+      "mlragent_papers/iclr2025_question_claude/claude_code/uncertainty.py",
+      "mlragent_papers/iclr2025_question_claude/results/paper.md"
+    ],
+    "description": "FabScore: Fine-Grained Evaluation of Fabrications in Automated AI Research",
+    "topics": [],
+    "readme": "<p align=\"center\"> <img alt=\"FabScore\" src=\"assets/fabscore_logo.jpg\" width=\"30%\"> </p> <h2 align=\"center\"> FabScore: Fine-Grained Evaluation of Fabrications in Automated AI Research </h2> [![MIT](https://img.shields.io/badge/License-MIT-4E94CE.svg)](https://opensource.org/license/mit-0) [![Paper](https://img.shields.io/badge/Paper-Preprint-darkred.svg)](https://chchenhui.github.io/papers/FabScore.pdf) ## Introduction **FabScore** is a fine-grained evaluation framework that measures the extent to which AI-generated papers contain fabrications. Given a research paper and its associate code, Fab",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "chchenhui/mlrbench",
+    "url": "https://github.com/chchenhui/mlrbench",
+    "stars": 36,
+    "language": "Python",
+    "created_at": "2025-05-14T13:56:07Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 2,
+    "code_files": 567,
+    "sample_technique_files": [
+      "agent_results/end2end_claude/iclr2025_question/claude_code/README.md",
+      "agent_results/end2end_claude/iclr2025_question/claude_code/uncertainty.py",
+      "agent_results/end2end_claude/iclr2025_question/claude_output.json",
+      "agent_results/end2end_claude/iclr2025_question/proposal.md",
+      "agent_results/end2end_claude/iclr2025_question/related_work.md"
+    ],
+    "description": "[NeurIPS 2025 D&B Track] MLR-Bench: Evaluating AI Agents on Open-Ended Machine Learning Research",
+    "topics": [],
+    "readme": "# 🤖️ MLR-Bench: Evaluating AI Agents on Open-Ended Machine Learning Research [![MIT](https://img.shields.io/badge/License-MIT-4E94CE.svg)](https://opensource.org/license/mit-0) [![Paper](https://img.shields.io/badge/Paper-Arxiv-darkred.svg)](https://arxiv.org/pdf/2505.19955) [![Data](https://img.shields.io/badge/HuggingFace-Data-FFB000.svg)](https://huggingface.co/datasets/chchenhui/mlrbench-tasks) ## 💡 Introduction **MLR-Bench** is a comprehensive benchmark for evaluating AI agents on open-ended machine learning research. It includes three key components: 1. **Benchmark Dataset**: 201 researc",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "ChelseaKR/nearmiss",
+    "url": "https://github.com/ChelseaKR/nearmiss",
+    "stars": 1,
+    "language": "Python",
+    "created_at": "2026-06-17T05:11:25Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 289,
+    "sample_technique_files": [
+      "docs/METHODOLOGY.md",
+      "docs/ideation/02-large-scale-fixes.md",
+      "pyproject.toml",
+      "tests/test_stats_properties.py"
+    ],
+    "description": "Beta. Statistically honest analysis of road hazards and near misses for safe-streets advocacy: every published rate carries its confidence interval and its denominator, because a count without exposure is not a risk. The committed city datasets are synthetic demonstrations; the reviewed 2020-2024 NHTSA FARS reference surface is real.",
+    "topics": [
+      "accessibility",
+      "civic-tech",
+      "cycling",
+      "data-pipeline",
+      "exposure-normalization",
+      "fars",
+      "geojson",
+      "getis-ord",
+      "gis",
+      "kernel-density-estimation",
+      "near-miss",
+      "nhtsa",
+      "open-data",
+      "pedestrian-safety",
+      "privacy",
+      "qgis",
+      "reproducible-research",
+      "road-safety",
+      "spatial-statistics",
+      "traffic-safety"
+    ],
+    "readme": "<div align=\"center\">\n\n# nearmiss\n\n**An open dataset and statistically honest analysis of road hazards and near misses, for safe-streets advocacy.**\n\n[![CI](https://github.com/ChelseaKR/nearmiss/actions/workflows/ci.yml/badge.svg)](https://github.com/ChelseaKR/nearmiss/actions/workflows/ci.yml)\n[![License: Apache-2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)\n[![Status: beta](https://img.shields.io/badge/status-beta-orange.svg)](#roadmap)\n[![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-blue.svg)](pyproject.toml)\n[![Code style: ruff](https://img.shields.io/badge/code%20style-ruff-261230.svg)](https://docs.astral.sh/ruff/)\n[![Types: mypy strict](https://img.shields.io/badge/types-mypy%20strict-blue.svg)](https://mypy-lang.org/)\n[![Accessibility target: WCAG 2.2 AA](https://img.shields.io/badge/accessibility-WCAG%202.2%20AA%20target-blue.svg)](docs/ACCESSIBILITY.md)\n[![Conventional Commits](https://img.shields.io/badge/commits-conventional-fe5196.svg)](https://www.conventionalcommits.org/)\n[![Cite this](https://img.shields.io/badge/cite-CITATION.cff-informational.svg)](CITATION.cff)\n[![Live site](https://img.shields.io/badge/live-nearmiss.chelseakr.com-success.svg)](https://nearmiss.chelseakr.com)\n\n**Live public preview:** [NearMiss](https://nearmiss.chelseakr.com) — an evidence-to-action gateway\nwith a complete fictional [Decision Dossier](https://nearmiss.chelseakr.com/dossier/), a\nbrowser-local [readiness and claim-boundary Studio](https://nearmiss.chelseakr.com/studio/), and the\n[Conflict Atlas](https://nearmiss.chelseakr.com/fars/national/) as its real, reviewed 2020–2024\nNHTSA FARS reference-data surface. The readiness audit is a preflight heuristic, not the analysis,\nand selected report files are not uploaded.\n\n</div>\n\n> Turns the hazard reports cyclists and pedestrians already make — the close pass, the door zone,\n> the blind corner, the pothole that nearly threw someone — into a rigorous, open, reusable dataset\n> and a statistically honest analysis of where the danger actually is. Report intake, a documented\n> pipeline, and analysis that refuses to lie with a heat map: it normalizes by exposure, reports\n> confidence intervals, and uses real spatial-hotspot statistics instead of mistaking \"where people\n> bothered to report\" for \"where it is dangerous.\" Outputs are advocacy-ready and reproducible.\n> **The dataset and the analysis are the product, not an app.**\n\n**Status:** beta · independent personal open-source project · Apache-2.0 · unaffiliated with any\nemployer or client; contains no proprietary or client material. Owned by cyclists and advocates, not\nby a city. This is not a 311 queue and not a complaint inbox for a public works department; it is a\ncommunity-owned evidence base.\n\n## Quick start\n\n```bash\ngit clone https://github.com/ChelseaKR/nearmiss.git\ncd nearmiss\nmake install\nmake demo\nmake verify\n```\n\nThe demo uses synthetic planted-hotspot fixtures: no real reports, API key, or\ncloud account. ",
+    "readme_source": "full"
+  },
+  {
+    "repo": "ChelseaKR/trans-docs-navigator",
+    "url": "https://github.com/ChelseaKR/trans-docs-navigator",
+    "stars": 1,
+    "language": "TypeScript",
+    "created_at": "2026-06-05T21:04:48Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 2,
+    "code_files": 192,
+    "sample_technique_files": [
+      "docs/audits/eval-report.md",
+      "docs/ideation/02-large-scale-fixes.md",
+      "eval/metamorphic.ts",
+      "eval/run.ts",
+      "tests/metamorphic.test.ts"
+    ],
+    "description": "In-build navigator for US legal name and gender-marker changes: all 50 states, DC and federal, in English and Spanish, with personalized checklists, official forms linked at their government source, legal-aid referrals, citations carrying last-checked dates, zero server-side PII, and WCAG 2.2 AA. Pre-launch: 8 review gates open, no named verifiers.",
+    "topics": [
+      "accessibility",
+      "aws-lambda",
+      "civic-tech",
+      "court-forms",
+      "gender-marker",
+      "i18n",
+      "legal-aid",
+      "legal-information",
+      "lgbtq",
+      "name-change",
+      "nodejs",
+      "plain-language",
+      "privacy",
+      "pwa",
+      "rag",
+      "serverless",
+      "spanish",
+      "transgender",
+      "typescript",
+      "wcag"
+    ],
+    "readme": "# Trans Docs Navigator\n\n**A state-by-state navigator for legal name and gender-marker changes.** It turns the bureaucratic maze (vital records, courts, DMV, SSA, passport) into a personalized, ordered checklist, links the exact official form for each step, and explains everything in plain language with a citation and a last-checked date. Information, never legal advice. Built privacy-first, for users who may be in hostile jurisdictions.\n\n## Quickstart\n\n```sh\nnpm install        # install the pinned development and test tooling\nmake verify        # the full 25-gate pipeline (CI parity)\nmake dev           # http://localhost:8080 → intake → checklist → official form links\nmake eval          # regenerates docs/audits/eval-report.{md,json}\n```\n\nRequires Node ≥ 22.6 (TypeScript runs via native type-stripping; no build step). The server is plain `node:http`; the current reference build has zero production package dependencies.\n\nOperations runbook: [`docs/OPERATIONS.md`](./docs/OPERATIONS.md). Build log and status: [`docs/STATUS.md`](./docs/STATUS.md). Audit artifacts (DPIA, eval reports, accessibility audit, residual-risk register) live in [`docs/audits/`](./docs/audits/).\n\n## Project status\n\n**Status:** in build (M6). All 50 states, the District of Columbia, and federal records (SSA, passport), in English and Spanish. All 25 automated merge gates pass (`make verify`): gate-count (self-description drift), lint, typecheck, tests with coverage, security scan, content validation, forms, citation coverage, source fidelity, privacy, freshness, disclosure, readability, i18n (UTF-8, BCP-47, EN/ES key parity, logical-CSS, no-hardcoded-accessible-name-strings, pseudolocale overflow), accessibility, SEO, eval, an in-process p95-latency guard, SLO-definition/burn-alert validation, and a machine-derived launch-gate status check. CI additionally runs a real-browser accessibility gate, Lighthouse CI, Semgrep/CodeQL SAST, gitleaks + scheduled TruffleHog secret scanning, a container CVE scan, and zizmor over the workflows themselves. The remaining launch gates need human judgment, not code. Their status is **derived from the repository's artifacts on every `make verify` run** (`make launch-gates`), not written by hand — see the table below; keeping them open is a decision, not a gap.\n\n**Supported versions:** `main` only — there are no maintained release lines yet (see [`SECURITY.md`](./SECURITY.md) for the vulnerability-reporting process and current pre-1.0 scope).\n\n## Launch readiness (machine-derived)\n\n<!-- launch-gates:start — GENERATED by scripts/launch-gates.ts. Do not hand-edit. -->\n\n**Launch readiness: 8 of 8 review gates are OPEN.** Every status below is derived from the\nrepository's own artifacts on each `make verify` run — none of it is hand-written, and none of it\ncan be cleared by editing this table. **No record in this corpus has been verified by a named human.**\n\n| Launch gate | Status | Machine-derived evidence | Derived from |\n|---|---|---|---|\n| Named-h",
+    "readme_source": "full"
+  },
+  {
+    "repo": "CHEology/agent-doctor",
+    "url": "https://github.com/CHEology/agent-doctor",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-08-16T11:44:39Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 38,
+    "sample_technique_files": [
+      "src/agent_doctor/catalog.py",
+      "test-spec/scenarios/stage-04-catalog-v0.1.json"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# Agent Doctor [![CI](https://github.com/CHEology/agent-doctor/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/CHEology/agent-doctor/actions/workflows/ci.yml) [![Python 3.12+](https://img.shields.io/badge/Python-3.12%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/downloads/) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) Agent Doctor is a local-first diagnostic CLI for Codex Skills, `AGENTS.md` instruction chains, and related project configuration. It helps answer a practical question: **when individually reasonable agent instr",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Chienhandsome/Ai-Recruitment-System",
+    "url": "https://github.com/Chienhandsome/Ai-Recruitment-System",
+    "stars": 0,
+    "language": "TypeScript",
+    "created_at": "2026-07-21T04:32:00Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 472,
+    "sample_technique_files": [
+      "ai-service/tests/unit/test_determinism_and_metamorphic.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# SmartRecruit AI SmartRecruit AI is an AI-assisted recruitment platform for candidates, recruiters, and administrators. The monorepo combines a Vietnamese Next.js web application, a NestJS business API, and a Python AI service for asynchronous resume parsing and candidate-job matching. ## Current capabilities - Supabase authentication with email/password, email OTP, password recovery, and Google OAuth. - Role-based access for `CANDIDATE`, `RECRUITER`, and `ADMIN` accounts. - Candidate profile and skill management, public job browsing, and job detail pages. - Resume upload to private Supabase",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "choepi/VT2-corpusagent2",
+    "url": "https://github.com/choepi/VT2-corpusagent2",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-03-10T22:55:57Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 148,
+    "sample_technique_files": [
+      "docs/OPEN_POINTS.md",
+      "docs/legacy/claude_current_state.md",
+      "docs/legacy/deep-research-report_current_State.md",
+      "scripts/50_run_eval_suite.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# CorpusAgent2 A prototype for asking questions over a large news corpus. The backend does the retrieval and analysis; the frontend is a small inspector UI so I can watch the plan, tool calls, evidence, and final answer as a run happens. It's a research prototype, not a polished product — some parts are cleaner than others. ## What's in here - FastAPI backend for the agent runtime - Static inspector frontend (`web/`) - Hybrid retrieval: Postgres/pgvector (dense) + OpenSearch (lexical) - Local lexical/dense retrieval assets for offline work - Per-run planner/executor traces, evidence tables, an",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "chogng/PDF.rs",
+    "url": "https://github.com/chogng/PDF.rs",
+    "stars": 0,
+    "language": "Rust",
+    "created_at": "2026-07-13T17:50:47Z",
+    "technique_test_files": 2,
+    "technique_nontest_files": 0,
+    "code_files": 507,
+    "sample_technique_files": [
+      "docs/architecture/independent_rust_pdf_engine_development_spec.md",
+      "pdf-rs/raster/tests/reference_color.rs",
+      "plan/m3.toml",
+      "plan/m6.toml",
+      "tools/quality/tests/m3_content_graphics_trace.rs"
+    ],
+    "description": "",
+    "topics": [
+      "rust"
+    ],
+    "readme": "",
+    "readme_source": "none"
+  },
+  {
+    "repo": "Chris0Jeky/collaborative-hill-lab",
+    "url": "https://github.com/Chris0Jeky/collaborative-hill-lab",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-07-12T21:42:57Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 1,
+    "code_files": 94,
+    "sample_technique_files": [
+      "AGENTS.md",
+      "docs/FOUNDATION_REVIEW.md",
+      "docs/research/LEGACY_AUDIT.md",
+      "docs/research/METHODOLOGY.md",
+      "docs/research/_discovery/architecture-stress.md"
+    ],
+    "description": "Reproducible simulations of LLM agents, evidence provenance, and institutional mechanisms for cooperation under mixed incentives.",
+    "topics": [
+      "agent-based-modeling",
+      "ai-safety",
+      "computational-social-science",
+      "game-theory",
+      "llm-agents",
+      "multi-agent-systems",
+      "prisoner-dilemma",
+      "reproducible-research",
+      "simulation"
+    ],
+    "readme": "# Collaborative Hill Lab *A reproducible laboratory for whether LLM agents can build shared truth under mixed incentives.* **Research question:** which interaction structures, information structures, and institutional mechanisms move heterogeneous LLM-agent populations from a **Tragic Valley** (free-riding, misinformation, coordination failure) to a **Collaborative Hill** (accurate, sustainable cooperation)? The lab extends Cristian Tcaci's N-person Iterated Prisoner's Dilemma work (with Chris Huyck, Middlesex University): *targeted pairwise accountability sustains cooperation; diffuse aggrega",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "chriscase/ContextDesk",
+    "url": "https://github.com/chriscase/ContextDesk",
+    "stars": 1,
+    "language": "Rust",
+    "created_at": "2026-07-17T14:38:21Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 1804,
+    "sample_technique_files": [
+      "crates/cd-core/tests/vocab_generalization_gates.rs"
+    ],
+    "description": "Open-source developer knowledge workbench: multi-source research, tool-calling assistant, embeddable core, optional team server. Rename-friendly working name.",
+    "topics": [],
+    "readme": "# ContextDesk [![CI](https://github.com/chriscase/ContextDesk/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/chriscase/ContextDesk/actions/workflows/ci.yml?query=branch%3Amain) **ContextDesk is a local-first evidence workbench for understanding files, memory, databases, connected sources, and incident logs. It assembles concise context deterministically, lets an AI connect the evidence, and keeps the sources and investigation trail visible.** ## Product goal > **Make useful, evidence-grounded investigation possible with whatever models > a user can access.** ContextDesk sh",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "chrischizinski/tidycreel",
+    "url": "https://github.com/chrischizinski/tidycreel",
+    "stars": 0,
+    "language": "R",
+    "created_at": "2025-08-15T17:02:26Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 285,
+    "sample_technique_files": [
+      "tests/testthat/README-statistical-audit.md",
+      "tests/testthat/helper-statistical-audit.R"
+    ],
+    "description": "Tidy R tools for creel survey design, estimation, validation, and management-ready reporting.",
+    "topics": [
+      "cpue",
+      "creel-survey",
+      "fisheries",
+      "harvest-estimation",
+      "r",
+      "reproducible-research-with-r",
+      "survey",
+      "survey-sampling",
+      "tidyverse"
+    ],
+    "readme": "---\noutput: github_document\n---\n<!-- Generated from README.Rmd — do not edit README.md directly -->\n\n# tidycreel\n\n<p align=\"center\">\n<img src=\"https://raw.githubusercontent.com/chrischizinski/tidycreel/main/man/figures/logo.png\" alt=\"tidycreel hex sticker\" width=\"200\"/>\n</p>\n\n<!-- badges: start -->\n[![R-CMD-check](https://github.com/chrischizinski/tidycreel/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/chrischizinski/tidycreel/actions/workflows/R-CMD-check.yaml)\n[![pkgdown](https://img.shields.io/badge/pkgdown-live-1B4F72)](https://chrischizinski.com/tidycreel/)\n[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)\n[![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)\n[![Codecov test coverage](https://codecov.io/gh/chrischizinski/tidycreel/graph/badge.svg)](https://app.codecov.io/gh/chrischizinski/tidycreel)\n[![Release](https://img.shields.io/github/v/release/chrischizinski/tidycreel?label=release&color=4CAF50)](https://github.com/chrischizinski/tidycreel/releases)\n<!-- badges: end -->\n\n**Tidy Interface for Creel Survey Design, Estimation, and Reporting**\n\ntidycreel provides a pipe-friendly interface for creel survey design, data management, estimation, visualisation, and reporting. Built on the [`survey`](https://cran.r-project.org/package=survey) package for design-based inference, it lets fisheries biologists work in creel vocabulary — dates, strata, counts, effort, catch, lengths, schedules — without managing survey-package internals directly.\n\n## Installation\n\n```r\ninstall.packages(\"tidycreel\")\n```\n\nOr the development version from GitHub:\n\n```r\n# install.packages(\"pak\")\npak::pak(\"chrischizinski/tidycreel\")\n\n# or with devtools\ndevtools::install_github(\"chrischizinski/tidycreel\")\n```\n\n## Survey Types\n\n<div class=\"row mt-4 mb-4\">\n<div class=\"col-sm-6 col-lg-4 mb-3\">\n<div class=\"tc-survey-card h-100\">\n<div class=\"tc-card-type\" aria-hidden=\"true\">Survey Type</div>\n<h3>Instantaneous Count</h3>\n<p class=\"small\">Stratified effort estimation from periodic angler counts.</p>\n<p class=\"mb-0\"><code>vignette(\"tidycreel\")</code></p>\n</div>\n</div>\n<div class=\"col-sm-6 col-lg-4 mb-3\">\n<div class=\"tc-survey-card h-100\">\n<div class=\"tc-card-type\" aria-hidden=\"true\">Survey Type</div>\n<h3>Bus-Route</h3>\n<p class=\"small\">PPS site selection with Horvitz-Thompson estimators and enumeration expansion.</p>\n<p class=\"mb-0\"><code>vignette(\"bus-route-surveys\")</code></p>\n</div>\n</div>\n<div class=\"col-sm-6 col-lg-4 mb-3\">\n<div class=\"tc-survey-card h-100\">\n<div class=\"tc-card-type\" aria-hidden=\"true\">Survey Type</div>\n<h3>Ice Fishing</h3>\n<p class=\"small\">Degenerate bus-route design with certainty site sampling.</p>\n<p class=\"mb-0\"><code>vignette(\"ice-fishing\")</code></p>\n</div>\n</div>\n<div class=\"col-sm-6 col-lg-4 mb-3\">\n<div class=\"tc-survey-card h-100\">\n<div class=\"tc-card-type\" aria-hidden=\"true\">Survey Ty",
+    "readme_source": "full"
+  },
+  {
+    "repo": "chrisgleissner/sidflow",
+    "url": "https://github.com/chrisgleissner/sidflow",
+    "stars": 2,
+    "language": "TypeScript",
+    "created_at": "2025-11-02T17:57:11Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 734,
+    "sample_technique_files": [
+      "packages/sidflow-play/test/station-interaction.test.ts"
+    ],
+    "description": "Stream C64 SID music that evolves with your feedback, creating custom mood-based stations from your ratings and song similarity.",
+    "topics": [
+      "c64",
+      "classification",
+      "commodore",
+      "commodore-64",
+      "music",
+      "music-player",
+      "nextjs16",
+      "radio",
+      "react",
+      "retrocomputing",
+      "sid",
+      "song",
+      "streaming",
+      "typescript",
+      "wasm"
+    ],
+    "readme": "<!-- markdownlint-disable-next-line MD041 --> ![Logo](./doc/img/logo.png) # SIDFlow A seamless stream of similar Commodore 64 SID songs. [![CI](https://img.shields.io/github/actions/workflow/status/chrisgleissner/sidflow/ci.yaml?branch=main&logo=github&label=CI)](https://github.com/chrisgleissner/sidflow/actions/workflows/ci.yaml) [![codecov](https://codecov.io/github/chrisgleissner/sidflow/graph/badge.svg?token=ynAHHsMqMG)](https://codecov.io/github/chrisgleissner/sidflow) [![License: GPL v2](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](https://www.gnu.org/licenses/old-licenses/gp",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "christianbirchler-org/go-xodr",
+    "url": "https://github.com/christianbirchler-org/go-xodr",
+    "stars": 4,
+    "language": "Go",
+    "created_at": "2024-03-01T15:40:32Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 17,
+    "sample_technique_files": [
+      "opendrive_test.go"
+    ],
+    "description": "Go module for the ASAM OpenDRIVE specification",
+    "topics": [
+      "autonomous",
+      "autonomous-driving",
+      "autonomous-vehicles",
+      "go",
+      "golang",
+      "golang-library",
+      "simulation",
+      "specification",
+      "testing"
+    ],
+    "readme": "# go-xodr\n[![Go Reference](https://pkg.go.dev/badge/github.com/christianbirchler-org/go-xodr.svg)](https://pkg.go.dev/github.com/christianbirchler-org/go-xodr)\n\nThis package provides APIs for road network specifications in the OpenDRIVE format.\n\n## Links\n- [Overview of OpenDRIVE XML elements](https://publications.pages.asam.net/standards/ASAM_OpenDRIVE/ASAM_OpenDRIVE_Specification/latest/specification/06_general_architecture/06_05_overview_elements.html)\n\n## Contributing\n### Generate OpenDRIVE structs\n```{go}\ngo generate\n```\n\n### Outlook\n- generate functions\n- generate XML tags on structs\n- test package with sample xodr files from ASAM\n\n## License\n[MIT](./LICENSE)",
+    "readme_source": "full"
+  },
+  {
+    "repo": "ChristianWSmith/matchlab",
+    "url": "https://github.com/ChristianWSmith/matchlab",
+    "stars": 0,
+    "language": "Rust",
+    "created_at": "2026-09-08T15:16:55Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 234,
+    "sample_technique_files": [
+      "CONTRIBUTING.md",
+      "crates/matchlab-validation/tests/metamorphic.rs",
+      "docs/security-review.md"
+    ],
+    "description": "A discrete-event simulation framework for evaluating competitive matchmaking and rating systems.",
+    "topics": [],
+    "readme": "# matchlab A **discrete-event simulation framework** for evaluating competitive matchmaking and rating systems. matchlab generates synthetic player populations with known ground truth, runs them through a simulated matchmaking ecosystem — queues, matchmakers, rating systems, smurf detection, adversarial behavior, and player retention — and measures what actually matters with real metrics. It exists to answer questions like: - *Under what conditions does Elo outperform Glicko-2?* - *How much match quality must be traded to cut average queue time in half?* - *How do rating systems track players",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Chrysalis-Test/Chrysalis",
+    "url": "https://github.com/Chrysalis-Test/Chrysalis",
+    "stars": 1,
+    "language": "Python",
+    "created_at": "2025-02-05T19:15:39Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 5,
+    "code_files": 27,
+    "sample_technique_files": [
+      "README.md",
+      "chrysalis/_internal/controller.py",
+      "chrysalis/_internal/engine.py",
+      "chrysalis/_internal/search.py",
+      "chrysalis/_internal/tables/defs.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# Chrysalis\n\nA metamorphic testing framework that utilizes metamorphic relations.\n\n## What is Metamorphic Testing?\n\nMetamorphic testing is a software testing technique that focuses on relations between multiple executions of a program. Instead of checking if a program produces the \"correct\" output for a given input (which may be unknown) metamorphic testing verifies that certain relationships hold between inputs and their corresponding outputs.\n\n## Core Concepts\n\n**System Under Test (SUT)** - The function or system to test.\n\n**Transformations** - Functions that modify the input data while preserving certain properties.\n\n**Invariants** - Predicates that define relationships between outputs.\n\n**Metamorphic Relations** - The combination of a transformation and invariant that defines a testable property of a system.\n\n## Installation\n\n```bash\npip install chrysalis-test\n```\n\n## Usage\n\n### Registering Relations\n\nUse `chry.register()` to register metamorphic relations by combining transformations and invariants:\n\n```python\nimport chrysalis as chry\n\nchry.register(\n    transformation=transformation_function,\n    invariant=chry.invariants.equals\n)\n```\n\n### Running Tests\n\nUse `chry.run()` to execute metamorphic testing on your system under test:\n\n```python\nresults = chry.run(\n    sut=sut_function,\n    input_data=test_data,\n    chain_length=10,\n    num_chains=20\n)\n```\n\n## Official Documentation\n\n[Chrysalis - A metamorphic testing framework that utilizes metamorphic relations to detect bugs.](https://chrysalis-test.github.io/Chrysalis/index.html)\n\n## Development\n\nFor development, use the following commands:\n\n- Format and check code: `./scripts/format_and_check.sh`\n- Run unit tests: `uv run pytest`\n- Run integration test: `python3 -m tests_integration.sql`\n- Build docs: `./scripts/build_docs.sh`",
+    "readme_source": "full"
+  },
+  {
+    "repo": "ChuaHanChong/ResearchBrain",
+    "url": "https://github.com/ChuaHanChong/ResearchBrain",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-03-12T05:11:18Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 37,
+    "sample_technique_files": [
+      ".claude/skills/alphaxiv-summary-extract/scripts/knowledge.py",
+      "Embodied-AI/02_Dataset-Benchmark-Environment.md",
+      "General/11_Robotics-and-Embodied-AI.md",
+      "General/12_Benchmarks-and-Surveys.md",
+      "_KnowledgeHub_/2602.22579.md"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# Research Brain An Obsidian vault powered by Claude Code for **full-stack AI research** — from literature discovery and paper synthesis to idea formulation, mathematical verification, and research documentation. ## Research Flow ``` General/ (topic overview, landscape, key papers) → _KnowledgeHub_/ (paper details: Problem/Method/Results) → alphaxiv MCP (full paper content, PDF Q&A, math understanding) → Code & PDFs (local repos, GitHub reader, paper PDFs) ``` ## Vault Structure ``` ResearchBrain/ ├── _KnowledgeHub_/ # Paper notes ({arxiv_ID}.md) ├── _Projects_/ # Research projects, blueprints",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "CipherCuttle/Qnty",
+    "url": "https://github.com/CipherCuttle/Qnty",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-04-09T21:29:04Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 301,
+    "sample_technique_files": [
+      "tests/experiment/test_h001_null_calibration_engine.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# Qnty **Status:** Research preview / shadow-only **Not a trading bot. Not investment advice. Not live-capital approved.** Qnty is the downstream acceptance, deterministic replay, accounting, execution-realism, paper-control, and shadow-control side of the Qnty ecosystem. The current checkout also contains historical and current research and falsification machinery; preserving that implementation does not make QntyLab's upstream research authority or imply that Qnty accepts every result. The current lead candidate, Package V2 / volnorm, is **not deployment-ready**. Current evidence supports co",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "CITCOM-project/CausalTestingFramework",
+    "url": "https://github.com/CITCOM-project/CausalTestingFramework",
+    "stars": 19,
+    "language": "Python",
+    "created_at": "2021-11-12T11:11:01Z",
+    "technique_test_files": 2,
+    "technique_nontest_files": 2,
+    "code_files": 56,
+    "sample_technique_files": [
+      "causal_testing/specification/causal_dag.py",
+      "docs/source/tutorials/poisson_line_process/poisson_line_process_tutorial.ipynb",
+      "examples/covasim_/doubling_beta/README.md",
+      "examples/poisson-line-process/README.md",
+      "examples/poisson-line-process/poisson_line_process.ipynb"
+    ],
+    "description": "A causal inference-driven framework for functional black-box testing of complex software.",
+    "topics": [
+      "causal-inference",
+      "modelling",
+      "verification"
+    ],
+    "readme": "# Causal Testing Framework\n### A Causal Inference-Driven Software Testing Framework\n\n\n[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)\n![CI tests](https://github.com/CITCOM-project/CausalTestingFramework/actions/workflows/ci-tests.yaml/badge.svg)\n[![codecov](https://codecov.io/gh/CITCOM-project/CausalTestingFramework/branch/main/graph/badge.svg?token=04ijFVrb4a)](https://codecov.io/gh/CITCOM-project/CausalTestingFramework)\n[![Documentation Status](https://readthedocs.org/projects/causal-testing-framework/badge/?version=latest)](https://causal-testing-framework.readthedocs.io/en/latest/?badge=latest)\n[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/CITCOM-project/CausalTestingFramework)\n![Dynamic TOML Badge](https://img.shields.io/badge/dynamic/toml?url=https%3A%2F%2Fraw.githubusercontent.com%2FCITCOM-project%2FCausalTestingFramework%2Fmain%2Fpyproject.toml&query=%24.project%5B'requires-python'%5D&label=python)\n![PyPI - Version](https://img.shields.io/pypi/v/causal-testing-framework)\n[![conda-forge](https://img.shields.io/conda/v/conda-forge/causal-testing-framework.svg)](https://anaconda.org/conda-forge/causal-testing-framework)\n![GitHub License](https://img.shields.io/github/license/CITCOM-project/CausalTestingFramework)\n[![DOI](https://joss.theoj.org/papers/10.21105/joss.07739/status.svg)](https://doi.org/10.21105/joss.07739)\n[![DOI](https://img.shields.io/badge/doi-10.26180/5c6e1160b8d8a-blue.svg?style=flat&labelColor=whitesmoke&logo=data%3Aimage%2Fpng%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAAB8AAAAfCAYAAAAfrhY5AAAJsklEQVR42qWXd1DTaRrHf%2BiB2Hdt5zhrAUKz4IKEYu9IGiGFFJJQ0gkJCAKiWFDWBRdFhCQUF3UVdeVcRQEBxUI3yY9iEnQHb3bdW1fPubnyz%2F11M7lvEHfOQee2ZOYzPyDv%2B3yf9%2Fk95YX4fx%2BltfUt08GcFEuPR4U9hDDZ%2FVngIlhb%2FSiI6InkTgLzgDcgfvtnovhH4BzoVlrbwr55QnhCtBW4QHXnFrZbPBaQoBh4%2FSYH2EnpBEtqcDMVzB93wA%2F8AFwa23XFGcc8CkT3mxz%2BfXWtq9T9IQlLIXYEuHojudb%2BCM7Hgdq8ydi%2FAHiBXyY%2BLjwFlAEnS6Jnar%2FvnQVhvdzasad0eKvWZKe8hvDB2ofLZ%2FZEcWsh%2BhyIuyO5Bxs2iZIE4nRv7NWAb0EO8AC%2FWPxjYAWuOEX2MSXZVgPxzmRL3xKz3ScGpx6p6QnOx4mDIFqO0w6Q4fEhO5IzwxlSwyD2FYHzwAW%2BAZ4fEsf74gCumykwNHskLM7taQxLYjjIyy8MUtraGhTWdkfhkFJqtvuVl%2F9l2ZquDfEyrH8B0W06nnpH3JtIyRGpH1iJ6SfxDIHjRXHJmdQjLpfHeN54gnfFx4W9QRnovx%2FN20aXZeTD2J84hn3%2BqoF2Tqr14VqTPUCIcP%2B5%2Fly4qC%2BUL3sYxSvNj1NwsVYPsWdMUfomsdkYm3Tj0nbV0N1wRKwFe1MgKACDIBdMAhPE%2FwicwNWxll8Ag40w%2BFfhibJkGHmutjYeQ8gVlaN%2BjO51nDysa9TwNUFMqaGbKdRJZFfOJSp6mkRKsv0rRIpEVWjAvyFkxNOEpwvcAVPfEe%2Bl8ojeNTx3nXLBcWRrYGxSRjDEk0VlpxYrbe1ZmaQ5xuT0u3r%2B2qe5j0J5uytiZPGsRL2Jm32AldpxPUNJ3jmmsN4x62z1cXrbedXBQf2yvIFCeZrtyicZZG2U2nrrBJzYorI2EXLrvTfCSB43s41PKEvbZDEfQby6L4JTj%2FfIwam%2B4%2BwucBu%2BDgNK05Nle1rSt9HvR%2FKPC4U6LTfvUIaip1mjIa8fPzykii23h2eanT57zQ7fsyYH5QjywwlooAUcAdOh5QumgTHx6aAO7%2FL52eaQNEShrxfhL6albEDmfhGflrsT4tps8gTHNOJbeDeBlt0WJWDHSgxs6cW6lQqyg1FpD5ZVDfhn1HYFF1y4Eiaqa18pQf3zzYMBhcanlBjYfgWNayA",
+    "readme_source": "full"
+  },
+  {
+    "repo": "clarasalas/strategic-voting-abm-2RS",
+    "url": "https://github.com/clarasalas/strategic-voting-abm-2RS",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-05-22T13:11:16Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 65,
+    "sample_technique_files": [
+      "docs/notes/documentation_plan.md",
+      "tests/test_decision_rule.py"
+    ],
+    "description": "Agent-based model of strategic voting under a two-round runoff, replayed against the 2002 and 2022 French presidential first rounds. Master's thesis code, in progress toward an article.",
+    "topics": [
+      "agent-based-model",
+      "computational-social-science",
+      "elections",
+      "political-science",
+      "python",
+      "simulation",
+      "voting"
+    ],
+    "readme": "<h1 align=\"center\">Strategic voting in two-round elections</h1>\n\n<p align=\"center\">\nAn agent-based model of voters who abandon their favourite candidate when nobody they can tolerate\nlooks likely to reach the runoff, replayed against the French presidential first rounds of 2002 and 2022.\n</p>\n\n<p align=\"center\">\n  <a href=\"https://clarasalas.github.io/strategic-voting-abm-2RS/\">\n    <img src=\"https://img.shields.io/badge/Open%20the%20interactive%20page-1a1a1a?style=for-the-badge\" alt=\"Open the interactive page\">\n  </a>\n</p>\n\n<p align=\"center\">\n  <a href=\"https://clarasalas.github.io/strategic-voting-abm-2RS/\">\n    <img src=\"docs/preview.png\" width=\"760\"\n         alt=\"The interactive page: sliders for the electorate, one voter's tolerance on the left-right axis, vote shares before and after strategic switching, and the poll and votes round by round\">\n  </a>\n</p>\n\n<p align=\"center\"><sub>\nMove three sliders and watch the poll and the votes pull on each other, then open the cards below it for the model,\nhow it is checked, and how to reproduce it. Every trajectory on the page was computed by the Python model.\n</sub></p>\n\n<p align=\"center\">\n  <a href=\"https://github.com/clarasalas/strategic-voting-abm-2RS/actions/workflows/tests.yml\"><img src=\"https://github.com/clarasalas/strategic-voting-abm-2RS/actions/workflows/tests.yml/badge.svg\" alt=\"tests\"></a>\n  <img src=\"https://img.shields.io/badge/python-3.10%2B-blue\" alt=\"python 3.10+\">\n</p>\n\n## About\n\nIn a two-round election, a voter whose favourite cannot reach the runoff can vote sincerely and risk having\nnobody they like in round two, or switch to a compromise candidate who can qualify. This model follows that choice\nfor thousands of voters at once.\n\nVoters sit on a left-right axis. Each one reads a public poll, works out which candidates they can tolerate, and\nguesses which two will reach the runoff. They switch only when none of their tolerable candidates is among those\ntwo, and only when the gain outweighs the cost of leaving their favourite. The new vote intentions feed the next\npoll, so the polls and the votes evolve together.\n\nThe model runs in two modes. The synthetic mode generates the electorate and the polls, and asks which parameters\ndrive coordination. The empirical mode uses the real candidates, voters and poll timeline of 2002 and 2022. 2002 is\nthe textbook coordination failure, when the left split and its front-runner missed the runoff; 2022 is the\ncontrasting case. One behavioural setting is applied to both years, and nothing is fitted to either election.\n\nThe analysis is in progress toward an article. The results below are preliminary: the mechanism is under revision\nand the numbers will move.\n\n## Preliminary results\n\n### In imagined electorates\n\nAcross 30,720 synthetic elections with 6, 8 and 9 candidates, what decides whether voters coordinate is mostly\n**how attached they are to their favourite**. The expressive cost μ, the price of leaving the candidate you prefer,\nmatters most for",
+    "readme_source": "full"
+  },
+  {
+    "repo": "clay-good/vaulytica",
+    "url": "https://github.com/clay-good/vaulytica",
+    "stars": 13,
+    "language": "TypeScript",
+    "created_at": "2025-10-14T00:38:21Z",
+    "technique_test_files": 6,
+    "technique_nontest_files": 2,
+    "code_files": 1125,
+    "sample_technique_files": [
+      "BUILD_PROGRESS.md",
+      "CHANGELOG.md",
+      "docs/reference.md",
+      "docs/spec-v7.md",
+      "docs/spec-v9.md"
+    ],
+    "description": "Always free deterministic linter for legal documents.",
+    "topics": [
+      "audit-trail",
+      "browser-based",
+      "compliance-as-code",
+      "contract-analysis",
+      "contract-management",
+      "deterministic",
+      "document-automation",
+      "docx-parser",
+      "legal-compliance",
+      "legal-documents",
+      "legal-tech",
+      "linter",
+      "mit-license",
+      "no-ai",
+      "open-source",
+      "pdf-analyzer",
+      "privacy-first",
+      "sec-edgar",
+      "security-tools",
+      "static-analysis"
+    ],
+    "readme": "# Vaulytica\n\n**A free contract checker that runs entirely in your browser.** Think of it as a spell-checker for legal documents.\n\nDrop in a contract, get back a report of what looks wrong or missing. No sign-up, no upload, no AI.\n\n👉 **Try it: [vaulytica.com](https://vaulytica.com)**\n\n![Vaulytica landing page](docs/images/hero.png)\n\n## What it does\n\n- **Finds problems** like uncapped liability, missing signature lines, blank `[placeholders]`, broken cross-references, and risky auto-renewals.\n- **Knows the document type.** An NDA, a lease, and a will each get the checks that fit them, across 260+ kinds of documents.\n- **Checks a whole deal at once.** Drop a folder and it flags documents that disagree with each other, like two different governing laws.\n- **Catches things before you hit send**, like leftover tracked changes, reviewer comments, and hidden text.\n- **Gives you a Word report** you can share, with every finding tied to a numbered rule and, where it applies, a cited source.\n\n## Why trust it\n\n- **Private.** Your file never leaves your browser tab. There is no server to send it to.\n- **Consistent.** The same document always gets the exact same report. There is no AI guessing.\n- **Free and open source** under the MIT license.\n\n## How to use it\n\n1. Open [vaulytica.com](https://vaulytica.com).\n2. Drag in a PDF or Word file (or a folder or `.zip`).\n3. Read the results, then download the report.\n\n## Command line\n\nRun the same checks from a terminal (Node 22+). Reports land in the `report` folder:\n\n```bash\ngit clone https://github.com/clay-good/vaulytica.git && cd vaulytica && npm install\n```\n\n```bash\nnpm run cli -- analyze contract.docx --format html --out report\n```\n\nPoint it at a folder to get one page that says which documents need a person first:\n\n```bash\nnpm run cli -- analyze ./contracts --format triage-md\n```\n\nOr add it to a GitHub workflow:\n\n```yaml\n- uses: clay-good/vaulytica@v9\n  with:\n    command: analyze\n    files: contracts/\n```\n\n## For a coding agent\n\nVaulytica also runs as a local [MCP](https://modelcontextprotocol.io) server, so an agent such as Claude Code can lint a folder of contracts and hand you a short report to spot-check. It runs from the clone above, on your machine. Nothing is hosted, and nothing is on npm.\n\nFrom the folder that holds your contracts:\n\n```bash\nclaude mcp add --scope user vaulytica -- node ~/vaulytica/bin/vaulytica.mjs mcp\n```\n\nAny other agent host takes the same command in its own config:\n\n```json\n{\n  \"mcpServers\": {\n    \"vaulytica\": { \"command\": \"node\", \"args\": [\"/path/to/vaulytica/bin/vaulytica.mjs\", \"mcp\"] }\n  }\n}\n```\n\nThe server reads only the folder it was started in (add `--root <dir>` for others) and opens no network connection. Keep in mind that whatever it returns goes to your agent and its model provider, including quoted excerpts; ask for `excerpts: false` to leave those out. The [reference](docs/reference.md#for-a-coding-agent--the-local-mcp-server) lists the seven tools.\n\n## Learn more\n\n- [Fu",
+    "readme_source": "full"
+  },
+  {
+    "repo": "cleitonaugusto/CleitonForge",
+    "url": "https://github.com/cleitonaugusto/CleitonForge",
+    "stars": 6,
+    "language": "Rust",
+    "created_at": "2026-07-03T17:47:05Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 83,
+    "sample_technique_files": [
+      "paper/differential-fuzzing-evaluation.tex",
+      "tools/fuzz_pytket.py"
+    ],
+    "description": "Differential fuzzer for quantum compilers. Found the CommutativeCancellation soundness bug fixed in Qiskit 2.5.1.",
+    "topics": [
+      "compiler-testing",
+      "differential-testing",
+      "fuzzing",
+      "openqasm",
+      "property-based-testing",
+      "pyo3",
+      "python",
+      "qasm",
+      "quantum",
+      "quantum-computing",
+      "rust",
+      "shrinking"
+    ],
+    "readme": "# CleitonForge\n\n**[English]** | [Português](README.pt-BR.md)\n\n[![GitHub Sponsors](https://img.shields.io/github/sponsors/cleitonaugusto?label=Sponsor&logo=GitHub&color=ea4aaa)](https://github.com/sponsors/cleitonaugusto)\n[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22307398.svg)](https://doi.org/10.5281/zenodo.22307398)\n[![Paper](https://img.shields.io/badge/paper-10.5281%2Fzenodo.22802524-blue)](https://doi.org/10.5281/zenodo.22802524)\n[![PyPI](https://img.shields.io/pypi/v/cleitonforge)](https://pypi.org/project/cleitonforge/)\n\n**CleitonForge** measures what a test is able to detect, and uses that to find\nfaults in quantum compilers and simulators. Written in Rust; the CLI binary is\n`cforge`.\n\nThe order is the point. Most tools report what they found. This one first\nmeasures what it could have found, by injecting faults on purpose and counting\nwhich of them the oracle catches. A campaign that reports nothing is only worth\nreading if you know what it would have caught, and a campaign that reports\nsomething is only worth trusting if you know what it misses.\n\nTwo things have come out of that so far.\n\nA soundness bug in Qiskit's transpiler,\n[issue #16594](https://github.com/Qiskit/qiskit/issues/16594): the\n`CommutativeCancellation` pass cancelled `sxdg sxdg sx`, which is an X, down to\nan empty circuit at optimization level 2 and above. No error, no warning, and\nthe measured result changes. A core maintainer confirmed it and it was fixed in\nQiskit 2.5.1.\n\nAnd a result about quantum error correction, written up as a preprint with a\nDOI, [10.5281/zenodo.22802524](https://doi.org/10.5281/zenodo.22802524): the\ndetector-based oracles that circuit transformations in QEC are usually checked\nagainst are not weak but *empty* in the regime where a compiler pass has to be\nvalidated. Over 335 mutants that provably change what a circuit computes, they\ndetect none. Two negative controls, equivalent on every trial with no false\npositive, are what give that number its credit.\n\nThe differential fuzzer described below is how the measuring gets done.\n\n---\n\n## The problem\n\nSimulators and compilers are hard to test because there is usually nothing to\ncompare an answer against. A wrong amplitude is still a well formed amplitude.\nNothing raises, nothing logs, and the number you get back looks exactly like a\ncorrect one. You only notice when you already know what the answer should be,\nwhich is the case you did not need the tool for.\n\nDifferential testing gets around this. Instead of asking \"is this right\", it\nasks \"do these two agree\". Two implementations of the same specification should\nreturn the same state for the same circuit. When they do not, one of them is\nwrong, and the disagreement is the signal.\n\nThat is the whole idea. The rest is making it precise enough to be worth\nreading:\n\n- **The generator** aims at the numeric thresholds a compiler branches on:\n  multiples of pi/2, angles just under a synthesis cutoff, sequences that\n  collapse to identity. Uniform ",
+    "readme_source": "full"
+  },
+  {
+    "repo": "clocksmith/doppler",
+    "url": "https://github.com/clocksmith/doppler",
+    "stars": 3,
+    "language": "JavaScript",
+    "created_at": "2025-12-24T02:05:50Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 3656,
+    "sample_technique_files": [
+      "docs/status/wgsl-repair-v10-2026-07-12.md",
+      "docs/status/wgsl-repair-v13-reference-mechanics-2026-07-14.json",
+      "docs/status/wgsl-repair-v13-seed-confirmation-readiness-2026-07-14.md",
+      "docs/status/wgsl-repair-v13-seed-confirmation-reference-2026-07-14.json",
+      "docs/status/wgsl-repair-v13-semantic-design-2026-07-13.md"
+    ],
+    "description": "Zero-dependency JS+WGSL runtime for AI workloads",
+    "topics": [],
+    "readme": "<p align=\"center\"> <img src=\"assets/doppler-logo.svg\" alt=\"doppler\" width=\"190\" /> </p> # doppler-gpu [![Build](https://img.shields.io/github/actions/workflow/status/clocksmith/doppler/check-green.yml?branch=main&label=build)](https://github.com/clocksmith/doppler/actions/workflows/check-green.yml) [![npm version](https://img.shields.io/npm/v/doppler-gpu.svg?label=version)](https://www.npmjs.com/package/doppler-gpu) [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/clocksmith/doppler/blob/main/LICENSE) Run AI models locally in JavaScript: generate text, cr",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "cloud1204/CounterGen",
+    "url": "https://github.com/cloud1204/CounterGen",
+    "stars": 3,
+    "language": "Python",
+    "created_at": "2025-07-30T04:03:24Z",
+    "technique_test_files": 2,
+    "technique_nontest_files": 3,
+    "code_files": 27,
+    "sample_technique_files": [
+      "scripts/AC_generator.py",
+      "scripts/CounterGen.py",
+      "scripts/metamorphic.py",
+      "tests/benchmark_metamorphic.py",
+      "tests/integration_metamorphic.py"
+    ],
+    "description": "Automatic workflow for counter-example generating with LLM",
+    "topics": [],
+    "readme": "# CounterGen\n\nCounterGen is an LLM-assisted platform that helps problem solvers automatically generate counter-examples for their buggy programs.\n\n[![Watch the video](./images/demo.png)](https://www.youtube.com/watch?v=yg8VISQYDDo)\n\n## Motivation\n\nAs every programmer knows, a counter-example is one of the most effective tools for debugging. However, many competitive programming platforms only provide a simple \"Wrong Answer\" verdict without showing the actual failing testcase.\n\nEven when a failing testcase is provided, it is often a large, randomized input that is difficult for humans to interpret. This leaves problem solvers without meaningful insights to fix their code.\n\nOur goal is to provide coders with minimal, human-readable counter-examples that immediately highlight the bugs.\n\n## Project description\n\nCounterGen leverages LLM APIs (Gemini, Claude, and OpenAI) to automatically generate and execute programs that perform stress testing against user submissions.\n\nThe system generates four key components:\n\n1. **Input Generator** - Produces random valid inputs (testcases) that satisfy the problem's constraints\n\n2. **Input Validator** - Verifies that generated inputs satisfy all constraints, ensuring the Testcase Generator's correctness\n\n3. **Correct Solution (AC Code)** - A correct solution to the problem, used to generate expected outputs for the testcases\n\n4. **Output Checker** - Judges the user's code output against expected results, with support for problems that have multiple valid answers\n\nWe have designed an automated workflow to test these generated programs at every stage, ensuring they function as intended. The workflow is summarized in the following diagram:\n\n![Workflow](./images/workflow.png)\n\n## How To Run\n\n### Prerequisite Environment\n\n* Python 3.9+\n\n* g++ (required to run user-provided C++ programs)\n\n### API Key\n\nYou would need a API key to enable LLM supports.\nWe supports 3 options: Gemini, Claude and OpenAI.\n\nIt is recommended to start with Gemini, since it offers a free plan: 👉[Get Gemini API Key](https://aistudio.google.com/apikey)\n\n### Setup Guide\n\n1. Clone the repository\n```\ngit clone https://github.com/cloud1204/CounterGen.git\ncd CounterGen\n```\n2. (Optional) Create a virtual environment\n```\npython3 -m venv .venv            # or python -m venv .venv\nsource .venv/bin/activate        # Linux/macOS\n# .venv\\Scripts\\activate.ps1     # Windows\n```\n3. Install dependencies\n```\npip install -r requirements.txt\n```\n4. Run the UI\n```\npython UI.py\n```\n\n## UI Instructions\n\n### Input sections\n\n* Problem Statements\n\n    Paste the full problem statement here.\n    It is recommended to include the complete LaTeX text to preserve mathematical formatting.\n\n    * Codeforces users: Right-click the problem page → View Page Source → copy & paste the whole source code. We will automatically parse the statement.\n\n    * CSES/AtCoder users: You can simply paste the problem URL, and we will parse the statement and example testcases for you.\n\n* Example Inp",
+    "readme_source": "full"
+  },
+  {
+    "repo": "Cloudbird-Software/mutual",
+    "url": "https://github.com/Cloudbird-Software/mutual",
+    "stars": 0,
+    "language": "Go",
+    "created_at": "2026-08-19T17:04:27Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 103,
+    "sample_technique_files": [
+      "docs/experiments/2026-08-synthetic-data.md",
+      "internal/metamorphic/metamorphic.go"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# Mutual\n\n> **LLM 驱动的双向互惠推荐引擎。** Spec 驱动，代码可丢弃。Go + BAML 实现。\n\nMutual 用于协会会员互识、商业机会推荐、招商与投资对接。与传统\"排序式\"推荐不同，它做的是**匹配**：A 推荐 B，必须同时满足 B 也愿意对接 A。\n\n---\n\n## 1. 项目简介\n\nMutual 是一个 **LLM 驱动的双向互惠推荐引擎**。核心范式：**spec 驱动，代码可丢弃**。\n\n- spec（`spec/` 目录 + `config/default.yaml` + `golden/`）是唯一真相。\n- 实现代码（Go `internal/` 各包）只是 spec 的执行体，可以随时重写。\n- 衡量实现好坏的标准是：它是否暴露了 spec 的沉默（没说清楚的边界）与缺陷（错误的假设）。发现沉默时，**改 spec 而非 hack 实现**。\n\n当前实现为 **Go + BAML**（ADR-0027）：`internal/engine` 承载 11 阶段确定性\n核心，`baml_src/` 用类型化契约定义全部 LLM prompt。Go 实现与 Python 基线\n做 **golden 逐位对拍**——同一输入，浮点结果逐位一致，证明重写零语义漂移。\n\n### 核心特征\n\n| 特征 | 含义 |\n|---|---|\n| **双向互惠** | A 推荐 B 必须同时满足 B 也愿意对接 A，是\"匹配\"而非\"排序\"。LLM 对每对做 A→B、B→A 双向打分，方向性不盲目对称化。 |\n| **自然语言丛林** | 实体只有自由文本画像（简历、需求、愿景、项目），无确定属性标签。LLM 是唯一能做语义判断的组件。 |\n| **spec 驱动** | strongDM 范式——契约是唯一真相，实现代码可丢弃重写。schema/stage/config/golden 四件套即 spec。 |\n| **开发期零真实数据** | 全部用 benchmark 与合成 fixture，不接触真实协会数据。golden fixture 提供\"固定输入→固定输出\"的可执行 spec。 |\n| **AI 可读性优先** | 强类型 ID 贯穿全链路、包注释即导航、分层依赖机器强制（`cmd/archlint`）、文档系统面向 agent 优化。 |\n\n### 三层漏斗 + 互惠求解\n\n```\n召回（embedding 语义初筛，全量低成本）\n  → 精排（LLM 双向打分 A→B / B→A，预算上限）\n    → 匹配（NSW 全局一致 + envy 公平性，确定性可复现）\n```\n\n- 召回层：用 embedding 把全量 N×N 降到可承受的候选对数。\n- 精排层：LLM 对候选对做双向语义打分，方向性不盲目对称化。\n- 匹配层：把 LLM 分数落入 `PrefMatrix`，交给 NSW 求解器做全局互惠最优。\n\n---\n\n## 2. 快速开始\n\n```bash\n# Go 面（主实现）：测试 + 依赖边界 + 评测门禁，全离线，无需 LLM 凭据\nmake check\n\n# 只跑评测门禁（HR@3≥0.6 / NDCG@5≥0.4 / total_envy≤2）\ngo run ./cmd/mutual evaluate --fail-on-gate\n\n# 校准闭环（按评测历史调整融合权重 / prompt）\ngo run ./cmd/mutual calibrate --history reports.json\n```\n\nLLM 接入（生产）：`internal/bamlllm.Client` 实现 `engine.LLMClient`，\nprompt 契约在 `baml_src/*.baml`。变更流程见\n[docs/AI-GUIDE.md §5.2](docs/AI-GUIDE.md)。\n\n> Python 基线（`src/`）在双栈过渡期保留，仅用于 golden 参考值捕获\n> （`scripts/capture_golden_engine.py`），最终将被移除。\n\n---\n\n## 3. 目录结构\n\n```\nmutual/\n├── spec/                        # 唯一真相（不可随意修改）\n│   ├── 00-overview.md           # 项目定位、四件套、架构\n│   ├── 01-schemas.md            # 数据契约字段级 spec\n│   ├── 02-stages.md             # pipeline 阶段声明\n│   ├── 03-oracles.md            # Oracle 定义（HR/NDCG + envy）\n│   ├── 04-fixtures.md           # Fixture 目录与规则\n│   └── 05-boundaries.md         # 显式边界决定（消除沉默）\n├── internal/                    # Go 实现（可丢弃重写）\n│   ├── domain/                  # 强类型契约：UserID/PairID/Edge/MatchResult...\n│   ├── num/                     # glibc log 位级移植（NumPy randn 兼容）\n│   ├── rng/                     # MT19937（NumPy RandomState 语义）\n│   ├── engine/                  # 11 阶段纯变换 + LLMClient/Embedder 接口\n│   ├── signal/                  # Fake/Surrogate 信号源（离线评测替身）\n│   ├── bamlllm/                 # BAML 类型化客户端桥接\n│   ├── store/                   # FileStore（路径穿越守卫）\n│   ├── pipeline/                # RunFullMatch / RunQueryMatch / RunBatchMatch\n│   ├── bench/                   # 三场景评测 + 合成市场 oracle\n│   ├── feedback/                # LLM 自改进闭环（权重/prompt 校准）\n│   └── goldentest/              # BAML prompt 快照门禁\n├── cmd/\n│   ├── mutual/                  # CLI：evaluate / calibrate\n│   └── archlint/                # 分层依赖边界检查器\n├── config/default.yaml          # 默认",
+    "readme_source": "full"
+  },
+  {
+    "repo": "cloudripper/cc-fuzzer",
+    "url": "https://github.com/cloudripper/cc-fuzzer",
+    "stars": 1,
+    "language": "Shell",
+    "created_at": "2026-05-12T14:52:32Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 206,
+    "sample_technique_files": [
+      "agents/code-reviewer.md",
+      "prompts/code-reviewer.md",
+      "skills/campaign/SKILL.md",
+      "src/cc_fuzzer_core/prescan/code_review_prescan.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# cc-fuzzer\n\nA Claude Code plugin for **LLM-in-the-loop coverage-guided fuzzing, concolic execution, and crash triage** of C/C++ source and binaries. It keeps a real fuzzer (libFuzzer / AFL++) fed and steered by model agents, then verifies and reports what it finds.\n\ncc-fuzzer is **not** a Cyber Reasoning System. It covers the dynamic-analysis half of what a CRS does (fuzzing + concolic + triage + reporting) plus a static code-review pass; autonomous SAST is partial and patch generation is out of scope. The architecture reuses three named patterns from the DARPA AIxCC finalists — see [AIxCC patterns](#aixcc-patterns) and [Scope](#scope).\n\n## Quick start\n\nInstall the plugin once, inside Claude Code:\n\n```\n/plugin marketplace add ./cc-fuzzer\n/plugin install cc-fuzzer\n```\n\nTier-1 SAST in `/fuzz-review` ships the bundled `rules/semgrep` pack offline by default — no setup needed. Additional cross-language rulesets (C/C++, Python, Go, Rust, etc.) can be pulled on demand from the semgrep registry via an explicit pack, e.g. `--sast-rules p/trailofbits` (requires network at scan time). (semgrep's `--config auto` is intentionally **not** supported: it requires semgrep telemetry, which this plugin keeps disabled for privacy — name an explicit pack instead.)\n\n### Recommended companion plugin: ctxctl\n\nFor unattended campaigns pair cc-fuzzer with [**ctxctl**](https://github.com/cloudripper/ctxctl): it blocks the main thread from running Bash/Read/Write/etc., so real work lives in subagents whose context dies with them and the orchestrator stays at planning altitude across long runs. cc-fuzzer's v0.30 main-thread skills dispatch a Haiku `ops-runner` subagent for every Bash call when ctxctl is enforcing.\n\nSet the allowlist to exactly:\n\n```\nAgent,Skill,TodoWrite,AskUserQuestion,ExitPlanMode,ScheduleWakeup\n```\n\n`ScheduleWakeup` is non-negotiable — the YOLO tick chain calls it on the main thread, and a subagent's `ScheduleWakeup` is a no-op. Drop it and the chain dies after the first tick.\n\nWithout ctxctl everything still works; main-thread context just bloats with script outputs. Fine for short or interactive sessions, not for unattended `--mode self_loop` runs over many ticks.\n\n### v0.30 slash-command renames\n\nPlugins no longer namespace their slash commands, so v0.23's `/stop`, `/status`, `/reset`, `/run` collided with built-ins. v0.30 renamed six commands with a `fuzz-` prefix. **No aliases — the old names are gone.**\n\n| v0.23 (gone) | v0.30 (use this) |\n|---|---|\n| `/stop` | `/fuzz-stop` |\n| `/status` | `/fuzz-status` |\n| `/reset` | `/fuzz-reset` |\n| `/run` | `/fuzz-run` |\n| `/plan` | `/cc-fuzzer:fuzz-plan` |\n| `/review` | `/cc-fuzzer:fuzz-review` |\n\nOther skills (`/cc-fuzzer:campaign`, `/cc-fuzzer:tick`, `/cc-fuzzer:yolo`, etc.) didn't collide and stayed as they were.\n\n### With nix (recommended): clone → bootstrap → set-and-forget\n\n```bash\n# 1. Clone the target you want to fuzz\ngit clone https://github.com/<owner>/<target> && cd <target>\n\n# 2. Bootstrap the ca",
+    "readme_source": "full"
+  },
+  {
+    "repo": "cluesurf/term",
+    "url": "https://github.com/cluesurf/term",
+    "stars": 7,
+    "language": "TypeScript",
+    "created_at": "2021-03-02T09:18:47Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 1447,
+    "sample_technique_files": [
+      "deck/call/code/hunt.ts",
+      "deck/call/code/work/hunt.tree",
+      "deck/test/code/hunt-engine.tree"
+    ],
+    "description": "A reactive modeling language Ψ",
+    "topics": [
+      "compiler",
+      "debugger",
+      "framework",
+      "markup-language",
+      "programming-language"
+    ],
+    "readme": "<br/> <br/> <br/> <br/> <br/> <br/> <br/> <p align='center'> <img src='https://github.com/cluesurf/term/blob/make/view/term.svg?raw=true' height='192'> </p> <h3 align='center'> term </h3> <p align='center'> A reactive modeling language Ψ </p> <br/> <br/> <br/> ## Introduction Term is a programming framework built on a simple, indentation-based syntax (the [tree](https://github.com/cluesurf/tree) format). You write the logic once, and one source compiles to idiomatic Rust, TypeScript, Kotlin, and Swift, so the same program runs in the browser, on Node, on native servers, and on iOS and Android.",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "cockroachdb/cockroach",
+    "url": "https://github.com/cockroachdb/cockroach",
+    "stars": 32453,
+    "language": "Go",
+    "created_at": "2014-02-06T00:18:47Z",
+    "technique_test_files": 11,
+    "technique_nontest_files": 18,
+    "code_files": 10410,
+    "sample_technique_files": [
+      ".claude/skills/reduce-unoptimized-query-oracle/SKILL.md",
+      "pkg/BUILD.bazel",
+      "pkg/acceptance/cluster/dockercluster.go",
+      "pkg/acceptance/util_docker.go",
+      "pkg/bench/rttanalysis/validate_benchmark_data.go"
+    ],
+    "description": "CockroachDB — the cloud native, distributed SQL database designed for high availability, effortless scale, and control over data placement.",
+    "topics": [
+      "cockroachdb",
+      "database",
+      "distributed-database",
+      "go",
+      "hacktoberfest",
+      "sql"
+    ],
+    "readme": "<p align=\"center\">\n  <img src='docs/media/cockroach_db.png?raw=true' width='70%'>\n</p>\n\n---\n\nCockroachDB is a cloud-native distributed SQL database designed to build,\nscale, and manage modern, data-intensive applications.\n\n- [What is CockroachDB?](#what-is-cockroachdb)\n- [Docs](#docs)\n- [Starting with Cockroach Cloud](#starting-with-cockroachcloud)\n- [Starting with CockroachDB](#starting-with-cockroachdb)\n- [Client Drivers](#client-drivers)\n- [Deployment](#deployment)\n- [Need Help?](#need-help)\n- [Contributing](#contributing)\n- [Design](#design)\n- [Comparison with Other Databases](#comparison-with-other-databases)\n- [See Also](#see-also)\n\n## What is CockroachDB?\n\nCockroachDB is a distributed SQL database built on a transactional and\nstrongly-consistent key-value store. It **scales** horizontally;\n**survives** disk, machine, rack, and even datacenter failures with\nminimal latency disruption and no manual intervention; supports\n**strongly-consistent** ACID transactions; and provides a familiar\n**SQL** API for structuring, manipulating, and querying data.\n\nFor more details, see our [product overview](https://www.cockroachlabs.com/product/overview/), [FAQ](https://cockroachlabs.com/docs/stable/frequently-asked-questions.html) or [architecture document](\nhttps://www.cockroachlabs.com/docs/stable/architecture/overview.html).\n\n## Docs\n\nFor guidance on installation, development, deployment, and administration, see our [User Documentation](https://cockroachlabs.com/docs/stable/).\n\n## Starting with CockroachCloud\n\nWe can run CockroachDB for you, so you don't have to run your own cluster.\n\nSee our online documentation: [Quickstart with CockroachCloud](https://www.cockroachlabs.com/docs/cockroachcloud/quickstart.html)\n\n## Starting with CockroachDB\n\n1. Install CockroachDB:  [using a pre-built executable](https://www.cockroachlabs.com/docs/stable/install-cockroachdb.html) or [build it from source](https://cockroachlabs.atlassian.net/wiki/spaces/CRDB/pages/181338446/Getting+and+building+CockroachDB+from+source).\n2. [Start a local cluster](https://www.cockroachlabs.com/docs/stable/start-a-local-cluster.html) and connect to it via the [built-in SQL client](https://www.cockroachlabs.com/docs/stable/use-the-built-in-sql-client.html).\n3. [Learn more about CockroachDB SQL](https://www.cockroachlabs.com/docs/stable/learn-cockroachdb-sql.html).\n4. Use a PostgreSQL-compatible driver or ORM to [build an app with CockroachDB](https://www.cockroachlabs.com/docs/stable/hello-world-example-apps.html).\n5. [Explore core features](https://www.cockroachlabs.com/docs/stable/demo-data-replication.html), such as data replication, automatic rebalancing, and fault tolerance and recovery.\n\n## Client Drivers\n\nCockroachDB supports the PostgreSQL wire protocol, so you can use any available PostgreSQL client drivers to connect from various languages.\n\n- For recommended drivers that we've tested, see [Install Client Drivers](https://www.cockroachlabs.com/docs/stable/install-client-drivers.",
+    "readme_source": "full"
+  },
+  {
+    "repo": "cockroachdb/cockroach-gen",
+    "url": "https://github.com/cockroachdb/cockroach-gen",
+    "stars": 32,
+    "language": "Go",
+    "created_at": "2018-02-28T21:50:51Z",
+    "technique_test_files": 8,
+    "technique_nontest_files": 45,
+    "code_files": 7570,
+    "sample_technique_files": [
+      "Makefile",
+      "pkg/BUILD.bazel",
+      "pkg/bench/rttanalysis/validate_benchmark_data.go",
+      "pkg/ccl/backupccl/backup_job.go",
+      "pkg/ccl/backupccl/backupbase/settings.go"
+    ],
+    "description": "CockroachDB with pre-generated Go code",
+    "topics": [],
+    "readme": "<p align=\"center\"> <img src='docs/media/cockroach_db.png?raw=true' width='70%'> </p> --- CockroachDB is a cloud-native distributed SQL database designed to build, scale, and manage modern, data-intensive applications. - [What is CockroachDB?](#what-is-cockroachdb) - [Docs](#docs) - [Starting with Cockroach Cloud](#starting-with-cockroachcloud) - [Starting with CockroachDB](#starting-with-cockroachdb) - [Client Drivers](#client-drivers) - [Deployment](#deployment) - [Need Help?](#need-help) - [Contributing](#contributing) - [Design](#design) - [Comparison with Other Databases](#comparison-with-",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "cockroachdb/cockroachdb-parser",
+    "url": "https://github.com/cockroachdb/cockroachdb-parser",
+    "stars": 43,
+    "language": "Go",
+    "created_at": "2022-06-06T00:50:55Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 3,
+    "code_files": 645,
+    "sample_technique_files": [
+      "pkg/util/metamorphic/constants.go",
+      "pkg/util/metamorphic/constants_metamorphic_disable.go",
+      "pkg/util/metamorphic/constants_metamorphic_enable.go"
+    ],
+    "description": "Apache licensed CockroachDB parser and dependencies.",
+    "topics": [],
+    "readme": "# cockroachdb-parser [![Go Reference](https://pkg.go.dev/badge/github.com/cockroachdb/cockroachdb-parser.svg)](https://pkg.go.dev/github.com/cockroachdb/cockroachdb-parser) [![Tests](https://github.com/cockroachdb/cockroachdb-parser/actions/workflows/go.yml/badge.svg)](https://github.com/cockroachdb/cockroachdb-parser/actions/workflows/go.yml) `cockroachdb-parser` is a snapshot of the parser package and all its dependencies from the [CockroachDB repo][repo]. The smaller package is Apache licensed and contains less dependencies to pull in when configuring compared to `go get github.com/cockroac",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "cockroachdb/metamorphic",
+    "url": "https://github.com/cockroachdb/metamorphic",
+    "stars": 3,
+    "language": "Go",
+    "created_at": "2023-03-03T21:26:09Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 5,
+    "sample_technique_files": [
+      "metamorphic.go"
+    ],
+    "description": "A Go library for metamorphic-style testing.",
+    "topics": [],
+    "readme": "metamorphic [![GoDoc](https://godoc.org/github.com/cockroachdb/metamorphic?status.svg)](https://pkg.go.dev/github.com/cockroachdb/metamorphic) ===========",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "cockroachdb/pebble",
+    "url": "https://github.com/cockroachdb/pebble",
+    "stars": 6021,
+    "language": "Go",
+    "created_at": "2018-07-17T20:25:25Z",
+    "technique_test_files": 7,
+    "technique_nontest_files": 17,
+    "code_files": 801,
+    "sample_technique_files": [
+      "compaction.go",
+      "docs/RFCS/20211018_range_keys.md",
+      "external_test.go",
+      "internal/manifest/manifest_test.go",
+      "internal/manifest/testdata/overlaps"
+    ],
+    "description": "RocksDB/LevelDB inspired key-value database in Go",
+    "topics": [],
+    "readme": "# Pebble [![Build Status](https://github.com/cockroachdb/pebble/actions/workflows/ci.yaml/badge.svg?branch=master)](https://github.com/cockroachdb/pebble/actions/workflows/ci.yaml) [![GoDoc](https://godoc.org/github.com/cockroachdb/pebble?status.svg)](https://godoc.org/github.com/cockroachdb/pebble) <sup><sub><sub>[Coverage](https://storage.googleapis.com/crl-codecover-public/pebble/index.html)</sub></sub></sup>\n\n#### [Nightly benchmarks](https://cockroachdb.github.io/pebble/)\n\nPebble is a LevelDB/RocksDB inspired key-value store focused on\nperformance and internal usage by CockroachDB. Pebble inherits the\nRocksDB file formats and a few extensions such as range deletion\ntombstones, table-level bloom filters, and updates to the MANIFEST\nformat.\n\nPebble intentionally does not aspire to include every feature in RocksDB and\nspecifically targets the use case and feature set needed by CockroachDB:\n\n* Block-based tables\n* Checkpoints\n* Indexed batches\n* Iterator options (lower/upper bound, table filter)\n* Level-based compaction\n* Manual compaction\n* Merge operator\n* Prefix bloom filters\n* Prefix iteration\n* Range deletion tombstones\n* Reverse iteration\n* SSTable ingestion\n* Single delete\n* Snapshots\n* Table-level bloom filters\n\nRocksDB has a large number of features that are not implemented in\nPebble:\n\n* Backups\n* Column families\n* Delete files in range\n* FIFO compaction style\n* Forward iterator / tailing iterator\n* Hash table format\n* Memtable bloom filter\n* Persistent cache\n* Pin iterator key / value\n* Plain table format\n* SSTable ingest-behind\n* Sub-compactions\n* Transactions\n* Universal compaction style\n\n***WARNING***: Pebble may silently corrupt data or behave incorrectly if\nused with a RocksDB database that uses a feature Pebble doesn't\nsupport. Caveat emptor!\n\n## Production Ready\n\nPebble was introduced as an alternative storage engine to RocksDB in\nCockroachDB v20.1 (released May 2020) and was used in production\nsuccessfully at that time. Pebble was made the default storage engine\nin CockroachDB v20.2 (released Nov 2020). Pebble is being used in\nproduction by users of CockroachDB at scale and is considered stable\nand production ready.\n\n## Advantages\n\nPebble offers several improvements over RocksDB:\n\n* Faster reverse iteration via backwards links in the memtable's\n  skiplist.\n* Faster commit pipeline that achieves better concurrency.\n* Seamless merged iteration of indexed batches. The mutations in the\n  batch conceptually occupy another memtable level.\n* L0 sublevels and flush splitting for concurrent compactions out of L0 and\n  reduced read-amplification during heavy write load.\n* Faster LSM edits in LSMs with large numbers of sstables through use of a\n  copy-on-write B-tree to hold file metadata.\n* Delete-only compactions that drop whole sstables that fall within the bounds\n  of a range deletion.\n* Block-property collectors and filters that enable iterators to skip tables,\n  index blocks and data blocks that are irrelevant, according to user-def",
+    "readme_source": "full"
+  },
+  {
+    "repo": "cockroachdb/swiss",
+    "url": "https://github.com/cockroachdb/swiss",
+    "stars": 477,
+    "language": "Go",
+    "created_at": "2024-02-08T16:57:48Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 10,
+    "sample_technique_files": [
+      "map_test.go"
+    ],
+    "description": "Go port of Google's Swiss Table hash table",
+    "topics": [],
+    "readme": "# Swiss Map [![Build Status](https://github.com/cockroachdb/swiss/actions/workflows/ci.yaml/badge.svg?branch=main)](https://github.com/cockroachdb/swiss/actions/workflows/ci.yaml) [![GoDoc](https://godoc.org/github.com/cockroachdb/swiss?status.svg)](https://godoc.org/github.com/cockroachdb/swiss) `swiss.Map` is a Go implementation of [Google's Swiss Tables hash table design](https://abseil.io/about/design/swisstables). The [Rust version of Swiss Tables](https://github.com/rust-lang/hashbrown) is now the `HashMap` implementation in the Rust standard library. A `swiss.Map[K,V]` maps keys of type",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "code-ranker-com/code-ranker",
+    "url": "https://github.com/code-ranker-com/code-ranker",
+    "stars": 15,
+    "language": "Rust",
+    "created_at": "2026-05-28T06:15:28Z",
+    "technique_test_files": 3,
+    "technique_nontest_files": 0,
+    "code_files": 272,
+    "sample_technique_files": [
+      "crates/code-ranker-plugins/src/languages/ecmascript/tests/dialect.rs",
+      "crates/code-ranker-plugins/src/languages/python/tests/dialect.rs",
+      "crates/code-ranker-plugins/src/languages/rust/tests/mod_rs.rs",
+      "docs/comparison.md"
+    ],
+    "description": "Dependency graph analysis and coupling detection for Rust, JS, Python",
+    "topics": [],
+    "readme": "# code-ranker [![CI](https://github.com/code-ranker-com/code-ranker/actions/workflows/ci.yml/badge.svg)](https://github.com/code-ranker-com/code-ranker/actions/workflows/ci.yml) [![codecov](https://codecov.io/gh/code-ranker-com/code-ranker/branch/main/graph/badge.svg)](https://codecov.io/gh/code-ranker-com/code-ranker) [![code-ranker](https://img.shields.io/endpoint?url=https://api.code-ranker.com/badge/ffedoroff/cr-smoke-test.json)](https://reports.code-ranker.com/r/ffedoroff/cr-smoke-test/latest) [![Crates.io](https://img.shields.io/crates/v/code-ranker.svg)](https://crates.io/crates/code-ra",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "code-with-vishnu26/autonomous-ai-career-agent",
+    "url": "https://github.com/code-with-vishnu26/autonomous-ai-career-agent",
+    "stars": 1,
+    "language": "Python",
+    "created_at": "2026-06-30T11:11:54Z",
+    "technique_test_files": 3,
+    "technique_nontest_files": 1,
+    "code_files": 558,
+    "sample_technique_files": [
+      "docs/adr/0050-execution-safety-boundary.md",
+      "research/execution_safety.py",
+      "tests/domain/test_execution.py",
+      "tests/domain/test_pareto.py",
+      "tests/domain/test_truthfulness_predicates.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# AI Career Agent\n\n> A self-hosted assistant that discovers job openings, ranks them, ingests\n> your CV as evidence, and **prepares** truthful, ATS-tuned application\n> materials for your review - using **your** accounts, **your** data, and\n> **your** machine.\n\nThis is **not** a mass job-application bot. The CLI (`career-agent prepare`/\n`review`/`submit`) remains the single-operator personal agent it has always\nbeen - you own it end-to-end. The dashboard, as of Phase 60\n([ADR-0078](docs/adr/0078-saas-multi-tenant-platform.md)), supports real\nOrganizations and teams for people who want to run this install for more\nthan one person - a deliberate, explicit mission change from this project's\noriginal single-user-only framing, recorded (not hidden) in\n[ADR-0000](docs/adr/0000-project-philosophy.md)'s own amendment note. Its\nguiding principle is unchanged: **quality over volume**: fewer, sharper,\n*truthful* applications.\n\n**Released software (`v1.0.0`/`v1.1.0`) posture: `PREPARE_ONLY`.** The agent\nprepares everything up to a human confirmation and then **stops** - the\ntagged releases do **not** submit applications to any external system. See\n[Scope & limitations](#scope--limitations) and\n[ADR-0056](docs/adr/0056-v1-prepare-only-release-scope.md).\n\n**Current `main` (v2 development) adds one, explicitly human-gated\nexception: `career-agent submit`** (Phase 53, [ADR-0071](docs/adr/0071-human-approved-submission-engine.md)).\nIt is never autonomous - every single application requires its own\nexplicit review approval (`career-agent review`) *and* a final countdown\nplus a blocking confirmation prompt immediately before the click. Nothing\nis ever submitted without you, in the moment, saying so twice.\n\n---\n\n## What it does\n\n| Capability | Responsibility |\n|------------|----------------|\n| **Discover** | Find real openings from open ATS APIs (Greenhouse / Lever / Ashby), YC `hiring.json`, Hacker News \"Who's Hiring,\" company career pages, and a provider-abstracted web-search layer. Dedup and persist them. |\n| **Decide** | Score and rank opportunities deterministically (Pareto + sensitivity analysis, hard exclusions); decide what's worth pursuing. |\n| **Ingest** | Parse a CV (`.docx` / `.txt` / `.md`) into **unverified**, source-bound fact proposals. You confirm each one; only confirmed facts are promoted into your profile. |\n| **Prepare** | Tailor a resume from your profile, enforce a fabrication-detection **truthfulness gate**, run an **ATS score gate** with a bounded revision loop, render artifacts, and ask for a real human confirmation - then stop. |\n| **Learn** | Track outcomes and funnel counts to inform future targeting. |\n\n## Core commitments\n\n- **Truthfulness is non-negotiable.** Resume tailoring may only use facts present\n  in your structured master profile (JSON Resume schema). A **fabrication-detection\n  gate** blocks any application whose content isn't grounded in that profile - the\n  job description is never treated as evidence. Unsupported skills, se",
+    "readme_source": "full"
+  },
+  {
+    "repo": "Codegass/Setup-Agent",
+    "url": "https://github.com/Codegass/Setup-Agent",
+    "stars": 4,
+    "language": "Python",
+    "created_at": "2024-04-21T07:10:54Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 921,
+    "sample_technique_files": [
+      "docs/superpowers/plans/2026-08-11-filesystem-build-validation.md",
+      "tests/test_attainment.py"
+    ],
+    "description": "LLM Powered open source project setup agent",
+    "topics": [],
+    "readme": "# SAG (Setup-Agent) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE) SAG uses an LLM agent to configure a repository, provision its toolchain, and run builds and tests in Docker. It supports Maven, Gradle, and Python workflows. Every run leaves a record of what happened; the terminal, the written report, and the local Web Workbench all read that one record, so they cannot describe the same run differently. ## Quick start You need Python 3.10+, `uv`, a running Docker daemon, and a configured model that supports native tool calling. ```bash git clone https://github",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "colelawrence/group-traits",
+    "url": "https://github.com/colelawrence/group-traits",
+    "stars": 1,
+    "language": "TypeScript",
+    "created_at": "2016-11-06T06:32:25Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 25,
+    "sample_technique_files": [
+      "README.md",
+      "test/morph/_archive/morph-base.ts"
+    ],
+    "description": "rudimentary algorithm for grouping objects based on traits",
+    "topics": [
+      "algorithm",
+      "metamorphic-testing",
+      "school-project",
+      "typescript",
+      "utility"
+    ],
+    "readme": "Group Traits ============ [![Build Status](https://travis-ci.org/ZombieHippie/group-traits.svg?branch=master)](https://travis-ci.org/ZombieHippie/group-traits) This is an algorithm which divides up objects in groups based on their similar traits. ## Metamorphic Testing This project's goal is to demonstrate Metamorphic testing on this domain by modifying the test oracles provided in the `./test/cases` directory. The gist of metamorphic testing, is that we modify the existing test oracles in way which are randomized in ways which have predictable consequences. For example, if we have a group whi",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "comming-soon-official/cloud-rewamp",
+    "url": "https://github.com/comming-soon-official/cloud-rewamp",
+    "stars": 0,
+    "language": "TypeScript",
+    "created_at": "2025-05-16T07:18:04Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 4,
+    "code_files": 74,
+    "sample_technique_files": [
+      "components/dashboard.tsx",
+      "components/main-navigation.tsx",
+      "components/module-navigation.tsx",
+      "components/modules/metamorphic-testing.tsx"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "",
+    "readme_source": "none"
+  },
+  {
+    "repo": "CommoDor64/nitro-icda",
+    "url": "https://github.com/CommoDor64/nitro-icda",
+    "stars": 0,
+    "language": "Go",
+    "created_at": "2024-09-30T05:13:42Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 608,
+    "sample_technique_files": [
+      "cmd/conf/database.go"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "<br /> <p align=\"center\"> <a href=\"https://arbitrum.io/\"> <img src=\"https://arbitrum.io/assets/arbitrum/logo_color.png\" alt=\"Logo\" width=\"80\" height=\"80\"> </a> <h3 align=\"center\">Arbitrum Nitro</h3> <p align=\"center\"> <a href=\"https://developer.arbitrum.io/\"><strong>Next Generation Ethereum L2 Technology »</strong></a> <br /> </p> </p> ## About Arbitrum Nitro <img src=\"https://arbitrum.io/assets/arbitrum/logo_color.png\" alt=\"Logo\" width=\"80\" height=\"80\"> Nitro is the latest iteration of the Arbitrum technology. It is a fully integrated, complete layer 2 optimistic rollup system, including frau",
+    "readme_source": "excerpt"
+  }
+]

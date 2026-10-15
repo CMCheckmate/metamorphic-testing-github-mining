@@ -20,12 +20,26 @@ ENV/
 .env
 .env.local
 
-# Data outputs (large, generated)
+# Data outputs (large, generated): keep only the small derived files the report is built from.
+# Anchored with "/" so that other folders named "results" (e.g. classification/.../results) are not ignored.
+# Git cannot re-include a file inside an excluded folder, so folder contents are excluded and
+# the folders re-included before the specific files.
 repos/
-results/
-
-# Keep results directory itself
-!results/.gitkeep
+/results/*
+!/results/.gitkeep
+!/results/*/
+/results/*/*
+!/results/*/sections_report/
+!/results/*/analysis/
+/results/*/analysis/*
+!/results/*/analysis/overall.json
+!/results/*/analysis/github_language_baseline.json
+!/results/*/analysis/code_sample.json
+!/results/*/analysis/noncode_sample.json
+!/results/*/commit_sample/
+/results/*/commit_sample/*
+!/results/*/commit_sample/estimates.json
+!/results/*/commit_sample/strata.json
 
 # Editor
 .vscode/

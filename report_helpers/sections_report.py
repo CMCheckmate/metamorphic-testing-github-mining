@@ -324,12 +324,16 @@ def _a5(ctx: Ctx, out: list[str]) -> None:
     out.append("## A5. Primary Language\n")
     out.append(f"_Primary language (GitHub metadata) of the {d['code_repos']:,} verified CODE-surface repositories "
                f"({d['missing']:,} have none)."
-               + (f" GitHub share = share of all public repositories pushed since {d['baseline'].get('pushed_since')} "
-                  "(the same 'active in the last year' window as code search). Lift = our share ÷ GitHub share "
-                  "(>1 = over-represented)." if has_bl else "") + "_\n")
-    head = ["Language", "Repos", "Share"] + (["GitHub Share", "Lift"] if has_bl else [])
+               + (f" Share = of the repositories with a primary language. Lift compares like with like over the "
+                  f"{d['baseline'].get('languages')} languages with a GitHub-wide count: share among our "
+                  f"{_fmt(d['baseline'].get('repos'))} repositories in those languages ÷ share among the "
+                  f"{_fmt(d['baseline'].get('github_repos'))} public repositories in those languages pushed since "
+                  f"{d['baseline'].get('pushed_since')} (the same 'active in the last year' window as code search); "
+                  ">1 = over-represented." if has_bl else "") + "_\n")
+    head = ["Language", "Repos", "Share"] + (["Share (compared languages)", "GitHub Share", "Lift"] if has_bl else [])
     out.append(_table(head, [[r["language"], _fmt(r["repos"]), _pct(r["share_pct"])]
-                             + ([_pct(r.get("github_share_pct"), 2) if r.get("github_share_pct") is not None else "—",
+                             + ([_pct(r.get("share_base_pct")) if r.get("share_base_pct") is not None else "—",
+                                 _pct(r.get("github_share_pct"), 2) if r.get("github_share_pct") is not None else "—",
                                  _fmt(r.get("lift"), 2) if r.get("lift") is not None else "—"] if has_bl else [])
                              for r in rows]) + "\n")
     out.append(f"![Primary languages]({_bar_chart([r['language'] for r in rows], [r['repos'] for r in rows], 'Primary Language — CODE-Surface Repositories', 'Repositories', 'Language', ctx.plot('a5_primary_language'), horizontal=True, figsize=(8, max(4, len(rows) * 0.3 + 2)))})\n")

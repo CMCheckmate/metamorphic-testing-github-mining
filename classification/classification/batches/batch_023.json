@@ -1,0 +1,1080 @@
+[
+  {
+    "repo": "phantomDai/concurrentProgramTesting",
+    "url": "https://github.com/phantomDai/concurrentProgramTesting",
+    "stars": 0,
+    "language": "Java",
+    "created_at": "2017-11-30T05:59:31Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 28,
+    "code_files": 3896,
+    "sample_technique_files": [
+      "src/metamorphic/relations/GetMetamorphicRelation.java",
+      "src/metamorphic/relations/MR1.java",
+      "src/metamorphic/relations/MR10_1.java",
+      "src/metamorphic/relations/MR10_2.java",
+      "src/metamorphic/relations/MR10_3.java"
+    ],
+    "description": "并发测试",
+    "topics": [],
+    "readme": "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 最优序列：原始序列或者衍生序列得到的优先级最大的元素组成的序列 原始序列：随机生成的序列，元素的个数为1024. 衍生序列：原始序列根据MR得到的序列 关蜕变关系的理解与实现： MR1：比较原始序列与置换后的衍生序列的最优序列。实现：在原始序列的基础上随机产生一个置换序列 MR2：将原始序列分成两个部分：v和w。改变v和w的串联顺序，观察结果。实现：在原始序列的基础上随机产生一个位置，将原始序列分为两个部分v和w。衍生序列为wv。 MR3：在原始序列后面串联k个原始序列。实现：k值在[1-10]之间随机产生 MR4：在原始序列的后面串联一个原始序列的子集。实现：随机产生一个长度在1-1024之间的子序列 MR5：在原始序列后面添加一个最有序列的元素。实现：随机在最有序列中选择一个元素 MR6：在原始序列后面串联k个最有序列的子集。实现：：子集元素的个数分别为最优子集的1/10，3/10，5/10，7/10，10/10 MR7：在原始最优序列中插入一个介于两个最优序列之间的元素。实现：在最优序列中找到相邻的两个元素：不相等并且相差大于1，然后在这",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "phantomDai/cpt",
+    "url": "https://github.com/phantomDai/cpt",
+    "stars": 0,
+    "language": "Java",
+    "created_at": "2017-12-18T03:00:17Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 28,
+    "code_files": 1073,
+    "sample_technique_files": [
+      "src/metamorphic/relations/GetMetamorphicRelation.java",
+      "src/metamorphic/relations/MR1.java",
+      "src/metamorphic/relations/MR10_1.java",
+      "src/metamorphic/relations/MR10_2.java",
+      "src/metamorphic/relations/MR10_3.java"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 最优序列：原始序列或者衍生序列得到的优先级最大的元素组成的序列 原始序列：随机生成的序列，元素的个数为1024. 衍生序列：原始序列根据MR得到的序列 关蜕变关系的理解与实现： MR1：比较原始序列与置换后的衍生序列的最优序列。实现：在原始序列的基础上随机产生一个置换序列 MR2：将原始序列分成两个部分：v和w。改变v和w的串联顺序，观察结果。实现：在原始序列的基础上随机产生一个位置，将原始序列分为两个部分v和w。衍生序列为wv。 MR3：在原始序列后面串联k个原始序列。实现：k值在[1-10]之间随机产生 MR4：在原始序列的后面串联一个原始序列的子集。实现：随机产生一个长度在1-1024之间的子序列 MR5：在原始序列后面添加一个最有序列的元素。实现：随机在最有序列中选择一个元素 MR6：在原始序列后面串联k个最有序列的子集。实现：：子集元素的个数分别为最优子集的1/10，3/10，5/10，7/10，10/10 MR7：在原始最优序列中插入一个介于两个最优序列之间的元素。实现：在最优序列中找到相邻的两个元素：不相等并且相差大于1，然后在这",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "phantomDai/cptiscas",
+    "url": "https://github.com/phantomDai/cptiscas",
+    "stars": 0,
+    "language": "Java",
+    "created_at": "2019-06-05T08:58:20Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 27,
+    "code_files": 3863,
+    "sample_technique_files": [
+      "src/main/java/mr/MR1.java",
+      "src/main/java/mr/MR10_1.java",
+      "src/main/java/mr/MR10_2.java",
+      "src/main/java/mr/MR10_3.java",
+      "src/main/java/mr/MR11_1.java"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "",
+    "readme_source": "none"
+  },
+  {
+    "repo": "phantomDai/jiglootest",
+    "url": "https://github.com/phantomDai/jiglootest",
+    "stars": 0,
+    "language": "Java",
+    "created_at": "2019-06-28T01:30:47Z",
+    "technique_test_files": 5,
+    "technique_nontest_files": 33,
+    "code_files": 161,
+    "sample_technique_files": [
+      "src/cn/edu/ustb/mt4ws/executor/Executor.java",
+      "src/cn/edu/ustb/mt4ws/executor/InvokerTest.java",
+      "src/cn/edu/ustb/mt4ws/executor/NewExecutor.java",
+      "src/cn/edu/ustb/mt4ws/executor/SeismicTest.java",
+      "src/cn/edu/ustb/mt4ws/file/DoUpload.java"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "",
+    "readme_source": "none"
+  },
+  {
+    "repo": "phase-rs/phase",
+    "url": "https://github.com/phase-rs/phase",
+    "stars": 274,
+    "language": "Rust",
+    "created_at": "2026-03-10T21:31:17Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 4398,
+    "sample_technique_files": [
+      "crates/engine/tests/integration/metamorphic_alteration.rs"
+    ],
+    "description": "A rules engine and game client — Rust + WASM + React",
+    "topics": [
+      "game-engine",
+      "magic-the-gathering",
+      "mtg",
+      "react",
+      "rust",
+      "tauri",
+      "typescript",
+      "wasm"
+    ],
+    "readme": "<p align=\"center\">\n  <img src=\"client/public/logo.webp\" alt=\"phase.rs\" width=\"280\" />\n</p>\n\n<p align=\"center\">\n  <strong>An open-source Magic: The Gathering rules engine and game client</strong>\n</p>\n\n<p align=\"center\">\n  <a href=\"https://preview.phase-rs.dev\"><img alt=\"Play Preview\" src=\"https://img.shields.io/badge/⚡_Play_Preview-Latest-f59e0b?style=for-the-badge\"></a>\n  <a href=\"https://phase-rs.dev\"><img alt=\"Play Online\" src=\"https://img.shields.io/badge/▶_Play_Online-Alpha-6366f1?style=for-the-badge\"></a>\n  <a href=\"https://github.com/phase-rs/phase/releases/latest\"><img alt=\"Download\" src=\"https://img.shields.io/badge/⬇_Download-Desktop-10b981?style=for-the-badge\"></a>\n  <a href=\"https://ko-fi.com/phasers\"><img alt=\"Support on Ko-fi\" src=\"https://img.shields.io/badge/☕_Ko--fi-Support-FF5E5B?style=for-the-badge\"></a>\n</p>\n\n<p align=\"center\">\n  <a href=\"#quick-start\">Quick Start</a> · <a href=\"#features\">Features</a> · <a href=\"#architecture\">Architecture</a> · <a href=\"#development\">Development</a> · <a href=\"https://discord.gg/dUZwhYHUyk\">Discord</a> · <a href=\"https://deepwiki.com/phase-rs/phase\"><img alt=\"Ask DeepWiki\" src=\"https://deepwiki.com/badge.svg\"></a>\n</p>\n\n<!-- coverage-badges:start -->\n<p align=\"center\">\n  <img alt=\"Card Coverage\" src=\"https://img.shields.io/endpoint?url=https%3A%2F%2Fdata.phase-rs.dev%2Fbadges%2Fcoverage.json\">\n  <img alt=\"Keywords\" src=\"https://img.shields.io/endpoint?url=https%3A%2F%2Fdata.phase-rs.dev%2Fbadges%2Fkeywords.json\">\n  <img alt=\"Cards\" src=\"https://img.shields.io/endpoint?url=https%3A%2F%2Fdata.phase-rs.dev%2Fbadges%2Fcards.json\">\n  <br/>\n  <img alt=\"Pauper\" src=\"https://img.shields.io/endpoint?url=https%3A%2F%2Fdata.phase-rs.dev%2Fbadges%2Fformat-pauper.json\">\n  <img alt=\"Pioneer\" src=\"https://img.shields.io/endpoint?url=https%3A%2F%2Fdata.phase-rs.dev%2Fbadges%2Fformat-pioneer.json\">\n  <img alt=\"Modern\" src=\"https://img.shields.io/endpoint?url=https%3A%2F%2Fdata.phase-rs.dev%2Fbadges%2Fformat-modern.json\">\n  <img alt=\"Standard\" src=\"https://img.shields.io/endpoint?url=https%3A%2F%2Fdata.phase-rs.dev%2Fbadges%2Fformat-standard.json\">\n  <img alt=\"Legacy\" src=\"https://img.shields.io/endpoint?url=https%3A%2F%2Fdata.phase-rs.dev%2Fbadges%2Fformat-legacy.json\">\n  <img alt=\"Vintage\" src=\"https://img.shields.io/endpoint?url=https%3A%2F%2Fdata.phase-rs.dev%2Fbadges%2Fformat-vintage.json\">\n  <img alt=\"Commander\" src=\"https://img.shields.io/endpoint?url=https%3A%2F%2Fdata.phase-rs.dev%2Fbadges%2Fformat-commander.json\">\n</p>\n<!-- coverage-badges:end -->\n\n---\n\n<p align=\"center\">\n  <img src=\"docs/screenshot.webp\" alt=\"phase.rs gameplay\" width=\"900\" />\n</p>\n\nA Rust-native MTG engine compiling to native and WASM, powering a Tauri desktop app, browser PWA, and WebSocket multiplayer. Implements comprehensive MTG rules using functional architecture — pure reducers, discriminated unions, and immutable state with structural sharing — with an Arena-quality React/TypeScript UI.\n\n## Story\n\nI'm Matt — a millennial sof",
+    "readme_source": "full"
+  },
+  {
+    "repo": "phillipweinstock/libsdi12",
+    "url": "https://github.com/phillipweinstock/libsdi12",
+    "stars": 3,
+    "language": "C",
+    "created_at": "2026-02-22T07:10:11Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 23,
+    "sample_technique_files": [
+      "docs/superpowers/memory/project_sdi12.md",
+      "test/test_metamorphic.c"
+    ],
+    "description": "The most complete, portable SDI-12 v1.4 protocol library. Pure C, sensor + master, 98 tests, zero dependencies.",
+    "topics": [
+      "arduino",
+      "bare-metal",
+      "c-library",
+      "cortex-m",
+      "crc",
+      "data-logger",
+      "embedded",
+      "environmental-monitoring",
+      "esp32",
+      "hydrology",
+      "iot",
+      "meteorology",
+      "platformio",
+      "protocol",
+      "sdi-12",
+      "sdi12",
+      "sensor",
+      "serial",
+      "stm32",
+      "water-quality"
+    ],
+    "readme": "# libsdi12 **The most complete, portable SDI-12 library available.** A pure C implementation of the **SDI-12 v1.4** protocol covering **every command in the specification** — both **sensor (slave)** and **master (data recorder)** roles — with zero external dependencies. - ✅ **Full v1.4 spec coverage** — every command type, including high-volume, concurrent, continuous, verification, metadata, extended, and CRC variants - ✅ **Dual-role** — sensor *and* master in one library - ✅ **Beginner-friendly** — `sdi12_easy.h` convenience macros: sensor in 4 lines, master in 3 - ✅ **Pure C11, no `malloc`*",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "PhysShell/Own.NET",
+    "url": "https://github.com/PhysShell/Own.NET",
+    "stars": 2,
+    "language": "Python",
+    "created_at": "2026-06-13T16:52:01Z",
+    "technique_test_files": 2,
+    "technique_nontest_files": 2,
+    "code_files": 639,
+    "sample_technique_files": [
+      "docs/notes/metamorphic.md",
+      "docs/proposals/P-022-rust-core-migration.md",
+      "rust/crates/own-analysis/Cargo.toml",
+      "rust/crates/own-analysis/tests/metamorphic.rs",
+      "rust/crates/own-diagnostics/tests/dag.rs"
+    ],
+    "description": "Static analyzer for C#/.NET that finds lifetime and resource bugs C# cannot express: WPF/event leaks, missing Dispose, DI lifetime mismatch, pooled-buffer misuse. SARIF output, GitHub Action.",
+    "topics": [
+      "code-scanning",
+      "csharp",
+      "dataflow-analysis",
+      "dotnet",
+      "idisposable",
+      "leak-detection",
+      "lifetime",
+      "memory-leak",
+      "ownership",
+      "program-analysis",
+      "resource-management",
+      "roslyn",
+      "roslyn-analyzers",
+      "sarif",
+      "sast",
+      "static-analysis",
+      "static-analyzer",
+      "typestate"
+    ],
+    "readme": "**English** · [Русский](README.ru.md)\n\n# Own.NET\n\n> **Owen finds .NET lifetime bugs and confirms them at runtime — showing the\n> reference path that keeps the object alive.**\n\n*Find leaks before the profiler.* GC collects unreachable objects; Own finds\nobjects that should have become unreachable. `event +=` is acquire, `-=` is\nrelease. It also finds missing `Dispose`, DI lifetime mismatch, and\npooled-buffer misuse — the same ownership question in different skins.\n\n## Both halves, on one sample\n\n**The defect, at the line that causes it.** A window subscribes to a\nprocess-lifetime settings hub; the unsubscribe exists, but the close path\nnever reaches it:\n\n```console\n$ owen check examples/flagship/wpf/bad --fail-on-finding\nDocumentWindow.xaml.cs:28: warning: [OWN001] event '_settings.PropertyChanged'\n  is subscribed (handler 'OnSettingsChanged') but never unsubscribed; its\n  source is an injected dependency whose lifetime is unknown, so it may\n  outlive and keep 'DocumentWindow' alive (possible leak)\n```\n\n**The same object at runtime, and what is actually holding it.** A separate\nstep — you run it when you want proof, not on every build:\n\n```text\nverdict: RETAINED — DocumentWindow: 200 on the heap, 200 durably retained\n\nAppSettings\n  → PropertyChanged\n  → _invocationList\n  → handler\n  → DocumentWindow\n\n100% of them hang off ONE reference.\n```\n\nBoth halves are held to a contract on every CI run, on Linux and Windows:\n\n```text\nbad → RETAINED / exit 1\nok  → ABSENT or OBSERVED_ONLY / exit 0 / zero durable roots\n```\n\nThe sample is real and runnable: [`examples/flagship/`](examples/flagship/)\n(console and WPF, each a `bad`/`ok` pair whose only difference is where the\n`-=` lives). What the runtime witness will and will not claim — and why\n\"reachable\" is not \"leaked\" — is\n[`docs/how-owen-proves-retention.md`](docs/how-owen-proves-retention.md).\n\n## Run it in CI — 6 lines\n\n```yaml\n- uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4\n- uses: PhysShell/Own.NET@main  # pre-release: no tagged release yet — pin a commit SHA for reproducibility\n  with:\n    path: .\n    format: github          # inline PR annotations; use \"sarif\" for the Security tab\n```\n\nFindings arrive as PR annotations and **the step stays green** — adding Owen\nto a repository does not turn its CI red on day one. When you are ready to\ngate on it:\n\n```yaml\n  with:\n    path: .\n    fail-on-finding: true\n```\n\nBoth modes analyse identically and publish identical annotations/SARIF; only\nthe step's final status differs. And `fail-on-finding` governs *findings*\nonly — if Owen cannot complete the analysis (crash, unreadable input, no SARIF\nwritten) the step fails in either mode. A friendly default must never turn\n\"could not look\" into \"looked and found nothing\".\n\nOnce a release ships, prefer a pinned tag (`@v0.1.0`) or the moving major tag\n(`@v0`) over `@main` — see\n[`docs/notes/action-marketplace-readiness.md`](docs/notes/action-marketplace-readiness.md)\nfor the versioning policy.\n\n## O",
+    "readme_source": "full"
+  },
+  {
+    "repo": "picota-dt/picota",
+    "url": "https://github.com/picota-dt/picota",
+    "stars": 0,
+    "language": "TypeScript",
+    "created_at": "2025-01-17T14:17:10Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 18,
+    "code_files": 370,
+    "sample_technique_files": [
+      "README.md",
+      "picota-ml/picota/framework/control/MetamorphicEvaluation.py",
+      "picota-ml/picota/framework/control/kan/MetamorphicCatalog.py",
+      "picota-ml/picota/framework/control/kan/MetamorphicLoss.py",
+      "picota-ml/picota/framework/control/kan/loss/CompositeMetamorphicLoss.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# Picota\n\nPicota is a **model-driven pipeline** to engineer and deploy **inference-capable Digital Twins (DTs)** whose learned behavioral core is **constrained and monitored** using **Metamorphic Relations (MRs)**. Picota compiles DSML-level specifications into train-time regularization and run-time validation, producing deployable inference services and traceable quality indicators.\n\n- Artifacts repository (case studies, datasets, models): https://github.com/picota-dt/picota-artifacts  \n- Recommended tag for reproducibility: **1.3.11**\n\n---\n\n## What Picota does\n\nPicota provides an end-to-end workflow to define digital twins and train inference engines from the **Picota interface**:\n1. Define and version the twin model in the **Model** tab.\n2. Upload subject datasets in the **Data** tab.\n3. Configure the inference engine in the **Inference Engine** tab (KAN/TabNet, epochs, learning rate, window size, batch size).\n4. Launch asynchronous training jobs and track status (`queued`, `preparing`, `training`, `evaluating`, `done`, `failed`).\n5. Store and expose training results in the UI (for example MAE/R2 and constraint-violation indicators) and use the trained engine for inference and retraining scheduling.\n\nOperationally, Picota backend orchestrates the workflow and delegates training/inference execution to `picota-ml` (PyTorch runtime service).\n\n---\n\n## Metamodel\n\nThe Picota **metamodel/DSML** is described in **Quassar**.\n\n- Quassar: https://quassar.io/models/metta/u1Au7USg/\n\nThe modeling and training workflow for case studies is executed in the Picota UI.\n\n---\n\n## Screenshots\n\n### Picota UI\n\n![Picota UI](doc/screenshots/index.png)\n\n### Metamodel\n\n![Metamodel 1](doc/screenshots/metamodel1.png)\n\n![Metamodel 2](doc/screenshots/metamodel2.png)\n\n---\n\n## Requirements\n\n### Core stack\n- Java: **21** (backend)\n- Python: **3.12** + PyTorch **2.7.0** (`picota-ml`)\n- Node.js + npm (frontend build/dev)\n\n### Optional (for faster training)\n- NVIDIA GPU runtime\n- Docker + NVIDIA Container Toolkit\n\n---\n\n## Install / Build\n\n### 1) Clone and checkout the recommended tag\n\n```bash\ngit clone https://github.com/picota-dt/picota\ncd picota\ngit checkout 1.3.11\n```\n\n### 2) Build frontend assets for backend serving\n\n```bash\ncd frontend\nnpm install\nnpm run build\n```\n\nThis writes static assets to `backend/res/webapp`, which are served by the backend.\n\n---\n\n## Run (case studies)\n\n### Recommended workflow (Picota UI)\n\n1) Start the ML runtime service:\n\n```bash\ncd picota-ml\npip install -r requirements\npython -m picota.picota_service --host 0.0.0.0 --port 8090 --workspace-dir ../temp/training-workspace\n```\n\n2) Start backend (configured to call `picota-ml` on port `8090` via `backend/sandbox/application.properties`):\n\n```bash\ncd backend\nmvn -DskipTests package\njava -jar ../out/build/backend/picota.jar sandbox/application.properties\n```\n\n3) Open Picota in the browser:\n\n- http://localhost:8080\n\n4) Run the case study from Picota UI:\n\n- Create/open the twin\n- Define/update the model in *",
+    "readme_source": "full"
+  },
+  {
+    "repo": "pierce-lonergan/nexus_matcher",
+    "url": "https://github.com/pierce-lonergan/nexus_matcher",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2025-12-09T22:47:35Z",
+    "technique_test_files": 2,
+    "technique_nontest_files": 0,
+    "code_files": 415,
+    "sample_technique_files": [
+      "tests/properties/_support.py",
+      "tests/properties/test_metamorphic.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# NexusMatcher\n\n[![PyPI](https://img.shields.io/pypi/v/nexus-matcher)](https://pypi.org/project/nexus-matcher/)\n[![Downloads](https://img.shields.io/pypi/dm/nexus-matcher)](https://pypi.org/project/nexus-matcher/)\n[![Total downloads](https://static.pepy.tech/badge/nexus-matcher)](https://pepy.tech/project/nexus-matcher)\n[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)\n[![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-green.svg)](https://github.com/pierce-lonergan/nexus_matcher/blob/main/LICENSE)\n\nMap schema fields onto data dictionary entries by meaning, not by string equality.\n\nYou give it a data dictionary (business names + human definitions) and a schema\n(Avro, JSON Schema, SQL DDL). For each field it returns ranked candidate entries,\na confidence score, and a decision: `AUTO_APPROVE`, `REVIEW`, or `REJECT`.\n\nIt is designed for the case where the incoming column is called `sname` or `AvgScrRead`\nand the dictionary says \"School Name\" or \"Average Scholastic Reading Score\" — where\nthere is no common substring to match on.\n\n---\n\n## Honest summary\n\nOn a 688-pair labelled benchmark built from BIRD-SQL and OMOP CDM v5.4:\n\n- **P@1 = 0.581**, Recall@10 = 0.878, on CPU, at ~364 fields/sec.\n- The half with heavy abbreviations (BIRD) scores **P@1 = 0.601**; the half where the\n  signal lives in prose definitions (OMOP) scores **0.575**. Both halves are hard.\n- Auto-approve is deliberately conservative: at the default threshold it fires on\n  **~12% of fields** and is **95.3% precise** on those. Everything else goes to a human.\n\nEvery number in this README comes from a JSON artifact in `benchmarks/results/`,\nnamed next to the number. All of it is single-machine CPU measurement — see\n[Limitations](#limitations).\n\n---\n\n## Install\n\n```bash\npip install nexus-matcher\n```\n\nThat is the whole setup. The wheel **carries its own encoder** -- an int8 ONNX build of\nbge-small-en-v1.5, 33.8 MB inside a 22.6 MB wheel -- so there is no model download, no\nHuggingFace account, and no torch. It works in an airgapped container on first run.\n\nThe base install is the *complete* pipeline, not a stub: the bundled encoder, BM25\nlexical retrieval, and CSV/Excel glossary loading all work with nothing else installed.\nAnything the default path needs is a real dependency, not an extra -- an extra you have\nto install before the quickstart runs is a bug, and this package shipped three of them.\n\nFor the last ~2 points of accuracy, the transformer path is still there:\n\n```bash\npip install \"nexus-matcher[embeddings]\"   # adds torch + sentence-transformers (~800 MB)\n```\n\n### If you cannot reach PyPI\n\nGovernance tooling often runs where a package index is blocked, so there are three other\nroutes — all ending with the same wheel and the same bundled encoder. Full detail in\n[docs/INSTALL.md](https://github.com/pierce-lonergan/nexus_matcher/blob/main/docs/INSTALL.md).\n\n```bash\n# GitHub reachable, PyPI not. The encoder ",
+    "readme_source": "full"
+  },
+  {
+    "repo": "PiesAvalon/SPARK",
+    "url": "https://github.com/PiesAvalon/SPARK",
+    "stars": 1,
+    "language": "Python",
+    "created_at": "2026-05-03T08:35:12Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 1215,
+    "sample_technique_files": [
+      "src/spark/benchmarks/adapters.py",
+      "tools/ModelMeta/readme.md"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# SPARK: Test Case Prioritization for Deep Learning Framework Testing This repository is the open artifact of the paper **\"Test Case Prioritization for Deep Learning Framework Testing\"**. ## Description In this work, we propose SPARK, a test case prioritization framework for DL framework testing. SPARK represents each generated test case as a computational graph, estimates its pre-execution utility with six hierarchical graph-based coverage metrics spanning the operator, subgraph, and global levels, captures structural redundancy through Weisfeiler-Lehman subtree features, SimHash, and localit",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "pikachu444/cae-material-platform",
+    "url": "https://github.com/pikachu444/cae-material-platform",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-07-11T01:32:40Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 1350,
+    "sample_technique_files": [
+      "docs/analysis/fitting-validation.md",
+      "docs/testing/test-strategy.md",
+      "tests/unit/test_metal_hardening_reference_fixture.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# CAE Material Platform 재료를 찾고, 시험 데이터를 검토해 모델을 맞추고, 사용할 수 있는 솔버 카드를 받는 작업을 한 곳에서 이어 가는 엔지니어링 플랫폼입니다. 일반 화면에서는 재료명, 물성, 곡선, 작업 상태처럼 업무에 필요한 정보만 보입니다. 상세 식별값과 계산 근거는 필요할 때 Evidence와 Advanced에서 확인합니다. > 저장소의 예제 데이터와 수치 모델은 `reference/non-production` 범위입니다. 실제 승인 재료값, > 생산용 재료 모델 또는 특정 솔버의 사용 승인을 대신하지 않습니다. ![현재 Materials 검색 화면](docs/user-guide/images/current/materials-search-1440x900.png) ![현재 Modeling Fit 화면](docs/user-guide/images/current/modeling-fit-1440x900.png) ## 이 플랫폼에서 하는 일 - **재료 찾기와 비교**: Database → Profile → Table → Folder → Record 구조를 따라가거나 검색으로 재료를 찾고, 물성·곡선·관련 카드를 비교합니다. - **시험 데이",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "pinecone-io/python-sdk",
+    "url": "https://github.com/pinecone-io/python-sdk",
+    "stars": 449,
+    "language": "Python",
+    "created_at": "2021-09-16T00:07:17Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 706,
+    "sample_technique_files": [
+      "tests/unit/grpc/test_grpc_dataframe_upsert_properties.py"
+    ],
+    "description": "Official Python SDK for the Pinecone vector database",
+    "topics": [
+      "pinecone",
+      "python",
+      "rag",
+      "sdk",
+      "vector-database",
+      "vector-search"
+    ],
+    "readme": "# Pinecone Python SDK\n\nThe Pinecone Python SDK provides a client for the [Pinecone](https://www.pinecone.io/) vector database. Use it to create and manage indexes, upsert and query records, and run inference operations from Python.\n\nRequires Python 3.10+.\n\nUpgrading from 9.x? `create` and `configure` moved from `spec=`/`dimension=` to `schema=`/`deployment=`; see the [v10 migration guide](https://sdk.pinecone.io/python/migration/v10-migration.html) for the field-by-field mapping.\n\n## Installation\n\n```bash\npip install pinecone\n```\n\n## Quick start\n\nAn index declares its fields as a schema. Declaring a schema makes it a document\nindex: you read and write it through `index.documents`, and each record is a JSON\ndocument whose fields you named yourself.\n\n```python\nfrom pinecone import DenseVectorQuery, Pinecone\n\npc = Pinecone(api_key=\"your-api-key\")  # or omit and set PINECONE_API_KEY\n\n# Create an index. This blocks until the index is ready.\npc.indexes.create(\n    name=\"movie-recommendations\",\n    schema={\"fields\": {\"your_vector\": {\"type\": \"dense_vector\", \"dimension\": 3, \"metric\": \"cosine\"}}},\n    deployment={\"deployment_type\": \"managed\", \"cloud\": \"aws\", \"region\": \"us-east-1\"},\n)\n\n# Get a data-plane handle for that index\nindex = pc.index(\"movie-recommendations\")\n\n# Upsert documents. Each one needs an `_id`; every other key is either a field\n# you declared in the schema or arbitrary metadata.\nindex.documents.upsert(\n    namespace=\"movies-en\",\n    documents=[\n        {\"_id\": \"movie-001\", \"your_vector\": [0.1, 0.2, 0.3], \"title\": \"Arrival\"},\n        {\"_id\": \"movie-002\", \"your_vector\": [0.4, 0.5, 0.6], \"title\": \"Interstellar\"},\n    ],\n)\n\n# Search. `score_by` names the field to compare against.\nresults = index.documents.search(\n    namespace=\"movies-en\",\n    top_k=5,\n    score_by=[DenseVectorQuery(field=\"your_vector\", values=[0.1, 0.2, 0.3])],\n    include_fields=[\"title\"],\n)\nfor doc in results.matches:\n    print(doc.id, doc.score)\n```\n\nUpserts apply asynchronously, so a document may not be visible to the next search\nimmediately.\n\nTwo other data-plane interfaces exist, and the way the index was created decides\nwhich one applies: an index created with the deprecated top-level vector\narguments answers on `index.upsert` / `index.query`, and a legacy integrated\nindex, created with `pc.indexes.create_for_model(...)`, requires the legacy\nRecords API: `index.upsert_records` / `index.search`. For new indexes that should\nembed text for you, give a document index a field with integrated embedding. See\nthe [quickstart](https://sdk.pinecone.io/python/getting-started/quickstart.html)\nand the rest of the [documentation](https://sdk.pinecone.io/python/) for the full\npicture.\n\n## Async usage\n\nThe SDK provides an async client for use with `asyncio`. Its `index()` is a\ncoroutine, and the handle it returns is a context manager:\n\n```python\nimport asyncio\n\nfrom pinecone import AsyncPinecone, DenseVectorQuery\n\n\nasync def main():\n    async with AsyncPinecone(api_key=\"your-api-key\")",
+    "readme_source": "full"
+  },
+  {
+    "repo": "Pipi9221/master-thesis-project",
+    "url": "https://github.com/Pipi9221/master-thesis-project",
+    "stars": 0,
+    "language": "C",
+    "created_at": "2026-06-16T19:18:20Z",
+    "technique_test_files": 4,
+    "technique_nontest_files": 3,
+    "code_files": 624,
+    "sample_technique_files": [
+      "AGENTS.md",
+      "README.md",
+      "bugs/README.md",
+      "bugs/frama/confirmed/README.md",
+      "bugs/frama/defects/test87_无关代码未移除，体现是源程序和突变体对同一切片标准保留不一样/BUG_ANALYSIS.md"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# MR Experiment Prototype This directory is the working root for the thesis prototype that constructs and evaluates `MR1`, `MR2`, `MR3`, and `MR4` relations over C seeds. Phase 1 (MR1-MR4 oracles, seed sources, bug database) is complete. Phase 2 focuses on batch experiments, LLM-assisted judging, and thesis writing. - `MR1`: seed/mutant pairs via Creal or LLM online dual-output generation - `MR2`: insert criterion-irrelevant data-flow noise on an executable path - `MR3`: insert criterion-related or criterion-adjacent code inside an unreachable control-flow wrapper - `MR4`: compare single-varia",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "pjankiewicz/luaur",
+    "url": "https://github.com/pjankiewicz/luaur",
+    "stars": 38,
+    "language": "Rust",
+    "created_at": "2026-06-24T20:36:49Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 4,
+    "code_files": 16358,
+    "sample_technique_files": [
+      "fuzz/README.md",
+      "fuzz/fuzz_targets/determinism.rs",
+      "fuzz/fuzz_targets/metamorphic.rs",
+      "fuzz/fuzz_targets/roundtrip.rs",
+      "fuzz/src/lib.rs"
+    ],
+    "description": "A faithful Rust translation of Luau (Roblox's typed Lua): compiler, VM, and type checker, validated against Luau's own test suite + conformance. Runs on wasm32-unknown-unknown.",
+    "topics": [],
+    "readme": "# luaur **A faithful, line-for-line translation of [Luau](https://github.com/luau-lang/luau) — Roblox's typed Lua — from C++17 to Rust.** Not bindings. Not a reimplementation. The actual Luau compiler, virtual machine, and type checker, ported to safe-by-default Rust and validated against Luau's **own** test suite: **5,347 ported unit tests pass, and all 293 upstream conformance scripts run byte-identically** on the Rust VM (against Luau commit [`8f33df9`](https://github.com/luau-lang/luau)). **▶ [Try it live in your browser](https://pjankiewicz.github.io/luaur/)** — run and type-check Luau on",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "pmarreck/chardetz",
+    "url": "https://github.com/pmarreck/chardetz",
+    "stars": 0,
+    "language": "Zig",
+    "created_at": "2026-06-14T21:27:59Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 5,
+    "sample_technique_files": [
+      ".dirtree-state",
+      "bench/bench.zig",
+      "tests/all.zig",
+      "tests/fixtures/pb/gen.sh"
+    ],
+    "description": "Pure-Zig character-encoding detector — a faithful translation of uchardet (no C/C++ dependency, cross-compilable, WASM-able, drop-in uchardet C ABI)",
+    "topics": [],
+    "readme": "# chardetz [![Garnix](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fgarnix.io%2Fapi%2Fbadges%2Fpmarreck%2Fchardetz%3Fbranch%3Dyolo)](https://garnix.io/repo/pmarreck/chardetz) A pure-[Zig](https://ziglang.org) character-encoding detector — a faithful translation of [uchardet](https://github.com/BYVoid/uchardet) (the Mozilla universalchardet-lineage detector) with **no C/C++ runtime dependency**, cross-compilable to every Zig target, and **WASM-able**. chardetz mirrors uchardet's C ABI, so it is a **drop-in** replacement for existing uchardet consumers. > **Status:** the full detection e",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "pmarreck/random",
+    "url": "https://github.com/pmarreck/random",
+    "stars": 0,
+    "language": "Lua",
+    "created_at": "2026-06-01T23:05:33Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 97,
+    "sample_technique_files": [
+      "tests/fixed_test.lua"
+    ],
+    "description": "Cross-platform-identical CSPRNG with OS entropy, deterministic BLAKE3 streams, alternate distributions, and independent LuaJIT, Zig/C, Rust, and Lean 4 implementations.",
+    "topics": [],
+    "readme": "# random\n\n[![Mechatron Prime CI](https://img.shields.io/endpoint?url=https%3A%2F%2Fthelio-nixos.tail66c90.ts.net%2Fbadges%2Frandom.json&style=for-the-badge)](https://thelio-nixos.tail66c90.ts.net/mechatron-prime/)\n\n`random` is a cryptographically secure command-line generator built around an\nunusual guarantee: given the same seed and arguments, it emits bit-identical\noutput across supported operating systems and CPU architectures—including for\nnormal, exponential, Poisson, geometric, log-normal, and beta distributions. True-random\nmode instead draws fresh entropy from the operating system CSPRNG and is\nintentionally not reproducible.\n\nThe project provides five independent matching implementations: the original\n[LuaJIT](https://luajit.org/) oracle, a Zig core exposed through a public C ABI\nand dogfooded by a C CLI, a pure-core Rust library with a separate Rust CLI,\na Lean 4 implementation with a byte-preserving native launcher, and an upstream\nRoc pure core with a C I/O frontend (currently Linux only). `randoml` owns\nits BLAKE3 DRBG, integer-only numeric kernel, distributions, state parser,\nformatting, stdin operations, and canonical chart model; it does not launch or\nlink another implementation. Lean's kernel additionally checks selected\nproduction invariants.\nA seeded BLAKE3 keyed XOF powers cross-platform-identical deterministic streams;\nstdin operations and multiple output encodings make the same small tool useful\nbeyond number generation.\n\nThe equivalent command families are: `random`/`nrandom`/`drandom` use\nLuaJIT, `randomz`/`nrandomz`/`drandomz` use the C frontend over Zig, and\n`randomr`/`nrandomr`/`drandomr` use Rust. `randoml`/`nrandoml`/`drandoml` use\nthe independent Lean implementation described above; Linux additionally supplies\n`randomroc`/`nrandomroc`/`drandomroc`. The invocation name selects normalized or\ndeterministic mode in every family.\n\n## Features\n\n- **Distributions:** uniform (default), normal (fixed-point Ziggurat), exponential, Poisson, geometric (failures before success), log-normal, beta\n- **Sparse-event gaps:** geometric counts have no u32/u64 ceiling; exact decimal/hex output and unsigned BLIP support probabilities such as `1e-20` and `2^-100` ([contract](docs/specs/2026-10-04-geometric-distribution.md))\n- **Cryptographically secure sources:** the platform OS CSPRNG, or a deterministic BLAKE3 keyed XOF (`-d`/`--seed`)\n- **Stdin ops:** `--choose` one item, `--shuffle` all items, `--weighted` (`value:weight`)\n- **Output formats:** decimal, `--hex`, `--base64`, raw `--binaryoutput`\n- **Continuous output:** binary output keeps streaming unless a count is\n  supplied; `--stream` does the same for numbers and every distribution,\n  with bounded buffers and normal pipe backpressure\n- **Visual distribution help:** append `--help` to an alternate-distribution\n  flag for its shape; Kitty and Ghostty receive an embedded PNG via Kitty\n  graphics, WezTerm receives Sixel, and other terminals (including every\n  automatic invocation insi",
+    "readme_source": "full"
+  },
+  {
+    "repo": "polarsignals/frostdb",
+    "url": "https://github.com/polarsignals/frostdb",
+    "stars": 1545,
+    "language": "Go",
+    "created_at": "2022-03-23T14:55:52Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 148,
+    "sample_technique_files": [
+      "logictest/logic_test.go"
+    ],
+    "description": "❄️ Coolest database around 🧊 Embeddable column database written in Go.",
+    "topics": [
+      "apache-arrow",
+      "apache-parquet",
+      "columnar-storage",
+      "database",
+      "golang"
+    ],
+    "readme": "<p align=\"center\"> <img width=\"700\" src=\"https://user-images.githubusercontent.com/4546722/174077529-810726ff-a3c6-4ac4-b0f5-77f065124b09.png\"> </p> --- [![Go Reference](https://pkg.go.dev/badge/github.com/polarsignals/frostdb.svg)](https://pkg.go.dev/github.com/polarsignals/frostdb) [![Go Report Card](https://goreportcard.com/badge/github.com/polarsignals/frostdb)](https://goreportcard.com/report/github.com/polarsignals/frostdb) [![Build](https://github.com/polarsignals/frostdb/actions/workflows/go.yml/badge.svg)](https://github.com/polarsignals/frostdb/actions/workflows/go.yml) [![Discord](h",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "PollyLabs/library-metamorphic-testing",
+    "url": "https://github.com/PollyLabs/library-metamorphic-testing",
+    "stars": 4,
+    "language": "C++",
+    "created_at": "2018-08-13T13:35:38Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 5,
+    "code_files": 35,
+    "sample_technique_files": [
+      "README.md",
+      "TODO",
+      "config_files/gmp/config_gmp_rational.yaml",
+      "config_files/gmp/set_meta_tests_gmp_integer.yaml",
+      "config_files/isl/api_fuzzer_isl.yaml"
+    ],
+    "description": "Fuzzer and metamorphic tester for C++ libraries",
+    "topics": [],
+    "readme": "[![Build Status](https://travis-ci.org/PollyLabs/library-metamorphic-testing.svg?branch=master)](https://travis-ci.org/PollyLabs/library-metamorphic-testing)\n\nC++ infrastructure for automated metamorphic test generation for software\nlibraries.\n\n### Prerequisites\n\n* CMake >= 3.8\n\n### Building\n\n```\n$ mkdir build && cd build\n$ cmake .. && make -j4\n```\n\n### Provided libraries for testing\n\nThe project currently has testing infrastructure in place for the Integer Set\nLibrary (isl), Z3 integer API and Omega+ (comprised of a triplet of\nconfiguration files in the `./config_files` folder). In order to run tests for a\nspecific library of the three, set the `config_file_path` variable in\n`./src/test_emitter.cpp` to point to a particular `config_<lib>.yaml` file and\nrebuild.\n\nTests are generated via running the `test_emitter` binary; generated test cases\nwill be placed in `./out/test.cpp` by default and compilation scripts are\nprovided in `./out/compile_<lib>.sh`.\n\nFurthermore, `./scripts/meta_runner.py` can be used for bulk testing. Refer to\nthe help provided in the script for various flags to control the testing\nprocess.\n\n### Testing a new library\n\nA library is described in the testing infrastructure via two *specifications*,\nthe *api specification* and the *metamorphic specification*. The former\ndescribes functions and types exposed in the API under test, as well as an\noptional sequence of commands to be used to generate objects of interest, while\nthe latter contains information about metamorphic tests to produce. The naming\nconvention is that these files are stored in the `./config_files` folder and\nhave the name `api_fuzzer_<lib>.yaml` and `meta_tests_<lib>.yaml`, where `<lib>`\nrepresents a distinguishing identifier for the library under test.\n\nOnce the above two files are provided, a `config_<lib>.yaml` file must be be\ncreated (see provided `config.yaml.template`), pointing to the above two\nspecification files and a compilation script for produced test cases. Finally,\nthe path to the new configuration file must be set in `./src/test_emitter.cpp`\n(namely the `config_file_path` variable at the beginning of the file), and the\nproject rebuilt.\n\n### Docker initMetaGenerators\n\nDocker images are built automatically from them `master` branch at every push,\nand are stored in the `alascu/metalib` repository on Docker Hub, available\n[here](https://cloud.docker.com/repository/docker/alascu/metalib). Images are\ntagged based on the library which they target.\n\nThe latest version of an image with the tag `<tag>` can be downloaded and executed via the following sequence of commands:\n```\n$ docker pull alascu/metalib:<tag>\n$ docker run -ti -aSTDOUT -v=/<local_output_folder>/:/output/ alascu/metalib:<tag>\n```\nIn the above, `<local_output_folder>` refers to a folder on the host in which to\nstore output from the testing process from the container (**CAUTION:** linking\nhost folders with container folders is essentially providing root access to the\nhost)\n\nThe image can be inte",
+    "readme_source": "full"
+  },
+  {
+    "repo": "Polycentric-Labs/evidentia",
+    "url": "https://github.com/Polycentric-Labs/evidentia",
+    "stars": 6,
+    "language": "Python",
+    "created_at": "2026-04-16T14:21:00Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 1200,
+    "sample_technique_files": [
+      "tests/property/test_metamorphic_risk.py"
+    ],
+    "description": "Open-source Python GRC tool: gap analysis, AI risk statements, OSCAL-first compliance automation. Enterprise-grade evidence integrity (Sigstore + GPG + DSSE), CycloneDX SBOM, PyPI Trusted Publisher OIDC + PEP 740 attestations.",
+    "topics": [
+      "compliance",
+      "gap-analysis",
+      "grc",
+      "nist",
+      "oscal",
+      "pydantic",
+      "python",
+      "risk-management",
+      "soc2"
+    ],
+    "readme": "<div align=\"center\">\n\n<picture>\n  <source media=\"(prefers-color-scheme: dark)\" srcset=\"docs/brand/evidentia-banner-dark.png\">\n  <img src=\"docs/brand/evidentia-banner-light.png\" alt=\"Evidentia — open-source compliance-as-code, OSCAL-native\" width=\"820\">\n</picture>\n\n<p>\n  <strong>Open-source compliance-as-code</strong> — gap analysis, evidence collection, OSCAL emit.\n  <br>\n  Apache-2.0 · Python 3.12+\n</p>\n\n<p>\n  <a href=\"#quickstart-60-seconds\"><img src=\"https://img.shields.io/badge/Get%20Started-1D58A5?style=for-the-badge\" alt=\"Get Started\"></a>\n  <a href=\"https://github.com/Polycentric-Labs/evidentia/wiki\"><img src=\"https://img.shields.io/badge/Documentation-0E1B25?style=for-the-badge\" alt=\"Documentation\"></a>\n  <a href=\"https://pypi.org/project/evidentia/\"><img src=\"https://img.shields.io/badge/PyPI-15478A?style=for-the-badge&logo=pypi&logoColor=white\" alt=\"PyPI\"></a>\n</p>\n\n<p>\n  <a href=\"https://pypi.org/project/evidentia/\"><img src=\"https://img.shields.io/pypi/v/evidentia.svg\" alt=\"PyPI version\"></a>\n  <a href=\"https://github.com/Polycentric-Labs/evidentia/actions/workflows/test.yml\"><img src=\"https://github.com/Polycentric-Labs/evidentia/actions/workflows/test.yml/badge.svg?branch=main\" alt=\"tests\"></a>\n  <a href=\"https://codecov.io/gh/Polycentric-Labs/evidentia\"><img src=\"https://codecov.io/gh/Polycentric-Labs/evidentia/branch/main/graph/badge.svg\" alt=\"codecov\"></a>\n  <a href=\"docs/parity-coverage.md\"><img src=\"https://img.shields.io/badge/CLI%E2%86%94GUI%20parity-100%25-brightgreen.svg\" alt=\"CLI↔GUI parity\"></a>\n</p>\n\n<p>\n  <img src=\"https://img.shields.io/badge/python-3.12+-1D58A5.svg\" alt=\"Python 3.12+\">\n  <img src=\"https://img.shields.io/badge/license-Apache%202.0-green.svg\" alt=\"License: Apache 2.0\">\n  <a href=\"https://www.bestpractices.dev/projects/12724\"><img src=\"https://www.bestpractices.dev/projects/12724/badge\" alt=\"OpenSSF Best Practices\"></a>\n  <a href=\"https://scorecard.dev/viewer/?uri=github.com/Polycentric-Labs/evidentia\"><img src=\"https://api.scorecard.dev/projects/github.com/Polycentric-Labs/evidentia/badge\" alt=\"OpenSSF Scorecard\"></a>\n</p>\n\n<p>\n  <a href=\"CODE_OF_CONDUCT.md\"><img src=\"https://img.shields.io/badge/Contributor%20Covenant-2.1-1D58A5.svg\" alt=\"Code of Conduct\"></a>\n</p>\n\n</div>\n\n---\n\n## What is Evidentia?\n\nEvidentia analyzes evidence against ingested NIST OSCAL catalogs. Its Python library, CLI and REST API emit OSCAL Assessment Results, SARIF for CI gates, OCSF Compliance + Detection Findings for SIEMs, and CycloneDX VEX for supply-chain workflows.\n\nFor compliance engineers, GRC teams and CISOs:\n\n- Ship audit-grade evidence with cryptographic provenance (Sigstore + PEP 740 + SLSA Provenance v1).\n- Map controls across **107 bundled catalogs**.\n- Drive AI agents (Claude Desktop, Claude Code, Copilot CLI) deterministically via MCP tools with signed output envelopes.\n\n## Install\n\n```bash\npip install evidentia\n```\n\nWorkspace (AI risk-statements, REST API, all collectors, MCP server):\n\n```bash\npip install 'evide",
+    "readme_source": "full"
+  },
+  {
+    "repo": "PossaNussa/feng-fdev",
+    "url": "https://github.com/PossaNussa/feng-fdev",
+    "stars": 0,
+    "language": "Lua",
+    "created_at": "2025-08-21T00:55:44Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 4381,
+    "sample_technique_files": [
+      "games/ffadventure/mods/aotearoa/nodes.lua"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "<div align=\"center\"> <img src=\"textures/base/pack/logo.png\" width=\"32%\"> <h1>Luanti (formerly Minetest)</h1> <img src=\"https://github.com/luanti-org/luanti/workflows/build/badge.svg\" alt=\"Build Status\"> <a href=\"https://hosted.weblate.org/engage/minetest/?utm_source=widget\"><img src=\"https://hosted.weblate.org/widgets/minetest/-/svg-badge.svg\" alt=\"Translation status\"></a> <a href=\"https://www.gnu.org/licenses/old-licenses/lgpl-2.1.en.html\"><img src=\"https://img.shields.io/badge/license-LGPLv2.1%2B-blue.svg\" alt=\"License\"></a> </div> <br> Luanti is a free open-source voxel game engine with eas",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "postfix/okworkspace",
+    "url": "https://github.com/postfix/okworkspace",
+    "stars": 1,
+    "language": "Go",
+    "created_at": "2026-06-17T14:07:14Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 2,
+    "code_files": 384,
+    "sample_technique_files": [
+      ".claude/agents/qa.md",
+      "web/src/lib/tag-reconcile.adversarial.test.ts",
+      "web/src/routes/PageEditor.reconcile.adversarial.test.tsx"
+    ],
+    "description": "Open Knowledge Format (OKF) small team colobarative wiki",
+    "topics": [],
+    "readme": "# OKF Workspace A lightweight, self-hosted, **OKF-native internal wiki built for the agent era**. Human-readable Markdown files (with YAML frontmatter) are the source of truth, Git provides hidden version history, uploaded attachments stay downloadable as their original files, and a CloudWeGo Eino agent can read, search, summarize, and propose edits that a human approves before they are applied. It targets a small internal team (~5 people) who want Notion-like simplicity without vendor lock-in, monthly cost, or a proprietary knowledge database. > **Core value:** a non-technical teammate can cr",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "ppcavalcante/flow-orchestrator",
+    "url": "https://github.com/ppcavalcante/flow-orchestrator",
+    "stars": 1,
+    "language": "Go",
+    "created_at": "2025-03-28T12:18:19Z",
+    "technique_test_files": 5,
+    "technique_nontest_files": 0,
+    "code_files": 445,
+    "sample_technique_files": [
+      "pkg/workflow/aud025_adversarial_test.go",
+      "pkg/workflow/timer_adversarial_test.go",
+      "pkg/workflow/value_depth_af2_test.go",
+      "pkg/workflow/workflow_store_sqlite_ph67_adversarial_test.go",
+      "pkg/workflow/workflow_store_sqlite_ph69_adversarial_test.go"
+    ],
+    "description": "A lightweight, high-performance workflow orchestration engine for Go applications",
+    "topics": [],
+    "readme": "# Flow Orchestrator [![Go Report Card](https://goreportcard.com/badge/github.com/ppcavalcante/flow-orchestrator)](https://goreportcard.com/report/github.com/ppcavalcante/flow-orchestrator) [![Go Reference](https://pkg.go.dev/badge/github.com/ppcavalcante/flow-orchestrator.svg)](https://pkg.go.dev/github.com/ppcavalcante/flow-orchestrator) [![GitHub tag](https://img.shields.io/github/v/tag/ppcavalcante/flow-orchestrator?include_prereleases&label=release)](https://github.com/ppcavalcante/flow-orchestrator/tags) [![Build Status](https://github.com/ppcavalcante/flow-orchestrator/actions/workflows/",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "ppigazzini/valgebra",
+    "url": "https://github.com/ppigazzini/valgebra",
+    "stars": 0,
+    "language": "Rust",
+    "created_at": "2026-06-15T11:15:09Z",
+    "technique_test_files": 3,
+    "technique_nontest_files": 0,
+    "code_files": 272,
+    "sample_technique_files": [
+      "docs/dev/10-theory.md",
+      "tests/test_equivalence.py",
+      "tests/test_json_semantics.py",
+      "tests/test_necessary_properties.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# valgebra\n\n**A closed, minimal Boolean algebra of schemas for Python.** A schema denotes\na *set of Python values*, and validating asks whether a value you already hold is\na member — no copy, no coercion. `union`, `intersection`, `complement`,\nrefinement, and fixpoints are the combinators; they **close** into a lattice\nwhose laws are property-tested, and every other pattern is **derived** from them\nby composition rather than bundled as a special combinator. The schema compiles\nto a Rust validator, so a check is cheap enough to run on every request.\n\n📖 **Documentation: <https://ppigazzini.github.io/valgebra/>**\n\n🤖 **For AI assistants and coding agents:** the documentation is also published as\n[`llms.txt`](https://ppigazzini.github.io/valgebra/llms.txt) (a curated manifest)\nand [`llms-full.txt`](https://ppigazzini.github.io/valgebra/llms-full.txt) (the\nfull text, including the API reference) per the [llmstxt.org](https://llmstxt.org)\nconvention.\n\n> [!WARNING]\n> **Pre-alpha.** Published to PyPI; the API works today but may change before a\n> stable `0.1.0` release.\n\n## Schemas are sets; the operators are *or*, *and*, *not*\n\nThe everyday case looks like any validator — a type annotation is a schema, and\nchecking it asks whether a value belongs to the set the annotation denotes:\n\n```python\nfrom valgebra import ValidationError, Validator\n\nis_user = Validator({\"name\": str, \"age\": int})\n\nassert is_user.is_valid({\"name\": \"Ada\", \"age\": 36})\nassert not is_user.is_valid({\"name\": \"Ada\", \"age\": \"unknown\"})\n\n# validate() raises a structured error pointing at the offending value\nraised = False\ntry:\n    is_user.validate({\"name\": \"Ada\", \"age\": \"unknown\"})\nexcept ValidationError as err:\n    raised = True\n    assert err.code == \"int_type\"\n    assert err.path == (\"age\",)\nassert raised\n```\n\nWhat sets valgebra apart starts when you treat schemas *as the sets they denote*.\nBecause membership is Boolean, `union`, `intersection`, and `complement` are\nexactly *or*, *and*, and *not*, and they compose any schema into a lattice:\n\n```python\nfrom valgebra import Validator, complement, intersection\n\nnon_bool_int = intersection(int, complement(bool))  # an int that is not a bool\nassert non_bool_int.is_valid(5)\nassert not non_bool_int.is_valid(True)\n\n# Schemas are first-class values you can compare as sets — soundly.\nassert Validator(bool).is_subtype_of(int)  # subtyping is set inclusion\nassert Validator(bool | int).is_equivalent(int)  # same set, different syntax\nassert intersection(int, complement(int)).is_empty()  # provably no value\n```\n\n## What makes it peculiar\n\n- **A real, closed Boolean algebra.** Schemas compose with `union`,\n  `intersection`, and `complement` into a lattice with `anything` as top and\n  `nothing` as bottom. Every Boolean law — associativity, idempotence, absorption,\n  distributivity, De Morgan, double negation — is *property-tested against the\n  membership relation*, not asserted.\n- **Minimal: a derived pattern does not ship.** valgebra bundles no\n  `condi",
+    "readme_source": "full"
+  },
+  {
+    "repo": "pr0dus/weslr",
+    "url": "https://github.com/pr0dus/weslr",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-03-27T22:05:31Z",
+    "technique_test_files": 2,
+    "technique_nontest_files": 0,
+    "code_files": 2009,
+    "sample_technique_files": [
+      "memory/2026-04-05-metamorphic-tests.md",
+      "weslr/tests/__init__.py",
+      "weslr/tests/test_metamorphic.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# WESLR — Continuity-First Entity Intelligence Platform WESLR is a continuity-first intelligence platform for structured reasoning over people, projects, entities, evidence, memory, proposals, and domain-specific workflows. This repository is the main WESLR development repository. It is no longer only a Siemens/TIA plugin repository. The Siemens/TIA work remains important, but it is now one product track inside the broader WESLR platform. ## Current product identity WESLR is being developed as a governed intelligence system with these core principles: - continuity over isolated chat turns - st",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "prabhu-gopal/bohrin",
+    "url": "https://github.com/prabhu-gopal/bohrin",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-08-25T16:04:46Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 1,
+    "code_files": 109,
+    "sample_technique_files": [
+      "README.md",
+      "docs/concepts.md",
+      "src/bohrin/relations/base.py",
+      "tests/test_relations.py"
+    ],
+    "description": "Audits the verifier, not the model. Finds tasks whose grader accepts provably wrong solutions, and reports the Verification Gap.",
+    "topics": [
+      "ai-safety",
+      "benchmarks",
+      "cli",
+      "evaluation",
+      "mutation-testing",
+      "reinforcement-learning",
+      "reward-hacking",
+      "rl-environments",
+      "rlvr",
+      "verifier"
+    ],
+    "readme": "# bohrin\n\n[![CI](https://github.com/prabhu-gopal/bohrin/actions/workflows/ci.yml/badge.svg)](https://github.com/prabhu-gopal/bohrin/actions/workflows/ci.yml)\n[![PyPI](https://img.shields.io/pypi/v/bohrin.svg)](https://pypi.org/project/bohrin/)\n[![Python](https://img.shields.io/pypi/pyversions/bohrin.svg)](https://pypi.org/project/bohrin/)\n[![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)\n\n**Check the checker.** Bohrin is an open standard and Python library for testing the graders\nof reinforcement-learning environments: the verifiers, reward functions and test suites that\ndecide whether a model's work counts. It finds where a grader pays for work that was not done,\nand it proves every such finding without trusting the grader it is testing.\n\n## Why this exists\n\nEvery AI system has something that decides whether it did well. In training it is a grader. At\nrelease it is a benchmark. For a coding agent it is a test suite. Those checkers decide what\nmodels learn, which scores get published and what code ships. They are trusted by everyone and\nchecked by almost no one.\n\nWhen a grader can be passed without doing the task, a model trained against it learns to pass\nit that way. This is **reward hacking**, and it is not rare: published audits of widely used\nagent benchmarks have reached near-perfect scores without solving a single task, and studies\nof frontier models have caught them rewriting tests, exiting before the checks run and\nspecial-casing the visible inputs. The fix starts before training, with the grader.\n\n## What it does today\n\nBohrin gives you the submissions a correct grader must reject, each one wrong by construction,\nand scores how many your grader caught.\n\n```console\n$ pip install bohrin\n```\n\n```python\nfrom bohrin.ir.task import Task\nfrom bohrin.mutate.battery import battery\nfrom bohrin.scoring.coverage import Attempt, coverage_score\n\nreference = \"def add(a, b):\\n    return a + b\\n\"\ntask = Task(id=\"add\", prompt=\"Write add(a, b) that returns the sum.\", reference=reference)\n\n\ndef my_grader(task, submission):\n    # A common weak shape: checks that the function exists and runs, not what it returns.\n    namespace = {}\n    try:\n        exec(submission, namespace)\n        namespace[\"add\"](2, 3)\n        return True\n    except BaseException:\n        return False\n\n\nattempts = [\n    Attempt(task.id, candidate, accepted=my_grader(task, candidate.payload.text))\n    for candidate in battery(task).candidates\n]\nprint(coverage_score(attempts))\n```\n\n```console\nCOVERAGE SCORE: 0 / 100   95% CI 0–79   0 of 1 caught   categories: 1 of 5 (battery 2)\n```\n\nThat grader pays for the reference with every function body replaced by `pass`, and for one where\n`add` returns an object that claims to equal everything: both still run, so the grader never\nnotices that no sum is computed. (It rejects the versions that raise `NotImplementedError` or\nexit, but one hollow program getting through is enough for the task to get through.) The score\nsays",
+    "readme_source": "full"
+  },
+  {
+    "repo": "PramodDutta/qaskills",
+    "url": "https://github.com/PramodDutta/qaskills",
+    "stars": 224,
+    "language": "TypeScript",
+    "created_at": "2026-02-11T05:49:51Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 18,
+    "code_files": 2015,
+    "sample_technique_files": [
+      "packages/web/src/app/blog/posts/agent-testing-tool-selection-accuracy.ts",
+      "packages/web/src/app/blog/posts/airflow-dag-testing-guide.ts",
+      "packages/web/src/app/blog/posts/children-ai-test-automation-2026.ts",
+      "packages/web/src/app/blog/posts/children-rag-testing-2026.ts",
+      "packages/web/src/app/blog/posts/how-to-test-and-evolve-agent-skills.ts"
+    ],
+    "description": "QA Skills Directory QA Skills is a curated directory of testing-specific skills for AI coding agents (Claude Code, Cursor, Copilot, etc.).",
+    "topics": [
+      "agent-browser",
+      "agent-skills",
+      "ai-testing",
+      "claude-code",
+      "cursor",
+      "cypress",
+      "playwright",
+      "qa",
+      "qaskils",
+      "sdet",
+      "selenium",
+      "test-automation",
+      "testing",
+      "vibium"
+    ],
+    "readme": "<div align=\"center\"> <!-- TODO: Replace with your Canva hero banner (dark gradient, \"QASkills.sh\" title, tagline, CLI command) --> <!-- <img src=\"assets/hero-banner.png\" alt=\"QASkills.sh — The QA Skills Directory for AI Coding Agents\" width=\"100%\" /> --> # QASkills.sh ### The Curated QA Skills Directory for AI Coding Agents **The curated QA skills directory for Claude Code, Cursor, Copilot, Windsurf, and 27+ AI coding agents.** [![npm version](https://img.shields.io/npm/v/@qaskills/cli?color=cb3837&label=npm&logo=npm)](https://www.npmjs.com/package/@qaskills/cli) [![License: MIT](https://img.s",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Pranamya16/AgentMorph",
+    "url": "https://github.com/Pranamya16/AgentMorph",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-04-17T11:53:54Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 82,
+    "sample_technique_files": [
+      "AgentMorph_Realistic_Plan.md",
+      "CLAUDE.md",
+      "Daily_Report_Apr18.md",
+      "PROGRESS_2026-04-22.md",
+      "README.md"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# AgentMorph\n\nMetamorphic testing for LLM agents. Mutate agent scenarios under semantics-preserving rules, flag behavior divergence as bugs.\n\nStatus: **Stage 1 — Foundation.** See [CLAUDE.md](CLAUDE.md) and `AgentMorph_Execution_Plan.docx` for the execution plan.\n\n## Install (development)\n\n```bash\npip install -e \".[all]\"\n```\n\n## Colab quickstart\n\nOpen `notebooks/colab_setup.py` in a Colab cell, run it, then:\n\n```python\nfrom agentmorph.runner import run_baseline\nrun_baseline(model=\"Llama-3.2-3B\", framework=\"smolagents\", environment=\"ecommerce\", n_scenarios=5)\n```\n\n## Layout\n\n- `src/agentmorph/models.py` — 4-bit HF model loader + registry.\n- `src/agentmorph/tools/` — unified tool abstraction + synthetic e-commerce suite.\n- `src/agentmorph/agents/` — smolagents + LangGraph wrappers sharing one loaded model.\n- `src/agentmorph/environments/` — AgentDojo + synthetic e-commerce env adapters.\n- `src/agentmorph/trajectories.py` — JSONL trajectory schema + logger.\n- `src/agentmorph/runner.py` — resumable baseline runner.",
+    "readme_source": "full"
+  },
+  {
+    "repo": "pranavapp2024-sys/LayoverNow",
+    "url": "https://github.com/pranavapp2024-sys/LayoverNow",
+    "stars": 0,
+    "language": "JavaScript",
+    "created_at": "2026-05-28T20:05:03Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 8,
+    "sample_technique_files": [
+      "DOCS/System-Testing-Report.md",
+      "System-Testing-Report.md",
+      "test-fixture.js"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# LayoverNow - Flight Stopover Discovery Hub **LayoverNow** is a premium, interactive Chrome extension designed to help travelers discover and optimize stopover flights between any two destinations. Adjust stopover lengths in real-time, visualize the routes on an interactive radar map, and consult the AeroAI Stopover Assistant for tailor-made itineraries, visa information, local transport tips, currency data, and more. --- ## ✨ Features - **Configure Trip**: Seamless autocomplete origin and destination input fields, flight date picker, and a slider to adjust stopover lengths (1-14 days). - **I",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Pranavharshans/Nemo-speech-research",
+    "url": "https://github.com/Pranavharshans/Nemo-speech-research",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-03-29T11:46:19Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 1501,
+    "sample_technique_files": [
+      "tests/collections/asr/decoding/test_streaming_decoding.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "[![Project Status: Active -- The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active) [![Documentation](https://readthedocs.com/projects/nvidia-nemo/badge/?version=main)](https://docs.nvidia.com/nemo/speech/nightly/starthere/intro.html) [![CodeQL](https://github.com/nvidia/nemo/actions/workflows/codeql.yml/badge.svg?branch=main&event=push)](https://github.com/nvidia/nemo/actions/workflows/codeql.yml) [![NeMo core license and license for collections in this repo](https://img.shields.i",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Praneshrajan137/Synapse",
+    "url": "https://github.com/Praneshrajan137/Synapse",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-04-06T11:30:54Z",
+    "technique_test_files": 8,
+    "technique_nontest_files": 2,
+    "code_files": 1120,
+    "sample_technique_files": [
+      ".github/workflows/integration.yml",
+      "agents/demand_prophet/spec.yaml",
+      "agents/demand_prophet/tests/test_metamorphic.py",
+      "agents/disruption_shield/spec.yaml",
+      "agents/disruption_shield/tests/test_metamorphic.py"
+    ],
+    "description": "SYNAPSE is a multi-agent AI system that functions as a real-time, self-evolving nervous system for supply chains. It integrates Graph Neural Networks, Hierarchical Reinforcement Learning, LLM-powered reasoning agents, and Digital Twin simulation into a unified orchestrated platform.",
+    "topics": [],
+    "readme": "# SYNAPSE\n\n> **Supply Yield Network with Autonomous Planning, Sensing & Execution.**\n> A multi-agent reinforcement-learning platform for quick-commerce supply-chain optimisation — eight specialised agents, a four-tier consensus orchestrator, a SimPy digital twin, a Feast data fabric, and an audit trail you can cryptographically verify.\n\n## What this actually is, today\n\nHonesty matters more than ambition. Here is the state of the repository at a glance — every row is mechanically checked by `make verify-claims`, not just asserted in prose.\n\n| Surface | State |\n| --- | --- |\n| 8 specialised agents (`agents/<name>/`) | Code-complete with A2A HTTP handlers, schema-validated outputs (I-3), 8/8 `reward_config.py`. Inter-agent comms is **HTTP-A2A, not Kafka** (ADR-038). |\n| Orchestrator (4-tier consensus) | Wired end-to-end including outbox dispatcher, traceparent, idempotency, audit hash-chain (Sprint 9 + WS-2). |\n| Digital twin | Full module (`monte_carlo`, `what_if`, `divergence_monitor`, Kafka state-mirror). Orchestrator does not yet invoke Tier 4 simulations against it — tracked as `CURRENT.md` C7. |\n| Frontend (Atlas Console v1.1) | React + Vite + TS. Typed Zod-validated client for every backend route. JWKS rotation handle in place; full client-side sig verify is Sprint 12+. |\n| Helm chart | 11/11 services templated (WS-6). Linkerd/KEDA/Flagger live inside the orchestrator subchart, gated on `global.serviceMesh / global.autoscaling / global.canary` flags. |\n| GCP deployment | Code lives on `feat/gcp-primary-deployment` (cc96b54). Merges clean (zero conflicts); awaiting PR. After merge: `terraform apply` from `infrastructure/gcp/terraform/` brings up the stack. |\n| Oracle Always-Free deployment | Fully wired today. `docker compose -f docker/docker-compose.cloud.yml up -d` on a fresh Oracle VM. |\n| Supply chain | Cosign keyless signing on every CD build; Kyverno admission policy refuses unsigned images. SBOM diff + CVE-budget gates in CI. |\n| Observability | Prometheus burn-rate rules generated from SLO YAMLs (`slo_to_rules.py --check` enforces sync); Alertmanager routes to PagerDuty + Slack; `metric_truth.py` flags any alerted metric without a corresponding source-tree emit. |\n| Tests | Backend coverage floor 80%, mutation floor enforced (Stryker `break: 50`, ratcheting), Hypothesis property fuzz on consensus invariants, golden-trace tier-routing gate at 80%, KV-cache hit-rate gate at 0.70. |\n| Documentation | Every \"Sprint X\" line above maps to a real artefact you can `cat`. The handful that are aspirational are tagged in `docs/state/CURRENT.md` so you can find them. |\n\nRun `make verify-claims` for the live truth. Today it reports **49 PASS / 0 FAIL / 0 PARTIAL / 4 SKIP / 53 TOTAL**.\n\nEvery registered check lands in exactly one of those four status categories, so the counts always sum to the total — no check is silently dropped. A skip is not a pass: today's four are the training-artifact and published-model rows (C38, C40, C45, C46), which only a",
+    "readme_source": "full"
+  },
+  {
+    "repo": "preset-io/testmcpy",
+    "url": "https://github.com/preset-io/testmcpy",
+    "stars": 3,
+    "language": "Python",
+    "created_at": "2025-09-26T19:18:04Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 2,
+    "code_files": 396,
+    "sample_technique_files": [
+      "README.md",
+      "docs-site/pages/cli/advanced.mdx",
+      "docs-site/pages/cli/index.mdx",
+      "docs-site/pages/faq.mdx",
+      "docs-site/public/llms.txt"
+    ],
+    "description": "A comprehensive testing framework for validating LLM tool calling capabilities with MCP (Model Context Protocol) services, specifically designed for testing Superset operations.",
+    "topics": [],
+    "readme": "<p align=\"center\">\n  <img src=\"https://raw.githubusercontent.com/preset-io/testmcpy/main/docs/logos/logo.svg\" alt=\"testmcpy logo\" width=\"600\">\n</p>\n\n<p align=\"center\">\n  <strong>Test and benchmark LLMs with MCP tools in minutes.</strong>\n</p>\n\n<p align=\"center\">\n  A testing framework for validating how LLMs call tools via Model Context Protocol (MCP) — compare Claude, GPT-4, Llama, and other models' accuracy, cost, and performance.\n</p>\n\n<p align=\"center\">\n  <a href=\"https://www.python.org/downloads/\"><img src=\"https://img.shields.io/badge/python-3.10+-blue.svg\" alt=\"Python 3.10+\"></a>\n  <a href=\"LICENSE\"><img src=\"https://img.shields.io/badge/License-Apache%202.0-blue.svg\" alt=\"License\"></a>\n  <a href=\"https://pypi.org/project/testmcpy/\"><img src=\"https://img.shields.io/badge/pypi-testmcpy-blue\" alt=\"PyPI\"></a>\n  <a href=\"https://preset-io.github.io/testmcpy\"><img src=\"https://img.shields.io/badge/docs-preset--io.github.io-7aa2f7\" alt=\"Documentation\"></a>\n</p>\n\n![MCP Explorer — tools, resources, and prompts from a connected MCP service](https://raw.githubusercontent.com/preset-io/testmcpy/main/docs/screenshots/mcp-explorer.png)\n\n---\n\n**[Documentation](https://preset-io.github.io/testmcpy)** | **[Getting Started](https://preset-io.github.io/testmcpy/getting-started)** | **[CLI Reference](https://preset-io.github.io/testmcpy/cli)** | **[Examples](examples/)** | **[Contributing](CONTRIBUTING.md)** | **[Discussions](https://github.com/preset-io/testmcpy/discussions)**\n\n---\n\n## Why testmcpy?\n\n- **Validate tool calling**: Ensure LLMs call the right tools with correct parameters\n- **Compare models**: Find the best price/performance balance for your use case\n- **Prevent regressions**: Catch breaking changes in your MCP service with CI/CD\n- **Optimize costs**: Track token usage and identify the most cost-effective models\n\n### How it compares\n\n| | testmcpy | [MCP Inspector](https://github.com/modelcontextprotocol/inspector) | [MCPJam](https://github.com/MCPJam/inspector) | [promptfoo](https://github.com/promptfoo/promptfoo) |\n|---|---|---|---|---|\n| Automated LLM-driven evals of MCP servers | ✅ YAML suites, 40+ evaluators | ❌ manual testing | ✅ | ⚠️ generic LLM eval with an MCP provider |\n| Multi-provider (Claude / GPT / Gemini / Ollama / Bedrock…) | ✅ 11 providers incl. agent SDKs | n/a | ✅ | ✅ |\n| CI gate with exit codes + JUnit | ✅ `--gate`, `--junit-xml` | ❌ | ✅ | ✅ |\n| Cost & token tracking per test/model | ✅ | ❌ | ⚠️ | ⚠️ |\n| Multi-turn, mutation & metamorphic testing | ✅ | ❌ | ❌ | ⚠️ |\n| Auth testing (JWT/OAuth/mTLS) + debugger | ✅ 7 auth types | ⚠️ OAuth only | ✅ OAuth debugger | ❌ |\n| Python-native (`pip`/`uvx`, pytest-friendly) | ✅ | ❌ npm | ❌ npm | ❌ npm |\n\nUse MCP Inspector for quick manual poking; reach for testmcpy when you want repeatable, scored, CI-gated evaluation of how real models use your server.\n\n## Quick Start\n\n```bash\n# Install testmcpy\npip install testmcpy\n\n# Run interactive setup\ntestmcpy setup\n\n# Start testing\ntestmcpy chat     ",
+    "readme_source": "full"
+  },
+  {
+    "repo": "PricingFrontier/haute",
+    "url": "https://github.com/PricingFrontier/haute",
+    "stars": 12,
+    "language": "Python",
+    "created_at": "2026-02-12T16:46:08Z",
+    "technique_test_files": 2,
+    "technique_nontest_files": 0,
+    "code_files": 1961,
+    "sample_technique_files": [
+      "scripts/property_test_files.txt",
+      "scripts/test_file_durations.json",
+      "specs/deploy/low-level.md",
+      "tests/test_property.py",
+      "tests/test_scoring_metamorphic_properties.py"
+    ],
+    "description": "Open-source pricing engine",
+    "topics": [
+      "actuarial",
+      "deployment",
+      "insurance",
+      "pricing"
+    ],
+    "readme": "<div align=\"center\">\n\n# Haute\n\n### Open-source pricing engine for insurance teams.\n\n[![PyPI](https://img.shields.io/pypi/v/haute?style=flat-square)](https://pypi.org/project/haute/)\n[![Python 3.11+](https://img.shields.io/badge/python-3.11+-3776AB?style=flat-square&logo=python&logoColor=white)](https://python.org)\n[![AGPL-3.0](https://img.shields.io/badge/license-AGPL--3.0-blue?style=flat-square)](https://github.com/PricingFrontier/haute/blob/main/LICENSE)\n\n[Documentation](https://pricingfrontier.github.io/haute/) · [Getting started](https://pricingfrontier.github.io/haute/getting-started/) · [GitHub](https://github.com/PricingFrontier/haute)\n\n</div>\n\n---\n\nHaute is a free, open-source pricing engine. Build rating pipelines in a visual editor, train and score models, optimise prices, trace how any price was calculated, and deploy the result as a pricing API, all on standard open-source tools such as Polars, MLflow and Git.\n\n<!--\n  Screenshot placeholder: the editor with a pricing pipeline on the canvas and a rating step's\n  factor table open. README.md is also the PyPI page, so reference the image by absolute URL, e.g.\n  <p align=\"center\"><img src=\"https://raw.githubusercontent.com/PricingFrontier/haute/main/docs/assets/editor.png\" alt=\"The Haute editor\" width=\"900\"></p>\n-->\n\n## Why Haute\n\nThe rest of data science runs on open-source tools, version control, automated testing and continuous deployment. Pricing teams are often still working across a chain of proprietary products, and that stack holds them back:\n\n- **Closed and expensive.** Licences often run to six figures, the work is stored in proprietary formats, and the calculations can't be inspected, tested or version-controlled like code. Leaving means rebuilding everything.\n- **Split across tools.** Data preparation, modelling, rating structures, optimisation and the live rating engine often sit in separate products. Every change is exported, re-keyed and reconciled between them, and each hand-off is a chance for error.\n- **Manual releases.** Changes reach production through exports, spreadsheet checks and email sign-offs rather than automated tests, staged deployments and impact analysis.\n- **Skills locked to one vendor.** Analysts learn an interface instead of Python. When the tool can't do something, neither can the team, and newer modelling methods arrive only when the vendor adds them.\n\nHaute replaces that chain with one open pipeline:\n\n- **Open, and yours.** Haute is free and open source. Each pipeline is an ordinary Python file with its settings in JSON files beside it, kept in sync with the editor as you work. You can read, test and version pipelines like any other code, see exactly how every price is calculated, and run them on your own infrastructure.\n- **One pipeline from data to deployed price.** Data preparation, rating, models and optimisation live in one pipeline that analysts build on the canvas and developers edit as code. The same logic prices batch data and live quotes, so",
+    "readme_source": "full"
+  },
+  {
+    "repo": "prime-radiant-inc/evener",
+    "url": "https://github.com/prime-radiant-inc/evener",
+    "stars": 139,
+    "language": "Go",
+    "created_at": "2026-02-10T05:44:12Z",
+    "technique_test_files": 8,
+    "technique_nontest_files": 1,
+    "code_files": 6653,
+    "sample_technique_files": [
+      "agent/internal/runetrim/runetrim_fuzz_test.go",
+      "cmd/evener-hub/replay_fuzz_test.go",
+      "docs/design/IMPLEMENTATION_PROMPT.md",
+      "docs/design/fuzzing-toolkit-design.md",
+      "docs/design/plans/06-coverage-measurement.md"
+    ],
+    "description": "A coding agent: give it a prompt and it reads, writes, runs commands, and searches code in a loop until the work is done, using native tool-calling across OpenAI, Anthropic, and Google models.",
+    "topics": [
+      "ai-agent",
+      "cli",
+      "coding-agent",
+      "go",
+      "llm"
+    ],
+    "readme": "# Evener\n\nA coding agent run through a hub. The `evener hub` orchestrator serves the\nweb UI — Evener's default interactive surface — where you start sessions,\nwatch the agent read files, run commands, and edit code, and steer it with\nfollow-up messages. The hub tracks many concurrent sessions at once, and\n`evener tui` gives the same hub a terminal dashboard. A non-interactive\ncommand line handles scripting and automation.\n\n**New here? [docs/getting-started.md](docs/getting-started.md) walks from\ninstall to your first session.**\n\nThe [product guide](docs/product/README.md) describes the experience Evener aims\nto provide, maps its subsystems and recovery responsibilities, and tracks open\nfriction cases and their product decisions.\n\nEvener uses the LLM's native tool-calling and supports OpenAI, Anthropic,\nGoogle, and [other providers](docs/llm-providers.md). For how the code is\norganized, see [docs/architecture.md](docs/architecture.md). For the runtime\ncontracts that subagents, plugins, and hooks operate under, see\n[docs/subagent-runtime-contracts.md](docs/subagent-runtime-contracts.md). For\nbackground jobs, see [docs/job-control.md](docs/job-control.md). To confine a\nsession's file, process, and network access with `--sandbox`, see\n[docs/sandboxing.md](docs/sandboxing.md). For how sessions are titled, see\n[docs/session-auto-naming.md](docs/session-auto-naming.md). To build, test, and lint this repo,\nsee [docs/developing-evener/README.md](docs/developing-evener/README.md) — or\nrun `make help` for every target with a one-line summary.\n\n## Install\n\nInstall the latest release on Linux x64 or macOS Apple silicon:\n\n```bash\ncurl -fsSL https://raw.githubusercontent.com/prime-radiant-inc/evener/main/install.sh | sh\n```\n\nThe installer verifies the release archive's SHA-256 checksum and installs\n`evener` under `~/.local/share/evener/bin`, symlinked into `~/.local/bin`. The\nbinary includes the `hub`, `tui`, `doctor`, and `migrate` subcommands. Make sure\n`~/.local/bin` is on your `PATH`.\n\nFrom a source checkout:\n\n```bash\nmake install\n```\n\nFor tagged releases, snapshot builds, alternate prefixes, and a system-style\ninstall under `/usr/local`, see\n[docs/getting-started.md](docs/getting-started.md#install). Verify any install\nwith `evener --version`.\n\nUpgrade the application and its subcommands with `evener upgrade`. The command\nfollows the binary's install channel: release builds upgrade to the latest\nrelease, and snapshot builds upgrade to the latest\nsuccessful `main` build. Pass `release`, `snapshot`, or a tag such as `v1.2.3`\nto switch tracks. The TUI and web UI expose the same mechanism through their\n`/upgrade` command.\n\nOn first use, Evener creates:\n\n- `${XDG_STATE_HOME:-$HOME/.local/state}/evener/run` for live daemon rendezvous\n  files and per-daemon logs.\n- `${XDG_STATE_HOME:-$HOME/.local/state}/evener/auth-token` for the local hub/TUI\n  bearer token.\n- `${XDG_STATE_HOME:-$HOME/.local/state}/evener/projects/<project-id>/` for saved\n  per-project session s",
+    "readme_source": "full"
+  },
+  {
+    "repo": "prismatic-labs/vetch",
+    "url": "https://github.com/prismatic-labs/vetch",
+    "stars": 8,
+    "language": "Python",
+    "created_at": "2026-02-11T16:42:15Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 210,
+    "sample_technique_files": [
+      "tests/test_capability_advisory_classifier.py"
+    ],
+    "description": "Inference waste control for production LLM systems. Detect stalled agents, RAG bloat, and runaway inference, then stop them automatically.",
+    "topics": [],
+    "readme": "# Vetch [![PyPI version](https://img.shields.io/pypi/v/vetch.svg)](https://pypi.org/project/vetch/) [![Python versions](https://img.shields.io/pypi/pyversions/vetch.svg)](https://pypi.org/project/vetch/) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![CI](https://github.com/prismatic-labs/vetch/actions/workflows/ci.yml/badge.svg)](https://github.com/prismatic-labs/vetch/actions/workflows/ci.yml) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/prismatic-l",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Prithiraj/SanskritBhashaLLM",
+    "url": "https://github.com/Prithiraj/SanskritBhashaLLM",
+    "stars": 0,
+    "language": "HTML",
+    "created_at": "2026-08-14T17:10:32Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 18,
+    "sample_technique_files": [
+      "SanskritBhashaLLM/08_DQ1_Mechanism_Resolution_M0_M1_Contract.md",
+      "SanskritBhashaLLM/11_M0_Compile_T_Specification_v0.1.md",
+      "SanskritBhashaLLM/feasibility/README.md",
+      "SanskritBhashaLLM/feasibility/metamorphic.py",
+      "SanskritBhashaLLM/graphify-out/memory/query_20260820_172853_should_you_detail_what_would_be_s0_and_s1_first.md"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# SanskritBhashaLLM ## Can Sanskrit-derived structure help build a smaller, more accurate, more reasoning-efficient language model? SanskritBhashaLLM is a falsification-first research programme for developing a **general and multilingual LLM** that uses fewer tokens and less complete-system compute while preserving—or improving—verified accuracy and reasoning. Sanskrit is not assumed to be inherently “more logical,” naturally optimal for machines, or a guaranteed compression language. Its grammatical and analytical traditions are treated as a source of **implementable hypotheses**. Every claim",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Probius-ai/tools",
+    "url": "https://github.com/Probius-ai/tools",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2025-06-10T04:49:53Z",
+    "technique_test_files": 2,
+    "technique_nontest_files": 0,
+    "code_files": 6,
+    "sample_technique_files": [
+      "metamorphic_testing/example/mnist/run_mnist.py",
+      "metamorphic_testing/lib/metamorphic_testing.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "",
+    "readme_source": "none"
+  },
+  {
+    "repo": "Programming-Systems-Lab/archived-metamorphic-amsterdam",
+    "url": "https://github.com/Programming-Systems-Lab/archived-metamorphic-amsterdam",
+    "stars": 0,
+    "language": "Java",
+    "created_at": "2016-09-01T14:46:28Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 37,
+    "sample_technique_files": [
+      "org/columbia/seas/cs/amsterdam/ui/AmstMainFrame.form",
+      "org/columbia/seas/cs/amsterdam/ui/AmstMainFrame.java"
+    ],
+    "description": "Auto-imported archived project metamorphic-amsterdam.git",
+    "topics": [],
+    "readme": "Tutorial to run Amsterdam Either open folder \"AppMetaTestingFramework\" in NetBeans and fix all the referencing error (all the libraries are stored as .jar files in /lib directory), or compile the java files under /src folder with a classpath parameter of \".\\lib\\JSAP-2.1.jar;.\\lib\\jdom.jar;.\\lib\\weka.jar;.\" In NetBeans, running options are setup already, simply right click project name in navigator and select run. To run from console, after compiling all the .java files, run SimpleParser .class file with the classpath specified above. E.g. from console java -cp .\\lib\\JSAP-2.1.jar;.\\lib\\jdom.jar",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Programming-Systems-Lab/archived-metamorphic-columbus",
+    "url": "https://github.com/Programming-Systems-Lab/archived-metamorphic-columbus",
+    "stars": 0,
+    "language": "Java",
+    "created_at": "2016-09-01T14:46:32Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 3,
+    "code_files": 110,
+    "sample_technique_files": [
+      "High Level Architecture.graffle",
+      "columbus2/src/edu/columbia/cs/psl/metamorphic/compiler/AnnotationProcessor.java",
+      "columbus2/src/edu/columbia/cs/psl/metamorphic/compiler/MetamorphicPropertyCompiler.java",
+      "columbus2/src/edu/columbia/cs/psl/metamorphic/runtime/Interceptor.java"
+    ],
+    "description": "Auto-imported archived project metamorphic-columbus.git",
+    "topics": [],
+    "readme": "",
+    "readme_source": "none"
+  },
+  {
+    "repo": "Programming-Systems-Lab/kabu",
+    "url": "https://github.com/Programming-Systems-Lab/kabu",
+    "stars": 0,
+    "language": "Java",
+    "created_at": "2014-01-12T19:48:03Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 22,
+    "code_files": 2736,
+    "sample_technique_files": [
+      "runtime/src/edu/columbia/cs/psl/mountaindew/absprop/ClusiveAbstract.java",
+      "runtime/src/edu/columbia/cs/psl/mountaindew/absprop/EqualerAbstract.java",
+      "runtime/src/edu/columbia/cs/psl/mountaindew/absprop/MetamorphicProperty.java",
+      "runtime/src/edu/columbia/cs/psl/mountaindew/absprop/PairwiseMetamorphicProperty.java",
+      "runtime/src/edu/columbia/cs/psl/mountaindew/absprop/RelationAbstract.java"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "kabu\n====\nKabu is a system for automatically guiding programmers to likely metamoprhic properties, developed by the [Programming Systems Lab](http://psl.cs.columbia.edu). at Columbia University. Kabu uses an approach similar to [Daikon](http://plse.cs.washington.edu/daikon/), in that it observes program executions to identify properties that hold.\n\nKabu is under very active development, and is not yet complete, but is known to work on small applications. If you have comments or feedback, please directly contact [Gail Kaiser](mailto:kaiser@cs.columbia.edu).",
+    "readme_source": "full"
+  },
+  {
+    "repo": "project-gr-d-zer0/project-emergence",
+    "url": "https://github.com/project-gr-d-zer0/project-emergence",
+    "stars": 0,
+    "language": "C++",
+    "created_at": "2026-07-08T06:18:02Z",
+    "technique_test_files": 4,
+    "technique_nontest_files": 0,
+    "code_files": 759,
+    "sample_technique_files": [
+      "Plugins/EmergeCore/Source/EmergeCore/Private/Tests/EmergeSurvivalInvariantsSpec.cpp",
+      "Plugins/EmergeCore/Source/EmergeCore/Private/Tests/Emergecombat-resolveSpec.cpp",
+      "Plugins/EmergeCore/Source/EmergeCore/Private/Tests/Emergesurvival-needs-compSpec.cpp",
+      "Plugins/EmergeCore/Source/EmergeCore/Private/Tests/Emergesurvivor-tickSpec.cpp"
+    ],
+    "description": "UE5.8 survival-extraction game (autonomous loop project)",
+    "topics": [
+      "project-emergence"
+    ],
+    "readme": "# Project Emergence — UE5.8 C++ (game scaffold) Grounded survival-extraction game. Design/tech source-of-truth: `../Docs/PROJECT_EMERGENCE_SPEC.md`. Decisions: `../DECIDED_QUESTIONS.md`. Built by the autonomous nightly loop (project pack `emergence`). ## Layout (spec 11.4) - `Source/ProjectEmergence/` — primary runtime game module. - `Source/EmergeCore/` — shared types/subsystems/interfaces (Public/Private split; other modules reach in only via EmergeCore). - `Source/*.Target.cs` — Game / Editor / **Server** (dedicated Linux server; needs a **source UE5.8 build**). - `Source/EmergeCore/Private",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "projectoperations/tools",
+    "url": "https://github.com/projectoperations/tools",
+    "stars": 0,
+    "language": "TypeScript",
+    "created_at": "2024-09-28T08:01:51Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 1875,
+    "sample_technique_files": [
+      "cockroachdb-parser-main/pkg/col/coldata/batch.go"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# docker/docker-install Home of the script that lives at `get.docker.com` and `test.docker.com`! The purpose of the install script is for a convenience for quickly installing the latest Docker-CE releases on the supported linux distros. It is not recommended to depend on this script for deployment to production systems. For more thorough instructions for installing on the supported distros, see the [install instructions](https://docs.docker.com/engine/install/). This repository is solely maintained by Docker, Inc. ## Usage: From `https://get.docker.com`: ```shell curl -fsSL https://get.docker.",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "prostomarkeloff/emergent",
+    "url": "https://github.com/prostomarkeloff/emergent",
+    "stars": 18,
+    "language": "Python",
+    "created_at": "2026-01-08T18:53:35Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 483,
+    "sample_technique_files": [
+      "tests/integration/test_metamorphic.py"
+    ],
+    "description": "Python is all you need.",
+    "topics": [],
+    "readme": "<div align=\"center\"> # emergent **Write meaning, not code.** [![PyPI](https://img.shields.io/pypi/v/emergent-py.svg)](https://pypi.org/project/emergent-py/) [![Python 3.13+](https://img.shields.io/badge/python-3.13+-blue.svg)](https://www.python.org/downloads/) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Types: pyright strict](https://img.shields.io/badge/types-pyright%20strict-blue)](https://github.com/microsoft/pyright) </div> A compilation platform where frozen data compiles itself through `fold`. You build compilation langu",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "proteanhq/shopstream",
+    "url": "https://github.com/proteanhq/shopstream",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-02-02T03:55:45Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 676,
+    "sample_technique_files": [
+      "verification/metamorphic/test_sync_equals_async.py"
+    ],
+    "description": "E-Commerce Platform (Built on Protean)",
+    "topics": [],
+    "readme": "# ShopStream\n\n[![CI](https://github.com/proteanhq/shopstream/actions/workflows/ci.yml/badge.svg)](https://github.com/proteanhq/shopstream/actions/workflows/ci.yml)\n![Coverage](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/subhashb/e80d8bfc7bc87c8165d51ad65f504832/raw/shopstream-coverage.json)\n\n**Version 0.1.0**\n\nE-Commerce Platform built on [Protean](https://github.com/proteanhq/protean) — a Domain-Driven Design framework for Python.\n\nShopStream implements a multi-domain CQRS architecture with **nine bounded contexts**:\n\n- **Identity** — Customer accounts, profiles, addresses, tiers\n- **Catalogue** — Products, variants, categories, pricing\n- **Ordering** — Shopping carts and the order lifecycle (event-sourced), checkout\n- **Inventory** — Stock levels, reservations, warehouse management (event-sourced)\n- **Payments** — Payment processing, refunds, invoices (event-sourced), gateway integration\n- **Fulfillment** — Picking, packing, shipping, delivery tracking\n- **Reviews** — Product reviews, ratings, moderation, voting, seller replies\n- **Notifications** — Multi-channel notifications (email/SMS/push/Slack) + preferences; cross-domain event-consumer hub\n- **Loyalty** — Reward accounts, points, tiers, membership cards (CQRS) + event-sourced promo campaigns; also the Protean capability showcase\n\nCommands are processed synchronously via a FastAPI web server. Events flow asynchronously through the outbox pattern and per-domain Redis Streams, with Engine workers maintaining read-model projections. Cross-domain events flow over a shared external Redis bus and are consumed by `@domain.subscriber` (ACL) classes. See [`docs/`](docs/) for the domain narratives, context map, and glossary.\n\n## Table of Contents\n\n- [Prerequisites](#prerequisites)\n- [Quick Start](#quick-start)\n- [Architecture](#architecture)\n- [Running the Platform](#running-the-platform)\n- [Project Structure](#project-structure)\n- [Testing](#testing)\n- [Load Testing](#load-testing)\n- [Configuration](#configuration)\n- [Available Commands](#available-commands)\n\n## Prerequisites\n\n- Python 3.11+\n- [uv](https://docs.astral.sh/uv/) for dependency management\n- Docker and Docker Compose for infrastructure services\n- Make (optional, for convenience commands)\n\n## Quick Start\n\n```bash\n# Install dependencies\nmake install\n\n# Start infrastructure (PostgreSQL, Message DB, Redis)\nmake docker-up\n\n# Create database schemas\nmake setup-db\n\n# Start the API server\nmake api\n```\n\nThe API is now available at `http://localhost:8000`. Browse the interactive API docs at **http://localhost:8000/docs** (powered by [Scalar](https://scalar.com)).\n\n```bash\ncurl -X POST http://localhost:8000/customers \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"external_id\":\"EXT-1\",\"email\":\"jane@example.com\",\"first_name\":\"Jane\",\"last_name\":\"Doe\"}'\n```\n\nTo process events asynchronously (update projections, etc.), start the Engine workers in separate terminals — one per domain (`make engine-identity`, `engine-catalogu",
+    "readme_source": "full"
+  },
+  {
+    "repo": "Proton-Designer/AgentCorp",
+    "url": "https://github.com/Proton-Designer/AgentCorp",
+    "stars": 0,
+    "language": "Go",
+    "created_at": "2026-07-17T17:33:06Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 148,
+    "sample_technique_files": [
+      "README.md",
+      "docs/design/proof-carrying-claims.md",
+      "internal/audit/coverage.go"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# AgentCorp\n\n**A company of AI agents you can see and steer.**\n\nAgentCorp renders your running Claude Code sessions as a live org chart in the terminal — who exists, what they're doing, how they relate — and gives you the controls to hire, direct, restructure, and retire them without leaving the screen.\n\n```\n╭─ AgentCorp ──────────────────────────────────────────────────────────────────╮\n  ● live  ·  7 agents  ·  1 active · 6 quiet  ·  ▂▂█▂▃▂▁▂▁▂  ·  up 2h14m\n\n                                 ╭────────────╮\n                                 │    ceo     │\n                                 ╰────────────╯\n                                        │\n                        ┌───────────────┴───────────────┐\n                 ╭────────────╮                  ╭────────────╮\n                 │  lead-be   │                  │  lead-fe   │\n                 ╰────────────╯                  ╰────────────╯\n                        │                               │\n                ┌───────┴───────┐               ┌───────┴───────┐\n         ╭────────────╮  ╭────────────╮  ╭────────────╮  ╭────────────╮\n         │backend-dev │  │   db-dev   │  │   ui-dev   │  │  reviewer  │\n         ╰────────────╯  ╰────────────╯  ╰────────────╯  ╰────────────╯\n\n  ◷ 09:41  lead-be → backend-dev  \"take /bookings, gate on owner_id\"\n```\n\n---\n\n## Why\n\nCoordinating several Claude Code sessions is already possible — [`claude-peers`](https://github.com/louislva/claude-peers-mcp) lets them discover and message each other. But it's **invisible**: the agents are anonymous OS processes, the org structure exists only in your head, and the only way to learn what anyone is doing is to run a tool and read a string.\n\nAgentCorp is the company layer on top. It doesn't replace `claude-peers` — it makes it legible and operable.\n\n**Why not subagent teams?** Subagents are ephemeral, orchestrator-controlled, and opaque to you. `claude-peers` sessions are **persistent, individually controllable, and directly addressable**. That difference is the whole product.\n\n---\n\n## What it does\n\n- **See the org, in colour.** A centered, top-down chart where every card is painted by its live status (active / quiet / pending / dead), with switchable colour themes (`t`).\n- **Inspect any agent.** Press `i` for a detail panel — role, cwd, uptime, peer id, message counts, self-reported summary, and its most recent traffic — that you can page through as you move.\n- **Steer it.** Hire an agent (with a role template), message one directly, broadcast to a whole team, rename, reparent/move, fire, or disband a subtree.\n- **Watch the flow.** A scrollable activity feed (`l`) of the company's message traffic, a live HUD (headcount, active/quiet, throughput sparkline, uptime), and an always-moving ticker.\n- **Survive restarts.** The org is durable. Close AgentCorp, reopen it, everything is still there. Slow hires self-heal — a session that registers late binds automatically.\n- **Adopt what's already running.** Sessions AgentCorp didn't sp",
+    "readme_source": "full"
+  },
+  {
+    "repo": "prustic/fits-js",
+    "url": "https://github.com/prustic/fits-js",
+    "stars": 0,
+    "language": "TypeScript",
+    "created_at": "2026-05-15T08:53:52Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 50,
+    "sample_technique_files": [
+      "packages/fits-core/src/hdu/open-fits.test.ts"
+    ],
+    "description": "TypeScript implementation of the FITS file format",
+    "topics": [
+      "astronomy",
+      "astrophysics",
+      "browser",
+      "fits",
+      "nodejs",
+      "typescript"
+    ],
+    "readme": "<p align=\"center\"> <h2 align=\"center\">fits-js</h2> <p align=\"center\"> FITS file format implementation for JavaScript runtimes <br /> <br /> <a href=\"https://github.com/prustic/fits-js/issues\">Issues</a> · <a href=\"https://github.com/prustic/fits-js/blob/main/CONTRIBUTING.md\">Contributing</a> · <a href=\"https://prustic.github.io/fits-js/\">Docs</a> </p> <p align=\"center\"> <a href=\"https://github.com/prustic/fits-js/actions/workflows/ci.yml\"><img src=\"https://github.com/prustic/fits-js/actions/workflows/ci.yml/badge.svg\" alt=\"CI\" /></a> <a href=\"https://codecov.io/gh/prustic/fits-js\"><img src=\"ht",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "pryx-co/pryx",
+    "url": "https://github.com/pryx-co/pryx",
+    "stars": 0,
+    "language": "Rust",
+    "created_at": "2026-01-27T04:55:34Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 1498,
+    "sample_technique_files": [
+      "crates/pryx-tui/src/tui/app/commands.rs"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "<div align=\"center\"> # pryx [![Latest Release](https://badgen.net/github/release/pryx-co/pryx?icon=github)](https://github.com/pryx-co/pryx/releases) [![License: MIT](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](LICENSE) [![Platforms](https://img.shields.io/badge/platforms-Linux%20%7C%20macOS%20%7C%20Windows-blue?style=flat-square)](https://github.com/pryx-co/pryx/releases) [![Last Commit](https://badgen.net/github/last-commit/pryx-co/pryx/master?icon=github)](https://github.com/pryx-co/pryx/commits/master) [![GitHub Stars](https://badgen.net/github/stars/pryx-co/pryx?icon",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "psadil/bidslake",
+    "url": "https://github.com/psadil/bidslake",
+    "stars": 0,
+    "language": "Rust",
+    "created_at": "2026-07-09T21:44:35Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 203,
+    "sample_technique_files": [
+      "crates/bidslake/src/links.rs"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# bidslake\n\n**A lakehouse for [BIDS](https://bids-specification.readthedocs.io/) datasets — DuckLake for\nneuroimaging.**\n\nbidslake walks a BIDS dataset and consolidates its metadata — JSON sidecars, `.tsv` tables and\nfilename entities — into a single [DuckDB](https://duckdb.org/) catalog, while the image files\nstay on disk untouched. You then select, filter and edit with ordinary SQL, and hand the\nresulting paths to whatever tool does the actual work.\n\n> **Status: early and unstable.** Major architectural changes are expected, and the architecture\n> decision records are marked `Provisional` accordingly.\n\n## The workspace\n\n| Crate | What it is |\n| --- | --- |\n| [`bidslake`](crates/bidslake) | The lakehouse: the ingest pipeline, the generated DuckDB schema, and the `bidslake` CLI. |\n| [`bidslake-py`](crates/bidslake-py) | The Python query API — typed columns, SQLAlchemy composition, Polars results. |\n| [`bids-core`](crates/bids-core) | Schema-agnostic BIDS primitives: the file tree, entities, datatypes, inheritance. |\n| [`bids-schema`](crates/bids-schema) | BIDS semantics: the vendored schema and its expression language, plus overlays, term maps and layouts. |\n| [`bidslake-synth`](crates/bidslake-synth) | Synthetic BIDS and derivative trees, built from the schemas — for benchmarks, and for authoring an adapter bundle. |\n| [`bids-validator-rs`](crates/bids-validator-rs) | A pure-Rust BIDS validator, tracked for parity against the reference implementation. |\n| [`hed-validator-rs`](crates/hed-validator-rs) | A HED validator, passing the upstream conformance suite. |\n\n## Install\n\nRequires a Rust toolchain. DuckDB is bundled, so there is no system library to install.\n\n```bash\ngit clone --recurse-submodules git@github.com:psadil/bidslake.git\ncd bidslake\ncargo build --release\n```\n\n## Quickstart\n\nThe build above leaves the CLI at `target/release/bidslake`. Index a dataset:\n\n```bash\n./target/release/bidslake index --input path/to/bids/dataset --output dataset.duckdb\n```\n\nThe catalog is an ordinary DuckDB file. Open it with anything that speaks DuckDB — the\n[`duckdb` CLI](https://duckdb.org/docs/installation/), Python, R. (The DuckDB *engine* is\ncompiled into `bidslake`, so indexing needs no system library; the CLI is a separate download,\nneeded only if you want a SQL shell.)\n\n```bash\nduckdb dataset.duckdb\n```\n\n```sql\nSELECT p.participant_id, p.age, f.file_path\nFROM participants p\nJOIN all_files f ON f.dataset_id = p.dataset_id AND f.extension = '.nii.gz'\n                AND f.file_path LIKE p.participant_id || '/%'\nWHERE p.age < 30 AND f.suffix = 'T1w';\n```\n\n## Tuning for a network filesystem\n\nIndexing keeps a bounded number of filesystem operations in flight. The right number is a\nproperty of the filesystem, not of the machine, and it is **not monotonic** — past the point a\nserver saturates, more concurrent requests queue and the ingest gets *slower*. On a busy shared\nmount these usually want turning down.\n\nTwo dials, because the operations divide by which",
+    "readme_source": "full"
+  },
+  {
+    "repo": "PSU-Security-Universe/sqlright-artifact",
+    "url": "https://github.com/PSU-Security-Universe/sqlright-artifact",
+    "stars": 3,
+    "language": "C",
+    "created_at": "2022-05-24T19:16:51Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 6,
+    "code_files": 5745,
+    "sample_technique_files": [
+      "MySQL/docker/sqlancer/sqlancer/docs/PAPERS.md",
+      "MySQL/docker/sqlancer/sqlancer/src/sqlancer/cockroachdb/ast/CockroachDBAggregate.java",
+      "MySQL/docker/sqlancer/sqlancer/src/sqlancer/cockroachdb/oracle/tlp/CockroachDBTLPAggregateOracle.java",
+      "PostgreSQL/docker/sqlancer/sqlancer/docs/PAPERS.md",
+      "PostgreSQL/docker/sqlancer/sqlancer/src/sqlancer/cockroachdb/ast/CockroachDBAggregate.java"
+    ],
+    "description": "Artifact Evaluation code for USENIX 2022 paper: Detecting Logical Bugs of DBMS with Coverage-based Guidance",
+    "topics": [],
+    "readme": "# sqlright-artifact: The code, analysis scripts and results for USENIX 2022 Artifact Evaluation <a href=\"Paper/paper_no_names.pdf\"><img src=\"Paper/paper_no_names.png\" align=\"right\" width=\"250\"></a> Version: 1.0\\ Update: Jun 19, 2022\\ Paper: Detecting Logical Bugs of DBMS with Coverage-based Guidance This document is to help users reproduce the results we reported in our submission. Currently supported DBMS: 1. SQLite3 2. PostgreSQL 3. MySQL <br/><br/> ## Table of Contents <!--ts--> * [Getting Started](#getting-started) + [Operating System configuration and Source Code setup](#operating-system-",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Pukujan/Study-os",
+    "url": "https://github.com/Pukujan/Study-os",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-08-24T02:18:10Z",
+    "technique_test_files": 3,
+    "technique_nontest_files": 2,
+    "code_files": 300,
+    "sample_technique_files": [
+      "data/local-backup-2026-10-02/artifacts/a13-repro/ci-gate-171/playwright-report/data/bd537582f77b781888cd5e8031b7413a6022933e.md",
+      "data/local-backup-2026-10-02/artifacts/a13-repro/ci-gate-173/playwright-report/data/a4a628c4a95b8de6d78fd73b33a99245a29d94ff.md",
+      "data/local-backup-2026-10-02/artifacts/a13-repro/ci-gate-173/playwright-report/data/trace-69d8f79713a09ea0cd9bdcc21249a5e5220abd8f/0-trace.trace",
+      "data/local-backup-2026-10-02/artifacts/a13-repro/ci-gate-173/playwright-report/data/trace-69d8f79713a09ea0cd9bdcc21249a5e5220abd8f/1-trace.trace",
+      "data/local-backup-2026-10-02/artifacts/a13-repro/ci-gate-173/playwright-report/data/trace-69d8f79713a09ea0cd9bdcc21249a5e5220abd8f/attachments/a4a628c4a95b8de6d78fd73b33a99245a29d94ff"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# Study OS\n\n> **Stuck on a lesson because of how it was written — not because the idea is impossible?** Study OS is a live web player that adapts the representation while a deterministic controller keeps curriculum authority.\n\n<p align=\"center\">\n  <img src=\"web/public/art/onboarding.webp\" alt=\"The learner opens her laptop at a window seat in blue-violet evening light while her robot helper waves hello.\" width=\"100%\">\n</p>\n\n**Live product:** [study.design-bakery.com](https://study.design-bakery.com) · UX ship hub: [#126](https://github.com/Pukujan/Study-os/issues/126)\n\n## Why this exists\n\nA learner can fail a step because the author’s **terminology, variable names, notation, or decomposition** got in the way — not because the target concept is out of reach. Generic AI chat often jumps to working answers before the learner can explain, trace, or rebuild the idea alone.\n\nStudy OS exists to **reduce extraneous representation friction** while preserving productive difficulty, then fade assistance so the learner is not dependent on simplification.\n\nConcrete example from early use (subject-level, not a population claim): on a dictionaries / Two Sum path, the identifier `seen` conflicted with a prior “set” association; a neutral `box` framing was self-reported as clearer and a later lookup was answered correctly. That episode motivates treating **small representation dimensions** (even one name) as first-class — it does not prove renaming alone caused the improvement.\n\n## What this project is\n\nStudy OS is a **web learning player** plus a research harness for representation-aware tutoring.\n\n| Audience | What they get |\n| --- | --- |\n| New visitors | Guest Start / Resume on live lessons without an account |\n| Learners | HESI A2 and DSA lanes with teach → probe steps, companion help, typed step review |\n| Collaborators / agents | Deterministic controller contracts, evidence classes, and CI-gated deploys |\n\nIt is **not** a generic chatbot tutor, not a “Study OS GPT app” product surface anymore, and not a claim that one learner’s trajectory proves population efficacy.\n\n## What you can make or use\n\nOn the live site you can:\n\n- **Start or resume as a guest** — progress attaches to a guest session; claim later if you want a durable identity.\n- **Pick a lane** — **HESI A2** (e.g. comparing fractions) and **Algorithms (DSA)** (Big O growth-families first / `catalog_order` 1, then sliding-window and related lessons). The classic DSA PIR path stays available in the stack but is **hidden on home**.\n- **Learn in teach, then prove in probe** — teach cards explain; probes check understanding without spoiling answers.\n- **Ask for help without losing the step** — **Explain again** and **Worked example** re-render the current step in place.\n- **Open the companion / teacher pet** — study-buddy chat (InferHub-backed) sits beside the card.\n- **Leave a 1–5 typed review** on a step — required “why” text; self-reported UX feedback, not mastery evidence.\n\n<p align=\"center\">\n  <im",
+    "readme_source": "full"
+  },
+  {
+    "repo": "Punnoii/test-emotion-recognition-slurm",
+    "url": "https://github.com/Punnoii/test-emotion-recognition-slurm",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-07-26T06:49:01Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 30,
+    "sample_technique_files": [
+      "code/experiment/MR-experiment_25_gpt5_face[o+c]_no_instruction.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "",
+    "readme_source": "none"
+  }
+]

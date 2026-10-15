@@ -1,0 +1,1261 @@
+[
+  {
+    "repo": "dbr7/RAG-metamorphic-mutation",
+    "url": "https://github.com/dbr7/RAG-metamorphic-mutation",
+    "stars": 0,
+    "language": "Jupyter Notebook",
+    "created_at": "2026-07-29T09:24:11Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 3,
+    "code_files": 18,
+    "sample_technique_files": [
+      "README.md",
+      "notebooks/gt_meta_evaluation.ipynb",
+      "pipeline_config.py",
+      "step3_mutation_campaign.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# When Knowledge Changes: Metamorphic Testing of RAG Systems with Mutations * **Figures and tables (all five datasets) with various RAGAS fault thresholds are available in the `supplemental/` folder.** * **The experimental output data is provided as a zip archive in Figshare: [https://figshare.com/s/96fc3abb168180c0a215](https://figshare.com/s/96fc3abb168180c0a215).** This artifact contains the source code and data for the paper \"When Knowledge Changes: Metamorphic Testing of RAG Systems with Mutations\". The repository provides a metamorphic testing framework that evaluates Retrieval-Augmented",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "dcr309duan/full-self-evolution-agent",
+    "url": "https://github.com/dcr309duan/full-self-evolution-agent",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-06-05T01:26:56Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 590,
+    "sample_technique_files": [
+      "memory/goals.json",
+      "memory/research_log.json",
+      "tests/test_new_file_creation_metamorphic.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# Full Self-Evolution Agent A fully autonomous self-evolving AI agent that can: - Reflect on its own capabilities and limitations - Generate goals for self-improvement - Modify its own source code - Accumulate knowledge across evolution cycles - Track its evolution through git history ## Architecture ``` main.py - Entry point config.py - Configuration core/ llm.py - DeepSeek API interface memory.py - Memory & knowledge persistence reflection.py - Self-reflection & goal generation self_modify.py - Code self-modification engine evolution_loop.py - Main evolution loop capabilities/ - Dynamically",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "ddawnlll/v8",
+    "url": "https://github.com/ddawnlll/v8",
+    "stars": 0,
+    "language": "HTML",
+    "created_at": "2026-08-01T08:48:12Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 3,
+    "code_files": 847,
+    "sample_technique_files": [
+      "docs/audits/D141_EXPERT_PROVING_GROUND.md",
+      "docs/decisions/DECISION_REGISTER.md",
+      "docs/governance/PILOT_TRACKING_RECORD.md",
+      "docs/issues/ISSUE_AUD001_ORACLE_INDEPENDENCE_AND_NEGATIVE_CONTROLS.md",
+      "docs/issues/ISSUE_AUD004A_PIT_TEMPORAL_FAULT_INJECTION.md"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# V8 — Behavior-Driven Trading Intelligence\n\n**Status: PRE-EXPERIMENTAL / EVIDENCE-BOUND.** V8 is a falsification program,\nnot a promise of edge. This repository does not claim that V8 is profitable,\nthat trader intuition is reliable, or that execution has been validated\n(`V8_CONSTITUTION` rule 12: the current simulation authority is uncertified;\nlive status is unreachable until it is independently renewed).\n\n**Active development boundary (2026-09-11, D-162 / reconciles #409):** `v8-next/`\nis the **sole active and authoritative implementation** — the Python runtime,\nexpert plane, evaluation/benchmark fabric, evidence and report systems are the\ncurrent workstream. The Rust tree has been quarantined to `legacy/v8-core/` as a\nnon-canonical frozen reference, retained only as a labeled parity oracle; its\nreceipts and economic baselines are historical evidence of a superseded\nimplementation, not current V8 behavior. `src/v8/` plus `tests/` remain the\nhash-locked frozen Python oracle, and `legacy/v82/` remains a quarantined\nforensic archive.\n\nV8 models the market as a set of behavior families rather than one universal\nmodel: cheap self-gating **Experts** recognize a defined behavior, emit\n**Candidate** hypotheses (never orders), a deterministic acceptance rule\nadmits them, a canonical Level-1 **simulator** produces counterfactual\noutcomes, and a preregistered **hypothesis lab** binds code, data, and\nconfig hashes before any verdict.\n\n## Repository layout\n\n```\ndocs/                  # source corpus — the single source of truth (Markdown/YAML)\n  charter/             #   V8_CONSTITUTION.md\n  contracts/           #   MARKET_STATE, EXPERT_PROTOCOL, CANDIDATE_LIFECYCLE,\n                       #   DATASET, FEED_INGESTION, PERSISTENCE_REPLAY,\n                       #   RUNTIME_SCHEDULER, SIMULATION_TRUTH\n  protocols/           #   HYPOTHESIS_LAB, OPERATIONS, LEARNING_PROTOCOL\n  audits/              #   RESEARCH_AUDIT, PROJECT_EVIDENCE_AUDIT, EVIDENCE_MATRIX, CONTRADICTION_MAP\n  decisions/           #   DECISION_REGISTER, OPEN_DECISIONS\n  research/            #   SOURCE_MAP, READING_LIST, analysis_*.md\n  registries/          #   CLAIMS_REGISTRY.yaml, EXPERIMENT_REGISTRY.yaml\n  tr/                  # Turkish translation of the corpus\n  CHANGELOG.md         #   dated architecture decisions\n  ROADMAP.md           #   build plan, Phases 0-7 with evidence gates\nsite/                  # generated reading artifacts (never hand-edited)\n  index.html           #   EN monograph (built from docs/)\n  tr.html              #   TR monograph (built from docs/tr/)\n  brief/               #   v8-0.2.html, the styled research brief\nresearch/              # literature evidence\n  papers/              #   PDFs (canonical `NN_arxivid_title.pdf` naming)\n  text/                #   extracted text + arxiv metadata + source integrity\n  manifest/            #   research_papers_manifest.json (shared EN/TR)\nv8-next/              # AUTHORITATIVE Python product (runtime, experts, evaluation, evid",
+    "readme_source": "full"
+  },
+  {
+    "repo": "DeacanWhite/Report-1",
+    "url": "https://github.com/DeacanWhite/Report-1",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2025-10-20T02:06:11Z",
+    "technique_test_files": 2,
+    "technique_nontest_files": 0,
+    "code_files": 34,
+    "sample_technique_files": [
+      "SpellChecker/TEST/test_mr.py",
+      "SpellChecker/TEST/test_mutation.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "",
+    "readme_source": "none"
+  },
+  {
+    "repo": "Dee66/CostPilot",
+    "url": "https://github.com/Dee66/CostPilot",
+    "stars": 2,
+    "language": "Rust",
+    "created_at": "2025-12-05T14:26:43Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 844,
+    "sample_technique_files": [
+      "tests/differential_testing_tests.rs"
+    ],
+    "description": "Deterministic, offline CLI for detecting and explaining cloud cost regressions in Terraform pull requests.",
+    "topics": [
+      "cli",
+      "cloud-cost",
+      "cost-optimization",
+      "determenistic",
+      "devops",
+      "finops",
+      "terraform"
+    ],
+    "readme": "# CostPilot ![License](https://img.shields.io/badge/license-MIT-blue.svg) ![Status](https://img.shields.io/badge/status-stable-green.svg) ![Version](https://img.shields.io/badge/version-1.0.0-orange.svg) **Deterministic, audit-grade cost governance at the pull-request boundary.** CostPilot analyzes infrastructure-as-code changes **before they merge** and blocks only **irreversible cloud cost regressions**. When no meaningful risk exists, it stays silent. Silence is a valid outcome. --- ## Overview CostPilot is a **local, offline CLI tool** for PR-time cost governance. It exists for one reason:",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "deepakvijaykee/minilab",
+    "url": "https://github.com/deepakvijaykee/minilab",
+    "stars": 2,
+    "language": "Python",
+    "created_at": "2026-04-13T12:05:06Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 87,
+    "sample_technique_files": [
+      "minilab/tasks/verifier_toys.py"
+    ],
+    "description": "A modular library for training language models from scratch.",
+    "topics": [
+      "alignment",
+      "deep-learning",
+      "dpo",
+      "grpo",
+      "language-model",
+      "large-language-models",
+      "llm",
+      "pytorch",
+      "reinforcement-learning",
+      "rlvr",
+      "transformer"
+    ],
+    "readme": "# Minilab Minilab is a small language-model lab that runs the entire pretraining-through-RLVR loop on a single laptop GPU, with each stage finishing in minutes. It optimizes for inspectability over throughput: one GPT family, with research variation exposed through interchangeable Transformer components instead of separate architecture stacks, so post-training behavior can be watched at a scale small enough to reason about. ## What the experiments found Minilab is also an inspectable testbed for a sharper question than whether RL helps: when is verifier-guided RL on a small tool-using model ju",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "deepcausality-rs/deep_causality",
+    "url": "https://github.com/deepcausality-rs/deep_causality",
+    "stars": 270,
+    "language": "Rust",
+    "created_at": "2023-06-18T10:08:15Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 4854,
+    "sample_technique_files": [
+      "deep_causality_quantum/tests/types/qgates/mechanics_tests.rs",
+      "openspec/notes/archive/hkt_gat/hkt_gat_topology_rewrite.md",
+      "openspec/notes/test_audit/dc_all/README.md",
+      "openspec/notes/test_audit/unified_math/README.md",
+      "openspec/prompts/test-review-prompt.md"
+    ],
+    "description": "Dynamic Causality in Rust",
+    "topics": [
+      "causality",
+      "causality-algorithms",
+      "causality-analysis",
+      "causality-test",
+      "rust",
+      "rust-lang"
+    ],
+    "readme": "[//]: # (---) [//]: # (SPDX-License-Identifier: MIT) [//]: # (---) [![Crates.io][crates-badge]][crates-url] [![Docs.rs][docs-badge]][docs-url] [![MIT licensed][mit-badge]][mit-url] [![CodeFactor][codefactor-badge]][codefactor-url] [![OpenSSF Best Practices][ossf-badge]][ossf-url] [![codecov][codecov-badge]][codecov-url] [//]: # ([![Miri][miri-badge]][miri-url]) [codefactor-badge]: https://www.codefactor.io/repository/github/deepcausality-rs/deep_causality/badge [codefactor-url]: https://www.codefactor.io/repository/github/deepcausality-rs/deep_causalityl [codecov-badge]: https://codecov.io/gh/",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "deepfusionlabs/deep-init",
+    "url": "https://github.com/deepfusionlabs/deep-init",
+    "stars": 6,
+    "language": "Python",
+    "created_at": "2026-06-24T10:54:41Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 262,
+    "sample_technique_files": [
+      "skills/deep-init/references/issues.md",
+      "tools/build_stats.py",
+      "validation/README.md",
+      "validation/STATS.md"
+    ],
+    "description": "Claude Code plugin that writes grounded, verified context for your coding agent — every claim checked against your code. Lean CLAUDE.md + deep docs, 100% local, MIT.",
+    "topics": [
+      "agents-md",
+      "ai-coding-agents",
+      "ast",
+      "claude-code",
+      "claude-code-plugin",
+      "claude-md",
+      "code-context",
+      "codebase-analysis",
+      "coding-agents",
+      "developer-tools",
+      "mcp",
+      "static-analysis"
+    ],
+    "readme": "<!-- DEEPINIT:HUMAN-AUTHORED — not a DeepInit-managed region --> <p align=\"center\"> <img src=\"docs/deepinit-readme-banner.png\" alt=\"DeepInit — grounded, verified code-truth your agent can load\" width=\"100%\"> </p> <p align=\"center\"> <img alt=\"License: MIT\" src=\"https://img.shields.io/badge/license-MIT-C4E934?style=flat-square&labelColor=070E1B\"> <img alt=\"100% local, read-only\" src=\"https://img.shields.io/badge/100%25_local-read--only-2a3a52?style=flat-square&labelColor=070E1B\"> <img alt=\"No data egress\" src=\"https://img.shields.io/badge/data_egress-none-2a3a52?style=flat-square&labelColor=070E",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "demisuga01-lab/wellfriendpdf",
+    "url": "https://github.com/demisuga01-lab/wellfriendpdf",
+    "stars": 2,
+    "language": "Rust",
+    "created_at": "2026-06-21T19:41:59Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 2,
+    "code_files": 841,
+    "sample_technique_files": [
+      "crates/engine/src/sdk.rs",
+      "docs/binding_surface1_renderer_fuzz_metamorphic_campaign.md",
+      "docs/fuzzing_metamorphic_differential_annotation_ocg_rendering.md",
+      "docs/rendering_architecture_release_packaging.md",
+      "docs/rendering_architecture_wasm_packaging.md"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# Wellfriend PDF SDK Build PDF products with one coherent engine instead of stitching together a parser, renderer, editor, converter, and signing stack. Wellfriend opens the original document structure, turns it into reliable pixels and data, edits the source content, and writes the result through the same Rust core. Use that core directly from Rust or ship it through the CLI, HTTP API, C, Python, WebAssembly, .NET, and Java. One document model carries the work from uploaded bytes to the PDF your customer downloads. ## Benchmark The [complete benchmark report](docs/reports/final-benchmark-vps-",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "DennisGross/gimitest",
+    "url": "https://github.com/DennisGross/gimitest",
+    "stars": 5,
+    "language": "Python",
+    "created_at": "2023-10-12T14:40:09Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 34,
+    "sample_technique_files": [
+      "README.md",
+      "examples/README.md",
+      "examples/mt/relaxation_mt.py"
+    ],
+    "description": "A tool for testing reinforcement learning agents in Farama Gymnasium, PettingZoo, and similar framework environments. It streamlines testing by extending reset() and step() methods, and supports customizable test cases and configurations.",
+    "topics": [
+      "agent",
+      "rl",
+      "testing"
+    ],
+    "readme": "# Gimitest The _Gimitest_ software enhances the [Farama Gymnasium](https://gymnasium.farama.org/index.html), [PettingZoo](https://pettingzoo.farama.org/content/basic_usage/), and similar frameworks by modifying its `reset(...)` and `step(...)` methods, thereby simplifying the testing process of Reinforcement Learning (RL) agents at specific time steps and episode terminations, whether in training or testing phases. A decorator design pattern is used to modify the functionality of an object at runtime. We use the decorator design pattern to extend the `reset(...)` and `step(...)` methods of the",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "derekleonard/retirement-montecarlo",
+    "url": "https://github.com/derekleonard/retirement-montecarlo",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-07-29T02:29:48Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 13,
+    "sample_technique_files": [
+      "AUDIT.md",
+      "GOTCHAS.md",
+      "INVARIANTS.md",
+      "scaffold/README.md",
+      "scaffold/tests/test_metamorphic.py"
+    ],
+    "description": "A build kit for rigorous household retirement-feasibility analysis, designed to be executed by Claude Code. Monte Carlo engine, mortality-weighted success metric, invariant test taxonomy, and an adversarial audit protocol.",
+    "topics": [],
+    "readme": "# retirement-kit **A build kit for a rigorous household retirement-feasibility analysis, designed to be executed by Claude Code working alongside the person whose retirement it is.** > Planning-grade analysis. **Not licensed financial advice.** This kit builds a decision aid. > The human remains responsible for the decision. --- ## What this is Most retirement calculators ask for six numbers and return a green checkmark. This kit builds something different: a simulation of one specific household, with its actual accounts, actual spending, actual pension and benefit rules, actual lumpy future c",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "derekr/stardust-todos",
+    "url": "https://github.com/derekr/stardust-todos",
+    "stars": 0,
+    "language": "TypeScript",
+    "created_at": "2026-07-24T22:55:00Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 40,
+    "sample_technique_files": [
+      "scripts/stress/run.ts"
+    ],
+    "description": "NodeJS+Datastar+Stardust demo",
+    "topics": [],
+    "readme": "# todo-stardust A todo app backed by [Stardust](http://localhost:1980/docs/) facts, with **two frontends** — a CLI and a **Datastar** web UI. Both read a *reactor*, and Stardust pushes the new result when one changes, so a todo written from either side turns up in the other without anything polling. They do not share a reactor: the web board subscribes to the fifty rows it is showing (`page-rows`, bound per open stream) and to the count chips' whole-workspace tally (`board-counts`, bound per workspace and viewer), the CLI reads its workspace's own. Nothing in the app watches for changes. Every",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "deriwfi/deriw-chain",
+    "url": "https://github.com/deriwfi/deriw-chain",
+    "stars": 0,
+    "language": "Go",
+    "created_at": "2025-04-28T04:37:38Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 747,
+    "sample_technique_files": [
+      "cmd/conf/database.go"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "<br /> <p align=\"center\"> <a href=\"https://deriw.com/\"> <picture> <source media=\"(prefers-color-scheme: dark)\" srcset=\"/assets/deriw/logo_dark.png\" width=\"280\"> <img alt=\"Deriw\" src=\"/assets/deriw/logo_light.png\" width=\"280\"> </picture> </a> <p align=\"center\"> <a href=\"https://deriw.com/\"><strong>Deriw Chain Next Generation Ethereum L3 Decentralized Perpetual Exchange »</strong></a> <br /> </p> </p> ## About Deriw Chain <picture> <source media=\"(prefers-color-scheme: dark)\" srcset=\"/assets/deriw/logo_dark.png\" width=\"280\"> <img alt=\"Deriw\" src=\"/assets/deriw/logo_light.png\" width=\"140\"> </pict",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Devbhavsar007/DrishtiAI",
+    "url": "https://github.com/Devbhavsar007/DrishtiAI",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-08-23T06:34:14Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 223,
+    "sample_technique_files": [
+      "tests/test_metamorphic_orientation.py"
+    ],
+    "description": "App Design for diabetic retinography app",
+    "topics": [],
+    "readme": "# 👁️ DrishtiAI **Production-Hardened AI Retinal Screening Platform & Autonomous MLOps Intelligence Control Plane** *Empowered by Dual-Model Deep Learning, Explainable AI (XAI), Gemma-4 Multilingual Intelligence, and Continuous Closed-Loop Governance.* [![Safety Policy](https://img.shields.io/badge/Safety_Policy-SAFE--1.0-emerald.svg)](docs/clinical/safety.md) [![Triage Policy](https://img.shields.io/badge/Triage_Policy-TRIAGE--1.1-blue.svg)](docs/API.md) [![Clinical Mode](https://img.shields.io/badge/Clinical_Mode-Decision_Support_(Non--Autonomous)-amber.svg)](docs/clinical/limitations.md) [![",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Devpen787/gridwake",
+    "url": "https://github.com/Devpen787/gridwake",
+    "stars": 0,
+    "language": "TypeScript",
+    "created_at": "2026-07-19T17:06:40Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 92,
+    "sample_technique_files": [
+      "tests/instinct-metamorphic.test.ts"
+    ],
+    "description": "GRIDWAKE — one sentence, one light, one shared grid.",
+    "topics": [],
+    "readme": "# GRIDWAKE **One sentence. One light. One shared grid.** ## Play the demo Production preview: **https://gridwake.vercel.app** **2-minute demo video** (captioned, recorded against production): [`demo/gridwake-demo.mp4`](demo/gridwake-demo.mp4) · script + voiceover lines: [`demo/DEMO_SCRIPT.md`](demo/DEMO_SCRIPT.md) GRIDWAKE is a deterministic **45-second** strategy game. Write one sentence, wake a three-light squad, and hold a neon grid. A bounded tactical-language compiler (`local-instinct-v2`) turns prose into a canonical plan, shows what it understood, and lowers to engine dials; a seeded en",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "devx-commerce/fleet",
+    "url": "https://github.com/devx-commerce/fleet",
+    "stars": 0,
+    "language": "Shell",
+    "created_at": "2026-08-24T05:43:33Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 163,
+    "sample_technique_files": [
+      "docs/guides/ADOPT.md",
+      "docs/guides/TESTING.md",
+      "tests/medium/property/test_fleet_properties.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# fleet **fleet is a harness that makes AI coding agents produce work you can check.** It is not a model and it does not call one directly. It drives the harnesses you already have installed — `claude` and `codex` — and wraps them in the thing they lack: a gate that refuses an ambiguous task, a second agent that independently verifies the first, a receipt for every run, and a bar that treats \"the tests passed\" as the floor rather than the finish line. The premise, paid for in this repo: **an agent that reports success is not an agent that succeeded.** `PRINCIPLES.md` is 19 corrections the owne",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "DGIRE/Calcium_Imaging_optimal",
+    "url": "https://github.com/DGIRE/Calcium_Imaging_optimal",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-07-20T19:51:23Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 1,
+    "code_files": 137,
+    "sample_technique_files": [
+      "Reports/.claude/agents/oracle-designer.md",
+      "Reports/_pipeline/Plume-regression/01_request/canonical_request.yaml",
+      "Reports/_pipeline/Plume-regression/02_contract/contract_v001.yaml",
+      "Reports/_pipeline/Plume-regression/03_software/oracles/test_baseline_reference_plume.py",
+      "Reports/_pipeline/Plume-regression/07_report/make_methods_report.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# Calcium Imaging Working repository for the Gire Lab calcium-imaging effort. It holds four things that build on one another: 1. **`Optimized Python/`** — the certified Python translation of the curated MATLAB pipeline reproducing **Lewis et al. (2021)**, *Front. Cell. Neurosci.* (mitral/tufted-cell responses to ethanol-plume structure in the mouse olfactory bulb), with its differential test suite, benchmarks, and validation/optimization reports. Analysis is fully separated from plotting. 2. **`DATA/`** — the cross-experiment **processed** aggregate `calcium_aggregate.h5` (schema v0.2) — the c",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "DGIRE/Neuropixels_optimal",
+    "url": "https://github.com/DGIRE/Neuropixels_optimal",
+    "stars": 0,
+    "language": "MATLAB",
+    "created_at": "2026-07-20T19:48:24Z",
+    "technique_test_files": 7,
+    "technique_nontest_files": 0,
+    "code_files": 370,
+    "sample_technique_files": [
+      ".claude/agents/oracle-designer.md",
+      "Optimized Python/.claude/agents/oracle-designer.md",
+      "_pipeline/.claude/agents/oracle-designer.md",
+      "_pipeline/NP-DEMO-1/03_software/conftest.py",
+      "_pipeline/NP-DEMO-1/03_software/test_np_demo1_oracle.py"
+    ],
+    "description": "A repository of optimized and extendable Python code for the Neuropixels project.",
+    "topics": [],
+    "readme": "# Neuropixels — Optimized Pipeline + Golden Fixtures This repo holds the optimized Python port of the Neuropixels analysis pipeline, alongside the golden-fixture data tree used to validate it against the original MATLAB implementation. ## Layout ``` Neuropixels/ ├── Optimized Python/ # the package │ ├── analyses/ # ported analysis stages (sniff phase/PSTH, spike phase, │ │ # decomposition/ICA, threshold, etc.) │ ├── lib/ # shared I/O / Kilosort utilities (raw-data readers, │ │ # bin/meta parsing, file validation) │ ├── tests/ # fixture-anchored equivalence + optimization gate tests │ ├── bench",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "dgut-hsd/coursework",
+    "url": "https://github.com/dgut-hsd/coursework",
+    "stars": 2,
+    "language": "JavaScript",
+    "created_at": "2026-07-13T02:21:02Z",
+    "technique_test_files": 2,
+    "technique_nontest_files": 2,
+    "code_files": 264,
+    "sample_technique_files": [
+      "AI标书/课程资料/共同部分/Agent入门/参考代码/lesson-06-evaluation/src/lib.rs",
+      "AI标书/课程资料/共同部分/Agent入门/参考代码/lesson-06-evaluation/tests/acceptance.rs",
+      "AI标书/课程资料/共同部分/Agent入门/讲义/04-学习资料索引.md",
+      "AI标书/课程资料/共同部分/Agent入门/讲义/lesson-06-evaluation.md",
+      "AI标书/课程资料/共同部分/Agent入门/配套代码/lesson-06-evaluation/src/lib.rs"
+    ],
+    "description": "Coursework of HSD Team",
+    "topics": [],
+    "readme": "## AI标书 — 智能标书系统 | 方向 | 成员 | |------|------| | Agent 智能组 | 李俊成、张伟涛、赵程程、吴泽霖 | | SaaS 业务平台 | 陈慧祺、李奕欣、王成媛、曾俊桥 | | 规则匹配引擎 | 肖佳昊、袁潮城 | | 知识检索引擎 | 程迪宏、蔡钊博、张泽中 | | 领域工具组 | 欧俊濠、张晓文博、古林浩、谢宛君 | | 文档解析引擎 | 周冰、林钦新、付宇轩、陈冠锦 | | 前端体验 | 陈勇润、李仕远、周勤希 | | 知识沉淀引擎 | 张卓茵、程思源、周贺浚 |",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "dhilipsiva/nibli",
+    "url": "https://github.com/dhilipsiva/nibli",
+    "stars": 6,
+    "language": "Rust",
+    "created_at": "2026-02-19T12:32:33Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 5,
+    "code_files": 288,
+    "sample_technique_files": [
+      "AGENTS.md",
+      "CLAUDE.md",
+      "GUARANTEES.md",
+      "Justfile",
+      "README.md"
+    ],
+    "description": "A zero-hallucination symbolic reasoning engine.",
+    "topics": [],
+    "readme": "# Nibli [![Release](https://img.shields.io/github/v/release/dhilipsiva/nibli)](https://github.com/dhilipsiva/nibli/releases/latest) [![crates.io](https://img.shields.io/crates/v/nibli-engine)](https://crates.io/crates/nibli-engine) [![Docs](https://img.shields.io/badge/docs-dhilipsiva.github.io%2Fnibli-blue)](https://dhilipsiva.github.io/nibli/) **A zero-hallucination symbolic reasoning engine.** Nibli is a deterministic theorem prover compiled to WebAssembly (WASI P2). It compiles **nibli KR** — a human-readable predicate-call knowledge-representation language (`dog(Adam).`, `animal(every dog",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "dhruvagrawal27/hawk-eye",
+    "url": "https://github.com/dhruvagrawal27/hawk-eye",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-06-30T09:46:38Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 732,
+    "sample_technique_files": [
+      "BUILD_PLAN.md",
+      "tests/ml/test_metamorphic.py"
+    ],
+    "description": "Real-time insider & privileged-user fraud detection for a bank — an 8-layer (L0–L7) defence-in-depth stack (deterministic rules → UEBA → GBDT → sequence → graph → calibrated fusion) with an explainable investigator console. Alert-only, on-prem, synthetic data.",
+    "topics": [
+      "anomaly-detection",
+      "banking",
+      "explainable-ai",
+      "fastapi",
+      "fraud-detection",
+      "gbdt",
+      "graph-neural-networks",
+      "insider-threat",
+      "machine-learning",
+      "react",
+      "security",
+      "ueba"
+    ],
+    "readme": "# Hawk-Eye — Real-Time Insider & Privileged-User Fraud Detection > 👉 **New here / non-technical? Start with [`GETTING_STARTED.md`](GETTING_STARTED.md)** — a plain-English guide > to what this is, how to run it in 2 minutes, how it works, and a glossary of every term. A production-shaped, on-prem, **alert-only** insider-fraud detection platform for a public-sector bank, built local-first on **synthetic data**. Source of truth for *what* to build: [`Insider_Fraud_Detection_Implementation_Blueprint (2).md`](Insider_Fraud_Detection_Implementation_Blueprint%20(2).md) (34 parts). Source of truth for",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "DhruvStats/Truthguard",
+    "url": "https://github.com/DhruvStats/Truthguard",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-04-21T22:06:40Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 19,
+    "sample_technique_files": [
+      "README.md",
+      "ml/tests/test_metamorphic.py"
+    ],
+    "description": "AI-based fake news detection system with MLOps and DevOps",
+    "topics": [],
+    "readme": "# 🛡️ TruthGuard — Explainable AI System for News Verification TruthGuard is a **full end‑to‑end AI system** designed to assist journalists and editors in assessing whether a piece of news text is **likely REAL or FAKE**, while preserving **human decision‑making, transparency, and accountability**. The system is built using a **modern microservice architecture**, integrates **Explainable AI (XAI)**, and follows **DevOps and Responsible AI principles**. > ⚠️ TruthGuard is a **decision‑support tool**, not an automated truth or censorship system. --- ## 🎯 Problem Statement The rapid spread of misi",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "dibstern/conduit",
+    "url": "https://github.com/dibstern/conduit",
+    "stars": 13,
+    "language": "TypeScript",
+    "created_at": "2026-03-18T00:05:01Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 1487,
+    "sample_technique_files": [
+      "test/unit/relay/event-translator.metamorphic.test.ts"
+    ],
+    "description": "Web UI for opencode. Any device. Push notifications. Zero install.",
+    "topics": [
+      "ai-agent",
+      "ai-team",
+      "automation",
+      "collaboration",
+      "dev-tools",
+      "opencode",
+      "opencode-ai",
+      "pwa",
+      "web-ui"
+    ],
+    "readme": "# Conduit <p align=\"center\"> <img src=\"media/GENERATE-MAIN-UI.png\" alt=\"Conduit — OpenCode web UI open in a mobile browser\" width=\"320\"> </p> <h3 align=\"center\">Browser UI for OpenCode. Any device, one command.</h3> [![CI](https://github.com/dibstern/conduit/actions/workflows/ci.yml/badge.svg)](https://github.com/dibstern/conduit/actions/workflows/ci.yml) [![npm version](https://img.shields.io/npm/v/conduit-code)](https://www.npmjs.com/package/conduit-code) [![npm downloads](https://img.shields.io/npm/dw/conduit-code)](https://www.npmjs.com/package/conduit-code) [![GitHub stars](https://img.sh",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Dicklesworthstone/asupersync",
+    "url": "https://github.com/Dicklesworthstone/asupersync",
+    "stars": 273,
+    "language": "Rust",
+    "created_at": "2026-01-16T05:22:16Z",
+    "technique_test_files": 172,
+    "technique_nontest_files": 138,
+    "code_files": 5326,
+    "sample_technique_files": [
+      ".beads/issues.jsonl",
+      "ASUPERSYNC_BRIDGE_PLAN_2026-09-01.md",
+      "ATP_DOD_CHECKLIST.md",
+      "CHANGELOG.md",
+      "Cargo.toml"
+    ],
+    "description": "Async runtime for Rust where correctness is structural: region-owned tasks, cancel-correct protocols, capability-gated effects, and deterministic replay testing",
+    "topics": [
+      "async",
+      "concurrency",
+      "runtime",
+      "rust",
+      "structured-concurrency"
+    ],
+    "readme": "<p align=\"center\">\n  <img src=\"asupersync_illustration.webp\" alt=\"Asupersync - Spec-first, cancel-correct async for Rust\" width=\"800\">\n</p>\n\n# Asupersync\n\n<div align=\"center\">\n\n<img src=\"asupersync_diagram.webp\" alt=\"Asupersync Architecture - Regions, Tasks, and Quiescence\" width=\"700\">\n\n[![License: MIT+Rider](https://img.shields.io/badge/License-MIT%2BOpenAI%2FAnthropic%20Rider-blue.svg)](./LICENSE)\n[![Rust](https://img.shields.io/badge/Rust-stable_1.95%2B-orange.svg)](#minimum-supported-rust-version)\n[![Status: Active Development](https://img.shields.io/badge/Status-Active%20Development-brightgreen)](https://github.com/Dicklesworthstone/asupersync)\n[![Live Demo](https://img.shields.io/badge/Live_Demo-WASM_Interactive-blueviolet)](https://dicklesworthstone.github.io/asupersync/asupersync_web_demo.html)\n\n**Spec-first, cancel-correct, capability-secure async for Rust**\n\n<h3><a href=\"https://dicklesworthstone.github.io/asupersync/asupersync_web_demo.html\">Try the Live Interactive WASM Demo</a></h3>\n\n<h3>Quick Install</h3>\n\n```bash\ncargo add asupersync --git https://github.com/Dicklesworthstone/asupersync\n```\n\n</div>\n\n---\n\n## TL;DR\n\n**The Problem**: Conventional executor APIs leave important lifecycle contracts\nto composition and discipline. Cancellation can abandon partial effects,\ndetached tasks can outlive their owner, cleanup may be best-effort, and schedule\ndependent failures can be difficult to reproduce.\n\n**The Solution**: Asupersync makes its core task-ownership and runtime-tracked\neffect contracts **structural rather than conventional**. Tasks are owned by\nregions that close to quiescence. Cancellation is an explicit\nrequest → drain → finalize protocol, with budgeted bounds on covered,\ncooperative paths; non-cooperative code and foreign calls do not acquire a\nuniversal shutdown bound. Runtime-managed effects require capabilities, with\nhost-boundary exceptions documented explicitly. The lab runtime makes\ncontrolled schedules deterministic and replayable.\n\n### Why Asupersync?\n\n| Guarantee | What It Means |\n|-----------|---------------|\n| **No orphan tasks** | Every spawned task is owned by a region; region close waits for all children. Tasks you spawn through a `Cx` belong to that `Cx`'s region. Tasks spawned through a `RuntimeHandle` belong to the root region and are drained when the runtime shuts down. |\n| **Cancellation is a request** | Cancelling a task asks it to stop. It keeps running until it reaches a cancellation point (`cx.checkpoint()` or a cancel-aware await), so it can finish its own async cleanup and return a value. A task that never reaches one is never forcibly stopped, and it holds up its region's close. |\n| **Cleanup bounds** | Cleanup budgets are advisory on the production runtime: a task that keeps running past its budget is not stopped. `Runtime::shutdown_timeout` bounds how long the caller waits for teardown. |\n| **No silent drops** | A channel send can reserve capacity first and commit later, so a cancelled send never l",
+    "readme_source": "full"
+  },
+  {
+    "repo": "Dicklesworthstone/beads_rust",
+    "url": "https://github.com/Dicklesworthstone/beads_rust",
+    "stars": 1090,
+    "language": "Rust",
+    "created_at": "2026-01-18T19:19:59Z",
+    "technique_test_files": 2,
+    "technique_nontest_files": 0,
+    "code_files": 516,
+    "sample_technique_files": [
+      ".beads/issues.jsonl",
+      "refactor/artifacts/2026-04-24-shrink-pass-1/bv_triage.json",
+      "sample_beads_db_files/asupersync/issues.jsonl",
+      "sample_beads_db_files/flywheel_connectors/issues.jsonl",
+      "sample_beads_db_files/frankensqlite/issues.jsonl"
+    ],
+    "description": "Fast Rust port of Steve Yegge's beads: local-first, non-invasive issue tracker storing tasks in SQLite with JSONL export for git collaboration",
+    "topics": [
+      "developer-tools",
+      "git",
+      "issue-tracker",
+      "rust",
+      "sqlite"
+    ],
+    "readme": "# br - Beads Rust\n\n<div align=\"center\">\n  <img src=\"docs/assets/br_illustration.webp\" alt=\"br - Fast, non-invasive issue tracker for git repositories\" width=\"600\">\n</div>\n\n<div align=\"center\">\n\n[![License: MIT](https://img.shields.io/badge/License-MIT%2BOpenAI%2FAnthropic%20Rider-blue.svg)](./LICENSE)\n[![Rust](https://img.shields.io/badge/rust-nightly-orange.svg)](https://www.rust-lang.org/)\n[![SQLite](https://img.shields.io/badge/storage-SQLite-green.svg)](https://www.sqlite.org/)\n\n</div>\n\nA Rust port of Steve Yegge's [beads](https://github.com/steveyegge/beads), frozen at the \"classic\" SQLite + JSONL architecture I built my Agent Flywheel tooling around.\n\n[Quick Start](#quick-start) | [Commands](#commands) | [Configuration](#configuration) | [VCS Integration](#vcs-integration) | [FAQ](#faq)\n\n<div align=\"center\">\n<h3>Quick Install</h3>\n\n```bash\ncurl -fsSL \"https://raw.githubusercontent.com/Dicklesworthstone/beads_rust/main/install.sh?$(date +%s)\" | bash\n```\n\n<p><em>Works on Linux, macOS, and Windows (WSL). Auto-detects your platform and downloads the right binary.</em></p>\n\n<p><em>Useful install flags: <code>--skip-skills</code> to skip all Claude Code / Codex skills, or <code>--with-migration-skill</code> to also install the bd-to-br-migration skill (skipped by default; only needed when moving off classic <code>bd</code>).</em></p>\n</div>\n\n---\n\n## Why This Project Exists\n\nI (Jeffrey Emanuel) LOVE [Steve Yegge's Beads project](https://github.com/steveyegge/beads). Discovering it and seeing how well it worked together with my [MCP Agent Mail](https://github.com/Dicklesworthstone/mcp_agent_mail) was a truly transformative moment in my development workflows and professional life. This quickly also led to [beads_viewer (bv)](https://github.com/Dicklesworthstone/beads_viewer), which added another layer of analysis to beads that gives swarms of agents the insight into what beads they should work on next to de-bottleneck the development process and increase velocity. I'm very grateful for finding beads when I did and to Steve for making it.\n\nAt this point, my [Agent Flywheel](http://agent-flywheel.com/tldr) System is built around beads operating in a specific way. As Steve continues evolving beads toward [GasTown](https://github.com/steveyegge/gastown) and beyond, our use cases have naturally diverged. The hybrid SQLite + JSONL-git architecture that I built my tooling around (and independently mirrored in MCP Agent Mail) is being replaced with approaches better suited to Steve's vision.\n\nRather than ask Steve to maintain a legacy mode for my niche use case, I created this Rust port that freezes the \"classic beads\" architecture I depend on. The command is `br` to distinguish it from the original `bd`.\n\n**This isn't a criticism of beads**; Steve's taking it in exciting directions. It's simply that my tooling needs a stable snapshot of the architecture I built around, and maintaining my own fork is the right solution for that. Steve has given his full end",
+    "readme_source": "full"
+  },
+  {
+    "repo": "Dicklesworthstone/classic-patents.com",
+    "url": "https://github.com/Dicklesworthstone/classic-patents.com",
+    "stars": 24,
+    "language": "TypeScript",
+    "created_at": "2026-08-17T18:25:37Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 1378,
+    "sample_technique_files": [
+      "docs/REALITY_CHECK_2026-09-04.md",
+      "src/physics/metamorphicValidation.ts"
+    ],
+    "description": "An open-source digital museum restoring history's most consequential patents into pristine OCR transcripts, rigorous Plain English engineering breakdowns, and interactive real-time simulations.",
+    "topics": [],
+    "readme": "# Classic Patents <div align=\"center\"> [![License: MIT + Rider](https://img.shields.io/badge/License-MIT_+_OpenAI/Anthropic_Rider-blue.svg)](./LICENSE) [![Framework: Next.js 15](https://img.shields.io/badge/Framework-Next.js_15-black.svg)](https://nextjs.org/) [![3D Engine: Three.js](https://img.shields.io/badge/3D_Physics-Three.js_WebGL-000000.svg)](https://threejs.org/) [![Deployment: Vercel](https://img.shields.io/badge/Deployment-Vercel-000000.svg)](https://vercel.com/) [![Styling: Tailwind CSS](https://img.shields.io/badge/Styling-Tailwind_CSS-38bdf8.svg)](https://tailwindcss.com/) [![Typ",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Dicklesworthstone/coding_agent_session_search",
+    "url": "https://github.com/Dicklesworthstone/coding_agent_session_search",
+    "stars": 1127,
+    "language": "Rust",
+    "created_at": "2025-11-21T01:22:15Z",
+    "technique_test_files": 6,
+    "technique_nontest_files": 0,
+    "code_files": 934,
+    "sample_technique_files": [
+      ".beads/issues.jsonl",
+      "docs/planning/PLAN_FOR_ADVANCED_OPTIMIZATIONS_ROUND_1__GPT.md",
+      "docs/planning/PLAN_FOR_ADVANCED_OPTIMIZATIONS_ROUND_1__OPUS.md",
+      "docs/planning/REALITY_CHECK_AND_BRIDGE_PLAN_2026-09-01.md",
+      "tests/cli_robot.rs"
+    ],
+    "description": "Unified TUI and CLI to index and search your local coding agent session history across 11+ providers (Codex, Claude, Gemini, Cursor, Aider, etc.)",
+    "topics": [
+      "ai-agents",
+      "developer-tools",
+      "rust",
+      "search",
+      "tui"
+    ],
+    "readme": "# 🔎 coding-agent-search (cass)\n\n<div align=\"center\">\n  <img src=\"docs/assets/images/cass_illustration.webp\" alt=\"coding-agent-search (cass) illustration\">\n</div>\n\n![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20macOS%20%7C%20Windows-blue.svg)\n![Rust](https://img.shields.io/badge/Rust-pinned%20nightly-orange.svg)\n![Status](https://img.shields.io/badge/status-alpha-purple.svg)\n[![Coverage](https://codecov.io/gh/Dicklesworthstone/coding_agent_session_search/branch/main/graph/badge.svg)](https://codecov.io/gh/Dicklesworthstone/coding_agent_session_search)\n![License](https://img.shields.io/badge/license-MIT%2BOpenAI%2FAnthropic%20Rider-green.svg)\n\n**Unified, high-performance TUI to index and search your local coding agent history.**\nAggregates sessions from Codex, Claude Code, Gemini CLI, Cline, OpenCode, Amp, Cursor, ChatGPT, Aider, Pi-Agent, Pi Durable, Prime Agent, Oh My Pi, GitHub Copilot Chat, Copilot CLI, OpenClaw, Clawdbot, Vibe, Crush, Goose, Hermes, Kimi Code, Muse Code, Qwen Code, Factory (Droid), Antigravity, OpenHands, Grok Build, Grok Bot, Codebuff/Freebuff, Devin CLI, Shelley, and Kiro CLI into a single, searchable timeline.\n\n<div align=\"center\">\n\n```bash\ncurl -fsSL \"https://raw.githubusercontent.com/Dicklesworthstone/coding_agent_session_search/main/install.sh?$(date +%s)\" \\\n  | bash -s -- --easy-mode --verify\n```\n\n```powershell\n# Windows (PowerShell)\n& ([scriptblock]::Create((irm \"https://raw.githubusercontent.com/Dicklesworthstone/coding_agent_session_search/main/install.ps1\"))) -EasyMode -Verify\n```\n\nInstalls the latest release by default. Pass `--version <tag>` / `-Version <tag>` to pin a specific version.\n\n**Or via package managers:**\n\n```bash\n# Homebrew (Apple Silicon macOS + Linux)\nbrew install dicklesworthstone/tap/cass\n\n# Windows (Scoop)\nscoop bucket add dicklesworthstone https://github.com/Dicklesworthstone/scoop-bucket\nscoop install dicklesworthstone/cass\n```\n\nThe Homebrew tap installs prebuilt release tarballs (not bottles) for Linux and Apple Silicon macOS. On Intel macOS, use the install script with `--from-source`.\n\n</div>\n\n---\n\n## 🤖 Agent Quickstart (Robot Mode)\n\n⚠️ **Never run bare `cass` in an agent context** — it launches the interactive TUI. Always use `--robot` or `--json`.\n\n```bash\n# 1) Check the installed interface once per version (recipe verified on 0.8.0).\ncass --version\ncass search --help\n\n# Verify a newly installed executable without opening the configured archive.\ncass selftest --json\n# `health --binary-only` still reports (and therefore probes) archive readiness.\n\n# 2) For a quick history question, start with scoped read-only lexical retrieval.\n#    Hybrid remains the product default; lexical is explicit for this workflow.\ncass search \"performance regression\" --workspace /path/to/project --days 7 \\\n  --mode lexical --no-maintenance --robot --robot-meta --fields minimal \\\n  --limit 5 --max-tokens 2000 --timeout 2000\n\n# 3) Find the current or recent session for this workspace\ncass sessions --c",
+    "readme_source": "full"
+  },
+  {
+    "repo": "Dicklesworthstone/eidetic_engine_cli",
+    "url": "https://github.com/Dicklesworthstone/eidetic_engine_cli",
+    "stars": 44,
+    "language": "Rust",
+    "created_at": "2026-04-29T08:51:51Z",
+    "technique_test_files": 6,
+    "technique_nontest_files": 1,
+    "code_files": 1818,
+    "sample_technique_files": [
+      ".beads/issues.jsonl",
+      "docs/spikes/cass-json-contract-stability.md",
+      "scripts/verify-metamorphic.sh",
+      "tests/contracts/pack_quality_report_conformance_v1.rs",
+      "tests/eval_fixtures.rs"
+    ],
+    "description": "Durable, local-first, explainable memory for coding agents. A Rust CLI memory substrate built on the franken-stack (Asupersync, FrankenSQLite, Frankensearch, FrankenNetworkX).",
+    "topics": [],
+    "readme": "<div align=\"center\">\n\n<img src=\"./ee_illustration.webp\" alt=\"Eidetic Engine illustration\" width=\"720\">\n\n# Eidetic Engine (`ee`)\n\n**Durable, local-first, explainable memory for coding agents.**\n\n[![CI Static](https://img.shields.io/github/actions/workflow/status/Dicklesworthstone/eidetic_engine_cli/ci-static.yml?branch=main&label=CI%20Static)](https://github.com/Dicklesworthstone/eidetic_engine_cli/actions/workflows/ci-static.yml)\n[![CI](https://img.shields.io/github/actions/workflow/status/Dicklesworthstone/eidetic_engine_cli/ci.yml?branch=main&label=CI)](https://github.com/Dicklesworthstone/eidetic_engine_cli/actions/workflows/ci.yml)\n[![Latest release](https://img.shields.io/github/v/release/Dicklesworthstone/eidetic_engine_cli?label=release)](https://github.com/Dicklesworthstone/eidetic_engine_cli/releases/latest)\n[![License: MIT+Rider](https://img.shields.io/badge/License-MIT%2BOpenAI%2FAnthropic%20Rider-yellow.svg)](./LICENSE)\n[![Rust 2024](https://img.shields.io/badge/rust-2024-orange.svg)](rust-toolchain.toml)\n[![No Tokio](https://img.shields.io/badge/runtime-Asupersync-blueviolet.svg)](#hard-requirements)\n\n**Install**\n\n```bash\nf=\"$(mktemp)\"\ncurl -fsSL https://github.com/Dicklesworthstone/eidetic_engine_cli/releases/download/v0.16.0/install.sh -o \"$f\"\nexport EE_VERSION=v0.16.0\nif [ -s \"$f\" ]; then bash \"$f\" --easy-mode --verify; else echo \"Installer download failed - retry in a few minutes\" >&2; fi\n```\n\nAlways verifies the release binary's SHA-256 checksum, verifies its Sigstore\nbundle when one is published and `cosign` is available, drops `ee` into\n`~/.local/bin`, repairs `PATH`, installs shell completions, runs a self-test,\nand prints guidance for detected agent harnesses; settings remain untouched. Pass\n`--require-provenance` for fail-closed signature and SLSA provenance\nverification. Pass `--help` (e.g. `bash install.sh --help`) for offline\ntarballs, proxy options, `--no-gum`, and `--force` reinstall.\n\n</div>\n\n---\n\n## TL;DR\n\n### Why This Exists\n\nCoding agents forget.\n\nA fresh session re-discovers project conventions, re-reads the same files, and\nwalks into traps another agent already hit. Bad assumptions become \"facts\"\nbecause the harness has no durable place to look for decisions, failures,\nrules, and evidence from prior runs.\n\nThe agent harness owns the loop. `ee` handles the memory layer.\n\n### What `ee` Does\n\n`ee` is a Rust CLI that gives agents a durable, searchable memory layer. It\nstores facts, decisions, procedural rules, anti-patterns, session evidence, and\noutcomes; indexes them with lexical and semantic search; connects them with\ngraph features; and emits compact context packs with provenance.\n\n```bash\nee pack \"prepare release for this project\" --workspace . --max-tokens 4000 --format markdown\n```\n\nThe command returns a Markdown pack of matching durable memories, such as\nproject release rules, verification commands, branch traps, and high-severity\nwarnings. Each item carries an evidence pointer and a score breakdown. Imported",
+    "readme_source": "full"
+  },
+  {
+    "repo": "Dicklesworthstone/flywheel_connectors",
+    "url": "https://github.com/Dicklesworthstone/flywheel_connectors",
+    "stars": 85,
+    "language": "Rust",
+    "created_at": "2026-01-11T07:07:47Z",
+    "technique_test_files": 10,
+    "technique_nontest_files": 5,
+    "code_files": 3283,
+    "sample_technique_files": [
+      ".beads/issues.jsonl",
+      "README.md",
+      "crates/fcp-conformance/src/vectors/core.rs",
+      "crates/fcp-conformance/tests/policy_matrix.rs",
+      "crates/fcp-core/tests/metamorphic.rs"
+    ],
+    "description": "Mesh-native protocol and Rust connector library for secure AI agent integration with external services: Twitter, Linear, Stripe, Discord, Gmail, GitHub, and more",
+    "topics": [
+      "ai-agents",
+      "connectors",
+      "mesh-networking",
+      "rust",
+      "security"
+    ],
+    "readme": "# Flywheel Connector Protocol (FCP)\n\n<div align=\"center\">\n  <img src=\"fcp_illustration.webp\" alt=\"FCP - Secure connectors for AI agents with zone-based isolation and capability tokens\">\n</div>\n\n> **Specification note:** [`FCP_Specification_V3.md`](FCP_Specification_V3.md) is the current architectural and conformance target. [`FCP_Specification_V2.md`](FCP_Specification_V2.md) is retained as historical / legacy-interoperability context. When descriptions conflict, trust V3 for intended semantics and the code for current behavior.\n\nA secure connector protocol and Rust platform for AI agent operations across zones, hosts, and personal device meshes. The workspace ships **42 platform crates** under `crates/`, **177 connector crates** under `connectors/` (176 production connectors plus one adversarial conformance test crate, `connectors/_adversarial/`), and a single agent-first CLI (`fwc`) that classifies every answer by truth source and refuses to fabricate runtime state.\n\n---\n\n## TL;DR\n\n### The Problem\n\nAI agents need to act on the real world (read mail, file PRs, send messages, query databases, control hardware), but the prevailing toolchains do this with a shared-memory plugin model, an \"API key in a `.env` file\" trust model, and a \"prompt told the model not to do that\" security model. None of those survive a hostile input from Discord, a compromised laptop, or a misconfigured deploy.\n\n### The Solution\n\nFCP is a connector platform where:\n\n- Every connector is a **separately-signed sandboxed binary** with an embedded manifest declaring its capabilities, sandbox limits, and network constraints.\n- Every operation is gated by a **capability token** with type-state-enforced binding, so an `UnboundVerified` token does not compile against a function that requires `BoundVerified`.\n- Every request is **bound to exactly one zone** (a cryptographic namespace with its own symmetric key); cross-zone access requires explicit policy and proof.\n- Every connector's outbound network traffic flows through an **egress proxy** with CIDR deny defaults, SNI enforcement, and **secretless credential injection**, so the connector binary never sees raw API keys.\n- Every operation produces a **signed receipt** and is recorded on a **hash-linked audit chain** with monotonic sequence numbers and Hybrid Logical Clock causality, plus an OpenTelemetry OTLP parity exporter.\n- Sensitive zones support **post-quantum cryptography** (X-Wing KEM hybrid HPKE + ML-DSA-65 signatures) and **threshold owner keys** (FROST) so no single device holds the complete signing material.\n\n### Truth Hierarchy\n\n`fwc` classifies every answer by its source (**mesh-backed > host-backed > node-local > offline**) rather than collapsing everything into a single fake \"live\" state.\n\n- **Current operational path (V1, host-first):** `fwc → fcp-host → connector subprocesses over supervised stdio/JSON-RPC`. This is what runs in production today.\n- **Target steady state (V2, mesh-native):** personal-device sovereig",
+    "readme_source": "full"
+  },
+  {
+    "repo": "Dicklesworthstone/franken_engine",
+    "url": "https://github.com/Dicklesworthstone/franken_engine",
+    "stars": 31,
+    "language": "Rust",
+    "created_at": "2026-02-19T00:56:27Z",
+    "technique_test_files": 12,
+    "technique_nontest_files": 20,
+    "code_files": 4418,
+    "sample_technique_files": [
+      ".beads/issues.jsonl",
+      "AGENTS.md",
+      "CHANGELOG.md",
+      "README.md",
+      "crates/franken-engine/docs/BD2501_AUDIT_REPORT.md"
+    ],
+    "description": "Native Rust runtime for adversarial extension workloads with deterministic replay, cryptographic decision receipts, and fleet-scale containment.",
+    "topics": [
+      "bayesian-inference",
+      "capability-security",
+      "deterministic-replay",
+      "extension-runtime",
+      "incident-response",
+      "javascript-runtime",
+      "runtime",
+      "rust",
+      "sandboxing",
+      "supply-chain-security",
+      "typescript"
+    ],
+    "readme": "# FrankenEngine\n\n<div align=\"center\">\n  <img src=\"docs/assets/franken_engine_illustration.webp\" alt=\"FrankenEngine — native Rust runtime for high-trust extension workloads\">\n</div>\n\n<div align=\"center\">\n\n[![Rust 2024](https://img.shields.io/badge/Rust-2024-orange.svg)](https://www.rust-lang.org/)\n[![Unsafe Forbidden](https://img.shields.io/badge/unsafe-forbidden-success.svg)](https://doc.rust-lang.org/reference/unsafe-keyword.html)\n[![Deterministic Replay](https://img.shields.io/badge/replay-deterministic-blue.svg)](./docs/RUNTIME_CHARTER.md)\n[![Claim-to-Proof Matrix](https://img.shields.io/badge/claims-gated-purple.svg)](./docs/CLAIM_TO_PROOF_MATRIX_V1.md)\n[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)\n\n</div>\n\nA native Rust runtime for adversarial JavaScript/TypeScript extension workloads, built around four constitutional rules: native-only core execution (no V8/JSC/QuickJS bindings), deterministic replay of high-impact decisions, signed evidence for every containment action, and claim-language that cannot exceed its evidence.\n\n### Why Each Constitutional Rule Exists\n\nEach rule pays for itself by closing a class of failure that binding-led runtimes cannot close cheaply.\n\n| Rule | Failure class it closes | Concrete mechanism |\n|---|---|---|\n| **Native-only core execution** (`Charter §2`) | Binding-led runtimes ship with megabytes of upstream unsafe C++/Zig that is *outside* the IFC/capability algebra. Retrofitting type-safe authority membranes around them is structurally lossy. | The lowering pipeline owns parser-to-scheduler semantics in Rust with `#![forbid(unsafe_code)]`. IFC labels are computed at IR2; capability checks gate every hostcall edge. |\n| **Deterministic replay** (`Charter §3`) | Streaming policy decisions made under wall-clock pressure are not reproducible from a postmortem. Forensic causation breaks. | Replay captures the IR3 program, policy snapshot, model snapshot, evidence stream, and randomness transcript. The `bd-2488a` coverage gate fails closed unless every high-severity decision in the declared inventory replays byte-for-byte. |\n| **Signed evidence for containment** (`Charter §3` + `§6`) | Containment actions taken without auditable evidence become indistinguishable from misconfiguration; rolling them back leaves no record that they happened. | Every evidence entry is Ed25519-signed with the originating runtime's key; chained `prev_hash` fields make any retroactive edit detectable; the artifact bundle ships with a `run_manifest.json` carrying schema id, host facts, content hashes, and operator-verification commands. |\n| **Claim-language constraints** (`Charter §7`) | Documentation drifts ahead of evidence faster than evidence is rebuilt. README claims become marketing. | The `docs/CLAIM_TO_PROOF_MATRIX_V1.md` gate refuses prose whose actual wording state is stronger than `allowed_state` and emits exact `downgrade_text` for any violation. Forbidden absolute-superiority terms (`guarantees`,",
+    "readme_source": "full"
+  },
+  {
+    "repo": "Dicklesworthstone/franken_markdown",
+    "url": "https://github.com/Dicklesworthstone/franken_markdown",
+    "stars": 101,
+    "language": "HTML",
+    "created_at": "2026-06-27T02:12:28Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 631,
+    "sample_technique_files": [
+      ".beads/beads.base.jsonl",
+      ".beads/issues.jsonl",
+      "docs/PERFORMANCE_ACCELERATION_PLAN.md",
+      "tests/parser_metamorphic.rs"
+    ],
+    "description": "Pure-Rust, dependency-lean, ultra-fast Markdown -> beautiful all-in-one HTML & tiny optimized PDF (library + single-binary CLI: fmd)",
+    "topics": [],
+    "readme": "<div align=\"center\">\n\n# franken_markdown\n\n<img src=\"franken_markdown_illustration.webp\" alt=\"franken_markdown clean-room Rust Markdown renderer for HTML, PDF, fmd CLI, and WASM\">\n\n**A clean-room Rust renderer and `fmd` CLI for turning Markdown into polished\nself-contained HTML, compact tagged PDF, and browser/WASM output from one\nauditable core.**\n\n![License](https://img.shields.io/badge/license-MIT%20%2B%20OpenAI%2FAnthropic%20rider-blue)\n![Language](https://img.shields.io/badge/language-Rust%202024-dea584)\n![Status](https://img.shields.io/badge/status-HTML%20%26%20PDF%20already%20work-success)\n![Core](https://img.shields.io/badge/core-clean--room%20std--only-success)\n![WASM](https://img.shields.io/badge/WASM-first--class-654ff0)\n\n```bash\ncurl -fsSL https://raw.githubusercontent.com/Dicklesworthstone/franken_markdown/main/install.sh | bash\n# or build the tagged source: cargo install --git https://github.com/Dicklesworthstone/franken_markdown --tag v0.5.0 franken_markdown\n```\n\n</div>\n\n> **Current status.** As checked on **2026-10-02**:\n>\n> | Channel | Surface | Version | Where to verify |\n> |---|---|---|---|\n> | **Source (this `main`)** | `franken_markdown` library + `fmd` CLI | **`0.5.0`** | `Cargo.toml` `version` field |\n> | **GitHub Release** | `fmd` CLI archives (5 platforms, `.sha256` sidecars) | **`v0.5.0`** (2026-10-02) | https://github.com/Dicklesworthstone/franken_markdown/releases/tag/v0.5.0 |\n> | **crates.io** | `franken_markdown` library (+ `fmd-font` 0.3.3, `fmd-math` 0.1.2) | **`0.5.0`** | https://crates.io/crates/franken_markdown |\n> | **npm** | `@franken-suite/franken-markdown` browser/WASM package | **`0.4.4`** | https://www.npmjs.com/package/@franken-suite/franken-markdown |\n>\n> The latest tagged release is **v0.5.0**, available on GitHub Releases and crates.io. It adds multi-chapter books (PDF, EPUB, offline sites), the interactive native-WASM workspace, exact pagination, typeset display math, running headers/footers and many more incremental lexers; see CHANGELOG.md for breaking changes. npm remains at **0.4.4** pending publishing authentication; the verified **0.5.0 npm tarball** is attached to the GitHub release. Build the in-tree source with `cargo install --path .` or `cargo build --release --bin fmd`.\n> The current renderer ships shared HTML/PDF syntax\n> highlighting including Mermaid/MMD source fences, measured PDF table\n> allocation, fitted ASCII diagrams, frankenmermaid-generated SVG diagrams drawn\n> as PDF vectors, native SVG pattern strokes, text strokes, text paths, `hwb()`\n> colors and `color-mix()` transparency, remote-image fetching with JPEG\n> `/DCTDecode` embedding for PDF, a Noto Sans Math symbol fallback face for\n> math/arrow glyphs, staged native writes, optional\n> Asupersync batch rendering, browser/WASM package sources, and a long set of\n> measured scalar optimizations.\n> SIMD and deeper pagination remain roadmap items until they have proof.\n\n## Contents\n\n- [TL;DR](#tldr)\n- [Quick Example](#quick-example)\n",
+    "readme_source": "full"
+  },
+  {
+    "repo": "Dicklesworthstone/franken_networkx",
+    "url": "https://github.com/Dicklesworthstone/franken_networkx",
+    "stars": 26,
+    "language": "Python",
+    "created_at": "2026-02-13T20:09:55Z",
+    "technique_test_files": 19,
+    "technique_nontest_files": 0,
+    "code_files": 2715,
+    "sample_technique_files": [
+      ".beads/issues.jsonl",
+      "artifacts/reality-check-2026-09-23.md",
+      "crates/fnx-conformance/tests/metamorphic_relations_gate.rs",
+      "docs/history/REALITY_CHECK_BRIDGE_PLAN_2026-04-08.md",
+      "tests/artifacts/correctness/20260605T-multigraph-stale-key-resurrection-cc/report.md"
+    ],
+    "description": "Memory-safe clean-room Rust reimplementation of NetworkX with deterministic graph semantics, differential conformance, and RaptorQ-backed durability.",
+    "topics": [
+      "benchmarking",
+      "clean-room",
+      "conformance-testing",
+      "deterministic",
+      "differential-testing",
+      "graph-algorithms",
+      "graph-theory",
+      "memory-safe",
+      "networkx",
+      "raptorq",
+      "rust"
+    ],
+    "readme": "# FrankenNetworkX\n\n<div align=\"center\">\n  <img src=\"franken_networkx_illustration.webp\" alt=\"FrankenNetworkX — Rust-backed drop-in replacement for NetworkX\">\n</div>\n\n<div align=\"center\">\n\n[![PyPI](https://img.shields.io/pypi/v/franken-networkx.svg)](https://pypi.org/project/franken-networkx/)\n[![Python](https://img.shields.io/pypi/pyversions/franken-networkx.svg)](https://pypi.org/project/franken-networkx/)\n[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)\n[![Rust 2024](https://img.shields.io/badge/rust-2024_edition-orange.svg)](rust-toolchain.toml)\n\n</div>\n\n**FrankenNetworkX is a Rust-backed NetworkX-compatible graph library with a measured, incomplete drop-in surface.** Use it as a standalone library with the familiar NetworkX API, or wire it in as a `networkx>=3.0` backend so supported calls dispatch into Rust without call-site changes.\n\n```bash\npip install franken-networkx\n```\n\nNo Rust toolchain is needed: prebuilt ABI3 wheels are published on PyPI for Linux (`x86_64`, `aarch64`, `musllinux`), macOS (`x86_64`, `arm64`), and Windows (`x86_64`) for Python 3.10+. Source builds remain available for developers modifying Rust internals (see [Development](#development)).\n\n---\n\n## TL;DR\n\n### The Problem\n\nNetworkX is the canonical Python graph library: rich, correct, comprehensive, and slow on anything that isn't toy-sized. Its pure-Python adjacency, Python-level inner loops, and per-call dict bookkeeping turn graph analytics over even modest graphs (10⁵–10⁶ nodes) into multi-minute affairs. Most \"alternatives\" pay for speed in compatibility: they expose a different API, change tie-break behavior, lose attribute fidelity, or drop entire algorithm families.\n\n### The Solution\n\nFrankenNetworkX is a Rust port of NetworkX that treats **observable behavior** as a hard constraint. Graph mutation semantics, iteration order, tie-break choices, exception classes, error message wording, and serialization round-trip behavior are all part of the contract. Where pure-Python NetworkX would call `dict[unhashable]`, FrankenNetworkX raises the same `TypeError`. Where NetworkX iterates a `dict_keys` in insertion order, FrankenNetworkX does too. Where NetworkX returns a generator, FrankenNetworkX returns a generator, not a list with a different repr.\n\nThat contract is checked by a Python parity test suite of about 1,100 files, by NetworkX's own test suite run with fnx as the backend, by a curated Rust differential conformance harness, and by five generated audit ledgers (coverage matrix, raw-vs-public, delegation, upstream divergence, API ergonomics). The coverage matrix is regenerated and drift-checked on every DSR quality run; the other four are regenerated on demand. The current structural surface result achieves complete coverage: the pinned NetworkX 3.6.1 FeatureUniverse has 4,129 strictly present paths out of 4,129 applicable paths (100.0%), with 0 partial and 0 missing.\n\n### Why FrankenNetworkX?\n\n| Feature | NetworkX 3.x | FrankenNetw",
+    "readme_source": "full"
+  },
+  {
+    "repo": "Dicklesworthstone/franken_node",
+    "url": "https://github.com/Dicklesworthstone/franken_node",
+    "stars": 30,
+    "language": "Rust",
+    "created_at": "2026-02-19T00:56:35Z",
+    "technique_test_files": 23,
+    "technique_nontest_files": 17,
+    "code_files": 2843,
+    "sample_technique_files": [
+      ".beads/beads.base.jsonl",
+      ".beads/bulk_import.md",
+      ".beads/issues.jsonl",
+      "artifacts/section_10_10/bd-1hf/graph_after_br_ready.json",
+      "artifacts/section_10_7/bd-1rwq/verification_evidence.json"
+    ],
+    "description": "Trust-native JavaScript/TypeScript runtime platform built on franken_engine with deterministic compatibility, migration autopilot, extension trust controls, and incident replay.",
+    "topics": [
+      "cli",
+      "developer-tools",
+      "javascript",
+      "migration",
+      "observability",
+      "runtime",
+      "rust",
+      "security",
+      "supply-chain-security",
+      "typescript"
+    ],
+    "readme": "# franken_node\n\n<div align=\"center\">\n  <img src=\"docs/assets/franken_node_illustration.webp\" alt=\"franken_node - trust-native JavaScript and TypeScript runtime platform\">\n</div>\n\n<div align=\"center\">\n\n![Status](https://img.shields.io/badge/status-pre--1.0-yellow)\n[![README smoke](https://github.com/Dicklesworthstone/franken_node/actions/workflows/readme-quick-example-smoke.yml/badge.svg?branch=main)](https://github.com/Dicklesworthstone/franken_node/actions/workflows/readme-quick-example-smoke.yml)\n[![Verifier SDK standalone](https://github.com/Dicklesworthstone/franken_node/actions/workflows/verifier-sdk-standalone.yml/badge.svg?branch=main)](https://github.com/Dicklesworthstone/franken_node/actions/workflows/verifier-sdk-standalone.yml)\n![Security](https://img.shields.io/badge/security-trust--native-1f6feb)\n![Unsafe](https://img.shields.io/badge/unsafe-forbidden-success)\n![Compatibility](https://img.shields.io/badge/compatibility-node%20%2B%20bun-5b3cc4)\n![Tests](https://img.shields.io/badge/tests-3.8k%2B%20e2e%20%2B%2021k%20inline-blue)\n![License](https://img.shields.io/badge/license-MIT%20%2B%20OpenAI%2FAnthropic%20Rider-lightgrey)\n![Rust](https://img.shields.io/badge/rust-2024-orange)\n\n</div>\n\n`franken-node` is a **trust-native JavaScript/TypeScript runtime platform** for\nextension-heavy systems. It pairs Node/Bun ecosystem velocity with deterministic\nsecurity controls, cryptographically-grounded trust operations, and replayable\nincident forensics.\n\n```bash\n# One-line installer (Linux / macOS)\ncurl -fsSL https://raw.githubusercontent.com/Dicklesworthstone/franken_node/main/install.sh | bash\n```\n\n> [!IMPORTANT]\n> **Status: pre-1.0.** The CLI surface and the on-the-wire JSON shapes\n> (decision receipts, trust cards, replay verdicts, counterfactual reports,\n> incident bundles) are stable and covered by golden tests. Internal Rust\n> APIs and feature-gated modules may still break between versions. See\n> [Stability](#stability) for the full breakdown.\n\n---\n\n## A concrete scenario\n\nIt's Tuesday. A transitive npm dependency in your build was published 14\ndays ago by a brand-new publisher whose username is 2 characters off a\npopular library. The package's behavior has slowly drifted in the last\nthree minor releases.\n\nUnder your current stack: the typosquat scanner flags it tomorrow; your\npackage-lock pinned the new version yesterday; the egress check runs at\ndeploy time and sees nothing wrong because the malicious payload\nactivates after a 48-hour delay. By Friday you're paging the security\nteam.\n\nUnder `franken-node`:\n\n- `trust scan --deep` reads the package's npm registry record and writes\n  onto its trust card that the package was first published 14 days ago\n  (new packages are raised to at least medium risk), plus a DGIS\n  maintainer-fragility score (sole maintainer, no maintainers, no\n  publish in over a year). A package name one edit away from a pinned\n  popular package is raised to high risk. This happens **before the\n  package is admitted**. ",
+    "readme_source": "full"
+  },
+  {
+    "repo": "Dicklesworthstone/franken_numpy",
+    "url": "https://github.com/Dicklesworthstone/franken_numpy",
+    "stars": 17,
+    "language": "Rust",
+    "created_at": "2026-02-13T20:13:41Z",
+    "technique_test_files": 9,
+    "technique_nontest_files": 4,
+    "code_files": 1521,
+    "sample_technique_files": [
+      ".beads/issues.jsonl",
+      "CHANGELOG.md",
+      "Cargo.toml",
+      "README.md",
+      "artifacts/contracts/TESTING_AND_LOGGING_CONVENTIONS_V1.md"
+    ],
+    "description": "Memory-safe clean-room Rust reimplementation of NumPy with strict/hardened compatibility modes, deterministic stride calculus, differential conformance harnesses, and RaptorQ durability artifacts.",
+    "topics": [
+      "array-programming",
+      "broadcasting",
+      "clean-room",
+      "conformance-testing",
+      "memory-safety",
+      "ndarray",
+      "numerical-computing",
+      "numpy",
+      "raptorq",
+      "rust",
+      "scientific-computing",
+      "ufunc"
+    ],
+    "readme": "# FrankenNumPy\n\n<div align=\"center\">\n  <img src=\"franken_numpy_illustration.webp\" alt=\"FrankenNumPy — memory-safe clean-room NumPy reimplementation in Rust\" width=\"400\">\n\n  **A memory-safe, clean-room reimplementation of NumPy in Rust.**<br>\n  100% of `numpy.__all__` (499/499 against the CI oracle, pinned `numpy<2.5` → 2.4.3) is reachable as `fnp_python.<name>`, structurally locked by a conformance test that fails CI on regression; the lock iterates whichever live numpy the build host has (on numpy 2.3.x the oracle's `__all__` is 501 names — the deprecated `in1d`/`trapz` aliases upstream removed in 2.4 — and fnp re-exports them the same way). The 10 numeric-core crates declare `#![forbid(unsafe_code)]` and hold zero hand-written `unsafe`; `fnp-python`, the PyO3 boundary, holds all hand-written `unsafe` (1,146 `unsafe` blocks: mostly borrowed-buffer views for the zero-copy paths, plus `get_unchecked` and `transmute` in some kernels) and declares 35 glibc libm functions it calls directly. 9,086 `#[test]` functions (2026-10-08 count). Bit-exact PCG64DXSM RNG parity for explicit seeds; no-seed constructors source OS entropy like NumPy.\n\n  ![Rust](https://img.shields.io/badge/Rust-nightly%202026--08--31-orange)\n  ![Edition](https://img.shields.io/badge/edition-2024-blue)\n  ![Tests](https://img.shields.io/badge/tests-9%2C086%20%23%5Btest%5D-blue)\n  ![Surface](https://img.shields.io/badge/numpy.__all__-499%2F499%20(100%25)-brightgreen)\n  ![Unsafe](https://img.shields.io/badge/unsafe-confined%20to%20fnp--python-blue)\n  ![CI Gates](https://github.com/Dicklesworthstone/franken_numpy/actions/workflows/ci.yml/badge.svg?branch=main)\n  ![License](https://img.shields.io/badge/license-MIT%2BRider-green)\n</div>\n\n---\n\n## Table of Contents\n\n- [The Problem](#the-problem) · [The Solution](#the-solution) · [Who This Is For](#who-this-is-for) · [Why FrankenNumPy?](#why-frankennumpy)\n- [Quick Example](#quick-example) · [More Worked Examples](#more-worked-examples)\n- [Design Philosophy](#design-philosophy) · [Installation](#installation) · [API Surface](#api-surface)\n- [Architecture](#architecture) · [Workspace and Crate Map](#workspace-and-crate-map)\n- [How It Works: Per-Crate Deep Dive](#how-it-works-per-crate-deep-dive)\n  · [Dtype](#dtype-system-fnp-dtype) · [SCE](#stride-calculus-engine-fnp-ndarray) · [Transfer/Iter](#transfer-semantics-and-iteration-fnp-iter) · [Ufunc](#ufunc-dispatch-fnp-ufunc) · [Linalg](#linear-algebra-fnp-linalg) · [Random](#random-number-generation-fnp-random) · [IO](#io-format-handling-fnp-io) · [Runtime](#dual-mode-runtime-fnp-runtime) · [Conformance](#conformance-infrastructure-fnp-conformance) · [Python](#python-bindings-fnp-python)\n- [Algorithm Catalog](#algorithm-catalog) · [Numerical Stability and Precision Notes](#numerical-stability-and-precision-notes) · [Determinism Guarantees](#determinism-guarantees)\n- [Complete Distribution List](#complete-distribution-list) · [Array Manipulation Toolkit](#array-manipulation-toolkit)\n- [Shared Mem",
+    "readme_source": "full"
+  },
+  {
+    "repo": "Dicklesworthstone/franken_ocr",
+    "url": "https://github.com/Dicklesworthstone/franken_ocr",
+    "stars": 320,
+    "language": "Rust",
+    "created_at": "2026-06-25T01:38:58Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 243,
+    "sample_technique_files": [
+      ".beads/beads.base.jsonl",
+      ".beads/issues.jsonl",
+      ".claude/skills/focr/SKILL.md",
+      ".claude/skills/focr/references/OPERATORS.md",
+      "artifacts/perf/bd-2mo.30/profile-recipe-5733407/attribution-conservative-98f2099-20260712T014339Z/source_input_manifest.json"
+    ],
+    "description": "Pure-Rust, CPU-only OCR engine for Baidu Unlimited-OCR (a DeepSeek-OCR-derived 3B MoE VLM). Five-model zoo, custom int8 kernels, no ML framework, no Python, no GPU.",
+    "topics": [
+      "avx512",
+      "cpu-inference",
+      "deepseek-ocr",
+      "int4",
+      "int8",
+      "moe",
+      "neon",
+      "ocr",
+      "quantization",
+      "rust",
+      "simd",
+      "vision-language-model"
+    ],
+    "readme": "# franken_ocr <div align=\"center\"> <img src=\"franken_ocr_illustration.webp\" alt=\"franken_ocr - Pure-Rust CPU-only OCR for Baidu Unlimited-OCR\"> </div> <div align=\"center\"> [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE) [![source tag: v0.8.0](https://img.shields.io/badge/source_tag-v0.8.0-blue.svg)](https://github.com/Dicklesworthstone/franken_ocr/tree/v0.8.0) [![binary release: v0.8.0](https://img.shields.io/badge/binary_release-v0.8.0-blue.svg)](https://github.com/Dicklesworthstone/franken_ocr/releases/tag/v0.8.0) [![status: working](https://img.shields.io/bad",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Dicklesworthstone/franken_whisper",
+    "url": "https://github.com/Dicklesworthstone/franken_whisper",
+    "stars": 92,
+    "language": "Rust",
+    "created_at": "2026-02-22T23:14:13Z",
+    "technique_test_files": 3,
+    "technique_nontest_files": 0,
+    "code_files": 330,
+    "sample_technique_files": [
+      ".beads/issues.jsonl",
+      "CHANGELOG.md",
+      "README.md",
+      "docs/acoustic_diarization_contract.md",
+      "tests/metamorphic_accelerate_tests.rs"
+    ],
+    "description": "Agent-first Rust ASR orchestration stack: Bayesian backend routing across whisper.cpp/insanely-fast-whisper/whisper-diarization, real-time NDJSON streaming, SQLite persistence, TTY audio transport, conformance harness. 107K lines, 2000+ tests, zero unsafe code.",
+    "topics": [
+      "agent-first",
+      "asr",
+      "bayesian",
+      "cli",
+      "diarization",
+      "ffmpeg",
+      "gpu",
+      "machine-learning",
+      "ndjson",
+      "rust",
+      "speech-recognition",
+      "sqlite",
+      "transcription",
+      "tty-audio",
+      "whisper"
+    ],
+    "readme": "# franken_whisper\n\n<div align=\"center\">\n  <img src=\"https://raw.githubusercontent.com/Dicklesworthstone/franken_whisper/main/franken_whisper_illustration.webp\" alt=\"franken_whisper — agent-first Rust ASR orchestration stack\">\n</div>\n\n<div align=\"center\">\n\n[![License: MIT+Rider](https://img.shields.io/badge/License-MIT%2BOpenAI%2FAnthropic%20Rider-blue.svg)](./LICENSE)\n[![Rust Edition](https://img.shields.io/badge/Rust-2024_Edition-orange.svg)](https://doc.rust-lang.org/edition-guide/rust-2024/)\n[![unsafe audited](https://img.shields.io/badge/unsafe-audited-success.svg)](https://github.com/rust-secure-code/safety-dance/)\n[![Latest Release](https://img.shields.io/github/v/release/Dicklesworthstone/franken_whisper.svg)](https://github.com/Dicklesworthstone/franken_whisper/releases)\n\n</div>\n\n**Agent-first Rust ASR stack with a real in-process pure-Rust Whisper engine (no FFI, no Python, no subprocess), adaptive Bayesian backend routing, real-time NDJSON streaming (true-live mic/pipe streaming via `fw robot listen`; batch robot mode streams sequenced stage events), DTW word timestamps, and SQLite-backed run history. In current live-incumbent, same-invocation matched-greedy CPU comparisons, the native large-v3-turbo engine is 2.99× faster than whisper.cpp on a 124.5-second whole job; tiny.en is 1.52× faster on a 124.5-second transcribe-only workload and 1.51× faster on a 300-second transcribe-only workload. These ratios were measured with the int8 encoder, which is now opt-in (`FW_ENC_ATTN_OUT_I8I32=1`); the default f32 encoder is slower (turbo whole job 1.38× in a same-binary A/B).**\n\n<div align=\"center\">\n<h3>Install in one line</h3>\n\n```bash\ncurl -fsSL \"https://raw.githubusercontent.com/Dicklesworthstone/franken_whisper/main/install.sh?$(date +%s)\" | bash\n```\n\n<sub>SHA-256-verified prebuilt binaries for <b>Linux</b> (x86_64 / aarch64), <b>macOS</b> (Intel / Apple&nbsp;Silicon), and <b>WSL</b> — proxy-aware, airgap-capable (<code>--offline</code>), reversible (<code>--uninstall</code>). Windows users: grab <code>windows_amd64.zip</code> from the newest <code>vX.Y.Z</code> release on <a href=\"https://github.com/Dicklesworthstone/franken_whisper/releases\">the releases page</a> (model packages are published as releases too). All flags: <a href=\"#installation\">Installation</a>.</sub>\n\n</div>\n\n## Agent quickstart\n\nThe release installs two equivalent binary names: `fw` is the concise\nagent-facing name, and `franken_whisper` remains the descriptive name. Start\nwith the live triage payload instead of scraping help text:\n\n```bash\nfw --version\nfw robot triage\nfw capabilities --json\nfw models --json\nfw pull all --json\nfw doctor --json\nfw robot schema\nfw robot listen --list-devices   # live streaming capture check\n```\n\n`fw robot run --input AUDIO --backend auto` streams NDJSON. Robot syntax\nerrors are also emitted as one path-safe JSON object on stdout with exit code\n2; runtime failures use one of the 13 exact `FW-*` codes published by\n`fw capabilities --json`. D",
+    "readme_source": "full"
+  },
+  {
+    "repo": "Dicklesworthstone/frankenfs",
+    "url": "https://github.com/Dicklesworthstone/frankenfs",
+    "stars": 21,
+    "language": "Rust",
+    "created_at": "2026-02-10T03:32:15Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 11,
+    "code_files": 942,
+    "sample_technique_files": [
+      ".beads/beads.base.jsonl",
+      ".beads/issues.jsonl",
+      "CHANGELOG.md",
+      "README.md",
+      "crates/ffs-btree/src/bw_tree.rs"
+    ],
+    "description": "Memory-safe FUSE reimplementation of ext4 and btrfs in Rust with block-level MVCC and RaptorQ self-healing. 22-crate workspace, zero unsafe code.",
+    "topics": [
+      "btrfs",
+      "ext4",
+      "filesystem",
+      "fuse",
+      "linux",
+      "memory-safe",
+      "mvcc",
+      "raptorq",
+      "rust",
+      "self-healing"
+    ],
+    "readme": "<div align=\"center\">\n  <img src=\"docs/assets/frankenfs_illustration.webp\" alt=\"FrankenFS - Memory-safe ext4 + btrfs in Rust\">\n</div>\n\n<p align=\"center\">\n  <br>\n  <code>&nbsp;╔═╗┬─┐┌─┐┌┐┌┬┌─┌─┐┌┐┌╔═╗╔═╗&nbsp;</code><br>\n  <code>&nbsp;╠╣ ├┬┘├─┤│││├┴┐├┤ │││╠╣ ╚═╗&nbsp;</code><br>\n  <code>&nbsp;╚  ┴└─┴ ┴┘└┘┴ ┴└─┘┘└┘╚  ╚═╝&nbsp;</code><br>\n  <br>\n  <strong>Memory-safe ext4 + btrfs in Rust, from userspace</strong><br>\n  <em>Block-level MVCC &middot; RaptorQ self-healing &middot; Adaptive conflict arbitration &middot; Unsafe forbidden in first-party crates</em>\n</p>\n\n<p align=\"center\">\n  <a href=\"https://github.com/Dicklesworthstone/frankenfs/blob/main/LICENSE\"><img src=\"https://img.shields.io/badge/license-MIT%2BOpenAI%2FAnthropic%20Rider-blue.svg\" alt=\"MIT+Rider License\"></a>\n  <a href=\"https://www.rust-lang.org/\"><img src=\"https://img.shields.io/badge/rust-nightly%202024-orange.svg\" alt=\"Rust Nightly\"></a>\n  <img src=\"https://img.shields.io/badge/ParityReport-97%2F97%20feature%20rows-blue\" alt=\"ParityReport: 97/97 feature rows\">\n  <img src=\"https://img.shields.io/badge/parity%20columns-implemented%20%7C%20kernel--verified%20%7C%20rejection--only-lightgrey\" alt=\"Parity accounting columns\">\n  <img src=\"https://img.shields.io/badge/tests-source--derived-brightgreen\" alt=\"Tests source-derived\">\n  <img src=\"https://img.shields.io/badge/fuzz%20targets-63-brightgreen\" alt=\"63 fuzz targets\">\n  <img src=\"https://img.shields.io/badge/unsafe-forbidden-brightgreen.svg\" alt=\"Unsafe Forbidden\">\n  <img src=\"https://img.shields.io/badge/runtime-asupersync%200.5-blueviolet.svg\" alt=\"asupersync 0.5 runtime\">\n  <img src=\"https://img.shields.io/badge/status-experimental-yellow.svg\" alt=\"Experimental\">\n</p>\n\n---\n\n## TL;DR\n\n**The problem.** ext4 and btrfs are production kernel filesystems. That makes their behavior worth preserving, but it also makes experimentation with concurrency control, repair policy, and deterministic test harnesses difficult. ext4 serializes write commits through JBD2, while btrfs relies on kernel COW machinery and `scrub` plus redundancy for repair workflows.\n\n**The approach.** FrankenFS extracts ext4 and btrfs behavior from ~205K lines of Linux kernel C (v6.19), re-implements that behavior in Rust with `#![forbid(unsafe_code)]`, and adds experimental layers for block-level MVCC, RaptorQ repair symbols, and explicit-opt-in FUSE writeback-cache barriers.\n\nIt runs as a normal Linux process via FUSE. `ParityReport::current()` prints 97/97 from the Markdown feature table; that number is not an executed-test result or a readiness score. The workspace has **22 members**, including `tools/ffs-ops`. The 2026-09-08 source-derived test inventory found **63 fuzz targets, 173 Rust benchmark files, 125 tracked E2E scripts, and 226 tracked insta snapshots**; the evidence schema declares **23 evidence-event types**. File and enum counts are not evidence that checks ran or passed. Release readiness requires fresh execution evidence in addition to the checked-in r",
+    "readme_source": "full"
+  },
+  {
+    "repo": "Dicklesworthstone/frankenscipy",
+    "url": "https://github.com/Dicklesworthstone/frankenscipy",
+    "stars": 14,
+    "language": "Rust",
+    "created_at": "2026-02-13T22:43:21Z",
+    "technique_test_files": 19,
+    "technique_nontest_files": 15,
+    "code_files": 1902,
+    "sample_technique_files": [
+      ".beads/issues.jsonl",
+      "artifacts/TOLERANCE_POLICY.md",
+      "artifacts/reality-check-2026-05-03.md",
+      "crates/fsci-cluster/src/lib.rs",
+      "crates/fsci-cluster/tests/metamorphic_tests.rs"
+    ],
+    "description": "Clean-room Rust reimplementation of SciPy with Condition-Aware Solver Portfolio (CASP) — runtime algorithm selection driven by conditioning diagnostics, stability certificates, and decision-theoretic policy controllers",
+    "topics": [
+      "condition-number",
+      "differential-conformance",
+      "linear-algebra",
+      "math",
+      "numerical-analysis",
+      "numerical-methods",
+      "rust",
+      "scientific-computing",
+      "scipy",
+      "solver-portfolio"
+    ],
+    "readme": "# FrankenSciPy\n\n<div align=\"center\">\n  <img src=\"frankenscipy_illustration.webp\" alt=\"FrankenSciPy — clean-room Rust reimplementation of SciPy with a Condition-Aware Solver Portfolio\">\n</div>\n\n<p align=\"center\">\n  <img src=\"https://img.shields.io/badge/license-MIT%20with%20rider-blue.svg\" alt=\"License: MIT with OpenAI/Anthropic Rider\">\n  <img src=\"https://img.shields.io/badge/rust-2024%20edition%20%C2%B7%20nightly-orange.svg\" alt=\"Rust 2024 nightly\">\n  <img src=\"https://img.shields.io/badge/unsafe-%23!%5Bforbid(unsafe__code)%5D-brightgreen.svg\" alt=\"No unsafe code\">\n  <img src=\"https://img.shields.io/badge/async-asupersync%20(no%20tokio)-purple.svg\" alt=\"asupersync, no tokio\">\n  <img src=\"https://img.shields.io/badge/workspace-19%20crates-informational.svg\" alt=\"19 workspace crates\">\n  <img src=\"https://img.shields.io/badge/conformance-795%20test%20files-success.svg\" alt=\"795 conformance test files\">\n</p>\n\n> **FrankenSciPy is a clean-room Rust reimplementation of SciPy's core numerical\n> routines with a Condition-Aware Solver Portfolio (CASP) at its center.**\n> The dense linear-solve family (`solve_with_casp`, `solve_with_audit`,\n> `lstsq_with_casp` and their siblings in `fsci-linalg`) goes through a runtime\n> that probes matrix conditioning and structure, picks the solver that minimizes\n> expected loss against a hand-set 5×4 decision matrix, falls back on failure,\n> and returns a certificate proving the decision was justified. The sparse,\n> optimize and special crates carry their own rule-based selectors that record a\n> rationale; wiring them onto the same loss-matrix machinery is roadmap work.\n\n---\n\n## TL;DR\n\n### The Problem\n\nSciPy is the bedrock of scientific Python, but the runtime it sits on is showing its age:\n\n- The CPython GIL and Python's object model make it awkward to use as a high-throughput library inside a service, a notebook kernel cluster, or a multi-agent system.\n- Most of the numerical kernels are wrapped C, Fortran, or LAPACK (fast in microbenchmarks), but the *Python* glue layer is where memory churn, type-coercion overhead, and packaging headaches actually live.\n- Numerical-stability decisions are buried inside per-routine heuristics. There is no first-class way to ask \"which algorithm did you pick for this problem instance, and how confident are you that it's the right one?\"\n- Embedding SciPy in a Rust application, a WebAssembly module, or a memory-constrained edge runtime is a non-starter.\n\n### The Solution\n\nFrankenSciPy reimplements the SciPy surface in idiomatic Rust with three guarantees that the original cannot provide:\n\n1. **Memory- and thread-safety by construction.** `#![forbid(unsafe_code)]` is enforced workspace-wide.\n2. **Explicit conditioning-aware algorithm selection.** The dense linear-solve family can run through CASP (`solve_with_casp`, `solve_with_audit`, `lstsq_with_casp`), which records the chosen action, the evidence that drove the choice, and the expected loss versus alternatives. CASP is opt-in: the pla",
+    "readme_source": "full"
+  },
+  {
+    "repo": "Dicklesworthstone/frankensearch",
+    "url": "https://github.com/Dicklesworthstone/frankensearch",
+    "stars": 84,
+    "language": "Rust",
+    "created_at": "2026-02-13T20:51:32Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 2,
+    "code_files": 747,
+    "sample_technique_files": [
+      ".beads/issues.jsonl",
+      "COMPREHENSIVE_PLAN_FOR_THE_QUILL_LEXICAL_ENGINE.md",
+      "crates/frankensearch-quill/src/cass.rs",
+      "scripts/check_fsfs_query_plan_metamorphic.sh"
+    ],
+    "description": "Two-tier hybrid search for Rust: sub-millisecond initial results via potion-128M, quality-refined rankings in 150ms via MiniLM-L6-v2. Combines lexical (Tantivy BM25) and semantic (vector cosine) search with Reciprocal Rank Fusion. Progressive iterator API, f16 SIMD vector index, feature-gated compilation.",
+    "topics": [
+      "embeddings",
+      "full-text-search",
+      "hybrid-search",
+      "information-retrieval",
+      "nlp",
+      "progressive-search",
+      "reciprocal-rank-fusion",
+      "rust",
+      "search",
+      "semantic-search",
+      "simd",
+      "tantivy",
+      "two-tier",
+      "vector-search"
+    ],
+    "readme": "# frankensearch <div align=\"center\"> <img src=\"frankensearch_illustration.webp\" alt=\"frankensearch - Two-tier hybrid local search for Rust\"> </div> <div align=\"center\"> [![Crates.io](https://img.shields.io/crates/v/frankensearch.svg)](https://crates.io/crates/frankensearch) [![License: MIT+Rider](https://img.shields.io/badge/License-MIT%2BOpenAI%2FAnthropic%20Rider-yellow.svg)](./LICENSE) </div> Two-tier hybrid local search for Rust and the `fsfs` standalone CLI: fast first-pass results, then quality refinement. ## Quick Navigation - [Install In One Line](#install-in-one-line) - [Quick Start](",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Dicklesworthstone/frankensim",
+    "url": "https://github.com/Dicklesworthstone/frankensim",
+    "stars": 52,
+    "language": "Rust",
+    "created_at": "2026-07-06T01:53:04Z",
+    "technique_test_files": 2,
+    "technique_nontest_files": 4,
+    "code_files": 3624,
+    "sample_technique_files": [
+      ".beads/issues.jsonl",
+      "AGENTS.md",
+      "COMPREHENSIVE_PLAN_FOR_FRANKENSIM.md",
+      "crates/fs-conduction/tests/power_table_e2e.rs",
+      "crates/fs-evidence-runner/CONTRACT.md"
+    ],
+    "description": "Plan-first Rust continuum for certified geometry, physics simulation, optimization, and rendering.",
+    "topics": [],
+    "readme": "<div align=\"center\">\n  <img src=\"frankensim_illustration.webp\" alt=\"FrankenSim illustration\" width=\"720\">\n</div>\n\n# FrankenSim\n\n<div align=\"center\">\n\n[![Status](https://img.shields.io/badge/status-active%20Rust%20workspace-2ea44f)](#implemented-workspace)\n[![Rust](https://img.shields.io/badge/rust-nightly%202024-b7410e)](rust-toolchain.toml)\n[![Crates](https://img.shields.io/badge/workspace-164%20native%20fs--%2A%20crates-0969da)](#implemented-workspace)\n[![Contracts](https://img.shields.io/badge/contracts-184%20of%20184%20tracked%20crates-8250df)](#contracts-and-verification)\n[![Tests](https://img.shields.io/badge/tests-1179%20tracked%20integration%20test%20files-1f883d)](#contracts-and-verification)\n[![License](https://img.shields.io/badge/license-MIT%20%2B%20AI%20rider-yellow)](LICENSE)\n\n</div>\n\nFrankenSim is an active Rust source workspace for deterministic geometry, certified numerics, meshing, execution, evidence, and design-ledger infrastructure for simulation and design optimization.\n\nThe tree contains 184 `fs-*` crate directories: 164 in the native Cargo workspace\nand 20 standalone workspaces listed below. They include numerical kernels,\ngeometry representations, meshing, physics, solvers, adjoints, optimization,\nimaging, evidence, packaging and ledger implementations, together with their\ncontracts and tests.\n\nThe inventory numbers in this README are derived from the root workspace\nmanifest, each crate's declared layer metadata, and the portable tracked-input\nregistry in [`doc-facts-inventory.json`](doc-facts-inventory.json) by\n`cargo run -p xtask -- check-docs`. The inventory includes committed paths;\nthe check also checks their presence in the current index. Staged removals can\ntherefore block this check until their inventory change lands. An RCH or archive source snapshot\nwithout `.git` validates the same checked path set instead of counting arbitrary\nfilesystem dirt. Untracked files are deliberately excluded. The layer row\ninventories declarations and is not, by itself, proof that every dependency\nedge is valid.\n\n<!-- BEGIN GENERATED FRANKENSIM DOC FACTS -->\n| Derived repository fact | Value |\n|-------------------------|-------|\n| Native workspace `fs-*` crates | 164 |\n| Standalone `fs-*` workspaces | 20 (`fs-cmaes-viz-wasm`, `fs-crump-wasm`, `fs-daimler-wasm`, `fs-davinci-wasm`, `fs-demo-physics-wasm`, `fs-edison-wasm`, `fs-flyer-wasm`, `fs-g1-train`, `fs-goddard-wasm`, `fs-heatmap-wasm`, `fs-howe-wasm`, `fs-kamen-wasm`, `fs-lenia-wasm`, `fs-otis-wasm`, `fs-otto-wasm`, `fs-roomba-wasm`, `fs-salisbury-wasm`, `fs-tesla-wasm`, `fs-versatran-wasm`, `fs-wasm`) |\n| Tracked `fs-*` crate directories | 184 |\n| Tracked `CONTRACT.md` files | 184 of 184 |\n| Tracked crate integration-test files | 1179 |\n| `fs-*` layer inventory | `UTIL=15`, `L0=7`, `L1=14`, `L2=22`, `L3=42`, `L4=33`, `L5=4`, `L6=46`, `TOOL=1` |\n<!-- END GENERATED FRANKENSIM DOC FACTS -->\n\nThe CLI integrates bounded thermal/airflow solves and a normalized thermal\nradius study wit",
+    "readme_source": "full"
+  },
+  {
+    "repo": "Dicklesworthstone/frankensqlite",
+    "url": "https://github.com/Dicklesworthstone/frankensqlite",
+    "stars": 226,
+    "language": "Rust",
+    "created_at": "2026-02-07T04:12:42Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 6,
+    "code_files": 2131,
+    "sample_technique_files": [
+      ".beads/beads.base.jsonl",
+      ".beads/issues.jsonl",
+      "baselines/complete-matrix-v0.3.18-20260911/source.sha256",
+      "crates/fsqlite-harness/README.md",
+      "crates/fsqlite-harness/src/differential_runner.rs"
+    ],
+    "description": "Independent ground-up Rust reimplementation of SQLite with concurrent writers and information-theoretic durability",
+    "topics": [
+      "database",
+      "mvcc",
+      "raptorq",
+      "rust",
+      "sqlite"
+    ],
+    "readme": "<div align=\"center\">\n  <img src=\"site/spec-evolution/frankensqlite_illustration.webp\" alt=\"FrankenSQLite — a Frankenstein monster building a database engine at his workbench\">\n</div>\n\n<h1 align=\"center\">FrankenSQLite</h1>\n\n<p align=\"center\">\n  <strong>An independent ground-up Rust reimplementation of SQLite with page-level MVCC concurrent-writer support.</strong>\n</p>\n\n<p align=\"center\">\n  <a href=\"https://github.com/Dicklesworthstone/frankensqlite/actions/workflows/verification-gates.yml\"><img src=\"https://img.shields.io/github/actions/workflow/status/Dicklesworthstone/frankensqlite/verification-gates.yml?branch=main&label=CI\" alt=\"CI\"></a>\n  <a href=\"https://github.com/Dicklesworthstone/frankensqlite/blob/main/LICENSE\"><img src=\"https://img.shields.io/badge/license-MIT%2BOpenAI%2FAnthropic%20Rider-blue.svg\" alt=\"License: MIT+Rider\"></a>\n  <a href=\"https://www.rust-lang.org/\"><img src=\"https://img.shields.io/badge/rust-nightly%20%7C%20edition%202024-orange.svg\" alt=\"Rust\"></a>\n  <a href=\"https://github.com/Dicklesworthstone/frankensqlite\"><img src=\"https://img.shields.io/badge/unsafe-only%20in%20VFS%20%2B%20C%20ABI-blue.svg\" alt=\"unsafe only in VFS + C ABI\"></a>\n</p>\n\n---\n\n## TL;DR\n\n**The Problem:** SQLite allows only one writer at a time. A single lock byte (`WAL_WRITE_LOCK` at `wal.c:3698`) serializes all writers. For write-heavy workloads, this bottleneck caps throughput regardless of how many cores you have. Torn writes and bit-flips can corrupt the database with no self-repair mechanism.\n\n**The Solution:** FrankenSQLite reimplements SQLite from scratch in Rust, with a safe engine core and two architectural innovations:\n\n1. **MVCC Concurrent Writers.** The single-writer lock is replaced with page-level Multi-Version Concurrency Control. Writers that touch different pages can overlap their page work, while commit validation and publication still contain coordinated sections. Serializable Snapshot Isolation (SSI) tracks write-skew dependencies by default. A safe write-merge ladder (intent replay + structured page patches) is present as dormant/tested implementation work but is not yet wired into the live commit path; current same-page base drift aborts and retries.\n\n2. **RaptorQ Durability Research.** The workspace contains RaptorQ/ECS building blocks and partial native-mode integration. The live compatibility runtime does not yet justify a blanket self-healing or numeric durability claim; the native-mode sections below are design plus partial implementation and are gated on end-to-end recovery evidence.\n\nThe current runnable engine is already real, but still hybrid. Compatibility mode over standard SQLite files is the live runtime path today. Database text encodings UTF-8 (encoding 1) and UTF-16le/UTF-16be (encodings 2/3) are admitted for both reads and writes; UTF-16 support is newer than the long-verified UTF-8 surface, and attaching databases with mismatched encodings is rejected. Native mode / ECS sections below describe the longer-term d",
+    "readme_source": "full"
+  },
+  {
+    "repo": "Dicklesworthstone/frankenterm",
+    "url": "https://github.com/Dicklesworthstone/frankenterm",
+    "stars": 115,
+    "language": "Rust",
+    "created_at": "2026-01-18T20:19:33Z",
+    "technique_test_files": 20,
+    "technique_nontest_files": 1,
+    "code_files": 4569,
+    "sample_technique_files": [
+      ".beads/issues.jsonl",
+      "crates/frankenterm-core-replay/tests/prune_retain_metamorphic.rs",
+      "crates/frankenterm-core-telemetry-types/tests/invariants_cms_ewma.rs",
+      "crates/frankenterm-core/src/redactor.rs",
+      "crates/frankenterm-core/tests/golden_metamorphic_incident_recorder.rs"
+    ],
+    "description": "Terminal hypervisor for AI agent swarms: real-time pane capture, state-machine pattern detection, and a JSON API for coordinating fleets of coding agents across WezTerm",
+    "topics": [
+      "ai-agents",
+      "automation",
+      "rust",
+      "terminal",
+      "wezterm"
+    ],
+    "readme": "# ft — FrankenTerm\n\n<div align=\"center\">\n  <img src=\"frankenterm_illustration.webp\" alt=\"ft - Swarm-Native Terminal Platform for AI Agent Fleets\">\n</div>\n\n<!-- Demo recordings are embedded only once they exist in the tree.\n     `scripts/demo.tape` (CLI tour) and `scripts/demo-full.tape` (10-pane\n     live swarm) are the vhs sources; the swarm recording is tracked under\n     ft-xl2kc.1 / ft-xxfwy.21 and must be captured from real agents, not\n     staged output, before it is linked here. -->\n\n<div align=\"center\">\n\n[![License: MIT+Rider](https://img.shields.io/badge/License-MIT%2BOpenAI%2FAnthropic%20Rider-yellow.svg)](./LICENSE)\n[![Rust](https://img.shields.io/badge/rust-nightly%202024-orange.svg)](https://www.rust-lang.org/)\n[![Async runtime](https://img.shields.io/badge/runtime-asupersync%20(Cx--first)-purple.svg)](#engineering-discipline)\n[![Unsafe](https://img.shields.io/badge/unsafe-forbidden-success.svg)](#engineering-discipline)\n[![Core Counts](https://img.shields.io/badge/core%20library-auto--stamped-blue.svg)](#workspace-structure)\n[![Test Counts](https://img.shields.io/badge/tests-auto--stamped-green.svg)](#testing)\n\n</div>\n\n### What's here\n\n| If you're... | Start with |\n|---|---|\n| Trying it out | [10-Minute Tour](#10-minute-tour) → [Commands](#commands) → [Robot Mode](#robot-mode-json-api) |\n| Building a meta-agent | [Robot Mode](#robot-mode-json-api) → [Sample Mission/Tx Contracts](#deep-dive-sample-mission-and-tx-contracts) → [Operating Envelope](#operating-envelope) |\n| Operating at scale | [Capacity Planning](#deep-dive-capacity-planning) → [Operator Playbook](#operator-playbook-excerpts) → [Troubleshooting](#troubleshooting) |\n| Understanding how it works | [Architecture](#architecture) → [System Components](#system-components-and-responsibilities) → [Deep Dives](#deep-dive-the-watcher-capture-loop) |\n| Auditing the claims | [Trust & Attestation](#trust--attestation) → [Threat Model](#deep-dive-threat-model) → [Formal Methods](#deep-dive-formal-methods-in-this-repo) |\n| Reading the algorithms | [Algorithm & Data Structure Catalog](#algorithm--data-structure-catalog) → [Pattern Engine](#deep-dive-pattern-engine-architecture) → [Cx Cancellation Model](#deep-dive-the-cx-cancellation-model) |\n\n**A swarm-native terminal platform designed to observe, control, and audit large fleets of concurrent AI coding agents.** The retained 200-pane figures are synthetic benchmark-lane results, not a qualified native or target-class operating envelope. <!--count:workspace_members-->83<!--/count--> workspace crates, <!--count:core_subcrates-->19<!--/count--> sub-crates carved out of the core, <!--count:core_top_level_modules-->536<!--/count--> core-library modules, <!--count:core_loc-->1346112<!--/count-->+ lines of Rust, <!--count:test_count-->60535<!--/count-->+ test annotations across <!--count:core_rust_test_files-->1042<!--/count--> integration test files.\n\n_Counts are auto-stamped by `scripts/stamp-readme-counts.sh` and drift fast. See [Maintain",
+    "readme_source": "full"
+  },
+  {
+    "repo": "Dicklesworthstone/frankentorch",
+    "url": "https://github.com/Dicklesworthstone/frankentorch",
+    "stars": 16,
+    "language": "Rust",
+    "created_at": "2026-02-13T20:08:46Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 2,
+    "code_files": 840,
+    "sample_technique_files": [
+      ".beads/issues.jsonl",
+      ".beads/issues.jsonl.pre_dedup_20260827T194349",
+      "CHANGELOG.md",
+      "crates/ft-api/src/lib.rs",
+      "crates/ft-conformance/src/lib.rs"
+    ],
+    "description": "Memory-safe clean-room Rust reimplementation of PyTorch with deterministic autograd contracts, strict/hardened compatibility modes, differential conformance harnesses, and RaptorQ-backed durability artifacts.",
+    "topics": [
+      "autograd",
+      "clean-room",
+      "clean-room-reimplementation",
+      "compatibility",
+      "conformance-testing",
+      "deterministic-autograd",
+      "erasure-coding",
+      "machine-learning",
+      "memory-safe",
+      "performance",
+      "pytorch",
+      "raptorq",
+      "reliability",
+      "robustness",
+      "rust",
+      "rust-2024",
+      "systems-programming",
+      "tensor"
+    ],
+    "readme": "# FrankenTorch\n\n<div align=\"center\">\n  <img src=\"frankentorch_illustration.webp\" alt=\"FrankenTorch - memory-safe clean-room Rust reimplementation of PyTorch\">\n</div>\n\nFrankenTorch is a clean-room Rust reimplementation targeting grand-scope excellence: semantic fidelity, mathematical rigor, operational safety, and profile-proven performance.\n\n## Absolute Parity Doctrine\n\nFrankenTorch is not a partial rewrite. The target is a true drop-in replacement with complete feature and functionality overlap with upstream PyTorch observable behavior.\n\nNon-negotiable rules:\n- no permanent scope cuts accepted as a release condition\n- no \"minimal viable parity\" acceptance standard\n- sequencing is allowed only as temporary execution order, never as feature removal\n- every temporary gap must map to explicit parity-closure beads plus conformance evidence\n\n## What Makes This Project Special\n\nDeterministic Autograd Contract (DAC): replayable gradient graph execution with provenance-complete gradient evidence.\n\nThis is treated as a core identity constraint, not a best-effort nice-to-have.\n\n## Methodological DNA\n\nThis project uses four pervasive disciplines:\n\n1. alien-artifact-coding for decision theory, confidence calibration, and explainability.\n2. extreme-software-optimization for profile-first, proof-backed performance work.\n3. RaptorQ-everywhere for self-healing durability of long-lived artifacts and state.\n4. frankenlibc/frankenfs compatibility-security thinking: strict vs hardened mode separation, fail-closed compatibility gates, and explicit drift ledgers.\n\n## Current State\n\n- workspace scaffolded with 12 Rust crates under `crates/`\n- deterministic autograd, CPU kernels, serialization, conformance harnesses, and higher-level nn/optim/data layers are all present in-tree\n- phase2c packet artifacts and replay/evidence ledgers are tracked under `artifacts/phase2c/`\n\n## Delivery Sequencing (Not Scope Reduction)\n\nImplementation proceeds in packetized waves (`FT-P2C-*`) to control risk and improve proof quality, but the terminal target remains complete PyTorch drop-in compatibility.\n\n## Architecture Direction\n\n`ft-api` session facade -> `ft-autograd` tape/graph engine -> `ft-dispatch` routing/schema surfaces -> `ft-kernel-cpu` execution\n\nSupporting layers:\n- `ft-core`: tensor metadata, storage types, dtype/shape/stride rules, errors\n- `ft-device`: device identifiers and compatibility guards\n- `ft-serialize`: deterministic state-dict and tensor interchange formats\n- `ft-runtime`: DAC evidence ledgers and optional runtime integrations\n- `ft-nn`, `ft-optim`, `ft-data`: higher-level model, optimizer, and dataset abstractions\n- `ft-conformance`: differential, e2e, durability, and packet-level verification harnesses\n\n## Workspace Crates\n\n- `crates/ft-core`: zero-dependency tensor/value substrate\n- `crates/ft-dispatch`: operator schema modeling and device/kernel dispatch routing\n- `crates/ft-kernel-cpu`: concrete CPU implementations for tensor operators\n- `crates/ft-autograd",
+    "readme_source": "full"
+  },
+  {
+    "repo": "Dicklesworthstone/frankentui",
+    "url": "https://github.com/Dicklesworthstone/frankentui",
+    "stars": 272,
+    "language": "Rust",
+    "created_at": "2026-01-31T19:21:45Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 11,
+    "code_files": 1191,
+    "sample_technique_files": [
+      ".beads/beads.base.jsonl",
+      ".beads/issues.jsonl",
+      "crates/doctor_frankentui/contracts/opentui_confidence_model_v1.json",
+      "crates/doctor_frankentui/src/alien_kernel_tests.rs",
+      "crates/doctor_frankentui/src/composition_matrix.rs"
+    ],
+    "description": "Minimal, high-performance terminal UI kernel with diff-based rendering, inline mode, and RAII terminal cleanup",
+    "topics": [
+      "rendering",
+      "rust",
+      "terminal",
+      "tui",
+      "ui-framework"
+    ],
+    "readme": "# FrankenTUI (ftui)\n\n```\n███████╗██████╗  █████╗ ███╗   ██╗██╗  ██╗███████╗███╗   ██╗████████╗██╗   ██╗██╗\n██╔════╝██╔══██╗██╔══██╗████╗  ██║██║ ██╔╝██╔════╝████╗  ██║╚══██╔══╝██║   ██║██║\n█████╗  ██████╔╝███████║██╔██╗ ██║█████╔╝ █████╗  ██╔██╗ ██║   ██║   ██║   ██║██║\n██╔══╝  ██╔══██╗██╔══██║██║╚██╗██║██╔═██╗ ██╔══╝  ██║╚██╗██║   ██║   ██║   ██║██║\n██║     ██║  ██║██║  ██║██║ ╚████║██║  ██╗███████╗██║ ╚████║   ██║   ╚██████╔╝██║\n╚═╝     ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝   ╚═╝    ╚═════╝ ╚═╝\n```\n\n<div align=\"center\">\n  <img src=\"docs/assets/frankentui_illustration.webp\" alt=\"FrankenTUI - Minimal, high-performance terminal UI kernel\">\n</div>\n\nHigh‑performance terminal UI kernel -- 1.1M+ lines of Rust across 20 crates, 80+ widget/stateful-widget implementations, 45 interactive demo screens, a Bayesian intelligence layer, resizable pane workspaces, and in-tree web/WASM backends -- focused on correctness, determinism, and clean architecture.\n\n![status](https://img.shields.io/badge/status-WIP-yellow)\n![rust](https://img.shields.io/badge/rust-nightly-blue)\n![license](https://img.shields.io/badge/license-MIT%2BOpenAI%2FAnthropic%20Rider-green)\n![crates](https://img.shields.io/badge/crates-20-blue)\n![widgets](https://img.shields.io/badge/widgets-80%2B-blue)\n![screens](https://img.shields.io/badge/demo_screens-45-blue)\n\n## Try It in Your Browser\n\nAll 45 screens run as WASM at **[frankentui.com/web](https://frankentui.com/web)** — no install, no toolchain. It renders through WebGPU where that exists and falls back to canvas2d, so Chrome, Edge, Safari and Firefox all work.\n\nPhones too: swipe in from either edge to change screens, and the bar along the bottom carries a button for every key the current screen uses. Press and hold to drag; a divider drags straight away.\n\n## Quick Run (from source)\n\nThe **primary** way to see what the system can do is the demo showcase:\n`cargo run -p ftui-demo-showcase` (not the harness).\n\n```bash\n# Download source with curl (no installer yet)\ncurl -fsSL https://codeload.github.com/Dicklesworthstone/frankentui/tar.gz/main | tar -xz\ncd frankentui-main\n\n# Run the demo showcase (primary way to see what FrankenTUI can do)\ncargo run -p ftui-demo-showcase\n```\n\n**Or clone with git:**\n\n```bash\ngit clone https://github.com/Dicklesworthstone/frankentui.git\ncd frankentui\ncargo run -p ftui-demo-showcase\n```\n\n---\n\n## TL;DR\n\n**The Problem:** Most TUI stacks make it easy to draw widgets, but hard to build *correct*, *flicker‑free*, *inline* UIs with strict terminal cleanup and deterministic rendering.\n\n**The Solution:** FrankenTUI is a kernel‑level TUI foundation with a disciplined runtime, diff‑based renderer, and inline‑mode support that preserves scrollback while keeping UI chrome stable.\n\n### Why Use FrankenTUI?\n\n| Feature | What It Does | Example |\n|---------|--------------|---------|\n| **Inline mode** | Stable UI at top/bottom while logs scroll above | `ScreenMode::Inline { ui_height: 10 }` in the runtime |\n| **Deter",
+    "readme_source": "full"
+  },
+  {
+    "repo": "Dicklesworthstone/remote_compilation_helper",
+    "url": "https://github.com/Dicklesworthstone/remote_compilation_helper",
+    "stars": 60,
+    "language": "Rust",
+    "created_at": "2026-01-16T07:42:34Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 1077,
+    "sample_technique_files": [
+      ".beads/issues.jsonl",
+      "rch-common/tests/admission_goldens_e2e.rs"
+    ],
+    "description": "Intercepts cargo/gcc builds from AI coding agents via hooks and transparently routes them to remote worker machines, returning artifacts as if compiled locally",
+    "topics": [
+      "ai-agents",
+      "compilation",
+      "developer-tools",
+      "distributed-computing",
+      "rust"
+    ],
+    "readme": "# rch — Remote Compilation Helper <div align=\"center\"> <img src=\"rch_illustration.webp\" alt=\"rch - Remote Compilation Helper for AI coding agents\"> </div> <div align=\"center\"> <h3>Quick Install</h3> ```bash curl -fsSL \"https://raw.githubusercontent.com/Dicklesworthstone/remote_compilation_helper/main/install.sh?$(date +%s)\" | bash -s -- --easy-mode ``` <p><em>Installs `rch` + `rchd`, bootstraps config, and can install/start the background daemon. If remote execution cannot proceed, RCH fails open to local execution.</em></p> </div> <div align=\"center\"> <img src=\"rch_diagram.webp\" alt=\"rch arch",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Dicklesworthstone/sqlmodel_rust",
+    "url": "https://github.com/Dicklesworthstone/sqlmodel_rust",
+    "stars": 8,
+    "language": "Rust",
+    "created_at": "2026-01-22T02:11:26Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 184,
+    "sample_technique_files": [
+      ".beads/issues.jsonl",
+      "AGENTS.md",
+      "crates/sqlmodel-e2e/tests/schema_oracle.rs",
+      "docs/reality-check-bridge-plan-2026-09-08.md"
+    ],
+    "description": "Rust ORM inspired by Python's SQLModel: derive-macro models, type-safe query builder, multi-dialect SQL generation, and cancel-correct async via asupersync",
+    "topics": [
+      "database",
+      "orm",
+      "rust",
+      "sql",
+      "sqlite"
+    ],
+    "readme": "# SQLModel Rust\n\n<div align=\"center\">\n  <img src=\"sqlmodel_rust_illustration.webp\" alt=\"SQLModel Rust - SQL databases in Rust, designed to be intuitive and type-safe\">\n</div>\n\n<div align=\"center\">\n\n**SQL databases in Rust, designed to be intuitive and type-safe.**\n\n[![License: MIT](https://img.shields.io/badge/License-MIT%2BOpenAI%2FAnthropic%20Rider-blue.svg)](LICENSE)\n[![Rust: Nightly](https://img.shields.io/badge/Rust-nightly-orange.svg)](https://www.rust-lang.org/)\n\n*A Rust port of [tiangolo/sqlmodel](https://github.com/tiangolo/sqlmodel) (Python), extended with [asupersync](https://github.com/Dicklesworthstone/asupersync) for structured concurrency and cancel-correct async database operations.*\n\n</div>\n\n---\n\n## TL;DR\n\n**The Problem**: Existing Rust ORMs are either too low-level (raw SQL strings), too magical (runtime reflection), or force you to learn complex DSLs. You shouldn't need a PhD in database theory to insert a row.\n\n**The Solution**: SQLModel Rust provides Python SQLModel's developer experience with Rust's compile-time safety. Define your models with derive macros, query with type-safe builders, and let the compiler catch your mistakes.\n\n### Why SQLModel Rust?\n\n| Feature | What It Does |\n|---------|--------------|\n| **Zero-cost derive macros** | `#[derive(Model)]` generates efficient code at compile time—no runtime reflection |\n| **Type-safe query builder** | Compile-time validation of SQL expressions, columns, and joins |\n| **Cancel-correct async** | Built on [asupersync](https://github.com/Dicklesworthstone/asupersync) for structured concurrency |\n| **Multi-dialect support** | Single codebase generates Postgres, SQLite, or MySQL SQL |\n| **Lean dependencies** | No tokio/sqlx/diesel/sea-orm; core stays small, drivers/validation use focused crypto/regex deps |\n\n---\n\n## Quick Example\n\n```rust\nuse sqlmodel::prelude::*;\n\n#[derive(Model, Debug)]\n#[sqlmodel(table = \"heroes\")]\nstruct Hero {\n    #[sqlmodel(primary_key, auto_increment)]\n    id: Option<i64>,\n\n    #[sqlmodel(unique)]\n    name: String,\n\n    secret_name: String,\n\n    #[sqlmodel(nullable)]\n    age: Option<i32>,\n\n    #[sqlmodel(foreign_key = \"teams.id\")]\n    team_id: Option<i64>,\n}\n\n// Type-safe query building; the SQL can be rendered for any dialect without a connection\nlet query = select!(Hero)\n    .filter(Expr::col(\"age\").gt(18))\n    .order_by(Expr::col(\"name\").asc())\n    .limit(10);\nlet (sql, params) = query.build_with_dialect(Dialect::Postgres);\nassert_eq!(\n    sql,\n    \"SELECT * FROM \\\"heroes\\\" WHERE \\\"age\\\" > $1 ORDER BY \\\"name\\\" ASC LIMIT 10\"\n);\nassert_eq!(params, vec![Value::Int(18)]);\n\n// Execute against a connection: every operation takes a `Cx` and returns an\n// `Outcome` (Ok / Err / Cancelled / Panicked)\nasync fn adult_heroes(cx: &Cx, conn: &impl Connection) -> Outcome<Vec<Hero>, Error> {\n    select!(Hero)\n        .filter(Expr::col(\"age\").gt(18))\n        .order_by(Expr::col(\"name\").asc())\n        .limit(10)\n        .all(cx, conn)\n        .await\n}\n```\n\nWith the `night",
+    "readme_source": "full"
+  },
+  {
+    "repo": "dileepdkumar/https-github.com-cockroachdb-cockroach2",
+    "url": "https://github.com/dileepdkumar/https-github.com-cockroachdb-cockroach2",
+    "stars": 0,
+    "language": "Go",
+    "created_at": "2022-04-06T12:21:21Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 18,
+    "code_files": 5927,
+    "sample_technique_files": [
+      "pkg/BUILD.bazel",
+      "pkg/bench/rttanalysis/validate_benchmark_data.go",
+      "pkg/ccl/backupccl/restore_data_processor.go",
+      "pkg/col/coldata/batch.go",
+      "pkg/kv/kvserver/replica_rangefeed.go"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "<p align=\"center\"> <img src='docs/media/cockroach_db.png?raw=true' width='70%'> </p> --- CockroachDB is a cloud-native distributed SQL database designed to build, scale, and manage modern, data-intensive applications. - [What is CockroachDB?](#what-is-cockroachdb) - [Docs](#docs) - [Starting with Cockroach Cloud](#starting-with-cockroachcloud) - [Starting with CockroachDB](#starting-with-cockroachdb) - [Client Drivers](#client-drivers) - [Deployment](#deployment) - [Need Help?](#need-help) - [Contributing](#contributing) - [Design](#design) - [Comparison with Other Databases](#comparison-with-",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "DITlieD/ELAI-archive",
+    "url": "https://github.com/DITlieD/ELAI-archive",
+    "stars": 21,
+    "language": "Rust",
+    "created_at": "2026-09-05T23:21:22Z",
+    "technique_test_files": 4,
+    "technique_nontest_files": 18,
+    "code_files": 2775,
+    "sample_technique_files": [
+      ".claude/gate-manifest.txt",
+      ".elai_cc/crates/cli/src/args.rs",
+      ".elai_cc/crates/cli/src/main.rs",
+      ".elai_cc/crates/cli/src/runtime_config.rs",
+      ".elai_cc/crates/cli/src/shadow_check_cmd.rs"
+    ],
+    "description": "Abandoned, unsupported research archive for a local-first, model-agnostic LLM agent harness exploring orchestration, code retrieval, off-agent verification, deterministic replay, sandboxing, context management, and model routing. MIT.",
+    "topics": [
+      "agent-orchestration",
+      "agent-verification",
+      "ai-agents",
+      "coding-agents",
+      "deterministic-replay",
+      "llm-agent",
+      "local-llm",
+      "multi-agent-systems",
+      "rag",
+      "research-archive",
+      "rust",
+      "sandboxing"
+    ],
+    "readme": "# ELAI — abandoned agent-harness research\n\n> [!WARNING]\n> **Abandoned and unsupported. Do not download this expecting a working product.**\n> This is an unfinished code and research archive. Historical implementation,\n> security and benchmark claims have not been revalidated. No maintenance is planned.\n\nELAI explored a local-first, model-agnostic agent harness: models propose actions,\nwhile software owns planning, state, permissions, execution, evidence,\nverification and the decision that work is complete. That was the design goal;\nit is not a claim that every path enforced it correctly.\n\nI used it to try too many ideas headlessly, not as software I relied on for actual\nwork. Retrieval, orchestration, verification, sandboxing, memory, model routing,\nself-improvement and UI experiments kept accumulating. It became overengineered,\nand I abandoned it. The lesson is simple: **build software you want to use that\nsolves your problems, not all the problems you know about.**\n\n## Five ideas worth investigating\n\n- **Evidence outside the generating agent:** judge work through independently captured artifacts.\n- **Fail-closed verification:** reject missing evidence instead of treating it as a skipped check.\n- **Journals and replay:** preserve what happened and explore reproducible execution.\n- **Bounded workers:** keep task state, permissions and completion decisions in the harness.\n- **Code retrieval:** combine keyword/vector search, dependency graphs and repository maps within a context budget.\n\nThese are extraction candidates and design references. The [salvage map](SALVAGE-MAP.md)\nlinks to source code, integration points and concrete limitations.\n\n## Code, experiments and plans\n\n| Material | What you can conclude |\n| --- | --- |\n| [Rust, Python and Tauri source](.elai_cc/) | Implementation exists; current buildability and end-to-end behavior are unverified. |\n| [Benchmarks and recorded results](BENCHMARKS.md) | Harnesses, fixtures and historical result artifacts are included; their scope and missing inputs matter. |\n| [659-entry feature catalog](docs/FEATURE-CATALOG.md) | These are plan units and experiments, not 659 working features. |\n\nThe archive preserves **883 real historical commits**, with privacy edits to their\ncontents and identities, followed by archive-preparation commits. Dates and parent\nrelationships were retained; see the [history review](HISTORY-REVIEW.md).\n\n## Start here\n\n- [Postmortem](POSTMORTEM.md) — why the project expanded and what I would do differently.\n- [Salvage map](SALVAGE-MAP.md) — concrete places to start reading or extracting.\n- [Benchmark guide](BENCHMARKS.md) — what was committed and what the results actually cover.\n- [Conductor](CONDUCTOR.md) — the external automation that coordinated ELAI's development, with a guide to the selected source.\n- [Detailed research overview](RESEARCH-OVERVIEW.md) — the former long README, including the full catalog.\n- [Recovered documentation](docs/RECOVERED-DOCUMENTS.md) — dashboard designs,",
+    "readme_source": "full"
+  },
+  {
+    "repo": "ditto-assistant/ditto-subnet",
+    "url": "https://github.com/ditto-assistant/ditto-subnet",
+    "stars": 9,
+    "language": "Python",
+    "created_at": "2026-04-29T13:22:08Z",
+    "technique_test_files": 9,
+    "technique_nontest_files": 21,
+    "code_files": 3381,
+    "sample_technique_files": [
+      "apps/platform/ditto/api_models/benchmark_contract.py",
+      "apps/platform/ditto/api_models/gate_evidence.py",
+      "miners/dittobench-starter-kit/scripts/rehearsal_gates.py",
+      "miners/dittobench-starter-kit/scripts/test_local_rehearsal.py",
+      "research/dittobench-datagen/README.md"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# Ditto Subnet (Bittensor SN118)\n\nA Bittensor subnet that incentivizes agent memory harnesses. Miners submit a Docker build context\nthat serves the public harness HTTP contract; the implementation may use Rust, Python, TypeScript,\nGo, or any other language. Validators run each screened image in an isolated sandbox and score it\non DittoBench (tool-calling and memory recall).\nWhen eligible miners exist, 100% of miner emission follows the king-of-the-hill ranking; with no\neligible miners, 100% is burned.\n\nThis is the public home for miners, validators, scoring, screening, and subnet\noperations. The generic Rust\n[`ditto-harness`](https://github.com/ditto-assistant/ditto-harness) library\nremains an independently reusable dependency; the deterministic generator and\ngrader now live in [`research/dittobench-datagen`](research/dittobench-datagen).\n\n## Layout\n- `miners/dittobench-starter-kit/`: the miner reference harness, playground,\n  offline practice loop, and submission packager. Coding agents: `/mine`.\n- `miners/dittobench-coding-starter-kit/`: shadow-only SWE coding-agent harness\n  for the public coding practice protocol; it has no production score or weight.\n- `ditto/miner_cli/`: the `ditto` CLI: submit an agent, poll status, pre-flight a tarball.\n- `ditto/validator/`: the validator worker (`python -m ditto.validator`): pull agents from the\n  platform, score them via dittobench, set weights on chain via Pylon (the\n  identity-based weight-setting service).\n- `ditto/api_models/`: Pydantic wire shapes shared with the platform (the HTTP contract).\n- `ditto/chain/`: Pylon-backed `ChainClient` (used by the validator to set weights).\n- `services/dittobench-api/`: the Go scorer used by validators and hosted practice.\n- `research/dittobench-datagen/`: deterministic datasets, grader, and research tools.\n- `research/dittobench-coding-datagen/`: shadow-only coding-repair capsule compiler,\n  curation auditor, and disjoint public practice pack.\n- `services/screener-orchestrator/`: Hetzner-first screener capacity control and trusted build support.\n- `apps/platform/`: the subnet API, durable queue, dashboard, and control plane.\n- `apps/backroom/`: the public-source SN118 operations console.\n- `workers/screener/`: the provider-neutral screening worker runtime.\n- `packages/ditto-screening-protocol/`: shared screening wire and signing contract.\n\nSubmission screening is platform-operated and is not installed or deployed by\nthis package. Miner and validator clients import the lifecycle contract from\nthe public `ditto-screening-protocol` package in `ditto-screener`.\n\n## Operator guides\n\n- [Mine on SN118](docs/MINER.md): prepare, verify, submit, and track an agent.\n- [Link rotated miner wallets](docs/OWNER-LINKS.md): prove that two hotkeys\n  belong to the same operator after a wallet rotation.\n- [Validate SN118](docs/VALIDATOR.md): deploy, verify, and operate the complete validator stack.\n- [Maintenance treasury](docs/maintenance-treasury.md): the proposed funding,\n  cust",
+    "readme_source": "full"
+  },
+  {
+    "repo": "divagr18/Pull-Guard",
+    "url": "https://github.com/divagr18/Pull-Guard",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-06-14T04:51:07Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 234,
+    "sample_technique_files": [
+      "tests/test_value_pipeline.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# Pull Guard **A maintainer workspace for understanding a busy pull-request queue before it turns into a review bottleneck.** > **Evaluate it at the live demo:** <https://pullguard.divagr.com> > > **Source:** <https://github.com/divagr18/Pull-Guard> ## Try it first For evaluation, use **[pullguard.divagr.com](https://pullguard.divagr.com)**. It is already connected to a prepared demo repository and shows the complete review flow. Local setup requires a GitHub App, OAuth credentials, a database, model access, and disposable runner infrastructure, so it is better suited to development than a qui",
+    "readme_source": "excerpt"
+  }
+]

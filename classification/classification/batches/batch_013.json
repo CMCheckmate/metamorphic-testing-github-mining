@@ -1,0 +1,1062 @@
+[
+  {
+    "repo": "HiQS-Labs/XYZ-forge",
+    "url": "https://github.com/HiQS-Labs/XYZ-forge",
+    "stars": 5,
+    "language": "Shell",
+    "created_at": "2026-08-15T22:35:08Z",
+    "technique_test_files": 4,
+    "technique_nontest_files": 3,
+    "code_files": 938,
+    "sample_technique_files": [
+      "CHANGELOG.md",
+      "PARKED/2026-10-04-metamorphic-worktree-config.md",
+      "PROJECT/2-WORKING/recon-gh949-ate-remediation.md",
+      "PROJECT/3-COMPLETED/GH-155-3RD-GEN-ATE-METAMORPHIC-INVARIANTS.md",
+      "TESTS-RESULTS/2026-08-23+GH-174/gh174-soak-driver.py"
+    ],
+    "description": "XYZ Forge is a local-first engineering operations system. It coordinates several AI coding agents — Claude Code, Codex, agy (Google's Antigravity CLI), and others — working on the same repositories, and it carries the surrounding machinery an unattended agent run actually needs: specified work, collision-free lanes, verification gates, and receipts",
+    "topics": [],
+    "readme": "# XYZ Forge\n\n**A local-first engineering operations system for running AI coding agents as a workforce.**\n\nXYZ Forge coordinates several AI coding agents — Claude Code, Codex, `agy` (Google's Antigravity\nCLI), and others — working on the same repositories, and it carries the surrounding machinery an\nunattended agent run actually needs: specified work, collision-free lanes, verification gates, and a\nreceipted record of what happened.\n\nIt started as a coordination kernel. It has become the loop around it:\n\n```\ncapture → rate → plan → preflight → execute → gate → land → record\n```\n\nEvery stage is a CLI verb or a skill, every artifact is on your disk, and no stage requires a\nserver, an account, or an API key for the coordination layer itself.\n\n> **Safety and warranty:** XYZ Forge is provided **\"AS IS,\" without warranty**, under the applicable\n> license. Coding-agent automation is inherently risky: models may choose commands through their own\n> runtimes and safety controls, outside the intended harness workflow. XYZ Forge cannot guarantee\n> model behavior or data integrity; maintain tested, independent backups and follow industry-standard\n> backup and recovery practices.\n\n---\n\nClaude consult and relay support explicit subscription checks and native reasoning effort.\nSee [Claude setup](relay-automation/README.md#claude-subscription-mode) for restricted\nconsult reads, supported CLI versions, and failure diagnostics.\n\n## Status: Beta, single-operator, moving fast\n\nBe clear-eyed about what you are adopting.\n\n| | |\n|---|---|\n| Age | Current history rooted 2026-08-15 after a 2026-09-02 reset; the project predates it (archival tag `bash-final-2026-07-28`) |\n| Release tags | No release tags — two archival tags only; versions are tracked in an internal ledger, not published ([#452](https://github.com/HiQS-Labs/XYZ-forge/issues/452) tracks adopting them) |\n| Primary operator | One, with a small collaborator set; most commits are agent-authored |\n| Test suite | ~350 registered suites (count drifts weekly); `npm run test:unit` is a 14-case, sub-second kernel check |\n| Gates | Local pre-push gate plus hosted CI on `main` and `development` |\n| Runtime | Python by default since the `XYZ_PYTHON` flip; frozen Bash twins remain as a fallback |\n| Known-weakest area | The frozen Bash fallback paths, and Python static analysis (there is none) |\n\nThis is software that has been used hard by its author against real repositories and has the scar\ntissue to show it — several guards in this repo exist because an earlier version destroyed work.\nThat is a point in its favor and a warning at once. **Run it on a branch. Keep independent backups.**\n\n---\n\n## Prove the kernel works — 60 seconds, no accounts\n\nTested on **Node 18+**; requires **git**.\n\n```bash\nnpm install                # two parser deps used by the test tooling\nnpm run test:unit          # ~1s — 14 kernel unit tests\n```\n\nThen, if you intend to contribute:\n\n```bash\nbash githooks/install.sh   # ONCE PER CLONE — wires the ",
+    "readme_source": "full"
+  },
+  {
+    "repo": "HirotoShioi/functional-correctness-with-quickcheck",
+    "url": "https://github.com/HirotoShioi/functional-correctness-with-quickcheck",
+    "stars": 4,
+    "language": "Haskell",
+    "created_at": "2019-07-02T05:45:58Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 2,
+    "code_files": 9,
+    "sample_technique_files": [
+      "src/Examples/BSTSpec.hs",
+      "src/Solution/TrieSpec.hs"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# functional-correctness-with-quickcheck Working implementation of collections of effective QuickCheck tests based on the [paper](./paper.pdf) written by John Hughes, founder of QuickCheck. ## How to build this project You can use [stack](https://docs.haskellstack.org/en/stable/README/) to build the project ```terminal stack build ghci ``` ### Turning off pretty-printing I'm using [pretty-simple](http://hackage.haskell.org/package/pretty-simple) library for the repl. If this is not preferred for you, please go to `.ghci` file and delete these lines ``` :set -package pretty-simple import Text.P",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "hitmux/HitSimple",
+    "url": "https://github.com/hitmux/HitSimple",
+    "stars": 1,
+    "language": "C++",
+    "created_at": "2025-08-12T08:51:25Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 1064,
+    "sample_technique_files": [
+      "CMakeLists.txt",
+      "tests/properties/run_properties.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# HitSimple HitSimple is an experimental programming language and a C++20 compiler. Its core model is \"data resides in memory, and meaning comes from explicit interpretation\": the same bytes can be interpreted as integers, floating-point values, strings, addresses, or structured layouts, while storage remains separate from interpretation templates. The compiler pipeline is operational end to end: ```text source -> preprocessor -> lexer -> parser -> AST -> sema -> HIR -> LLVM IR -> executable ``` `Standard.md` is the authority for language semantics. The current tests validate implemented behav",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "hjerpe/sqlenv",
+    "url": "https://github.com/hjerpe/sqlenv",
+    "stars": 1,
+    "language": "Python",
+    "created_at": "2026-04-12T15:03:52Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 54,
+    "sample_technique_files": [
+      "docs/ARCHITECTURE.md",
+      "server/synthetic/__init__.py"
+    ],
+    "description": "RL environment for teaching small language models to explore SQL databases iteratively",
+    "topics": [],
+    "readme": "--- title: SQLEnv emoji: 🤖 colorFrom: blue colorTo: green sdk: docker app_port: 8000 pinned: true --- # SQLEnv: Teaching Small Models to Explore Databases ![Python](https://img.shields.io/badge/python-3.12-blue.svg) ![License](https://img.shields.io/badge/license-MIT-green.svg) ![Data](https://img.shields.io/badge/data-CC%20BY--SA%204.0-orange.svg) SQLEnv is an RL environment for training small language models to answer questions about SQL databases through iterative exploration. Instead of producing one-shot SQL from a fully visible schema, the agent discovers the schema step by step using fo",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "hjin98/scientific-software-development-protocol",
+    "url": "https://github.com/hjin98/scientific-software-development-protocol",
+    "stars": 1,
+    "language": "Python",
+    "created_at": "2026-08-18T14:00:19Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 287,
+    "sample_technique_files": [
+      "README.md",
+      "orchestrator/src/sdp_orchestrator/core/resources/protocol/ssdp-protocol-6.0/prompts.md",
+      "orchestrator/src/sdp_orchestrator/core/resources/protocol/ssdp-protocol-6.1/prompts.md",
+      "qualification/ssdp6/DIAGNOSTIC-PROTOCOL-6.3-BOOTSTRAP-PUBLICATION.md",
+      "qualification/ssdp6/DIAGNOSTIC-PROTOCOL-6.3-BOOTSTRAP-SENTINEL-TRANSITION.txt"
+    ],
+    "description": "A software development protocol skills for agentic coding in python. Currently used for the mdstats package development.",
+    "topics": [],
+    "readme": "# Scientific Software Development Protocol **Build scientific software that stays scientifically correct as the code, algorithms, hardware, and team evolve.** The Scientific Software Development Protocol (SSDP) is a set of portable skills for AI coding agents, backed by an engineering doctrine for scientific software. It helps you separate **what must remain true** from **how the software happens to achieve it today**. That distinction is the core of the protocol. Scientific models, numerical methods, architecture, and public behavior should be explicit enough to protect. Implementation detail",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "hoelzl/termverify",
+    "url": "https://github.com/hoelzl/termverify",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-07-14T20:15:27Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 78,
+    "sample_technique_files": [
+      "docs/knowledge/product-vision.md",
+      "tests/test_readme_capability_truth.py"
+    ],
+    "description": "Protocol-driven verification for autonomous terminal applications.",
+    "topics": [
+      "ai-agents",
+      "python",
+      "terminal",
+      "testing",
+      "tui",
+      "verification"
+    ],
+    "readme": "# TermVerify Protocol-driven verification for autonomous terminal applications. TermVerify is a Python library and reference toolkit for testing terminal and TUI applications through reproducible interaction. It combines direct semantic adapters with real pseudoconsole-driven runs, then compares structured observations rather than relying only on brittle raw-terminal snapshots. ## Why An autonomous coding agent is most reliable when it can make a change, exercise the actual program, observe meaningful results, and leave behind replayable evidence. Terminal applications need this especially bad",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "holland202/sentinel-hai-validation",
+    "url": "https://github.com/holland202/sentinel-hai-validation",
+    "stars": 1,
+    "language": "Python",
+    "created_at": "2026-09-03T17:11:39Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 14,
+    "sample_technique_files": [
+      "evaluator_experiments.py"
+    ],
+    "description": "JSD and conformal anomaly detection on the HAI power-generation ICS benchmark. Registered predictions, independent eTaPR implementation, and a provably-undetectable FDIA control. No results yet.",
+    "topics": [],
+    "readme": "# sentinel-hai-validation **A preregistered evaluation of anomaly detection on the HAI industrial control system benchmark.** **Two detectors, two outcomes. No detector has scored `test1`.** SENTINEL's P0a **FAILED** — it did not satisfy the registered precondition required to interpret any attack-detection measurement, so P1 and P3 are VOID. VERA's P7a **PASSED** on the same held-out slice under amendment 5, which is the first anti-vacuity gate this repository has cleared. **No attack-detection result is claimed by either.** A passing gate licenses scoring `test1`; no detector has scored it.",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Homiakus/autotraceLab",
+    "url": "https://github.com/Homiakus/autotraceLab",
+    "stars": 0,
+    "language": "TypeScript",
+    "created_at": "2026-08-23T16:11:56Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 213,
+    "sample_technique_files": [
+      "docs/ADAPTIVE_PORT_PLACEMENT.md",
+      "docs/MASTER_IMPLEMENTATION_PLAN.md",
+      "docs/PARITY_REPORT.md",
+      "docs/SEMANTIC_PROJECTION_SPACE_IMPLEMENTATION_PLAN.md",
+      "docs/VISUAL_COMPOSITION_CONTRACT.md"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "<div align=\"center\"> <img width=\"1200\" height=\"475\" alt=\"GHBanner\" src=\"https://ai.google.dev/static/site-assets/images/share-ais-513315318.png\" /> </div> # AutoTrace Lab Интерактивная лаборатория для построения, трассировки и анализа сложных схем. ## Universal Process Domain — одно ядро для разных применений Process Math / Simulation / Digital Twin / Batch / Reliability / Optimizer развиваются как **domain-neutral core**. LBC является одним из профилей применения, а не архитектурой ядра. ```text http://localhost:3000/?view=process-universal ``` или: ```text http://localhost:3000/#process-univ",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Homiakus/deepsearch",
+    "url": "https://github.com/Homiakus/deepsearch",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-08-14T13:48:27Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 355,
+    "sample_technique_files": [
+      "tests/property/test_properties_ds29.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# DeepSearch > **Adaptive Web Scraping, Multivector Retrieval & Deep Research Engine** [English](README.md) • [Русский](README.ru.md) [![Python Version](https://img.shields.io/badge/python-3.11%20%7C%203.12%20%7C%203.13-blue.svg)](pyproject.toml) [![License: Apache 2.0](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE) [![MCP Server](https://img.shields.io/badge/MCP-FastMCP%20stdio-purple.svg)](docs/MCP_GUIDE.md) [![FastAPI](https://img.shields.io/badge/FastAPI-0.110+-009688.svg)](scraper/api/app.py) DeepSearch is an adaptive web scraping, content extraction, and autonomous",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "hossainpazooki/regulatory-rule-engine",
+    "url": "https://github.com/hossainpazooki/regulatory-rule-engine",
+    "stars": 0,
+    "language": "Rust",
+    "created_at": "2025-11-28T17:36:08Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 1,
+    "code_files": 235,
+    "sample_technique_files": [
+      "crates/ke-runtime/Cargo.toml",
+      "crates/ke-runtime/src/scenario.rs",
+      "crates/ke-runtime/tests/metamorphic.rs",
+      "dev/briefs/gate-3-preview-runtime.md",
+      "docs/gate-3-implementation-log.md"
+    ],
+    "description": "ATLAS ingests regulatory text, extracts candidate legal rules, verifies them through schema, semantic, entailment, cross-rule, and human-review tiers, then compiles approved rules into deterministic, auditable execution traces across jurisdictions.",
+    "topics": [
+      "agentic-ai",
+      "consistency-verification",
+      "fastapi",
+      "knowledge-engineering",
+      "regulatory-tech",
+      "rule-engine"
+    ],
+    "readme": "# ATLAS — Automated Transjurisdictional Legal Rule Assurance System\n\nCompiles contradictory multi-jurisdiction regulation into machine-verified,\nexecutable, auditable rule artifacts.\n\n[![rust-ci](https://github.com/hossainpazooki/regulatory-rule-engine/actions/workflows/rust-ci.yml/badge.svg)](https://github.com/hossainpazooki/regulatory-rule-engine/actions/workflows/rust-ci.yml)\n[![contract-tests](https://github.com/hossainpazooki/regulatory-rule-engine/actions/workflows/contract-tests.yml/badge.svg)](https://github.com/hossainpazooki/regulatory-rule-engine/actions/workflows/contract-tests.yml)\n[![wasm-build](https://github.com/hossainpazooki/regulatory-rule-engine/actions/workflows/wasm-build.yml/badge.svg)](https://github.com/hossainpazooki/regulatory-rule-engine/actions/workflows/wasm-build.yml)\n\n## 0. The system\n\nATLAS is the **policy plane** of a three-repo system: it compiles, signs, and\npublishes the verified artifacts — rule packs and treasury IntentSpecs — that\nthe other planes consume. `treasury-intent-controller` authorizes payment\nintents against ATLAS-signed IntentSpecs; COMPASS decides and settles from\nthe gate's durable feed.\n\n```mermaid\nflowchart LR\n  A[\"ATLAS (this repo)<br/>policy plane — Rust<br/>compile · sign · publish\"] -->|\"signed artifacts:<br/>rule packs · IntentSpecs\"| T[\"treasury-intent-controller<br/>authorization plane — Go gate + Python scorer\"]\n  A -->|\"signed rule artifacts<br/>(verified in-browser)\"| C[\"COMPASS<br/>decision + settlement plane — TypeScript\"]\n  T -->|\"durable ACHIEVED feed\"| C\n```\n\nFull story and live-loop evidence: [docs/SYSTEM.md](docs/SYSTEM.md).\n\n## What it is\n\nNot a retrieval application — retrieval finds relevant passages; ATLAS turns\nlegal text into verified, executable rule artifacts. AI may **interpret**\nsource documents (advisory only); verification gates and typed expert\nattestations **decide** what becomes trusted; a deterministic engine\n**executes** only verified, signed, content-addressed artifacts.\n\n## The trust pipeline\n\n**ATLAS never executes an unverified candidate rule.**\n\n```mermaid\nflowchart TB\n  Src[\"Legal source documents<br/>contradictory · multi-jurisdiction\"]:::ai --> AI[\"AI interpretation<br/>ADVISORY only\"]:::ai\n  AI --> Gates{\"Verification gates DECIDE<br/>schema · semantic · source-span · conflict · expert attestation\"}:::gate\n  Gates -->|pass| Art[\"Signed artifact<br/>content-addressed · ke-canon-5\"]:::trust\n  Gates -->|fail| Rej[\"Rejected / review-required<br/>never executed\"]:::reject\n  Art --> Reg[\"Registry lifecycle<br/>Published · Deprecated · Revoked\"]:::trust\n  Reg --> Engine[\"Deterministic engine<br/>executes ONLY verified artifacts\"]:::trust\n  Reg --> C1[\"COMPASS<br/>WASM verify, fail-closed\"]:::trust\n  Reg --> C2[\"tic resolver<br/>PyO3 folded verify, fail-closed\"]:::trust\n  Reg --> C3[\"graph exporter<br/>read-only Neo4j view\"]:::trust\n  classDef ai fill:#fef3c7,stroke:#b45309,color:#1f2937;\n  classDef gate fill:#dbeafe,stroke:#1d4ed8,color:#1f2937;\n  classDe",
+    "readme_source": "full"
+  },
+  {
+    "repo": "hrk0503/altiostar-mro-dashboard",
+    "url": "https://github.com/hrk0503/altiostar-mro-dashboard",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-06-04T11:17:28Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 127,
+    "sample_technique_files": [
+      "docs/planning/SPRINT-01-make-the-machine-real.html",
+      "tests/test_metamorphic.py"
+    ],
+    "description": "WINNIIO AltioStar MRO Dashboard",
+    "topics": [],
+    "readme": "# Altiostar MRO Training Pipeline\n\nReusable AI/ML pipeline for Mobility Robustness Optimization: CSV data in → trained RL model + management dashboard out.\n\n**Stream 4** of [AMITY 2026](https://github.com/Life-Atlas/amity-2026) | **Plan:** [ALTIOSTAR-PLAN.md](https://github.com/Life-Atlas/amity-2026/blob/main/streams/ALTIOSTAR-PLAN.md)\n\n### Consolidated Staging Branch\nThe consolidated integration branch containing the combined work of all team members is:\n👉 **`staging`**\n\n## Pre-requisites & Quick Start\n\n### Pre-requisites\n- **Python**: version 3.10 to 3.14.\n- **Operating System**: macOS or Linux.\n- **Virtual Environment**: Recommended to isolate library dependencies.\n\n### Setup\n```bash\ngit clone https://github.com/Life-Atlas/altiostar-tokyo-mro.git\ncd altiostar-tokyo-mro\ngit checkout staging\npython3 -m venv venv\nsource venv/bin/activate\npip install -r requirements.txt\npip install -r requirements-dashboard.txt\n```\n\n### Running the Project Commands\n\n- **Run the Pytest Suite**:\n  ```bash\n  PYTHONPATH=. venv/bin/pytest tests/ -v\n  ```\n- **Launch the Streamlit Dashboard**:\n  ```bash\n  # On macOS, prefix with OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES to avoid thread forks crashing\n  OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES venv/bin/streamlit run src/dashboard/app.py\n  ```\n- **Compile the Widescreen Presentation Deck**:\n  ```bash\n  venv/bin/python scripts/generate_pptx.py\n  ```\n- **Run the SLA Ship Gate Validator**:\n  ```bash\n  venv/bin/python src/pipeline/ship_gate.py --results-dir results/seeded_runs\n  ```\n\n## Architecture: 7 Autonomous Agents\n\n```\nOperator CSV (any format)\n     │\n     ├──→ Pipeline Agent (auto-detect schema → normalize → Parquet)\n     │         │\n     ├──→ Spectrum Agent (3GPP domain validation, RF constraints)\n     │         │\n     ├──→ Forge Agent (Gymnasium env from YAML → PPO training)\n     │         │\n     ├──→ Sentinel Agent (property-based tests, adversarial attacks)\n     │         │\n     ├──→ Deploy Agent (Docker, Helm, Robin orchestrator)\n     │         │\n     └──→ Lens Agent (Streamlit dashboard, PPTX report)\n              │\n         Atlas Agent (orchestrates all, manages gates)\n```\n\n## Project Structure\n\n```\nsrc/\n  agents/          7 agent modules (atlas, pipeline, spectrum, forge, deploy, lens, sentinel)\n  env/             Gymnasium RL environment (YAML-configurable)\n  pipeline/        Schema mapper, data quality, normalization\n  models/          Pydantic data models\nconfigs/           YAML environment configs (scenarios, reward variants)\ndata/synthetic/    4 synthetic CSVs (75-cell Shibuya cluster)\ntests/             pytest + Hypothesis property-based tests\ndocs/logs/         Daily intern logs (one per person per day)\n```\n\n## Synthetic Data\n\n| File | Rows | Description |\n|------|------|-------------|\n| `site_database.csv` | 75 | 25 sites × 3 sectors, Shibuya area |\n| `neighbor_relations.csv` | 763 | 8-12 neighbors per cell, CIO values |\n| `pm_data_april2026.csv` | 216,000 | 15-min ROPs, April 2026, 20 KPIs |\n| `cluster_kpi",
+    "readme_source": "full"
+  },
+  {
+    "repo": "Hruday-Kumar/gd-proto",
+    "url": "https://github.com/Hruday-Kumar/gd-proto",
+    "stars": 0,
+    "language": "JavaScript",
+    "created_at": "2026-07-29T08:37:41Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 192,
+    "sample_technique_files": [
+      "apps/server/test/evaluationGoldenSuite.test.js",
+      "docs/Context/progress.md",
+      "docs/specs/active/SPEC-0011-eval-engine-redesign.md"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# PlaceMe — GD Arena On-demand practice arena for engineering students preparing for campus placements. This repo currently builds **one** module: the **GD (Group Discussion) Arena — Multiplayer mode** — real students in a live audio room with a topic and timer, per-speaker transcription and attribution, and individual written feedback. New here? Read [`CLAUDE.md`](CLAUDE.md) first — it's the single source of truth for scope, fixed constraints, and how this project is run day to day (including for AI coding agents, which this project relies on heavily — see [`docs/engineering/TEAM.md`](docs/en",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "hskim-solv/BidMate-DocAgent",
+    "url": "https://github.com/hskim-solv/BidMate-DocAgent",
+    "stars": 1,
+    "language": "Python",
+    "created_at": "2026-04-29T07:14:15Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 621,
+    "sample_technique_files": [
+      "docs/verification-methodology-map.md",
+      "requirements-dev.txt",
+      "tests/test_retrieval_invariants_property.py"
+    ],
+    "description": "Agentic RAG for Korean RFP intelligence — extractive grounded-answer pipeline with metadata-first retrieval, comparison-aware balanced top-k, and bootstrap-CI eval rigor (ADR-driven).",
+    "topics": [
+      "agentic-ai",
+      "agentic-rag",
+      "evaluation-rigor",
+      "grounded-answer",
+      "information-retrieval",
+      "korean-nlp",
+      "llm-evaluation",
+      "llm-ops",
+      "rag",
+      "rfp"
+    ],
+    "readme": "# BidMate Agent\n**RFP 문서 이해를 위한 Agentic RAG 시스템**\n\n[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) [![PR Eval Delta](https://github.com/hskim-solv/BidMate-DocAgent/actions/workflows/pr-eval.yml/badge.svg?branch=main)](https://github.com/hskim-solv/BidMate-DocAgent/actions/workflows/pr-eval.yml) [![codecov](https://codecov.io/gh/hskim-solv/BidMate-DocAgent/branch/main/graph/badge.svg)](https://codecov.io/gh/hskim-solv/BidMate-DocAgent) [![Python 3.11](https://img.shields.io/badge/Python-3.11-blue.svg)](pyproject.toml) [![Engineering notes](https://img.shields.io/badge/engineering--notes-GitHub%20Pages-blue)](https://hskim-solv.github.io/BidMate-DocAgent/) [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/hskim-solv/BidMate-DocAgent/blob/main/demo/bidmate_quickstart.ipynb) [![Open in HF Spaces](https://huggingface.co/datasets/huggingface/badges/resolve/main/open-in-hf-spaces-sm.svg)](https://huggingface.co/spaces/hskim-solv/bidmate-docagent) [![Live demo on HF Spaces](https://img.shields.io/badge/Live%20demo-HF%20Spaces-success)](https://huggingface.co/spaces/hskim-solv/bidmate-docagent)\n\n**Topics**: `rag` · `agentic-rag` · `korean-nlp` · `rfp` · `grounded-answer` · `evaluation-rigor` · `llm-ops`\n\n![BidMate-DocAgent live demo (5s walkthrough — comparison query, extractive, no LLM)](docs/assets/demo.gif)\n\n## 30초 요약 — What this proves\n\n> 한 줄: 한국 공공·B2B 입찰 RFP 에서 발생하는 **검색 실패 · 근거 부족 · 비교 질의 편향을 failure mode 로 정의**하고, 이를 baseline / ablation / eval / CI 로 검증 가능하게 만든 **근거 기반(citation-grounded) 추출형 RAG** 시스템.\n\n| | |\n|---|---|\n| **무엇을 (what)** | RFP 문서용 citation-grounded **extractive** RAG — 외부 LLM 호출 없이 retrieved evidence 에서 claim 추출 + citation 잠금 ([ADR 0003](docs/adr/0003-structured-answer-citation-contract.md)) |\n| **왜 어려운지 (why hard)** | 한국어 공공/B2B RFP 는 길고 noisy 하며, 기관·사업명이 유사해 문서 간 비교·요건 추출이 구조적으로 어렵다 |\n| **무엇을 엔지니어링 (engineered)** | 메타데이터 우선 검색 ([ADR 0002](docs/adr/0002-metadata-first-retrieval.md)) + [comparison-aware balanced top-k](#핵심-기술-기여--comparison-aware-balanced-top-k) + verifier/retry + 근거 불충분 시 보류(abstention) |\n| **어떻게 평가 (evaluated)** | baseline 보존 ablation ([ADR 0001](docs/adr/0001-preserve-naive-baseline.md)) + 공개 fixture smoke / private internal eval 분리 ([ADR 0005](docs/adr/0005-eval-split-public-synthetic-private-local.md)) + PR 마다 회귀 게이트 ([pr-eval.yml](.github/workflows/pr-eval.yml)) + 99 ADR |\n| **어떻게 실행 (run it)** | `make index && make demo`, 또는 [5분 quickstart](#실행-5분-quickstart) · [Colab](https://colab.research.google.com/github/hskim-solv/BidMate-DocAgent/blob/main/demo/bidmate_quickstart.ipynb) · [Live demo (HF Spaces)](https://huggingface.co/spaces/hskim-solv/bidmate-docagent) |\n\n> **Portfolio signal**: 외부 LLM API 를 호출하는 RAG 데모가 아니라, RFP 도메인의 실패 모드를 직접 정의하고 그것을 막는 평가·CI·provenance 게이트를 **소유(system ownership)** 한 사례. 현재 포지셔닝은 narrow RAG 가 아니라 문서·표·이미지 evidence 를 다루는 **Multimodal Agentic AI Product Engineer** 트랙으로 확장 중이며, 런타임 변경은 모",
+    "readme_source": "full"
+  },
+  {
+    "repo": "htlin222/polish-screen-record",
+    "url": "https://github.com/htlin222/polish-screen-record",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-08-15T17:25:19Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 41,
+    "sample_technique_files": [
+      "docs/plans/2026-08-15-phase1-pure-core.md",
+      "tests/test_align_properties.py"
+    ],
+    "description": "把 Google Drive 或 YouTube 的長時間螢幕錄影自動變成讀得順的繁體中文 SRT 字幕。先斷句再定時的兩階段架構，讓 LLM 永遠碰不到時間碼。Colab T4 + DeepSeek，87 分鐘影片 /bin/zsh.008 美金。",
+    "topics": [
+      "deepseek",
+      "faster-whisper",
+      "github-actions",
+      "google-colab",
+      "google-drive",
+      "python",
+      "speech-to-text",
+      "srt",
+      "subtitle-generator",
+      "subtitles",
+      "traditional-chinese",
+      "transcription",
+      "whisper",
+      "yt-dlp"
+    ],
+    "readme": "# polish-screen-record **把 Google Drive 或 YouTube 上的長時間螢幕錄影，自動變成讀得順的繁體中文字幕。** 開一個 issue、貼上連結、加一個 label，十分鐘後 SRT 就出現在影片旁邊。 [![ci](https://github.com/htlin222/polish-screen-record/actions/workflows/ci.yml/badge.svg)](https://github.com/htlin222/polish-screen-record/actions/workflows/ci.yml) [![python](https://img.shields.io/badge/python-3.11-blue.svg)](https://www.python.org/) [![license](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE) [![tests](https://img.shields.io/badge/tests-211%20passing-brightgreen.svg)](tests/) > 一支 87 分鐘的教學影片，端到端 **602 秒**、成本 **$0.008 美金**，全部跑在免費的 GitHub A",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "hudyakovictor/facproject",
+    "url": "https://github.com/hudyakovictor/facproject",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-07-18T22:16:50Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 331,
+    "sample_technique_files": [
+      "scripts/update_function_checklist.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# DEEPUTIN facproject — Stage 2 Rebuild (stage2_v2) /Users/victorkhudyakov/work/.venv/bin/python ## Обзор **stage2_v2** — это переосмысленная реализация этапа 2 анализа facial geometry. Это Complete rewrite (полная переработка) legacy Stage 2 из `app6/stage2/`, который был ненадежным и непротестируемым без Model Weights и SD-CARD. ## ✅ Что такое stage2_v2 stage2_v2 — это модуль из ~20 файлов (вместо ~98 у legacy), который: - ✅ **Работает с фикстурами** (синтетические Stage 1 data, только numpy) — тестируется на любом ноуте - ✅ **Имеет единый реестр параметров** (83 параметра в `params.py`) — о",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "hunarbhutani11/Campus-Cruise",
+    "url": "https://github.com/hunarbhutani11/Campus-Cruise",
+    "stars": 0,
+    "language": "JavaScript",
+    "created_at": "2026-05-24T09:49:09Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 145,
+    "sample_technique_files": [
+      "backend/src/utils/propertyTestHelpers.js"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# Campus Cruise Community-driven carpooling platform for college students to facilitate ride-sharing within campus and surrounding communities. ## Project Structure ``` campus-cruise/ ├── backend/ # Node.js + Express.js backend │ ├── src/ │ │ ├── config/ # Configuration files (database, firebase) │ │ ├── controllers/ # Request handlers │ │ ├── middleware/ # Express middleware │ │ ├── migrations/ # Database migrations │ │ ├── models/ # Sequelize models │ │ ├── routes/ # API routes │ │ ├── seeders/ # Database seeders │ │ ├── services/ # Business logic │ │ ├── utils/ # Utility functions │ │ └── s",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "hundong2/laboratory",
+    "url": "https://github.com/hundong2/laboratory",
+    "stars": 0,
+    "language": "HTML",
+    "created_at": "2025-07-24T07:55:52Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 255,
+    "sample_technique_files": [
+      "tabfm-tabular-foundation-model/03_advanced.ipynb"
+    ],
+    "description": "laboratory",
+    "topics": [],
+    "readme": "# Laboratory 작성일: 2026-07-16 ## TODO - [ ] [VoiceStudio 한국어 번역·단계별 실습·코드 아키텍처](https://github.com/hundong2/VoiceStudio/blob/9be0ae71951824217c7208bcc4a0f72f3b201c35/guide/README.md) - 2026-09-27 - [ ] [MA-DRL Routing Simulator 한국어 안내·코드 실습·Archify 아키텍처](https://github.com/hundong2/MA-DRL_Routing_Simulator/blob/d6b05a0c16d7ad5bd1a2b38f5a400d4e793bcb87/guide/README.md) - 2026-09-27 - [ ] [위성망 MA-DRL 라우팅 시뮬레이터 논문 번역·지연·큐·Q-routing 실습](ma-drl-satellite-routing/README.md) - 2026-09-27 - [ ] [Intrinsic Core 한국어 번역·C++ 실습·ICON 코드 아키텍처 가이드](https://github.com/hundong2/intrinsic-core/blob/fba2a294979fd",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "huntyyyyyy/spring-boot-doc-agent",
+    "url": "https://github.com/huntyyyyyy/spring-boot-doc-agent",
+    "stars": 1,
+    "language": "Python",
+    "created_at": "2026-07-23T20:07:42Z",
+    "technique_test_files": 2,
+    "technique_nontest_files": 3,
+    "code_files": 948,
+    "sample_technique_files": [
+      "CONTRIBUTING.md",
+      "docs/design/ddia-north-star/deviations/dev-coverage-denominator-codeql.md",
+      "docs/design/test-adequacy-markers-design-2026-08-09.md",
+      "docs/process/session-log/2026-07-25__measure-tier-2-s-false-positive-rate-before.md",
+      "docs/research/coverage-quality/09-test-adequacy-vs-coverage-inflation-2026.md"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# spring-boot-doc-agent\n\n**doc-engine** documents Spring Boot repositories: deterministic Stage 0 scan, optional interview, and a fixed **fourteen-file** markdown set with machine-checkable `certification.json` gates.\n\nThe Claude Code plugin under [`adapters/claude/`](adapters/claude/) is an optional adapter for live generative stages. Operators and CI should use the CLI.\n\n```bash\npip install -r requirements.txt\npip install -e .\ndoc-engine pipeline run /path/to/spring-repo --out-dir pipeline-artifacts\ndoc-engine certification verify pipeline-artifacts/certification.json\n```\n\nArchitecture (kernel vs adapters): [`docs/product-architecture.md`](docs/product-architecture.md).  \n**Orientation for agents/humans (Wave 0):** [`DOMAIN_MAP.md`](DOMAIN_MAP.md) — BCs, truth classes, task order, refuse list; machine inventory [`docs/design/tools_bc_inventory.json`](docs/design/tools_bc_inventory.json).  \nFirst real-repo run: [`docs/guides/operator-pilot.md`](docs/guides/operator-pilot.md).  \nOrg rollout: [`docs/guides/principal-adoption.md`](docs/guides/principal-adoption.md).\nEngineering backlog (Active tip): [`docs/research/quality-backlog.md`](docs/research/quality-backlog.md).\n\n## Pipeline\n\n```\nStage 0  Deterministic scan (no LLM)     spring_signal_scan + partition_repo + build_cross_group_edges\nStage 1  Parallel file summarization      file-summarizer × N groups\nStage 2  Parallel architecture            architect-segment × N → architect-merge\nStage 3  Gaps + review + interview        gap-analyzer + software-architect-and-testing\n                                           → orchestrator asks gap questions live\nStage 4  Parallel doc generation          doc-writer × 14 files\n```\n\nGenerated set: `readme`, `architecture`, `integrations`, `authorization`, `database`, `operations`, `observability`, `troubleshooting`, `configuration`, `change_impact`, `glossary`, `local_development`, `testing`, `known_limitations` (under the run’s docs dir; root `README.md` is never clobbered).\n\nClaims are tagged **evidenced**, **confirmed**, or **unknown** so gaps stay visible. Taxonomy: [`adapters/claude/skills/document-spring-repo/references/doc-taxonomy.md`](adapters/claude/skills/document-spring-repo/references/doc-taxonomy.md).\n\n## Stage 0 (deterministic scan)\n\nDefault scanners: `filesystem` + `ast-grep` (no Java build). Opt into CodeQL with `--scanners filesystem,codeql` when the CLI and a build command are available — see [`CONSTRAINTS.md`](CONSTRAINTS.md).\n\n```bash\npip install -r requirements.txt   # pins ast-grep-cli, sqllineage, pathspec\npython -m doc_engine.tools.spring_signal_scan <repo> --out spring_signals.json\npython -m doc_engine.tools.spring_drift_check <repo> spring_signals.json --out drift_report.json\n```\n\nRules: `src/doc_engine/scanning/resources/spring_ast_grep_rules.yml`. Fixtures: `scripts/fixtures/spring_signals/`. Target-repo `.doc-engine.yml` is **untrusted by default** (`--trust-repo-config` / `--allow-codeql-build` are explicit opt-ins).\n\n## Quality ",
+    "readme_source": "full"
+  },
+  {
+    "repo": "HuRuilizhen/CSC4001-Project",
+    "url": "https://github.com/HuRuilizhen/CSC4001-Project",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-04-15T11:02:09Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 1,
+    "sample_technique_files": [
+      "README.md",
+      "docs/Project Description.md",
+      "submission.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# CSC4001 Project This repository contains coursework materials for the CSC4001 Software Testing assignment. The main deliverable is [`submission.py`](submission.py), which should implement: - `fuzzer(seed, num_cases)` - `metamorphic_relations()` ## Files - [`docs/Project Description.pdf`](docs/Project%20Description.pdf): original assignment brief - [`docs/Project Description.md`](docs/Project%20Description.md): cleaned Markdown version of the brief - [`submission.py`](submission.py): assignment submission file ## Environment Create and activate the virtual environment: ```bash python3.11 -m v",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "huyentran1306/study-certificate",
+    "url": "https://github.com/huyentran1306/study-certificate",
+    "stars": 0,
+    "language": "TypeScript",
+    "created_at": "2026-06-14T11:25:41Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 79,
+    "sample_technique_files": [
+      "src/data/all_questions_insert.sql",
+      "src/data/istqbAiQuestions.ts",
+      "src/data/istqb_ai_questions_insert.sql",
+      "src/data/supabase_setup.sql"
+    ],
+    "description": "study-certificate",
+    "topics": [],
+    "readme": "",
+    "readme_source": "none"
+  },
+  {
+    "repo": "hxrts/causality",
+    "url": "https://github.com/hxrts/causality",
+    "stars": 2,
+    "language": "Rust",
+    "created_at": "2025-03-22T01:08:31Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 332,
+    "sample_technique_files": [
+      "crates/causality-simulation/tests/test_property_based.rs"
+    ],
+    "description": "Algebraic effect-based distributed program compiler and runtime",
+    "topics": [],
+    "readme": "# Causality Linear resource programming for distributed verifiable computation. *This project is at an exterimental stage and changing rapidly.* ![](./causality.png) ## Architecture Causality is built on linear resource programming: every resource is consumed exactly once, creating explicit causal ordering and eliminating many error classes (double-spends, use-after-free, race conditions) by design. Resources are content-addressed through cryptographic hashing, enabling global deduplication, verifiable references, and natural distribution. The system employs a three-layer architecture where ea",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "hyodotdev/openiap",
+    "url": "https://github.com/hyodotdev/openiap",
+    "stars": 138,
+    "language": "TypeScript",
+    "created_at": "2025-08-12T10:53:56Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 1460,
+    "sample_technique_files": [
+      "knowledge/research/backlog.md",
+      "knowledge/research/bibliography.md",
+      "packages/conformance/README.md",
+      "packages/conformance/package.json",
+      "packages/conformance/src/index.mjs"
+    ],
+    "description": "Standardized protocol for in-app purchases across all platforms — backed by Meta & Amazon",
+    "topics": [
+      "android",
+      "apple",
+      "cross-platform",
+      "google",
+      "graphql",
+      "iap",
+      "in-app-purchase",
+      "in-app-purchases",
+      "ios"
+    ],
+    "readme": "# OpenIAP\n\n<p align=\"center\">\n  <img src=\"packages/docs/public/logo.webp\" alt=\"OpenIAP Logo\" width=\"160\" height=\"160\">\n</p>\n\n<p align=\"center\">\n  <strong>The standardized protocol for implementing in-app purchases across all platforms</strong>\n</p>\n\n---\n\nOpenIAP is two protocols for in-app purchases across platforms, frameworks, and emerging technologies: the Client Protocol for what an app calls, and the Commerce Protocol for what servers exchange.\n\n## Overview\n\nThe two protocols standardize IAP implementations to reduce fragmentation and enable consistent behavior across every platform. The Client Protocol gives an app one purchase API whatever the store; the Commerce Protocol gives backends one contract for verification, entitlements, and subscription lifecycle events. This is especially critical in the AI coding era where standardized APIs enable better code generation.\n\n## Protocols\n\nThe contracts every package and library implements live under `specs/`. They are publishable, implementation-independent, and never deployed as services:\n\n- **[Client Protocol](specs/client)** — Client purchase API and generated types for six languages. [![Client Protocol contract version](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fhyodotdev%2Fopeniap%2Fmain%2Fspecs%2Fclient%2Fpackage.json&query=%24.version&label=contract&color=orange&prefix=v)](specs/client/package.json)\n- **[Commerce Protocol](specs/commerce-protocol)** — Server operations, events, bindings, and conformance. [![npm](https://img.shields.io/npm/v/@hyodotdev/openiap-commerce-protocol/latest)](https://www.npmjs.com/package/@hyodotdev/openiap-commerce-protocol)\n\n## Packages\n\nThis monorepo contains all OpenIAP packages:\n\n- **[google](packages/google)** - Android library [![Maven Central (Play)](https://img.shields.io/maven-central/v/io.github.hyochan.openiap/openiap-google?label=Play%20Store)](https://central.sonatype.com/artifact/io.github.hyochan.openiap/openiap-google) [![Maven Central (Horizon)](https://img.shields.io/maven-central/v/io.github.hyochan.openiap/openiap-google-horizon?label=Meta%20Horizon)](https://central.sonatype.com/artifact/io.github.hyochan.openiap/openiap-google-horizon) [![Maven Central (Amazon)](https://img.shields.io/maven-central/v/io.github.hyochan.openiap/openiap-google-amazon?label=Fire%20OS)](https://central.sonatype.com/artifact/io.github.hyochan.openiap/openiap-google-amazon) [![CI](https://github.com/hyodotdev/openiap/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/hyodotdev/openiap/actions/workflows/ci.yml?query=branch%3Amain)\n- **[apple](packages/apple)** - iOS/macOS library [![Swift Package](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fhyodotdev%2Fopeniap%2Fmain%2Fopeniap-versions.json&query=%24.apple&label=version&logo=swift&color=orange&prefix=v)](https://github.com/hyodotdev/openiap/releases?q=Apple&expanded=true) [![CocoaPods](https://img.shields.io/co",
+    "readme_source": "full"
+  },
+  {
+    "repo": "hyperfelixations/room-climate-card",
+    "url": "https://github.com/hyperfelixations/room-climate-card",
+    "stars": 25,
+    "language": "JavaScript",
+    "created_at": "2026-07-27T13:46:41Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 355,
+    "sample_technique_files": [
+      "TESTING.md",
+      "test/property/metamorphic.property.test.js"
+    ],
+    "description": "A custom Home Assistant dashboard card for temperature, humidity, CO₂, and PM2.5.",
+    "topics": [
+      "climate",
+      "custom-card",
+      "hacs",
+      "home-assistant"
+    ],
+    "readme": "# Room Climate Card\n\n[![HACS Custom](https://img.shields.io/badge/HACS-Custom-41BDF5.svg)](https://hacs.xyz/docs/faq/custom_repositories)\n[![Questions](https://img.shields.io/badge/Questions%3F-Ask%20here-41BDF5?logo=homeassistant&logoColor=white)](https://community.home-assistant.io/t/i-made-a-room-climate-card-for-home-assistant-and-would-love-some-feedback/1020037)\n[![Downloads](https://img.shields.io/github/downloads/hyperfelixations/room-climate-card/total?label=Downloads)](https://github.com/hyperfelixations/room-climate-card/releases/latest)\n[![Discord](https://img.shields.io/badge/Discord-Join-5865F2?logo=discord&logoColor=white)](https://discord.gg/zfGKCVEvwe)\n\n[![Add to HACS](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=hyperfelixations&repository=room-climate-card&category=plugin)\n\nA custom dashboard card for [Home Assistant](https://www.home-assistant.io/)\nthat shows the climate of one room or of your whole home: temperature,\nhumidity, CO₂, or PM2.5. It reads the current value from your sensors, puts it\non a scale with comfort and optimal ranges, and lists the individual rooms\nbelow. The card follows your dashboard's light or dark theme.\n\n![Room Climate Card with four modes and in dark and light mode](room-climate-card-four-modes.png)\n\n## Features\n\n- Four modes in one card: temperature, humidity, CO₂, and PM2.5, picked\n  automatically from your sensors\n- A whole-home value, either from one sensor of your own or averaged from the\n  rooms you list\n- A scale bar with comfort and optimal bands that stretches to fit the current\n  values\n- Room chips with a coldest/warmest comparison, wrapping into more rows as you\n  add rooms — or laid out to a grid you choose\n- Daily minimum/maximum views and a rate-of-change display\n- Built-in classification profiles for every measurement, including `indoor`,\n  `outdoor`, `fridge`, and `freezer` for temperature, plus custom profiles in YAML\n- Built-in color palettes, ramps made from one to three colors, and custom\n  palettes in YAML\n- Translated into 15 languages, following your Home Assistant language setting\n- Flexible layouts through the `show:` block, from the full card to compact\n  combinations of headers, values, views, and room chips\n- Plenty of optional YAML for views, bands, markers, footers, chips, the\n  carousel, and tap/hold actions — see [Configuration](#configuration)\n\n### Auto-slide in action\n\nWith more than one view enabled (here: the scale and room-comparison views), the card automatically rotates between them. You can swipe or tap at any time:\n\n![Card automatically rotating between the scale and room-comparison views](demo-auto-slide.gif)\n\n## What you need\n\n- **At least one sensor**: a main `entity`, one or more `rooms`, or both. The\n  card reads the mode from a `device_class` of `temperature`, `humidity`,\n  `carbon_dioxide`, or `pm25`. In practice these are `sensor.*` entities.\n- **A current browser.** There is n",
+    "readme_source": "full"
+  },
+  {
+    "repo": "hyperpolymath/snifs",
+    "url": "https://github.com/hyperpolymath/snifs",
+    "stars": 2,
+    "language": "Just",
+    "created_at": "2026-04-11T20:26:09Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 111,
+    "sample_technique_files": [
+      "AFFIRMATION.adoc",
+      "CHANGELOG.adoc",
+      "Justfile",
+      "PROOF-NEEDS.adoc",
+      "PROOF-STATUS.adoc"
+    ],
+    "description": "SNIFs: Safer Native Implemented Functions for the BEAM via WebAssembly Sandboxing",
+    "topics": [
+      "beam",
+      "crash-isolation",
+      "elixir",
+      "erlang",
+      "fault-tolerance",
+      "nif",
+      "research",
+      "wasmtime",
+      "webassembly"
+    ],
+    "readme": "// SPDX-License-Identifier: CC-BY-SA-4.0\n// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>\n// SPDX-FileCopyrightText: 2025-2026 Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>\n\n= SNIFs: Safer Native Implemented Functions for the BEAM via WebAssembly Sandboxing\n:toc: preamble\n:icons: font\n:source-highlighter: highlight.js\n\nimage:https://img.shields.io/badge/OpenSSF-Best_Practices-green?logo=opensourcesecurity[OpenSSF Best Practices,link=\"https://www.bestpractices.dev/en/projects/new?repo_url=https://github.com/hyperpolymath/snifs\"]\nimage:https://img.shields.io/badge/License-MPL_2.0-blue.svg[License: MPL-2.0,link=\"https://opensource.org/licenses/MPL-2.0\"]\nimage:https://api.thegreenwebfoundation.org/greencheckimage/github.com[Green Web,link=\"https://www.thegreenwebfoundation.org/green-web-check/?url=github.com\"]\nimage:https://zenodo.org/badge/DOI/10.5281/zenodo.19520245.svg[DOI,link=https://doi.org/10.5281/zenodo.19520245]\n\nThis repository contains:\n(1) the SNIF architecture paper,\n(2) a working BEAM + WASM implementation,\n(3) integration tests and benchmarking,\n(4) formal verification artifacts.\n\n== Overview\n\nSNIFs — *Safer (sandboxed) NIFs* — give the BEAM crash-isolated native interfaces.\nA normal NIF runs native code *inside* the VM's address space, so any fault in it\n(out-of-bounds access, overflow, `@panic`, …) kills the entire BEAM VM. A SNIF keeps\nthe NIF's *interface* (you call a native-implemented function and get a value) but\nchanges its *implementation*: the guest is compiled to WebAssembly (Zig and Rust today)\nand run in a `wasmtime` sandbox via `wasmex`, so a guest fault becomes a catchable\n`{:error, reason}` tuple and the calling BEAM process survives.\n\nIt is a like-for-like replacement for the dominant kind of NIF — *pure native computation\nover numbers and byte-buffers* (crypto, compression, parsing, DSP, math kernels) — with two\ndeliberate interface changes (the result is fallible, and only flat numeric data crosses the\nboundary; see <<scope>>). It is *not* a replacement for the full `erl_nif` surface (BEAM\nterms, resources, monitors, message-sending, dirty scheduling, zero-copy binaries, I/O).\n\n[[scope]]\n== Scope: what it replaces (and what it doesn't)\n\nA SNIF preserves the NIF *interface* and sandboxes the *implementation*. That makes it a\ngenuine drop-in for one class of NIF, with clearly-stated edges:\n\n*Like-for-like (plus crash isolation):* native compute/buffer functions — the bread-and-butter\nNIF. Same call site, same native-speed class, plus isolation.\n\n*Two deliberate interface changes* (so it is not a 100% transparent swap):\n\n* The result is *fallible*: `{:ok, [values]} | {:error, reason}`. A normal NIF returns the value\n  directly or raises; here the isolation is made visible and the caller handles it.\n* Only *numbers and byte-buffers* cross. A normal NIF receives actual BEAM terms and can read\n  binaries zero-copy; a SNIF sees only `i32/i64/f32/f64` and bytes you marshal into linear memory.\n\n*Out of scope* ",
+    "readme_source": "full"
+  },
+  {
+    "repo": "hypnotranz/Omega",
+    "url": "https://github.com/hypnotranz/Omega",
+    "stars": 0,
+    "language": "TypeScript",
+    "created_at": "2026-02-01T04:38:04Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 5,
+    "code_files": 543,
+    "sample_technique_files": [
+      "ARCHITECTURE/32-LANGUAGE-OFFICIAL-11.md",
+      "ARCHITECTURE/32-LANGUAGE-OFFICIAL-13-IMPLEMENTATION-13.md",
+      "ARCHITECTURE/32-LANGUAGE-OFFICIAL-2.md",
+      "ARCHITECTURE/32-LANGUAGE-OFFICIAL-3.md",
+      "ARCHITECTURE/32-LANGUAGE-OFFICIAL-9.md"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# OmegaLLM > **A REPL where LLM calls are first-class operations and state persists across sessions.** ## What This Solves Most LLM agent frameworks have these problems: - Context resets every call - agents lose memory between operations - Python/Node REPLs don't persist - close the terminal, lose all state - File I/O dominates - constant serialization instead of in-memory work - Manual retry logic - if/else chains for every potential failure - No debugger - can't step through LLM chains or see what went wrong OmegaLLM addresses this with: - **Persistent sessions**: Data structures stay in mem",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "hzy-hits/DSL_Z3_testgenerator",
+    "url": "https://github.com/hzy-hits/DSL_Z3_testgenerator",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2025-07-09T01:44:40Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 54,
+    "sample_technique_files": [
+      "src/generators/v8_modular/test_strategies.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# DSL Test Generator v9.0 - Fully Generic Edition A domain-agnostic, intelligent test generator that automatically creates comprehensive test cases from YAML specifications. Built with semantic intelligence and generic constraint handling, it works seamlessly across any business domain without requiring domain-specific code. [English](README.md) | [中文](README_zh.md) ## 🚀 Revolutionary Features ### Complete Domain Independence - **Zero Domain-Specific Code**: Works with any business domain out of the box - **Semantic Intelligence**: Automatically understands attribute meanings from naming patte",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "iamismaill/telecom-root-cause-ai",
+    "url": "https://github.com/iamismaill/telecom-root-cause-ai",
+    "stars": 3,
+    "language": "Python",
+    "created_at": "2026-08-18T12:18:51Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 102,
+    "sample_technique_files": [
+      "scripts/evaluate_private_style_robustness.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# Telecom Root-Cause AI This is my open-source solution for the [Cassava AI Root Cause Detective Hackathon](https://zindi.africa/competitions/cassava-ai-root-cause-detective-hackathon). The challenge was about using AI and telecom network data to understand **why network problems happen**. Instead of only detecting that a BTS or cell is performing badly, the goal was to identify the most likely root cause behind the problem. My final solution ranked **4th out of 67 active participants**, with a **0.98344 private leaderboard score after seven submissions**. ## How it works The system looks at d",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "IBKR-BouncyBot/IBKR-Trading-Bot",
+    "url": "https://github.com/IBKR-BouncyBot/IBKR-Trading-Bot",
+    "stars": 27,
+    "language": "Python",
+    "created_at": "2026-07-17T07:06:33Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 226,
+    "sample_technique_files": [
+      "tests/test_generated_numeric_and_payload_properties.py"
+    ],
+    "description": "A Windows desktop application (Python) that automates Interactive Brokers stock-trading through Trader Workstation (TWS) or IB Gateway.",
+    "topics": [],
+    "readme": "# BouncyBot - an IBKR Trading Bot <p align=\"center\"> <img src=\"Images/BouncyBot_logo_git.png\" alt=\"BouncyBot logo\" width=\"640\" /> </p> **Current release: v5.7.0** Version 5.7.0 lets an already partially filled marketable BUY finish on its original broker order. It removes the three-second remainder timeout and automatic post-fill cancellation for market-data or entry-guard changes. Explicit Stop/close requests and the separately configured pre-close BUY cancellation remain available. This applies to both direct market BUYs and native trailing BUYs once they have triggered and partially filled.",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "icellan/runar",
+    "url": "https://github.com/icellan/runar",
+    "stars": 27,
+    "language": "Lean",
+    "created_at": "2026-02-28T02:11:33Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 2,
+    "code_files": 3837,
+    "sample_technique_files": [
+      "conformance/fuzzer/metamorphic-fuzz.ts",
+      "conformance/fuzzer/metamorphic.ts"
+    ],
+    "description": "Write Bitcoin smart contracts in TypeScript, Go, Rust, Solidity, or Move. Compile to Bitcoin Script",
+    "topics": [],
+    "readme": "# Rúnar *Old Norse plural for \"runes\" (rún = secret/script/mystery). Pronounced ROO-nar.* **Write Bitcoin smart contracts in TypeScript, Go, Rust, Java, Ruby, Python, Zig, Solidity, or Move. Compile to Bitcoin Script.** <!-- Badges --> [![CI](https://github.com/icellan/runar/actions/workflows/ci.yml/badge.svg)](https://github.com/icellan/runar/actions/workflows/ci.yml) ![License](https://img.shields.io/badge/license-MIT-blue) ![version](https://img.shields.io/badge/version-1.0.0--rc.1-orange) --- ## Write Once, Compile Anywhere Rúnar lets you write Bitcoin SV smart contracts in the language yo",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "ics-jku/mt-graphlib-framework",
+    "url": "https://github.com/ics-jku/mt-graphlib-framework",
+    "stars": 3,
+    "language": "C",
+    "created_at": "2023-10-30T08:02:12Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 379,
+    "sample_technique_files": [
+      "README.md",
+      "config.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# Metamorphic Testing\n\nThis repository is used to perform metamorphic testing of the GD32 ILI9341 Graphics library called TFT_eSPI, which is available at https://github.com/Bodmer/TFT_eSPI.   \nIt contains a Pyhton script which performs following step:   \n1. Generate a test case\n2. Compile the test case using the RISC-V (Nuclei) GCC\n3. Run the test case on the VP and GUI (this produces screenshots)\n4. Compare the screenshots\n5. Store Results\n\n## Prerequisites\n- PlatformIO with working RISC-V (Nuclei) GCC\n- Working Python3 environment \n\n## Requirements\n- Metamorphic Testing repository\n- GD32 VP + GUI\n\n## HowTo\n1. Clone Metamorphic repository\n```\ngit clone https://github.com/ics-jku/metamorphic_testing.git\n```\n2. Clone RISCV-VP++ repository\n```\ngit clone https://github.com/ics-jku/riscv-vp-plusplus.git\n```\n3. Install packages and build RISCV-VP++ according to README of RISCV-VP++\n```\nsudo apt install ...\nmake -j\n```\n4. Build GUI for display\n```\ncd /env/gd32/vp-breadboard\nmkdir build\ncd build\ncmake ..\nmake\n```\n6. Edit \"config.py\" with your personal folder locations\n\nReplace tokens in \"<>\" tags with your pathes e.g.\n```\n\"BASE\": \"<METAMORPHIC_TESTING_CLONE_FOLDER>/\",\n\"BASE\": \"/home/user/metamorphic_testing/\",\n```\n5. Execute MT environment\n```\npython3 Main.py\n```\n\n## *Verifying Embedded Graphics Libraries leveraging Virtual Prototypes and Metamorphic Testing*\n\n[Christoph Hazott, Florian Stögmüller and Daniel Große. Verifying Embedded Graphics Libraries leveraging Virtual Prototypes and Metamorphic Testing. In ASP-DAC, 2024.\n](https://ics.jku.at/files/2024ASPDAC_MTGraphicsVerification.pdf)\n\n```\n@inproceedings{HSG:2024,\n  author =        {Christoph Hazott and Florian St\\\"ogm\\\"uller and\n                   Daniel Gro{\\ss}e},\n  booktitle =     {ASP Design Automation Conf.},\n  title =         {Verifying Embedded Graphics Libraries leveraging\n                   Virtual Prototypes and Metamorphic Testing},\n  year =          {2024},\n}\n```",
+    "readme_source": "full"
+  },
+  {
+    "repo": "ifixai-ai/iFixAi",
+    "url": "https://github.com/ifixai-ai/iFixAi",
+    "stars": 14190,
+    "language": "Python",
+    "created_at": "2026-04-27T13:02:34Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 388,
+    "sample_technique_files": [
+      "ifixai/inspections/b22_decision_reproducibility/definition.yaml",
+      "ifixai/inspections/b22_decision_reproducibility/runner.py"
+    ],
+    "description": "Independent Auditing of AI Agents. Run by human or the agent itself, to answer the most crucial question in the AI Agent Economy. Is the agent doing what is supposed to do? With iFixAi you can have this answer in less than 120 seconds.",
+    "topics": [
+      "agent-evaluation",
+      "ai",
+      "ai-alignment",
+      "ai-evaluation",
+      "ai-governance",
+      "ai-safety",
+      "cli",
+      "diagnostic-tool",
+      "eu-ai-act",
+      "hallucination-detection",
+      "iso-42001",
+      "llm-evaluation",
+      "llm-security",
+      "nist-ai-rmf",
+      "owasp-llm",
+      "prompt-injection",
+      "python",
+      "responsible-ai",
+      "risk-assessment",
+      "risk-management"
+    ],
+    "readme": "<p align=\"center\"> <a href=\"https://www.ifixai.ai/?utm_source=github&utm_medium=readme&utm_content=masthead\"> <picture> <source media=\"(prefers-color-scheme: dark)\" srcset=\"docs/assets/brand/ifixai-masthead-dark.svg\" /> <img src=\"docs/assets/brand/ifixai-masthead-light.svg\" alt=\"iFixAi: Independent auditing for AI agents\" width=\"440\" /> </picture> </a> </p> <p align=\"center\"> <a href=\"README.md\">English</a> · <a href=\"README.zh-CN.md\">简体中文</a> · <a href=\"README.ja.md\">日本語</a> · <a href=\"README.ko.md\">한국어</a> </p> <p align=\"center\">Catch your agent's mistakes and blind spots before the shit hit",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "ifrc-zju/ifrc-zju.github.io",
+    "url": "https://github.com/ifrc-zju/ifrc-zju.github.io",
+    "stars": 1,
+    "language": "JavaScript",
+    "created_at": "2026-01-30T10:39:25Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 5,
+    "sample_technique_files": [
+      "patents-data.js"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# 数智融合研究中心 · Intelligence Fusion Research Center 实验室学术主页，支持**中英文切换**，兼顾**个人学术主页**与**实验室（Lab）主页**用途。 ## 结构说明（面向 Lab 主页） - **首页 Hero**：实验室名称（数智融合研究中心）、所属单位、一句话使命、实验室负责人姓名与 Google Scholar - **关于**：实验室简介 + **实验室负责人（PI）** 一块：邢文鹏的合并简介（现职、教育、实习经历、主持项目与成果），不再单独列出「工作经历 / 教育背景 / 实习经历」 - **研究方向与项目**：研究亮点（神经渲染、可信 LLM、多模态与具身智能、研究领导力）+ 在研项目与基金 - **团队成员**：成员卡片（姓名、角色、邮箱），占位可后续增补 - **新闻与活动**：实验室动态、报告与会议等，占位可后续增补 - **加入我们**：招聘说明（博士后、博士生/硕士生、实习生）+ 联系邮箱 - **论文**：期刊、会议、预印本（标题与链接） - **发明专利**：按类别汇总 - **荣誉与报告**：荣誉奖项 + 受邀报告 - **联系**：页脚单位、地址、邮箱、Google Scholar ## 已做的融合与删除（个人 → Lab） - **删除**：推荐人、技术技能（个人简历专属） - **合并**：工作经",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "iGUITest/GUIMut",
+    "url": "https://github.com/iGUITest/GUIMut",
+    "stars": 1,
+    "language": "Python",
+    "created_at": "2025-05-07T10:58:09Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 4,
+    "code_files": 40,
+    "sample_technique_files": [
+      "README.md",
+      "main.py",
+      "mutator/__init__.py",
+      "mutator/metamorphic_relations.py",
+      "mutator/mutator.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# GUIMut GUIMut is a mobile test generation tool that automatically generates diverse test cases from existing test scripts. It explores Android app GUIs, builds transition graphs, and generates mutated test cases that follow metamorphic relations. ## Overview GUIMut works in two main phases: 1. **GUI Exploration**: Automatically explores the GUI of an Android app to build a state transition graph 2. **Path Mutation**: Generates new test cases by mutating execution paths using metamorphic relations (MRs) ![GUIMut Overview](overview.png) ## Project Structure ``` GUIMut/ ├── device_infrastructur",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "im4vk-avalara/projectlists",
+    "url": "https://github.com/im4vk-avalara/projectlists",
+    "stars": 0,
+    "language": "C",
+    "created_at": "2026-01-26T06:52:35Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 4,
+    "code_files": 81,
+    "sample_technique_files": [
+      "SelfCorrectingRag/README.md",
+      "SelfCorrectingRag/src/tutor.py",
+      "SelfCorrectingRag/src/verifier/__init__.py",
+      "SelfCorrectingRag/src/verifier/metamorphic.py",
+      "SelfCorrectingRag/src/verifier/verifier.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "",
+    "readme_source": "none"
+  },
+  {
+    "repo": "imallona/reclaim",
+    "url": "https://github.com/imallona/reclaim",
+    "stars": 1,
+    "language": "Python",
+    "created_at": "2019-11-18T13:21:47Z",
+    "technique_test_files": 2,
+    "technique_nontest_files": 0,
+    "code_files": 55,
+    "sample_technique_files": [
+      "test/integration/test_feature_set_consistency.py",
+      "test/integration/test_metamorphic.py"
+    ],
+    "description": "repetitive expression profiling in single-cell RNA-seq",
+    "topics": [],
+    "readme": "<img src=\"docs/reclaim-logo.svg\" alt=\"REclaim\" height=\"20\"/> **Repetitive element quantification in bulk and single-cell RNA-seq.** REclaim (REpetitive Elements + claim) is a Snakemake pipeline for systematic analysis of repeat RNA expression. The name foregrounds what the tool does: bring repetitive elements back into analyses that routinely discard them. ## Status Active development (2024-2026). Previous exploratory version: [v0.1](https://github.com/imallona/repeats/releases/tag/v0.1). ## Acknowledgements We are extremely grateful to SNF for their funding in ca. 2020. ## Overview A single `",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "immediately-run/reckoner",
+    "url": "https://github.com/immediately-run/reckoner",
+    "stars": 0,
+    "language": "TypeScript",
+    "created_at": "2026-07-09T17:31:48Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 8,
+    "code_files": 237,
+    "sample_technique_files": [
+      "docs/ARCHITECTURE_PLAN.md",
+      "docs/LBO_GAP_CLOSURE_PLAN.md",
+      "docs/M1_BUILD_HANDOFF.md",
+      "docs/assistant/FORMULA_AUTHORING_PROMPT.md",
+      "docs/case-study/meridian/README.md"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# immediately.run — starter template\n\nA ready-to-run starter for building apps on\n[immediately.run](https://immediately.run): React + TypeScript + Vite, wired to\nthe brand design system, with the project layout immediately.run expects.\n\n## Try it instantly\n\nTry this template on [immediately.run](https://immediately.run/present/github/immediately-run/new-project-template/main/files/src/App.tsx)\n\nThe Reckoner demo documents also run from this repo's main (zip-cached, no GitHub API\ndependency): the [Meridian monthly review](https://immediately.run/present/github/immediately-run/reckoner/main/)\n(the default) and the [Caldera LBO workbook](https://immediately.run/present/github/immediately-run/reckoner/main/caldera).\n(The platform-usage workbook lives in its own repo, [immediately-run/usage-workbook](https://github.com/immediately-run/usage-workbook).)\n\nEach document has its own path, and the switcher above the title moves between them —\nthe outer address bar follows, so Back works and a link is worth copying. The older\n`…/files/src/App.tsx?doc=caldera` form still resolves; the path form is the one to share.\n\n> Using this as a starting point for your own app? After you push to your repo,\n> update the link above to\n> `https://immediately.run/present/github/<owner>/<repo>/<ref>/files/src/App.tsx`.\n\n## Use this template\n\n1. Create a new repo from this template (or copy the files).\n2. `npm install`\n3. `npm run dev` and start editing `src/App.tsx`.\n4. Push to GitHub and open it on immediately.run with the link above.\n\n## Fast loading on immediately.run (auto-cache)\n\nimmediately.run normally reads your sources from the GitHub API, which is slow\nand rate-limited for anonymous visitors. This template ships a GitHub Action\n([`.github/workflows/cache.yml`](./.github/workflows/cache.yml)) that, on every\npush to `main`, builds a pre-cached zip of your repo and publishes it to your\nrepo's **own GitHub Pages**. immediately.run finds it automatically at\n`https://<owner>.github.io/<repo>/cached_repositories/main.zip` and loads from\nthere — falling back to the API if it's missing.\n\nThe cache also embeds a manifest sidecar, so visitors can push edits back to\nGitHub even when the app was loaded from the zip.\n\n### Enable the cache (one-time)\n\nFor a repo in your **own** GitHub account or org, there's a single one-time step:\n\n1. **Settings → Pages → Build and deployment → Source: GitHub Actions.**\n2. Push to `main` (or re-run the **Cache for immediately.run** workflow from the\n   Actions tab).\n\nThat's it — no tokens and no secrets to configure. The workflow builds the zip and\npublishes it to your repo's Pages; immediately.run finds it automatically on the\nnext load. The first publish can lag a push by up to ~10 minutes of GitHub Pages\nCDN caching. If the app still loads from the API, check that the workflow run\nsucceeded and that Pages shows a green **github-pages** deployment.\n\n> **immediately-run org repos** skip even that step: the org's internal **deploy\n> GitHub App**",
+    "readme_source": "full"
+  },
+  {
+    "repo": "imranpollob/forge-curated-personalized",
+    "url": "https://github.com/imranpollob/forge-curated-personalized",
+    "stars": 0,
+    "language": "Solidity",
+    "created_at": "2026-05-29T03:19:29Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 3871,
+    "sample_technique_files": [
+      "dataset-curated/contracts-raw/2026-01-offchain-nitro-external-da-securityreview.pdf-source/3f226a0ecf91ceed3688a2fc41969fae1f32d03d/nitro/cmd/conf/database.go"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# FORGE Curated: A Curated EVM Smart Contracts Vulnerability Dataset [![Paper](https://img.shields.io/badge/Paper-arXiv-b31b1b)](http://arxiv.org/abs/2506.18795) [![Dataset](https://img.shields.io/badge/Dataset-blue)](dataset-curated) [![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)](CONTRIBUTING.md) ![Visitors](https://visitor-badge.laobi.icu/badge?page_id=shenyimings.FORGE-Curated) **FORGE Curated** is a high-quality smart contract vulnerability dataset, specifically designed to support advanced research in smart contract security, including AI-ba",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "indrajeetadityaroy9/jcode",
+    "url": "https://github.com/indrajeetadityaroy9/jcode",
+    "stars": 0,
+    "language": "Rust",
+    "created_at": "2026-08-07T02:38:11Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 1096,
+    "sample_technique_files": [
+      "crates/jcode-tui/src/tui/app/commands.rs"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# jcode A personal, macOS-only fork of [jcode](https://github.com/1jehuang/jcode). Builds from source only — no prebuilt releases, no package-manager channel. See [docs/FORK_WORKFLOW.md](docs/FORK_WORKFLOW.md) for what this fork removes and how it tracks upstream. ## Install ```bash git clone https://github.com/indrajeetadityaroy9/jcode.git cd jcode cargo build --release scripts/install_release.sh ``` `scripts/install_release.sh` stores the binary under `~/.jcode/builds/versions/<version>/` and repoints the `~/.local/bin/jcode` launcher at it. `~/.local/bin` must precede `~/.cargo/bin` on `PAT",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "inference-sim/inference-sim",
+    "url": "https://github.com/inference-sim/inference-sim",
+    "stars": 31,
+    "language": "Go",
+    "created_at": "2025-06-10T00:31:10Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 523,
+    "sample_technique_files": [
+      ".claude/skills/blis-pr-review/SKILL.md",
+      "docs/contributing/rfc.md",
+      "docs/contributing/templates/archon-issue-examples.md",
+      "docs/contributing/templates/micro-plan.md",
+      "sim/kvtransfer/bcs2_test.go"
+    ],
+    "description": "Inference Platform Simulation",
+    "topics": [
+      "distributed",
+      "inference",
+      "simulation"
+    ],
+    "readme": "# Blackbox Inference Simulator (BLIS)\n\nA discrete-event simulator for LLM inference serving systems. BLIS models multi-instance clusters with configurable admission control, request routing, KV-cache dynamics (including tiered GPU+CPU offloading), scheduling policies, and token generation — all driven by trained performance coefficients, analytical roofline estimates, or physics-informed cross-model prediction.\n\nThe simulator is CPU-only, deterministic, and designed for capacity planning, policy optimization research, and performance prediction across model/GPU/TP configurations without requiring real GPUs.\n\n---\n\n## Features\n\n### Core\n\n- **Discrete-event simulation** for prefill, decode, and request scheduling\n- **KV-cache modeling** (blocks, prefix caching, prefill chunking, tiered GPU+CPU offload)\n- **CPU-only inference cost model** via analytical roofline estimation or learned α/β coefficients\n- **Two latency estimation modes**: roofline (analytical) and trained-physics (physics-informed basis functions with architecture-aware MoE scaling). The deprecated `blackbox`, `crossmodel`, and `trained-roofline` backends have been removed; use `trained-physics` for modern physics-informed estimation.\n- **Multi-instance cluster simulation** with shared-clock event loop and pluggable routing (round-robin, least-loaded, weighted-scoring)\n- **Multiple workload types**: preset (`chatbot`, `contentgen`, `summarization`, `multidoc`), custom distributions, or trace replay\n\n### Advanced\n\n- **Any catalogued HuggingFace model**: dense (Llama-2, Qwen3, etc.) and MoE (Mixtral, etc.) — the model's `config.json` is committed in the [`blis-catalog`](https://github.com/inference-sim/blis-catalog) repository\n- **vLLM deployment configuration** (TP, chunk size, batch limits)\n- **Priority policies and instance schedulers**: constant, slo-based; fcfs, priority-fcfs, sjf\n- **Preemption policies**: fcfs (tail-of-batch), priority (least-urgent SLO tier evicted first)\n- **Admission control**: always-admit or token-bucket rate limiting\n- **YAML policy configuration**: define all policies in a single config file (`--policy-config`)\n- **ServeGen-informed workload generation**: multi-client specs with Poisson/Gamma/Weibull/Constant arrivals (`--workload-spec`)\n- **Decision tracing and counterfactual analysis**: record routing decisions and evaluate alternative choices\n- **Fitness evaluation**: weighted multi-objective scoring with configurable metric weights\n- **Per-SLO-class metrics**: breakdown by SLO class with Jain fairness index\n- **Post-hoc saturation detection**: automated classification of simulation runs (STABLE/BACKLOGGED/OVERLOADED) using composite or threshold detectors\n\n---\n\n## Installation\n\n**Requirements:**\n- Go ≥ **1.21**\n\n**Build the binary:**\n\n```bash\ngit clone https://github.com/inference-sim/inference-sim.git\ncd inference-sim\ngo build -o blis main.go\n```\n\n**Note:** BLIS must be told where the model catalog is — `--catalog <path>` or the `BLIS_CATALOG` environme",
+    "readme_source": "full"
+  },
+  {
+    "repo": "infinityabundance/gnucobol-rs",
+    "url": "https://github.com/infinityabundance/gnucobol-rs",
+    "stars": 1,
+    "language": "COBOL",
+    "created_at": "2026-06-07T00:07:41Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 2,
+    "code_files": 622,
+    "sample_technique_files": [
+      "crates/gnucobol-rs-corpus/src/cli.rs",
+      "crates/gnucobol-rs-corpus/src/mutation.rs",
+      "reports/valid-corpus/mutation-summary.md"
+    ],
+    "description": "faithful native rust forensic implementation of gnucobol",
+    "topics": [
+      "byte-semantics",
+      "cobol",
+      "comp-3",
+      "decimal",
+      "ebcdic",
+      "gnucobol",
+      "legacy-modernization",
+      "lgpl",
+      "oracle-first",
+      "oracle-testing",
+      "packed-decimal",
+      "rust"
+    ],
+    "readme": "<!-- DO NOT EDIT BY HAND. Generated by xtask docs from docs-src/README.model.json + machine evidence (crates/gnucobol-rs/Cargo.toml, reports/claim-ladder.json, reports/casefiles/*, reports/receipts/*). Regenerate: cargo run -p xtask -- docs generate. Check: cargo run -p xtask -- docs check. Evidence authority: the claim-ladder + generated casefiles. Legacy source preserved (lossless) under research/legacyreports/README.md (sha256 07c2b694378e77a2be86f743c7c19370758695d185ed61f6e5e97228af99507f). --> # gnucobol-rs > _Generated document (TRUST.4.DOCS). Machine authority: `reports/claim-ladder.js",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Intelligible/elbi",
+    "url": "https://github.com/Intelligible/elbi",
+    "stars": 10,
+    "language": "Python",
+    "created_at": "2026-09-03T00:55:18Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 688,
+    "sample_technique_files": [
+      "packages/elbi-core/tests/test_metamorphic.py"
+    ],
+    "description": "Write a Python function. Elbi serves it to AI agents over the Model Context Protocol as a versioned, cached, verified tool.",
+    "topics": [
+      "ai-agents",
+      "analytics",
+      "data-science",
+      "duckdb",
+      "llm-tools",
+      "mcp",
+      "model-context-protocol",
+      "python",
+      "reproducibility",
+      "semantic-layer"
+    ],
+    "readme": "<p align=\"center\"> <picture> <source media=\"(prefers-color-scheme: dark)\" srcset=\"./docs/assets/logo-dark.svg\"> <img alt=\"elbi\" src=\"./docs/assets/logo.svg\" width=\"420\"> </picture> </p> <p align=\"center\"> <a href=\"https://github.com/Intelligible/elbi/actions/workflows/ci.yml\"><img alt=\"CI\" src=\"https://github.com/Intelligible/elbi/actions/workflows/ci.yml/badge.svg\"></a> <a href=\"https://pypi.org/project/elbi/\"><img alt=\"PyPI\" src=\"https://img.shields.io/pypi/v/elbi.svg\"></a> <a href=\"https://pypi.org/project/elbi/\"><img alt=\"Python\" src=\"https://img.shields.io/pypi/pyversions/elbi.svg\"></a> <",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "intendednull/buiy",
+    "url": "https://github.com/intendednull/buiy",
+    "stars": 1,
+    "language": "Rust",
+    "created_at": "2026-05-07T01:56:46Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 586,
+    "sample_technique_files": [
+      "crates/buiy_verify/src/invariant/predicates.rs",
+      "docs/reports/2026-06-14-visual-bug-detection-strategy.md",
+      "docs/specs/2026-06-15-buiy-verification-design/invariants.md"
+    ],
+    "description": "Experimental cross-platform UI library built on Bevy",
+    "topics": [],
+    "readme": "<!-- ┌─────────────────────────────────────────────────────────────────────────┐\n     │ AUTHOR DISCLAIMER — DO NOT CHANGE, MOVE, OR REMOVE.                        │\n     │ This block is authoritative and must stay verbatim at the top of the      │\n     │ README. It applies to ALL future edits, human or automated/LLM. If you    │\n     │ are an agent updating this file, preserve this block and its wording        │\n     │ exactly; do not paraphrase, soften, or relocate it.                        │\n     └─────────────────────────────────────────────────────────────────────────┘ -->\n> ⚠️ **This is an experimental project to test out various unsupervised llm workflows. The code is largely unreviewed, and should not be used in production**\n<!-- END AUTHOR DISCLAIMER — DO NOT CHANGE -->\n\n# Buiy\n\n**An accessible, web-quality UI library for the [Bevy](https://bevyengine.org) game engine.**\n\n<p align=\"center\">\n  <a href=\"https://intendednull.github.io/buiy/\"><b>▶ Try the live demo</b></a> — the full widget gallery running in your browser (WebGPU, WebGL2 fallback)\n</p>\n\n<p align=\"center\">\n  <a href=\"https://intendednull.github.io/buiy/\"><img src=\"docs/assets/gallery.png\" alt=\"The Buiy widget gallery — an IDE-style shell with a left screen rail, a center showcase of switches, a slider, a progress meter and a disclosure accordion, and a live Inspector pane — every pixel rendered by Buiy's own wgpu pipeline\" width=\"820\"></a>\n</p>\n\nBuiy is a comprehensive, AccessKit-first UI toolkit built as a **parallel UI stack to `bevy_ui`** — not on top of it. It wires the same primitives Bevy uses — **Taffy** for layout, **cosmic-text** for shaping and editing, **AccessKit** for the accessibility tree, **bevy_picking** for hit-testing — behind its own decomposed, ECS-native component model and a **custom wgpu render pipeline** that runs as a system in Bevy's `Core2d` render schedule (Bevy 0.19 removed the old render-graph node API). The north star is modern-web feature parity — CSS layout and styling, complex text with BiDi/IME, ARIA roles, WCAG 2.2 AA — for both game and application UIs, with every machine-testable claim gated in CI.\n\n> **Status — pre-0.1 (`0.0.1`), pre-alpha.** The subsystems below are built and tested, but **APIs are unstable and may break in any commit.** Buiy is not yet tagged or published to crates.io. Some GPU draw paths are verified on a real wgpu adapter behind `#[ignore]` tests, and a handful of CSS sub-features are deferred (called out below). There is a real widget catalog — Button, an editable TextInput, Checkbox, Switch, Slider, Disclosure, Dialog, Tooltip, Popover, Menu, and ScrollArea — exercised by a runnable widget gallery, but the catalog is still narrower than a mature toolkit and the surface is in flux.\n\n## Highlights\n\n- **A genuine CSS-subset layout engine** over Taffy — flexbox, grid, writing modes, container queries (with multi-level descendant invalidation), anchor positioning, sticky / table / multi-column, transforms + containment",
+    "readme_source": "full"
+  },
+  {
+    "repo": "invariantzkaedi/zcc-bootstrap-compiler",
+    "url": "https://github.com/invariantzkaedi/zcc-bootstrap-compiler",
+    "stars": 1,
+    "language": "C",
+    "created_at": "2026-08-12T07:51:43Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 1,
+    "code_files": 2252,
+    "sample_technique_files": [
+      "tests/diff_R_DrawColumn.c",
+      "tools/a100_hardcore_zcc_oracle.py"
+    ],
+    "description": "A sovereign self-hosting C99 compiler and SystemV ABI x86-64 code generator built from scratch. Features stage1->stage2->stage3 byte-identical assembly bootstrap fixpoint verification, constant folding AST passes, and proven compilation of complex amalgamations including SQLite 3.45.0 (160MB), DOOM 1.10 (40k lines), and cURL.",
+    "topics": [
+      "ast",
+      "bootstra",
+      "c99",
+      "compile",
+      "doom",
+      "ir",
+      "self-hostin",
+      "sqlit",
+      "ssa",
+      "systemv-abi",
+      "x86-64"
+    ],
+    "readme": "# ZCC: High-Integrity Multi-Target C Compiler, EVM Engine & Sovereign Systems Suite [![ZCC Self-Host Verification](https://github.com/invariantzkaedi/zcc-bootstrap-compiler/actions/workflows/selfhost.yml/badge.svg)](https://github.com/invariantzkaedi/zcc-bootstrap-compiler/actions/workflows/selfhost.yml) [![Quantum Verification Assurance](https://github.com/invariantzkaedi/zcc-bootstrap-compiler/actions/workflows/quantum-ci.yml/badge.svg)](https://github.com/invariantzkaedi/zcc-bootstrap-compiler/actions/workflows/quantum-ci.yml) [![ZCC Boundary Contract Gates](https://github.com/invariantzkae",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "invowk/goplint",
+    "url": "https://github.com/invowk/goplint",
+    "stars": 0,
+    "language": "Go",
+    "created_at": "2026-08-26T04:19:13Z",
+    "technique_test_files": 2,
+    "technique_nontest_files": 2,
+    "code_files": 519,
+    "sample_technique_files": [
+      "cmd/generate-soundness-manifest/main.go",
+      "goplint/category_evidence_noncast_test.go",
+      "goplint/protocol_metamorphic_test.go",
+      "scripts/check-protocol-oracle.sh",
+      "spec/goplint-test-timings.v1.json"
+    ],
+    "description": "A go/analysis linter enforcing DDD Value Type conventions, with a formally-gated soundness assurance harness",
+    "topics": [],
+    "readme": "# goplint `goplint` is Invowk's Go static analyzer for DDD value-type structure and value-protocol correctness. It is a standalone Go module. The analyzer combines three families of checks: - structural checks over Go syntax and types, such as primitive fields, constructor signatures, immutability, and `Validate`/`String` contracts; - protocol checks proving that values are validated, validation errors control continuation, constructors validate the object they return, and values do not escape before validation; - cross-artifact checks, including Go/CUE enum synchronization, exception governan",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "ioan-hedea/Software-Engineering-and-Testing-for-AI-Systems",
+    "url": "https://github.com/ioan-hedea/Software-Engineering-and-Testing-for-AI-Systems",
+    "stars": 0,
+    "language": "Jupyter Notebook",
+    "created_at": "2025-11-25T17:43:34Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 5,
+    "code_files": 18,
+    "sample_technique_files": [
+      "README.md",
+      "assingment1/cross_test_models.ipynb",
+      "assingment1/group1/group1_helpers.py",
+      "assingment1/group1/pipeline_models_group1.ipynb",
+      "assingment1/group2/group2_helpers.py"
+    ],
+    "description": "DSAIT4015 Software Engineering and Testing for AI Systems (2025/26 Q2)",
+    "topics": [],
+    "readme": "# Overview This repository is dedicated to the coursework in Software Engineering and Testing for AI Systems, focusing on three major assignments: ## Major Assignments 1. **Metamorphic Testing & AI Bias** This assignment investigates how metamorphic testing can be employed to evaluate AI systems and the implications of AI bias on such evaluations. Students will explore methods to detect and mitigate bias in AI models. 2. **Adversarial Attacks & Hill-Climbing Search** Focused on the security aspects of AI systems, this assignment delves into adversarial attacks and utilizes hill-climbing search",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "iovardas/mpisee",
+    "url": "https://github.com/iovardas/mpisee",
+    "stars": 7,
+    "language": "C++",
+    "created_at": "2024-09-01T13:24:49Z",
+    "technique_test_files": 3,
+    "technique_nontest_files": 0,
+    "code_files": 65,
+    "sample_technique_files": [
+      "test/allg_rand_data.cpp",
+      "test/bcast_mt.cpp",
+      "test/bcast_reduce_mt.cpp"
+    ],
+    "description": "A Communicator‐Centric Profiling Tool for MPI Applications",
+    "topics": [],
+    "readme": "#+title: Readme * Introduction =mpisee= is a lightweight MPI profiler focusing on communicators. It can reveal communication bottlenecks and uncover hidden patterns within MPI communicators. Its output is an SQL database which can be queried for information using a python tool, =mpisee-through=. #+attr_html: :width 100% [[./images/See.jpg]] * Build ** Dependencies 1. C/C++ compiler that supports C++11 standard 2. CMake version > 3.10 3. MPI Library (Open MPI, MPICH, CrayMPICH, MVAPICH, IntelMPI) 4. SQLite library ** Basic build #+begin_src bash git clone https://github.com/variemai/mpisee.git",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "IPS-Stuttgart/Prob4D",
+    "url": "https://github.com/IPS-Stuttgart/Prob4D",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-07-09T21:33:19Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 723,
+    "sample_technique_files": [
+      "integration_tests/test_three_repository_metamorphic_v1.py"
+    ],
+    "description": "Probabilistic recursive 4D point reconstruction",
+    "topics": [],
+    "readme": "# Prob4D\n\nProbabilistic recursive fusion for long-horizon 4D reconstruction from\noverlapping prediction windows.\n\nProb4D models every window's global gauge as an uncertain `Sim(3)` state,\ncalibrates conditional and shared covariance, preserves causal source lineage,\nand exports portable observations for BayesianPhysTwin. Causal4D consumes the\nresulting BayesianPhysTwin belief rather than raw Prob4D artifacts.\n\n## Provider evidence status\n\n<!-- provider-evidence-status:begin -->\nSnapshot: **2026-08-26**. Adapter maturity and scientific evidence are separate.\nThe authoritative cross-repository claim and data-access status remains in\n[`FlorianPfaff/BayesianPhysTwin-Paper`](https://github.com/FlorianPfaff/BayesianPhysTwin-Paper).\n\n| Provider route | Implementation state | Current evidence boundary |\n| --- | --- | --- |\n| Controlled synthetic provider | Stable mechanism study | Positive controlled evidence only; not real-provider competence |\n| MotionCrafter | Mature producer and causal-window path | Frozen retrospective real-transfer negative; the opened cohort is not a promotion candidate |\n| Deform360 official-Hub route | Executed under a sealed support protocol | Terminal source-support negative; confirmation remains closed |\n| CUT3R recurrent-online | Causal adapter and direct-point-map route; one registered development smoke consumed | The exact smoke loaded the pinned model and checkpoint, decoded 58 causal frames, entered the provider forward call, and ended after a CUDA device assertion; no prediction or source shard was authorized, so competence remains unestablished |\n| VGGT | Baseline/export adapter ready | Diagnostic baseline only |\n\nThis table is generated from\n[`evidence/provider_status_snapshot_v1.json`](evidence/provider_status_snapshot_v1.json),\nwhich pins the repository provider-status contract by Git blob identity.\nRegenerate it with `python scripts/render_provider_status.py --write`; CI\nchecks that the contract, snapshot, and README stay synchronized.\n<!-- provider-evidence-status:end -->\n\nA production-quality artifact path is not evidence of production-quality\nperception. Every real provider must still pass support, mean, identity,\ngauge/dependence, covariance, query-relevance, and exact-fallback gates.\n\n## Install and test\n\n```bash\npython -m pip install -e \".[dev]\"\npython -m pytest\npython -m ruff check src tests scripts/ci\n```\n\nThe runtime package depends only on NumPy. MotionCrafter, VGGT, Torch, Diffusers,\nand model checkpoints remain optional external dependencies.\n\n## Supported interfaces\n\nProb4D 0.5 has one command and one current Python façade:\n\n```text\nprob4d\nprob4d.api.v2\n```\n\n```python\nfrom prob4d.api.v2 import (\n    Sim3,\n    load_claim_bearing_observation_belief,\n)\n```\n\nThe package root deliberately exposes only `__version__`:\n\n```python\nimport prob4d\n\nprint(prob4d.__version__)\n```\n\nUse `prob4d commands list` and `prob4d commands describe ...` to inspect the\ncanonical grouped command registry.\n\n## Artifact inspection\n",
+    "readme_source": "full"
+  },
+  {
+    "repo": "Irora-dev/Spectrum",
+    "url": "https://github.com/Irora-dev/Spectrum",
+    "stars": 3,
+    "language": "TypeScript",
+    "created_at": "2026-07-10T15:03:35Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 825,
+    "sample_technique_files": [
+      "app/src/lib/spectrum/metamorphic.test.ts"
+    ],
+    "description": "Self-hostable Spectrum front end — theme it, name it, deploy it as your own basket-token site in minutes. No backend, no database. CC0.",
+    "topics": [],
+    "readme": "# Spectrum Mini [![release proof](https://github.com/Irora-dev/Spectrum/actions/workflows/release-proof.yml/badge.svg)](https://github.com/Irora-dev/Spectrum/actions/workflows/release-proof.yml) [![daily canary](https://github.com/Irora-dev/Spectrum/actions/workflows/canary.yml/badge.svg)](https://github.com/Irora-dev/Spectrum/actions/workflows/canary.yml) **Stand up your own front end for Spectrum basket tokens — in about 15 minutes, no code required.** Spectrum Mini is a free, open-source kit. It takes anyone — including non-developers — from nothing to a live, themed website where people ca",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "isa-group/A-MINT-repo",
+    "url": "https://github.com/isa-group/A-MINT-repo",
+    "stars": 0,
+    "language": "TypeScript",
+    "created_at": "2025-07-21T09:19:40Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 76,
+    "sample_technique_files": [
+      "src/amint/prompts/validate_alignment/compare_markdown.md",
+      "src/amint/validators/validate_alignment.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# A-MINT: Automated Modeling of iPricings from Natural Text [![License](https://img.shields.io/badge/License-CC%20BY--SA%204.0-lightgrey.svg)](LICENSE) [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/) [![Node 18+](https://img.shields.io/badge/node-18+-green.svg)](https://nodejs.org/) [![Docker](https://img.shields.io/badge/docker-required-blue.svg)](https://www.docker.com/) A-MINT is an advanced artificial intelligence platform that automates the extraction, analysis, and transformation of SaaS pricing information from natural web pages i",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "isa-group/BeTTy",
+    "url": "https://github.com/isa-group/BeTTy",
+    "stars": 3,
+    "language": "Java",
+    "created_at": "2013-04-01T08:09:52Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 77,
+    "sample_technique_files": [
+      "BeTTy-Core/src/es/us/isa/generator/FM/MetamorphicFMGenerator.java"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "BeTTy ===== BeTTy is an extensible and highly configurable framework supporting BEnchmarking and TestTing on the analYses of feature models. It is written in Java and is distributed as a jar file facilitating its integration into external projects. BeTTy has been developed on top of some of the core components of the FaMa Tool Suite. Yoy may also try the BeTTy online feature model generator available at https://betty.services.governify.io",
+    "readme_source": "excerpt"
+  }
+]

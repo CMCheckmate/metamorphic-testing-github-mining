@@ -1,0 +1,177 @@
+{
+  "total_repos": 1677,
+  "batch_count": 34,
+  "batch_size": 50,
+  "batches": [
+    {
+      "index": 0,
+      "file": "batch_000.json",
+      "count": 50
+    },
+    {
+      "index": 1,
+      "file": "batch_001.json",
+      "count": 50
+    },
+    {
+      "index": 2,
+      "file": "batch_002.json",
+      "count": 50
+    },
+    {
+      "index": 3,
+      "file": "batch_003.json",
+      "count": 50
+    },
+    {
+      "index": 4,
+      "file": "batch_004.json",
+      "count": 50
+    },
+    {
+      "index": 5,
+      "file": "batch_005.json",
+      "count": 50
+    },
+    {
+      "index": 6,
+      "file": "batch_006.json",
+      "count": 50
+    },
+    {
+      "index": 7,
+      "file": "batch_007.json",
+      "count": 50
+    },
+    {
+      "index": 8,
+      "file": "batch_008.json",
+      "count": 50
+    },
+    {
+      "index": 9,
+      "file": "batch_009.json",
+      "count": 50
+    },
+    {
+      "index": 10,
+      "file": "batch_010.json",
+      "count": 50
+    },
+    {
+      "index": 11,
+      "file": "batch_011.json",
+      "count": 50
+    },
+    {
+      "index": 12,
+      "file": "batch_012.json",
+      "count": 50
+    },
+    {
+      "index": 13,
+      "file": "batch_013.json",
+      "count": 50
+    },
+    {
+      "index": 14,
+      "file": "batch_014.json",
+      "count": 50
+    },
+    {
+      "index": 15,
+      "file": "batch_015.json",
+      "count": 50
+    },
+    {
+      "index": 16,
+      "file": "batch_016.json",
+      "count": 50
+    },
+    {
+      "index": 17,
+      "file": "batch_017.json",
+      "count": 50
+    },
+    {
+      "index": 18,
+      "file": "batch_018.json",
+      "count": 50
+    },
+    {
+      "index": 19,
+      "file": "batch_019.json",
+      "count": 50
+    },
+    {
+      "index": 20,
+      "file": "batch_020.json",
+      "count": 50
+    },
+    {
+      "index": 21,
+      "file": "batch_021.json",
+      "count": 50
+    },
+    {
+      "index": 22,
+      "file": "batch_022.json",
+      "count": 50
+    },
+    {
+      "index": 23,
+      "file": "batch_023.json",
+      "count": 50
+    },
+    {
+      "index": 24,
+      "file": "batch_024.json",
+      "count": 50
+    },
+    {
+      "index": 25,
+      "file": "batch_025.json",
+      "count": 50
+    },
+    {
+      "index": 26,
+      "file": "batch_026.json",
+      "count": 50
+    },
+    {
+      "index": 27,
+      "file": "batch_027.json",
+      "count": 50
+    },
+    {
+      "index": 28,
+      "file": "batch_028.json",
+      "count": 50
+    },
+    {
+      "index": 29,
+      "file": "batch_029.json",
+      "count": 50
+    },
+    {
+      "index": 30,
+      "file": "batch_030.json",
+      "count": 50
+    },
+    {
+      "index": 31,
+      "file": "batch_031.json",
+      "count": 50
+    },
+    {
+      "index": 32,
+      "file": "batch_032.json",
+      "count": 50
+    },
+    {
+      "index": 33,
+      "file": "batch_033.json",
+      "count": 27
+    }
+  ]
+}

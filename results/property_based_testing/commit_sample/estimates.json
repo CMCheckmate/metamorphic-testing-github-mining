@@ -1,0 +1,237 @@
+{
+  "query": "\"property-based testing\" OR \"property-based test\" OR \"property-based tests\" OR \"property based testing\" OR \"property based test\" OR \"property based tests\"",
+  "strata": 4,
+  "windows_sampled": 132,
+  "windows_total": 132,
+  "checks": 0,
+  "requests": 562,
+  "agent": {
+    "2011": {
+      "share": 0.0,
+      "ci": 0.0,
+      "relevant_est": 5,
+      "exact": true
+    },
+    "2012": {
+      "share": 0.0,
+      "ci": 0.0,
+      "relevant_est": 7,
+      "exact": true
+    },
+    "2013": {
+      "share": 0.0,
+      "ci": 0.0,
+      "relevant_est": 29,
+      "exact": true
+    },
+    "2014": {
+      "share": 0.0,
+      "ci": 0.0,
+      "relevant_est": 83,
+      "exact": true
+    },
+    "2015": {
+      "share": 0.0,
+      "ci": 0.0,
+      "relevant_est": 261,
+      "exact": true
+    },
+    "2016": {
+      "share": 0.0,
+      "ci": 0.0,
+      "relevant_est": 319,
+      "exact": true
+    },
+    "2017": {
+      "share": 0.0,
+      "ci": 0.0,
+      "relevant_est": 487,
+      "exact": true
+    },
+    "2018": {
+      "share": 0.0,
+      "ci": 0.0,
+      "relevant_est": 497.0,
+      "exact": true
+    },
+    "2019": {
+      "share": 0.0,
+      "ci": 0.0,
+      "relevant_est": 697.0,
+      "exact": true
+    },
+    "2020": {
+      "share": 0.0,
+      "ci": 0.0,
+      "relevant_est": 735,
+      "exact": true
+    },
+    "2021": {
+      "share": 0.0,
+      "ci": 0.0,
+      "relevant_est": 710,
+      "exact": true
+    },
+    "2022": {
+      "share": 0.0,
+      "ci": 0.0,
+      "relevant_est": 665,
+      "exact": true
+    },
+    "2023": {
+      "share": 0.0,
+      "ci": 0.0,
+      "relevant_est": 786,
+      "exact": true
+    },
+    "2024": {
+      "share": 0.0,
+      "ci": 0.0,
+      "relevant_est": 834,
+      "exact": true
+    },
+    "2025": {
+      "share": 0.2330686079858813,
+      "ci": 0.0,
+      "relevant_est": 9066.0,
+      "exact": true
+    },
+    "2026": {
+      "share": 0.30808881839809676,
+      "ci": 0.0,
+      "relevant_est": 25220.0,
+      "exact": true
+    }
+  },
+  "adoption": {
+    "2011": {
+      "estimate": 5.0,
+      "ci": 0.0,
+      "rel_ci": 0.0,
+      "exact": true,
+      "outside_capped": 5.0,
+      "inside_capped": 0.0
+    },
+    "2012": {
+      "estimate": 6.0,
+      "ci": 0.0,
+      "rel_ci": 0.0,
+      "exact": true,
+      "outside_capped": 6.0,
+      "inside_capped": 0.0
+    },
+    "2013": {
+      "estimate": 22.0,
+      "ci": 0.0,
+      "rel_ci": 0.0,
+      "exact": true,
+      "outside_capped": 22.0,
+      "inside_capped": 0.0
+    },
+    "2014": {
+      "estimate": 70.0,
+      "ci": 0.0,
+      "rel_ci": 0.0,
+      "exact": true,
+      "outside_capped": 70.0,
+      "inside_capped": 0.0
+    },
+    "2015": {
+      "estimate": 200.0,
+      "ci": 0.0,
+      "rel_ci": 0.0,
+      "exact": true,
+      "outside_capped": 200.0,
+      "inside_capped": 0.0
+    },
+    "2016": {
+      "estimate": 235.0,
+      "ci": 0.0,
+      "rel_ci": 0.0,
+      "exact": true,
+      "outside_capped": 235.0,
+      "inside_capped": 0.0
+    },
+    "2017": {
+      "estimate": 287.0,
+      "ci": 0.0,
+      "rel_ci": 0.0,
+      "exact": true,
+      "outside_capped": 287.0,
+      "inside_capped": 0.0
+    },
+    "2018": {
+      "estimate": 306.0,
+      "ci": 0.0,
+      "rel_ci": 0.0,
+      "exact": true,
+      "outside_capped": 196.0,
+      "inside_capped": 110.0
+    },
+    "2019": {
+      "estimate": 361.0,
+      "ci": 0.0,
+      "rel_ci": 0.0,
+      "exact": true,
+      "outside_capped": 263.0,
+      "inside_capped": 98.0
+    },
+    "2020": {
+      "estimate": 413.0,
+      "ci": 0.0,
+      "rel_ci": 0.0,
+      "exact": true,
+      "outside_capped": 413.0,
+      "inside_capped": 0.0
+    },
+    "2021": {
+      "estimate": 388.0,
+      "ci": 0.0,
+      "rel_ci": 0.0,
+      "exact": true,
+      "outside_capped": 388.0,
+      "inside_capped": 0.0
+    },
+    "2022": {
+      "estimate": 425.0,
+      "ci": 0.0,
+      "rel_ci": 0.0,
+      "exact": true,
+      "outside_capped": 425.0,
+      "inside_capped": 0.0
+    },
+    "2023": {
+      "estimate": 469.0,
+      "ci": 0.0,
+      "rel_ci": 0.0,
+      "exact": true,
+      "outside_capped": 469.0,
+      "inside_capped": 0.0
+    },
+    "2024": {
+      "estimate": 529.0,
+      "ci": 0.0,
+      "rel_ci": 0.0,
+      "exact": true,
+      "outside_capped": 529.0,
+      "inside_capped": 0.0
+    },
+    "2025": {
+      "estimate": 3796.0,
+      "ci": 0.0,
+      "rel_ci": 0.0,
+      "exact": true,
+      "outside_capped": 57.0,
+      "inside_capped": 3739.0
+    },
+    "2026": {
+      "estimate": 12479.0,
+      "ci": 0.0,
+      "rel_ci": 0.0,
+      "exact": true,
+      "outside_capped": 0.0,
+      "inside_capped": 12479.0
+    }
+  },
+  "computed_at": "2026-10-15T20:50:40Z"
+}

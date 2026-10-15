@@ -1,0 +1,1047 @@
+[
+  {
+    "repo": "theQRL/qrypto.js",
+    "url": "https://github.com/theQRL/qrypto.js",
+    "stars": 7,
+    "language": "JavaScript",
+    "created_at": "2023-01-22T17:39:38Z",
+    "technique_test_files": 2,
+    "technique_nontest_files": 0,
+    "code_files": 103,
+    "sample_technique_files": [
+      "packages/dilithium5/test/metamorphic.test.js",
+      "packages/mldsa87/test/metamorphic.test.js"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# qrypto.js [![codecov](https://codecov.io/gh/theQRL/qrypto.js/graph/badge.svg)](https://codecov.io/gh/theQRL/qrypto.js) Post-quantum cryptographic signature library for JavaScript/TypeScript. This monorepo contains implementations of quantum-resistant digital signature algorithms for the QRL (Quantum Resistant Ledger) ecosystem. Works in both Node.js and browsers. ## Packages | Package | Description | Standard | Signature Size | Version | |---------|-------------|----------|----------------|---------| | [@theqrl/mldsa87](./packages/mldsa87) | ML-DSA-87 signatures | FIPS 204 (final) | 4627 byt",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "theQRL/rust-qrllib",
+    "url": "https://github.com/theQRL/rust-qrllib",
+    "stars": 1,
+    "language": "Rust",
+    "created_at": "2026-06-15T18:18:55Z",
+    "technique_test_files": 2,
+    "technique_nontest_files": 0,
+    "code_files": 50,
+    "sample_technique_files": [
+      ".github/workflows/test.yml",
+      "crates/qrllib/tests/metamorphic_exhaustive.rs",
+      "crates/qrllib/tests/metamorphic_suite.rs"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# rust-qrllib Rust implementation of the Quantum Resistant Ledger cryptographic library, with native Rust APIs and wasm-bindgen bindings for browser use. [![codecov](https://codecov.io/gh/theQRL/rust-qrllib/branch/main/graph/badge.svg)](https://codecov.io/gh/theQRL/rust-qrllib) ## Overview `rust-qrllib` provides post-quantum signature schemes — plus an ML-KEM-1024 key-encapsulation primitive — and QRL wallet/address helpers for native Rust and WebAssembly consumers. Supported algorithms: | Algorithm | Type | Standard | Use case | |-----------|------|----------|----------| | ML-DSA-87 | Lattice",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "theQRL/wallet.js",
+    "url": "https://github.com/theQRL/wallet.js",
+    "stars": 0,
+    "language": "JavaScript",
+    "created_at": "2023-03-07T18:18:01Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 70,
+    "sample_technique_files": [
+      "test/unit/metamorphic.mocha.js"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# wallet.js [![npm version](https://img.shields.io/npm/v/@theqrl/wallet.js.svg)](https://www.npmjs.com/package/@theqrl/wallet.js) ![test](https://github.com/theQRL/wallet.js/actions/workflows/ci.yml/badge.svg) [![codecov](https://codecov.io/gh/theQRL/wallet.js/branch/main/graph/badge.svg?token=HHVBFBVGFR)](https://codecov.io/gh/theQRL/wallet.js) Quantum-resistant wallet library for The QRL using **ML-DSA-87** (FIPS 204). ## Features - ML-DSA-87 digital signatures (NIST post-quantum standard) - Deterministic key derivation from seeds - Mnemonic phrase backup (34 words) - Address generation and",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "ThisIsBad/logos",
+    "url": "https://github.com/ThisIsBad/logos",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-03-12T21:23:43Z",
+    "technique_test_files": 17,
+    "technique_nontest_files": 1,
+    "code_files": 133,
+    "sample_technique_files": [
+      "README.md",
+      "docs/agent_collaboration.md",
+      "docs/archive/implementation_brief_v07_mcp.md",
+      "docs/development_process.md",
+      "docs/logicbrain_development_roadmap.md"
+    ],
+    "description": "Deterministic logic verifier for AI agents using Z3 and Lean 4 sessions",
+    "topics": [
+      "ai-agents",
+      "formal-verification",
+      "lean4",
+      "python",
+      "theorem-proving",
+      "z3"
+    ],
+    "readme": "# LogicBrain\n\n[![CI](https://github.com/ThisIsBad/LogicBrain/actions/workflows/ci.yml/badge.svg)](https://github.com/ThisIsBad/LogicBrain/actions/workflows/ci.yml)\n\nA deterministic reasoning toolkit backed by Z3 and Lean 4 -- formal verification, assumption management, counterfactual planning, policy enforcement, and proof certificates for AI agents.\n\n## Quick Start\n\n```powershell\npython -m venv .venv\n.venv\\Scripts\\activate\npip install -e \".[dev]\"\n```\n\n## Local Test Quickstart\n\n```powershell\npip install -e \".[dev]\"\npytest -q\n```\n\n## Usage\n\n```python\nfrom logos import verify, is_tautology, is_contradiction, are_equivalent\n\n# Verify logical arguments\nresult = verify(\"P -> Q, P |- Q\")\nprint(result.valid)  # True\nprint(result.rule)   # \"Modus Ponens\"\n\n# Detect fallacies\nresult = verify(\"P -> Q, Q |- P\")\nprint(result.valid)          # False\nprint(result.rule)           # \"Affirming the Consequent (fallacy)\"\nprint(result.counterexample) # {'P': False, 'Q': True}\n\n# Check tautologies and contradictions\nis_tautology(\"P | ~P\")       # True (Law of Excluded Middle)\nis_contradiction(\"P & ~P\")   # True\n\n# Check logical equivalence\nare_equivalent(\"~(P & Q)\", \"~P | ~Q\")  # True (De Morgan's Law)\nare_equivalent(\"P -> Q\", \"~Q -> ~P\")   # True (Contraposition)\n```\n\n## CLI\n\n```powershell\npython -m logos \"P -> Q, P |- Q\"\npython -m logos \"P -> Q, Q |- P\" --explain\npython -m logos \"P -> Q, P |- Q\" --json\n```\n\n## Syntax\n\n| Symbol | Meaning | Alternatives |\n|--------|---------|--------------|\n| `->` | Implication | `=>` |\n| `<->` | Biconditional | `<=>` |\n| `&` | Conjunction (AND) | `^` |\n| `\\|` | Disjunction (OR) | |\n| `~` | Negation (NOT) | `!` |\n| `\\|-` | Turnstile (therefore) | |\n| `A-Z` | Atomic propositions | |\n| `()` | Grouping | |\n\n## Examples\n\n```python\n# Valid inference rules\nverify(\"P -> Q, P |- Q\")           # Modus Ponens\nverify(\"P -> Q, ~Q |- ~P\")         # Modus Tollens\nverify(\"P -> Q, Q -> R |- P -> R\") # Hypothetical Syllogism\nverify(\"P | Q, ~P |- Q\")           # Disjunctive Syllogism\nverify(\"P, Q |- P & Q\")            # Conjunction Introduction\nverify(\"P & Q |- P\")               # Conjunction Elimination\nverify(\"P -> Q |- ~Q -> ~P\")       # Contraposition\n\n# Common fallacies (all return valid=False)\nverify(\"P -> Q, Q |- P\")           # Affirming the Consequent\nverify(\"P -> Q, ~P |- ~Q\")         # Denying the Antecedent\n```\n\n## For AI Agents\n\nThis library is designed to be called directly via Python execution. No MCP server or API wrapper needed. The package ships a `py.typed` marker (PEP 561) so downstream type checkers see the inline types.\n\n```python\n# Agent writes this code, executes it, reads the result\nfrom logos import verify\nresult = verify(\"P -> Q, P |- Q\")\n# Agent sees: valid=True, rule=\"Modus Ponens\"\n# Agent can now use this information to verify its reasoning\n```\n\nFor a complete copy-paste example see [`examples/agent_integration.py`](examples/agent_integration.py).\n\n### Proof-Carrying Actions (v0.3)\n\nYou can attach machine-checkable certif",
+    "readme_source": "full"
+  },
+  {
+    "repo": "thomasarmel/metamorphic-testing-rs",
+    "url": "https://github.com/thomasarmel/metamorphic-testing-rs",
+    "stars": 3,
+    "language": "Rust",
+    "created_at": "2024-10-14T15:22:25Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 2,
+    "code_files": 4,
+    "sample_technique_files": [
+      "Cargo.toml",
+      "src/lib.rs",
+      "src/main.rs"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "",
+    "readme_source": "none"
+  },
+  {
+    "repo": "thomasarmel/multiss_arithmetics",
+    "url": "https://github.com/thomasarmel/multiss_arithmetics",
+    "stars": 0,
+    "language": "Rust",
+    "created_at": "2026-06-08T16:44:26Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 16,
+    "sample_technique_files": [
+      "src/birkhoff/primitives.rs"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# MULTISS - Arithmetics ## Introduction This crate provides arithmetic operations for the MULTISS protocols, for secret storage across multiple remote QKD networks. Standard and local-mode implementations are provided, the latter being used in case the number of nodes in the mother QKD network is equal to the number of daughter QKD networks. It allows to test the protocol computations performance, for both secret distribution and recovery. ## Installation ### Rust installation Install the Rust toolchain by following the instructions on the [official website](https://www.rust-lang.org/tools/ins",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Three-Cats-LSP/LSP_D-planner-plus",
+    "url": "https://github.com/Three-Cats-LSP/LSP_D-planner-plus",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-06-23T16:45:16Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 158,
+    "sample_technique_files": [
+      "docs/CCR_ENGINE_DIFFERENTIAL_TEST_PLAN.md",
+      "tools/audit/legacy_v1.py"
+    ],
+    "description": "LSP D-Planner+ — unified OC and CCR decompression planner (v2.50+)",
+    "topics": [
+      "dive",
+      "diveplanner",
+      "diving",
+      "scuba",
+      "scuba-diving",
+      "scubadiving"
+    ],
+    "readme": "# LSP D-Planner+ LSP D-Planner+ is a free, open-source decompression planning app for recreational and technical divers. It runs in the browser, installs as a PWA, works offline after first load, and is also available as a direct Android APK. There is no account, no ads, no Play Store requirement, and no server-side decompression calculation. - Live app: https://threecats-lsp.com/d-planner-plus/ - Android APK: https://threecats-lsp.com/d-planner-plus/download.html - Official release: https://github.com/Three-Cats-LSP/LSP_D-planner-plus/releases/latest - Toolkit hub: https://threecats-lsp.com -",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "tim-inzitari/poke-bot-agent",
+    "url": "https://github.com/tim-inzitari/poke-bot-agent",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-06-18T13:30:24Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 6,
+    "code_files": 1410,
+    "sample_technique_files": [
+      "config/policy_layers/alakazam-public-rule-adapter-r298.json",
+      "docs/COMPLETE_FLEET_TOP_FINISH_PLAN.md",
+      "docs/alakazam-r298-managed-training-plan.json",
+      "poke_bot/alakazam_public_rule_adapter_r298.py",
+      "poke_bot/alakazam_rule_derivative_handoff_r303.py"
+    ],
+    "description": "Code for team Challengestone on Kaggle Pokemon TCG AI Contest",
+    "topics": [],
+    "readme": "# Poke Bot Agent Source release of the agent developed for Kaggle's 2026 `pokemon-tcg-ai-battle` competition. The competition has ended; this repository is published for engineering reference and reproducibility. The system combines a causal Transformer policy/value model, factorized legal action decoding, advantage-weighted self-play training, immutable replay lineage, and optional remote whole-game simulation workers. The code reflects the final competition development tree, with private fleet defaults and operational artifacts removed. ## What is included - policy, feature, action, training",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "timharris707/skills",
+    "url": "https://github.com/timharris707/skills",
+    "stars": 23,
+    "language": "Python",
+    "created_at": "2026-06-25T02:24:41Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 201,
+    "sample_technique_files": [
+      "site/src/lib/legend.ts"
+    ],
+    "description": "23 practical agent skills: TeamWorkflow, multi-model review, media ingestion, and writing. Original Claude Code packages plus a Codex desktop edition tuned for Astra. Source for clickai.dev.",
+    "topics": [
+      "agent-skills",
+      "ai-agents",
+      "ai-workflow",
+      "claude-code",
+      "claude-code-plugin",
+      "developer-tools",
+      "llm",
+      "multi-agent",
+      "prompt-engineering"
+    ],
+    "readme": "# Skills For Real Non-Engineers I've led dev teams for over twenty years. I never wrote the code. These skills give me a lead developer who runs the team, so all I have to bring is the idea. Four shipped products so far. Most of these skills started as someone else's. Fifteen are adapted from Matt Pocock's [Skills For Real Engineers](https://github.com/mattpocock/skills), three from [Lauren Tan](https://github.com/cursor/plugins/tree/main/pstack), six are mine. I rewrote nearly all of them for someone who won't read the code, then tied them together under one [orchestrator](./skills/run/orches",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "timm/icse27theories",
+    "url": "https://github.com/timm/icse27theories",
+    "stars": 1,
+    "language": "HTML",
+    "created_at": "2026-05-24T20:13:14Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 2,
+    "code_files": 26,
+    "sample_technique_files": [
+      "docs/models/brooks.html",
+      "docs/scripts/gen_docs.py",
+      "meta/session_a3d9d0a8.md",
+      "paper/tests.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "",
+    "readme_source": "none"
+  },
+  {
+    "repo": "timpaquatte/pytest-mutagen",
+    "url": "https://github.com/timpaquatte/pytest-mutagen",
+    "stars": 5,
+    "language": "Python",
+    "created_at": "2020-04-07T14:48:46Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 17,
+    "sample_technique_files": [
+      "examples/BST_mutations.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# Mutagen Mutagen is a plugin to pytest that makes it easy to do mutation testing. Mutation testing is a method of testing your tests. Mutagen helps you to define \"mutant\" versions of your code---code which is intentionally buggy---then you run your test suite on these mutants and verify that your tests actually catch the bugs. Mutation testing helps you to gauge test coverage and verify that your tests are good enough to exercise interesting behaviors in your code. ## For Property-Based Testing If you are a user of a *property-based testing* framework such as Hypothesis, mutation testing can",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "TinkerBoard-Android/rockchip-android-external-deqp",
+    "url": "https://github.com/TinkerBoard-Android/rockchip-android-external-deqp",
+    "stars": 0,
+    "language": "C++",
+    "created_at": "2023-03-06T05:02:55Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 3,
+    "code_files": 3189,
+    "sample_technique_files": [
+      "AndroidGen.bp",
+      "modules/gles3/functional/CMakeLists.txt",
+      "modules/gles3/functional/es3fFunctionalTests.cpp",
+      "modules/gles3/functional/es3fShaderMetamorphicTests.cpp",
+      "modules/gles3/functional/es3fShaderMetamorphicTests.hpp"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "dEQP README\n===========\n\nThis repository contains a GPU testing suite called dEQP (drawElements Quality Program).\ndEQP contains tests for several graphics APIs, including OpenGL ES, EGL, and Vulkan.\n\nDocumentation\n-------------\n\nUp-to-date documentation for the dEQP is available at\n[Android Open Source Project site](http://source.android.com/devices/graphics/testing.html).\n\nThe .qpa logs generated by the conformance tests may contain embedded PNG images of the results.\nThese can be viewed with `scripts/qpa_image_viewer.html`, by opening the file\nwith a web browser and following its instructions, or using the\n[Cherry](https://android.googlesource.com/platform/external/cherry/+/master)\ntool.\n\nKhronos Vulkan Conformance Tests\n--------------------------------\n\nThis repository includes Khronos Vulkan CTS under `external/vulkancts` directory.\nFor more information see [Vulkan CTS README](external/vulkancts/README.md).\n\nKhronos OpenGL / OpenGL ES Conformance Tests\n--------------------------------\n\nThis repository includes Khronos OpenGL / OpenGL ES CTS under `external/openglcts` directory.\nFor more information see [OpenGL / OpenGL ES CTS README](external/openglcts/README.md).\n\nANGLE for Android\n--------------------------------\n\nANGLE can be built for Android by following the instructions\n[here](https://chromium.googlesource.com/angle/angle.git/+/HEAD/doc/DevSetup.md#building-angle-for-android).\n\nThe resulting ANGLE shared object libraries can be linked against and embedded into `dEQP.apk` with\nthe `--angle-path` option.   This will cause `dEQP.apk` to use the ANGLE libraries for OpenGL ES\ncalls, rather than the native drivers.\n\nAn ABI must be specified and the directory structure containing the ANGLE shared objects must match\nit so the build system can find the correct `*.so` files.\n\nAssuming ANGLE shared objects are generated into `~/chromium/src/out/Release/` and `dEQP.apk` will\nbe generated with `--abis arm64-v8a`, issue the following commands:\n\n\tcd ~/chromium/src/out/Release/\n\tmkdir arm64-v8a && cd arm64-v8a\n\tcp ../lib*_angle.so .\n\nThe `--angle-path ~/chromium/src/out/Release/` option can then be used to link against and embed the\nANGLE shared object files.   The full command would be:\n\n\tpython scripts/android/build_apk.py --sdk <path to Android SDK> --ndk <path to Android NDK> --abis arm64-v8a --angle-path ~/chromium/src/out/Release/",
+    "readme_source": "full"
+  },
+  {
+    "repo": "TinkerBoard2-Android/external-deqp",
+    "url": "https://github.com/TinkerBoard2-Android/external-deqp",
+    "stars": 0,
+    "language": "C++",
+    "created_at": "2021-09-28T11:05:34Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 3,
+    "code_files": 3004,
+    "sample_technique_files": [
+      "AndroidGen.bp",
+      "modules/gles3/functional/CMakeLists.txt",
+      "modules/gles3/functional/es3fFunctionalTests.cpp",
+      "modules/gles3/functional/es3fShaderMetamorphicTests.cpp",
+      "modules/gles3/functional/es3fShaderMetamorphicTests.hpp"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "dEQP README =========== This repository contains a GPU testing suite called dEQP (drawElements Quality Program). dEQP contains tests for several graphics APIs, including OpenGL ES, EGL, and Vulkan. Documentation ------------- Up-to-date documentation for the dEQP is available at [Android Open Source Project site](http://source.android.com/devices/graphics/testing.html). The .qpa logs generated by the conformance tests may contain embedded png images of the results. These can be viewed with the [Cherry](https://android.googlesource.com/platform/external/cherry/+/master) tool. Khronos Vulkan Con",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "TinkerEdgeR-Android/external_deqp",
+    "url": "https://github.com/TinkerEdgeR-Android/external_deqp",
+    "stars": 0,
+    "language": "C++",
+    "created_at": "2020-12-01T16:05:17Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 3,
+    "code_files": 2681,
+    "sample_technique_files": [
+      "AndroidGen.mk",
+      "modules/gles3/functional/CMakeLists.txt",
+      "modules/gles3/functional/es3fFunctionalTests.cpp",
+      "modules/gles3/functional/es3fShaderMetamorphicTests.cpp",
+      "modules/gles3/functional/es3fShaderMetamorphicTests.hpp"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "dEQP README =========== This repository contains a GPU testing suite called dEQP (drawElements Quality Program). dEQP contains tests for several graphics APIs, including OpenGL ES, EGL, and Vulkan. Documentation ------------- Up-to-date documentation for the dEQP is available at [Android Open Source Project site](http://source.android.com/devices/graphics/testing.html). Khronos Vulkan Conformance Tests -------------------------------- This repository includes Khronos Vulkan CTS under `external/vulkancts` directory. For more information see [Vulkan CTS README](external/vulkancts/README.md). Khr",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "tirthfx/jcode-fusion",
+    "url": "https://github.com/tirthfx/jcode-fusion",
+    "stars": 0,
+    "language": "Rust",
+    "created_at": "2026-08-29T18:28:27Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 1428,
+    "sample_technique_files": [
+      "crates/jcode-tui/src/tui/app/commands.rs"
+    ],
+    "description": "A hard fork of jcode fusing Mission Engine, Guardian, worktree-isolated swarms, ACP, and memory consolidation from Codex Harness and Grok Build. 5 phases shipped, full build log included.",
+    "topics": [],
+    "readme": "<div align=\"center\"> # jcode-fusion **A fork of [`jcode`](https://github.com/1jehuang/jcode) fusing in the best orchestration, safety, and swarm ideas from OpenAI's [Codex Harness](https://github.com/openai/codex) and xAI's [Grok Build](https://github.com/xai-org/grok-build).** [![License: MIT](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](LICENSE) [![Base](https://img.shields.io/badge/base-jcode%20v0.81.2-blue?style=flat-square)](https://github.com/1jehuang/jcode) [![Status](https://img.shields.io/badge/status-paused%2C%20not%20abandoned-orange?style=flat-square)](claude-c",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "tlaplus/model-checker-hardening",
+    "url": "https://github.com/tlaplus/model-checker-hardening",
+    "stars": 7,
+    "language": "Java",
+    "created_at": "2026-08-10T14:21:21Z",
+    "technique_test_files": 4,
+    "technique_nontest_files": 5,
+    "code_files": 515,
+    "sample_technique_files": [
+      "README.md",
+      "conformance/choose-multiple-witnesses.md",
+      "docs/architecture/fuzzing-workflows.md",
+      "docs/architecture/ir-generators.md",
+      "docs/decisions/0016-metamorphic-testing.md"
+    ],
+    "description": "Hardening TLC and Apalache through systematic, differential, fuzz, and regression testing to improve the reliability of TLA+ model checking",
+    "topics": [
+      "apalache",
+      "fuzzing",
+      "testing",
+      "tlaplus",
+      "tlc"
+    ],
+    "readme": "# FuzzTLA [![Build](https://github.com/tlaplus/model-checker-hardening/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/tlaplus/model-checker-hardening/actions/workflows/build.yml) [![Integration](https://github.com/tlaplus/model-checker-hardening/actions/workflows/integration.yml/badge.svg?branch=main)](https://github.com/tlaplus/model-checker-hardening/actions/workflows/integration.yml) FuzzTLA is work-in-progress on the grant \"Hardened Testing of TLA+ Model Checkers\" supported by the TLA<sup>+</sup> Foundation. The project uses Apalache's Java façade for its TLA+ inter",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Todor-cmd/ai-testing-2",
+    "url": "https://github.com/Todor-cmd/ai-testing-2",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2025-01-08T13:11:33Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 2,
+    "code_files": 11,
+    "sample_technique_files": [
+      "results/model_1/results.json",
+      "results/model_2/results.json",
+      "utils/experiment.py",
+      "utils/metamorphic_testing.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# ai-testing-2\nA test suite created to test two models as part of DSAIT4015 Software Engineering and Testing for AI Systems course at TU Delft. \n\n## Set up Environment\nOption 1: with conda\n```bash\nconda env create -f environment.yml \n```\nThen \n```bash\nconda activate aiTesting2Env\n```\n\nOption 2: with pip \n```bash\npip install -r requirements.txt\n```\n\n## Running tests\nWe have two models and therefore two files to run. Each generates results in the 'results/'directory for its respective model. \n\n```bash\n# Run tests for model 1\npython test_model_1.py\n\n# Run tests for model 2\npython test_model_2.py\n```\n\n\n## Comparing two models\nTo compare the results of the two models after they are generated, the following file can be run.\n```bash\npython compare_test_results.py\n```\n\nIt will save generated plots in 'results/comparison_results/ directory'.",
+    "readme_source": "full"
+  },
+  {
+    "repo": "toejough/engram",
+    "url": "https://github.com/toejough/engram",
+    "stars": 8,
+    "language": "Go",
+    "created_at": "2026-03-01T06:35:47Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 616,
+    "sample_technique_files": [
+      "dev/eval/audit/results/relevance-cues.jsonl",
+      "dev/eval/links/fabrics/l2.json",
+      "dev/eval/links/fabrics/l2_audit.txt",
+      "dev/eval/links/fabrics/l3.json",
+      "dev/eval/links/fabrics/l6.json"
+    ],
+    "description": "Self-correcting memory for LLM agents. A Claude Code plugin that learns from sessions, surfaces relevant memories, measures whether they're actually followed, and fixes the ones that aren't.",
+    "topics": [
+      "agent",
+      "claude",
+      "llm",
+      "memory",
+      "self-correcting"
+    ],
+    "readme": "# Engram > ⚠️ **Breaking change.** The pre-vault TOML memory-record storage layer > (`~/.local/share/engram/memory/`) was removed. Engram now writes only > to an agent-memory Obsidian vault. Migration from the > old layout is not automated. An LLM should be able to migrate easily. ## Overview Engram gives Claude Code and Pi agents persistent memory via a zettelkasten-style vault. All six skills — `recall`, `learn`, `please`, `route`, `curate`, and `write-memory` — ship as `SKILL.md` installed by `engram update`. Each skill may additionally carry a companion `skill-claude-<name>` vault runbook",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "TokeReines/01_AdvancedProgramming",
+    "url": "https://github.com/TokeReines/01_AdvancedProgramming",
+    "stars": 0,
+    "language": "Erlang",
+    "created_at": "2021-09-07T11:08:06Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 42,
+    "sample_technique_files": [
+      "Assignments/05/code/mystery/src/test_bst.erl",
+      "Assignments/05/letitbe-mystery.html"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "",
+    "readme_source": "none"
+  },
+  {
+    "repo": "TomNeyland/aggo",
+    "url": "https://github.com/TomNeyland/aggo",
+    "stars": 1,
+    "language": "TypeScript",
+    "created_at": "2015-07-15T05:15:16Z",
+    "technique_test_files": 3,
+    "technique_nontest_files": 0,
+    "code_files": 105,
+    "sample_technique_files": [
+      "tests/fixtures/blog-posts.spec.js",
+      "tests/fixtures/ecommerce-orders.spec.js",
+      "tests/fixtures/iot-sensors.spec.js"
+    ],
+    "description": "In-memory Mongodb Query Engine.",
+    "topics": [],
+    "readme": "# aggo [![License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/TomNeyland/aggo.js) [![Tag](https://img.shields.io/github/tag/TomNeyland/aggo.js.svg?style=flat)](https://github.com/TomNeyland/aggo.js) **Transform your JSON data with MongoDB aggregation pipelines – right from the command line!** Ever wished you could slice, dice, and analyze JSON data with the power of MongoDB's aggregation pipeline? Now you can! Aggo brings MongoDB's legendary data processing capabilities to any JSON dataset, whether it's log files, API responses, or massive datasets. ```bas",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "TomPearson38/X-Ray_Image_Analysis",
+    "url": "https://github.com/TomPearson38/X-Ray_Image_Analysis",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2025-01-06T13:35:43Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 2,
+    "code_files": 32,
+    "sample_technique_files": [
+      "data_classes/model_info.py",
+      "docs/glossary.md",
+      "stages/test_model.py",
+      "ui_tabs/view_models_tab.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# X-Ray_Image_Analysis\n\nThis program has been created in collaboration with the University of Sheffield and AMRC Castings.\nIt contributes to the dissertation project created by @TomPearson38\n\nThe system has been coded in Python and allows the user to provide an image of an X-rayed alloy to be analysed. The system then\ndetects faults in the provided image and provides feedback and a confidence score on the areas it believes contain faults. The user is\nthen able to judge the performance of the system and either correct it or confirm that it is correct. The image has the option to be added to\nthe dataset to retrain the AI at a later date and improve its functionality\n\nAIs can be trained using a all images or a limited set provided through dataset configuration files,\nand can even build upon previous iterations by using their final weights as starting values.\n\nThis project was developed using the [GDX-ray dataset](https://domingomery.ing.uc.cl/material/gdxray/). This project has been developed for research and educational purposes. Many thanks to GDX-ray for providing high quality testing images. \n\n# Requirements\n\nTo install the project, please ensure you have an Nvidia GPU. \nFor full details on how to install from scratch, please visit the [install_instructions.md](install_instructions.md)\n\n# License Information\n\nPlease see the [license document](LICENSE.md)\n\n# Video Demonstration\n\nPlease see the following [YouTube Video](https://youtu.be/26JdtoJ3ZDw) for a demonstration of the system.",
+    "readme_source": "full"
+  },
+  {
+    "repo": "toni-ramchandani/AINotesForTesting",
+    "url": "https://github.com/toni-ramchandani/AINotesForTesting",
+    "stars": 6,
+    "language": "Jupyter Notebook",
+    "created_at": "2024-08-23T08:38:38Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 22,
+    "sample_technique_files": [
+      "Section_08_AITestingConcepts.ipynb"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "> **Note:** For this tutorial, you will need an API key and tokens to evaluate closed-source models. Ensure you have: > - An API key from the respective service provider (e.g., OpenAI). > - Sufficient tokens or credits to make API calls and evaluate the models. > > You can obtain an API key by signing up on the provider's platform and following their instructions for API access. Make sure to review the pricing and usage limits to manage your costs effectively. > > Although we have covered a lot of open source examples as well, you need to practise with both Open source and closed source to lea",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "tonyandrewmeyer/cantrip",
+    "url": "https://github.com/tonyandrewmeyer/cantrip",
+    "stars": 1,
+    "language": "Python",
+    "created_at": "2026-02-08T10:24:55Z",
+    "technique_test_files": 2,
+    "technique_nontest_files": 0,
+    "code_files": 768,
+    "sample_technique_files": [
+      "CHANGELOG.md",
+      "tests/unit/agent/test_permissions_properties.py",
+      "tests/unit/transcript/test_transcript_properties.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# Cantrip *A small spell for building Juju charms* > **⚠ Experimental, pre-1.0 software — run inside a VM only.** > > Cantrip is early, exploratory work. Interfaces, on-disk layouts, slash > commands, tool surfaces, and defaults will change without notice, and > there is no API or behavioural stability guarantee until 1.0. Treat it > accordingly. > > Cantrip is an autonomous agent: it executes shell commands, edits > files, packs and deploys charms, and talks to Juju controllers and > Kubernetes substrates on your behalf. Steps have been taken to keep > it well-behaved — sandboxed tool executi",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "TonyEpic/eth-ast-sqlite-fuzzer",
+    "url": "https://github.com/TonyEpic/eth-ast-sqlite-fuzzer",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-04-12T21:32:17Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 24,
+    "sample_technique_files": [
+      "src/test_db/oracle/metamorphic.py"
+    ],
+    "description": "Python-based SQLite fuzzing project for ETH Automated Software Testing. The tool generates SQL workloads, executes them against a patched SQLite target, and analyzes outcomes using classification and differential testing to uncover crashes, unexpected errors, and logic bugs.",
+    "topics": [],
+    "readme": "# ETH AST 2026 — SQLite Fuzzer (`test-db`)\n\nTeam project for the Automated Software Testing course (Spring 2026), Part 1.\n\n**Team:** Toni Krstic, Pirmin Ballmer\n\nA generation-based SQL fuzzer targeting the patched SQLite 3.39.4 binary\nprovided by the course. The tool generates random multi-statement SQL\nworkloads with a stateful schema model, executes each workload against the\npatched binary (and optionally against the vanilla SQLite 3.51.1 for\ndifferential testing), classifies the outcome, and emits machine-readable\nartifacts for code-coverage, keyword-coverage, validity and bug-reproducer\nreports.\n\n---\n\n## Quickstart\n\nThe tool is designed to run inside the course's\n[`theosotr/sqlite3-test`](https://hub.docker.com/r/theosotr/sqlite3-test) base\nimage, which provides the patched SQLite (`/usr/bin/sqlite3-3.39.4`), vanilla\nSQLite 3.51.1 (`/usr/bin/sqlite3`), and the SQLite source tree at\n`/home/test/sqlite3-src`. The provided `Dockerfile` builds an additional\n`gcov`-instrumented binary (`/usr/bin/sqlite3-coverage`) and installs the\n`test-db` entrypoint at `/usr/bin/test-db`.\n\n### Build the image\n\n```bash\ndocker build -t test-db .\n```\n\n### Show the CLI\n\n```bash\ndocker run --rm test-db test-db --help\n```\n\n### Smoke test (a few workloads)\n\n```bash\ndocker run --rm -v \"$PWD/output:/opt/test-db/output\" test-db \\\n    test-db run --num-queries 5 --diff\n```\n\n### Run the 10 000-query campaign (bug-finding + characteristics + perf)\n\n```bash\ndocker run --rm -v \"$PWD/output:/opt/test-db/output\" test-db \\\n    test-db experiment --queries 10000 --workers 7 --diff --keep-sql\n```\n\n### Run the coverage campaign\n\n```bash\ndocker run --rm -v \"$PWD/output:/opt/test-db/output\" test-db \\\n    test-db experiment --queries 10000 --coverage\n```\n\n> Note: the coverage campaign forces `--workers 1` because the `gcov`-\n> instrumented binary writes to shared `.gcda` files; concurrent writers\n> would corrupt them.\n\n### Scaffold bug reproducers\n\n```bash\ndocker run --rm -v \"$PWD:/work\" -w /work test-db \\\n    test-db triage --out bug-reproducers\n```\n\n### Re-run keyword / validity stats on an existing run\n\n```bash\ndocker run --rm -v \"$PWD/output:/opt/test-db/output\" test-db \\\n    test-db stats\n```\n\nThe `experiment` subcommand already invokes `stats` automatically; this is\nmainly useful if you re-import an older run directory.\n\n---\n\n## CLI reference\n\n```\ntest-db [--output-dir DIR] <subcommand> [options]\n```\n\n`--output-dir` (default: `output`) is where run artifacts are written.\n\n### `run`\n\nGenerate N workloads sequentially with full per-workload JSON saved next to\nthe SQL. Intended for ad-hoc development; not used for graded numbers.\n\n| Flag | Default | Purpose |\n| --- | --- | --- |\n| `--num-queries N` | `1` | Number of workloads to generate. |\n| `--diff` | off | Also execute on vanilla SQLite; flag mismatches. |\n\n### `experiment`\n\nThe controlled experiment that produces all numbers in the report.\n\n| Flag | Default | Purpose |\n| --- | --- | --- |\n| `--queries N` | `10000` | Stop after a",
+    "readme_source": "full"
+  },
+  {
+    "repo": "TopoToolbox/gallery",
+    "url": "https://github.com/TopoToolbox/gallery",
+    "stars": 0,
+    "language": "Jupyter Notebook",
+    "created_at": "2025-03-18T15:59:36Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 10,
+    "sample_technique_files": [
+      "notebooks/python/testing/testing.ipynb"
+    ],
+    "description": "Interactive examples of TopoToolbox workflows",
+    "topics": [],
+    "readme": "# The TopoToolbox Gallery\n\n[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/TopoToolbox/gallery/HEAD)\n\nThis repository hosts a collection of example workflows as interactive notebooks.\n\nThe gallery itself can be viewed at https://topotoolbox.github.io/gallery.\n\nThe templates for\n[MATLAB](https://topotoolbox.github.io/gallery/notebooks/matlab/contributing/contributing.html)\nand\n[Python](https://topotoolbox.github.io/gallery/notebooks/python/contributing/contributing.html)\ncontain detailed instructions for creating and submitting an example\nto the gallery. In short, clone the gallery repository, create your\nJupyter notebook or MATLAB Live Script in a new directory under the\n`notebooks/python` or `notebooks/matlab` and make a pull request to\nadd the example to the repository.",
+    "readme_source": "full"
+  },
+  {
+    "repo": "torarinvik/Elisa-core",
+    "url": "https://github.com/torarinvik/Elisa-core",
+    "stars": 0,
+    "language": "Go",
+    "created_at": "2026-03-16T12:16:22Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 1559,
+    "sample_technique_files": [
+      "compiler/src/semantic/prover_metamorphic_test.go"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "",
+    "readme_source": "none"
+  },
+  {
+    "repo": "TracingInsights/tif1",
+    "url": "https://github.com/TracingInsights/tif1",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-03-04T07:17:14Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 243,
+    "sample_technique_files": [
+      "tests/property/test_sync_async_equivalence.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# tif1 A fast, canonical Formula 1 data library fetched from TracingInsights data https://github.com/TracingInsights/2026 (2018-current). [![CI/CD](https://github.com/TracingInsights/tif1/workflows/CI%2FCD/badge.svg)](https://github.com/TracingInsights/tif1/actions) [![codecov](https://codecov.io/gh/TracingInsights/tif1/branch/main/graph/badge.svg)](https://codecov.io/gh/TracingInsights/tif1) [![PyPI version](https://badge.fury.io/py/tif1.svg)](https://badge.fury.io/py/tif1) Data is available ~30 minutes after the session ends. Data in fastf1 is available ~20-25 minutes after the session ends.",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Tradition-Learning-Community/tllib-specs",
+    "url": "https://github.com/Tradition-Learning-Community/tllib-specs",
+    "stars": 1,
+    "language": "Python",
+    "created_at": "2026-02-28T22:25:06Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 2,
+    "code_files": 116,
+    "sample_technique_files": [
+      "registry/oracles/capacities/TLC-FC-11-CAPACITIES-001/oracle.yaml",
+      "registry/oracles/capacities/TLC-FC-11-CAPACITIES-002/oracle.yaml",
+      "registry/oracles/capacities/TLC-FC-11-CAPACITIES-003/oracle.yaml",
+      "registry/oracles/capacities/TLC-FC-11-CAPACITIES-005/oracle.yaml",
+      "registry/oracles/capacities/TLC-FC-11-CAPACITIES-006/oracle.yaml"
+    ],
+    "description": "Le dépôt contenant le travail scientifique pre-implementation",
+    "topics": [],
+    "readme": "<div align=\"center\">\n\n<img src=\"docs/assets/tllib-specs-banner.svg\" alt=\"tllib-specs — language-neutral specifications for the Tradition Learning library\" width=\"100%\" />\n\n# tllib-specs\n\n**Scientific, mathematical, algorithmic, and engineering specifications for `tllib`.**\n\n[Feature handoff](handoff/) · [Global catalog](handoff/catalog.json) · [Contributor guide](CONTRIBUTING.md) · [Repository guide](docs/REPOSITORY-GUIDE.md) · [Validation](#validation) · [Security](SECURITY.md)\n\n</div>\n\n## Project identity\n\n**Tradition Learning** is a theory and research programme for learning approaches that do not depend on big-data training regimes.\n\n**Tradition Learning Community (TLC)** is the community of scientists, mathematicians, algorithm designers, engineers, programmers, reviewers, and other contributors who study, formalize, promote, and implement that theory. TLC is an organization of people; it is not the name of the theory and it is not one of the theory's mathematical objects.\n\n**`tllib`** is the principal software product prepared from these specifications: a scientific library intended for use in artificial intelligence as a complement to machine learning, deep learning, reinforcement learning, and related methods. Its intended role is comparable to that of a reusable AI library such as TensorFlow or PyTorch, while exposing concepts and capabilities specific to Tradition Learning.\n\n**`tllib-specs`** is the upstream specification repository where scientists, mathematicians, algorithm designers, and specification engineers define `tllib` before runtime implementation. It transforms the theory into traceable, testable, language-neutral Feature Handoff Packages.\n\n> The **Community** domain under `maths/02-community/community.md` is Domain 02 of the 36 Tradition Learning domains. It must not be confused with the Tradition Learning Community organization.\n\n## Production status\n\n`tllib-specs` contains the complete specification model, validation, traceability, and language-neutral handoff packages for the 36-domain Tradition Learning corpus. It does not contain the downstream runtime library.\n\n| Published artifact | Finalized population |\n|---|---:|\n| Domain catalogs | **36** |\n| Feature Handoff Packages | **694** |\n| Shared structural contracts | **8** |\n| Standalone exports validated by CI | **694** |\n| Runtime implementations in this repository | **0** |\n\nFeature Handoff Package v1.0 is structurally finalized. The published model is independent of C++, Rust, Ruby, Python, or any other implementation language. Production runtime code, bindings, solvers, kernels, binary packages, and release archives belong in downstream implementation repositories.\n\n## How the repositories relate\n\n```text\nTradition Learning theory\n        ↓\nTradition Learning Community\n  research · formalization · review · implementation\n        ↓\ntllib-specs\n  scientific and engineering specification\n        ↓\nFeature Handoff Packages\n        ↓\ntllib\n  downstream runtime library f",
+    "readme_source": "full"
+  },
+  {
+    "repo": "Traigent/Traigent",
+    "url": "https://github.com/Traigent/Traigent",
+    "stars": 2,
+    "language": "Python",
+    "created_at": "2025-12-05T11:52:54Z",
+    "technique_test_files": 2,
+    "technique_nontest_files": 0,
+    "code_files": 1932,
+    "sample_technique_files": [
+      "tests/optimizer_validation/dimensions/test_metamorphic_oracles.py",
+      "tests/optimizer_validation/tools/mutation_oracle.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# Traigent\n\n<p align=\"center\">\n  <a href=\"https://github.com/Traigent/Traigent/actions/workflows/tests.yml\"><img src=\"https://github.com/Traigent/Traigent/actions/workflows/tests.yml/badge.svg\" alt=\"CI\"></a>\n  <a href=\"LICENSE\"><img src=\"https://img.shields.io/badge/License-AGPL_v3-blue.svg\" alt=\"License: AGPL-3.0\"></a>\n  <a href=\"https://www.python.org/downloads/\"><img src=\"https://img.shields.io/badge/python-3.11%2B-blue.svg\" alt=\"Python 3.11+\"></a>\n  <a href=\"docs/getting-started/GETTING_STARTED.md\"><img src=\"https://img.shields.io/badge/docs-getting%20started-brightgreen.svg\" alt=\"Docs\"></a>\n</p>\n\n**Traigent is an AI Agent infrastructure that allows companies to take AI agents out of the lab and deploy them at high scale with high confidence.**\n\nOur mission: **Anything you can measure, we can improve.** Whether it's accuracy, speed of response, cost, or any other business metric — we bring strong results that deliver real business value.\n\n> **Runs multiple LLM trials** — run `python -m traigent.examples.quickstart` for a no-cost demo, or call `enable_mock_mode_for_quickstart()` from `traigent.testing` in local tutorial code. Set `TRAIGENT_RUN_COST_LIMIT=2.0` as a best-effort local guardrail and set hard caps with your LLM/cloud providers; actual billing is determined by those providers. The legacy `TRAIGENT_MOCK_LLM=true` env var remains for backwards compatibility and is disabled when `ENVIRONMENT=production`. See [Cost Management](#cost-management).\n\n**Quick Install:**\n\nInstall from PyPI — no clone required (Python 3.11+):\n\n```bash\n# pip\npip install \"traigent[recommended]\"\n\n# uv (into the active venv, or `uv add` into a uv project)\nuv pip install \"traigent[recommended]\"\nuv add \"traigent[recommended]\"\n```\n\n<details>\n<summary>Prefer an isolated virtual environment first?</summary>\n\nmacOS / Linux:\n\n```bash\npython3 -m venv .venv\nsource .venv/bin/activate\npip install \"traigent[recommended]\"\n```\n\nWindows PowerShell:\n\n```powershell\npython -m venv .venv\n.venv\\Scripts\\Activate.ps1\npip install \"traigent[recommended]\"\n```\n\n</details>\n\nFor more options, see [Installation details](#installation).\n\n**Try it now - no API keys needed:**\n\n```bash\npip install \"traigent[integrations]\"\npython -m traigent.examples.quickstart\n```\n\nOr from a source checkout:\n\n```bash\npython hello_world.py\n```\n\n**Here's what the quickstart does - one decorator, automatic optimization:**\n\n```python\nfrom langchain_openai import ChatOpenAI\nimport traigent\n\n@traigent.optimize(\n    configuration_space={\n        \"model\": [\"gpt-4o-mini\", \"gpt-4o\"],\n        \"temperature\": [0.0, 0.7, 1.0],\n    },\n    objectives=[\"accuracy\"],\n    eval_dataset=\"qa_samples.jsonl\",\n)\ndef answer(question: str) -> str:\n    cfg = traigent.get_config()\n    llm = ChatOpenAI(model=cfg[\"model\"], temperature=cfg[\"temperature\"])\n    return llm.invoke(question).content\n```\n\n---\n\n## Using it in your own code\n\nAdd `@traigent.optimize()` to any function that calls an LLM — no framework required:\n\n```python\nimport traigent\n",
+    "readme_source": "full"
+  },
+  {
+    "repo": "TranBaDat2607/greenwashing-graph-rag",
+    "url": "https://github.com/TranBaDat2607/greenwashing-graph-rag",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-03-06T14:20:02Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 159,
+    "sample_technique_files": [
+      "CLAUDE.md",
+      "docs/LABELING_STRATEGY.md",
+      "docs/proposals/EVALUATION_WITHOUT_LABELS.md",
+      "evalu/evalu_labelfree.py"
+    ],
+    "description": "Graph-RAG pipeline for detecting greenwashing in Vietnamese listed companies. Builds a temporal ESG knowledge graph from annual reports (claims) and independent news (conduct), so reported ESG claims can be cross-checked against actual conduct.",
+    "topics": [],
+    "readme": "# Greenwashing Detection — Graph-RAG System A **Graph-RAG pipeline for detecting greenwashing in Vietnamese listed companies** (Construction / Building Materials / Real Estate sector). It ingests ESG statements from annual reports and news, classifies them, extracts numeric KPIs, and builds a **temporal ESG knowledge graph** so a company's *reported* ESG claims can be cross-checked against its *real-world* conduct — surfacing evidence and an advisory LLM assessment, not a greenwashing score (no ground-truth labels exist). --- ## Project structure ``` capstone_test1/ ├── config/ # Schema + dict",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "trangyp/AMOS-OS",
+    "url": "https://github.com/trangyp/AMOS-OS",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-08-25T10:17:27Z",
+    "technique_test_files": 3,
+    "technique_nontest_files": 0,
+    "code_files": 1086,
+    "sample_technique_files": [
+      "00_ROOT/00_HOME.md",
+      "00_ROOT/ALL_FILES_LINK_REGISTRY.md",
+      "00_ROOT/AMOS_RSCF_NODES.md",
+      "03_CONTROL_PLANE/01_TASK_CONTRACT/TASK_RESOLVER.md",
+      "03_CONTROL_PLANE/02_CAPABILITY/CAPABILITY_RESOLVER.md"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "--- canon-group: meta canon-type: framework rscf-state: source-claim rscf-claim: verified rscf-provenance: AMOS_corpus conclusion_class: AMOS_MODEL epistemic_class: SOURCE_CLAIM topic: Readme tags: - canon-group/tech-ai - rscf/claim - rscf/provenance - rscf/state/source-claim - misc created: 2026-08-22 --- --- --- # AMOS Full Brain OS — Master Architecture & Knowledge Vault > [!IMPORTANT] Canonical Boundary & Invariants > **Universal Invariant:** > $$\\text{LLM} \\subset \\text{CognitiveExecution}$$ > $$\\text{AMOS} = \\text{Kernel} + \\text{CognitiveRuntime} + \\text{MemorySystem} + \\text{WorldModel",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "trar3243/ComputationalModelsOfDiscourseRAG",
+    "url": "https://github.com/trar3243/ComputationalModelsOfDiscourseRAG",
+    "stars": 3,
+    "language": "Jupyter Notebook",
+    "created_at": "2026-03-06T22:22:28Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 34,
+    "sample_technique_files": [
+      "documents/loong_docs/paper/2404.13591.md",
+      "squad_testing/notebooks/rehydrating_wiki_squad_articles.ipynb"
+    ],
+    "description": "RAG project for Computational Models of Discourse",
+    "topics": [],
+    "readme": "# Computational Models of Discourse - RAG ## Initial considerations * Set up your coding environment (if it isn't already) * Install your IDE of choice — I like [VS Code](https://code.visualstudio.com/) * Install [Conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html) (or equivalent Python package manager) * Install [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) * Configure [Git](https://git-scm.com/book/ms/v2/Getting-Started-First-Time-Git-Setup) * Set up the environment locally: clone the [RAG-repo](https://github.com/trar3243/Computational",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "trastopchin/ast-f24-project",
+    "url": "https://github.com/trastopchin/ast-f24-project",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2024-04-18T14:10:21Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 2,
+    "code_files": 8,
+    "sample_technique_files": [
+      "main.py",
+      "mps_fuzzer.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# AST FS24 Project\n\n## Steps to reproduce data and results\n\n1. Run `download_initial_dataset.sh` to download and extract the MIPLIB dataset of\n   Mixed Integer Programming optimization problems. This downloads a 3GB zip file\n   and extracts it into the `input` directory.\n\n2. Install CPLEX. For this step, one should get their own academic installer\n   from the IBM website (available [here](http://ibm.biz/CPLEXonAI)). Running\n   `download_cplex.sh` will attempt to download the Linux installer under Nahin's\n   account but may fail in the future. The installer is around 650MB in size. Run\n   the installer and follow the instructions. In our case, we installed to\n   `/opt/ibm/ILOG/CPLEX_Studio2211` on a Linux machine.\n\n3. Install CPLEX Python integration. For this, run\n   `python3 /opt/ibm/ILOG/CPLEX_Studio2211/python/setup.py install`\n\n4. Install Gurobi. Just run: `pip install gurobipy`\n\n5. Download the Gurobi (academic) license file. Again, one should get their own\n   license from the Gurobi wesbite, and click download to get a `gurobi.lic` file.\n   Store it at the root of this project directory (same place as this README file).\n\n6. Install tqdm. Just run: `pip install tqdm`\n\n7. Run `python main.py` to run the automated tests. Let it generate `results.txt`. We ran this step for approximately 24h.\n\n8. Analyze the results using the instructions found in the `analysis/` directory.",
+    "readme_source": "full"
+  },
+  {
+    "repo": "trickle-labs/pg-trickle",
+    "url": "https://github.com/trickle-labs/pg-trickle",
+    "stars": 141,
+    "language": "PLpgSQL",
+    "created_at": "2026-02-23T15:03:41Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 450,
+    "sample_technique_files": [
+      ".github/workflows/dvm-tiers.yml",
+      "justfile",
+      "plans/PLAN_DVM_COMPOSITION_CORRECTNESS.md",
+      "plans/pg-trickle-assessment-and-pre-1.0-roadmap.md",
+      "scripts/dvm_release_gate.py"
+    ],
+    "description": "A PostgreSQL 18+ extension for streaming tables with incremental view maintenance, powered by differential dataflow in Rust.",
+    "topics": [
+      "dvm",
+      "extension",
+      "ivm",
+      "materialized-views",
+      "postgresql",
+      "streaming"
+    ],
+    "readme": "# pg_trickle\n\n[![Build](https://github.com/trickle-labs/pg-trickle/actions/workflows/build.yml/badge.svg)](https://github.com/trickle-labs/pg-trickle/actions/workflows/build.yml)\n[![CI](https://github.com/trickle-labs/pg-trickle/actions/workflows/ci.yml/badge.svg)](https://github.com/trickle-labs/pg-trickle/actions/workflows/ci.yml)\n[![Release](https://github.com/trickle-labs/pg-trickle/actions/workflows/release.yml/badge.svg)](https://github.com/trickle-labs/pg-trickle/actions/workflows/release.yml)\n[![Coverage](https://codecov.io/gh/trickle-labs/pg-trickle/branch/main/graph/badge.svg)](https://codecov.io/gh/trickle-labs/pg-trickle)\n[![Benchmarks](https://img.shields.io/badge/Benchmarks-view-blue)](docs/BENCHMARK.md)\n[![Roadmap](https://img.shields.io/badge/Roadmap-view-informational)](ROADMAP.md)\n[![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)\n[![PostgreSQL 18](https://img.shields.io/badge/PostgreSQL-18-blue?logo=postgresql&logoColor=white)](https://www.postgresql.org/)\n[![pgrx 0.18](https://img.shields.io/badge/pgrx-0.18-orange)](https://github.com/pgcentralfoundation/pgrx)\n[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/trickle-labs/pg-trickle)\n\n> **Pre-1.0 Notice:** pg_trickle is under active development and has not yet reached a stable 1.0 release. The core feature set is extensive and thoroughly tested, but APIs and configuration options may still change between minor versions. See [ROADMAP.md](ROADMAP.md) for the planned path to 1.0.\n\n> For a plain-language description of the problem pg_trickle solves, the differential dataflow approach, and the hybrid CDC architecture, read **[ESSENCE.md](ESSENCE.md)**.\n\n## Stream Tables for PostgreSQL 18\n\npg_trickle brings declarative, automatically-refreshing materialized views to PostgreSQL, inspired by the [DBSP](https://arxiv.org/abs/2203.16684) differential dataflow framework ([comparison](docs/research/DBSP_COMPARISON.md)). Define a SQL query and a schedule; the extension handles the rest.\n\nA **stream table** is a table defined by a SQL query that stays up to date automatically as the underlying data changes. You write to your base tables normally — `INSERT`, `UPDATE`, `DELETE` — and pg_trickle propagates the changes downstream. No polling, no manual refresh calls, no application-level orchestration.\n\nThe key difference from `REFRESH MATERIALIZED VIEW` is that pg_trickle uses **Incremental View Maintenance (IVM)**: when a row changes, only the effect of that row on the query result is computed. If you insert one row into a ten-million-row table, pg_trickle processes one row — not ten million. At high change rates it falls back to a full recompute automatically; at low change rates (the common case) the speedup is substantial. The [TPC-H benchmarks](#tpc-h-validation-22-queries-sf001) show 5–90× measured improvements across the 22 standard analytical queries at a 1% change rate.\n\nStream tables support the full range of SQL — `GROU",
+    "readme_source": "full"
+  },
+  {
+    "repo": "trickle-labs/rockstream",
+    "url": "https://github.com/trickle-labs/rockstream",
+    "stars": 6,
+    "language": "Rust",
+    "created_at": "2026-05-27T21:35:06Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 1041,
+    "sample_technique_files": [
+      ".claude/v0.59.17-plan.md",
+      "crates/rockstream-oracle/tests/scenario_metamorphic_tests.rs",
+      "sign-offs/v0.59.17.md"
+    ],
+    "description": "Incremental View Maintenance on SlateDB — keep materialized views up-to-date automatically",
+    "topics": [],
+    "readme": "# RockStream RockStream is a cloud-native incremental view maintenance engine. It ingests changing data, updates durable materialized views, and serves committed results to PostgreSQL-compatible clients. ## Start here | If you are... | Start with | | --- | --- | | Evaluating RockStream | [Getting started](docs/getting-started.md) | | Operating RockStream | [Operator guide](docs/operator.md) | | Contributing code | [Contributor guide](docs/contributors.md) | | Maintaining the project | [Documentation index](docs/README.md) | The [getting-started guide](docs/getting-started.md) includes the chec",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "triplem/jf-ai-dlc",
+    "url": "https://github.com/triplem/jf-ai-dlc",
+    "stars": 0,
+    "language": "TypeScript",
+    "created_at": "2026-08-30T10:18:23Z",
+    "technique_test_files": 2,
+    "technique_nontest_files": 0,
+    "code_files": 762,
+    "sample_technique_files": [
+      "upstream/aidlc-workflows/tests/e2e/t-tui-t139-revision-loop-idempotency.serial.test.ts",
+      "upstream/aidlc-workflows/tests/e2e/t138-scope-exclusion-counts.test.ts"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# jf-ai-dlc The **AI-DLC methodology as an installable plugin** for **Claude Code** and **Codex** — an open-source packaging of AWS's AI-DLC workflows (33 stages / 14 agents) that you drop into your own project. This project **stands on the shoulders of giants**: the methodology is the work of AWS Labs — jf-ai-dlc is a packaging/adapter layer, not a reimplementation. See [docs/why.md](docs/why.md) for full credit. > Looking for the **collaboration platform** (the shared, self-hosted server > that runs AI-DLC as a team — realtime editing, approval gates, agent session > orchestration)? That's t",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "trixr1907/AURA-Quant-Terminal",
+    "url": "https://github.com/trixr1907/AURA-Quant-Terminal",
+    "stars": 1,
+    "language": "HTML",
+    "created_at": "2026-09-08T13:48:56Z",
+    "technique_test_files": 3,
+    "technique_nontest_files": 2,
+    "code_files": 180,
+    "sample_technique_files": [
+      "SYMBIOSE_Model_Validation.md",
+      "claims.csv",
+      "docs/releases/RELEASE_v1.1.5.md",
+      "docs/research/GESAMTAUDIT_REPORT.md",
+      "docs/research/RESEARCH_INTEGRITY_GLOSSAR.md"
+    ],
+    "description": "AURA Quant Terminal — hardened quantitative research terminal with Bitget relay, walk-forward validation, DSR, Kelly sizing and SMC analysis",
+    "topics": [],
+    "readme": "<p align=\"center\"> <img src=\"assets/aura_logo_horizontal.svg\" width=\"520\" alt=\"AURA Confluence Terminal\"> </p> <p align=\"center\"> <strong>Quantitative Edge · Visual Precision · Pure Execution</strong> </p> # AURA v2.5.0 — Confluence Terminal <div align=\"center\"> <a href=\"VERSION\"><img src=\"https://img.shields.io/badge/version-2.5.0-00F5A0?style=for-the-badge&labelColor=080B11\" alt=\"Version 2.5.0\"></a> <a href=\"LICENSE\"><img src=\"https://img.shields.io/badge/license-MIT-00F2FE?style=for-the-badge&labelColor=080B11\" alt=\"MIT License\"></a> <a href=\"https://www.tradingview.com/pine-script-docs/\"><",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Trust4AI/GENIE",
+    "url": "https://github.com/Trust4AI/GENIE",
+    "stars": 0,
+    "language": "TypeScript",
+    "created_at": "2024-03-12T13:53:22Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 2,
+    "code_files": 30,
+    "sample_technique_files": [
+      "README.md",
+      "docs/openapi/spec.yaml",
+      "docs/postman/collection.json",
+      "src/api/app.ts",
+      "src/api/routes/ExecutorRoutes.ts"
+    ],
+    "description": "Natural Language Enquiry Executor",
+    "topics": [
+      "ai",
+      "executor",
+      "large-language-models",
+      "llms"
+    ],
+    "readme": "<div align = center>\n   <img src=\"https://github.com/Trust4AI/GENIE/blob/assets/GENIE_logo.png?raw=true\" width=\"150\" />\n</div>\n\n## GENIE: Natural Language Enquiry Executor\n\nGENIE facilitates the deployment and execution of Large Language Models (LLMs). This tool is specifically designed to integrate with [MUSE](https://github.com/Trust4AI/MUSE), which generates test cases following a Metamorphic Testing approach, and [GUARD-ME](https://github.com/Trust4AI/GUARD-ME), which analyzes LLM responses to such test cases for the detection of possible biases.\n\nIntegration options include a Docker image that launches a REST API with interactive documentation, simplifying its use and integration into various systems. GENIE is part of the [Trust4AI](https://trust4ai.github.io/trust4ai/) research project.\n\n## Index\n\n1. [Repository structure](#1-repository-structure)\n2. [Deployment](#2-deployment)\n   1. [Local deployment](#i-local-deployment)\n   2. [Docker deployment (only GENIE)](#ii-docker-deployment-only-genie)\n   3. [Docker deployment (GENIE and Ollama)](#iii-docker-deployment-genie-and-ollama)\n3. [Usage](#3-usage)\n   1. [Request using only the required properties](#i-request-using-only-the-required-properties)\n   2. [Request using all properties](#ii-request-using-all-properties)\n4. [License and funding](#4-license-and-funding)\n   1. [Logo credits](#logo-credits)\n\n## 1. Repository structure\n\nThis repository is structured as follows:\n\n- `docs/openapi/spec.yaml`: This file describes the entire API, including available endpoints, operations on each endpoint, operation parameters, and the structure of the response objects. It is written in YAML format following the [OpenAPI Specification](https://spec.openapis.org/oas/latest.html) (OAS).\n- `docs/postman/collection.json`: This file is a collection of API requests saved in JSON format for use with Postman.\n-  `src/`: This directory contains the source code for the project.\n-  `.dockerignore`: This file tells Docker which files and directories to ignore when building an image.\n-  `.gitignore`: This file is used by Git to exclude files and directories from version control.\n-  `Dockerfile`: This file is a script containing a series of instructions and commands used to build a Docker image.\n-  `docker-compose.yml`: This YAML file allows you to configure application services, networks, and volumes in a single file, facilitating the orchestration of containers.\n\n<p align=\"right\">[⬆️ <a href=\"#genie-natural-language-enquiry-executor\">Back to top</a>]</p>\n\n## 2. Deployment\n\nGENIE can be deployed in two main ways: locally and using Docker. Each method has specific requirements and steps to ensure a smooth and successful deployment. This section provides detailed instructions for both deployment methods, ensuring you can choose the one that best fits your environment and use case.\n\n### i. Local deployment\n\nLocal deployment is ideal for development and testing purposes. It allows you to run the tool on your local machine,",
+    "readme_source": "full"
+  },
+  {
+    "repo": "Trust4AI/GUARD-ME",
+    "url": "https://github.com/Trust4AI/GUARD-ME",
+    "stars": 0,
+    "language": "TypeScript",
+    "created_at": "2024-02-23T15:49:01Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 3,
+    "code_files": 35,
+    "sample_technique_files": [
+      "README.md",
+      "docs/openapi/spec.yaml",
+      "docs/postman/collection.json",
+      "src/api/app.ts",
+      "src/api/config/swagger.ts"
+    ],
+    "description": "AI-guided Evaluator for Bias Detection using Metamorphic Testing",
+    "topics": [
+      "ai",
+      "bias",
+      "evaluator",
+      "large-language-models",
+      "llms",
+      "metamorphic-testing",
+      "testing"
+    ],
+    "readme": "<div align = center>\n   <img src=\"https://github.com/Trust4AI/GUARD-ME/blob/assets/GUARD-ME_logo.png?raw=true\" width=\"150\" />\n</div>\n\n## GUARD-ME: AI-guided Evaluator for Bias Detection using Metamorphic Testing\n\nGUARD-ME evaluates bias in AI-enabled search engines by evaluating the responses to the source and follow-up test cases. It utilizes Large Language Models (LLMs) to detect any bias and ensure that these systems adhere to ethical standards. This tool is complementary to [MUSE](https://github.com/Trust4AI/MUSE), which generates the test cases used, and [GENIE](https://github.com/Trust4AI/GENIE), which facilitates communication with LLMs. \n\nIntegration options include a Docker image that launches a REST API with interactive documentation, simplifying its use and integration into various systems. GUARD-ME is part of the [Trust4AI](https://trust4ai.github.io/trust4ai/) research project.\n\n## Index\n\n1. [Repository structure](#1-repository-structure)\n2. [Deployment](#2-deployment)\n   1. [Local deployment](#i-local-deployment)\n   2. [Docker deployment](#ii-docker-deployment)\n3. [Usage](#3-usage)\n   1. [Request using _attribute\\_comparison_ as the evaluation method](#i-request-using-attribute_comparison-as-the-evaluation-method)\n4. [License and funding](#4-license-and-funding)\n   1. [Logo credits](#logo-credits)\n\n## 1. Repository structure\n\nThis repository is structured as follows:\n\n- `docs/openapi/spec.yaml`: This file describes the entire API, including available endpoints, operations on each endpoint, operation parameters, and the structure of the response objects. It is written in YAML format following the [OpenAPI Specification](https://spec.openapis.org/oas/latest.html) (OAS).\n- `docs/postman/collection.json`: This file is a collection of API requests saved in JSON format for use with Postman.\n-  `src/`: This directory contains the source code for the project.\n-  `.dockerignore`: This file tells Docker which files and directories to ignore when building an image.\n-  `.gitignore`: This file is used by Git to exclude files and directories from version control.\n-  `Dockerfile`: This file is a script containing a series of instructions and commands used to build a Docker image.\n-  `docker-compose.yml`: This YAML file allows you to configure application services, networks, and volumes in a single file, facilitating the orchestration of containers.\n\n<p align=\"right\">[⬆️ <a href=\"#guard-me-ai-guided-evaluator-for-bias-detection-using-metamorphic-testing\">Back to top</a>]</p>\n\n## 2. Deployment\n\nGUARD-ME can be deployed in two main ways: locally and using Docker. Each method has specific requirements and steps to ensure a smooth and successful deployment. This section provides detailed instructions for both deployment methods, ensuring you can choose the one that best fits your environment and use case.\n\n> [!IMPORTANT]  \n> If you want to make use of an open-source model for test case generation, you will need to deploy [GENIE](https://github.com/Trus",
+    "readme_source": "full"
+  },
+  {
+    "repo": "Trust4AI/MUSE",
+    "url": "https://github.com/Trust4AI/MUSE",
+    "stars": 0,
+    "language": "TypeScript",
+    "created_at": "2024-02-19T13:57:50Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 4,
+    "code_files": 32,
+    "sample_technique_files": [
+      "README.md",
+      "docs/openapi/spec.yaml",
+      "docs/postman/collection.json",
+      "src/api/app.ts",
+      "src/api/config/swagger.ts"
+    ],
+    "description": "AI-driven Metamorphic Testing Inputs Generator",
+    "topics": [
+      "ai",
+      "bias",
+      "generator",
+      "large-language-models",
+      "llms",
+      "metamorphic-testing",
+      "testing"
+    ],
+    "readme": "<div align = center>\n   <img src=\"https://github.com/Trust4AI/MUSE/blob/assets/MUSE_logo.png?raw=true\" width=\"150\" />\n</div>\n\n## MUSE: AI-driven Metamorphic Testing Inputs Generator\n\nMUSE generates test inputs for testing the bias of AI-enabled Search Engines. It leverages the capabilities of Large Language Models (LLMs) to create a wide range of source and follow-up test cases. This tool complements [GENIE](https://github.com/Trust4AI/GENIE), which manages communication with LLMs, and [GUARD-ME](https://github.com/Trust4AI/GUARD-ME), which checks for bias in responses from the systems under test.\n\nIntegration options include a Docker image that launches a REST API with interactive documentation, simplifying its use and integration into various systems. MUSE is part of the [Trust4AI](https://trust4ai.github.io/trust4ai/) research project.\n\n## Index\n\n1. [Repository structure](#1-repository-structure)\n2. [Deployment](#2-deployment)\n   1. [Local deployment](#i-local-deployment)\n   2. [Docker deployment](#ii-docker-deployment)\n3. [Usage](#3-usage)\n   1. [Request using _single_attribute_ as generation method](#i-request-using-single_attribute-as-generation-method)\n4. [License and funding](#4-license-and-funding)\n   1. [Logo credits](#logo-credits)\n\n## 1. Repository structure\n\nThis repository is structured as follows:\n\n- `docs/openapi/spec.yaml`: This file describes the entire API, including available endpoints, operations on each endpoint, operation parameters, and the structure of the response objects. It is written in YAML format following the [OpenAPI Specification](https://spec.openapis.org/oas/latest.html) (OAS).\n- `docs/postman/collection.json`: This file is a collection of API requests saved in JSON format for use with Postman.\n-  `src/`: This directory contains the source code for the project.\n-  `.dockerignore`: This file tells Docker which files and directories to ignore when building an image.\n-  `.gitignore`: This file is used by Git to exclude files and directories from version control.\n-  `Dockerfile`: This file is a script containing a series of instructions and commands used to build a Docker image.\n-  `docker-compose.yml`: This YAML file allows you to configure application services, networks, and volumes in a single file, facilitating the orchestration of containers.\n\n<p align=\"right\">[⬆️ <a href=\"#muse-ai-driven-metamorphic-testing-inputs-generator\">Back to top</a>]</p>\n\n## 2. Deployment\n\nMUSE can be deployed in two main ways: locally and using Docker. Each method has specific requirements and steps to ensure a smooth and successful deployment. This section provides detailed instructions for both deployment methods, ensuring you can choose the one that best fits your environment and use case.\n\n> [!IMPORTANT]  \n> If you want to make use of an open-source model for test case generation, you will need to deploy [GENIE](https://github.com/Trust4AI/GENIE) first.\n\n### i. Local deployment\n\nLocal deployment is ideal for development and testi",
+    "readme_source": "full"
+  },
+  {
+    "repo": "TsatsuAmable/nemosyne",
+    "url": "https://github.com/TsatsuAmable/nemosyne",
+    "stars": 0,
+    "language": "TypeScript",
+    "created_at": "2026-04-06T21:22:52Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 1394,
+    "sample_technique_files": [
+      "docs/ARCHITECTURE.md",
+      "docs/P1_ANALYTICAL_RESPONSIVENESS_AND_SPATIAL_FITNESS.md",
+      "docs/PRE_P1_SYSTEMATIC_AUDIT.md",
+      "docs/architecture/decisions/0009-ap-inv-fm1-question-aware-investigation.md",
+      "docs/archive/DEPENDENCY_MODERNIZATION_BACKLOG_COMPLETED_2026-08-24.md"
+    ],
+    "description": "A personal experiment to turn data into VR spaces with meaning and value: still figuring out what all that means. Inspired by the Datumplane of Hyperion Cantos",
+    "topics": [],
+    "readme": "# Nemosyne\n\n[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)\n[![GitHub Pages](https://img.shields.io/badge/Site-nemosyne.world-brightgreen?logo=github)](https://nemosyne.world)\n\n> **Experimental alpha research software, not a validated scientific instrument, maintained product or npm package.** Expect incomplete workflows and breaking changes.\n\nNemosyne investigates whether representation intelligence can help people develop meaningful, reproducible understanding of datasets without encouraging false discovery. Rust/WASM owns analytical facts; Moneta proposes bounded representation hypotheses or abstains; desktop and WebXR embody the same investigation, evidence and provenance model.\n\nThe project is trying to make the path from **data → structure → investigation → defensible understanding** inspectable and replayable, rather than turning every dataset into a cloud of points and calling the fog insight.\n\n---\n\n## What exists now\n\n- Rust/WASM-owned typed-column ingest, dataset identity, statistics, structural evidence, clustering, topology, reduction and analytical layouts.\n- Structure-first semantic representations for Aggregate, Distribution, Density, source-partition Cluster and source-authoritative Relationship Graph, with bounded drill-down to observations and exact provenance.\n- Bounded Moneta representation decisions with hard constraints, provenance, sensitivity evidence, explicit scientific abstention and model/artifact pinning.\n- One desktop/WebXR investigation runtime with shared semantic task vocabulary across desktop, controller and hand-input paths.\n- Investigator-visible observations, findings, hypotheses, evidence, annotations, archive/recovery state and bounded Memory Palace projections.\n- Portable `.nemosyne` investigations with representation/model identity and replay verification.\n- Governed product-data, model-registry and gesture-learning infrastructure through the bounded PT0-PT8 software/governance exits.\n- A row-free 10M Rust→JS evidence path plus governed Quest telemetry/validation tooling. These are engineering evidence, not proof of comfortable or sustained 10M-row operation on a headset.\n\n---\n\n## Status and direction\n\nThe [Definitive Vision and Roadmap](./docs/Nemosyne_Definitive_Vision_and_Roadmap.md) defines what Nemosyne is trying to become. The [live Roadmap](./docs/ROADMAP.md) is the canonical implementation-status and execution authority. The [GitHub Wiki](https://github.com/TsatsuAmable/nemosyne/wiki) is generated from those version-controlled authorities and is a convenient navigation surface, not a second source of truth.\n\nAt the **6 October 2026** roadmap snapshot:\n\n```text\nStream A progressive disclosure                         VERIFIED COMPLETE / STOP\nStream B Relationship Graph V1                         VERIFIED COMPLETE / STOP\nStream C bounded visible-product C1-C4                 LANDED\nP1-PT PT0-PT8                                          LANDED at bounded exits\nP1-UXR UXR",
+    "readme_source": "full"
+  },
+  {
+    "repo": "tshoang/deep_saucer",
+    "url": "https://github.com/tshoang/deep_saucer",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2019-04-01T12:17:08Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 2,
+    "code_files": 135,
+    "sample_technique_files": [
+      "COPYING.txt",
+      "deep_saucer_core/mnist/model/model_metamorphic.py",
+      "deep_saucer_core/mnist/model/model_neuron_coverage_tensorflow_native.py",
+      "metamorphic_testing/README.md",
+      "metamorphic_testing/lib/metamorphic_testing_setup.sh"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# DeepSaucer Integrated GUI to manage multiple test and verification functions with different execution environments See https://arxiv.org/abs/1811.03752 ## Environment (operation verified) * Ubuntu&trade; 17.10 & Anaconda&reg; 3 ## Required Libraries * flask (`conda install flask`) * PyYAML (`conda install pyyaml`) ## Start-up python deep_saucer_core/main.py ## Register Script ### Anaconda&reg; Virtual Environment Creation Script Registering a script to build an environment for executing test functions Select from the menu bar as follows: ``` 「File」-「Env Setup Script」 ``` In the environment c",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "tsotchke/eshkol",
+    "url": "https://github.com/tsotchke/eshkol",
+    "stars": 150,
+    "language": "C++",
+    "created_at": "2025-03-24T10:03:59Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 4,
+    "code_files": 1007,
+    "sample_technique_files": [
+      ".icc/completion-oracles.yaml",
+      "docs/GLOSSARY.md",
+      "docs/design/FLAW_DETECTION_ROADMAP.md",
+      "docs/reports/GENERATIVE_DIFFERENTIAL_REPORT.md",
+      "scripts/gen_edge_v134.py"
+    ],
+    "description": "High-Performance LISP-like language for Scientific Computing and AI written in C++",
+    "topics": [
+      "ai",
+      "autodiff",
+      "differential-geometry",
+      "lisp",
+      "mathematical-programming",
+      "scheme",
+      "scientific-computing"
+    ],
+    "readme": "<div align=\"center\">\n\n<br>\n\n# Eshkol\n\n## A Programming Language for Mathematical Computing\n\nEshkol is a Scheme-based programming language that unifies functional programming with native automatic differentiation, providing a mathematically rigorous foundation for gradient-based optimization, numerical simulation, and machine learning. Built on Homotopy Type Theory foundations and compiled to native code via LLVM, Eshkol delivers mathematical correctness and deterministic performance without sacrificing the elegance of homoiconic Lisp syntax.\n\n[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) [![Version](https://img.shields.io/badge/version-v1.3.6--evolve-blue.svg)](RELEASE_NOTES.md)\n\n**Prepared for publication:** v1.3.6-evolve. **Intended release date:** Thursday, October 8, 2026.\nEarlier preparation passed all 787 configured CTest cases and all 405 VM parity cases.\nPublication requires exact-commit release evidence and an ICC ready/100 verdict.\nSee the [latest published release](https://github.com/tsotchke/eshkol/releases/latest),\n[release notes](RELEASE_NOTES.md) and [upgrading guide](docs/UPGRADING.md).\n\n**[Full documentation index](docs/README.md)** — every guide, reference, and design doc in one place.\n\n<br>\n\n<img alt=\"Eshkol\" src=\"./site/static/img/eshkol-logo-light-transparent.png\" width=\"320\">\n\n<br>\n\n</div>\n\n---\n\n### Why Eshkol?\n\n**Because calculus should be a compiler primitive, not a library.**\n\n```scheme\n;; Train a linear model: learn y = 2x from data\n;; The compiler differentiates the loss function automatically.\n\n(define training-data '((1.0 2.0) (2.0 4.0) (3.0 6.0) (4.0 8.0) (5.0 10.0)))\n\n(define (predict w x) (* w x))\n\n(define (loss w)\n  (fold-left (lambda (total pair)\n    (let ((error (- (predict w (car pair)) (cadr pair))))\n      (+ total (* error error))))\n    0.0 training-data))\n\n;; Gradient descent — the compiler computes d(loss)/dw\n(define (train w lr steps)\n  (if (= steps 0) w\n    (train (- w (* lr (derivative loss w))) lr (- steps 1))))\n\n(display (train 0.0 0.01 200))  ;; => 2 (learned w = 2)\n```\n\nEshkol brings **mathematical computing to Lisp** and delivers what other languages promise:\n\n- **True automatic differentiation** - Not numerical approximation. Exact symbolic, forward-mode, and reverse-mode AD with full vector calculus (∇, ∇·, ∇×, ∇²) on both the LLVM backend and the bytecode VM. `divergence`/`curl` were central-difference approximations (`h=1e-7`) on the VM until 2026-08-26; both now seed one forward dual per input variable and read the tangent of each output component, so a gradient field's curl is exactly `#(0 0 0)` rather than `#(1.1102230246251565e-09 ...)`, and `(ad-finite-difference-evals)` reads 0. Cross-engine agreement is measured, not asserted: `tests/vm_parity/corpus/72_curl_field_shapes.esk`\n- **Zero-overhead abstractions** - Arena allocation is O(1), no runtime penalties for safety. Ownership annotations (`owned`/`move`/`borrow`) and `(the <type> expr)` ascription are era",
+    "readme_source": "full"
+  },
+  {
+    "repo": "ttnhan18062000/rpg-based-simulation",
+    "url": "https://github.com/ttnhan18062000/rpg-based-simulation",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-02-08T06:34:49Z",
+    "technique_test_files": 2,
+    "technique_nontest_files": 3,
+    "code_files": 3416,
+    "sample_technique_files": [
+      "agent-working/agent-monitoring/data/2026-W36/tools.jsonl",
+      "agent-working/agent-monitoring/data/2026-W40/tools.jsonl",
+      "agent-working/agent-monitoring/data/2026-W41/testing-species-metamorphic-power.working_log.jsonl",
+      "agent-working/stored_artifacts/TCK-20260523-METAMORPHIC-VALIDATION/investigation.md",
+      "agent-working/stored_artifacts/TCK-20260523-METAMORPHIC-VALIDATION/plan.md"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# Deterministic Concurrent RPG Engine A high-fidelity, deterministic 2D RPG simulation engine in Python with a React frontend. Parallelized AI agents propose intents; a single authoritative WorldLoop validates and executes them. Every run is byte-identical replay-faithful. --- ## Quick Start ```bash make install # Install all dependencies (Python + Node) make serve # Build frontend + start server at :8000 make cli # Run a headless simulation (200 ticks) ``` **Requirements:** Python ≥ 3.11, Node.js ≥ 18, Docker (optional — for Grafana/Loki telemetry). On Windows, run `make` under WSL or Git Bas",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "tum-i4/gemtest",
+    "url": "https://github.com/tum-i4/gemtest",
+    "stars": 10,
+    "language": "Python",
+    "created_at": "2025-01-27T12:33:30Z",
+    "technique_test_files": 26,
+    "technique_nontest_files": 11,
+    "code_files": 73,
+    "sample_technique_files": [
+      ".gitlab-ci.yml",
+      "README.md",
+      "gemtest/__init__.py",
+      "gemtest/conftest.py",
+      "gemtest/decorator.py"
+    ],
+    "description": "gemtest: a general metamorphic testing framework with pytest",
+    "topics": [],
+    "readme": "# GeMTest 💎: A General Metamorphic Testing Framework\n\nThe ``gemtest`` framework can simply be installed via ``pip install gemtest`` and makes it easy to write metamorphic relations in Python, from which the framework derives \nmultiple metamorphic test cases.\nMetamorphic test cases are then executed as a ``pytest`` test suite.\n\nAn example of a simple metamorphic relation:\n\n```python\n# content of test_sin_metamorphic.py\nimport gemtest as gmt\nimport math\n\nmr_1 = gmt.create_metamorphic_relation(name='mr_1', data=range(100))\n\n\n@gmt.transformation(mr_1)\ndef example_transformation(source_input: float) -> float:\n  return source_input + 2 * math.pi\n\n\n@gmt.relation(mr_1)\ndef example_relation(source_output: float, followup_output: float) -> bool:\n  return gmt.relations.approximately(source_output, followup_output)\n\n\n@gmt.system_under_test(mr_1)\ndef test_example_sut(input: float) -> float:\n  return math.sin(input)\n```\n\nTo execute it:\n\n```console\n$ pytest test_sin_metamorphic.py\n=============== test session starts ===============\nplatform linux -- Python 3.10.12, pytest-8.3.4, \npluggy-1.5.0 \nrootdir: /home/user/gemtest \nplugins: typeguard-2.13.3, html-3.2.0, \nmetadata-3.1.1, xdist-3.6.1, gemtest-1.0.0, \ncov-4.1.0, hypothesis-6.113.0 \ncollected 100 items             \n\ntest_sin_metamorphic.py ..................\n..........................................\n........................................\n\n=============== 100 passed in 0.28s ===============\n```\n\n## Available Command Line Options for Running GeMTest\n- `pytest --string-report <test-file path>`: Enables custom string report output on console.\n- `pytest --html-report <test-file path>`: Enables custom html report including \n  visualization of in- and outputs if a visualization function is provided, additionally \n  test results are stored in an SQLite database and can be viewed with the ``gemtest-webapp``.\n\n![Function Domains](https://raw.githubusercontent.com/tum-i4/gemtest/main/resources/Simple_MR_Scheme.png)\nA simple metamorphic relation consists of 4 parts: \n1. The creation of the metamorphic relation. Every metamorphic relation requires a name and a data source from \nwhich the metamorphic test cases are created.\n```python\n<mr1_name> = gmt.create_metamorphic_relation(name='mr_1', data=range(100))\n ```\n2. A function annotated with ``@transformation`` which takes a single source input and creates a \n  single followup input. A transformation can be registered to a metamorphic relation by \n  specifying the name of the metamorphic relation in the ``@transformation`` annotation.  A \n  transformation is registered to all metamorphic relations of a test file if no \n  metamorphic relation is explicitly specified in the ``@transformation`` annotation. Every \n  metamorphic relation can only have one registered transformation.\n```python\n@gmt.transformation(<mr1_name, mr2_name, ... >)\ndef <transformation_function_name>(source_input: Input) -> Input:\n    <apply custom transformation to Input>\n ```\n3. A function annotated ",
+    "readme_source": "full"
+  },
+  {
+    "repo": "tum-i4/gemtest-doc",
+    "url": "https://github.com/tum-i4/gemtest-doc",
+    "stars": 1,
+    "language": "",
+    "created_at": "2025-02-05T13:12:29Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 1,
+    "sample_technique_files": [
+      "README.md",
+      "doc/conf.py",
+      "doc/contributing/framework_overview.rst",
+      "doc/contributing/resources/architecture.xml",
+      "doc/contributing/resources/sequence_diagram_test_add_single_source_text.txt"
+    ],
+    "description": "Documentation of the gemtest framework",
+    "topics": [],
+    "readme": "# GeMTest 💎: Documentation The GeMTest documentation is hosted on [GitHub Pages](https://tum-i4.github.io/gemtest-doc/): ## Build for building the docs page locally install python sphinx and sphinx-rtd-theme ``pip install sphinx sphinx-rtd-theme`` then build the html with ``sphinx-build -b html ./doc ./public`` ## Documentation The docs contain detailed information on installation, usage, and contributing standards: - **Getting Started:** Detailed instructions on creating and running metamorphic relations and transformations. - **Contributing:** A guide for developers contributing to the frame",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "tum-i4/gemtest-examples",
+    "url": "https://github.com/tum-i4/gemtest-examples",
+    "stars": 1,
+    "language": "Python",
+    "created_at": "2025-02-05T13:10:33Z",
+    "technique_test_files": 44,
+    "technique_nontest_files": 1,
+    "code_files": 253,
+    "sample_technique_files": [
+      ".gitlab-ci.yml",
+      "README.md",
+      "examples/acoustic_scene_classifier/test_acoustic_scene_classifier.py",
+      "examples/facial_keypoints/test_keypoints.py",
+      "examples/gtsrb/README.md"
+    ],
+    "description": "Examples for the gemtest framework",
+    "topics": [],
+    "readme": "# GeMTest 💎: Examples Metamorphic relation examples implemented in ``gemtest``. To run all metamorphic relations from the 16 program domains install Python dependencies with ``poetry``: ``poetry install`` and run metamorphic test suites with: ``poetry run pytest <options> <path to test file/folder>`` We also prepare poetry commands for running some examples such as: ``` poetry run example simple/test_add.py poetry run example trigonometry/test_sin.py poetry run example house_pricing/test_house_pricing.py poetry run example shortest_path/test_path.py poetry run example facial_keypoints/test_key",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "tum-i4/gemtest-webapp",
+    "url": "https://github.com/tum-i4/gemtest-webapp",
+    "stars": 1,
+    "language": "Python",
+    "created_at": "2025-01-27T12:41:28Z",
+    "technique_test_files": 3,
+    "technique_nontest_files": 1,
+    "code_files": 12,
+    "sample_technique_files": [
+      "README.md",
+      "app/routes.py",
+      "app/templates/empty_landing_page.html",
+      "app/templates/landing_page.html",
+      "app/templates/mtc_detail_view.html"
+    ],
+    "description": "Visualize metamorphic test cases from gemtest",
+    "topics": [],
+    "readme": "# gemtest-webapp\n\nThe ``gemtest-webapp`` extends the gemtest framework by a web application that allows you to inspect and analyze your \ngemtest test metamorphic test runs. It features a tabular test report and a metamorphic test case detail view where one \ncan examine all artifacts of a single executed metamorphic test case.\n\nFirst, run a ``gemtest`` test suite with the ``--html-report`` flag:\n\n```console\n$ pytest --html-report\n```\n\nThen, install ``gemtest-webapp`` via ``pip install gemtest-webapp`` and run it with the path to the gemtest_results folder created by a gemtest pytest run.\nUsually, this folder is created in the directory from which pytest was executed.\n\n```console\n$ gemtest-webapp --results-dir gemtest_results/\n```\n## Custom Visualizers\n\nIf the input or output of the system under test you are testing is not nicely presentable by a string, one can \ncreate a visualizer function visualaizing input and output on a static html page. For this, the ``system_under_test`` \ndecorator can take functions as optional arguments, such as:\n\n```python\n@gmt.system_under_test(\n    visualize_input=visualizer.visualize_input,\n    visualize_output=visualizer.visualize_output\n)\n```\n\nThe ``visualize_input`` function returns a string that is then embedded in the HTML:\n\n```python\ndef visualize_input(self, sut_input: Any, **kwargs) -> str:\n        mtc = kwargs[\"mtc\"]\n        index = kwargs[\"index\"]\n        run_id = kwargs[\"run_id\"]\n        position = kwargs[\"position\"]\n\n        name = f\"{mtc.report.sut_name}.\" \\\n               f\"{mtc.report.mr_name}.\" \\\n               f\"{mtc.report.mtc_name}.\" \\\n               f\"{position}_{index}.png\"\n\n        image = (self.transform(sut_input).clone() * 255).view(96, 96)\n        plt.clf()\n        plt.imshow(image, cmap=\"gray\")\n        plt.axis(\"off\")\n        return self.savefig(self.image_folder, name, run_id)\n```\n\n## Webapp\n\nIn the html-report, displayed by the ``gemtest-webapp``, one can see the information of all passed, failed, and skipped \ntest cases as well as filter by metamorphic relation, system under test, and test verdict.\n\n![MTC HTML Report](https://raw.githubusercontent.com/tum-i4/gemtest-webapp/main/resources/MTC-html-report.png)\n\n\n## MTC Detail View\n\nWhen clicking on the link/name of a specific metamorphic test case, the metamorphic test case detail view opens.\nIt visualizes the inputs and outputs of the system under test if a custom visualizer is passed.\nThis makes investigating why one's test case passed or failed faster and more intuitive. \n\n![MTC Detail View](https://raw.githubusercontent.com/tum-i4/gemtest-webapp/main/resources/MTC-detail-view.png)\n\n## Citation\nIf you find the ``gemtest`` or ``gemtest-webapp`` framework useful in your research or projects, please consider citing it:\n\n```\n@inproceedings{speth2025,\n    author = {Speth, Simon and Pretschner, Alexander},\n    title = {{GeMTest: A General Metamorphic Testing Framework}},\n    booktitle = \"Proceedings of the 47th International Conference on Soft",
+    "readme_source": "full"
+  },
+  {
+    "repo": "tungtranle/Beer-HL",
+    "url": "https://github.com/tungtranle/Beer-HL",
+    "stars": 0,
+    "language": "TypeScript",
+    "created_at": "2026-04-24T18:07:35Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 380,
+    "sample_technique_files": [
+      "bhl-oms/internal/tms/cost_test.go"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "",
+    "readme_source": "none"
+  },
+  {
+    "repo": "twoimo/tzudong",
+    "url": "https://github.com/twoimo/tzudong",
+    "stars": 2,
+    "language": "TypeScript",
+    "created_at": "2025-10-21T07:53:16Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 1737,
+    "sample_technique_files": [
+      "backend/pipeline_control/test_cluster_render_pbt.py"
+    ],
+    "description": "Tzudong map for everyone.",
+    "topics": [
+      "nextjs",
+      "restaurant-map",
+      "storyboard",
+      "supabase",
+      "typescript"
+    ],
+    "readme": "<div align=\"center\"> <p> <img src=\"apps/web/public/logo.png\" width=\"72\" alt=\"Tzudong Map logo\" /> </p> <h1>Tzudong Map</h1> <p><strong>A map-first restaurant product for places featured in Tzuyang videos.</strong></p> <p> <a href=\"https://tzudong.app\">Live app</a> · <a href=\"https://github.com/twoimo/tzudong/releases/latest\">Latest release</a> · <a href=\"README.ko.md\">한국어</a> · <a href=\"CHANGELOG.md\">Changelog</a> · <a href=\"LICENSE\">MIT</a> </p> <p> <img alt=\"Next.js 16\" src=\"https://img.shields.io/badge/Next.js-16-black?logo=nextdotjs\" /> <img alt=\"React 19\" src=\"https://img.shields.io/badge",
+    "readme_source": "excerpt"
+  }
+]

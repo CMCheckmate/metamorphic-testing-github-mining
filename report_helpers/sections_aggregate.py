@@ -368,17 +368,25 @@ def _a5(summaries, items, fl, meta: dict, baseline: dict, gone: set | None = Non
     primary = Counter((meta.get(rn) or {}).get("language") for rn in code_repos)
     missing = primary.pop(None, 0)
     n_known = sum(primary.values())
+    # Lift compares like with like: both shares are taken over the same set of languages (those
+    # with a GitHub-wide count). The baseline's "total" counts every active repository, including
+    # repositories with no primary language and in other languages, so it is not used as the
+    # denominator (that would deflate the GitHub shares and inflate every lift).
+    bl_langs = {l: v for l, v in (baseline.get("languages") or {}).items() if v}
+    gh_base = sum(bl_langs.values())
+    n_base = sum(primary.get(l, 0) for l in bl_langs)
     rows = []
-    bl_langs, bl_total = baseline.get("languages", {}), baseline.get("total")
     for lang, c in _ranked(primary):
         share = c / n_known * 100 if n_known else 0
         row = {"language": lang, "repos": c, "share_pct": share}
-        if bl_total and lang in bl_langs and bl_langs[lang]:
-            gh = bl_langs[lang] / bl_total * 100
-            row.update(github_share_pct=gh, lift=share / gh if gh else None)
+        if lang in bl_langs and gh_base and n_base:
+            share_base = c / n_base * 100
+            gh = bl_langs[lang] / gh_base * 100
+            row.update(share_base_pct=share_base, github_share_pct=gh, lift=share_base / gh)
         rows.append(row)
     return {"code_repos": len(code_repos), "missing": missing, "rows": rows,
-            "baseline": {k: baseline.get(k) for k in ("pushed_since", "total", "fetched_at")} if baseline else {}}
+            "baseline": ({k: baseline.get(k) for k in ("pushed_since", "total", "fetched_at")}
+                         | {"languages": len(bl_langs), "github_repos": gh_base, "repos": n_base}) if baseline else {}}
 
 
 def _a6_a7(slug: str, items: dict, fl, meta: dict, readmes: dict) -> tuple[dict, dict]:
