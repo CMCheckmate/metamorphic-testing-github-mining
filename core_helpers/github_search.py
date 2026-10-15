@@ -423,12 +423,15 @@ def _sliced_code_search(
 
 def search_code_sliced(keyword: str, logger) -> tuple[list[dict], int]:
     """Returns (results, total_count_from_probe)."""
-    total = _probe_count(f"{cfg.GITHUB_API_BASE}/search/code", keyword, logger, is_code=True)
+    # Keep the initial probe in the same bounded query family as the slices.
+    # Bare code-search probes are more likely to trigger GitHub's secondary limit.
+    bounded_query = f"{keyword} size:0..{_CODE_SIZE_MAX}"
+    total = _probe_count(f"{cfg.GITHUB_API_BASE}/search/code", bounded_query, logger, is_code=True)
     console.print(f"  [blue]code[/] total_count={total}")
     if total == 0:
         return [], 0
     if total <= cfg.SLICE_THRESHOLD:
-        items, _ = _fetch_code(keyword, logger)
+        items, _ = _fetch_code(bounded_query, logger)
         return items, total
     console.print(f"  [yellow]→ size-slicing (0..{_CODE_SIZE_MAX} bytes)[/]")
     results: list[dict] = []

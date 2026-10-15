@@ -33,9 +33,10 @@ GITHUB_API_PER_PAGE = 100   # max allowed by GitHub
 # Rate limiting & retry
 # ---------------------------------------------------------------------------
 RATE_LIMIT_PAUSE     = 2.5   # base pause; ~24 req/min, headroom vs 30/min limit
-CODE_SEARCH_PAUSE    = 7.0   # code search has a tighter rate limit bucket
+CODE_SEARCH_PAUSE    = 10.0  # stay below the authenticated code-search limit
 GRAPHQL_PAUSE        = 1.5
-RETRY_ATTEMPTS       = 5
+RETRY_ATTEMPTS       = 12    # transient failures get a longer retry window
+RATE_LIMIT_MAX_WAIT  = 60 * 60 * 2  # 2 hours max wait for a quota reset before failing
 RETRY_BACKOFF_BASE   = 2.0   # seconds; sleep = BASE^attempt + jitter
 RETRY_BACKOFF_JITTER = 1.0   # max random jitter added to each backoff
 
