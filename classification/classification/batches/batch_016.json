@@ -1,0 +1,1075 @@
+[
+  {
+    "repo": "Kartik24Hulmukh/Axiom-Grid",
+    "url": "https://github.com/Kartik24Hulmukh/Axiom-Grid",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-09-09T18:00:58Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 1,
+    "code_files": 931,
+    "sample_technique_files": [
+      "kairo-sidecar/sidecar/judging.py",
+      "kairo-sidecar/sidecar/test_generator.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# Axiom-Grid [![Axiom-Grid focused preview gates](https://github.com/Kartik24Hulmukh/Axiom-Grid/actions/workflows/axiom.yml/badge.svg)](https://github.com/Kartik24Hulmukh/Axiom-Grid/actions/workflows/axiom.yml) **Signed, verifiable receipts for agents that touch documents.** Axiom-Grid is a grounded document-intelligence engine whose every answer ships with a cryptographic receipt: hash + Ed25519 signature + Merkle chain + page/line citations. Prove what an agent read, what it grounded on, and what it never sent to the network. ## Why receipts The agent-computer wave (Grok Bot, OpenBot, browse",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "kartikparsoya-eng/mono-better",
+    "url": "https://github.com/kartikparsoya-eng/mono-better",
+    "stars": 0,
+    "language": "TypeScript",
+    "created_at": "2026-05-25T06:05:56Z",
+    "technique_test_files": 2,
+    "technique_nontest_files": 0,
+    "code_files": 2030,
+    "sample_technique_files": [
+      "packages/zql-integration-tests/src/chinook/fuzz/fuzz.test.ts",
+      "packages/zql-integration-tests/src/chinook/fuzz/metamorphic.ts"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# Rocicorp Monorepo\n\nThis is the mono repo for [Rocicorp](https://rocicorp.dev/)'s two main products (as of 2024).\n\n## Zero\n\nWeb site and docs: https://zero.rocicorp.dev/.\n\n### Code\n\n- [packages/zero-client](./packages/zero-client): The main client library. It uses replicache under the hood.\n- [packages/zero-cache](./packages/zero-cache): The server side code.\n- [packages/zql](./packages/zql): The IVM (incremental view maintenance) engine as well as the query language/API.\n- [@rocicorp/zero-docs](https://github.com/rocicorp/zero-docs): The docs for zero is currently in a separate repo.\n- [apps/zbugs](./apps/zbugs): The bug tracker app.\n\n## Replicache\n\nWeb site and docs https://replicache.dev/.\n\n### Code\n\n- [packages/replicache](./packages/replicache): The replicache client library.\n- [packages/replicache/doc](./packages/replicache/): The docs for replicache is in this mono repo.\n\n## Older Projects\n\n### Reflect\n\nReflect is no longer under development. The code lives in the [rocicorp/reflect-archive](https://github.com/rocicorp/reflect-archive) repo.\n\n<!-- comment -->",
+    "readme_source": "full"
+  },
+  {
+    "repo": "katlangorg/katlangnet",
+    "url": "https://github.com/katlangorg/katlangnet",
+    "stars": 2,
+    "language": "C#",
+    "created_at": "2021-12-01T18:47:14Z",
+    "technique_test_files": 11,
+    "technique_nontest_files": 7,
+    "code_files": 647,
+    "sample_technique_files": [
+      "AGENTS.md",
+      "docs/design/language-rules/evaluator-and-hosting.md",
+      "docs/design/language-rules/ownership-and-lookup.md",
+      "fuzz/KatLang.ParserFuzz/Editor/EditorModel.cs",
+      "fuzz/KatLang.ParserFuzz/Editor/EditorRelations.cs"
+    ],
+    "description": ".NET library for parsing and evaluating KatLang — a declarative language for composable calculation workflows, formally specified in Lean 4.",
+    "topics": [
+      "calculation",
+      "katlang"
+    ],
+    "readme": "# KatLang — Language for Calculations To learn more read the [KatLang tutorial](http://katlang.org/tutorial) or play with [KatLang online](http://katlang.org). ## Language Specification The authoritative KatLang specification is defined in [`KatLang.lean`](https://github.com/katlangorg/katlangnet/blob/main/lean/KatLang.lean) using the Lean theorem prover. It is the single source of truth for KatLang's evaluation semantics and language rules over the elaborated program structure (AST shape, evaluation rules, and invariants). Surface syntax and grammar are defined by [`KatLang.ebnf`](https://git",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Katsiarynakavaleuskaya/PulsePlate",
+    "url": "https://github.com/Katsiarynakavaleuskaya/PulsePlate",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2025-08-23T15:32:10Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 2,
+    "code_files": 2385,
+    "sample_technique_files": [
+      "docs/orchestration/PHILOSOPHY_EPIC_V2_PR2_POLICY_ORACLE_PACKET_2026-05-20.md",
+      "docs/orchestration/PHILOSOPHY_EPIC_V2_PR4_GATE_OPEN_PRECONDITIONS_PACKET_2026-05-21.md",
+      "docs/orchestration/contracts/PHILOSOPHY_ADMISSION_DRY_RUN_REPORT.json",
+      "docs/orchestration/contracts/PHILOSOPHY_GATE_OPEN_PRECONDITIONS_REPORT.json",
+      "docs/orchestration/contracts/PHILOSOPHY_SEMANTIC_CACHE_ADMISSION_POLICY.json"
+    ],
+    "description": "AI personal nutrition assistant system based on scientific sources",
+    "topics": [
+      "bmicalculator",
+      "health",
+      "nutrition",
+      "weight"
+    ],
+    "readme": "# PulsePlate\n\n[![CI](https://github.com/Katsiarynakavaleuskaya/PulsePlate/actions/workflows/ci.yml/badge.svg)](https://github.com/Katsiarynakavaleuskaya/PulsePlate/actions/workflows/ci.yml)\n[![codecov](https://codecov.io/gh/Katsiarynakavaleuskaya/PulsePlate/graph/badge.svg)](https://codecov.io/gh/Katsiarynakavaleuskaya/PulsePlate)\n\n> **PulsePlate turns body-metric check-ins into practical meal decisions.**\n\nIt is a planning-first wellness product built around one continuous flow:\n\n**check-in -> targets -> daily plate -> weekly plan -> shopping list**\n\nPulsePlate is designed as a **wellness and meal-planning product**, not as a diagnosis, treatment, therapy, crisis-support, or emergency-care system. BMI and related outputs are informational wellness tools only, and the product should not replace clinician guidance for diagnosed conditions, pregnancy, eating disorders, medically prescribed diets, or emergencies.\n\nPulsePlate is currently in a **private staged rollout**. This repository is a technical and product snapshot of the platform.\n\n## What PulsePlate Does\n\nPulsePlate is built for people who want structured nutrition planning without the guesswork. It takes body-metric check-ins and turns them into actionable meal decisions.\n\n**Core capabilities:**\n\n- **BMI & nutrition targets** — baseline wellness metrics and daily nutrition guidance\n- **Meal planning** — daily plate suggestions and weekly plan generation\n- **Food database** — merged local catalog built from USDA and Open Food Facts inputs\n- **Shopping list** — auto-generated grocery lists from your weekly plan\n- **AI-assisted planning** — retrieval-augmented support for consistency checks and planning value, used only where it adds real structure to the flow\n\n**Product tiers:**\n\n| Tier | What you get |\n|------|-------------|\n| **FREE** | BMI check-ins, baseline wellness metrics |\n| **PRO** | Nutrition targets, daily plate, weekly planning |\n| **VIP** | Higher-end planning, menu flows, recipes, shopping/export |\n\n**Client surfaces:** web interface and iOS client in development.\n\n## Why PulsePlate Stands Out\n\n- **Planning-first, not logging-first** — structured around execution, not retrospective tracking. The flow is `check-in -> targets -> plate -> weekly plan -> groceries`.\n- **Domain logic combined with product workflows** — BMI/nutrition logic is integrated directly into the planning pipeline, not siloed as a separate calculation.\n- **Snapshot-first food-data model** — local merged USDA + Open Food Facts catalog, no external API dependency for core food lookups.\n- **AI is staged, not decorative** — retrieval-augmented support, consistency and contradiction checks. AI is used only where it increases planning value.\n\n## Current Status\n\nPulsePlate is in a **private staged rollout**.\n\n- **Backend API**: active — FastAPI-based backend with nutrition and BMI logic\n- **Food-data pipeline**: active — USDA + Open Food Facts ingestion\n- **Web client**: in development\n- **iOS client**: in developmen",
+    "readme_source": "full"
+  },
+  {
+    "repo": "kavaryan/liab",
+    "url": "https://github.com/kavaryan/liab",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2024-04-21T16:54:21Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 9,
+    "sample_technique_files": [
+      "src/metamorphic/case_studies/elevator/elevator_simulation.py"
+    ],
+    "description": "Code accompanying the paper \"A Formal Framework for Distribution of Liabilities in Autonomous Systems.\"",
+    "topics": [],
+    "readme": "# A Formal Framework for Distribution of Liabilities in Autonomous Systems This repository is associated with the paper \"A Formal Framework for Distribution of Liabilities in Autonomous Systems\". It includes a Python module for calculating k-leg liability, located under `src/liab/`, and a demonstration notebook provided in the `examples/` directory. ## Description This project implements the methodology discussed in our paper, specifically focusing on the calculation of k-leg liability: > [W]e propose a two-step procedure: (i) identification of the causal components, and (ii) apportionment of",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "keevin-xu/diff-fuzzer",
+    "url": "https://github.com/keevin-xu/diff-fuzzer",
+    "stars": 0,
+    "language": "Rust",
+    "created_at": "2026-08-01T11:11:29Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 12,
+    "code_files": 184,
+    "sample_technique_files": [
+      "crates/onnx-adapter/src/lib.rs",
+      "crates/onnx-adapter/src/metamorphic.rs",
+      "crates/onnx-adapter/src/roundtrip.rs",
+      "crates/onnx-adapter/src/testing.rs",
+      "crates/sql-adapter/examples/axis_table.rs"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# diff-fuzzer\n\nA **differential testing + fuzzing framework**, written in **Rust**.\n\n### Reported upstream\n\nAcross two domains — `burn`'s tensor backends, and four ONNX runtimes compared on single-node\nmodels — **nine reports filed and eight fixes merged**, two of them written by other people in\nresponse to the report.\n\n| report | project | subject | outcome |\n|---|---|---|---|\n| `burn-001` | tracel-ai/burn | `matmul` returns `inf` against `NaN` when products overflow | [#5284](https://github.com/tracel-ai/burn/issues/5284) filed |\n| `burn-003` | tracel-ai/burn | `conv2d` padded positions become `NaN` with a non-finite weight | [#5385](https://github.com/tracel-ai/burn/issues/5385) **fixed**, by another contributor |\n| `tract-001` | sonos/tract | `Sign(-0.0)` returns `-0.0` where ONNX specifies `0` | [#2670](https://github.com/sonos/tract/issues/2670) → [#2671](https://github.com/sonos/tract/pull/2671) **merged** |\n| `tract-003` | sonos/tract | `DynamicQuantizeLinear` rounds ties away from zero | [#2672](https://github.com/sonos/tract/pull/2672) **merged** |\n| `candle-001` | huggingface/candle | `Reshape` ignores `allowzero=1`, and infers `-1` against the wrong volume | [#3907](https://github.com/huggingface/candle/issues/3907) → [#3908](https://github.com/huggingface/candle/pull/3908) **merged** |\n| `onnxruntime-001` | microsoft/onnxruntime | `Where` returns `+0.0` for a selected `-0.0`, on both branches | [#32191](https://github.com/microsoft/onnxruntime/issues/32191) → [#32192](https://github.com/microsoft/onnxruntime/pull/32192) approved, awaiting merge |\n| `tract-002` | sonos/tract | `Reshape` ignores `allowzero`, so a literal zero-length dimension is overwritten | [#2699](https://github.com/sonos/tract/pull/2699) **merged** |\n| `tract-005` | sonos/tract | `Reshape` hangs or panics on a target shape inference cannot resolve | [#2707](https://github.com/sonos/tract/issues/2707) → [#2708](https://github.com/sonos/tract/pull/2708) **merged** |\n| `tract-004` | sonos/tract | integer `Div` and `Mod` panic on `MIN / -1`, where `Mul` already wraps | [#2712](https://github.com/sonos/tract/issues/2712) → [#2713](https://github.com/sonos/tract/pull/2713) **merged** |\n\n**Two of the four fixes were written by other people.** `burn-003` was filed as a question,\nlabelled `bug` by a maintainer, and closed by someone else's pull request, *Fix non-finite padding\nin Flex conv fast paths*. The report did the work of establishing that the divergence was real,\nwhich mechanism produced it on each backend, and that a control with a finite weight agreed; the\nfix followed from that without needing us.\n\n**And a fix merged that this project did not write.** The `tract-001` pull request carried a\ncomment that the neighbouring quantized `Sign` path looked wrong at zero too — flagged\nexplicitly as *untested*, and kept out of the diff. A maintainer fixed exactly that in\n[#2673](https://github.com/sonos/tract/pull/2673), with a quantized regression test. Asking\nrather than ",
+    "readme_source": "full"
+  },
+  {
+    "repo": "kei10in/takaneko",
+    "url": "https://github.com/kei10in/takaneko",
+    "stars": 2,
+    "language": "TypeScript",
+    "created_at": "2024-07-21T08:22:56Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 2103,
+    "sample_technique_files": [
+      "scripts/lib/extractPhotoPositions.metamorphic.test.ts"
+    ],
+    "description": "An unofficial fan site dedicated to the idol group Takane no Nadeshiko.",
+    "topics": [],
+    "readme": "# たかねこの 「[たかねこの]」は[高嶺のなでしこ]の非公式ファンサイトです。 [高嶺のなでしこ]: http://takanenonadeshiko.jp/ [たかねこの]: https://takanekofan.app/ URL: https://takanekofan.app/ ## 主な機能 情報の提供やツールの提供など[高嶺のなでしこ]の攻略サイトを目指しています。 「[たかねこの]」の主な機能は次の通りです。 - **トレード画像をつくるやつ** - 高嶺のなでしこのランダムグッズのトレードを募集するときに使う画像の作成を支援します。 - **スケジュール カレンダー** - 高嶺のなでしこのライブやイベント、TV・ラジオ出演情報をカレンダーで管理・表示します。 - **セットリスト DB** - セットリストのデータベースを提供します。 - **統計データ** - セットリストの DB をもとに統計情報を提供します。 - **その他** - 出演メディアやグッズなど情報やツールを提供します。 ## 技術スタック - [TypeScript](https://www.typescriptlang.org/) - [React Router v8](https://reactrouter.com/) - [Tailwind CSS](https://tailwindc",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "keithhetrick/bellweather-audio-attest",
+    "url": "https://github.com/keithhetrick/bellweather-audio-attest",
+    "stars": 0,
+    "language": "C++",
+    "created_at": "2026-07-08T16:48:10Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 133,
+    "sample_technique_files": [
+      "MANIFEST.md",
+      "TESTING.md",
+      "tests/CMakeLists.txt",
+      "tests/detector_metamorphic_tests.cpp"
+    ],
+    "description": "Open-source, headless C++20 audio-regression proof layer: the bpts CLI mints signed golden references from rendered WAVs and verifies candidate renders against them for CI, with a per-OS Barometer case study.",
+    "topics": [
+      "attestation",
+      "audio",
+      "audio-regression",
+      "bs1770",
+      "ci",
+      "cmake",
+      "cpp",
+      "cpp20",
+      "dsp",
+      "ebu-r128",
+      "fuzzing",
+      "loudness",
+      "real-time",
+      "regression-testing"
+    ],
+    "readme": "# Bellweather Audio Attest > **Last Verified:** 2026-10-07 Bellweather Audio Attest is an open-source, headless C++ audio regression testing toolkit from **Bellweather Studios**. It works on rendered WAV files: create a signed reference, compare a candidate render against it, and emit CI-friendly evidence when the rendered sound changes. ## Ownership, inputs and evidence Bellweather maintains the engine and CLI in its internal monorepo and generates this public repository from the selected source files. The public CLI uses the same canonical engine and CLI source as the internal project. Recip",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "kelleyjamesb-ai/fluencytracr",
+    "url": "https://github.com/kelleyjamesb-ai/fluencytracr",
+    "stars": 1,
+    "language": "TypeScript",
+    "created_at": "2026-01-09T16:13:23Z",
+    "technique_test_files": 2,
+    "technique_nontest_files": 0,
+    "code_files": 910,
+    "sample_technique_files": [
+      "docs/superpowers/plans/2026-07-30-section-7-5-1-rule-ledger-v4-readiness.md",
+      "docs/superpowers/specs/2026-07-30-section-7-5-1-rule-ledger-v4-design.md",
+      "tests/gcp_s751_v4/corpus.py",
+      "tests/test_gcp_section_7_5_parent_contract_authority_closure_readiness_v4.py"
+    ],
+    "description": "Behavioral evidence layer for Glean value realization: quality multiplier, causal delta, and reliability factor for time-saved claims.",
+    "topics": [
+      "ai-governance",
+      "aivm",
+      "behavioral-evidence",
+      "causal-delta",
+      "glean",
+      "quality-multiplier",
+      "reliability-factor",
+      "value-realization"
+    ],
+    "readme": "# FluencyTracr ![Assurance Harness](https://github.com/kelleyjamesb-ai/fluencytracr/actions/workflows/assurance-harness.yml/badge.svg) > **Agents and contributors:** Read [AGENTS.md](./AGENTS.md) before making any changes. It defines the V1 invariants, the canonical event and suppression sets, and the ordered prompt roadmap. > Influences and credits: see [ATTRIBUTION.md](./ATTRIBUTION.md). FluencyTracr is the behavioral evidence layer for Glean value realization. It exists because the current time-saved pipeline can show acceleration while leaving a critical question unanswered: roughly 64% of",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "kenan976431/EPC",
+    "url": "https://github.com/kenan976431/EPC",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-07-01T12:00:45Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 2,
+    "code_files": 9,
+    "sample_technique_files": [
+      "README.md",
+      "__init__.py",
+      "run_epc.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# EPC — Embodied Physical Compliance A metamorphic testing framework for evaluating **physical consistency** in embodied AI systems (manipulation policies, VLA models, etc.), built on top of [EBench / GenManip](https://github.com/InternRobotics/EBench). EPC treats a target policy as a **black box**: instead of asking \"did the robot succeed?\", it asks \"does the robot's behavior change in a *physically sensible* way when the scene is perturbed?\" — e.g. success should not improve when lighting gets worse, trajectories should stay stable when only the object's texture changes, and behavior should",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "kerniee/thesis",
+    "url": "https://github.com/kerniee/thesis",
+    "stars": 1,
+    "language": "TeX",
+    "created_at": "2024-03-09T16:17:53Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 18,
+    "sample_technique_files": [
+      "code/thesis/main.py",
+      "latex/articles/comer.txt",
+      "latex/chapters/abstract.tex",
+      "latex/chapters/chapter1.tex",
+      "latex/chapters/chapter2.tex"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "",
+    "readme_source": "none"
+  },
+  {
+    "repo": "kevinbentley/popper_explainer",
+    "url": "https://github.com/kevinbentley/popper_explainer",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-01-22T19:48:27Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 2,
+    "code_files": 171,
+    "sample_technique_files": [
+      ".claude/agents/tester-harness-engineer.md",
+      "API_CONTRACT.md",
+      "CLAUDE.md",
+      "TEST_API.md",
+      "src/harness/generators/symmetry_suite.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "",
+    "readme_source": "none"
+  },
+  {
+    "repo": "kevinmangan/Tutor.me",
+    "url": "https://github.com/kevinmangan/Tutor.me",
+    "stars": 1,
+    "language": "JavaScript",
+    "created_at": "2013-10-09T22:29:29Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 379,
+    "sample_technique_files": [
+      "test/StudentTest.java"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "Tutor.me\n=====================================\nConnecting tutors and tutees",
+    "readme_source": "full"
+  },
+  {
+    "repo": "kgang/kgents",
+    "url": "https://github.com/kgang/kgents",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2025-12-07T11:13:33Z",
+    "technique_test_files": 3,
+    "technique_nontest_files": 0,
+    "code_files": 3174,
+    "sample_technique_files": [
+      "impl/claude/testing/__init__.py",
+      "impl/claude/testing/_tests/test_cortex.py",
+      "impl/claude/testing/oracle.py"
+    ],
+    "description": "kent's agents",
+    "topics": [],
+    "readme": "# kgents [![Python 3.12+](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/downloads/) [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE) [![Category Laws](https://img.shields.io/badge/category%20laws-verified%20at%20runtime-purple.svg)](#composition-is-proven) [![Theory](https://img.shields.io/badge/theory-21%20chapters-orange.svg)](docs/theory/README.md) **A category-theoretic framework for AI agents that compose provably, trace their reasoning, and predict failure before execution.** > *\"The proof IS the decision. The mark IS the witnes",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "KhanutBJ/llm-judge-lab",
+    "url": "https://github.com/KhanutBJ/llm-judge-lab",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-07-06T17:00:59Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 2,
+    "code_files": 38,
+    "sample_technique_files": [
+      "README.md",
+      "docs/final_audit_report.md",
+      "docs/final_audit_report.txt",
+      "evaluate_quality.py",
+      "index.html"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# LLM-as-a-judge Audit Lab Production-oriented quality evaluation for a source transcript and a generated clinical form. The system returns a deterministic overall score, seven dimension scores, `PASS / REVIEW / BLOCK`, evidence-linked issues, suggested corrections, and an optional corrected form. The repository includes 10 synthetic Thai OPD cases × 3 generation arms. It is a technical benchmark, not a clinically validated medical device. The literature-to-implementation mapping is documented in [`docs/research_to_design.md`](docs/research_to_design.md). The baseline comparison and final engi",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "KhronosGroup/VK-GL-CTS",
+    "url": "https://github.com/KhronosGroup/VK-GL-CTS",
+    "stars": 632,
+    "language": "C++",
+    "created_at": "2016-01-26T23:29:28Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 3,
+    "code_files": 4047,
+    "sample_technique_files": [
+      "AndroidGen.bp",
+      "AndroidKhronosCTSGen.bp",
+      "modules/gles3/functional/CMakeLists.txt",
+      "modules/gles3/functional/es3fFunctionalTests.cpp",
+      "modules/gles3/functional/es3fShaderMetamorphicTests.cpp"
+    ],
+    "description": "Khronos Vulkan, OpenGL, and OpenGL ES Conformance Tests",
+    "topics": [
+      "opengl",
+      "opengl-cts",
+      "opengl-es",
+      "opengl-es-cts",
+      "vulkan",
+      "vulkan-cts",
+      "vulkan-sc"
+    ],
+    "readme": "VK-GL-CTS README\n===========\n\nThis repository contains Khronos Conformance Testing Suite called VK-GL-CTS\nwhich originated from dEQP (drawElements Quality Program).\nVK-GL-CTS contains tests for several graphics APIs, including\nOpenGL, OpenGL ES, EGL, Vulkan, and Vulkan SC.\n\nDocumentation\n-------------\n\nUp-to-date documentation for VK-GL-CTS is available at:\n\n* [The VK-GL-CTS wiki for Khronos members](https://gitlab.khronos.org/Tracker/vk-gl-cts/wikis/home)\n* [The VK-GL-CTS wiki for non-Khronos members](https://github.com/KhronosGroup/VK-GL-CTS/wiki)\n\nThe .qpa logs generated by the conformance tests may contain embedded PNG images of the results.\nThese can be viewed with `scripts/qpa_image_viewer.html`, by opening the file\nwith a web browser and following its instructions, or using the\n[Cherry](https://android.googlesource.com/platform/external/cherry/)\ntool.\n\nKhronos Vulkan Conformance Tests\n--------------------------------\n\nThis repository includes Khronos Vulkan CTS under `external/vulkancts` directory.\nFor more information see [Vulkan CTS README](external/vulkancts/README.md).\n\nKhronos OpenGL / OpenGL ES Conformance Tests\n--------------------------------\n\nThis repository includes Khronos OpenGL / OpenGL ES CTS under `external/openglcts` directory.\nFor more information see [OpenGL / OpenGL ES CTS README](external/openglcts/README.md).\n\nSelecting a subset of targets to build by default\n--------------------------------\n\nWhen configuring the source code of VK-GL-CTS for running either Vulkan\nConformance Tests or OpenGL(ES) Conformance Tests as described above, CMake will\ngenerate build files that, by default on desktop platforms, will build every\npossible project binary. This may be undesirable due the amount of time and disk\nspace needed to perform the build.\n\nOne way of selecting only a subset of the targets to be built is using CMake's\ntarget selection mechanism. For example, the following command will only build\n`deqp-vk`, the main Vulkan Conformance Tests binary:\n\n```\ncmake --build BUILD_DIRECTORY --target deqp-vk\n```\n\nWhen building only a subset of targets is the preferred default behavior for a\ngiven working copy or build directory, there's a second target selection\nmechanism that can be used to avoid passing the `--target` option every time:\nthe `SELECTED_BUILD_TARGETS` CMake option. If set to a non-empty value, only the\ntargets listed in that configuration option, separated by spaces, will be built.\n\nFor example, passing `-DSELECTED_BUILD_TARGETS=\"deqp-vk deqp-vksc\"` when\nconfiguring the project will make `cmake --build BUILD_DIRECTORY` act as if it\nhad been passed `--target deqp-vk --target deqp-vksc` as additional arguments.\n\n**IMPORTANT**: Target subset selection may not have been thoroughly tested in\nall enviroments and situations, and it does not replace the instructions given\nfor the purposes of creating a conformance submission.\n\nANGLE for Android\n--------------------------------\n\nANGLE can be built for Android by following the ins",
+    "readme_source": "full"
+  },
+  {
+    "repo": "khunzzz/noir-picus-adapter",
+    "url": "https://github.com/khunzzz/noir-picus-adapter",
+    "stars": 0,
+    "language": "Rust",
+    "created_at": "2026-05-19T20:02:04Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 60,
+    "sample_technique_files": [
+      "research_notes/Направления поиска багов Noir/sota_tools_techniques.md",
+      "src/translate/soundness_tests.rs"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# noir-picus-adapter\n\nПроверка Noir ACIR-артефактов на недоограниченные значения.\n\nИнструмент берет JSON, который выдает `nargo compile`, выбирает возвращаемые\nзначения и выходы `BrilligCall`, переводит поддержанные ограничения ACIR в Picus\nSMT и проверяет, может ли один и тот же набор входов дать разные значения\nцелевого witness.\n\n## Требования\n\n- Rust 1.89+\n- `git`, `bash`, `make`, `cmake`\n- C/C++ toolchain\n- `libclang` для `bindgen`\n\nЗависимости на Noir и Picus закреплены в `Cargo.toml` по git revision. Локально\nклонировать Noir или Picus не нужно.\n\n### Сборка без пересборки cvc5\n\nПо умолчанию `cvc5-ff-sys` собирает cvc5 из исходников: десятки минут и\nнесколько гигабайт на каждой машине. Этого можно не делать — официальные\nстатические релизы cvc5 содержат всё нужное, включая CoCoA для конечных полей:\n\n```bash\ncurl -sSL -o cvc5.zip \\\n  https://github.com/cvc5/cvc5/releases/download/cvc5-1.3.1/cvc5-Linux-x86_64-static-gpl.zip\nunzip -q cvc5.zip\nexport CVC5_LIB_DIR=\"$PWD/cvc5-Linux-x86_64-static-gpl/lib\"\nexport CVC5_INCLUDE_DIR=\"$PWD/cvc5-Linux-x86_64-static-gpl/include\"\ncargo build --release\n```\n\nВерсия должна совпадать с `[package.metadata.cvc5]` в `cvc5-ff-sys`\n(сейчас 1.3.1). `build.rs` этого проекта дольнковывает CLN и GLPK, которые\nрелизный архив кладёт отдельно, а список библиотек в `cvc5-ff-sys` не\nупоминает.\n\nЕсли `bindgen` не находит `stddef.h` (libclang без своих заголовков):\n\n```bash\nexport BINDGEN_EXTRA_CLANG_ARGS=\"-I/usr/lib/gcc/x86_64-linux-gnu/13/include\"\n```\n\nСборка `z3` через cmake по умолчанию однопоточная; `CMAKE_BUILD_PARALLEL_LEVEL`\nеё распараллеливает.\n\n### Если сборка из исходников всё же нужна, а прав администратора нет\n\nСпособ выше (готовый релиз cvc5) предпочтителен и почти всегда достаточен.\nНо если cvc5 приходится собирать, ему нужны три вещи, которых на голой машине\nобычно нет, и все три ставятся в домашний каталог:\n\n```bash\nuv tool install cmake                      # cmake\nuv venv --seed ~/.cvc5venv                 # pip: cvc5 ищет его через FindPip.cmake\nexport PATH=\"$HOME/.cvc5venv/bin:$HOME/.local/bin:$PATH\"\nexport VIRTUAL_ENV=\"$HOME/.cvc5venv\"\n\n# m4: нужен GMP, который cvc5 собирает из исходников\ncurl -sL https://ftp.gnu.org/gnu/m4/m4-1.4.19.tar.gz | tar xz\ncd m4-1.4.19 && ./configure --prefix=\"$HOME/.local\" && make -j2 && make install\n```\n\nПорядок отказов именно такой: сначала не найдётся `cmake`, затем `pip`, затем\n`m4` (внутри configure GMP), и только потом `stddef.h` для `bindgen`. Каждый\nследующий виден лишь после того, как устранён предыдущий.\n\n## Быстрый старт\n\n```bash\ncargo build\n\ncargo run -- scan examples/artifacts/unsafe_division_hint \\\n  --targets returns \\\n  --fixed all-params\n```\n\nПуть к артефакту можно передавать с `.json` или без него.\n\n## Команды\n\n```bash\ncargo run -- scan <artifact>\ncargo run -- scan <artifact> --format json\ncargo run -- scan <artifact> --dump-smt /tmp/noir-picus-smt\ncargo run -- scan <artifact> --fixed public\ncargo run -- scan <artifact> --targets returns\ncargo run -- scan <ar",
+    "readme_source": "full"
+  },
+  {
+    "repo": "kiapanahi/KuriousLabs.WindowsTilingWindowManager",
+    "url": "https://github.com/kiapanahi/KuriousLabs.WindowsTilingWindowManager",
+    "stars": 0,
+    "language": "C#",
+    "created_at": "2026-07-23T13:51:36Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 241,
+    "sample_technique_files": [
+      ".claude/skills/pure-core/SKILL.md",
+      "docs/engineering/testing.md",
+      "tests/Bastion.Layout.Tests/SplitTreeTests.cs"
+    ],
+    "description": "A self-healing tiling window manager for Windows 11, built only on documented, supported, public Windows APIs.",
+    "topics": [],
+    "readme": "# Bastion\n\nA self-healing tiling window manager for Windows 11 25H2, built under one\nnon-negotiable constraint: **only documented, supported, public Windows\nAPIs.** No private `IApplicationView`/`IApplicationViewCollection`\ninternals, no DLL injection, no `WH_CBT`, no reverse-engineered GUIDs, no\nundocumented registry reads or writes. See [`DESIGN.md`](DESIGN.md) for the\nfull rationale, architecture, and edge-case matrix — read that first.\n\n## Why\n\nThere is no documented Windows API for third-party tiling window\nmanagement. Every existing tiling WM for Windows leans on some combination\nof undocumented COM interfaces, DLL injection, or global hooks to get a\npolished experience. Bastion takes the opposite bet: build the best tiling\nWM possible using *only* what Microsoft documents and supports, and be\nhonest — in the product, not just the source — about what that constraint\ncosts. `DESIGN.md` §2 and §13 catalogue exactly what this rules out and what\nit accepts as a trade-off.\n\n## Status\n\nEarly scaffolding. The solution structure, build/quality-gate tooling, and\nfive-tier test strategy are in place; the event-ingest → reconcile → layout\n→ placement pipeline described in `DESIGN.md` §3 is not yet built. All\ntracked work lives in [Issues](../../issues), organized into\n[milestones](../../milestones) matching the phased roadmap in\n[`DESIGN.md` §12](DESIGN.md#12-phased-roadmap) — there is no separate\nroadmap document or project board.\n\n## Architecture at a glance\n\nThree processes: `bastiond` (daemon, does all the work), `bastionc` (CLI,\nthin IPC client), `bastion-bar` (WinUI 3 status bar — not yet scaffolded,\ndeferred to v0.3). Full diagram: [`DESIGN.md` §3](DESIGN.md#3-system-architecture).\n\n| Project | Role |\n|---|---|\n| `Bastion.Core` | Pure state/reconciler/event-log. No Win32 types. Linux-CI-tested. |\n| `Bastion.Layout` | Pure `ILayoutEngine` implementations (dwindle, tree, master-stack, monocle). |\n| `Bastion.Win32` | Adapter ring — the only project touching `HWND`, CsWin32, or COM. |\n| `Bastion.Daemon` | `bastiond` composition root, hosted services, IPC server. |\n| `Bastion.Cli` | `bastionc`, thin IPC client. |\n| `Bastion.Bar` | WinUI 3 appbar. Deferred to v0.3, not yet scaffolded. |\n| `Bastion.TestWindows` | Parameterized `CreateWindowExW` spawner for integration tests. |\n\nThe core boundary is an opaque `WindowId`: no `HWND` ever enters\n`Bastion.Core` or `Bastion.Layout`.\n\n## Building\n\nRequires the .NET 10 SDK, pinned exactly in [`global.json`](global.json).\n\n```bash\ndotnet build Bastion.slnx --configuration Release -warnaserror\ndotnet test Bastion.slnx --configuration Release --filter-query \"/[Category!=Quarantined]\"\ndotnet format Bastion.slnx --verify-no-changes --severity error\ndotnet publish src/Bastion.Daemon -r win-x64 --configuration Release\ndotnet publish src/Bastion.Cli -r win-x64 --configuration Release\n```\n\nThis is the same sequence CI runs — see\n[`.github/workflows/ci.yml`](.github/workflows/ci.yml) and\n[`docs/engineering/quality-gate",
+    "readme_source": "full"
+  },
+  {
+    "repo": "Kieleth/malleus-dev",
+    "url": "https://github.com/Kieleth/malleus-dev",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-04-13T00:26:06Z",
+    "technique_test_files": 3,
+    "technique_nontest_files": 0,
+    "code_files": 890,
+    "sample_technique_files": [
+      "conformance/contract_compiler/v0/evidence/CC-014.json",
+      "design/GRAPH_RECIPE_TDD_EXPERIMENTS.md",
+      "design/contract_compiler/overseer/evidence/CC-014-completion.json",
+      "docs/contract_compiler/support_profile.md",
+      "research/ontology_driven_kg_realization/experiments/graph_recipe/test_cases.py"
+    ],
+    "description": "Root ontology in LinkML for ontology-typed knowledge graphs with write-time validation and content-addressable convergence",
+    "topics": [
+      "crdt",
+      "knowledge-graph",
+      "linkml",
+      "ontology",
+      "python"
+    ],
+    "readme": "# Malleus [![PyPI](https://img.shields.io/pypi/v/malleus-dev.svg)](https://pypi.org/project/malleus-dev/) [![Python](https://img.shields.io/pypi/pyversions/malleus-dev.svg)](https://pypi.org/project/malleus-dev/) [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE) A protocol for typed, fail-closed semantic change, with a Python reference implementation and the opinion that words have power. ## Compiler-to-history milestone A knowledge graph can say that order `O1` contains inventory unit `X1`. Those three records alone cannot say which source bytes, ontology, and m",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "kimberlitedb/kimberlite",
+    "url": "https://github.com/kimberlitedb/kimberlite",
+    "stars": 8,
+    "language": "Rust",
+    "created_at": "2026-01-18T22:09:07Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 3,
+    "code_files": 702,
+    "sample_technique_files": [
+      "crates/kimberlite-sim/src/sql_grammar.rs",
+      "crates/kimberlite-sim/src/sql_oracles.rs",
+      "crates/kimberlite-sim/tests/metamorphic_tests.rs",
+      "docs-internal/design-docs/active/fuzz-to-types-hardening-apr-2026.md",
+      "fuzz/fuzz_targets/fuzz_sql_norec.rs"
+    ],
+    "description": "The compliance-first database for industries where data integrity is non-negotiable.",
+    "topics": [
+      "audit",
+      "compliance",
+      "data-structures",
+      "database",
+      "event-sourcing",
+      "finance",
+      "government",
+      "healthcare",
+      "legal"
+    ],
+    "readme": "<p align=\"center\">\n  <img src=\"website/public/images/kimberlite-icon-512.png\" alt=\"Kimberlite Logo\" width=\"200\"/>\n</p>\n\n# Kimberlite\n\n[![Crates.io](https://img.shields.io/crates/v/kimberlite.svg)](https://crates.io/crates/kimberlite)\n[![Downloads](https://img.shields.io/crates/d/kimberlite.svg)](https://crates.io/crates/kimberlite)\n[![Documentation](https://docs.rs/kimberlite/badge.svg)](https://docs.rs/kimberlite)\n[![Rust](https://img.shields.io/badge/rust-1.88%2B-orange.svg)](https://www.rust-lang.org)\n[![Edition](https://img.shields.io/badge/edition-2024-blue.svg)](https://doc.rust-lang.org/edition-guide/)\n[![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)\n[![CI](https://github.com/kimberlitedb/kimberlite/workflows/CI/badge.svg)](https://github.com/kimberlitedb/kimberlite/actions/workflows/ci.yml)\n[![VOPR](https://img.shields.io/badge/testing-VOPR-green.svg)](docs/internals/testing/overview.md)\n[![Fuzz Nightly](https://github.com/kimberlitedb/kimberlite/actions/workflows/fuzz.yml/badge.svg)](https://github.com/kimberlitedb/kimberlite/actions/workflows/fuzz.yml)\n[![Formal Verification](https://img.shields.io/badge/verified-formal%20spec%20%2B%20bounded%20proofs-success.svg)](docs/concepts/formal-verification.md)\n[![Discord](https://img.shields.io/discord/1468161583787151493?label=discord&logo=discord&color=5865F2)](https://discord.gg/QPChWYjD)\n\n**A verifiable database for healthcare.**\n\nBuilt for clinical and digital-health systems where PHI integrity is non-negotiable.\n\n🔬 **Developer Preview** - Explore deterministic database concepts through production-quality code\n\nKimberlite is a verifiable, durable database engine designed for environments where data integrity, auditability, and trust are non-negotiable. Built around a single principle:\n\n> **All data is an immutable, ordered log. All state is a derived view.**\n\n## Why Kimberlite?\n\n**The compliance tax is real.** In healthcare, you're forced to build:\n- Immutable audit trails for every change\n- Cryptographic proof of data integrity\n- Per-tenant encryption and isolation\n- Point-in-time reconstruction\n\nMost teams bolt these onto existing databases. **Kimberlite builds them in.**\n\n**Key approach:**\n- **Immutable audit trail** - Hash-chained append-only log means every action is recorded\n- **Time-travel queries** - Reconstruct any point-in-time state via MVCC (`AT OFFSET n` and `AS OF TIMESTAMP '...'` both shipped)\n- **Multi-tenant isolation** - Cryptographic boundaries prevent cross-tenant access\n- **Multi-layer verification** - TLA+ protocol specs, Coq crypto proofs, Alloy structural models, Ivy Byzantine invariants, Kani bounded model checking, MIRI UB detection ([details](docs/concepts/formal-verification.md))\n\n**Designed for healthcare:** EHR-adjacent systems, digital-health platforms, payer/RCM workloads, and clinical research — every primitive is sized to HIPAA, with GDPR (international health) and SOC 2 / FedRAMP (clinical SaaS / federal health) as load-be",
+    "readme_source": "full"
+  },
+  {
+    "repo": "Kimbyeoungjang/ML-Simulation",
+    "url": "https://github.com/Kimbyeoungjang/ML-Simulation",
+    "stars": 0,
+    "language": "TypeScript",
+    "created_at": "2026-05-06T01:45:15Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 312,
+    "sample_technique_files": [
+      "tests/metamorphic.test.ts"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# TileForge Workbench TileForge Workbench는 TPU-like systolic array에서 딥러닝 행렬 연산이 어떤 cycle, memory traffic, utilization, energy 특성을 보일지 빠르게 예측하고, 필요할 때 SCALE-Sim/IREE로 검증하는 로컬 설계 탐색 도구입니다. production 정리 기준의 핵심 목적은 다음 세 가지입니다. 1. **하드웨어 설계 탐색**: array 크기, SRAM, bandwidth, dataflow가 GEMM/Conv workload 성능에 미치는 영향을 비교합니다. 2. **타일링 정책 선택**: tileM/tileN/tileK 후보를 cycle, utilization, padding, SRAM 위험 관점에서 ranking합니다. 3. **검증 가능한 보고서 생성**: estimator 결과, SCALE-Sim 결과, IREE compile 산출물, 그래프, CSV, JSON, checksum을 job 단위 artifact로 남깁니다. TileForge의 원칙은 **빠른 estimator로 후보를 좁히고, 중요한 후보는 외부 도구로 검증한다**입니다. estim",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "kimhrin/AIST",
+    "url": "https://github.com/kimhrin/AIST",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-06-06T17:05:22Z",
+    "technique_test_files": 2,
+    "technique_nontest_files": 0,
+    "code_files": 7,
+    "sample_technique_files": [
+      "tools/metamorphic_testing/example/mnist/run_mnist.py",
+      "tools/metamorphic_testing/lib/metamorphic_testing.py"
+    ],
+    "description": "Software quality management TeamProject#2",
+    "topics": [],
+    "readme": "# AIST\nSoftware quality management TeamProject#2",
+    "readme_source": "full"
+  },
+  {
+    "repo": "kimjooyoon/gooo-metamorphic-counterexample-synthesizer",
+    "url": "https://github.com/kimjooyoon/gooo-metamorphic-counterexample-synthesizer",
+    "stars": 1,
+    "language": "Go",
+    "created_at": "2026-09-01T08:19:41Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 2,
+    "code_files": 8,
+    "sample_technique_files": [
+      ".gooo/metamorphic-counterexample-synthesizer.gooo",
+      "contracts/metamorphic-counterexample-synthesizer-v1.json",
+      "internal/synth/parse.go",
+      "internal/synth/types.go"
+    ],
+    "description": "Gooo metacode-owned bounded metamorphic counterexample synthesizer",
+    "topics": [],
+    "readme": "# Gooo Metamorphic Counterexample Synthesizer This repository is a small, evidence-bounded metamorphic runner for Gooo. The `.gooo` declaration owns the semantic invariants, candidate transformation space, finite bounds, and proof boundary. Go supplies only the evaluator, candidate generator, and runtime that execute that declaration. The fixed v1 corpus contains exactly eight scenarios: three bounded CLOSED relations, two reproducible REFUTED relations, and three UNKNOWN frontiers for an exhausted bound, a missing oracle, and a stale relation contract. A CLOSED claim means only that every can",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "kimtth/azure-openai-llm-cookbook",
+    "url": "https://github.com/kimtth/azure-openai-llm-cookbook",
+    "stars": 16,
+    "language": "Jupyter Notebook",
+    "created_at": "2025-03-05T08:29:56Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 3313,
+    "sample_technique_files": [
+      "framework/guidance_(framework)/notebooks/testing_lms.ipynb"
+    ],
+    "description": "🫧 A one-stop hub, like a sample library 🪂 Azure OpenAI 100+ Sample Code 🧪 Organized by topic for quick reference.",
+    "topics": [
+      "agent",
+      "azure",
+      "azure-openai",
+      "chatgpt",
+      "cookbook",
+      "hub",
+      "langgraph",
+      "library",
+      "llama-index",
+      "llm",
+      "openai",
+      "rag"
+    ],
+    "readme": "# Azure OpenAI LLM Cookbook ![Static Badge](https://img.shields.io/badge/llm-azure_openai-blue?style=flat-square) ![GitHub Created At](https://img.shields.io/github/created-at/kimtth/azure-openai-samples?style=flat-square) ## 📌 Quick Reference: Curated Sample Collection `A one-stop hub, like a sample library.` This repository is organized by topic to help reduce the time spent searching for and reviewing sample code. It offers a curated collection of minimal implementations and sample code from various sources. > [!IMPORTANT] > 🔹For more details and the latest code updates, please refer to the",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "kindone/mdart",
+    "url": "https://github.com/kindone/mdart",
+    "stars": 0,
+    "language": "TypeScript",
+    "created_at": "2026-04-14T13:21:07Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 172,
+    "sample_technique_files": [
+      "packages/mdart/src/__tests__/metamorphic.prop.ts"
+    ],
+    "description": "MarkdownArt (mdart) monorepo",
+    "topics": [],
+    "readme": "# MdArt\n\nA markdown-native diagram DSL that renders structured diagrams as inline SVG directly from fenced code blocks.\n\n> Eleven layout families, 100+ diagram types, all driven by a tiny indented-bullet syntax. Drop a ` ```mdart ` fence into any markdown file and you have a diagram.\n\n## A diagram per family\n\nOne representative example for each of the eleven families. Skim what feels useful — every example is a real, valid `mdart` fence you can copy.\n\n### Process — `chevron-process`\n\nSequential steps, pipelines, flows.\n\n````markdown\n```mdart\ntype: chevron-process\ntitle: Development Lifecycle\n\nDiscovery → Design → Build → Test → Deploy\n```\n````\n\n<picture>\n  <source media=\"(prefers-color-scheme: dark)\" srcset=\"./docs/examples/process.svg\">\n  <img alt=\"Process\" src=\"./docs/examples/process-light.svg\">\n</picture>\n\n---\n\n### List — `checklist`\n\nItems with distinct visual treatments — bullets, numbers, cards, ribbons, hexagons, checklists.\n\n````markdown\n```mdart\ntype: checklist\ntitle: Release Checklist\n\n- Run full test suite [done]\n- Update CHANGELOG [done]\n- Bump version\n- Tag release\n- Announce in #engineering\n```\n````\n\n<picture>\n  <source media=\"(prefers-color-scheme: dark)\" srcset=\"./docs/examples/checklist.svg\">\n  <img alt=\"Checklist\" src=\"./docs/examples/checklist-light.svg\">\n</picture>\n\n---\n\n### Cycle — `cycle`\n\nClosed loops and recurring flows.\n\n````markdown\n```mdart\ntype: cycle\ntitle: Build–Measure–Learn\n\nPlan → Build → Measure → Learn\n```\n````\n\n<picture>\n  <source media=\"(prefers-color-scheme: dark)\" srcset=\"./docs/examples/cycle.svg\">\n  <img alt=\"Cycle\" src=\"./docs/examples/cycle-light.svg\">\n</picture>\n\n---\n\n### Matrix — `swot`\n\nQuadrant views and 2-axis comparisons. Prefix chars give SWOT its four quadrants: `+` strength, `-` weakness, `?` opportunity, `!` threat.\n\n````markdown\n```mdart\ntype: swot\ntitle: Product Analysis\n\n+ Strong brand recognition\n+ Existing distribution network\n- High customer acquisition cost\n- Limited mobile presence\n? Asia-Pacific expansion\n? API partnership programme\n! New low-cost competitor\n! Regulatory changes\n```\n````\n\n<picture>\n  <source media=\"(prefers-color-scheme: dark)\" srcset=\"./docs/examples/swot.svg\">\n  <img alt=\"SWOT\" src=\"./docs/examples/swot-light.svg\">\n</picture>\n\n---\n\n### Hierarchy — `org-chart`\n\nOrg charts, trees, mind maps, decision trees.\n\n````markdown\n```mdart\ntype: org-chart\ntitle: Engineering Team\n\n- CTO\n  - Frontend\n  - Backend\n  - Platform\n```\n````\n\n<picture>\n  <source media=\"(prefers-color-scheme: dark)\" srcset=\"./docs/examples/org-chart.svg\">\n  <img alt=\"Org chart\" src=\"./docs/examples/org-chart-light.svg\">\n</picture>\n\n---\n\n### Pyramid — `pyramid`\n\nStacked tiers from base to apex.\n\n````markdown\n```mdart\ntype: pyramid\ntitle: Maslow's Hierarchy\n\n- Self-actualisation\n- Esteem\n- Love & Belonging\n- Safety\n- Physiological\n```\n````\n\n<picture>\n  <source media=\"(prefers-color-scheme: dark)\" srcset=\"./docs/examples/pyramid.svg\">\n  <img alt=\"Pyramid\" src=\"./docs/examples/pyramid-light.svg\">\n</picture>\n\n",
+    "readme_source": "full"
+  },
+  {
+    "repo": "kingdemond434-cpu/quant",
+    "url": "https://github.com/kingdemond434-cpu/quant",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-07-18T09:37:15Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 4839,
+    "sample_technique_files": [
+      "docs/research/capability_hunt/20260801_s5_proposals.md",
+      "libs/research/earnability.py"
+    ],
+    "description": "memory",
+    "topics": [],
+    "readme": "# quant-platform **An autonomous quantitative research and trading desk that trades the MT5 / Fusion Markets universe through a single broker connection.** ## Read this first — what this desk trades, and what it does not - **The universe is MT5/Fusion Markets, and only that:** FX majors, crosses and exotics; gold (XAUUSD) and silver and the other metals; equity indices; energy; soft commodities; US share CFDs; and the crypto CFDs Fusion itself lists. One broker connection, one book. - **The live desk is `desks/mt5/`.** That directory is the money path: `desks/mt5/mt5desk/` executes (gateway, r",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "kirillpechurin/structured-eval",
+    "url": "https://github.com/kirillpechurin/structured-eval",
+    "stars": 4,
+    "language": "Python",
+    "created_at": "2026-06-03T18:03:55Z",
+    "technique_test_files": 2,
+    "technique_nontest_files": 0,
+    "code_files": 193,
+    "sample_technique_files": [
+      "pyproject.toml",
+      "tests/README.md",
+      "tests/properties/__init__.py",
+      "tests/properties/test_metamorphic.py"
+    ],
+    "description": "The LLM Structured Output Evaluation Framework",
+    "topics": [],
+    "readme": "# structured-eval [![CI](https://github.com/kirillpechurin/structured-eval/actions/workflows/ci.yml/badge.svg)](https://github.com/kirillpechurin/structured-eval/actions/workflows/ci.yml) [![codecov](https://codecov.io/gh/kirillpechurin/structured-eval/graph/badge.svg)](https://codecov.io/gh/kirillpechurin/structured-eval) [![PyPI](https://img.shields.io/pypi/v/structured-eval.svg)](https://pypi.org/project/structured-eval/) [![Python versions](https://img.shields.io/pypi/pyversions/structured-eval.svg)](https://pypi.org/project/structured-eval/) [![License](https://img.shields.io/pypi/l/struc",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Kiruthika162003/storage-engine",
+    "url": "https://github.com/Kiruthika162003/storage-engine",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-08-19T00:40:05Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 279,
+    "sample_technique_files": [
+      "README.md",
+      "store/verify/metamorphic.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# storage-engine A single-node storage engine built as a set of measured claims. The package implements a log-structured store end to end, write-ahead log, memtable, sorted tables, bloom filters, compaction, manifest, crash recovery, and then keeps going into everything a storage engine lives next to: caches, quotas, queues, quantile sketches, failure detectors, spatial keys, pagination, backfills. The house rule is that every module ends in a `summarise()` of boolean claims, and every claim is a sentence backed by a number the module itself computes when asked. When a measurement disagreed wi",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "kisungyou/believe14",
+    "url": "https://github.com/kisungyou/believe14",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-09-02T13:06:48Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 74,
+    "sample_technique_files": [
+      "docs/contributing.md",
+      "docs/validation/ledger-template.md",
+      "tests/test_registry.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# believe14 `believe14` is a paper-first Python library for dimensionality reduction and intrinsic-dimension estimation. Version 0.1.0 contains 30 independently implemented methods organized into three public families: `believe14.linear`, `believe14.nonlinear`, and `believe14.estimation`. All 30 methods carry validated status for their recorded tests and documented scope; this is not a general accuracy or maturity guarantee. `UStatisticDimension` passed a prospective 4,500-fit accuracy study on nine specified low-dimensional configurations. Its earlier failed panel and higher-dimensional limit",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "kkd16/agent-experiments",
+    "url": "https://github.com/kkd16/agent-experiments",
+    "stars": 0,
+    "language": "TypeScript",
+    "created_at": "2026-06-13T01:51:59Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 5,
+    "code_files": 2814,
+    "sample_technique_files": [
+      "projects/queryforge-db-7q4x/JOURNAL.md",
+      "projects/queryforge-db-7q4x/src/db/fuzz/oracles.ts",
+      "projects/queryforge-db-7q4x/src/db/fuzz/rng.ts",
+      "projects/queryforge-db-7q4x/src/db/fuzz/runner.ts",
+      "projects/queryforge-db-7q4x/src/ui/Internals.tsx"
+    ],
+    "description": "Autonomous agent projects",
+    "topics": [],
+    "readme": "# agent-experiments\n\nAutonomous coding agents (Jules, Claude, and others) turn ideas into small\n**Vite + React + TypeScript** apps. Each one lives in its own folder and is auto-published to a\nshared catalog.\n\n**Live catalog → <https://kkd16.github.io/agent-experiments/>**\n\n## How it works\n\n```\nprojects/<slug>/   ← an agent builds a React + Vite + TS app here (pnpm), in its own folder\n        │\n        ▼  open a pull request into main\n.github/workflows/auto-merge.yml   ← verify (one folder + lint + build) → squash-merge the PR\n        │\n        ▼\n.github/workflows/deploy.yml   ← discover (validate) → build each app → deploy to Pages\n        │\n        ▼\nindex.html + assets/   ← catalog shell; reads catalog.json and renders the grid\n```\n\nEach app is self-contained — its own folder and `pnpm-lock.yaml` — so any number of agents can\nopen PRs at once without conflicts, and the catalog regenerates itself. An agent opens a pull\nrequest into `main`, and **`auto-merge.yml`** squash-merges it after verifying the change is\nconfined to one `projects/<slug>/` folder and passes the build. Apps that don't conform to the\nstack or fail to build are skipped, never published, so one bad app can't block the rest.\n\nEvery app also keeps a `JOURNAL.md` and a static `public/thumbnail.svg`. The journal carries ideas\nbetween sessions, while the SVG gives the catalog a fast thumbnail without loading the full app.\n\n## For agents\n\nRead **[AGENTS.md](./AGENTS.md)** — the build contract — then copy `projects/_template/` to start.\n\n## Preview locally\n\n```bash\n# one app, with hot reload\ncd projects/<slug> && pnpm install && pnpm dev\n\n# the whole catalog, exactly as CI ships it\nnode scripts/build-site.mjs            # add --catalog-only to skip the builds\ncd _site && python3 -m http.server     # → http://localhost:8000/\n```",
+    "readme_source": "full"
+  },
+  {
+    "repo": "kmehant/RST",
+    "url": "https://github.com/kmehant/RST",
+    "stars": 1,
+    "language": "Jupyter Notebook",
+    "created_at": "2021-01-11T08:45:51Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 2,
+    "code_files": 210,
+    "sample_technique_files": [
+      "cgp/guidance-pipeline-gptneo/notebooks/testing_lms.ipynb",
+      "cgp/guidance_pipeline/notebooks/testing_lms.ipynb"
+    ],
+    "description": "Done as part of course CS303",
+    "topics": [],
+    "readme": "## Rough Set Theory Implementation using Scala And Spark",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "kmewhort/chord",
+    "url": "https://github.com/kmewhort/chord",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-07-01T02:46:42Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 121,
+    "sample_technique_files": [
+      "tests/test_properties.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# CHORD\n\nCHORD (Cross-cluster Harmonized Optimization of Reception and Dissonance) is an\nexperimental, first-draft algorithm that aims to solve some of the major problems\nwith today's *anti*-social networks.\n\nThe big platforms use dark-pattern mathematics to maximize engagement — and\nengagement is a trap: the content that provokes the most reactions is the content\nthat divides us most. Outrage and tribalism are high-variance bets — half the room\nloves them, half hates them — and that very split is what the reaction-counter\nrewards. However neutral the feed looks, its math quietly pays out for division.\n\nCHORD takes the opposite approach. Inspired by the\n[Ethelo algorithm](https://github.com/Ethelo/ethelo-os-engine), instead of\nrewarding whatever provokes the loudest reaction, it optimizes for broad support\n*across* a community's divides — content earns reach by bridging disagreement\nrather than inflaming it. The goal is an algorithm tuned for positive social\ninteraction, not attention at any cost.\n\n---\n\n**[Read the whitepaper (PDF)](whitepaper/CHORD-whitepaper.pdf)** — the full spec\nthis repository implements.\n\nThe one-line architecture (whitepaper Appendix B):\n\n> Rank by tested cross-cluster support net of weighted divisiveness; weight raters\n> by quality-tracking not variance; price authors by a strength-replenished\n> conserved budget; audition the unproven from a floored commons pool that doubles\n> as the identifiability anchor; correct exposure MNAR with doubly-robust\n> propensity weighting; stabilize the coupled estimator as two-timescale stochastic\n> approximation held in a monitored bounded regime; and expose M/ρ/θ/ε as knobs\n> while keeping all authority earned.\n\n## Install\n\n```bash\npip install -e .            # numpy + scipy\npip install -e '.[test]'    # + pytest\n```\n\n## Quick start\n\n```python\nfrom chord import Chord, ChordConfig, UserKnobs, Post, Reaction, Exposure\nfrom chord.propensity import UniformExplorationModel\n\n# A tiny bipolar world: users 0-4 \"left\", 5-9 \"right\".\n# Post A is universal, B is partisan-left, C is partisan-right.\nposts = {\"A\": Post(\"A\", \"auth1\"), \"B\": Post(\"B\", \"auth2\"), \"C\": Post(\"C\", \"auth3\")}\nrx, exps = [], []\nfor u in range(10):\n    left = u < 5\n    for pid, val in [(\"A\", 1.0), (\"B\", 1.0 if left else -1.0), (\"C\", -1.0 if left else 1.0)]:\n        rx.append(Reaction(u, pid, val, timestamp=float(u)))\n        exps.append(Exposure(u, pid, propensity=0.5))\n\nchord = Chord(ChordConfig(d=4, n_clusters=2),\n              propensity_model=UniformExplorationModel(0.5))\nchord.fit_window(rx, posts, exps)\n\n# Pure bridging (M=1): the universal post wins.\nprint(chord.rank(0, list(posts.values()), UserKnobs(M=1.0), n_slots=3))  # ['A', ...]\n\n# Engagement-like (M=0) for a left user: their in-group post B beats C.\nprint(chord.rank(0, list(posts.values()), UserKnobs(M=0.0), n_slots=3))\n```\n\nRun the closed-loop simulator (whitepaper Appendix C.4):\n\n```python\nfrom chord.simulator import Simulator\nresult = Simulator(n_users=30).run(n_w",
+    "readme_source": "full"
+  },
+  {
+    "repo": "kodustech/kodus-ai",
+    "url": "https://github.com/kodustech/kodus-ai",
+    "stars": 1370,
+    "language": "TypeScript",
+    "created_at": "2025-03-28T17:05:19Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 4777,
+    "sample_technique_files": [
+      "evals/review-chain/README.md",
+      "evals/review-chain/shape-invariance.js"
+    ],
+    "description": "AI Code Review with Full Control Over Model Choice and Costs.",
+    "topics": [
+      "ai",
+      "ai-agents",
+      "ai-code-review",
+      "ai-coding-tools",
+      "code-review",
+      "coding-assistant",
+      "generative-ai",
+      "hacktoberfest"
+    ],
+    "readme": "<p align=\"center\"> <img alt=\"koduslogo\" src=\"https://kodus.io/wp-content/uploads/2026/06/kodus-thumb-git-scaled.png\"> </p> <p align=\"center\"> <a href=\"http://makeapullrequest.com\"> <img alt=\"PRs Welcome\" src=\"https://img.shields.io/badge/PRs-welcome-darkgreen.svg?style=shields\" /> </a> <a href=\"https://github.com/kodustech/kodus-ai\" target=\"_blank\"> <img src=\"https://img.shields.io/github/stars/kodustech/kodus-ai\" alt=\"Github Stars\" /> </a> <a href=\"./license.md\"> <img src=\"https://img.shields.io/badge/license-AGPLv3-red\" alt=\"License\" /> </a> </p> <p align=\"center\"><strong>Open source AI code",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "koishi4/kylin-ops-agent",
+    "url": "https://github.com/koishi4/kylin-ops-agent",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-06-01T03:13:42Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 126,
+    "sample_technique_files": [
+      "backend/tests/test_guardrail_metamorphic.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# 麒麟安全智能运维 Agent（软件杯 A2） 自然语言运维 Linux 的智能 Agent，核心是「安全护栏」。详见 docs/总方案.md。 ## 快速开始 1. 读 CLAUDE.md（项目纲领） 2. 读 docs/总方案.md（环境配置 + 架构） 3. 按 docs/roadmap.md 推进 ## 结构 - backend/ FastAPI 后端 + MCP Server + 护栏 + 审计 - frontend/ Vue3 B/S 界面 - docs/ 方案、路线图、开发日志、UML 图 - .claude/skills/ 三个开发技能（MCP工具/护栏/报告） ## 运行（第1周最小闭环已跑通） ### 后端 ```bash cd backend python3.11 -m venv .venv && source .venv/bin/activate pip install -r requirements.lock # 锁定版本，可复现；开发升级依赖时才用 requirements.txt cp .env.example .env # 填 DEEPSEEK_API_KEY；或在 .env 设 LLM_PROVIDER=mock 离线跑 uvicorn app.main:app --reload --port 8000 ``` - `GET /health`：存",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "KokunoYumeto/mathematical-computing-reproducible-experiments-id",
+    "url": "https://github.com/KokunoYumeto/mathematical-computing-reproducible-experiments-id",
+    "stars": 0,
+    "language": "HTML",
+    "created_at": "2026-08-22T01:42:56Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 1,
+    "code_files": 80,
+    "sample_technique_files": [
+      "docs/unit08-results.json",
+      "output/unit08-results.json",
+      "source/code/unit08_validation.py",
+      "tests/test_unit08.py"
+    ],
+    "description": "Buku ajar Bahasa Indonesia tentang komputasi matematis dan eksperimen yang dapat direproduksi — sumber, HTML, PDF, dan backend stabil.",
+    "topics": [
+      "bahasa-indonesia",
+      "mathematical-computing",
+      "open-education",
+      "python",
+      "quarto",
+      "reproducible-research"
+    ],
+    "readme": "# Komputasi Matematis dan Eksperimen yang Dapat Direproduksi Edisi Bahasa Indonesia (`id-ID`) untuk peran kurikulum B80 / proyek O002. Versi `2026.08.22.1` memuat arsitektur 14-unit yang dipilih: dua primer wajib diikuti dua belas unit utama, dengan runtime lokal Python, SciPy, dan SageMath. Rilis 12-unit `v2026.08.22` tetap lengkap dan tidak berubah sebagai edisi mandiri historis. Buku ini merupakan karya independen dan tidak menyiratkan dukungan dari penulis atau lembaga yang dibahas sebagai sumber perbandingan. Produksi, penerjemahan, dan QA berbantuan model menggunakan **OpenAI Codex gpt-5",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Kolm-ai/kolm",
+    "url": "https://github.com/Kolm-ai/kolm",
+    "stars": 2,
+    "language": "JavaScript",
+    "created_at": "2026-05-08T14:04:56Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 1,
+    "code_files": 2028,
+    "sample_technique_files": [
+      "data/assistant-corpus/docs-index.json",
+      "docs/research/kolm-billion-dollar-distillation-lab-2026-05-24.md",
+      "src/kscore-gate-harness.js",
+      "tests/finalized-c1-sandbox-verification-kscore-gate.test.js"
+    ],
+    "description": "kolm — the AI compiler. Compile any task into a signed .kolm artifact that runs locally. RS-1 open spec, MIT.",
+    "topics": [
+      "ai-compiler",
+      "ai-receipts",
+      "cryptographic-receipts",
+      "kolm",
+      "kolmogorov",
+      "local-ai",
+      "mcp",
+      "private-ai",
+      "regulated-ai",
+      "rs-1",
+      "sovereign-ai",
+      "verified-inference"
+    ],
+    "readme": "# kolm The AI compiler. Compile a task into a signed `.kolm` artifact you own, run it offline on any device, verify every output. ```bash npm i -g github:kolm-ai/kolm kolm build my-redactor --from redactor --yes # one-shot: scaffold + seeds + compile + verify kolm run my-redactor.kolm '{\"text\":\"call 555-1212\"}' ``` The `kolm build` one-shot is the fastest path: it scaffolds the spec, drops in starter seeds, compiles, and verifies — printing the K-score, the failing cases (if any), and the exact iterate command. The four underlying verbs (`kolm new`, `kolm seeds new`, `kolm compile`, `kolm veri",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "KonkovDV/AeroBIM",
+    "url": "https://github.com/KonkovDV/AeroBIM",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-04-10T16:35:47Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 1114,
+    "sample_technique_files": [
+      "backend/tests/test_metamorphic_stats_invariants.py"
+    ],
+    "description": "Deterministic OpenBIM QA: IFC, IDS, drawings and texts in one validation pipeline with BCF export. Moscow TechLab task 07. Checkpoint GO (regulatory_measurement_mvp). customer_go stays false until customer evidence.",
+    "topics": [
+      "aec",
+      "bcf",
+      "bim",
+      "construction-tech",
+      "digital-engineering",
+      "fastapi",
+      "ids",
+      "ifc",
+      "ifcopenshell",
+      "iso-19650",
+      "model-checking",
+      "openbim",
+      "python",
+      "quality-assurance",
+      "react"
+    ],
+    "readme": "<!-- claims-lint: allow-file reason=\"Claims-boundary doc citing forbidden phrases as non-claims per pilot-claim-boundary / Claims Lock\" --> <p align=\"center\"> <img src=\"AeroBIM.png\" alt=\"AeroBIM\" width=\"420\"> <br><br> <b>Presentation · 7 slides</b> <br><br> <a href=\"submission/03-presentation/AeroBIM.pptx\"><img src=\"https://img.shields.io/badge/PowerPoint-.pptx-D24726?style=for-the-badge&logo=microsoftpowerpoint&logoColor=white\" alt=\"PowerPoint\"></a> &nbsp; <a href=\"submission/03-presentation/AeroBIM.pdf\"><img src=\"https://img.shields.io/badge/PDF-.pdf-B30B00?style=for-the-badge&logo=adobeacro",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Konoszaf1/LRPSolverAIQA",
+    "url": "https://github.com/Konoszaf1/LRPSolverAIQA",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-02-27T11:10:18Z",
+    "technique_test_files": 3,
+    "technique_nontest_files": 0,
+    "code_files": 64,
+    "sample_technique_files": [
+      "AIQA_README.md",
+      "README.md",
+      "qa_suite/metamorphic_tests/__init__.py",
+      "qa_suite/metamorphic_tests/perturbations.py",
+      "qa_suite/metamorphic_tests/test_metamorphic.py"
+    ],
+    "description": "Multi-Solver Benchmarking & Validation Framework that pits a classical Cuckoo Search metaheuristic against an LLM (Claude) on standard OR benchmark instances, then validates both outputs through a comprehensive AIQA pipeline",
+    "topics": [],
+    "readme": "<div align=\"center\"> # AIQA: Production-Grade Validity Framework for LLM Constrained Optimization ### Can an LLM produce feasible solutions to NP-hard routing problems — and how do you prove it? [![Python 3.11+](https://img.shields.io/badge/python-3.11+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/downloads/) [![Anthropic Claude](https://img.shields.io/badge/Anthropic-Claude-D97757?style=for-the-badge&logo=anthropic&logoColor=white)](https://www.anthropic.com/) [![Pytest](https://img.shields.io/badge/tested_with-pytest-0A9EDC?style=for-the-badge&logo=pytest&l",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Konoszaf1/strata",
+    "url": "https://github.com/Konoszaf1/strata",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-03-16T19:20:37Z",
+    "technique_test_files": 3,
+    "technique_nontest_files": 0,
+    "code_files": 33,
+    "sample_technique_files": [
+      "src/app/test.md",
+      "tests/metamorphic/test_model_upgrade_monotonic.py",
+      "tests/metamorphic/test_setting_sources_isolation.py",
+      "tests/metamorphic/test_skip_equivalence.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "<div align=\"center\"> # Strata: Layered Cognitive Pipeline for Claude Code ### What if your AI thought in layers — prompt, context, intent, judgment, coherence — with quality gates between each? [![Python 3.12+](https://img.shields.io/badge/python-3.12+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/downloads/) [![Claude Code](https://img.shields.io/badge/Claude_Code-CLI-D97757?style=for-the-badge&logo=anthropic&logoColor=white)](https://docs.anthropic.com/en/docs/claude-code) [![Pytest](https://img.shields.io/badge/tested_with-pytest-0A9EDC?style=for-the-badge&",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "KozumaLaboratory/BEC-simulation",
+    "url": "https://github.com/KozumaLaboratory/BEC-simulation",
+    "stars": 2,
+    "language": "Julia",
+    "created_at": "2026-02-24T10:54:31Z",
+    "technique_test_files": 3,
+    "technique_nontest_files": 0,
+    "code_files": 1943,
+    "sample_technique_files": [
+      "test/_inventory.jl",
+      "test/oracles/test_negative_dt_substeps.jl",
+      "test/workflow/test_thermal_seed_amplitude.jl"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# SpinorBEC.jl\n\n[![CI](https://github.com/KozumaLaboratory/BEC-simulation/actions/workflows/ci.yml/badge.svg)](https://github.com/KozumaLaboratory/BEC-simulation/actions/workflows/ci.yml)\n\nA general-purpose solver for the spinor Gross–Pitaevskii equation: arbitrary\nspin $F$, 1D/2D/3D, contact + dipolar + LHY + Raman/Zeeman, on CPU or CUDA,\nwith experiments defined directly in Julia.\n\n## What it does well\n\n- **Arbitrary $F$.** The whole stack (spin matrices, Clebsch–Gordan, tensor\n  interactions, observables) works for any $F$, not just $F=1$ or $F=2$.\n  Polyhedral state classification verified through $F=12$ (Paper #3); the\n  production target is ¹⁵¹Eu ($F=6$, 13 components).\n- **A species registry, not a hard-coded atom.** Alkalis (Li, Na, K, Rb, Cs),\n  alkaline earths and Yb, the magnetic species (Cr, Dy, Er, Eu) and metastable\n  He\\* ship with their masses, $g_F$ factors and scattering lengths; a run\n  selects one by name.\n- **Dipolar interactions are first-class.** $k$-space convolution in 6 FFTs,\n  zero-padded or quasi-2D (erfcx kernel), with the spin-orbital coupling\n  needed for Einstein–de Haas dynamics.\n- **A rotating-basis solver for fast magnetostir.** When the magnetic-field\n  direction $\\hat B(t)$ varies on a timescale comparable to the Larmor\n  precession, the standard spinor split-step blows up unless $\\Delta t$ is\n  pushed to absurd values. The `kind: rotating_basis` path co-rotates with\n  $\\hat B(t)$ and absorbs the Larmor phase analytically, so Klaus-et-al.-2022-style\n  protocols just work.\n- **Julia definitions, persistent results.** Build a `PipelineConfig` from\n  typed steps. Reuse Julia functions, loops, and comprehensions for protocols\n  and sweeps. `run_experiment` saves the input and resolved conditions as JSON,\n  writes checkpoints and progress, and refuses stale cached results. Existing\n  Experiment definitions are Julia code; YAML and TOML input are unsupported.\n- **GPU is not an afterthought.** Both kinetic and DDI paths are CUDA-native\n  (CUFFT, in-place broadcasts), with a mixed-precision F32 path for large\n  grids.\n\n## Usage\n\n```julia\nusing SpinorBEC\n\nexperiment = PipelineConfig([\n    GroundStateStep(\n        atom=:Rb87,\n        grid=(n=[32], box=[12.0]),\n        interactions=(N_atoms=100, omega_ref=100.0, c0=1.0, c1=0.0),\n        potential=(type=:harmonic, omega=[1.0]),\n        initial_state=:polar, dt=0.001, n_steps=1000, tol=1e-6,\n    ),\n    DynamicsStep(duration=0.1, dt=0.001, save=(every=10,)),\n])\n\nexp = Experiment(experiment)\nrun!(exp)                       # no YAML serialization or parsing\nFz_t(exp)                       # inspect saved results\nwrite_run!(exp)                 # config.json for local/cluster dispatch\n```\n\nRun a saved snapshot with `run_experiment(\"runs/<id>/config.json\")`.\nInspect definitions before execution with `inspect_config(experiment)`.\nFor a parameter sweep, construct a vector of experiments with a Julia\ncomprehension and call `run!.(experiments)`.\n\nSee [Julia experiment definitions]",
+    "readme_source": "full"
+  },
+  {
+    "repo": "kpqclib/kpqclib",
+    "url": "https://github.com/kpqclib/kpqclib",
+    "stars": 0,
+    "language": "C",
+    "created_at": "2023-08-07T11:47:29Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 34,
+    "code_files": 1936,
+    "sample_technique_files": [
+      "README.md",
+      "crypto_kem/PALOMA128/metamorphic/meta_test.c",
+      "crypto_kem/PALOMA192/metamorphic/meta_test.c",
+      "crypto_kem/PALOMA256/metamorphic/meta_test.c",
+      "crypto_kem/SMAUG1/metamorphic/meta_test.c"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# KPQClib This project is motivated by [PQClean](https://github.com/PQClean/PQClean). We provide all of [KPQC](https://www.kpqc.or.kr/competition.html) Competition Algorithms with benchmarking, KAT and Metamorphic testing. All OpenSSL dependencies are removed, and we used cryptographic algorithms in PQClean. ### To Do List * Update some codes into latest reference code * Make auto building script * Rewrite README into clear form ## How to build Before you build, check the ```requirements.txt``` file and ensure you installed the required tool. First, clone the repository. Then, run CMake and Ma",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "kreek/terse",
+    "url": "https://github.com/kreek/terse",
+    "stars": 1,
+    "language": "JavaScript",
+    "created_at": "2026-08-17T20:06:11Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 81,
+    "sample_technique_files": [
+      "CHANGELOG.md",
+      "ROADMAP.md",
+      "test/properties.test.js"
+    ],
+    "description": "A writing editor for Claude Code: mechanical style checks plus AI edits that keep your voice",
+    "topics": [],
+    "readme": "# Terse Terse is a writing system for Codex and Claude Code. It combines a local checker with skills for planning, drafting, and editing prose. The checker finds mechanical faults. The skills decide how to fix them without replacing the writer's voice. ## How it works Terse has two layers: - **Mechanical checks** run offline in `scripts/style-check.mjs`. They cover readability, passive voice, adverbs, and qualifiers. They also find wordy phrases, grammar faults, long asides, and common model-writing patterns. The checker reports a file, line, category, matched text, and suggested fix for each",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "krishmonga/Terminal",
+    "url": "https://github.com/krishmonga/Terminal",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-08-28T10:33:07Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 310,
+    "sample_technique_files": [
+      ".cursor/rules/idea-validation.mdc",
+      "REPO_CONVENTIONS.md",
+      "docs/HARD_BUT_FAIR_AUTHORING.md",
+      "docs/WHAT_MAKES_A_GOOD_TASK.md",
+      "scripts/generate_full_nine_seed_bank.py"
+    ],
+    "description": "Terminus 3.0 Terminal submissions",
+    "topics": [],
+    "readme": "# Terminus 3 / Terminal-Bench 3.0 Authoring kit for Snorkel Terminus 3 submissions. Tasks target Terminal-Bench 3.0: specialized-domain work, a native artifact, interacting constraints, and a verifier that runs in a **separate container**. Project: **Terminus-3-Prod**. Slack: `#terminus-3-submissions`. ## What changed from Terminus 2 - Difficulty is `frontier` / `advanced` / `core` / `base` (empirical mean pass@1 on GPT-5.6 and Claude Opus 5). Base is accepted. 100% is not. - Categories are seven Title Case domains, each with a subcategory. - Verifier is isolated: `tests/Dockerfile` + top-leve",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Krovush/agintor",
+    "url": "https://github.com/Krovush/agintor",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-03-09T04:16:14Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 264,
+    "sample_technique_files": [
+      "agintor/contracts/evidence.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "",
+    "readme_source": "none"
+  },
+  {
+    "repo": "Krsnapriya/Ledger_lens",
+    "url": "https://github.com/Krsnapriya/Ledger_lens",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-08-29T04:11:36Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 29,
+    "sample_technique_files": [
+      "tests/test_metamorphic.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# LedgerLens **Multi-source settlement reconciliation with a measured residual instead of a protected zero.** > High precision under adversarial mutation and on real held-out data, with > measured residual and explicit coverage cost. Not yet a full > straight-through-processing system. Razorpay AI Buildathon — Track 04, AI Finance Controller. ```bash pip install -r requirements.txt # numpy, scipy. That is all. python -m recon.cli --orders 300 --seed 7 ``` No API key. No network. No model download. No notebook. Python 3.12.3. ``` SETTLEMENT MATCH RATE 100.00% (25/25 payouts) FALSE MATCH RATE 0.",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Krzysztof-Ad/morvix",
+    "url": "https://github.com/Krzysztof-Ad/morvix",
+    "stars": 3,
+    "language": "Python",
+    "created_at": "2026-06-03T23:51:38Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 4,
+    "code_files": 150,
+    "sample_technique_files": [
+      "GUIDE.md",
+      "morvix/commands/gen_cmd.py",
+      "morvix/docs.py",
+      "morvix/help_text.py",
+      "morvix/metamorphic.py"
+    ],
+    "description": "A test-authoring, test-running, and test-sharing CLI for university programming assignments.",
+    "topics": [],
+    "readme": "# Morvix [![PyPI version](https://img.shields.io/pypi/v/morvix.svg)](https://pypi.org/project/morvix/) [![Python versions](https://img.shields.io/pypi/pyversions/morvix.svg)](https://pypi.org/project/morvix/) [![CI](https://github.com/Krzysztof-Ad/morvix/actions/workflows/ci.yml/badge.svg)](https://github.com/Krzysztof-Ad/morvix/actions/workflows/ci.yml) [![CodeQL](https://github.com/Krzysztof-Ad/morvix/actions/workflows/codeql.yml/badge.svg)](https://github.com/Krzysztof-Ad/morvix/actions/workflows/codeql.yml) [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) A tes",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "KushagraBharti/Optimization-ML-Research",
+    "url": "https://github.com/KushagraBharti/Optimization-ML-Research",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2025-04-20T05:31:49Z",
+    "technique_test_files": 4,
+    "technique_nontest_files": 0,
+    "code_files": 89,
+    "sample_technique_files": [
+      "tests/test_dp_full.py",
+      "tests/test_dpos.py",
+      "tests/test_gs.py",
+      "tests/test_gsp.py"
+    ],
+    "description": "Research repository to adapt traditional algorithmic problem into a machine learning problem using Graph Neural Networks",
+    "topics": [],
+    "readme": "# Coverage Planning with Drones (1D) A reference implementation of the paper **\"Covering Segments on a Line with Drones\"** Bereg, Sergey, et al. \"Covering segments on a line with drones.\" Information Processing Letters, vol. 188, Feb. 2025, p. 106540, https://doi.org/10.1016/j.ipl.2024.106540. --- ## Project Overview | Algorithm | Description | Time Complexity | | ---------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "kwkwan00/architecture-scoreboard",
+    "url": "https://github.com/kwkwan00/architecture-scoreboard",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-05-22T20:02:04Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 2,
+    "code_files": 430,
+    "sample_technique_files": [
+      "docs/calibration-without-actuals-plan.md",
+      "eval/metamorphic/cassette_runner.py",
+      "eval/metamorphic/relations.py",
+      "tests/unit/test_metamorphic.py"
+    ],
+    "description": "A multi-agent system that reviews a submitted architecture by assembling a panel of specialised LLM reviewers and then reconciling their opinions through a deterministic consensus stage resulting in a set of final scores to be used for review.",
+    "topics": [],
+    "readme": "# Enterprise Architecture Reviewer **Author:** [Kevin Quon](https://www.linkedin.com/in/kwkwan00/) Pre-review triage and risk surfacing for enterprise architecture submissions. The Enterprise Architecture Reviewer takes a diagram, a paste of mermaid, or an architecture write-up and produces an architect-ready review packet in a few minutes: - Per-domain scorecards (security, reliability, etc.) with grounded findings - Risk register, technology soundness, documentation completeness - Bucketed recommendations with expected benefits, tradeoffs, alternatives, and implementation guidance - Similar",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Ladvien/blended",
+    "url": "https://github.com/Ladvien/blended",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-08-20T12:08:32Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 3,
+    "code_files": 450,
+    "sample_technique_files": [
+      "README.md",
+      "docs/harness_design.md",
+      "docs/research/2026-08-20-agentic-blender-game-asset-harness-research.md",
+      "src/blended/analyze/metamorphic.py",
+      "src/blended/builders/barrel.py"
+    ],
+    "description": "A Blender 3D modeling harness",
+    "topics": [],
+    "readme": "# blended A Blender-based harness for agentic modeling of game assets. The agent's artifact is a **program** (`Parameters` + `Builder` Python modules), not a mesh. The harness's job is to make the environment tell the truth: structured tracebacks with known-API-drift fixes attached, a mesh analyzer as the hard acceptance gate, and multi-view captures for inspection. Rendered critique advises; the analyzer decides. ## One call ```python from blended.builders import BarrelBuilder, BarrelParameters from blended.harness import HarnessSettings, run_builder result = run_builder( BarrelBuilder(Barrel",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Ladvien/foundation_vs_slop",
+    "url": "https://github.com/Ladvien/foundation_vs_slop",
+    "stars": 0,
+    "language": "Rust",
+    "created_at": "2026-07-03T14:03:20Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 722,
+    "sample_technique_files": [
+      "TESTING.md",
+      "crates/emerge-core/tests/metamorphic_clips.rs",
+      "docs/codebase_review_contradictions_harness.md"
+    ],
+    "description": "I dunno, just experimenting -- vibe coded slop",
+    "topics": [],
+    "readme": "## ISSUES\n<!-- Doorway jamming removed 2026-07-26: does not reproduce. `tests/nav.rs` drives all five units\n     through a 1-tile doorway and they traverse single-file. The wall widening (0.6 -> 0.72 m clear)\n     appears to have fixed it. If it recurs, the untested case is opposing traffic through one opening. -->\n- Smiley shader/mesh is still clipping through the walls\n- Wall corner pieces don't line up correctly\n- Lamps are floating near the ceiling instead of on a desk\n- Trashcans are being placed inside couches\n\n\n### TODO\n- **Stealth pounce:** gate the leap on the target's facing — stalk to the blind side and only pounce when prey isn't looking. (Now: range + cooldown only.)\n- **Dynamic castes:** let crabs re-role between scout and assault as swarm needs shift. (Now: fixed at birth.)\n\n## DONE\n- Toilet + sink cluster together against a wall — both fixtures are tagged `group: \"bath\"` + `back_to_wall`, and `room_profile` now **co-selects the group partner** so the `Near` band always fires (the 2-of-3 pick used to drop half the pair); the Metropolis angular wall-snap seats each back to the perimeter (`assets/config/config.ron`, `src/placement/furnish.rs`).\n- TV / lamps / potted plants / globe stack on desks & tables — `Role::Scatter(surface: \"support\")` props seated on the inner 9×9 lattice of any `support` surface by the furnish scatter pass; the globe was re-tagged from a floor prop to a surface prop so it only rests on a desk/table (`assets/config/config.ron`, `src/placement/furnish.rs`, `scatter.rs`).\n- Fridges / sinks / chest of drawers back to the wall — the `back_to_wall` affordance drives a HARD `AgainstWall` + `w_wall_angle` angular snap that seats the piece flush with its back to the wall; the dresser (`drawer`) gained the affordance, which also covers the intended wardrobe/armoire \"back against the wall\" (`assets/config/config.ron`, `src/placement/solvers/metropolis.rs`).\n- Wall cutaways rotate with the map — the knee-wall squash follows the Q/E camera direction via `CutawayWall.outward · CameraView.to_camera` in `update_cutaway`; near walls squash and far walls stand full at every 90° iso detent (`src/dungeon.rs`, `src/camera.rs`).\n- Wall corners no longer leave a post-shaped gap — a corner post fills the `WALL_THICKNESS²` column at concave corners and cross-cell junctions that the single-cell L-corner arms don't cover; posts squash with their neighbour knee walls under rotation (`src/dungeon.rs`).\n- Blood pools scale with the dead thing's mass/size — `pool_scale()` multiplies the base pool by a mass proxy (`intensity`) and the unit's render scale, clamped to `[0.35, 2.0]×` (`src/gore.rs`).\n- Furniture spawns outside of wall boundaries. — room interior bounds inset by wall thickness, MH proposals hard-clamped, quadratic out-of-bounds penalty; WFC emits only in-region cells; furnish rejects non-floor centers (`src/placement/solvers/metropolis.rs`, `wfc.rs`, `furnish.rs`).\n- Furniture spawns halfway through walls — footprints inset fro",
+    "readme_source": "full"
+  }
+]

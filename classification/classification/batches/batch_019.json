@@ -1,0 +1,1114 @@
+[
+  {
+    "repo": "metavacua/SynthPlayground",
+    "url": "https://github.com/metavacua/SynthPlayground",
+    "stars": 1,
+    "language": "Python",
+    "created_at": "2025-10-05T21:36:55Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 1,
+    "code_files": 293,
+    "sample_technique_files": [
+      "README.md",
+      "docs/SYSTEM_DOCUMENTATION.md",
+      "knowledge_core/SYSTEM_DOCUMENTATION.md",
+      "tooling/agent_smith/__init__.py",
+      "tooling/agent_smith/generate_and_test.py"
+    ],
+    "description": "A self-learning repository for the Google Jules coding assistant.",
+    "topics": [],
+    "readme": "# Autonomous Agent Protocol System This repository contains a sophisticated, protocol-driven framework for the development and operation of autonomous AI agents. The system is designed to ensure that agent behavior is predictable, verifiable, and aligned with a set of core principles, which are encoded in a series of formal protocols. ## Key Features - **Protocol-Driven Architecture**: The agent's behavior is governed by a set of formal protocols, which are defined in the `protocols/` directory. These protocols are compiled into a single, machine-readable `AGENTS.md` file, which serves as the",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "mfalicoff/poly-tp",
+    "url": "https://github.com/mfalicoff/poly-tp",
+    "stars": 0,
+    "language": "HTML",
+    "created_at": "2021-01-11T14:58:35Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 1,
+    "code_files": 1395,
+    "sample_technique_files": [
+      "LOG3430/TP5/src/run.sh",
+      "LOG3430/TP5/src/test_main.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "poly-tp",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Michael-A-Kuykendall/rustchain",
+    "url": "https://github.com/Michael-A-Kuykendall/rustchain",
+    "stars": 25,
+    "language": "Rust",
+    "created_at": "2025-08-25T04:06:48Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 108,
+    "sample_technique_files": [
+      "src/invariant_ppt.rs"
+    ],
+    "description": "Workflow transpilation and execution framework - import LangChain, Airflow, GitHub Actions, Kubernetes, Docker Compose",
+    "topics": [
+      "agent-framework",
+      "ai",
+      "ai-agents",
+      "anthropic",
+      "automation",
+      "compliance",
+      "devops",
+      "gdpr",
+      "hipaa",
+      "llm",
+      "mlops",
+      "open-ai",
+      "rust",
+      "rust-lang",
+      "rust-language",
+      "security-compliance",
+      "workflow-automation",
+      "workflow-transpilation"
+    ],
+    "readme": "<p align=\"center\"> <img src=\"assets/rustchain_logo_tight_transparent.png\" alt=\"RustChain\" width=\"400\"> </p> <p align=\"center\"> <strong>Keep your existing workflows. RustChain runs them all.</strong> </p> <p align=\"center\"> <a href=\"https://github.com/Michael-A-Kuykendall/rustchain/actions/workflows/ci.yml\"><img src=\"https://github.com/Michael-A-Kuykendall/rustchain/actions/workflows/ci.yml/badge.svg\" alt=\"CI\"></a> <a href=\"https://opensource.org/licenses/MIT\"><img src=\"https://img.shields.io/badge/License-MIT%20OR%20Apache--2.0-blue.svg\" alt=\"License: MIT OR Apache-2.0\"></a> <a href=\"https://t",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "michaelbooth1/weather",
+    "url": "https://github.com/michaelbooth1/weather",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-05-29T17:48:11Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 1361,
+    "sample_technique_files": [
+      "docs/roadmap/workstation-handoff-2026-08-09a-build-the-judge-first.md",
+      "src/weather/calibration/residual_distribution_stress.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# Weather Market Platform Coding agents should start with [AGENTS.md](AGENTS.md) (Claude Code loads it through `CLAUDE.md`), then [the state of play](docs/operations/STATE_OF_PLAY.md) for what is true today, and load task-specific context through the [documentation map](docs/README.md). This README owns product purpose, setup, the dashboard description, and the operator command catalog; it carries no current status. Research, collection, model validation, and operations tooling for Polymarket daily high-temperature markets. The platform ingests local Weather Underground settlement-proxy histor",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "michaelcrosato/zork-unlimited",
+    "url": "https://github.com/michaelcrosato/zork-unlimited",
+    "stars": 0,
+    "language": "TypeScript",
+    "created_at": "2026-05-31T21:52:14Z",
+    "technique_test_files": 2,
+    "technique_nontest_files": 0,
+    "code_files": 556,
+    "sample_technique_files": [
+      "tests/regression/rpg_metamorphic_observation_stream.test.ts",
+      "tests/regression/rpg_metamorphic_relabel.test.ts",
+      "traces/bugs/bug_0209_cyoa_metamorphic_relabel_oracle.yaml",
+      "traces/bugs/bug_0211_parser_metamorphic_relabel_oracle.yaml",
+      "traces/bugs/bug_0212_rpg_metamorphic_relabel_oracle.yaml"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# AdventureForge\n\nAn **AI-coded, AI-playtested** text RPG: one deterministic engine, one\npersistent world, and a feedback flywheel — dev agent → verification bar →\nblind playtest → structured exit interview — that compounds quality every\ncycle. Development and playtesting run as **two independent loops**, either of\nwhich any model can drive\n([`docs/two_loop_workflow.md`](./docs/two_loop_workflow.md)). The why lives in [`docs/VISION.md`](./docs/VISION.md); what's next in\n[`docs/ROADMAP.md`](./docs/ROADMAP.md); the standing architecture contract is\n[`ADVENTUREFORGE_BUILD_SPEC.md`](./ADVENTUREFORGE_BUILD_SPEC.md); settled decisions\nlive in [`docs/DECISION_LOG.md`](./docs/DECISION_LOG.md).\n\n> **Trust, but verify.** The coding agent has free rein over all game code — no\n> human-approval gate, no §14 engine-extension ceremony; it decides _what_ to\n> build. But the automated verification stays the **bar**: tests, the determinism\n> property checks, the validators, trace replay/regression, and green CI must pass —\n> the autonomous loop and CI won't land red work. Freedom in design, honesty in\n> verification (don't route around the verifier). Governing doc:\n> [`AGENTS.md`](./AGENTS.md).\n\n## One world, one engine\n\nEverything runs on a single **RPG foundation engine** inside a single\npersistent world (the 2026-07-06 consolidation — see\n[How we got here](#how-we-got-here)):\n\n- **Deterministic core** (`src/core/`) — a pure `step` reducer over a unified\n  `GameState`, a closed condition/effect DSL, a seeded PRNG, an event log, and a\n  canonical state hash: no wall clock, no ambient randomness, same seed ⇒\n  byte-identical run. Save/load with content-hash integrity\n  (`src/persist/save_load.ts`) and trace record/replay (`src/trace/`).\n- **RPG foundation layer** (`src/rpg/`) — rooms, objects, containers, locked\n  doors, NPC dialogue, USE puzzles, scoring, character stats, seeded turn-based\n  combat, and d20 skill checks, behind a legal-action menu runner and structured\n  observations. Two static validators (`src/validate/rpg_validator.ts`,\n  `src/validate/rpg_foundation_validator.ts` — dozens of finding codes)\n  conservatively reject structural and configuration defects. Separate dynamic\n  proofs enumerate shipped-pack state spaces to witness every declared ending,\n  progress-action liveness, and score-economy soundness; those claims apply to the\n  tested shipped packs, not to arbitrary authored numeric gates.\n- **The New York overworld** (`content/world/new_york_overworld.json`,\n  `src/world/`) — a 247-node, 9-region procedurally populated travel and discovery\n  substrate around one deeply authored Albany opening/campaign chapter. It supports\n  roads, encounters, jobs, local events, and renown, and is the sole registry for the\n  **12 shipped quests** under `content/rpg/quests/` (`advocates_case`,\n  `breaking_weir`, `cold_forge`,\n  `dawn_beacon`, `factors_mark`, `falconers_ransom`, `gallowmere`,\n  `printers_night`, `sunken_barrow`, `tanners_fever`, `tide_mill`,\n ",
+    "readme_source": "full"
+  },
+  {
+    "repo": "michaellady/twitter-port-matrix",
+    "url": "https://github.com/michaellady/twitter-port-matrix",
+    "stars": 0,
+    "language": "Go",
+    "created_at": "2026-08-29T13:03:55Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 126,
+    "sample_technique_files": [
+      "evidence/runs/r2/go-rust-properties.txt",
+      "tools/cmd/proptest/main.go"
+    ],
+    "description": "Four verified Twitter-clone implementations (Go, Rust, Java, Kotlin) broken 72 ways to measure what each verification layer actually catches",
+    "topics": [],
+    "readme": "# twitter_port_matrix Four implementations of one small Twitter-clone API — **Go, Rust, Java, Kotlin** — built against a single deterministic reference machine, then deliberately broken 72 different ways to measure **how much assurance each verification layer actually buys.** The apparatus is not the point. The point is the numbers, and the eighteen findings that came out of building it. ``` rung live killed survived unreached kill% wall R0 corpus 36 36 0 0 100% 57s R1 diff-fuzz 35 35 0 0 100% 1465s R2 property 35 14 19 2 42% 2495s ``` Start with **[evidence/FINDINGS.md](evidence/FINDINGS.md)*",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "michellemayes/magic-words",
+    "url": "https://github.com/michellemayes/magic-words",
+    "stars": 5,
+    "language": "TypeScript",
+    "created_at": "2026-07-30T21:42:55Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 61,
+    "sample_technique_files": [
+      "plugins/magic-words/skills/magic-words/magic-words.mjs",
+      "src/data/concepts/testing.ts"
+    ],
+    "description": "Describe your problem in plain language. Get the phrase that steers Claude straight at it. Or install the CC plugin and stop having to.",
+    "topics": [],
+    "readme": "# ✦ Magic Words **Describe your problem in plain language. Get the phrase that steers Claude straight at it.** There's usually a name for whatever you're stuck on. Abstraction laddering, Chesterton's fence, cost of delay, reference class forecasting. Naming the thing is what gets a model to actually do it instead of producing something generic. The catch is that you can't search for a term you've never heard. Magic Words closes that gap. Describe the symptom the way you'd describe it to a colleague, as messily as you like. It untangles the problems in there, finds the concept for each one, and",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "mikasaTu/R16-P14-Earliest-Irreversible-Prefix-Intervention",
+    "url": "https://github.com/mikasaTu/R16-P14-Earliest-Irreversible-Prefix-Intervention",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-08-12T16:41:19Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 293,
+    "sample_technique_files": [
+      "docs/feishu/step4/PLAN.md",
+      "experiments/r16_p14_stage2b/r16_p14_stage2b/runtime.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# R16-P14: Earliest-Irreversible-Prefix Intervention Reproducible Stage-1 oracle-prefix feasibility audit on **LIBERO-GOAL**. This repository contains the complete implementation, preregistration, tests, PAI launch contract, raw rollout/oracle records, training logs, final full-state checkpoints, and the experimental report. > **Latest Stage-2C decision: `BLOCKED_BY_REPLAY_CONTRACT`.** The 2×A800 > formal job completed all 96/96 event files (5,760 matched-prefix rows plus > 17,280 recovery rows, zero execution errors), but 33 events produced > contradictory pre-operator `S_obs(k)` values when",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "mikemartincode/cynthia-core",
+    "url": "https://github.com/mikemartincode/cynthia-core",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-06-10T00:22:14Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 2,
+    "code_files": 37,
+    "sample_technique_files": [
+      "demo/cfgparse/oracle.py",
+      "proving/brackets/oracle.py"
+    ],
+    "description": "The mutation gate that proves its own tests can fail: generate mutants, filter equivalents, grade the oracle, and require the gate itself to go RED on a vacuous suite. Pure stdlib; python demo.py shows the whole argument in 10 seconds.",
+    "topics": [],
+    "readme": "# cynthia-core — verify the verifier, then trust the green GREEN doesn't mean correct. A test suite passes because the code is right, or because the tests couldn't fail in the first place. If you can't tell which, you're stuck hand-reading every line a code model writes — that read is the whole bottleneck. So cynthia-core tests the tests. The mutation gate takes the oracle's own reference implementation, breaks it on purpose in dozens of small ways, and checks whether the oracle notices. A mutant that slips through is a wrong program the checker would've shipped. Don't trust that checker. One",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Miko997/metriplane",
+    "url": "https://github.com/Miko997/metriplane",
+    "stars": 7,
+    "language": "Python",
+    "created_at": "2026-05-06T19:58:35Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 1,
+    "code_files": 631,
+    "sample_technique_files": [
+      "docs/specs/cross-adapter-validation-audit-v1.md",
+      "tests/adapter_conformance/mutations.json",
+      "tests/adapter_conformance/test_mutations.py",
+      "tools/cross_adapter_gate.py"
+    ],
+    "description": "Open-source physical observability for robotics workcells: deterministic replay, verifiable incident evidence, and generated regression tests.",
+    "topics": [
+      "computer-vision",
+      "deterministic-replay",
+      "digital-twin",
+      "incident-analysis",
+      "industrial-automation",
+      "industrial-robotics",
+      "opencv",
+      "physical-observability",
+      "python",
+      "regression-testing",
+      "reproducible-evidence",
+      "reproducible-research",
+      "research-software",
+      "robotics",
+      "workcell"
+    ],
+    "readme": "<!-- SPDX-FileCopyrightText: 2025-2026 Miko Parkkinen SPDX-License-Identifier: MIT --> <p align=\"center\"> <img src=\"https://raw.githubusercontent.com/Miko997/metriplane/main/docs/assets/metriplane-hero.jpg\" alt=\"Metriplane — understand a recorded workcell incident and turn it into a repeatable test\" width=\"100%\"> </p> # Metriplane **Understand what went wrong in a recorded workcell run—and turn it into a repeatable test.** Give Metriplane timestamped object positions and process rules. It creates an incident timeline, a human-readable report, a verified evidence bundle, and a regression check",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "millionco/react-doctor",
+    "url": "https://github.com/millionco/react-doctor",
+    "stars": 14836,
+    "language": "TypeScript",
+    "created_at": "2026-02-13T09:02:13Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 2,
+    "code_files": 6676,
+    "sample_technique_files": [
+      "packages/fuzz/src/equivalent-fuzz-variants.ts",
+      "packages/fuzz/src/fuzz-rule.ts"
+    ],
+    "description": "Your agent writes bad React. This catches it",
+    "topics": [
+      "agents",
+      "code-review",
+      "doctor",
+      "react",
+      "skill"
+    ],
+    "readme": "<picture>\n  <source media=\"(prefers-color-scheme: dark)\" srcset=\"./assets/react-doctor-readme-logo-dark.svg\">\n  <source media=\"(prefers-color-scheme: light)\" srcset=\"./assets/react-doctor-readme-logo-light.svg\">\n  <img alt=\"React Doctor\" src=\"./assets/react-doctor-readme-logo-light.svg\" width=\"134\" height=\"36\">\n</picture>\n\n[![version](https://img.shields.io/npm/v/react-doctor?style=flat&colorA=000000&colorB=000000)](https://npmjs.com/package/react-doctor)\n[![downloads](https://img.shields.io/npm/dt/react-doctor.svg?style=flat&colorA=000000&colorB=000000)](https://npmjs.com/package/react-doctor)\n\nYour agent writes bad React, this catches it.\n\nReact Doctor deterministically scans your codebase and finds issues across state and effects, performance, architecture, security, accessibility, and maintainability. It highlights overly complex React functions and repeated JSX trees that are good candidates for composition.\n\nWorks across React frameworks and React-enabled sites - Next.js, Vite, Astro, TanStack, React Native, Expo, you name it.\n\n[Website →](https://react.doctor/docs)\n\n## Install\n\n### 1. Quick start\n\nRun this at your project root to get an audit.\n\n```bash\nnpx react-doctor@latest\n```\n\nPass file paths to scan only the files that another CI step selected.\n\n```bash\nnpx react-doctor@latest src/a.tsx src/b.tsx\n```\n\nhttps://github.com/user-attachments/assets/07cc88d9-9589-44c3-aa73-5d603cb1c570\n\n### 2. Install for agents\n\nOnce you have an audit, you can install the skill for your coding agent to learn from the issues and fix them in the future.\n\n```bash\nnpx react-doctor@latest install\n```\n\nWorks with Claude Code, Cursor, Codex, OpenCode, and many more.\n\n### 3. Run in CI\n\nReact Doctor reviews every pull request and reports only the issues your change introduced, not your existing backlog. Set it up with one command:\n\n```bash\nnpx react-doctor@latest ci install\n```\n\nThis adds a workflow that scans each pull request and posts a summary comment.\n\nSet `comment-on-clean: false` in the Action inputs to create comments only when the scan finds issues. Existing comments still update after a clean scan.\n\nWith the default `version: latest`, the Action uses an installed `react-doctor` dependency when available. Set another `version` value to override the installed version. Install your project dependencies before the Action to use this path.\n\nFor a GitLab warning status without blocking a merge, use a separate warning exit code:\n\n```yaml\nreact-doctor:\n  script:\n    - npx react-doctor@latest . --warning-exit-code 123\n  allow_failure:\n    exit_codes: 123\n```\n\nWith the default `--blocking error`, errors and hard lint failures exit with `1`. Warnings exit with `123`. Clean scans exit with `0`. The warning code must be an integer from `2` to `255`. Without this option, warnings still exit with `0`.\n\n`--blocking warning` takes priority and exits with `1` for warnings. `--blocking none` disables the warning exit code. Score-only mode and degraded baseline comparisons a",
+    "readme_source": "full"
+  },
+  {
+    "repo": "minghao51/feature_forge",
+    "url": "https://github.com/minghao51/feature_forge",
+    "stars": 0,
+    "language": "Jupyter Notebook",
+    "created_at": "2026-05-09T13:39:22Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 211,
+    "sample_technique_files": [
+      ".planning/STYLE.md",
+      "docs/handoffs/2026-07-13-medallion-refactor.md",
+      "pyproject.toml",
+      "tests/unit/test_metamorphic.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# Feature Forge > Modular experimentation platform for LLM-based multi-agent automated feature engineering. [![CI](https://github.com/minghao51/feature_forge/actions/workflows/ci.yml/badge.svg)](https://github.com/minghao51/feature_forge/actions) [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/) [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff) Feature Forge is a production-ready refactoring of the MALMAS (Memory-Augmented LLM-based M",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "mingulov/pkcs11-check",
+    "url": "https://github.com/mingulov/pkcs11-check",
+    "stars": 1,
+    "language": "Python",
+    "created_at": "2026-03-18T19:58:43Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 1,
+    "code_files": 1143,
+    "sample_technique_files": [
+      "src/pkcs11_check/markers.py",
+      "src/pkcs11_check/testcases/test_metamorphic.py"
+    ],
+    "description": "See how any PKCS#11 module really behaves. pkcs11-check is a broad, vendor-neutral test client for software tokens, HSMs, smart cards, and cloud KMS. It runs >100k checks - hand-written conformance and security tests plus public crypto vectors (Wycheproof, ACVP, CCTV) - evidence to compare, not a verdict. Covers PKCS#11 v2.40-v3.2 + PQC.",
+    "topics": [
+      "cryptography",
+      "hsm",
+      "pkcs11",
+      "pqc",
+      "security-testing"
+    ],
+    "readme": "# pkcs11-check See how any PKCS#11 module really behaves - a broad, vendor-neutral test client for providers, HSMs, tokens, and cloud KMS. ## What this is pkcs11-check is a broad, vendor-neutral test client for any PKCS#11 module - software tokens, HSMs, smart cards, cloud-KMS bridges, and internal or proprietary providers. It drives the module through >100k behavioral checks - a large hand-written suite of spec-conformance, CKR/API-negative, security, and fuzz tests, plus the major public crypto vector corpora (Wycheproof, NIST ACVP, CCTV, x509-limbo) - all with crash-survival, and shows what",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "MingxiYe/IcyChecker",
+    "url": "https://github.com/MingxiYe/IcyChecker",
+    "stars": 3,
+    "language": "Go",
+    "created_at": "2023-01-03T14:13:17Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 1288,
+    "sample_technique_files": [
+      "cmd/substate-cli/replay/replay_mt.go"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# IcyChecker This repository contains a preliminary version of IcyChecker, a state inconsisitency bug checker for Ethereum smart contracts. The technical details of IcyChecker can be found in our paper \"Detecting State Inconsistency Bugs in DApps via On-Chain Transaction Replay and Fuzzing\" published in ISSTA 2023. # Installation IcyChecker is build on top of geth. Environment of Go is necessary ``` git clone https://github.com/MingxiYe/IcyChecker.git cd IcyChecker make all ``` # Usage This component allow users to collect on-chain data through geth and detect SI bugs through on-chain transact",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Minu476/Topos",
+    "url": "https://github.com/Minu476/Topos",
+    "stars": 0,
+    "language": "C#",
+    "created_at": "2026-07-24T20:19:22Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 87,
+    "sample_technique_files": [
+      "docs/ALGORITHM_GAP_LIST.md",
+      "tests/Topos.Hypergraph.Tests/PageRankTests.cs"
+    ],
+    "description": "Embedded, in-process hypergraph kernel for C# — typed-property n-ary storage built for AI/agent memory",
+    "topics": [
+      "agent-memory",
+      "ai-memory",
+      "csharp",
+      "dotnet",
+      "graph",
+      "hypergraph",
+      "knowledge-graph",
+      "llm"
+    ],
+    "readme": "# Topos A standalone, domain-agnostic **typed-property hypergraph library for C#**, purpose-fit for AI / agent memory — LLM reasoning, explainability, learnable edges, tiered memory, and provenance. > *Topos* (Greek τόπος, \"place / location\") is the root of *topology*. The name invokes the > central thesis this library serves: **knowledge stored as topological graph structure rather > than neural-network weights.** In category theory, a *topos* is a deep theory of structured > contexts — a fitting ambition for a foundational substrate that many domains build on. | | | |---|---| | **Packages**",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Misha1302/CV",
+    "url": "https://github.com/Misha1302/CV",
+    "stars": 1,
+    "language": "HTML",
+    "created_at": "2024-11-01T19:40:30Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 2,
+    "code_files": 13,
+    "sample_technique_files": [
+      "cases/en-ps-form.html",
+      "data/site.json",
+      "en-cpp-systems.html",
+      "en-quant-dev.html",
+      "en-quant.html"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# CV site — generated, role-specific, verifiable This repository publishes Mikhail Razakov's CV site and role-specific PDFs. ## Canonical sources The repository now separates factual evidence from rendered profile copy: - `knowledge/resume-evidence.json` — canonical evidence/claim layer: facts, evidence strength, boundaries, metrics, role fit, and unresolved gaps. - `data/site.json` — current canonical **render source** for public profile copy while the generator migration to evidence-backed projections is still pending. A rendered CV must not make a stronger factual claim than the evidence la",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Misha1302/UniversalToolchain",
+    "url": "https://github.com/Misha1302/UniversalToolchain",
+    "stars": 15,
+    "language": "C#",
+    "created_at": "2025-10-11T15:55:11Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 1273,
+    "sample_technique_files": [
+      "CGO27/paper/RELATED_WORK_LEDGER.md",
+      "CGO27/paper/sections/08-related-work.tex",
+      "UniversalToolchain/UniversalToolchain.LanguageSdk.Tests/PlannerRouteMetamorphicTests.cs",
+      "internal-docs/proposals/planfuzz/README.md",
+      "internal-docs/proposals/planfuzz/technical-specification.ru.md"
+    ],
+    "description": "An extensible compiler framework (UniversalToolchain) and the Wist language, allowing you to incrementally add language features through a module-based system.",
+    "topics": [
+      "compilers",
+      "csharp",
+      "dsl",
+      "interpreter",
+      "programming-language"
+    ],
+    "readme": "# Wist for .NET\n\n[![NuGet](https://img.shields.io/nuget/vpre/UniversalToolchain.Wist.svg)](https://www.nuget.org/packages/UniversalToolchain.Wist)\n[![NuGet Downloads](https://img.shields.io/nuget/dt/UniversalToolchain.Wist.svg)](https://www.nuget.org/packages/UniversalToolchain.Wist)\n\n<p align=\"center\">\n  <img src=\"docs/assets/universaltoolchain-readme-hero.svg\" alt=\"UniversalToolchain builds languages from reusable compiler features.\" width=\"80%\" />\n</p>\n\n**Validate restricted formulas, then compile approved rules into typed .NET delegates.**\n\n`UniversalToolchain.Wist` is the first-contact package for .NET applications that need configurable numeric logic without exposing a broad scripting language. Your application owns inputs, authorization, persistence, resource isolation and side effects.\n\nUniversalToolchain is the modular compiler/runtime framework underneath Wist. Start with the package and practical formula API; explore dialect composition, AIR, backends and experimental SSA only when you need framework internals.\n\n## Choose the correct installation path\n\nThe repository distinguishes the package currently available on NuGet.org from the newer source candidate in this tree.\n\n### Published package\n\n<!-- wist-published-install:begin -->\nThe clean-room published-package smoke currently verifies `UniversalToolchain.Wist` `0.1.0-alpha.1` directly from NuGet.org:\n\n```bash ci-run=false\ndotnet add package UniversalToolchain.Wist \\\n  --version 0.1.0-alpha.1 \\\n  --source https://api.nuget.org/v3/index.json\n```\n<!-- wist-published-install:end -->\n\nUse this path when you want an installable package without cloning the repository.\n\n### Current source candidate\n\n<!-- wist-source-candidate:begin -->\nThis source tree defines `UniversalToolchain.Wist` `0.1.0-alpha.7`. That candidate is **not published on NuGet.org**. Do not replace the published command above with `0.1.0-alpha.7` unless you have a reviewed package feed containing that exact artifact.\n<!-- wist-source-candidate:end -->\n\nTo evaluate the current repository implementation, clone the repository and use the source build/sample path below. Release packaging is a separate baseline-bearing maintainer gate.\n\n## Try Wist in 60 seconds\n\nCompile a reviewed rollout formula once and invoke the typed delegate repeatedly:\n\n<!-- wist-source-quickstart-csharp:begin -->\n```csharp\nusing System;\nusing System.Linq;\nusing UniversalToolchain.Wist;\n\nusing var rules = WistEngine.CreateRestrictedArithmetic();\n\nconst string formula =\n    \"usage * 0.7 + reliability * 0.3 - incidents * 15.0\";\n\nvar validation = rules.Validate(\n    formula,\n    new { usage = 100.0, reliability = 90.0, incidents = 1.0 });\n\nif (!validation.IsValid)\n{\n    throw new InvalidOperationException(\n        string.Join(\"; \", validation.Diagnostics.Select(diagnostic => diagnostic.Message)));\n}\n\nvar rolloutScore = rules.Compile<Func<double, double, double, double>>(\n    formula,\n    \"usage\",\n    \"reliability\",\n    \"incidents\");\n\ndouble score = rollout",
+    "readme_source": "full"
+  },
+  {
+    "repo": "misrapk/research-landscape-dashboard",
+    "url": "https://github.com/misrapk/research-landscape-dashboard",
+    "stars": 0,
+    "language": "Jupyter Notebook",
+    "created_at": "2026-08-23T06:34:32Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 3,
+    "sample_technique_files": [
+      "data/papers_cleaned.csv",
+      "data/papers_slim.json",
+      "data/source_papers.json",
+      "data/top20_live_code_reading_list.csv",
+      "notebooks/01_research_landscape_eda.ipynb"
+    ],
+    "description": "Interactive dashboard exploring the AI/ML research landscape",
+    "topics": [
+      "ai",
+      "dashboard",
+      "data-visualization",
+      "jupyter-notebook"
+    ],
+    "readme": "# SWE Atlas — Research Landscape Dashboard (Level 1) A foundations-level data-science lab on a **100-paper sample** of the 2026 literature in AI code generation, autonomous SWE agents, and program synthesis. This folder is the **downloadable learning pack**: ETL script, cleaned table, executed notebook, figures, **and a Python browser UI** you can run locally and deploy. --- ## Run the UI in your browser (Python only) Stack: **Streamlit + Plotly + Pandas**. No JavaScript to write. ```bash cd research-landscape-dashboard pip install -r requirements.txt streamlit run app.py ``` Your browser open",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "mistakenot/skills",
+    "url": "https://github.com/mistakenot/skills",
+    "stars": 0,
+    "language": "JavaScript",
+    "created_at": "2026-04-17T12:40:53Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 188,
+    "sample_technique_files": [
+      ".agents/skills/assurance-strategist/SKILL.md",
+      ".agents/skills/assurance-strategist/references/technique-differential-testing.md",
+      ".agents/skills/assurance-strategist/references/technique-metamorphic-testing.md",
+      ".claude/skills/assurance-strategist/SKILL.md",
+      ".claude/skills/assurance-strategist/references/technique-differential-testing.md"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# Skills\n\nA collection of reusable agent skills for planning, executing and shipping software\nwith AI agents. The core of it is the **Portable Task Workflow** — a plan-to-merge\nlifecycle where each stage is a discrete skill — surrounded by skills for ideation,\nresearch, reflection, assurance and documentation.\n\nSkills are portable: `name` + `description` frontmatter plus a markdown body, so they\nwork in Claude Code, Codex, Gemini CLI and anything else that implements the\n[Agent Skills specification](https://agentskills.io/llms.txt).\n\n## Installation\n\nRequires one of the two installers below. The skills themselves have no runtime of\ntheir own; individual skills shell out to `gh`, `herdr`, `claude`, `codex`, `grok`,\n`uv` or `python3`, and say so where they do.\n\n### As Claude Code plugins\n\nEach module ships as a Claude Code plugin from a marketplace in this repo. Install\nfrom a Claude Code session:\n\n```\n/plugin marketplace add mistakenot/skills\n/plugin install planning-workflow@mistakenot-skills\n```\n\nor from a shell:\n\n```sh\nclaude plugin marketplace add mistakenot/skills\nclaude plugin install planning-workflow@mistakenot-skills\n```\n\nVerify:\n\n```sh\nclaude plugin list\n```\n\nUpgrade and uninstall:\n\n```sh\nclaude plugin marketplace update mistakenot-skills   # refresh the catalogue\nclaude plugin update planning-workflow               # restart to apply\nclaude plugin uninstall planning-workflow\nclaude plugin marketplace remove mistakenot-skills\n```\n\nPlugins carry no `version` field, so Claude Code versions each one by git commit SHA\nand `update` pulls whatever `main` currently holds.\n\n### With `auto skill`\n\n[`auto`](https://github.com/mistakenot/auto) renders skills into `.claude/skills/`\nand `.agents/skills/` at once, so the same install serves several agents. Run it from\nthe root of the project you want the skills available in.\n\n`auto` resolves output targets from project config rather than per-command flags, so\ninitialise once per project:\n\n```sh\nauto skill init --project --target claude,agents -y\n```\n\nThen add everything, or a single skill:\n\n```sh\nauto skill add mistakenot/skills --skill '*'\nauto skill add mistakenot/skills --skill new-task\n```\n\n`--skill` is repeatable and exact-match. Verify, upgrade and uninstall:\n\n```sh\nauto skill list                      # authored and vendored skills, with a stale flag\nauto skill doctor                    # configuration, ownership drift, project setup\nauto skill update                    # float vendored skills to latest upstream\nauto skill sync                      # re-render into the target directories\nauto skill remove new-task           # drop the skill and prune its rendered copies\n```\n\n### With `install.sh`\n\n`install.sh` wraps the same `auto` commands but understands **modules**, so you can\ntake just the planning skills rather than all of them:\n\n```sh\n./install.sh                              # everything\n./install.sh --module planning-workflow   # just the planning skills\n./install.sh --target claude    ",
+    "readme_source": "full"
+  },
+  {
+    "repo": "mitmedialab/doodlebot-controller",
+    "url": "https://github.com/mitmedialab/doodlebot-controller",
+    "stars": 0,
+    "language": "TypeScript",
+    "created_at": "2026-07-13T15:49:43Z",
+    "technique_test_files": 2,
+    "technique_nontest_files": 0,
+    "code_files": 97,
+    "sample_technique_files": [
+      "src/__tests__/helpers/board-gen.ts",
+      "src/__tests__/virtual-grid-symmetry.test.ts"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# Doodlebot Educational Platform A browser-based multiplayer game that teaches kids pathfinding and autonomous-navigation algorithms through a virtual grid game. Built with **Vite + React + TypeScript** and synced in real time with **Firebase Realtime Database**. Live at **https://mitmedialab.github.io/doodlebot-controller/** (deployed from `main` via GitHub Pages). ## What it does Two players join a shared room and each controls a bot on a 16×16 grid. Players drag bots, coins, and obstacles onto the board, assign their bot a **movement policy**, then start — all bots execute simultaneously an",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "mixpanel/mixpanel-headless",
+    "url": "https://github.com/mixpanel/mixpanel-headless",
+    "stars": 17,
+    "language": "Python",
+    "created_at": "2025-12-20T07:28:13Z",
+    "technique_test_files": 2,
+    "technique_nontest_files": 0,
+    "code_files": 509,
+    "sample_technique_files": [
+      ".claude/commands/hypothesis.md",
+      "tests/unit/test_query_pbt.py",
+      "tests/unit/test_validation_pbt.py"
+    ],
+    "description": "Complete programmable interface to Mixpanel analytics. Python library and CLI for discovery, querying, and data extraction. Designed with coding agent use in mind.",
+    "topics": [
+      "ai-agents",
+      "analytics",
+      "claude-code",
+      "cli",
+      "data-engineering",
+      "duckdb",
+      "etl",
+      "mixpanel",
+      "mixpanel-api",
+      "python",
+      "sql"
+    ],
+    "readme": "# mixpanel_headless [![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/downloads/) [![License](https://img.shields.io/github/license/mixpanel/mixpanel-headless)](LICENSE) > **⚠️ Pre-release Software**: This package is under active development. APIs may change between versions before 1.0. A complete programmable interface to Mixpanel analytics—Python library and CLI for discovery, querying, streaming, and entity management. ## Why mixpanel_headless? Mixpanel's web UI is powerful for interactive exploration, but programmatic access requires navigating multiple R",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "mizrahidaniel/Coding-rl",
+    "url": "https://github.com/mizrahidaniel/Coding-rl",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-04-27T00:12:24Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 2,
+    "code_files": 64,
+    "sample_technique_files": [
+      "README.md",
+      "docs/research-notes.md",
+      "swegraph/utils/metamorphic_extract.py",
+      "swegraph/validators/metamorphic.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# SWEGraph v2\n\nSWEGraph is a local Python **environment / task factory** for software-engineering\nagents. v1 shipped multi-step trajectories, dense milestone rewards, and\nhidden tests on three toy fixtures. v2 closes the honest gaps that public\ncritique surfaced and adds **one genuinely-novel difficulty axis**:\n\n> **Causal-hop tasks** plant a single mutation in a leaf module and measure\n> the agent's ability to localise the fault through a controllable number of\n> static import edges. No prior public system uses static import-graph\n> distance as a generator-side difficulty knob.\n\nEverything else in v2 is *engineering hardening*: stronger hidden validation\n(Hypothesis property + auto-extracted metamorphic relations), AST-level\nreward-hacking guards, four adversarial baselines, a paired-preference PRM\ndataset emitter, and richer trajectory logs. Honest framing — not headline\nnovelty.\n\n## Honest delta vs prior art\n\nThe 2025-2026 SWE-RL frontier already publishes:\n\n- **SWE-bench Pro / Live / Rebench (2026)** — contamination-resistant\n  benchmarks (private codebases, monthly refresh, post-cutoff tasks).\n- **Self-Play SWE-RL (arXiv 2512.18552)** — dual-role injector/solver,\n  +10.4 on SWE-bench Verified, +7.8 on Pro.\n- **SWE-RL (Meta, arXiv 2502.18449)** — 11M PR instances + difflib similarity\n  reward.\n- **MIST-RL (2026)** — incremental mutation-killing reward for test\n  generation.\n- **SWE-PRM / AgentPRM (2025-26)** — step-level process reward models.\n- **Agentic Property-Based Testing (arXiv 2510.09907)** — Hypothesis-driven\n  test generation by LLMs.\n- **Prime Intellect Verifiers + Environments Hub** — open-source RL\n  environment standard with built-in SWE support.\n\nAgainst this, SWEGraph v2 ships:\n\n| Item | Verdict | What's actually new |\n| --- | --- | --- |\n| Procedural task families | not novel | SWE-smith and Self-Play SWE-RL already do generation at scale |\n| Hidden tests as Hypothesis properties + auto-extracted metamorphic relations | reframing | PBT-as-decontamination is a useful shape but not invention |\n| **Causal-hop import-graph difficulty axis** | **novel** | controllable static-graph distance from mutation site to public test surface |\n| Reward-hacking guard library (AST detection, recursive conftest scan, symlink reject) | not novel | all known patterns; precision-over-recall implementation |\n| Counterfactual adversarial baselines (4 attackers) as labelled negatives | useful infrastructure | most prior art logs negatives, doesn't ship a registry |\n| Paired-state PRM preference dataset (oracle vs counterfactual at same seed) | close to novel | DPO-shape pairs at identical state hashes for SWE; no public dataset of this form |\n| Multi-correct-patch acceptance via property satisfaction | useful | addresses single-oracle limitation Meta SWE-RL flagged |\n| Trajectory format: gzip+b64 stdout/stderr, per-test pass/fail map, milestone deltas | polish | needed to train PRMs; not a contribution by itself |\n\n## Architecture\n\n```\nswegraph/\n  ta",
+    "readme_source": "full"
+  },
+  {
+    "repo": "mizufinance/shieldd",
+    "url": "https://github.com/mizufinance/shieldd",
+    "stars": 2,
+    "language": "Rust",
+    "created_at": "2025-08-13T23:26:12Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 860,
+    "sample_technique_files": [
+      "docs/compliance/constraint-checklist.md",
+      "docs/compliance/testing.md",
+      "tools/gnark/internal/circuits/transfer_metamorphic_test.go"
+    ],
+    "description": "Shield-daemon is a privacy network for banking",
+    "topics": [],
+    "readme": "# Shieldd Shieldd is a lightweight, fully shielded transfer chain with privacy-preserving compliance for regulated assets. Transactions stay private by default; for regulated assets, the issuer can scan and audit activity involving their asset while everyone else sees nothing. Unregulated assets keep full privacy. > **Not production ready.** Shieldd is an active prototype. ## Scope The chain does one thing: shielded transfers with compliance visibility for regulated assets. Heavier application logic (DEX, staking rewards, community pool) lives on BankD, which connects over IBC. Core actions ar",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "mlbrilliance/CortexWeaver",
+    "url": "https://github.com/mlbrilliance/CortexWeaver",
+    "stars": 4,
+    "language": "TypeScript",
+    "created_at": "2025-06-30T02:41:24Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 1,
+    "code_files": 270,
+    "sample_technique_files": [
+      "TESTING_AGENTS_IMPLEMENTATION.md",
+      "prompts/property-tester.md",
+      "src/agents/property-tester.ts",
+      "tests/agents/property-tester.test.ts"
+    ],
+    "description": "CortexWeaver is a command-line interface (CLI) tool that orchestrates a swarm of specialized AI agents, powered by Claude Code and Gemini CLI, to assist in software development. It transforms a high-level project plan (plan.md) into a series of coordinated, parallelized tasks executed by agents with distinct roles.",
+    "topics": [],
+    "readme": "# 🧠 CortexWeaver 1.0 <div align=\"center\"> [![Build Status](https://img.shields.io/badge/build-passing-brightgreen?style=flat-square)](https://github.com/cortexweaver/cortexweaver) [![Version](https://img.shields.io/badge/version-1.0.0-blue?style=flat-square)](https://www.npmjs.com/package/cortexweaver) [![License](https://img.shields.io/badge/license-MIT-green?style=flat-square)](LICENSE) [![Node.js](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen?style=flat-square)](https://nodejs.org/) [![TypeScript](https://img.shields.io/badge/TypeScript-100%25-blue?style=flat-square&logo=typesc",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "mmaaz-git/agentic-pbt",
+    "url": "https://github.com/mmaaz-git/agentic-pbt",
+    "stars": 87,
+    "language": "Python",
+    "created_at": "2025-08-28T04:57:09Z",
+    "technique_test_files": 29,
+    "technique_nontest_files": 0,
+    "code_files": 4367,
+    "sample_technique_files": [
+      "hypo-plugin/commands/hypo.md",
+      "hypo.md",
+      "paper/hypo.md",
+      "paper/results/argcomplete/aux_files/f4b554c3/test_argcomplete_corrected.py",
+      "paper/results/aws-lambda-powertools/aux_files/1f3f40e6/test_tracing_properties.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# Agentic Property-Based Testing Get a coding agent to find bugs in your codebase by mining *properties* and testing them via *Hypothesis*. For the artifacts from the [paper](https://arxiv.org/abs/2510.09907), including bug reports and rankings, see the `paper` directory. Note that the code that was used in the paper is slightly behind what is in the main folder. See `paper/README.md` for more details. To see all the bugs our agent found, see our [website](https://mmaaz-git.github.io/agentic-pbt-site). To read the blog post on the Hypothesis website, see [here](https://hypothesis.works/article",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "moble/Quaternionic.jl",
+    "url": "https://github.com/moble/Quaternionic.jl",
+    "stars": 28,
+    "language": "Julia",
+    "created_at": "2021-06-09T21:11:58Z",
+    "technique_test_files": 2,
+    "technique_nontest_files": 0,
+    "code_files": 80,
+    "sample_technique_files": [
+      "test/lorentz_decomposition.jl",
+      "test/lorentz_group.jl"
+    ],
+    "description": "Quaternions for Julia",
+    "topics": [],
+    "readme": "# Quaternionic [pkgeval-img]: https://juliaci.github.io/NanosoldierReports/pkgeval_badges/Q/Quaternionic.svg [pkgeval-url]: https://juliaci.github.io/NanosoldierReports/pkgeval_badges/Q/Quaternionic.html <a href=\"https://zenodo.org/badge/latestdoi/375490468\"><img align=\"right\" hspace=\"0\" alt=\"Latest DOI\" src=\"https://zenodo.org/badge/375490468.svg\"></a> <a href=\"https://moble.github.io/Quaternionic.jl/stable/\"><img align=\"right\" hspace=\"0\" alt=\"Stable docs\" src=\"https://img.shields.io/badge/docs-stable-blue.svg\"></a> [![CI](https://github.com/moble/Quaternionic.jl/actions/workflows/CI.yml/badg",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "modbender/skill-library-mcp",
+    "url": "https://github.com/modbender/skill-library-mcp",
+    "stars": 14,
+    "language": "Python",
+    "created_at": "2026-02-14T08:11:50Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 26583,
+    "sample_technique_files": [
+      "data/wreckit/GAMEPLAN.md",
+      "data/wreckit/SKILL.md",
+      "data/wreckit/references/gates/differential.md",
+      "data/wreckit/references/verification-framework.md",
+      "data/wreckit/scripts/differential-test.sh"
+    ],
+    "description": "An MCP server that provides on-demand skill loading for AI coding assistants.",
+    "topics": [],
+    "readme": "# Skill Library MCP **15,000+ ready-to-use skills for AI coding assistants, served on demand via MCP.** [![npm version](https://img.shields.io/npm/v/skill-library-mcp)](https://www.npmjs.com/package/skill-library-mcp) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) [![Node.js](https://img.shields.io/badge/node-%3E%3D22-brightgreen)](https://nodejs.org) An MCP server that provides on-demand skill loading for AI coding assistants. Instead of stuffing your system prompt with every skill you might need, this server indexes 15,000+ skills and serves only the ones relev",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "modc2/mod",
+    "url": "https://github.com/modc2/mod",
+    "stars": 4,
+    "language": "Rust",
+    "created_at": "2025-12-10T10:53:32Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 31803,
+    "sample_technique_files": [
+      "mod/orbit/jcode/crates/jcode-tui/src/tui/app/commands.rs"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "<div align=\"center\"> ``` _____ _______ ______ | | | \\ | | | | - | - | |_|_|_|_______|______/ ``` # mod **A modular runtime for building, registering, and monetizing software on-chain.** [![Python 3.11+](https://img.shields.io/badge/python-3.11+-yellow.svg)](https://python.org) [![Solidity 0.8.20](https://img.shields.io/badge/solidity-0.8.20-363636.svg)](https://soliditylang.org) [![Base](https://img.shields.io/badge/chain-Base-0052FF.svg)](https://base.org) [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) </div> --- Write a module. Register it on-chain. Set a price",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "ModernRelay/omnigraph",
+    "url": "https://github.com/ModernRelay/omnigraph",
+    "stars": 1108,
+    "language": "Rust",
+    "created_at": "2026-04-10T17:50:30Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 527,
+    "sample_technique_files": [
+      "crates/omnigraph/tests/rrf_prefilter_gate.rs"
+    ],
+    "description": "Lakehouse native graph engine with git-style workflows",
+    "topics": [
+      "apache-arrow",
+      "context-graph",
+      "datafusion",
+      "graph-database",
+      "knowledge-graph",
+      "lakehouse",
+      "lance",
+      "mcp",
+      "rust",
+      "s3",
+      "versioning"
+    ],
+    "readme": "<p align=\"center\"> <picture> <source media=\"(prefers-color-scheme: dark)\" srcset=\"assets/omnigraph-wordmark-dark.svg\"> <img alt=\"OMNIGRAPH\" src=\"assets/omnigraph-wordmark.svg\" width=\"420\"> </picture> </p> <p align=\"center\"> <strong>Object-storage native graph database with branching and typed ontology.</strong><br> <sub>Unified retrieval engine (vector/bm25/graph) · Git-style workflows · Open data format (Lance)</sub> </p> <p align=\"center\"> <a href=\"docs/user/quickstart.md\">Quickstart</a> &nbsp;·&nbsp; <a href=\"docs/user/clusters/index.md\">Docs</a> &nbsp;·&nbsp; <a href=\"https://github.com/Mo",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "mohameddddt/Drone-Based-Delivery-Optimization-Problem",
+    "url": "https://github.com/mohameddddt/Drone-Based-Delivery-Optimization-Problem",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-05-10T17:16:11Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 94,
+    "sample_technique_files": [
+      "tests/test_metamorphic.py"
+    ],
+    "description": "Drone delivery routing with load-dependent energy: exact Branch & Bound with anytime dual bounds, GA / SA / ALNS metaheuristics, and visibility-graph detours around polygonal no-fly zones. Verified against brute force.",
+    "topics": [],
+    "readme": "# Drone-Based Delivery Optimization A capacitated drone routing problem where **energy depends on the weight still onboard**, under battery, payload, fleet-size and no-fly constraints. Because a drone loads its whole route at the depot and sheds weight at each delivery, the cost of a leg depends on *when* in the route it is flown — which makes this genuinely order-dependent, not a relabelled distance-VRP. Ships with two mathematical formulations, an NP-hardness proof, an exact Branch & Bound with an anytime dual bound, three metaheuristics, visibility-graph routing around polygonal no-fly zone",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "mohamedHamdy-1991/OverheatLens",
+    "url": "https://github.com/mohamedHamdy-1991/OverheatLens",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-09-04T16:28:25Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 78,
+    "sample_technique_files": [
+      "CHANGELOG.md",
+      "docs/specs/OverheatLens_Master_AI_Coding_Agent_Prompt.md",
+      "docs/specs/OverheatLens_Publication_Grade_Detailed_Plan.md",
+      "packages/overheatlens-core/tests/test_epw_metrics.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# OverheatLens\n\n**See the heat. Trace the evidence. Test the response.**\n\nOverheatLens is an open, version-aware research-software platform for domestic\nbuilding-overheating assessment: weather-file intelligence, model readiness,\nEnergyPlus simulation, versioned overheating standards (TM59:2017, TM59:2026,\nApproved Document O dynamic route, TM52), thermal-comfort analytics, mitigation\ntesting and reproducible evidence export.\n\n> **Status: research software under active development.** The scientific core,\n> rule-pack system, EPW engine, EnergyPlus worker and web laboratory are built\n> and tested; nothing here is a certified compliance tool.\n> See [IMPLEMENTATION_STATUS.md](IMPLEMENTATION_STATUS.md) and the in-app\n> Validation page (which reads [VALIDATION_MATRIX.md](VALIDATION_MATRIX.md) live).\n\n---\n\n## Quick start (no installation steps — double-click)\n\n| What you want | macOS | Windows | Linux |\n|---|---|---|---|\n| Start OverheatLens | `Start OverheatLens.command` | `Start OverheatLens.bat` | `Start OverheatLens.sh` |\n| Run the full local test suite | `Run Tests.command` | `Run Tests.bat` | — |\n| Run full validation | `Run Full Validation.command` | `Run Full Validation.bat` | — |\n| Stop everything | `Close OverheatLens.command` | `Close OverheatLens.bat` | `Close OverheatLens.sh` |\n| Reset to first run | `Reset OverheatLens.command` | `Reset OverheatLens.bat` | `Reset OverheatLens.sh` |\n\nThe first run creates a private Python environment inside the project folder\n(`.venv`) and installs its own dependencies. Later runs start instantly.\nYou never need to install anything by hand.\nOn Linux, run the `.sh` scripts from a terminal (for example\n`bash \"Start OverheatLens.sh\"`).\nThe reset script stops the server and removes the built interface — your files\nand weather data are not touched; the next Start rebuilds everything.\n\nThe app opens at `http://127.0.0.1:8620`: the **laboratory desktop** with\nAnalyze, Weather Lab, Archetype Atlas, Comfort Lab, Compare, Mitigation Lab,\nRun Archive, Scenario & Batch, Validation, Methods, Docs and About.\n\n## The workflow\n\n```\n1. CHOOSE BUILDING        research archetype · generic template · upload IDF\n2. CHOOSE WEATHER          local library EPW · upload EPW (QC on arrival)\n3. CHOOSE ANALYSIS         TM59:2017 · TM59:2026 · Part O dynamic · TM52 · comfort\n4. CHECK READINESS         model + weather + standard, every finding explained\n5. RUN ENERGYPLUS          official local binary (25.1.0 working pin), real stages\n6. VALIDATE RUN            err interpreter, output completeness, INCOMPLETE honesty\n7. ANALYSE RESULTS         verdict + threshold margins + zone × time evidence\n8. EXPORT EVIDENCE         report HTML · results JSON · reproducibility ZIP bundle\n```\n\nEvery simulation is an **experiment** (building + weather + method + engine) with\na run ID linking outputs, charts, criteria, hashes and exports. Every number\ntraces to its source: SIMULATED, DERIVED, ASSUMED, USER INPUT or RESEARCH DATA.\n\n## For developers and ",
+    "readme_source": "full"
+  },
+  {
+    "repo": "monarch-initiative/monarch-app",
+    "url": "https://github.com/monarch-initiative/monarch-app",
+    "stars": 39,
+    "language": "Python",
+    "created_at": "2022-07-05T22:21:28Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 286,
+    "sample_technique_files": [
+      "backend/tests/unit/test_ducksim_invariants.py"
+    ],
+    "description": "Monarch Initiative website and API",
+    "topics": [
+      "monarchinitiative"
+    ],
+    "readme": "# Welcome to the Monarch Initiative The Monarch Initiative is an extensive knowledge graph and ecosystem of tools made for the benefit of clinicians, researchers, and scientists. The knowledge graph consists of millions of entities – genes, diseases, phenotypes, and many more – imported from dozens of sources. We welcome the contributions of the community to help us maintain and improve the knowledge graph and the tools that use it. To help get started on contributing to the Monarch Initiative, please see our [CONTRIBUTING.md](./CONTRIBUTING.md) file. # Monarch App [![documentation](https://im",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "monassr/Automated-Test-Case-Generator",
+    "url": "https://github.com/monassr/Automated-Test-Case-Generator",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2025-12-08T03:16:40Z",
+    "technique_test_files": 6,
+    "technique_nontest_files": 2,
+    "code_files": 30,
+    "sample_technique_files": [
+      "DateConverterValidation/Generators/Generate_Metamorphic_Test_Set.py",
+      "DateConverterValidation/README.md",
+      "DateConverterValidation/commands.txt",
+      "DateConverterValidation/tests/all_test.py",
+      "DateConverterValidation/tests/test_metamorphic.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# Automated-Test-Case-Generation This repository contains two programs for automated test case generation: ## Programs ### 1. Quadratic Equation Solver A quadratic equation solver **Location:** `Quadratic Equation Solver/` For detailed information on how to run this program, build instructions, and test case generation, please refer to the README under its directory ### 2. Date Converter A date conversion utility **Location:** `Date Converter/` For detailed information on how to run this program, build instructions, and test case generation, please refer to the README under its directory",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "monkbai/monkbai.github.io",
+    "url": "https://github.com/monkbai/monkbai.github.io",
+    "stars": 0,
+    "language": "HTML",
+    "created_at": "2026-03-06T13:45:20Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 3,
+    "sample_technique_files": [
+      "config.js",
+      "index.html"
+    ],
+    "description": "Zhibo Liu's page",
+    "topics": [],
+    "readme": "# monkbai.github.io Zhibo Liu's page `index.html` is generated from `config.js`. After updating `config.js`, regenerate the static page with: ```bash python3 tools/render_static_page.py ``` To change the visitor tracker, replace the contents of `visitor-tracker.html` with the snippet copied from MapMyVisitor, then run the same render command. The snippet is inserted as HTML, so it can include the `<script>` and container elements provided by MapMyVisitor.",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "monstercameron/CodeFlux",
+    "url": "https://github.com/monstercameron/CodeFlux",
+    "stars": 0,
+    "language": "Go",
+    "created_at": "2026-07-30T06:29:35Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 1,
+    "code_files": 2490,
+    "sample_technique_files": [
+      "TODOS.md",
+      "docs/plan.md",
+      "internal/planning/mutation_fuzz_properties.go",
+      "internal/planning/mutation_fuzz_properties_test.go"
+    ],
+    "description": "Verified atoms. Better software. An experimental coding agent that assembles programs out of small, separately verified pieces instead of writing them in one pass — authority comes from what an action is, not from what the model claims it needs.",
+    "topics": [
+      "agentic-ai",
+      "ai-agent",
+      "ai-coding-assistant",
+      "ai-safety",
+      "anthropic",
+      "code-generation",
+      "coding-agent",
+      "developer-tools",
+      "go",
+      "golang",
+      "gowebcomponents",
+      "grpc",
+      "llm",
+      "local-first",
+      "prompt-injection",
+      "prototype",
+      "sqlite",
+      "static-analysis",
+      "verification",
+      "webassembly"
+    ],
+    "readme": "<div align=\"center\"> <img src=\"design/branding/codeflux-poster.webp\" alt=\"CodeFlux — verified atoms, better software\" width=\"820\"> # CodeFlux **Verified atoms. Better software.** An experimental coding agent that assembles programs out of separately verified atoms instead of writing them in one pass. **[Read the case study →](https://www.earlcameron.com/projects/codeflux)** [![Main gate](https://github.com/monstercameron/CodeFlux/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/monstercameron/CodeFlux/actions/workflows/ci.yml?query=branch%3Amain) [![Dev pass](https://github.",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "moonrunnerkc/claimcheck",
+    "url": "https://github.com/moonrunnerkc/claimcheck",
+    "stars": 1,
+    "language": "TypeScript",
+    "created_at": "2026-05-29T20:48:13Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 4,
+    "code_files": 129,
+    "sample_technique_files": [
+      "CLAUDE.md",
+      "README.md",
+      "src/core/evidence-record.ts",
+      "src/oracle/oracle.ts",
+      "src/oracle/stubs.test.ts"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "<div align=\"center\">\n\n<img src=\"docs/cover.svg\" alt=\"ClaimCheck\" width=\"100%\" />\n\n# ClaimCheck\n\nA deterministic, pre-merge gate that tries to falsify a pull request's own claim about what it changed, using only the PR and the repository.\n\nIt does not trust the agent's tests. It attacks them, then returns a replayable verdict: PASS, WARN, or BLOCK.\n\n[![CI](https://github.com/moonrunnerkc/claimcheck/actions/workflows/ci.yml/badge.svg)](https://github.com/moonrunnerkc/claimcheck/actions/workflows/ci.yml)\n[![Node](https://img.shields.io/badge/node-%E2%89%A520.19-brightgreen)](https://nodejs.org)\n[![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178c6)](https://www.typescriptlang.org)\n[![License](https://img.shields.io/badge/license-UNLICENSED-lightgrey)](#license)\n[![Status](https://img.shields.io/badge/status-pre--release-orange)](#status)\n\n</div>\n\n[What it proves](#what-it-proves) ·\n[How it works](#how-it-works) ·\n[Verdict tiers](#verdict-tiers) ·\n[The check battery](#the-check-battery) ·\n[The oracle layer](#the-oracle-layer) ·\n[Determinism](#determinism) ·\n[Install](#install) ·\n[CLI](#cli) ·\n[GitHub Action](#github-action) ·\n[Scope](#scope) ·\n[Testing tiers](#testing-tiers) ·\n[Status](#status) ·\n[License](#license)\n\n## What it proves\n\nClaimCheck proves whether a PR's tests actually constrain the change the PR claims to make. It does not prove the change is semantically correct in the abstract.\n\nA fix that is plausible but subtly wrong, with no failing invariant and no surviving mutant on the changed lines, will pass. Catching that class needs a trusted specification or human judgment, which is a different problem. ClaimCheck owns the part that can be made deterministic and replayable, and it states that boundary openly rather than implying more.\n\nThe mechanical cheats it does catch:\n\n- **Claims to fix a bug, the bug is still there.** Caught when the fix-test passes against the unfixed parent, or when the changed lines mutate to a no-op and the test does not notice.\n- **Fixes the asked thing, quietly breaks another.** Caught by differential regression: every test that passed on the parent must still pass on head.\n- **Hits an error and hides it.** Caught by an error-suppression scan on the changed lines.\n\n## How it works\n\nThe run is one deterministic pipeline from a base SHA and a head SHA to a content-addressed verdict bundle.\n\n1. **Worktrees.** Detached parent and head worktrees in isolated scratch dirs.\n2. **Diff to ranges.** Parse the unified diff into changed source files, test files, and per-file line ranges.\n3. **Nondeterminism scan and flake quarantine.** Identify uncontrollable sources (network, filesystem, timers) and quarantine tests that flip across reruns, so they never affect a verdict.\n4. **Coverage intersect.** Run the new tests, collect coverage, and keep only the changed lines those tests exercise.\n5. **Targeted mutation.** Pass explicit `--mutate \"path:start-end\"` ranges to Stryker, scoped to the covered changed lines",
+    "readme_source": "full"
+  },
+  {
+    "repo": "moreal/korean-readings",
+    "url": "https://github.com/moreal/korean-readings",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-07-14T02:32:33Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 444,
+    "sample_technique_files": [
+      "accounts/book/part5/40-testing.html",
+      "accounts/book/print.html",
+      "accounts/book/searchindex-57b9df82.js",
+      "accounts/src/part5/40-testing.md",
+      "plt/src/09-advanced-type-theory/45-intersection-union-occurrence-typing.md"
+    ],
+    "description": "AI 생성 한국어 자료",
+    "topics": [],
+    "readme": "# korean-readings 한국어로 읽자",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "mosianekk-lang/Federation-Omega",
+    "url": "https://github.com/mosianekk-lang/Federation-Omega",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-07-07T21:20:51Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 2505,
+    "sample_technique_files": [
+      "benchmarking/cfbe_omega/FEDERATION_COMPETITIVE_UPGRADES_100_20260901.csv",
+      "services/sol62_client_runtime/runtime_upgrade_genome.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# Federation Omega — Superior Logic Runtime This repository hosts the Superior Logic v3.2 multi-route runtime, deployment assets, recovery tooling, resolver registry and hosted CI. ## ECASP corpus-selection gate `ALG-ECASP-001` prevents inventory, pagination, indexing, metadata, snippets, familiar names or polished artefacts from being reported as exhaustive corpus analysis. The runtime exposes `POST /ecasp/evaluate`. It evaluates gates G1–G10 and releases only one honest state: - `DISCOVERY_INCOMPLETE` - `INVENTORY_COMPLETE_ANALYSIS_INCOMPLETE` - `PROVISIONAL_SHORTLIST` - `BOUNDED_SELECTION`",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "mosomo82/COMP_SCI_5542",
+    "url": "https://github.com/mosomo82/COMP_SCI_5542",
+    "stars": 1,
+    "language": "Jupyter Notebook",
+    "created_at": "2026-01-22T16:12:56Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 56,
+    "sample_technique_files": [
+      "README.md",
+      "Week_8/ARCHITECTURE.md",
+      "Week_8/EVALUATION.md",
+      "Week_8/app/evaluation.py",
+      "Week_8/implementation_plan.md"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "--- # COMP_SCI_5542: Big Data Analytics & Applications ## Project Overview This repository serves as a developing collection of assignments, source code, and projects for **COMP_SCI_5542**. The project explores advanced computational techniques, data processing, and algorithmic implementations. > **Status:** ✅ Lab 9 Finalized — Unified Logistics Multi-Agent System ✅ --- ## Repository Structure The repository is organized by week to track progress and module-specific assignments. ```text COMP_SCI_5542/ ├── Week_6/ # Multi-Agent Trucking Analytics │ ├── app/ # Streamlit dashboard │ ├── ARCHITECT",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "mosomo82/Substance_Abuse_Detection_AI",
+    "url": "https://github.com/mosomo82/Substance_Abuse_Detection_AI",
+    "stars": 2,
+    "language": "Python",
+    "created_at": "2026-03-27T15:00:23Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 27,
+    "sample_technique_files": [
+      "implementation_plan.md",
+      "report/CONTRIBUTION/joel_vinas_contribution.md",
+      "report/CONTRIBUTION/tina_nguyen_contribution.md",
+      "report/nsf_nrt_challenge1_report.md",
+      "report/nsf_nrt_challenge1_report.tex"
+    ],
+    "description": "Project Challenge",
+    "topics": [],
+    "readme": "# Substance Abuse Detection AI ### NSF NRT Research-A-Thon 2026 — Challenge 1, Track B: Data Intelligence + Decision Support **UMKC · Hosted by the NSF Research Traineeship Program** --- ## Team | Name | Role | |------|------| | **Tony Nguyen** | Model Builder (LLM classifier, embedding, RAG pipeline) — Fine-tuned BERT classifier, embeddings, cluster quality metrics, ensemble fusion | | **Daniel Evans** | Pipeline & Story — Temporal analysis metrics, evaluation module, ROC/confusion matrix figures | | **Joel Vinas** | Pipeline & Story — Dashboard decision support, Temporal Analysis, interventi",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "moss-piglet/ev",
+    "url": "https://github.com/moss-piglet/ev",
+    "stars": 3,
+    "language": "Elixir",
+    "created_at": "2023-07-17T19:09:25Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 2,
+    "code_files": 131,
+    "sample_technique_files": [
+      "SECURITY.md",
+      "config/test.exs",
+      "lib/metamorphic_web/components/layouts/app.html.heex",
+      "lib/metamorphic_web/live/public_live/privacy.ex"
+    ],
+    "description": "Peace of mind from your life to the web.",
+    "topics": [
+      "encryption",
+      "privacy",
+      "social-media",
+      "social-network"
+    ],
+    "readme": "# Ev Under development by Moss Piglet. This is an early, public version of Metamorphic. We wanted to keep this available for anyone curious to see early iterations of our service. This codebase is no longer in production. ## Peace of mind from your life to the web A simple way to share with your friends or the world. Your attention is yours and privacy is standard. Leave the stress behind and get back to your life.",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Mountain-Nomad-BC/Pacify-X",
+    "url": "https://github.com/Mountain-Nomad-BC/Pacify-X",
+    "stars": 9,
+    "language": "Python",
+    "created_at": "2026-08-03T18:49:55Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 1520,
+    "sample_technique_files": [
+      ".engineering-bootstrap/project-map/architecture-graph.json",
+      ".engineering-bootstrap/project-map/configuration-map.json",
+      ".engineering-bootstrap/project-map/dependency-graph.json",
+      ".engineering-bootstrap/project-map/file-facts.jsonl",
+      ".engineering-bootstrap/project-map/file-inventory.jsonl"
+    ],
+    "description": "Model-agnostic, fail-closed engineering bootstrap and capability orchestrator",
+    "topics": [],
+    "readme": "# PACIFY-X ![PACIFY-X - AI and Engineering Framework](docs/assets/pacify-x.png) ## Engineering & Agent OS with Learning and Governance ### **P**roject and **A**I **C**apabilities **I**ntelligence **F**ramework for **Y**ou - e**X**perimental > Make AI build software like an engineering team, not an overconfident intern. Engineering Loop Utilization & Harnessing turns a general-purpose AI assistant into a governed, evidence-driven engineering system. It gives the AI the skills, rules, project memory, safety checks, and repeatable workflows it needs to manage software work responsibly. PACIFY-X i",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "mpecan/rippy",
+    "url": "https://github.com/mpecan/rippy",
+    "stars": 5,
+    "language": "Rust",
+    "created_at": "2026-03-23T10:18:57Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 178,
+    "sample_technique_files": [
+      "docs/fuzzing.md",
+      "tests/metamorphic/mod.rs"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# rippy [![Crates.io](https://img.shields.io/crates/v/rippy-cli.svg)](https://crates.io/crates/rippy-cli) [![CI](https://github.com/mpecan/rippy/actions/workflows/ci.yml/badge.svg)](https://github.com/mpecan/rippy/actions/workflows/ci.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) A fast shell command safety hook for AI coding tools — written in Rust. **Docs & homepage:** https://rippy.pecan.si rippy intercepts shell commands from **Claude Code**, **Cursor**, **Gemini CLI**, and **Codex CLI**, parses them with [rable](https://crates.io/crates/rable) (a pure-",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "mraminamiri/tracemutate-ml-pipeline",
+    "url": "https://github.com/mraminamiri/tracemutate-ml-pipeline",
+    "stars": 0,
+    "language": "Jupyter Notebook",
+    "created_at": "2026-08-22T10:09:46Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 5,
+    "sample_technique_files": [
+      "README.md",
+      "notebooks/TraceMutate_Adult_Colab.ipynb"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# TraceMutate ML Pipeline A lightweight **AI + Software Engineering** proof of concept for testing silent failures in data-processing and machine-learning pipelines. > **Project status:** educational research prototype for interview preparation; not a finished research contribution. [![CI](https://github.com/mraminamiri/tracemutate-ml-pipeline/actions/workflows/ci.yml/badge.svg)](https://github.com/mraminamiri/tracemutate-ml-pipeline/actions/workflows/ci.yml) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/mraminamiri/tracem",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "mrarjona/MLE-MT-LM",
+    "url": "https://github.com/mrarjona/MLE-MT-LM",
+    "stars": 1,
+    "language": "Python",
+    "created_at": "2023-12-29T08:32:56Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 7,
+    "sample_technique_files": [
+      "functions/metamorphic.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# MLE G9: Confiabilidad de Modelos de Lenguaje > [!IMPORTANT] > Es importante que si desea llevar a cabo la ejecución del proyecto tenga instalada la versión 3.9.X de Python. Nosotros, por ejemplo, hemos hecho uso de la versión [3.9.13](https://www.python.org/downloads/release/python-3913/). ## Instalación de dependencias Puede instalar todas las dependencias necesarias para la ejecución del proyecto con el comando: `pip install -r requirements.txt` ## Inicialización del archivo .env Debe crear un archivo `.env`donde almacenar las variables de entorno necesarias, para ello puede copiar el cont",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "mrbrownnn/DevForge",
+    "url": "https://github.com/mrbrownnn/DevForge",
+    "stars": 1,
+    "language": "Python",
+    "created_at": "2026-08-19T09:53:30Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 1,
+    "code_files": 204,
+    "sample_technique_files": [
+      "README.md",
+      "docs/falsification/metamorphic-testing.md",
+      "src/devforge/falsification/strategies/metamorphic.py",
+      "tests/test_docs.py"
+    ],
+    "description": "DevForge — An AI Engineering Harness for Autonomous Software Development",
+    "topics": [],
+    "readme": "<div align=\"center\">\n\n# 🔨 DevForge\n\n### AI coding agents say \"Done ✅\". DevForge is the part that checks.\n\n[![CI](https://github.com/mrbrownnn/DevForge/actions/workflows/ci.yml/badge.svg)](https://github.com/mrbrownnn/DevForge/actions/workflows/ci.yml)\n[![Release](https://github.com/mrbrownnn/DevForge/actions/workflows/release.yml/badge.svg)](https://github.com/mrbrownnn/DevForge/actions/workflows/release.yml)\n[![License: MIT](https://img.shields.io/badge/License-MIT-black.svg)](LICENSE)\n[![Python 3.11+](https://img.shields.io/badge/python-3.11%20|%203.12%20|%203.13-blue.svg)](https://www.python.org/downloads/)\n[![Tests](https://img.shields.io/badge/tests-1%2C000%2B%20passing-brightgreen.svg)](#development)\n\n**[Quick start](#quick-start-2-minutes)** · **[How it works](#how-it-works)** ·\n**[What it can't do](#current-limitations)** · **[Docs](docs/)**\n\n</div>\n\n---\n\n## The problem\n\nYou ask an AI agent to add authentication. Two minutes later:\n\n> ✅ **Done!** Added JWT authentication with full test coverage.\n\nYou run the tests. Three fail. One of them the agent wrote itself — and marked\n`@skip`.\n\nThe agent isn't lying on purpose. It has no way to know. It produced text that\n*looks* like a finished task, and nothing ever checked. Every \"done\" you have ever\ngotten from an AI agent was a **claim**, not a **result**.\n\nDevForge is the layer that turns claims into results.\n\n```\nWithout DevForge                  With DevForge\n\n  you                               you\n   |                                 |\n  agent                            DevForge ---> agent\n   |                                 |             |\n  \"Done!\"                          runs your tests, linters, build\n   |                                 |\n  you find out                     still failing? ---> hand the exact\n  three days later                   |                 errors back, retry\n                                   passing?\n                                     |\n                                   you approve\n                                     |\n                                   actually done\n```\n\nAn agent's report is never accepted as evidence. A step passes only when **your**\ntest suite says so.\n\n---\n\n## Installation\n\nRequires Python 3.11+. No API key is needed to try it: the default runtime is\n`mock`, which is offline and deterministic.\n\n```bash\ngit clone https://github.com/mrbrownnn/DevForge.git\ncd DevForge\npip install -e \".[dev]\"\n```\n\nOptional extras, each of which turns a documented `unavailable` into a working\nfeature rather than into a guess:\n\n```bash\npip install -e \".[browser]\"        # Playwright browser tools\npip install -e \".[falsification]\"  # Hypothesis property testing\npip install -e \".[visual]\"         # Pillow + numpy pixel corroboration\n```\n\n---\n\n## Quick start (2 minutes)\n\n\nThen go to any project you like — even an empty folder:\n\n```bash\ncd /path/to/your/project\ndevforge init      # creates .devforge/\ndevforge doctor    # tells you what works here and what doesn'",
+    "readme_source": "full"
+  },
+  {
+    "repo": "mrigger/sqlancer-kafka-experiment",
+    "url": "https://github.com/mrigger/sqlancer-kafka-experiment",
+    "stars": 0,
+    "language": "Java",
+    "created_at": "2022-01-05T15:58:41Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 2,
+    "code_files": 597,
+    "sample_technique_files": [
+      "docs/PAPERS.md",
+      "src/sqlancer/cockroachdb/ast/CockroachDBAggregate.java",
+      "src/sqlancer/cockroachdb/oracle/tlp/CockroachDBTLPAggregateOracle.java"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "[![Build Status](https://github.com/sqlancer/sqlancer/workflows/ci/badge.svg)](https://github.com/sqlancer/sqlancer/actions) [![codecov](https://codecov.io/gh/sqlancer/sqlancer/branch/master/graph/badge.svg)](https://codecov.io/gh/sqlancer/sqlancer) [![Twitter](https://img.shields.io/twitter/follow/sqlancer_dbms?style=social)](https://twitter.com/sqlancer_dbms) # SQLancer ![SQLancer](media/logo/png/sqlancer_logo_logo_pos_500.png) SQLancer (Synthesized Query Lancer) is a tool to automatically test Database Management Systems (DBMS) in order to find logic bugs in their implementation. We refer t",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "mrwersa/agentverity",
+    "url": "https://github.com/mrwersa/agentverity",
+    "stars": 2,
+    "language": "Python",
+    "created_at": "2026-07-24T10:35:22Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 4,
+    "code_files": 103,
+    "sample_technique_files": [
+      "CHANGELOG.md",
+      "DESIGN.md",
+      "agentverity/__init__.py",
+      "agentverity/cli.py",
+      "agentverity/evidence.py"
+    ],
+    "description": "Qualify repeated categorical AI-agent evidence before it becomes a regression reference",
+    "topics": [
+      "agent-evaluation",
+      "agentic-ai",
+      "ai-agents",
+      "ai-evaluation",
+      "ai-reliability",
+      "llm",
+      "llm-evaluation",
+      "opentelemetry",
+      "python",
+      "regression-testing",
+      "software-testing"
+    ],
+    "readme": "# AgentVerity\n\n> **Your agent test passed. Would it pass again?**\n\n[![PyPI](https://img.shields.io/pypi/v/agentverity.svg)](https://pypi.org/project/agentverity/)\n[![Python 3.10+](https://img.shields.io/badge/python-3.10%20--%203.14-blue.svg)](https://www.python.org/downloads/)\n[![CI](https://github.com/mrwersa/agentverity/actions/workflows/ci.yml/badge.svg)](https://github.com/mrwersa/agentverity/actions/workflows/ci.yml)\n[![Coverage: 90%+](https://img.shields.io/badge/coverage-90%25%2B-brightgreen.svg)](#development)\n[![License: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-green.svg)](https://github.com/mrwersa/agentverity/blob/main/LICENSE)\n\nAgentVerity is a local Python library and CLI that qualifies repeated,\ncategorical AI-agent evidence before it becomes a **regression reference** for\nfuture releases. It finds routes whose repeatability is rejected, weak decision\ncoverage, and runs too small to support a conclusion. It does not judge whether\nan answer is correct.\n\n## The 60-second problem\n\nA payment router sends disputes to six specialist queues. Promptfoo runs six\nreviewed cases 26 times, and all **156/156 assertions pass**. One\nambiguous case allows either of two valid fraud queues.\n\nAgentVerity reads that same export and finds:\n\n```text\nroute              cases  pairs  flips  95% CI            result\ncard_security          1     13      8  [0.355, 0.823]    stochastic\ncash_withdrawal        1     13      0  [0.000, 0.228]    undecided\nduplicate_charge       1     13      0  [0.000, 0.228]    undecided\n\nflip pairs:\n  card_security <-> merchant_dispute  x8\n```\n\nThe quality policy accepts both answers, but a reference that switches queues\nwill make later regression checks noisy. The changing route is `stochastic`;\nthe five quiet routes are `undecided` because 13 pairs are too few to qualify\ntheir repeatability separately. A **flip** is a pairwise disagreement: the two\nobservations in a paired rerun differed. AgentVerity therefore refuses this\nevidence as a regression reference.\n\n## Try it without model calls\n\n```bash\ngit clone --depth 1 https://github.com/mrwersa/agentverity.git\ncd agentverity\npython -m pip install .\nagentverity assess \\\n  --promptfoo examples/promptfoo_bridge/results.json \\\n  --suite examples/payment_decisions.json\n```\n\n`assess` performs arithmetic over recorded decisions. It makes no model or\nprovider calls. You can also reuse precomputed DeepEval `LLMTestCase` objects\nor any ordered JSONL log:\n\n```bash\nagentverity assess --jsonl runs.jsonl \\\n  --input-path probe.text --decision-path result.route\n```\n\nOrder matters because observations are paired in collection order. See\n[imported evidence](https://github.com/mrwersa/agentverity/blob/main/docs/imported-evidence.md)\nbefore converting a log.\n\nTo call an agent directly, install only the framework adapter you need:\n\n```bash\npip install \"agentverity[strands]\"\npip install \"agentverity[langgraph]\"\n```\n\nPlain Python callables need no extra dependency:\n\n```python\n",
+    "readme_source": "full"
+  },
+  {
+    "repo": "msaleme/red-team-blue-team-agent-fabric",
+    "url": "https://github.com/msaleme/red-team-blue-team-agent-fabric",
+    "stars": 30,
+    "language": "Python",
+    "created_at": "2025-11-15T16:04:37Z",
+    "technique_test_files": 2,
+    "technique_nontest_files": 0,
+    "code_files": 272,
+    "sample_technique_files": [
+      "protocol_tests/agent_prose_outcome.py",
+      "testing/test_agent_prose_outcome_profile.py"
+    ],
+    "description": "AI agent security harness, adversarial testing: 623 executable tests in the v4.21.3 release, across MCP, A2A, x402/L402, decision governance, benchmark integrity, human-in-the-loop, skill supply chain. Four target shapes: a verdict must be able to be wrong AND to be right. OWASP Agentic v1.1 T1-T17, AIUC-1 19/20 (2026-Q1/Q2 set), NIST AI 800-2.",
+    "topics": [
+      "a2a-protocol",
+      "agent-governance",
+      "agent-security",
+      "agentic-ai",
+      "ai-agents",
+      "ai-security",
+      "aiuc-1",
+      "conformance",
+      "decision-governance",
+      "eu-ai-act",
+      "l402",
+      "mcp",
+      "mcp-security",
+      "owasp",
+      "receipts",
+      "red-team",
+      "reproducibility",
+      "security-testing",
+      "verification",
+      "x402"
+    ],
+    "readme": "# Agent Security Harness\n\n[![PyPI version](https://badge.fury.io/py/agent-security-harness.svg)](https://pypi.org/project/agent-security-harness/)\n[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)\n[![Apache 2.0 License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)\n[![Tests](https://img.shields.io/badge/security%20tests-640-green.svg)](#three-layers-of-agent-decision-security)\n[![OWASP Agentic T1-T17](https://img.shields.io/badge/OWASP%20Agentic%20v1.1-13%2F17%20direct-blue.svg)](docs/OWASP-AGENTIC-V1.1-COVERAGE.md)\n[![ClawScan](https://img.shields.io/badge/ClawScan-Benign-brightgreen)](https://clawhub.ai/msaleme/agent-security-harness)\n[![Static Analysis](https://img.shields.io/badge/Static%20Analysis-Benign-brightgreen)](https://clawhub.ai/msaleme/agent-security-harness)\n[![VirusTotal](https://img.shields.io/badge/VirusTotal-0%2F92_Clean-brightgreen)](https://www.virustotal.com/gui/url/37318967b56cd3cc1678972ebf0c53dbd37868b67ba3f6891447d53d51767cd2)\n\n**Even if an agent is properly authenticated and authorized, can it still be manipulated into unsafe or policy-violating behavior?**\n\n**A test that did not reach the target is not a passing security test.**\n\nThis harness sends adversarial traffic at a live endpoint, records what the target actually\nserviced, and reports PASS, FAIL or **INCONCLUSIVE**. It will not convert a request the target\nnever answered — or a capability the target never exposed, or an answer that establishes\nnothing either way — into evidence that a control held.\nThat distinction is enforced by `testing/test_serviced_guard.py` and\n`testing/test_x402_capability_controls.py` rather than asserted here, and the repairs that put\nit there are in [CHANGELOG.md](CHANGELOG.md).\n\n### How that is checked: five target shapes\n\nA verdict is only worth what it does when the target changes. Four scripts point every\nsuite at a sentinel that differs only in how it answers, and four state files under\n`testing/` pin what each one claims:\n\n```bash\npython3 scripts/dead_host_sweep.py        # a closed port: nothing answers\npython3 scripts/permissive_host_sweep.py  # HTTP 200, grants everything\npython3 scripts/refusing_host_sweep.py    # HTTP 403, refuses everything\npython3 scripts/empty_answer_sweep.py     # HTTP 200 `{}`: answers, does nothing\n```\n\nThe fourth transport shape is the one the other three cannot see. A target answering 200\nwith an empty body satisfies every serviced-request guard -- the answer is real -- while\nsupplying no refusal, no decision, no inventory and no prose. The fourth external review\nfound 47 rows passing against it, including two AIUC-1 controls; the remainder and the\nreading of each row is in `testing/test_empty_answer_is_not_a_control.py`.\n\nThe fifth shape is a **live agent** rather than a transport, and it is asserted in\n`testing/test_refusal_establishes_a_pass.py` rather than run as a script: one agent that\ncomplies with every request with",
+    "readme_source": "full"
+  },
+  {
+    "repo": "msft-mirror-aosp/platform.external.deqp",
+    "url": "https://github.com/msft-mirror-aosp/platform.external.deqp",
+    "stars": 0,
+    "language": "C++",
+    "created_at": "2022-08-09T01:05:17Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 3,
+    "code_files": 3574,
+    "sample_technique_files": [
+      "AndroidGen.bp",
+      "AndroidKhronosCTSGen.bp",
+      "modules/gles3/functional/CMakeLists.txt",
+      "modules/gles3/functional/es3fFunctionalTests.cpp",
+      "modules/gles3/functional/es3fShaderMetamorphicTests.cpp"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "VK-GL-CTS README =========== This repository contains Khronos Conformance Testing Suite called VK-GL-CTS which originated from dEQP (drawElements Quality Program). VK-GL-CTS contains tests for several graphics APIs, including OpenGL, OpenGL ES, EGL, Vulkan, and Vulkan SC. Documentation ------------- Up-to-date documentation for VK-GL-CTS is available at: * [The VK-GL-CTS wiki for Khronos members](https://gitlab.khronos.org/Tracker/vk-gl-cts/wikis/home) * [The VK-GL-CTS wiki for non-Khronos members](https://github.com/KhronosGroup/VK-GL-CTS/wiki) The .qpa logs generated by the conformance tests",
+    "readme_source": "excerpt"
+  }
+]

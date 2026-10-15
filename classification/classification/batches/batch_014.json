@@ -1,0 +1,1010 @@
+[
+  {
+    "repo": "isa-group/Pricing-Intelligence-Interpretation-Process",
+    "url": "https://github.com/isa-group/Pricing-Intelligence-Interpretation-Process",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2025-10-27T11:32:03Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 113,
+    "sample_technique_files": [
+      "src/amint/prompts/validate_alignment/compare_markdown.md",
+      "src/amint/validators/validate_alignment.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# Pricing Intelligence Pricing Intelligence is an advanced AI-powered platform designed to analyze, reason about, and extract insights from SaaS pricing models. It combines Large Language Models (LLMs) with rigorous Constraint Satisfaction Problem (CSP) solvers to provide accurate, grounded answers to complex pricing questions. This is part of the contributions of the paper \"Pricing Intelligence: Rethinking IS Engineering in Volatile SaaS Environments\". ## 🚀 Overview The system allows users to: - **Extract** structured pricing models (Pricing2Yaml) from raw website URLs. - **Analyze** pricing",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "isaac99/EuroTripRunningOptimizer",
+    "url": "https://github.com/isaac99/EuroTripRunningOptimizer",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-06-08T23:21:22Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 26,
+    "sample_technique_files": [
+      "backend/tests/test_routing_behavior.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# EuroTrip 2026 Route Optimizer Optimize a long-distance running-relay route over real terrain, where **climb costs effort**: by the user's rule, **100 m of ascent ≈ 1 km of extra flat running**. The tool finds the lowest-effort path that hits the checkpoints **in order**, avoids highways, and lets you compare options on a map — then **export each route as GPX** to load on a phone. Course: Ljubljana (START) → CP1…CP9 (fixed order) → Kolovar / Zadar coast (FINISH). An 8-person vehicle-supported relay; change-over points are chosen by hand off the final route. ## The cost model — \"equivalent fla",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "isaacgriffith/sms-reseacher",
+    "url": "https://github.com/isaacgriffith/sms-reseacher",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-03-08T14:34:38Z",
+    "technique_test_files": 15,
+    "technique_nontest_files": 0,
+    "code_files": 655,
+    "sample_technique_files": [
+      ".specify/memory/constitution.md",
+      "CHANGELOG.md",
+      "CLAUDE.md",
+      "agents/CHANGELOG.md",
+      "agents/tests/metamorphic/conftest.py"
+    ],
+    "description": "AI Driven Empirical Study Tool",
+    "topics": [],
+    "readme": "# SMS Researcher\n\nA six-sub-project `uv` workspace mono-repo that automates secondary and tertiary research\nstudies: Systematic Mapping Studies (SMS), Systematic Literature Reviews (SLR), Rapid\nReviews, and Tertiary Studies.\n\n## Documentation\n\n| Document                                        | Answers                                              |\n| ----------------------------------------------- | ---------------------------------------------------- |\n| [CONTEXT.md](CONTEXT.md)                        | Where am I? Architecture, repo map, request flow     |\n| [MEMORY.md](MEMORY.md)                          | What will bite me? Non-obvious gotchas, with reasons |\n| [CLAUDE.md](CLAUDE.md)                          | What commands do I run?                              |\n| [constitution](.specify/memory/constitution.md) | What rules are binding? Principles I–X               |\n| [docs/feature-gaps.md](docs/feature-gaps.md)    | What is actually built vs. only specified?           |\n| [docs/features/](docs/features/README.md)       | What is planned next?                                |\n\n## Sub-projects\n\n| Sub-project                                   | Language                 | Purpose                                                                          |\n| --------------------------------------------- | ------------------------ | -------------------------------------------------------------------------------- |\n| [`backend/`](backend/README.md)               | Python 3.14 / FastAPI    | REST API gateway; orchestrates agents                                            |\n| [`agents/`](agents/README.md)                 | Python 3.14              | 12 LLM-powered research agents (screener, extractor, synthesiser, …) via LiteLLM |\n| [`db/`](db/README.md)                         | Python 3.14 / SQLAlchemy | Shared database models + Alembic migrations                                      |\n| [`agent-eval/`](agent-eval/README.md)         | Python 3.14 / Typer      | CLI for evaluating agent quality with LLM-as-a-Judge                             |\n| [`researcher-mcp/`](researcher-mcp/README.md) | Python 3.14 / FastMCP    | MCP server for paper search and PDF fetching                                     |\n| [`frontend/`](frontend/)                      | TypeScript 5 / React 18  | Researcher-facing SPA (Vite + Vitest)                                            |\n\n## Quick Start\n\nSee [quickstart.md](specs/001-repo-setup/quickstart.md) for full onboarding instructions.\n\n```bash\n# Install all Python dependencies (shared uv workspace)\nuv sync --all-packages\n\n# Start backend (development)\nuv run --package sms-backend uvicorn backend.main:app --reload --port 8000\n\n# Start researcher-mcp server\nuv run --package sms-researcher-mcp researcher-mcp\n\n# Start frontend (development)\ncd frontend && npm install && npm run dev\n\n# Run all Python tests\nuv run pytest backend/tests/ agents/tests/ db/tests/ agent-eval/tests/ researcher-mcp/tests/\n```\n\n## Docker Compose\n\n```b",
+    "readme_source": "full"
+  },
+  {
+    "repo": "ishiyan/zpano",
+    "url": "https://github.com/ishiyan/zpano",
+    "stars": 0,
+    "language": "TypeScript",
+    "created_at": "2026-04-04T09:47:29Z",
+    "technique_test_files": 6,
+    "technique_nontest_files": 0,
+    "code_files": 4174,
+    "sample_technique_files": [
+      "go/performance/measures_distribution_test.go",
+      "go/performance/measures_ratios_test.go",
+      "py/performance/test_measures.py",
+      "rs/src/performance/measures_tests/general.rs",
+      "rs/src/performance/measures_tests/risk.rs"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "",
+    "readme_source": "none"
+  },
+  {
+    "repo": "ismail0098-lang/Y",
+    "url": "https://github.com/ismail0098-lang/Y",
+    "stars": 2,
+    "language": "Rust",
+    "created_at": "2026-03-28T15:45:07Z",
+    "technique_test_files": 3,
+    "technique_nontest_files": 2,
+    "code_files": 509,
+    "sample_technique_files": [
+      "src/zk_emitter.rs",
+      "src/zk_fuzz.rs",
+      "tests/zk_gadget_range_and_parsing.rs",
+      "tests/zk_integer_ops.rs",
+      "tests/zk_llvm_differential.rs"
+    ],
+    "description": "General Purpose Compiler",
+    "topics": [],
+    "readme": "Y\n-----  A Systems Language and Compiler for GPU/CPU Hardware-Aware Code Generation\n\nY is a compiler and systems language for writing hardware-aware code across CPU\n(x86-64 / AVX-512) and GPU (NVIDIA PTX) targets, with a zero-knowledge circuit\nbackend that emits R1CS and interoperates with the existing circom/snarkjs\ntoolchain.\n\nThe project is under active, single-developer development. It is a research\ncompiler, not a production toolchain.\n\nAn opt-in [adaptive GPU JIT runtime](docs/adaptive_jit.md) now caches compiled\nFP16 GEMMs and tunes repeatedly used shapes. Rust, C, and Python APIs provide\nwarmup preparation and defers tuning to explicit maintenance calls by default. Optional\ndisk persistence reuses successful decisions across runs; ordinary compiler\nbehavior is unchanged.\nTry `cargo run --release --example adaptive_gemm` on an NVIDIA sm_80+ GPU.\n\nAn in-process [general-purpose CPU JIT](docs/cpu_jit.md) compiles ordinary Y\nhost functions through LLVM ORC on Linux x86-64. Run\n`cargo run --release --bin Y -- examples/cpu_jit.ysu --jit` or embed it from\nRust/C. A [reproducible C# comparison](benchmarks/cpu_jit/README.md) checks\ninteger branching, recursion, floating-point arithmetic, and indexed memory.\nChecked dynamic calls, a Python `CPUJit` wrapper, and a bounded process-local\ncompilation cache now make embedding easier. The expanded comparison also\nchecks unsigned bit mixing, F64 dot reduction, short-circuit side effects, and\nbinary search. Unsigned rotate recognition and explicit measured branch\nprofiles now guide native optimization; Rust, C, and Python callers can train\nand recompile while retaining their original session.\nProven local String/Vec queries, capacity-checked appends and bulk copies, and\nbyte conversions now lower directly to native reads, writes, and integer\noperations. Profile use keeps measured work branches while conservatively\nomitting natural-loop control weights by default. Dynamic-size vector appends\nuse an exact source-width guard; compact checked-call adapters share the native\nfunction body.\n\nScalar helper analysis keeps local String/Vec paths enabled across proved\narithmetic helpers. Rust, C and Python expose compilation phase timings and\nseparate optimization/materialization breakdowns, with optional object-event\nchildren and object metadata. Rust can override machine-code optimization\nthrough `codegen_opt_level`; its default inherits the unchanged IR level.\nPer-pass LLVM verification defaults on;\nRust callers can explicitly disable it while retaining mandatory module checks\nbefore and after optimization pipelines. Deterministic full-result differential\ntests cover sixteen IR O0/O3, custom-transform, verification and inherited/O2\nmachine-code configurations against independent bounded oracles.\n\n## CPU JIT training-tier results (2026-10-08)\n\nThe [training-tier comparison](docs/cpu_jit_benchmarks_training_tier.md) uses\ntemporary training IR O1 while final profiled IR/native optimization stays O3.\nMedian preparatio",
+    "readme_source": "full"
+  },
+  {
+    "repo": "issdandavis/no-oracle-verification",
+    "url": "https://github.com/issdandavis/no-oracle-verification",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-08-14T02:35:05Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 2,
+    "code_files": 5,
+    "sample_technique_files": [
+      "README.md",
+      "RESULTS.md",
+      "consensus_gate.py",
+      "property_gate.py"
+    ],
+    "description": "How much verification survives when you delete the answer key -- a measured ladder, and exactly which failures it stops catching.",
+    "topics": [],
+    "readme": "# no-oracle-verification\n\n**How much verification survives when you delete the answer key — and exactly which\nfailures it stops catching.**\n\nOversight assumes a checker. Almost every practical technique that \"verifies\" a\nprogram or a model output — unit tests, reward models, graders, rubrics — bottoms\nout in a reference answer somebody already had. That assumption breaks precisely\nwhere it matters: when a system produces work you cannot independently check, the\noracle is the first thing to go.\n\nSo the useful question is not *can we verify?* It is **how much verification\nsurvives the loss of ground truth, and which failure class does it go blind to?**\nThat second clause is the part usually left unmeasured. This repo measures it.\n\n## The ladder\n\nFour rungs over the same task set. Each rung removes more of the oracle. Each is\nmeasured against the rung above.\n\n| Rung | Oracle | Result |\n|---|---|---|\n| 1 · procedural gate, coarse mutants | full reference | **435/435 = 100%** wrong programs killed |\n| 2 · adversarial near-misses | full reference | **22/22 = 100%** killed, **3 equivalent mutants correctly spared** |\n| 3 · metamorphic properties | **none** | sound **10/10**; **11/15 = 73%** of wrong programs killed |\n| 4 · independent-implementation consensus | **none** | **4/4 = 100%** of the value near-misses rung 3 was blind to |\n\nMeasured 2026-08-13. Reproduce in one command each — see below.\n\n### Rung 2 is the one that resists faking\n\nKilling every mutant is trivial: reject everything. The gate must also **spare** the\nthree mutants that are semantically equivalent to the reference — `skip_zero`,\n`skip_ones`, `abs_even`. Telling *wrong* from *same-function* is the difference\nbetween a verifier and a rejector, and it is the property a \"100%\" headline hides.\n\n### Rungs 3 and 4 use no ground truth at all\n\nMetamorphic relations assert only self-consistency. A median is permutation-\ninvariant and lies in `[min, max]`; a total is additive under concatenation; a sort\nis idempotent and a permutation of its input. None of these knows the right answer —\nthey can only say *this program is self-inconsistent, therefore wrong.*\n\nThat catches structural error and goes **blind to value near-misses** that preserve\nevery invariant: mean-for-median, off-by-one count. Differential consensus between\ntwo independent implementations closes exactly that gap, with no designated ground\ntruth on either side.\n\n## The limits, which are the actual result\n\n- **Correlated failure.** Consensus is evidence only if the two implementations fail\n  *independently*. Two clones of the same wrong function agree perfectly and pass\n  together — measured here, not hypothesised. **Differentiation, not redundancy,\n  carries the evidence**, and one model sampled twice is a clone.\n- **Specification ambiguity.** Under ties, `mode` has several valid answers, so two\n  correct implementations legitimately disagree. The gate reports N/A rather than\n  manufacturing a verdict. A verifier that never abst",
+    "readme_source": "full"
+  },
+  {
+    "repo": "itaueliud/ERP-System",
+    "url": "https://github.com/itaueliud/ERP-System",
+    "stars": 0,
+    "language": "TypeScript",
+    "created_at": "2026-04-25T09:39:08Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 2,
+    "code_files": 514,
+    "sample_technique_files": [
+      "backend/src/search/searchFilter.property.test.ts",
+      "backend/src/search/searchSort.property.test.ts"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "TechSwiftTrix ERP System ======================== TechSwiftTrix is a full-stack, multi-portal Enterprise Resource Planning (ERP) platform built for managing complex organizational operations across departments, roles, clients, projects, payments, and real-time collaboration. --- Overview -------- The system is split into a Node.js/Express backend API and a React frontend with six independent role-based portals. It is designed to support a structured organization with 13 distinct roles and 6 departments, enforcing strict access control, audit logging, and compliance at every layer. --- Portals",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "itaueliud/erpSystem",
+    "url": "https://github.com/itaueliud/erpSystem",
+    "stars": 0,
+    "language": "TypeScript",
+    "created_at": "2026-04-29T13:10:52Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 2,
+    "code_files": 483,
+    "sample_technique_files": [
+      "backend/src/search/searchFilter.property.test.ts",
+      "backend/src/search/searchSort.property.test.ts"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "TechSwiftTrix ERP System ======================== TechSwiftTrix is a full-stack, multi-portal Enterprise Resource Planning (ERP) platform built for managing complex organizational operations across departments, roles, clients, projects, payments, and real-time collaboration. --- Overview -------- The system is split into a Node.js/Express backend API and a React frontend with six independent role-based portals. It is designed to support a structured organization with 13 distinct roles and 6 departments, enforcing strict access control, audit logging, and compliance at every layer. --- Portals",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "itdojp/ae-framework",
+    "url": "https://github.com/itdojp/ae-framework",
+    "stars": 2,
+    "language": "TypeScript",
+    "created_at": "2025-08-09T19:07:11Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 1660,
+    "sample_technique_files": [
+      "docs/architecture/AE-FRAMEWORK-ARCHITECTURE-2025.md",
+      "docs/architecture/TECHNICAL-IMPLEMENTATION-DETAILS.md",
+      "docs/articles/zenn/zenn-article-ae-framework-en.md",
+      "docs/articles/zenn/zenn-article-ae-framework.md",
+      "docs/quality/quality-implementation-status.md"
+    ],
+    "description": "Agent-neutral assurance control plane for agent-driven SDLC.",
+    "topics": [
+      "agentic-sdlc",
+      "ai-code-review",
+      "assurance",
+      "formal-verification",
+      "github-actions",
+      "model-based-testing",
+      "opentelemetry",
+      "policy-as-code",
+      "quality-gates",
+      "requirements-engineering",
+      "runtime-verification",
+      "ssot"
+    ],
+    "readme": "---\ndocRole: narrative\nlastVerified: '2026-07-04'\n---\n\n# ae-framework: Agent-Neutral Assurance Control Plane for Agent-Driven SDLC\n\n[![validate-artifacts-ajv](https://github.com/itdojp/ae-framework/actions/workflows/validate-artifacts-ajv.yml/badge.svg)](https://github.com/itdojp/ae-framework/actions/workflows/validate-artifacts-ajv.yml)\n[![testing-ddd-scripts](https://github.com/itdojp/ae-framework/actions/workflows/testing-ddd-scripts.yml/badge.svg)](https://github.com/itdojp/ae-framework/actions/workflows/testing-ddd-scripts.yml)\n[![coverage-check](https://github.com/itdojp/ae-framework/actions/workflows/coverage-check.yml/badge.svg)](https://github.com/itdojp/ae-framework/actions/workflows/coverage-check.yml)\n[![pr-ci-status-comment](https://github.com/itdojp/ae-framework/actions/workflows/pr-ci-status-comment.yml/badge.svg)](https://github.com/itdojp/ae-framework/actions/workflows/pr-ci-status-comment.yml)\n\n> **🌍 Language / 言語**: [English](#english) | [日本語](#japanese) | [Documentation / ドキュメント](#documentation-ドキュメント)\n\n---\n\n## English\n\nae-framework is an **agent-neutral assurance control plane for agent-driven SDLC**. Coding agents, human maintainers, CI jobs, and formal tools produce changes and raw signals; ae-framework standardises the specifications, verification evidence, policy gates, and release judgments used to decide whether those changes can be trusted.\n\n**Product thesis**: Bring your own agent. Keep your assurance plane. Codex, Claude Code, GitHub Copilot, Gemini-family coding tools, human maintainers, CI jobs, and formal tools are replaceable producers; ae-framework keeps judgment artifacts, policy gates, and release decisions stable across those producer choices.\n\nPreview launch material: `docs/product/LAUNCH-KIT.md`, `docs/product/ONE-PAGE-PITCH.md`, `docs/product/DEMO-SCRIPT.md`, `docs/product/EVIDENCE-SPRINT-RELEASE-ASSETS-2026-07-01.md`, and `docs/product/DEPLOY-TIME-PROFILE-PUBLISH-ASSETS-2026-07-04.md`. Start the first-run demo with `pnpm run demo:agent-assurance`; the dedicated one-command local path is `docs/getting-started/FIRST-RUN-DEMO.md`, and the external one-workflow-file assurance gate path is `docs/getting-started/QUICKSTART-15MIN.md`.\n\nCurrent evidence route for first-time product evaluation: run the one-command first-run demo, read the Evidence Sprint dogfood case study, inspect the fixture-backed Web API and event-driven pilots, read the ACP-097 pilot report, then check launch-kit limitations, live-pilot entry criteria, and the controlled-comparison protocol. Internal dogfooding and pilot evidence are separate: the Web API and event-driven pilots are fixture-backed/report-only, the current external pilot report is `dry-run only` with 0 live external PRs collected, and the controlled comparison has not been executed. Public claims should therefore stay limited to review traceability and evidence routing, not review-speed, safety, adoption-impact, live API/event behavior, or agent-vendor superiority. `docs/produ",
+    "readme_source": "full"
+  },
+  {
+    "repo": "ITM-Kitware/jaxborg",
+    "url": "https://github.com/ITM-Kitware/jaxborg",
+    "stars": 2,
+    "language": "Python",
+    "created_at": "2026-02-17T02:41:07Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 188,
+    "sample_technique_files": [
+      "tests/test_metamorphic_properties.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# jaxborg\n\nJAX port of [CybORG CAGE Challenge 4 (CC4)](https://github.com/cage-challenge/cage-challenge-4) using [JaxMARL](https://github.com/FLAIROx/JaxMARL) for GPU-accelerated parallel RL training.\n\nCybORG CC4 is a multi-agent cybersecurity simulation (9 subnets, ~80 hosts, 5 blue agents, 6 red agents, 3 mission phases). This project re-implements CC4's environment logic as JIT-compilable JAX arrays for massively parallel simulation on GPU. Parity is verified by:\n\n- **Differential testing** — lockstep state comparison after every step\n- **TOST equivalence testing** — statistical comparison of independent rollout rewards across both engines\n\n## Results\n\n[Trajectory Visualizations](https://cynex-trajectories.netlify.app/)\n\n### Speed\n\n| Engine  | Parallelism                  | Steps/sec | 20M wall time |\n| ------- | ---------------------------- | --------- | ------------- |\n| CybORG  | 48 CPU processes             | 332       | 16.7 h        |\n| jaxborg | 1,024 vectorized envs on GPU | 2,512     | 2.2 h         |\n\n**~7.5x throughput**, **~7.5x wall-time** on a single NVIDIA RTX A6000. jaxborg's entire training loop (rollout + GAE + PPO update) compiles to one XLA program; first-run compile takes ~7 min (cached thereafter).\n\n### Parity\n\n#### TOST Equivalence\n\nWe verify that jaxborg reproduces CybORG's behavior using the TOST (two one-sided t-test) equivalence procedure from [Karten et al. (2026)](https://arxiv.org/abs/2603.12145). Two independent claims:\n\n| comparison                                                                | n   | gap         | TOST                            | verdict                            |\n| ------------------------------------------------------------------------- | --: | ----------: | ------------------------------- | ---------------------------------- |\n| Same trained policy, jaxborg vs CybORG env (3 seeds × n=100, pure mode)   | 300 |  +109 ± 30  | Δ=±284, p=2.8e-7                | **EQUIVALENT**                     |\n| Cross-policy matched training: jaxborg-trained vs CybORG-trained, on CybORG env (3 seeds × n=100, paired) | 300 |   +5.4 ± 58 | Δ=±200, p=4e-4 / Δ=±284, p<1e-6 | **EQUIVALENT** at Δ=±200 and ±284  |\n\nΔ=±84 = 2σ across same-backend seed means (noise floor); Δ=±284 = 5% of the sleep→trained learnable signal span. See [`docs/parity.md`](docs/parity.md) for the full per-test parity index and tolerances.\n\n#### Training Comparison\n\nMatched-hyperparameter training (NUM_ENVS=48, 3 seeds, same shared-trunk actor-critic, identical PPO hparams). Reward is the mean training-time episode reward at 3M steps; each policy is on the env it trained against (the ~145-pt gap between the two columns reflects independent green-RNG host-selection between engines, not a parity bug — see [`docs/parity.md`](docs/parity.md)).\n\n| Run          |          Reward (mean ± σ across 3 seeds) | Steps |\n| ------------ | ----------------------------------------: | ----- |\n| CybORG PPO   | -1,854 ± 46                               | 3",
+    "readme_source": "full"
+  },
+  {
+    "repo": "itsMatoosh/testing-ai",
+    "url": "https://github.com/itsMatoosh/testing-ai",
+    "stars": 1,
+    "language": "Jupyter Notebook",
+    "created_at": "2025-11-27T14:10:17Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 2,
+    "code_files": 26,
+    "sample_technique_files": [
+      "assignment1/team1/test_fraud_model.ipynb",
+      "assignment1/team1/test_results/team_1_bad_model.txt",
+      "assignment1/team1/test_results/team_1_good_model.txt",
+      "assignment1/team1/test_results/team_2_bad_model.txt",
+      "team1/test_fraud_model.ipynb"
+    ],
+    "description": "Repository for Testing for AI Systems course.",
+    "topics": [],
+    "readme": "",
+    "readme_source": "none"
+  },
+  {
+    "repo": "ItsNotCam/june",
+    "url": "https://github.com/ItsNotCam/june",
+    "stars": 0,
+    "language": "TypeScript",
+    "created_at": "2026-04-17T02:02:45Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 328,
+    "sample_technique_files": [
+      ".claude/notes/plans/rsi-bench-foundation/rsi-foundation-plan.md",
+      ".claude/notes/plans/rsi-bench-foundation/rsi-foundation-status.md",
+      ".claude/notes/plans/rsi-bench-foundation/rsi-research-dossier.md",
+      "packages/mcp/bench/__test__/retriever/rrf-properties.test.ts",
+      "packages/mcp/bench/docs/phase-4-kickoff.md"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# june.\n\nA unified developer knowledge platform. Not a chatbot, not a search engine — a knowledge interface that uses natural language as its input method.\n\n> \"It doesn't do the work for you. It empowers you to do the work faster.\"\n\njune makes a developer feel like a senior engineer on a codebase they've never touched.\n\n---\n\n## AI usage disclosure\n\nThis project is built with significant AI assistance via [Claude Code](https://claude.ai/code) (Anthropic).\n\n---\n\n## What it is\n\njune indexes your internal docs, vendor APIs, and codebases into a single queryable knowledge base running entirely on local hardware. No data leaves the building.\n\nThe founding technical bet:\n\n> **If the RAG is elite, the model is almost irrelevant.**\n\nEvery engineering decision flows from this. The goal isn't to run GPT-4 — it's to make the context window so clean and precise that a cheap local model (Gemma 26b, Ollama) has no choice but to give a correct answer.\n\n**Four query modes:**\n- **Search** — pure ranked results, no AI\n- **Quick** — fast answer, tight retrieval, one paragraph\n- **SME** — comprehension first: entities, relationships, operations, gotchas — before any detail\n- **Conversational** — socratic, user-driven, june removes friction\n\n**The UI is not a chatbot.** It's a knowledge interface — command bar entry, subject line as thread anchor, sources always visible and clickable, history as a log.\n\n**Self-hosted, self-sufficient:**\n- Runs on prosumer hardware\n- Vector search via Qdrant\n- Embeddings via Ollama (nomic-embed-text or jina-v2-base-code)\n- SQLite sidecar for ingestion provenance\n- No cloud dependency — HIPAA, legal, finance, defense viable\n\n**Full synopsis:** [`.claude/synopsis.md`](.claude/synopsis.md)\n\n---\n\n## Monorepo layout\n\n```\njune/\n  packages/\n    next/       — @june/next        Next.js 16 frontend\n    shared/     — @june/shared      shared types, env/config/logger scaffolding\n    mcp/\n      ingest/   — @june/mcp-ingest  markdown ingestion pipeline + june CLI\n      bench/    — @june/mcp-bench   synthetic-corpus RAG-quality eval (june-eval CLI)\n      server/   — @june/mcp-server  MCP JSON-RPC server (scaffold)\n```\n\nBun workspace root. All packages are TypeScript strict, `\"type\": \"module\"`, Bun runtime.\n\n---",
+    "readme_source": "full"
+  },
+  {
+    "repo": "itu-square/probtest-pytest",
+    "url": "https://github.com/itu-square/probtest-pytest",
+    "stars": 8,
+    "language": "Python",
+    "created_at": "2025-08-30T07:49:22Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 19,
+    "sample_technique_files": [
+      "case_studies/skip_list/tests/test_skip_list.py"
+    ],
+    "description": "This repository contains a PyTest plugin, ProbTest, to test probabilistic programs and the benchmarks included in the accompaying paper.",
+    "topics": [],
+    "readme": "# ProbTest - Effective testing of probabilistic programs with statistical guarantees ProbTest is a [Pytest](https://docs.pytest.org/) plugin to test probabilistic programs. This testing plugin runs repeatedly the probabilistic program under test and ensures that bugs are found with high probability. The folder [probtest-main](probtest-main/) contains installation and usage instructions for the plugin. This repository accompanies the research article [<i>ProbTest: Unit Testing for Probabilistic Programs</i>](https://arxiv.org/abs/2509.02012); published at [SEFM'25](https://sefm-conference.githu",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "itxLikhith/RAVANA",
+    "url": "https://github.com/itxLikhith/RAVANA",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-03-19T11:08:38Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 1,
+    "code_files": 22,
+    "sample_technique_files": [
+      "ravana_core_extended/CHANGELOG.md",
+      "ravana_core_extended/README.md",
+      "ravana_core_extended/ravana_core/critical_thinking.py",
+      "ravana_core_extended/test_ravana_extended.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# RAVANA-AGI-Research > **Advanced Cognitive Architecture for AGI Development** > > Pressure-shaped developmental system integrating human psychology, emotional intelligence, Bayesian reasoning, and cognitive dissonance theory. ![Python](https://img.shields.io/badge/language-Python-blue) ![Research Status](https://img.shields.io/badge/status-Research%20Project-orange) --- ## Table of Contents - [Introduction](#introduction) - [Core Concepts](#core-concepts) - [Architecture Highlights](#architecture-highlights) - [Research Outputs](#research-outputs) - [Getting Started](#getting-started) - [Fut",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "iwalton3/vdx-web",
+    "url": "https://github.com/iwalton3/vdx-web",
+    "stars": 2,
+    "language": "JavaScript",
+    "created_at": "2025-11-25T05:36:24Z",
+    "technique_test_files": 2,
+    "technique_nontest_files": 0,
+    "code_files": 327,
+    "sample_technique_files": [
+      "docs/tasklists/ATTR-CONTRACT-CYCLE-3.md",
+      "docs/tasklists/ATTR-CONTRACT-CYCLE-4.md",
+      "docs/testing.md",
+      "tests/attr-matrix/README.md",
+      "tests/attr-matrix/relations.js"
+    ],
+    "description": "Build modern component-based webapps that run directly in the browser as written. Batteries included, easy to use, no `npm install`!",
+    "topics": [
+      "component-library",
+      "custom-elements",
+      "standalone",
+      "web-framework"
+    ],
+    "readme": "# VDX - Vanilla Developer Experience **vdx-web** (core framework) + **vdx-ui** (component library) A modern web framework with **ZERO npm dependencies**. Reactive state, components, routing, two-way binding - all running directly in the browser with no build step. ## Key Features - **Zero dependencies** - No npm, no node_modules, no supply chain risk - **No build step** - ES6 modules run directly in the browser - **TypeScript support** - Optional `.d.ts` files for type checking ([docs](docs/typescript.md)) - **Reactive state** - Vue-style proxy-based reactivity - **Two-way binding** - `x-model",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "ixmatus/ferrodec",
+    "url": "https://github.com/ixmatus/ferrodec",
+    "stars": 0,
+    "language": "Rust",
+    "created_at": "2026-05-02T15:15:01Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 524,
+    "sample_technique_files": [
+      "docs/decisions/0025-metamorphic-identity-tests.md",
+      "docs/references/verification-map.md",
+      "ferrodec-test-support/src/transcend_oracle.rs"
+    ],
+    "description": "A no_std compatible Decimal 128 library for Rust.",
+    "topics": [],
+    "readme": "# ferrodec [![CI](https://github.com/ixmatus/ferrodec/actions/workflows/ci.yml/badge.svg)](https://github.com/ixmatus/ferrodec/actions/workflows/ci.yml) [![crates.io](https://img.shields.io/crates/v/ferrodec.svg)](https://crates.io/crates/ferrodec) [![docs.rs](https://docs.rs/ferrodec/badge.svg)](https://docs.rs/ferrodec) [![License: MIT OR Apache-2.0](https://img.shields.io/crates/l/ferrodec.svg)](#license) ferrodec is a family of decimal math libraries for Rust. The family spans the three fixed-width IEEE 754-2019 interchange formats, for embedded targets and general-purpose code that want d",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Iyana1127/SGX3-Project",
+    "url": "https://github.com/Iyana1127/SGX3-Project",
+    "stars": 0,
+    "language": "Jupyter Notebook",
+    "created_at": "2025-06-17T15:09:15Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 6,
+    "sample_technique_files": [
+      "Python code.ipynb"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "SGX3 code",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "jaakla/openmapstack-skills",
+    "url": "https://github.com/jaakla/openmapstack-skills",
+    "stars": 69,
+    "language": "Python",
+    "created_at": "2026-05-03T15:43:36Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 6,
+    "code_files": 174,
+    "sample_technique_files": [
+      "docs/maintainers/architecture.md",
+      "docs/maintainers/debugging.md",
+      "docs/verify-applicability.md",
+      "evals/COVERAGE.md",
+      "evals/README.md"
+    ],
+    "description": "AI-agent skill for reproducible, validated GIS analysis — from authoritative data discovery to interactive maps, on an open-first geospatial stack (OSM, Overture, STAC, DuckDB, PostGIS, QGIS, MapLibre).",
+    "topics": [
+      "ai-skill",
+      "claude-code",
+      "duckdb",
+      "geoparquet",
+      "geospatial",
+      "gis",
+      "maplibre",
+      "open-source",
+      "openstreetmap",
+      "overture",
+      "pmtiles",
+      "postgis",
+      "qgis",
+      "reproducible-research",
+      "stac"
+    ],
+    "readme": "# openmapstack\n\n**AI agent skills for geospatial decisions, data discovery, spatial SQL and reproducible analysis projects.**\n\nExplore the [project homepage and two interactive example dashboards](https://jaakla.github.io/openmapstack-skills/). The static Pages site is assembled from the generated NYC and Tartu dashboards with `python3 scripts/build_project_pages.py`; no warehouse credentials are needed to serve it.\n\nInstall (assuming you have git and nodejs with npx already installed):\n```bash\nnpx skills@1.5.26 add jaakla/openmapstack-skills --skill open-map-stack -g\n```\n\nOpenMapStack gives your favorite AI agent: Claude Code, Codex, Cursor, OpenCode, PI and 50+ other agents not just a one-off analysis, but a well-defined **workflow project** (`project.yaml`) defining from data discovery through reusable analysis (`pipeline.py`) to interactive web (`dashboard.html`) and selected deliverables (built-in dashboard by default; optional QGIS or Observable views). The workflow becomes **inspectable** and **repeatable** as a clearly specified project with pinned sources, explicit assumptions and CRS choices and deterministic processing in a python script. It allows also isolated overrides, machine-readable validation, and surfaced provenance.\n\nIt is open-first (both data and code-wise) and cloud-native by default, built on shoulders of the established Open GIS stack: STAC for discovery; GeoParquet, COG, and PMTiles for storage and delivery; DuckDB and PostGIS for compute; and QGIS, MapLibre, and Martin for presentation. It also teaches to deploy GDAL/OGR, GeoPandas, xarray/rioxarray, PDAL, routing engines, spatial SQL, and pragmatic hosted services when scale or reliability requires them.\n\nDashboard basemaps honor user choices and appropriate local or regional services, then fall back to preconfigured goplex.ee Protomaps vector tiles with light/dark switching and visible provider credit. See [web-delivery.md](skills/open-map-stack/references/web-delivery.md#style-and-basemap-sources-open) for the configuration.\n\nExisting v1 manifests with a map must declare `presentation.map.basemap.kind` (`raster-xyz`, `raster-wms`, or `vector-style`). Vector basemaps require a style `url`; add the actual kind to older manifests before validation or regeneration. See the [basemap contract](skills/open-map-stack/references/project-spec.md#27-presentation-semantics).\n\n## What's in this repo\n\nThe skill collection has four independently installable skills:\n\n| Skill | Use it for |\n|---|---|\n| [open-map-stack](skills/open-map-stack/SKILL.md) | Ambiguous or multi-stage GIS work; choose sources, compute, storage and delivery together. |\n| [reproducible-gis-project](skills/reproducible-gis-project/SKILL.md) | Compile or maintain the project manifest, canonical pipeline, pinned sources, corrections, validation and reruns. |\n| [geospatial-data-discovery](skills/geospatial-data-discovery/SKILL.md) | Find and assess open geospatial data under known requirements. |\n| [spatial-sql](",
+    "readme_source": "full"
+  },
+  {
+    "repo": "jackc/jed",
+    "url": "https://github.com/jackc/jed",
+    "stars": 1,
+    "language": "Rust",
+    "created_at": "2026-06-27T20:17:51Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 847,
+    "sample_technique_files": [
+      "scripts/norec_gen.rb",
+      "spec/conformance/determinism_exceptions.toml",
+      "spec/design/conformance.md",
+      "spec/design/determinism.md",
+      "spec/design/regex.md"
+    ],
+    "description": "Embeddable SQL database",
+    "topics": [],
+    "readme": "# jed\n\n**Embeddable. Capable. Safe for untrusted SQL.**\nOne file, no server — types and behavior modeled on PostgreSQL.\n\njed is an in-process SQL database you link into your program — one database is one file on\ndisk, in the spirit of SQLite. It pairs a broad SQL feature set and a rich type system with\nobservable semantics (NULL logic, comparisons, ordering, exact numerics, errors) modeled on\nPostgreSQL — the standing rule is **match PostgreSQL unless there's an overriding reason**\n([CLAUDE.md §1](CLAUDE.md)).\n\n> ⚠️ **Status: 0.x public preview.** jed is pre-1.0. Any release may change behavior or\n> the **on-disk file format** — there are **no stability or compatibility guarantees yet**,\n> and a database file is only guaranteed readable by the jed version that wrote it. See\n> [CHANGELOG.md](CHANGELOG.md).\n\n## Try it\n\nA live, in-browser SQL playground (the engine runs entirely client-side in a Web Worker —\nnothing is sent to a server) and the docs are at **<https://jackc.github.io/jed/>**.\n\n## Use it from Go\n\nThe Go core is pure Go — no cgo, no FFI — so it installs with no native toolchain:\n\n```sh\ngo get github.com/jackc/jed/impl/go@latest\n```\n\n```go\npackage main\n\nimport (\n\t\"fmt\"\n\t\"log\"\n\n\tjed \"github.com/jackc/jed/impl/go\"\n)\n\nfunc main() {\n\t// A path creates a single-file database on disk; jed.NewDatabase() is a transient\n\t// in-memory one. Writes accumulate until an explicit Commit (Close discards uncommitted\n\t// changes).\n\tdb, err := jed.Create(\"people.jed\", jed.DatabaseOptions{PageSize: jed.DefaultPageSize})\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\tdefer db.Close()\n\n\tif _, err := db.ExecuteSQL(\"CREATE TABLE person (id i32 PRIMARY KEY, name text NOT NULL)\", nil); err != nil {\n\t\tlog.Fatal(err)\n\t}\n\tif _, err := db.ExecuteSQL(\"INSERT INTO person VALUES (1, 'Ada'), (2, 'Grace')\", nil); err != nil {\n\t\tlog.Fatal(err)\n\t}\n\tif err := db.Commit(); err != nil {\n\t\tlog.Fatal(err)\n\t}\n\n\trows, err := db.QuerySQL(\"SELECT name FROM person ORDER BY id\", nil)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\tfor rows.Next() {\n\t\tfmt.Println(rows.Row()[0].Render())\n\t}\n}\n```\n\n(The import path's last element is `go`, so Go imports it under an alias — `jed` above. The\nRust core, the `jed` CLI, the npm package, and the Ruby gem are built in this repository but\nare **not yet published** to their registries.)\n\n## What makes jed different\n\n- **SQLite's deployment model, PostgreSQL's behavior, a full SQL engine.** Embeddable\n  single-file storage like SQLite, observable semantics modeled on PostgreSQL, and a broad\n  SQL feature set with a rich, strict type system.\n- **Resource controls for untrusted SQL** ([CLAUDE.md §13](CLAUDE.md)). Memory-safe cores\n  and pure built-ins prevent memory corruption and host access. Deterministic cost budgets,\n  parser limits, a finite scalar-allocation allowance, and an opt-in live query-memory budget\n  over row buffers and operator state bound their documented surfaces. Whole-query memory\n  admission (pending writes, caches) remains in progress; see [memo",
+    "readme_source": "full"
+  },
+  {
+    "repo": "jaensen/circles-ux-experimentation",
+    "url": "https://github.com/jaensen/circles-ux-experimentation",
+    "stars": 3,
+    "language": "TypeScript",
+    "created_at": "2026-07-20T02:22:17Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 502,
+    "sample_technique_files": [
+      "docs/engineering-lessons.md",
+      "src/lib/execution/operationFacts.metamorphic.test.ts"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# Circles Wallet Circles Wallet helps people see, receive, and send Circles without having to reason about every token and route behind a payment. The important number is not only the total in an account. It is how much can reach a particular person right now, and what can change when the amount falls short. This repository is a mobile-first product experiment and its supporting assurance system. It can read real Circles accounts on Gnosis Chain. The checked-in production configuration does not authorize real-value writes; reviewed writes run against a disposable local fork with test funds. Th",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "jamesc/beamtalk",
+    "url": "https://github.com/jamesc/beamtalk",
+    "stars": 6,
+    "language": "Rust",
+    "created_at": "2026-01-27T12:45:11Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 2,
+    "code_files": 1426,
+    "sample_technique_files": [
+      "Justfile",
+      "crates/beamtalk-cli/src/commands/test_metamorphic.rs",
+      "crates/beamtalk-cli/src/main.rs",
+      "crates/beamtalk-cli/tests/cli/cli_test_metamorphic.rs",
+      "crates/beamtalk-examples/corpus.json"
+    ],
+    "description": "BeamTalk: Where actors don't just run—they evolve.",
+    "topics": [],
+    "readme": "[![CI](https://github.com/jamesc/beamtalk/actions/workflows/ci.yml/badge.svg)](https://github.com/jamesc/beamtalk/actions/workflows/ci.yml)\n[![API Docs](https://img.shields.io/badge/docs-API%20Reference-blue)](https://www.beamtalk.dev/apidocs/)\n[![Rust coverage](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/jamesc/beamtalk/badges/rust-coverage.json)](https://github.com/jamesc/beamtalk/actions/workflows/ci.yml)\n[![Erlang coverage](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/jamesc/beamtalk/badges/erlang-coverage.json)](https://github.com/jamesc/beamtalk/actions/workflows/ci.yml)\n[![Elixir coverage](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/jamesc/beamtalk/badges/elixir-coverage.json)](https://github.com/jamesc/beamtalk/actions/workflows/liveview.yml)\n\n<picture>\n  <source srcset=\"docs/images/beamtalk-logo-dark.svg\" media=\"(prefers-color-scheme: dark)\" style=\"max-width: 480px; width: 100%; height: auto;\" />\n  <source srcset=\"docs/images/beamtalk-logo-light.svg\" media=\"(prefers-color-scheme: light)\" style=\"max-width: 480px; width: 100%; height: auto;\" />\n  <img src=\"docs/images/beamtalk-logo-light.svg\" width=\"480\" />\n</picture>\n\n**A live, interactive Smalltalk-like language for the BEAM VM**\n\nBeamtalk brings Smalltalk's legendary live programming experience to Erlang's battle-tested runtime. While inspired by Smalltalk's syntax and philosophy, Beamtalk makes pragmatic choices for modern development (see [Syntax Rationale](docs/beamtalk-syntax-rationale.md)). Write code in a running system, hot-reload modules without restarts, and scale to millions of concurrent actors.\n\n```beamtalk\n// Spawn an actor with state\ncounter := Counter spawn\n\n// Send messages (sync by default)\ncounter increment\ncounter increment\nvalue := counter getValue // => 2\n\n\n// Send an async message\ncounter increment!  // => ok\n// Cascades - multiple messages to same receiver\nTranscript show: \"Hello\"; cr; show: \"World\"\n\n// Map literals\nconfig := #{#host => \"localhost\", #port => 8080}\n```\n\n…and a live, browser-based IDE attached to the running system — system browser,\nlive method editing, and a workspace eval pane (the *[LiveView IDE](#liveview-ide)*):\n\n![The Beamtalk LiveView IDE — system browser, method editor, live bindings, and a workspace eval pane, all attached to a running workspace](docs/images/liveview-ide.png)\n\n---\n\n## Why Beamtalk?\n\n| Feature | Benefit |\n|---------|---------|\n| **Interactive-first** | REPL and live workspace, not batch compilation |\n| **Hot code reload** | Edit and reload modules in running systems |\n| **Actor model** | Actors are BEAM processes with independent fault isolation |\n| **Gradual typing** | Opt-in `typed` classes with inference through generics, unions, FFI, and narrowing |\n| **Reflection** | Inspect any actor's state and methods at runtime |\n| **Runs on BEAM** | Compiles to Core Erlang; deploy to existing OTP infrastructure |\n| **Native Erlang FFI** | Call any OTP func",
+    "readme_source": "full"
+  },
+  {
+    "repo": "JamesTu-jtjt/JamesTu-jtjt.github.io",
+    "url": "https://github.com/JamesTu-jtjt/JamesTu-jtjt.github.io",
+    "stars": 0,
+    "language": "JavaScript",
+    "created_at": "2023-09-29T05:40:15Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 5,
+    "sample_technique_files": [
+      "src/data.js"
+    ],
+    "description": "My personal website source code.",
+    "topics": [],
+    "readme": "# James Tu — Personal Website Personal portfolio and research site built with React and Vite. ## Local development ```bash npm install npm run dev ``` ## Deployment Pushes to `main` are built and deployed to GitHub Pages through the workflow in `.github/workflows/deploy.yml`. In the repository’s **Settings → Pages**, set the source to **GitHub Actions**.",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "jamon8888/anno",
+    "url": "https://github.com/jamon8888/anno",
+    "stars": 0,
+    "language": "Rust",
+    "created_at": "2026-05-05T11:46:05Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 780,
+    "sample_technique_files": [
+      "crates/anno-eval/src/eval/property_tests.rs"
+    ],
+    "description": "HC",
+    "topics": [],
+    "readme": "# Hacienda [![crates.io](https://img.shields.io/crates/v/anno.svg)](https://crates.io/crates/anno) [![Documentation](https://docs.rs/anno/badge.svg)](https://docs.rs/anno) [![CI](https://github.com/jamon8888/anno/actions/workflows/ci.yml/badge.svg)](https://github.com/jamon8888/anno/actions/workflows/ci.yml) > **Hacienda** est le nom de ce projet. Les crates conservent leurs noms historiques (`anno`, `anno-cli`, `anno-rag`, `anno-privacy-gateway`, `anno-rag-tabular`) pour la rétro-compatibilité ; « Hacienda » désigne le workspace dans son ensemble. **Hacienda est une boîte à outils Rust pour t",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Jan0412/GuidedResearch",
+    "url": "https://github.com/Jan0412/GuidedResearch",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-05-31T15:45:50Z",
+    "technique_test_files": 2,
+    "technique_nontest_files": 0,
+    "code_files": 385,
+    "sample_technique_files": [
+      "tests/generation/properties/test_text_metamorphic.py",
+      "tests/generation/properties/test_trace_metamorphic.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# ProcessKernel: Calibrated Process Supervision for GPU Kernel Generation An execution-free process supervision framework that turns one-time outcome measurements into reusable guidance for unfinished GPU kernels during autoregressive generation. [KernelBench](https://github.com/ScalingIntelligence/KernelBench) | [KernelBook dataset](https://huggingface.co/datasets/GPUMODE/KernelBook) | [License](LICENSE) ![Overview of the ProcessKernel framework](assets/pipeline.png) ## 👋 Overview Generating efficient GPU kernels requires searching a vast space of functionally equivalent programs whose perfor",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "japancartoon/weaktostrong",
+    "url": "https://github.com/japancartoon/weaktostrong",
+    "stars": 2,
+    "language": "Python",
+    "created_at": "2026-04-07T01:10:23Z",
+    "technique_test_files": 3,
+    "technique_nontest_files": 1,
+    "code_files": 78,
+    "sample_technique_files": [
+      "PHASE_6_COMPLETE.md",
+      "state_engine/verification/test_generator.py",
+      "state_engine/verification/verification_pyramid.py",
+      "tests/test_stress_researcher.py",
+      "tests/test_verification_pyramid.py"
+    ],
+    "description": "Turn weak models into flagship performers through intelligent scaffolding",
+    "topics": [],
+    "readme": "# WeakToStrong 🧠⚡ **Turn weak models into flagship performers through intelligent scaffolding.** [![Tests](https://img.shields.io/badge/tests-89%20passing-brightgreen)]() [![Coverage](https://img.shields.io/badge/coverage-85%25-green)]() [![Python](https://img.shields.io/badge/python-3.10%2B-blue)]() [![License](https://img.shields.io/badge/license-MIT-blue)]() ## The Problem GPT-4.1 is fast and cheap. Claude Opus is slow and expensive. What if we could get Opus-level results at GPT-4.1 prices? ## The Solution **Weak Model + Smart Scaffolding = Flagship Performance** WeakToStrong wraps a weak",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "javaNoviceProgrammer/Ngspice_OpenVAF_Enhancements",
+    "url": "https://github.com/javaNoviceProgrammer/Ngspice_OpenVAF_Enhancements",
+    "stars": 11,
+    "language": "C",
+    "created_at": "2026-06-26T12:45:58Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 3270,
+    "sample_technique_files": [
+      "examples/vafmeta_examples/fuzz/metamorph.py"
+    ],
+    "description": "Using Claude Code AI to enhance the ngspice and openvaf frameworks.",
+    "topics": [],
+    "readme": "# Ngspice + OpenVAF Enhancements\n**Owner: Dr. Meisam Bahadori**\n\nUsing Claude Code AI to enhance the ngspice and openvaf frameworks.\n\n[![Build binaries](https://github.com/javaNoviceProgrammer/Ngspice_OpenVAF_Enhancements/actions/workflows/build-binaries.yml/badge.svg)](https://github.com/javaNoviceProgrammer/Ngspice_OpenVAF_Enhancements/actions/workflows/build-binaries.yml)\n\nMain goals:\n- turn ngspice into the most powerful spice simulator ([ngspice vs. Spectre gap analysis](docs/internals/ngspice_internals/ngspice_gaps.md))\n- turn openvaf-r into the most powerful verilog-a compiler ([Verilog-A LRM compliance report](docs/compliance/OpenVAF_Verilog-A_LRM_Compliance.md))\n\n\n## Precursors\n\nOriginal OpenVAF git repository by Pascal Kuthe:\n\nhttps://github.com/pascalkuthe/OpenVAF\n\nOpenVAF-Reloaded git repository by Árpád Bűrmen:\n\nhttps://github.com/arpadbuermen/OpenVAF\n\nNgspice Homepage:\n\nhttps://ngspice.sourceforge.io/\n\n---\n\n## The Enhancements\n\nEight hundred enhancements so far — language features, correctness fixes, systematic audits, and simulator-side workflow tooling, each verified end-to-end by a committed example suite and released with a detailed write-up.\n\n**🗂️ Browse them all in the [live feature catalog](https://javanoviceprogrammer.github.io/Ngspice_OpenVAF_Enhancements/)** — every enhancement grouped into 19 feature areas across the compiler and the simulator, searchable, with each entry linking to its write-up.\n\n**📖 Start with the [User Handbook](docs/handbook/README.md)**, which organizes everything by topic: [getting started](docs/handbook/01-getting-started.md), the [Verilog-A feature matrix](docs/handbook/02-verilog-a-language.md), [ngspice workflows](docs/handbook/03-ngspice-workflows.md), and the [limitations & gotchas](docs/handbook/04-limitations-and-gotchas.md). The whole handbook plus the complete text of every enhancement write-up is also one linked PDF: [docs/Ngspice-OpenVAF-Handbook.pdf](docs/Ngspice-OpenVAF-Handbook.pdf).\n\n**🔧 Want to understand the compiler itself?** [OpenVAF Compiler Internals](docs/internals/openvaf_internals/OpenVAF_compiler_internals.md) ([PDF](docs/internals/openvaf_internals/OpenVAF_compiler_internals.pdf)) is a ground-up, no-prior-knowledge walkthrough of how `openvaf-r` turns a Verilog-A model into a `.osdi` library — every stage of the pipeline (lexing → HIR → MIR → automatic differentiation → LLVM → OSDI), with real dumped IR traced end-to-end on a worked example.\n\n**⚙️ Want to understand the simulator itself?** [ngspice Simulator Internals](docs/internals/ngspice_internals/ngspice_simulator_internals.md) ([PDF](docs/internals/ngspice_internals/ngspice_simulator_internals.pdf)) is the companion guide — a ground-up walkthrough of how `ngspice-46` turns a netlist into a running circuit: the shell/engine split, the netlist parser, the `CKTcircuit`, the `SPICEdev` device interface, the sparse-matrix Newton loop, the analyses, and — crucially — how OpenVAF `.osdi` models plug in as first-class device",
+    "readme_source": "full"
+  },
+  {
+    "repo": "javileyes/ExpliCAS",
+    "url": "https://github.com/javileyes/ExpliCAS",
+    "stars": 1,
+    "language": "Rust",
+    "created_at": "2025-11-26T12:02:00Z",
+    "technique_test_files": 11,
+    "technique_nontest_files": 1,
+    "code_files": 2715,
+    "sample_technique_files": [
+      "README.md",
+      "crates/cas_cli/tests/canonical_tests.rs",
+      "crates/cas_solver/tests/equation_corpus.csv",
+      "crates/cas_solver/tests/equation_pairs.csv",
+      "crates/cas_solver/tests/identity_pairs.csv"
+    ],
+    "description": "CAS for education. Step by Step Explanations",
+    "topics": [],
+    "readme": "# ExpliCAS — a step-by-step Computer Algebra System in Rust\n\n**ExpliCAS** is a Computer Algebra System written in Rust with a sharp north star: be **serious and universal across the real-domain university curriculum — and educational at every step.** Today that span covers single-variable calculus (with rational integration taken to its theoretical ceiling), multivariable and vector calculus, elementary complex arithmetic, the full elementary ODE course, and equation systems (linear n×n, parametric, and nonlinear bivariate). It does not merely return an answer; it shows the rules that produced it, keeps every decision **exact** (`BigRational`, never floating point), and — by design — **never returns a silent wrong answer.** When a result is genuinely out of reach, it says so honestly rather than guessing.\n\nThat combination is unusual. On its home turf ExpliCAS reaches results that trip up mainstream systems: it integrates **every** rational function (returning an exact parameterized form even for the cases where no closed radical form exists), keeps the **complete** periodic family of a trigonometric equation instead of truncating it, and refuses to hand back a finite number for a divergent integral.\n\n## Live Demo\n\n🌐 **Try it online:** [https://javileyes.github.io/ExpliCAS/](https://javileyes.github.io/ExpliCAS/)\n\n**Browser-only mode (WebAssembly).** The full engine also compiles to WASM (~8 MB) and runs entirely client-side — same JSON wire, exact `BigRational` arithmetic, zero server. `scripts/build_pages_site.sh` assembles the static site and `.github/workflows/pages.yml` deploys it to GitHub Pages on every push to `main` (one-time activation: repo Settings → Pages → Source: *GitHub Actions*). The wasm build pins **nightly** Rust (stable's LLVM currently blows up on wasm32 codegen of the engine; fixed upstream) — native builds stay on stable. The classic server deployment (`web/server.py`) is unaffected: the frontend is dual-mode and picks the engine per `build-config.js`.\n\n![ExpliCAS Web Demo](docs/explicas_web_demo.png)\n\n## Highlights\n\nEvery example below is real output from the current build (`target/release/cas_cli eval \"…\"`).\n\n### 🏆 Universal rational integration\n\n**Any** rational function `N(x)/D(x)` integrates. When the denominator factors over ℚ it stays there; when it needs an algebraic extension the surds appear only in the render; and when the coefficients live in a Galois-obstructed field with **no closed radical form at all**, the answer is emitted as an exact parameterized sum over the roots of a resolvent — the only elementary form that exists.\n\n```text\nintegrate(1/(x^8+1), x)     →  the exact arctan+log closed form over √(2±√2)\n                               (some mainstream CAS return a wrong \"0\" here)\nintegrate(1/(x^5-1), x)     →  conjugate quadratic pair over ℚ(√5)\nintegrate(1/(x^3-2), x)     →  real split over ℚ(∛2): log + arctan\nintegrate(1/(x^5-x-1), x)   →  root_sum(-2869·t^5 - …, t, t·ln(x - w(t)))\n                    ",
+    "readme_source": "full"
+  },
+  {
+    "repo": "jbgh2/card-game-dsl",
+    "url": "https://github.com/jbgh2/card-game-dsl",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-05-28T02:19:36Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 533,
+    "sample_technique_files": [
+      "docs/design-notes/metamorphic-suite.md",
+      "docs/plans/2026-08-28-primitives-block-stage3a.md",
+      "docs/research/architect-sourcebook.md",
+      "tests/metamorphic/test_reorder.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# cardlang > A compiler that turns declarative card-game rules into hidden-information > environments where automated checks confirm each player sees only what the > rules allow, with game-theoretic baselines through > [OpenSpiel](https://github.com/google-deepmind/open_spiel). Source-available under a noncommercial license. See [License](#license) before building on it. ## Three ways in A game is a rules file. Hearts begins: ``` game Hearts { players: 4 direction: clockwise max_length: 5000 cards: standard52 ranking: aces high zones { deck : Deck hand[player] : Hand<player> trick_pile : Trick",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "jbowens/metamorphic",
+    "url": "https://github.com/jbowens/metamorphic",
+    "stars": 0,
+    "language": "Go",
+    "created_at": "2023-07-28T17:48:21Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 5,
+    "sample_technique_files": [
+      "metamorphic.go"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "metamorphic [![GoDoc](https://godoc.org/github.com/cockroachdb/metamorphic?status.svg)](https://pkg.go.dev/github.com/cockroachdb/metamorphic) ===========",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "jCabala/zkp-compiler-testing",
+    "url": "https://github.com/jCabala/zkp-compiler-testing",
+    "stars": 0,
+    "language": "SMT",
+    "created_at": "2026-02-20T13:08:33Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 17,
+    "code_files": 661,
+    "sample_technique_files": [
+      "README.md",
+      "circuzz/README.md",
+      "circuzz/fyp_experiments/README.md",
+      "circuzz/src/backends/circom/core.py",
+      "circuzz/src/backends/circom/helper.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# FYP — Fuzzing ZKP Compilers This repository contains the full codebase for an FYP at Imperial College London on fuzzing of zero-knowledge proof (ZKP) compilers. ## Repository layout | Folder | Description | |---|---| | [`circuzz/`](circuzz/README.md) | Fork of the Circuzz metamorphic testing framework, extended with new backends, oracles, and generators. | | [`smt-solver/`](smt-solver/README.md) | SMT-based oracle and CLI for compiling ZK DSL programs to SMT2, solving them, and driving YinYang fusion experiments. | | [`evaluation/`](evaluation/) | Evaluation data, analysis notebooks, and res",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "jcailloux/relais",
+    "url": "https://github.com/jcailloux/relais",
+    "stars": 1,
+    "language": "C++",
+    "created_at": "2026-02-13T18:07:36Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 199,
+    "sample_technique_files": [
+      "tests/relais/test_erase_invalidate_batch.cpp"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# relais **A header-only C++23 repository library for PostgreSQL, with an optional Redis L2 tier** — L1/L2/L3 caching (RAM → Redis → PostgreSQL) assembled at compile time from template parameters: zero virtual calls, zero runtime configuration overhead. The backends are deliberate: batching, pipelining, and invalidation build on libpq's pipeline mode and Redis RESP, not a generic SQL/KV abstraction. Adopting relais means plugging in a component, not an ecosystem — its coroutine runtime, Redis client, and L1 map are all internal (see [Requirements](#requirements)). ```cpp using UserRepo = relai",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "jcoronelcortes/TCG-AI",
+    "url": "https://github.com/jcoronelcortes/TCG-AI",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-07-19T15:15:28Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 1,
+    "code_files": 503,
+    "sample_technique_files": [
+      "docs/testing.md",
+      "tests/test_the_menu_order_does_not_decide.py",
+      "utils/permutation_probe.py"
+    ],
+    "description": "A heuristic agent that plays the Pokémon Trading Card Game, built for the Kaggle PTCG AI Battle Challenge. No machine learning: every rule came from a game that was lost, was measured against real leaderboard decks, and was kept only if it won more of them.",
+    "topics": [
+      "pokemon-tcg"
+    ],
+    "readme": "# TCG-AI\n\nAn entry for the Kaggle competition **[The Pokémon Company — PTCG AI Battle\nChallenge Simulation](https://www.kaggle.com/competitions/pokemon-tcg-ai-battle)**:\na **heuristic agent that plays Pokémon Trading Card Game** against other\npeople's agents inside the competition's simulator.\n\nIt receives the game state, scores every legal option, and plays the best one.\nThere is no machine learning: every rule was written by a human, measured\nagainst real games, and kept only if it won more of them.\n\n```python\nfrom main import agent\n\nselection = agent(observation)   # -> the indexes of the options to play\n```\n\n## What the competition asks for\n\nThe competition page is the authority on rules, timeline and scoring — this\npage does not restate them, because a copy would rot. What matters for reading\nthis repository is the shape of the contract the agent has to satisfy, and that\nis visible in the code:\n\n- **One function.** A submission is Python that the competition runner loads\n  with `exec` and calls for every decision, taking the LAST callable it finds.\n  Ours is `agent(observation) -> list[int]`, and it is deliberately the last\n  thing in [main.py](main.py). The loader is vendored verbatim in\n  [tests/kaggle_loader.py](tests/kaggle_loader.py) so the smoke test can load\n  the submission exactly the way the container does.\n- **Menus, not moves.** Each observation carries the state plus the list of\n  options that are legal right now. The agent returns indexes into that list,\n  which is why every rule in here ends up as a score attached to an option.\n- **A 60-card deck**, ours in [deck.csv](deck.csv), fixed for every game.\n- **Agent against agent**, on a ladder. Games are played by the simulator that\n  ships in [cg/](cg/) — the same one the competition runs, native library\n  included, which is what makes the local self-play and matchup measurements\n  worth anything.\n- **A packaged submission**: `submission.tar.gz`, built by\n  [utils/package_project.py](utils/package_project.py), containing the agent and\n  the local packages it imports. Nothing gets installed in that container, so\n  the agent depends on the standard library alone.\n\nIf you are here to read the agent rather than to run it, start with\n[docs/how-the-agent-thinks.md](docs/how-the-agent-thinks.md).\n\n## The deck it pilots\n\nSixty cards, the same ones every game. Almost every rule in the project only\nmakes sense against this list, so it is worth seeing before reading any of them.\nThe picture is generated from [deck.csv](deck.csv) itself —\n`python deck/render_deck_image.py` — so it cannot drift away from what the agent\nactually plays.\n\n![The 60-card list the agent pilots](deck/deck_en.jpg)\n\nTwenty Pokémon around two engines — Teal Mask Ogerpon ex attaching Grass off\n*Teal Dance*, Meganium making every Grass count double — and a Hydrapple ex to\npivot into when the active is doomed. The list last moved on 13 August 2026.\n[Our deck and its engines](docs/deck-and-engines.md) is the card-by-card\nre",
+    "readme_source": "full"
+  },
+  {
+    "repo": "jcraig949jfi/Prometheus",
+    "url": "https://github.com/jcraig949jfi/Prometheus",
+    "stars": 2,
+    "language": "Python",
+    "created_at": "2026-03-22T15:57:10Z",
+    "technique_test_files": 46,
+    "technique_nontest_files": 60,
+    "code_files": 15372,
+    "sample_technique_files": [
+      "agents/coeus/enrichments/Abductive_Reasoning_x_Graph_Theory_x_Metamorphic_Testing.json",
+      "agents/coeus/enrichments/Abductive_Reasoning_x_Hebbian_Learning_x_Metamorphic_Testing.json",
+      "agents/coeus/enrichments/Abductive_Reasoning_x_Metamorphic_Testing_x_Prime_Number_Theory.json",
+      "agents/coeus/enrichments/Abductive_Reasoning_x_Metamorphic_Testing_x_Reservoir_Computing.json",
+      "agents/coeus/enrichments/Abstract_Interpretation_x_Criticality_x_Multi-Armed_Bandits.json"
+    ],
+    "description": "Stealing fire from the gods -- forging the symbolic substrate where reasoning circuits emerge",
+    "topics": [],
+    "readme": "# PROMETHEUS\n\n## The Search for Evolving Sagacity\n\n### From Computational Discovery to the Artificial Evolution of Intelligence\n\nPrometheus is an extraordinarily ambitious, multi-agent scientific research program investigating whether genuinely novel forms of intelligence, reasoning, and knowledge representation can emerge through computational evolution.\n\nIts ultimate ambition is not to build another large language model, optimize an existing neural network, or reproduce familiar human reasoning strategies. It is to discover the underlying computational conditions from which reasoning capabilities can arise, develop, combine, and ultimately improve the machinery responsible for discovering further capabilities.\n\nAt its most ambitious, Prometheus asks:\n\n> Can we create computational ecosystems in which intelligence is not explicitly designed, but progressively discovered—and in which the capacity for discovery itself evolves?\n\nThis ambition has matured through three major research phases into a more precise North Star: the search for evolving Sagacity.\n\nSagacity describes a hypothetical form of accumulating computational intelligence in which algorithmic reasoning, symbolic compression, knowledge representation, and learning mechanisms co-evolve. An increasingly sagacious system would not merely solve harder problems. It would develop better ways of representing problems, discovering useful regularities, compressing experience into reusable abstractions, recognizing the limitations of its knowledge, and expanding its own future learning capabilities.\n\nPrometheus is interested especially in computational mechanisms that human designers might never have imagined. These potentially alien forms of reasoning must be judged by their observable behavior, causal properties, and transferability—not by whether they resemble familiar algorithms.\n\nThe program’s central scientific challenge is therefore to discover how increasingly sophisticated cognition might emerge from relatively primitive computational ingredients without secretly supplying the desired intelligence through human-designed mechanisms, reward functions, or evaluation machinery.\n\n---\n\n## Phase 1: Exploration, Computational Archaeology, and the Search for Reasoning Primitives\n\nThe first phase of Prometheus was characterized by broad exploration.\n\nNumerous experimental approaches investigated computational mechanisms, mathematical structures, unfamiliar algorithms, synthetic environments, program representations, and potentially useful fragments of reasoning.\n\nA central motivation was that the universe of possible computational intelligence may be vastly larger than the relatively narrow collection of architectures familiar to human researchers.\n\nRather than assuming intelligence must resemble neural networks, symbolic logic, or conventional programs, Prometheus sought ways to discover and examine mechanisms from many different computational traditions.\n\nThe program began developing a distribu",
+    "readme_source": "full"
+  },
+  {
+    "repo": "jeanibarz/knowledge-base-mcp-server",
+    "url": "https://github.com/jeanibarz/knowledge-base-mcp-server",
+    "stars": 53,
+    "language": "TypeScript",
+    "created_at": "2025-02-08T14:42:35Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 504,
+    "sample_technique_files": [
+      "src/__property-tests__/injection-guard.property.test.ts"
+    ],
+    "description": "This MCP server provides tools for listing and retrieving content from different knowledge bases.",
+    "topics": [],
+    "readme": "# Knowledge Base MCP Server\n\n[![Tests](https://github.com/jeanibarz/knowledge-base-mcp-server/actions/workflows/test.yml/badge.svg)](https://github.com/jeanibarz/knowledge-base-mcp-server/actions/workflows/test.yml)\n[![npm](https://img.shields.io/npm/v/@jeanibarz/knowledge-base-mcp-server.svg)](https://www.npmjs.com/package/@jeanibarz/knowledge-base-mcp-server)\n[![License](https://img.shields.io/github/license/jeanibarz/knowledge-base-mcp-server)](./UNLICENSE)\n[![Node.js >= 20](https://img.shields.io/badge/node-%3E%3D20-brightgreen)](./package.json)\n\nPoint this server at a folder of markdown notes and it becomes searchable by meaning, not just by keyword — from your AI client, or from your shell.\n\nYou keep your notes as ordinary files on your own disk. The server reads them, splits them into chunks, turns each chunk into a vector with an embedding model of your choosing (a local Ollama model, OpenAI, or HuggingFace), and stores those vectors in a local [FAISS](https://faiss.ai/) index. Run it with a local embedding model and a local LLM and your notes never leave the machine; point it at a hosted provider and only then do they cross the network. Two front doors sit on top of that index:\n\n- **An MCP server** that any [Model Context Protocol](https://modelcontextprotocol.io) client — Claude Desktop, Codex CLI, Cursor, Continue, Cline — can call to search your notes, ask questions answered from them, and (optionally) write new ones.\n- **A `kb` command-line tool** for the same corpus from a terminal or an agent's shell, plus the operational commands the MCP surface doesn't expose: indexing, diagnostics, evaluation, and note curation.\n\nThroughout the docs, a *knowledge base* (or *shelf*) is one subdirectory of your notes root — `work/`, `research/`, `personal/` — that you can search individually or together.\n\n### Demo\n\n![kb CLI demo — list knowledge bases, ask a natural-language question, get scored markdown results](docs/assets/demo.svg)\n\nReal output, no mock data: the capture drives the `kb` CLI against a small knowledge base seeded from this repo's own `docs/`, indexed with the default Ollama embedding model. Regenerate it with [`docs/assets/record-demo.sh`](docs/assets/record-demo.sh).\n\n[![smithery badge](https://smithery.ai/badge/@jeanibarz/knowledge-base-mcp-server)](https://smithery.ai/server/@jeanibarz/knowledge-base-mcp-server)\n\n<a href=\"https://glama.ai/mcp/servers/n0p6v0o0a4\">\n  <img width=\"380\" height=\"200\" src=\"https://glama.ai/mcp/servers/n0p6v0o0a4/badge\" alt=\"Knowledge Base Server MCP server\" />\n</a>\n\n## Contents\n\n| Section | Read it when |\n| --- | --- |\n| [Install](#install) | Getting the server or the `kb` CLI onto your machine. |\n| [Configure](#configure) | Choosing an embedding provider and laying out your notes. |\n| [Use the MCP server](#use-the-mcp-server) | Wiring an AI client to your knowledge bases. |\n| [Use the `kb` CLI](#use-the-kb-cli) | Searching, asking, writing, and curating from a shell. |\n| [Tune retrieval quality](#tu",
+    "readme_source": "full"
+  },
+  {
+    "repo": "jegi/Beijing-exercises",
+    "url": "https://github.com/jegi/Beijing-exercises",
+    "stars": 34,
+    "language": "Haskell",
+    "created_at": "2023-10-07T12:17:33Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 36,
+    "sample_technique_files": [
+      "Tuesday/Materials/BSTSpec.hs"
+    ],
+    "description": "Exercises and other materials for the course on FP and QuickCheck at Peking University in October 2023",
+    "topics": [],
+    "readme": "",
+    "readme_source": "none"
+  },
+  {
+    "repo": "JerryLi7332/ShellCraft",
+    "url": "https://github.com/JerryLi7332/ShellCraft",
+    "stars": 1,
+    "language": "Python",
+    "created_at": "2026-07-02T08:08:13Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 19,
+    "sample_technique_files": [
+      "README.md",
+      "test/test_metamorphic.py"
+    ],
+    "description": "A course work for Software Engineering (Honor Track) , 2026Spring, PKU",
+    "topics": [],
+    "readme": "# PKU Shell — Developer Guide\n\n> This document is written for developers who want to understand the codebase. For language syntax and application semantics, see the course README.\n\n## ShellCraft Group Members\n\n| Name | Student ID |\n|------|-----------|\n| Shuhua Li (李抒桦) | 2300013114 |\n| Goh YaJie (吴亚杰) | 2300094818 |\n| Andrew Xia (夏安竹) | 2502010532 |\n\n---\n\n## 1. Architecture\n\n### 1.1 Data Flow\n\nA single command line goes through three stages:\n\n```\nRaw string → Parser → AST → Executor → Apps\n```\n\n| Stage | Module | Responsibility |\n|-------|--------|----------------|\n| Parse | `parser.py` | Lark grammar → AST nodes |\n| Execute | `ast_executor.py` | Visitor pattern traversal |\n| Run app | `app_factory.py` + `app_adapter.py` | Name lookup, cwd management |\n\n### 1.2 Source Files (`src/`)\n\n| File | What it does | Key exports |\n|------|-------------|-------------|\n| `shell.py` | CLI entry point (`-c` mode) and REPL loop | `run_repl()`, `eval_with_ast_executor()` |\n| `parser.py` | Lark-based parser + manual tokenizer for redirections | `parse_command_line()` |\n| `ast_nodes.py` | Frozen dataclasses: CallNode, PipeNode, SequenceNode, ArgAtom, etc. | All AST node types |\n| `ast_executor.py` | Visitor that walks AST and invokes apps | `AstExecutor.execute()` |\n| `execution_context.py` | Mutable execution state (cwd, stdin, stdout) | `ExecutionContext` |\n| `app_factory.py` | Registry of 13 safe + 13 unsafe apps | `AppFactory.create()` |\n| `app_adapter.py` | `LegacyFunctionAppAdapter` (cwd switch) + `UnsafeAppAdapter` (exception swallow) | `App` ABC |\n| `legacy_apps.py` | 13 built-in app implementations (`run_echo`, `run_grep`, etc.) | All `run_*` functions |\n| `errors.py` | 4 ParseError subclasses | `ParseError`, `UnclosedQuoteError`, ... |\n\nDependency direction (must not cycle):\n\n```\nshell.py → parser.py, ast_executor.py, app_factory.py\nast_executor.py → app_factory.py, execution_context.py\napp_factory.py → app_adapter.py\napp_adapter.py → legacy_apps.py, execution_context.py\n```\n\n### 1.3 Test Files (`test/`)\n\n| File | Coverage target |\n|------|----------------|\n| `test_parser_command_level.py` | Grammar: pipe, sequence, redirection, quotes |\n| `test_ast_structure.py` | Node construction and `accept()` dispatch |\n| `test_ast_executor.py` | Visitor: pipe semantics, globbing, substitution, redirection |\n| `test_apps.py` | All 13 apps: normal paths, stdin mode, error paths |\n| `test_shell_entry.py` | REPL completion, CLI argument handling, `-c` mode |\n| `test_robust_error_handling.py` | KeyboardInterrupt, EOFError, cwd restoration |\n| `test_property_based.py` | Hypothesis: parser crash-freedom, backquote expansion |\n| `test_metamorphic.py` | Metamorphic relations (sort, wc, cat) |\n\n### 1.4 Design Patterns Used\n\n- **Visitor** — `ast_executor.py` traverses AST via double dispatch (`node.accept(visitor)`)\n- **Adapter** — `LegacyFunctionAppAdapter` wraps old `(args, out, stdin)` functions into `App.run(args, context)`\n- **Decorator** — `UnsafeAppAdapter` adds excep",
+    "readme_source": "full"
+  },
+  {
+    "repo": "jesserobertson/multigrid",
+    "url": "https://github.com/jesserobertson/multigrid",
+    "stars": 15,
+    "language": "C++",
+    "created_at": "2011-05-18T21:44:04Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 114,
+    "sample_technique_files": [
+      "tests/test_properties.cpp"
+    ],
+    "description": "Simple linear multigrid PDE solver written in C++",
+    "topics": [],
+    "readme": "# libmultigrid\n\nA finite-difference multigrid solver for elliptic PDEs on rectangular domains.\n\nThe library discretises a second-order elliptic PDE on a rectangular grid and\ndrives it to its discrete solution with a geometric multigrid cycle: red-black\nGauss-Seidel smoothing, full-weighting restriction and bilinear interpolation for\ntransferring residuals and corrections between levels, and V-, W- or\nfull-multigrid (FMG) cycling. Solutions are written to netCDF. You describe a\nparticular PDE by subclassing `mgrid::LinearMultigrid` (or\n`mgrid::NonlinearMultigrid`) and supplying a discrete operator and a point\nsmoother; the cycle machinery, grid hierarchy, boundary handling and output are\nprovided.\n\nOriginally written in 2010-2011 against Blitz++/Boost/netCDF; this version is a\nC++23 modernisation with a hand-written array layer and a containerised build.\nSee the [design notes](#design-notes) below.\n\n## Build & test\n\n**Prerequisites:** Docker or Podman, plus the [`dvt`](https://github.com/jesserobertson/dvt) CLI\nthat drives the devcontainer.\n\n```\ndvt up                       # first time: builds the devcontainer\ndvt run just build           # configure + compile\ndvt run just test            # build, then run the full ctest suite\ndvt run just lint            # clang-format + clang-tidy quality gate\n```\n\n`dvt run <cmd>` executes `<cmd>` inside the running devcontainer through the\nworkspace user's login shell, so the Homebrew Clang toolchain, Catch2 and the\n`just` recipes are on `PATH` without entering the container; `dvt ssh` opens an\ninteractive shell there if you'd rather run the recipes directly.\n\n`just build` configures a Ninja `RelWithDebInfo` tree under `build/` and compiles\nthe library, examples and tests; `just test` builds then runs `ctest`; `just\nclean` empties the build tree.\n\n`just lint` is the static-analysis gate: `just format-check` fails if any tracked\nC++ source is not `clang-format`-clean (the `just format` fix-up set), and `just\ntidy` runs `clang-tidy` (`--warnings-as-errors='*'`, config in `.clang-tidy`)\nover `src/` and `include/multigrid/`.\n\n`.github/workflows/ci.yml` runs `just test` and `just lint` in the devcontainer\non every push and pull request.\n\nThe C++ toolchain (Homebrew Clang 23, C++23) is provided by the `cpp-devtools`\ndevcontainer feature. The library dependencies -- `netcdf-cxx` (the netcdf-cxx4\nC++ interface) and `catch2` -- are installed from the `Brewfile` by the\ncontainer's post-create step. No `brew install` / `apt-get install` of Boost,\nBlitz++, cmake or netCDF is needed.\n\nThe documentation toolchain is separate and runs through pixi:\n\n```\njust docs                    # pixi run -e docs docs  (mkdocs build --strict)\n```\n\n## Visualising the examples\n\nThe worked examples' netCDF output is turned into figures by the `mgviz`\nPython package (`viz/`), which runs in its own pixi environment:\n\n```\ndvt run just viz-data        # build + run poisson/mosolov/vorticity into viz/_data/\ndvt run just viz             # render ",
+    "readme_source": "full"
+  },
+  {
+    "repo": "JetBrains-Research/CodeCocoon-Plugin",
+    "url": "https://github.com/JetBrains-Research/CodeCocoon-Plugin",
+    "stars": 2,
+    "language": "Kotlin",
+    "created_at": "2025-11-07T15:58:22Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 44,
+    "sample_technique_files": [
+      "AGENTS.md",
+      "README.md",
+      "src/main/kotlin/com/github/pderakhshanfar/codecocoonplugin/components/transformations/renaming/RenameVariableTransformation.kt"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# CodeCocoon-Plugin ![Build](https://github.com/JetBrains-Research/CodeCocoon-Plugin/workflows/Build/badge.svg) [![Version](https://img.shields.io/jetbrains/plugin/v/MARKETPLACE_ID.svg)](https://plugins.jetbrains.com/plugin/MARKETPLACE_ID) [![Downloads](https://img.shields.io/jetbrains/plugin/d/MARKETPLACE_ID.svg)](https://plugins.jetbrains.com/plugin/MARKETPLACE_ID) <!-- Plugin description --> CodeCocoon is an IntelliJ Platform plugin for metamorphic testing of Java projects. It applies semantic-preserving transformations, such as renaming and moving files, to verify software behavior and tes",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "jeter-1/hass-mcp-admin",
+    "url": "https://github.com/jeter-1/hass-mcp-admin",
+    "stars": 1,
+    "language": "Python",
+    "created_at": "2026-06-13T12:48:38Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 578,
+    "sample_technique_files": [
+      "tests/test_beta39_obligation_metamorphic.py"
+    ],
+    "description": "Home Assistant MCP Server",
+    "topics": [],
+    "readme": "# HA MCP Engineering Server Engineering **2.4.1-beta.1** adds an evidence-bound, freshly approved [governed garage configuration inverse](docs/HAMCP135_GOVERNED_ROLLBACK.md). The healthy catalog remains **83 tools: 58 native and 25 admitted delegated reads**. Exact ha-mcp 8.5.0, the 21 Core profiles, signed applicability, storage formats and RC1's multidict 6.9.1 security correction are preserved. See the [release notes](docs/V2_4_1_BETA1_RELEASE_NOTES.md) and [acceptance contract](docs/V2_4_1_BETA1_ACCEPTANCE.md). Josh's Engineering installation continues on the development track. The earlier",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "jfpaardoo/smart-checkin-system",
+    "url": "https://github.com/jfpaardoo/smart-checkin-system",
+    "stars": 2,
+    "language": "Java",
+    "created_at": "2026-07-25T17:30:24Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 454,
+    "sample_technique_files": [
+      "CONTRIBUTING.md",
+      "src/test/java/org/springframework/samples/smartcheckin/MetamorphicCheckinServiceTests.java"
+    ],
+    "description": "Secure employee shift & training tracking system with dynamic QR codes, role-based access control, and analytics.",
+    "topics": [],
+    "readme": "<div align=\"center\"> # Distribution Academy — Smart Check-in System ### Sistema Empresarial de Control de Asistencia, Fichaje Seguro con QR Dinámico (TOTP) y Gestión de Formaciones [![Java](https://img.shields.io/badge/Java-21-ED8B00?style=flat-square&logo=openjdk&logoColor=white)](https://openjdk.org/) [![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.5-6DB33F?style=flat-square&logo=springboot&logoColor=white)](https://spring.io/projects/spring-boot) [![React](https://img.shields.io/badge/React-18-20232A?style=flat-square&logo=react&logoColor=61DAFB)](https://react.dev/) [![PostgreSQ",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "jgreathouse9/mlsynth",
+    "url": "https://github.com/jgreathouse9/mlsynth",
+    "stars": 61,
+    "language": "Python",
+    "created_at": "2024-04-26T14:54:10Z",
+    "technique_test_files": 6,
+    "technique_nontest_files": 1,
+    "code_files": 2120,
+    "sample_technique_files": [
+      "CHANGELOG.md",
+      "agents/agents_tests.md",
+      "mlsynth/tests/test_geox_engine_properties.py",
+      "mlsynth/tests/test_geox_mvbbsc_engine.py",
+      "mlsynth/tests/test_mlsc_properties.py"
+    ],
+    "description": "This is the repository for the Python library mlsynth",
+    "topics": [
+      "causal-inference",
+      "econometrics",
+      "synthetic-control",
+      "synthetic-control-method"
+    ],
+    "readme": "# `mlsynth`\n\n![coverage](coverage.svg)\n\n`mlsynth` is a Python framework for synthetic control causal inference and\nsynthetic-control-based experimental design. It bundles 46 modern estimators\nunder a single typed `Config` / `.fit()` / typed-results interface, so swapping\nbetween, say, Forward DiD, TASC, and SPCD is a one-line change.\n\n[Documentation](https://mlsynth.readthedocs.io/) ·\n[Which estimator should I use? (decision tree)](https://mlsynth.readthedocs.io/en/latest/choose.html) ·\n[Validation — proven against the original code](https://mlsynth.readthedocs.io/en/latest/validation.html)\n\n---\n\n## Install\n\n```bash\npip install -U git+https://github.com/jgreathouse9/mlsynth.git\n```\n\n`mlsynth` supports Python 3.9 and later. The base install pulls in every core\ndependency and runs every estimator except two that lean on heavier, specialised\nbackends. Those two backends are packaged as optional *extras*, so you only\ninstall the weight you actually use:\n\n| Extra | Adds | Needed for |\n| --- | --- | --- |\n| `design` | `pyscipopt` (the SCIP mixed-integer solver) | the experimental-design estimators `SYNDES` and `MAREX`, whose market-selection step is a MIQP |\n| `bayes` | `numpyro` (JAX-based MCMC) | `SPOTSYNTH`'s Bayesian synthetic-control mode |\n| `all` | both of the above | the full feature set |\n\nRequest an extra with the usual bracket syntax (quote it so the shell does not\nglob the brackets):\n\n```bash\n# SCIP solver for SYNDES / MAREX\npip install -U \"mlsynth[design] @ git+https://github.com/jgreathouse9/mlsynth.git\"\n\n# NumPyro for SPOTSYNTH's Bayesian mode\npip install -U \"mlsynth[bayes] @ git+https://github.com/jgreathouse9/mlsynth.git\"\n\n# everything\npip install -U \"mlsynth[all] @ git+https://github.com/jgreathouse9/mlsynth.git\"\n```\n\nA few nuances:\n\n- The two extra backends are imported lazily, so `import mlsynth` and importing\n  any estimator class always works on the base install. The extra is consulted\n  only when you actually call the design optimiser (`SYNDES` / `MAREX`) or\n  `SPOTSYNTH`'s Bayesian path; without it those raise a clear error pointing you\n  at the missing package, while everything else runs unchanged.\n- `pyscipopt` ships prebuilt wheels (bundling SCIP) for the common platforms, so\n  `mlsynth[design]` is normally a plain `pip install` with no separate SCIP\n  system install.\n- The test suite is a development artifact and is not shipped in the installed\n  package — clone the repository if you want to run `pytest`.\n\n## Quickstart\n\n```python\nimport numpy as np\nimport pandas as pd\nfrom mlsynth import FDID\n\nrng = np.random.default_rng(0)\nN, T1, T2 = 60, 24, 12            # 60 controls, 24 pre, 12 post\nT = T1 + T2\n\ndef factors(T, rng, burn=200):    # f1: AR(1); f2: ARMA(1,1); f3: MA(2)\n    Tt = T + burn; v = rng.standard_normal((Tt, 3)); f = np.zeros((Tt, 3))\n    for t in range(1, Tt): f[t, 0] = 0.8 * f[t-1, 0] + v[t, 0]\n    for t in range(1, Tt): f[t, 1] = -0.6 * f[t-1, 1] + v[t, 1] + 0.8 * v[t-1, 1]\n    f[1, 2] = v[1, 2] + 0.9 * v[0, 2]",
+    "readme_source": "full"
+  },
+  {
+    "repo": "jhrcook/conference-notes",
+    "url": "https://github.com/jhrcook/conference-notes",
+    "stars": 0,
+    "language": "Jupyter Notebook",
+    "created_at": "2021-06-12T19:37:46Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 1,
+    "sample_technique_files": [
+      "technical/pycon2021_notes.ipynb",
+      "technical/pycon2021_notes.md"
+    ],
+    "description": "Notes from various technical and scientific conferences",
+    "topics": [
+      "apple",
+      "conference-notes",
+      "python",
+      "swift",
+      "wwdc"
+    ],
+    "readme": "# Conference Notes Notes from various technical and scientific conferences I have attended. ## Technical [![python](https://img.shields.io/badge/-Python-3776AB.svg?style=flat&logo=python&logoColor=white)](https://www.python.org) ![Swift](https://img.shields.io/badge/-Swift-FA7343.svg?style=flat&logo=swift&logoColor=white) ![iOS](https://img.shields.io/badge/-Apple-black.svg?style=flat&logo=apple) ### Python 1. [PyCon 2021](technical/pycon2021_notes.md)([Jupyter notebook](technical/pycon2021_notes.ipynb)) *in progress* ### Swift 1. [Apple WWDC 2021](technical/2021_apple-wwdc.md) *in progress* #",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "JiangshanLiu/PLSQLIC3",
+    "url": "https://github.com/JiangshanLiu/PLSQLIC3",
+    "stars": 0,
+    "language": "Java",
+    "created_at": "2023-11-27T11:36:37Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 308,
+    "sample_technique_files": [
+      "README.md",
+      "src/main/java/com/myplugin/plsqlic3/backend/runnable/GlobalConfig.java",
+      "web/index.html"
+    ],
+    "description": "an IntelliJ platform plugin to detect inconsistencies in PL/SQL code",
+    "topics": [],
+    "readme": "# PL/SQL I<sup>3</sup>DE we introduce <strong>I<sup>3</sup>DE (Inconsistency Inspecting IDE)</strong> — an IDE plugin to inspect inconsistencies in PL/SQL code. We first observed the potential issues, e.g., misuses or bugs, that are introduced by the inconsistent understanding of PL/SQL semantics by PL/SQL programmers and DBMS developers, and propose a metamorphic testing-based approach for inspecting such inconsistencies in PL/SQL code. We design and implement our approach in I<sup>3</sup>DE, a widely usable plugin for the IntelliJ Platform. We conducted a comparative user study involving 16",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "JiangYiGong/RMT",
+    "url": "https://github.com/JiangYiGong/RMT",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-04-12T12:39:43Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 64,
+    "sample_technique_files": [
+      "README.md",
+      "rmt_prototype.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# A Declarative Metamorphic Testing Frameworkfor Autonomous Driving ## Introduction This repository is for the paper [A Declarative Metamorphic Testing Framework for Autonomous Driving]() submitted to TSE. This figure shows the architecture of RMT. It consists of three components: (1) a **NLP-based semantic parser** that automatically transformed the driving rule described by the domain expert in natural language into the metamorphic relation, (2) a **test case generator** that manipulates the original road image and then generates the new metamorphic image, and (3) a **metamorphic relation va",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "JiapengLi96/MDPMorph",
+    "url": "https://github.com/JiapengLi96/MDPMorph",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2025-07-21T00:28:43Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 2,
+    "code_files": 214,
+    "sample_technique_files": [
+      "Readme.md",
+      "gymnasium_envrionments/scripts/run.py",
+      "gymnasium_envrionments/scripts/run_threshold_training.py"
+    ],
+    "description": "An MDP-Based Metamorphic Testing Framework for Deep Reinforcement Learning Agents",
+    "topics": [],
+    "readme": "![MDPMorph_name](./images/MDPMorph_name_1.png)\n\n# MDPMorph\n\n\n## 📢 News\n- **[2025.09]**: 🎉🎉🎉 Tool paper accepted at **ASE 2025**.\n  - Title: *Metamorphic Testing of Deep Reinforcement Learning Agents with MDPMORPH*\n  - Authors: Jiapeng Li, Zheng Zheng, Yuning Xing, Daixu Ren, Steven Cho, Valerio Terragni\n\n- **[2025.07]**: 🎉🎉🎉 Research paper accepted at **ISSRE 2025**.\n  - Title: *MDPMORPH: An MDP-Based Metamorphic Testing Framework for Deep Reinforcement Learning Agents*\n  - Authors: Jiapeng Li, Zheng Zheng, Yuning Xing, Daixu Ren, Steven Cho, Valerio Terragni\n\n\n## 📘 Introduction\n\nMDPMorph is a novel metamorphic testing framework specifically designed for deep reinforcement learning (DRL) agents.\n\nMDPMorph takes environment and DRL agent as input, samples initial states from the environment to generate metamorphic test pairs, and prodeuces mutants based on predefined mutation rules for testinng purposes. In the **Running** mode, potential faults in the agent are uncovered by comparing the execution outputs of automatically generated metamorphic test pairs to verify whether the output relation of the MR is satisfied. The **Threshold Training** mode is used to optimize MR thresholds by analyzing the execution results of the original agent and its mutants. The **MR Evaluation** mode calculates the mutant detection rate to evaluate MR effectiveness. \n\n![MDPMorph](./images/MDPMorph.png)\n\n\n\n## 🎥 Demo Video\n\nWatch the demo video to better understand how to use MDPMorph.\n\n[![Watch the video](https://img.youtube.com/vi/IwMaUfQ2xnQ/0.jpg)](https://youtu.be/IwMaUfQ2xnQ)\n\n\n\n\n## 🚀 Getting Started\n\n#### Step 1: Clone the repository\n\n```git clone``` the repository into your desired directory on your local machine.\n\n#### Step 2: Install dependencies:\n\n```bash\npip install -r requirements.txt\n```\n\n#### Step 3: Preparing test suites\n\nYou can use your own test suites or generate test cases automatically.\n\n⚙️ Option 1: Use your own test suites\nIf you already have test suites, you can put your source test suites into the ```./Metamorphic/test_suite```.\n\n> ⚠️ **Note:** Ensure that each line in the test suite file represents a complete test case (an initial state array), with each element in the test case separated by a space.\n\n⚙️ Option 2: Auto-generate source test suites\nYou can automatically generate source test suites by running:\n\n```bash\npython generate_tests.py \\\n-- num_suites 50 \\\n-- num_cases 100\n```\n\n* ```--num_suites``` The number of test suites.\n* ```--num_cases``` The number of test cases in each test suite.\n\nSelect the specific test suites you want to use for testing from the generated ones, and place them in the ```./Metamorphic/test_suite``` directory.\n\n\n#### Step 4: Preparing test models\nYou can use your own trained model or generate mutated models automatically.\n\n⚙️ Option 1: Use your own model\nIf you already have a trained model, place the model file in the following folder: ```./gymnasium_envrionments/scripts/model```.\n\n> ⚠️ **Note:** Make sure the mod",
+    "readme_source": "full"
+  },
+  {
+    "repo": "JiaWANG-TJ/AutoMarkov",
+    "url": "https://github.com/JiaWANG-TJ/AutoMarkov",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-08-09T10:40:16Z",
+    "technique_test_files": 3,
+    "technique_nontest_files": 3,
+    "code_files": 211,
+    "sample_technique_files": [
+      "docs/AutoMarkov_complete_development_specification.md",
+      "src/automarkov/application/stages/stage14_public_tests.py",
+      "src/automarkov/lifecycle.py",
+      "src/automarkov/public_validation.py",
+      "tests/contract/test_ablation_gates.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# AutoMarkov > **NOT EXPERIMENT READY** -- No end-to-end RL experiments have been executed. > **NOT RELEASE READY** -- Static analysis passes only; no verified runtime. AutoMarkov is an evidence-grounded compiler for sequential decision problems. It turns an approved natural-language task contract into a typed MDP, POMDP, Markov game, or POSG specification. The compiler core is installable and produces typed JSON views. Runtime integrations (Gymnasium/PettingZoo bindings, RLlib training, production adapters, sealed evaluation) are under active development and **not yet verified for use**. The",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Jindae/metamorphic-testing-demo-4z",
+    "url": "https://github.com/Jindae/metamorphic-testing-demo-4z",
+    "stars": 1,
+    "language": "TypeScript",
+    "created_at": "2025-11-20T05:07:46Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 9,
+    "code_files": 29,
+    "sample_technique_files": [
+      "README.md",
+      "app/layout.tsx",
+      "app/page.tsx",
+      "components/dialogs/add-mr-dialog.tsx",
+      "components/dialogs/configure-relations-dialog.tsx"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# Test Monitoring Dashboard\n\nA demo project for a metamorphic test monitoring dashboard.\n\n## Deployment\n\nLive URL:\n[Vercel Live Link](https://metamorphic-demo.vercel.app)\n\n## How to Run Locally\n\n### Prerequisites\n\nYou need **Node.js** installed to use **npm** or **pnpm**.\n\n### Steps to Run Locally\n\n1. **Install dependencies:**\n    \n    ```bash\n    npm install\n    # or\n    pnpm install\n    # If there is a dependency conflict:\n    # npm install --legacy-peer-deps\n    ```\n    \n2. **Run the development server:**\n    \n    ```bash\n    npm run dev\n    # or\n    pnpm run dev\n    ```\n    \n3. **Access the application:**\n    - Open your browser and navigate to:\n    - http://localhost:3000\n\n### To Update Data\n\nCurrently, all initial data and test results displayed in the application are loaded from JSON files in the `data/` directory:\n\n- **`data/seed-tests.json`** - Contains the initial seed test cases shown in the \"Test Info\" tab\n- **`data/test-suites.json`** - Contains pre-configured test suites shown in \"Saved Test Suites\"\n- **`data/test-results.json`** - Contains test execution results\n- **`data/execution-history.json`** - Contains execution history data for the \"Test Execution\" tab\n\nTo update the initial data and test results with actual data:\n\n1. Locate the JSON file you want to update in the `data/` directory\n2. Edit or replace the file with your actual test data, following the existing structure\n3. Save the file\n4. Restart the development server to see the changes\n\n**Note:** Any data added or modified through the UI (such as adding new seed tests or saving test suites) is stored in the browser's `localStorage`.",
+    "readme_source": "full"
+  },
+  {
+    "repo": "jingpad-bsp/android_external_deqp",
+    "url": "https://github.com/jingpad-bsp/android_external_deqp",
+    "stars": 0,
+    "language": "C++",
+    "created_at": "2022-02-08T23:21:45Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 3,
+    "code_files": 2838,
+    "sample_technique_files": [
+      "AndroidGen.bp",
+      "modules/gles3/functional/CMakeLists.txt",
+      "modules/gles3/functional/es3fFunctionalTests.cpp",
+      "modules/gles3/functional/es3fShaderMetamorphicTests.cpp",
+      "modules/gles3/functional/es3fShaderMetamorphicTests.hpp"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "dEQP README =========== This repository contains a GPU testing suite called dEQP (drawElements Quality Program). dEQP contains tests for several graphics APIs, including OpenGL ES, EGL, and Vulkan. Documentation ------------- Up-to-date documentation for the dEQP is available at [Android Open Source Project site](http://source.android.com/devices/graphics/testing.html). The .qpa logs generated by the conformance tests may contain embedded png images of the results. These can be viewed with the [Cherry](https://android.googlesource.com/platform/external/cherry/+/master) tool. Khronos Vulkan Con",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "JinnZ2/method-layer",
+    "url": "https://github.com/JinnZ2/method-layer",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-09-07T14:59:00Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 13,
+    "sample_technique_files": [
+      "cross_domain_instrument_matrix.py"
+    ],
+    "description": "Preference-free notation and ranking layer for branch analysis",
+    "topics": [
+      "branch-analysis",
+      "cc0",
+      "decision-rules",
+      "hypothesis-generation",
+      "instrumentation",
+      "measurement",
+      "methodology",
+      "open-science"
+    ],
+    "readme": "# method-layer Five small, **preference-free** Python tools for preserving candidate generators, ranking options by declared, re-runnable physical criteria, detecting a rank change instead of declaring one, estimating a reader's frame from hand-authored probes, and testing whether a label tracks the describer's position rather than the behaviour. This repository is a notation and ranking layer, **not a simulation repository**. ```text simulations (G) -> method-layer (F) method-layer (F) -> nothing ``` The implementation uses only the Python standard library, has no runtime dependencies, and ca",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "JishnuVijayan/ARIA",
+    "url": "https://github.com/JishnuVijayan/ARIA",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-05-26T03:56:00Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 70,
+    "sample_technique_files": [
+      "ARIA_UNIVERSAL_OFFLINE_SYSTEM_PLAN (1).md",
+      "aria_system/tests/test_metamorphic_policy.py",
+      "submission_metadata.yaml"
+    ],
+    "description": "Adaptive Recruiter Intelligence Architecture",
+    "topics": [],
+    "readme": "# ARIA: Universal Offline-First Hiring Intelligence System ARIA is a high-performance, offline-first candidate discovery, screening, and ranking system. It ingests large candidate datasets (e.g., 100,000+ candidates) and ranks the top matching profiles for any target job description using structured **Role DNA** policies. The system is designed with a strict separation of concerns: all role-specific judgments, constraints, and weights are compiled dynamically from the job description into an `ExecutablePolicy`, keeping the pipeline execution core deterministic, fast, and auditable. When a loca",
+    "readme_source": "excerpt"
+  }
+]

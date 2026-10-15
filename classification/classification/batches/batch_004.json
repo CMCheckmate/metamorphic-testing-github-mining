@@ -1,0 +1,1042 @@
+[
+  {
+    "repo": "Balaji-Coder06/Weather-Sentinel",
+    "url": "https://github.com/Balaji-Coder06/Weather-Sentinel",
+    "stars": 0,
+    "language": "TypeScript",
+    "created_at": "2026-08-14T19:15:10Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 58,
+    "sample_technique_files": [
+      "src/tests/phase6/metamorphicInvariants.test.ts"
+    ],
+    "description": "Weather Sentinel is a context-aware weather risk platform that analyzes live conditions to provide personalized outdoor activity safety insights and optimal timing recommendations.",
+    "topics": [],
+    "readme": "# 🌦️ Weather Sentinel **Context-Aware Environmental Risk Intelligence** Weather Sentinel goes beyond traditional weather apps by turning forecasts into **actionable outdoor activity decisions**. Instead of simply showing temperature, rain, and wind, it considers your **activity, location, duration, time, and environmental conditions** to estimate contextual risk and recommend better activity windows. <p align=\"center\"> <a href=\"https://weathersentinel.netlify.app/\">🚀 Live Demo</a> • <a href=\"https://github.com/Balaji-Coder06/Weather-Sentinel\">💻 Source Code</a> </p> ## ✨ Features * 🎯 **Activity",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Balaswamyvasamsetti/Aitools",
+    "url": "https://github.com/Balaswamyvasamsetti/Aitools",
+    "stars": 0,
+    "language": "JavaScript",
+    "created_at": "2026-04-06T06:01:11Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 3,
+    "code_files": 62,
+    "sample_technique_files": [
+      "README.md",
+      "backend/app/api_extensions.py",
+      "backend/app/services/metamorphic_testing.py",
+      "ui/src/services/api.js"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# AI Research Agent (RAG) ## Revolutionary Tool for Querying Private Document PDF Sets Advanced RAG system implementing **6 revolutionary technologies** for intelligent PDF document analysis and resume evaluation. This is the world's first implementation combining quantum-inspired retrieval, neuromorphic memory, holographic storage, swarm intelligence, temporal causality, and speculative generation. --- ## Table of Contents - [Purpose](#purpose) - [Project Structure](#project-structure) - [Quick Start](#quick-start) - [Revolutionary Technologies](#revolutionary-technologies) - [Core Features]",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Balaswamyvasamsetti/IrriGo",
+    "url": "https://github.com/Balaswamyvasamsetti/IrriGo",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-02-20T10:01:10Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 4,
+    "code_files": 81,
+    "sample_technique_files": [
+      "backend/SETUP_GUIDE.txt",
+      "backend/app/api_extensions.py",
+      "backend/app/main.py",
+      "backend/app/services/advanced_irrigation_system.py",
+      "backend/app/services/metamorphic_testing.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# 🌾 IRRIGO - Your Smart Farming Assistant **Save Water 💧 • Save Money 💰 • Grow Better Crops 🌱** *The only irrigation system that works without expensive sensors - just your phone and internet!* --- ## 🎯 What IRRIGO Does for You ### 💰 **Save ₹50,000 - ₹1,00,000 Every Year** - Reduce water bills by 30-50% - Prevent crop loss from over/under watering - Increase crop yield by 15-25% - No expensive sensors to buy or maintain ### 🌦️ **Get Expert Weather Advice** - Live weather updates every hour - 7-day weather forecast for your exact location - Soil moisture estimation without sensors - Rain predic",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Balaswamyvasamsetti/SIC-25-26-Team013",
+    "url": "https://github.com/Balaswamyvasamsetti/SIC-25-26-Team013",
+    "stars": 0,
+    "language": "JavaScript",
+    "created_at": "2026-02-05T08:37:52Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 3,
+    "code_files": 57,
+    "sample_technique_files": [
+      "README.md",
+      "Revolutionary_Techs.txt",
+      "backend/app/api_extensions.py",
+      "backend/app/services/metamorphic_testing.py",
+      "ui/src/services/api.js"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# IRRIGO Smart Irrigation System AI-Driven Precision Agriculture Platform Project ID: IRRIGO/2025 **Project Overview:** Advanced RAG system for intelligent agricultural advisory and irrigation management. Developed in January 2025. **Team Members:** | Name | Role | | -------------- | ------------------------ | | Vinay | Team Leader | | Bala Swamy | Backend Developer | | Eswar | Data Engineer | | Chandu | Frontend Developer | | Sabhareesh | Testing & QA | **Project Date:** January 2025 # AI Research Agent (RAG) ## Revolutionary Tool for Querying Private Document PDF Sets Advanced RAG system imp",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Bali-Zero/Teman2",
+    "url": "https://github.com/Bali-Zero/Teman2",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-01-02T02:16:53Z",
+    "technique_test_files": 4,
+    "technique_nontest_files": 0,
+    "code_files": 9900,
+    "sample_technique_files": [
+      ".agents/skills/visaoracle/references/live-state-log.md",
+      "apps/backend-rag/backend/tests/services/visa_engine/gold_harness/test_metamorphic_properties.py",
+      "apps/backend-rag/backend/tests/services/visa_engine/test_evaluator_gate_round1.py",
+      "apps/backend-rag/backend/tests/services/visa_engine/test_evaluator_metamorphic.py",
+      "apps/backend-rag/backend/tests/services/visa_engine/test_evaluator_purpose_coverage.py"
+    ],
+    "description": "Zantara RAG Backend - AI-powered Indonesian business & immigration consulting",
+    "topics": [],
+    "readme": "# Nuzantara v5.2.0\n\nProduction AI-powered business intelligence platform for **Bali Zero** — Indonesian business services (visa, company setup, tax, property) in Bali, serving 5,000+ clients.\n\n**Live:** [kita.balizero.com](https://kita.balizero.com)\n\n## Architecture\n\nMonorepo powered by agentic RAG with Knowledge Graph. Live repository state is\navailable from `python3 scripts/docs_sync.py --json` and CI artifacts.\n\n```\nnuzantara/\n├── apps/\n│   ├── backend-rag/          # Python FastAPI — RAG, KG, WR2 pipeline (deploy Fly.io)\n│   ├── mouth/                # Next.js frontend — kita/my/prime.balizero.com\n│   ├── nuzantara-mcp/        # MCP server v2.1\n│   ├── nuzantara-mcp-advanced/ # Fly.io ops, diagnostics\n│   ├── admin-dashboard/      # Admin UI (Next.js)\n│   ├── bali-intel-scraper/   # Intel pipeline (local Pro, OpenClaw cron)\n│   ├── evaluator/            # QA + Core Guardian V3\n│   ├── mata-garuda/          # Meta-agent Lamarckian 5-layer\n│   ├── web/                  # zantara.balizero.com\n│   ├── kb/                   # Knowledge base\n│   └── ...                   # graph-engine, kbli-navigator, wa-mirror, zantara-media, …\n├── packages/\n│   ├── core/                 # Shared libs + BZ design tokens\n│   └── cell-core/            # Biology framework (base for living agents)\n├── docs/                     # Technical & operational docs\n├── config/                   # Prometheus, Grafana, alerts\n├── scripts/                  # Deploy, maintenance, analysis\n└── data/                     # Shared datasets\n```\n\n## Tech Stack\n\n<!-- DOCSYNC:TECH_STATS_START -->\nCurrent state for technical counts is intentionally not stored in git. Run `python3 scripts/docs_sync.py --json` or download the latest [docs-derived-state CI artifact](https://github.com/Bali-Zero/Teman2/actions/workflows/docs-inventory-refresh.yml).\n<!-- DOCSYNC:TECH_STATS_END -->\n\n## Search Pipeline (enabled 2026-03-24)\n\n```\nQuery → KeywordTranslator (IT→EN/ID, ~80 terms)\n      → [IF >4 words] Gemini Flash multi-query expansion (2-3 alternatives)\n      → Embedding (text-embedding-3-small)\n      → BM25 sparse + Dense vector search\n      → Reciprocal Rank Fusion (RRF, k=60)\n      → CrossEncoder reranking (ms-marco-MiniLM-L-6-v2, top-20→top-5)\n      → LLM response generation\n```\n\n## Quick Start\n\n### Backend\n\n```bash\ncd apps/backend-rag\npython3 -m venv venv\nsource venv/bin/activate\npip install -r requirements.txt\nPYTHONPATH=. python -m uvicorn backend.main:app --reload --port 8000\n```\n\n### Frontend\n\n```bash\ncd apps/mouth\nnpm install\nnpm run dev\n```\n\n### Verify\n\n```bash\n# Import chain (must pass before any deploy)\ncd apps/backend-rag && source venv/bin/activate\npython -c \"from backend.app.dependencies import get_current_user; print('OK')\"\n\n# Health check (production)\ncurl https://nuzantara-rag.fly.dev/health\n```\n\n## Deploy\n\n| Target       | Command                                                | Auto         |\n| ------------ | ------------------------------------------------------ | ------------",
+    "readme_source": "full"
+  },
+  {
+    "repo": "BalticAmadeus/OpenedgeAblFormatter",
+    "url": "https://github.com/BalticAmadeus/OpenedgeAblFormatter",
+    "stars": 15,
+    "language": "TypeScript",
+    "created_at": "2023-12-04T10:22:25Z",
+    "technique_test_files": 2,
+    "technique_nontest_files": 2,
+    "code_files": 103,
+    "sample_technique_files": [
+      "CLAUDE.md",
+      "TESTING.md",
+      "src/mtest/MetamorphicEngine.ts",
+      "src/test-ast/suite/ast.test.ts",
+      "src/test/suite/extension.test.ts"
+    ],
+    "description": "Code formatter for Progress OpenEdge (ABL)",
+    "topics": [
+      "formatter",
+      "openedge-abl",
+      "vscode-extension"
+    ],
+    "readme": "# ![OpenEdge ABL Formatter Logo](./resources/Formatter_LOGO_32x32.png) OpenEdge ABL Formatter [![Node.js CI](https://github.com/BalticAmadeus/AblFormatter/actions/workflows/main.yml/badge.svg?branch=develop)](https://github.com/BalticAmadeus/AblFormatter/actions/workflows/main.yml)\n\nVSCode extension for Progress OpenEdge ABL code formatting.\n\nThis extension uses [**tree-sitter-abl**](https://github.com/eglekaz/tree-sitter-abl) implementation.\n\n## Current status\n\nThe OpenEdge ABL Formatter is now available in the VS Code Extension Marketplace.\n\n> Note:\n>\n> 1. We currently recommend **not** using the formatter with the **on save** trigger.\n> 2. Use formatting cautiously, especially when working with existing code that is difficult to test.\n\n![Formatter in action](https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExMmZ4dHNldmFuaGJzdHZxNjN2MzY2NG5mbXo2a3YwOWo1eTFjd2Z4MSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/J70Z7etV013g8jkgxj/giphy.gif)\n\n## Features\n\nAt the moment we implemented formatting logic for these language features:\n\n-   Assign\n-   block\n-   body\n-   case\n-   enum\n-   find\n-   for\n-   functionParameter\n-   if\n-   ifFunction\n-   procedureParameter\n-   property\n-   tempTable\n-   using\n-   variableDefinition\n\n## Installation\n\nDownload the extension from VSCode Marketplace and install on your machine.\nThere are no additional dependencies needed to launch this extension.\n\n## Configuration and Setup\n\nWe implemented extensive settings configuration to allow users to easily tailor the experience to their needs. This might not be the case in the future. You can access the settings via VS Code settings or clicking ABL Formatter icon at the far right of an ABL files editor title bar. You can also access settings UI via the **Command Palette** (Ctrl+Shift+P) by typing \"Formatter Settings Preview\"\n\n### Settings\n\n| Property Name                                       | Type    | Default     | Values list            | Description                                                                             |\n| --------------------------------------------------- | ------- | ----------- | ---------------------- | --------------------------------------------------------------------------------------- |\n| assign formatting                                   | boolean | true        | true, false            | Enable/disable ASSIGN statement formatting.                                             |\n| assign formatting assign location                   | string  | New         | New, Same              | Should first assignment be located on a new line or the same line as the ASSIGN keyword |\n| assign formatting align right expression            | string  | Yes         | Yes, No                | Should right expression be aligned by longest one                                       |\n| assign formatting end dot location                  | string  | New aligned | New, New aligned, Same | Should end dot be located on a new line or the same line as the ASSIGN keyword       ",
+    "readme_source": "full"
+  },
+  {
+    "repo": "baneeishaque/ljt-520_openclaw-backup",
+    "url": "https://github.com/baneeishaque/ljt-520_openclaw-backup",
+    "stars": 0,
+    "language": "",
+    "created_at": "2026-05-09T13:41:15Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 2,
+    "code_files": 24348,
+    "sample_technique_files": [
+      "skills/christiancattaneo/wreckit-ralph/GAMEPLAN.md",
+      "skills/christiancattaneo/wreckit-ralph/SKILL.md",
+      "skills/christiancattaneo/wreckit-ralph/references/gates/differential.md",
+      "skills/christiancattaneo/wreckit-ralph/references/verification-framework.md",
+      "skills/christiancattaneo/wreckit-ralph/scripts/differential-test.sh"
+    ],
+    "description": "openClaw backup",
+    "topics": [],
+    "readme": "",
+    "readme_source": "none"
+  },
+  {
+    "repo": "banr1/forked-arbitrum-nitro",
+    "url": "https://github.com/banr1/forked-arbitrum-nitro",
+    "stars": 0,
+    "language": "Go",
+    "created_at": "2024-09-16T20:40:38Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 624,
+    "sample_technique_files": [
+      "cmd/conf/database.go"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "<br /> <p align=\"center\"> <a href=\"https://arbitrum.io/\"> <img src=\"https://arbitrum.io/assets/arbitrum/logo_color.png\" alt=\"Logo\" width=\"80\" height=\"80\"> </a> <h3 align=\"center\">Arbitrum Nitro</h3> <p align=\"center\"> <a href=\"https://developer.arbitrum.io/\"><strong>Next Generation Ethereum L2 Technology »</strong></a> <br /> </p> </p> ## About Arbitrum Nitro <img src=\"https://arbitrum.io/assets/arbitrum/logo_color.png\" alt=\"Logo\" width=\"80\" height=\"80\"> Nitro is the latest iteration of the Arbitrum technology. It is a fully integrated, complete layer 2 optimistic rollup system, including frau",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "bansodevivek/hackerRanKOrchestrate",
+    "url": "https://github.com/bansodevivek/hackerRanKOrchestrate",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-08-02T11:19:54Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 76,
+    "sample_technique_files": [
+      "PHASE8.md",
+      "code/phase8_evaluate.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# HackerRank Orchestrate Starter repository for the **HackerRank Orchestrate** 24-hour hackathon. ## Message Notification Router Build an AI-powered system for WhatsApp that decides which messages deserve immediate attention, which should wait, and which should be muted. The system must reason over multimodal messages, including text messages, image posters/screenshots, and voice notes. WhatsApp is noisy. A user can receive family chats, society notices, school updates, co-worker messages, business account promotions, image posters, voice notes, and scams in the same message stream. Treating e",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "bartkamphuis/memore",
+    "url": "https://github.com/bartkamphuis/memore",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-08-14T05:23:47Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 51,
+    "sample_technique_files": [
+      "CLAUDE.md",
+      "RESULTS.md",
+      "memore/bench/paraphrase.py"
+    ],
+    "description": "Deterministic write-time memory consolidation and pre-fetch recall for LLM agents. Local models, no LLM in the recall path or the consolidation decision.",
+    "topics": [
+      "consolidation",
+      "falkordb",
+      "knowledge-graph",
+      "llm",
+      "llm-agents",
+      "memory",
+      "rag",
+      "retrieval"
+    ],
+    "readme": "# memore *Italian, from Latin* memor *— mindful, remembering.* Deterministic memory for LLM agents. Facts are consolidated **when they are written**, so a slot holds one live value at a time and \"which of these two contradictory facts is current?\" is never asked at read time — or asked of a model at all. **There is no LLM in the invalidation path, and there is a test that asserts it.** Every comparable system puts one there. Here, which fact supersedes which is decided by `(subject key, freshness ordinal, value equality)` — a pure function whose collaborators are pinned by `test_no_llm_in_the_",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "basedgod55hjl/vsbrax",
+    "url": "https://github.com/basedgod55hjl/vsbrax",
+    "stars": 0,
+    "language": "TypeScript",
+    "created_at": "2026-08-20T03:13:39Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 14299,
+    "sample_technique_files": [
+      "agent/crates/abrasax-tui/src/tui/app/commands.rs"
+    ],
+    "description": "VS-BRAX Aware AI IDE — merged agent + editor system (PRIMAL 4f5349524953424c58434b)",
+    "topics": [],
+    "readme": "﻿# VS-BRAX Aware AI IDE PRIMAL_HEX: `4f5349524953424c58434b` · merged custom IDE — one tree, one brand: **VS-BRAX**. ## Structure (ide/vsbrax/) | Path | Role | |---|---| | `src/`, `build/`, `extensions/`, `product.json` | Editor core (open-source VS Code base, MIT) — rebranded: all user-visible names are VS-BRAX; functional identifiers (`vsbrax-*`) and MIT copyright headers preserved | | `agent/` | Agent core (Rust TUI coding agent source, 77 crates) — docs rebranded to VS-BRAX Agent; crate names kept as functional identifiers | | `vsbrax/harness/abrasax_bus.cs` | C# named-pipe telemetry bridg",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "BasisResearch/VerifiedJS",
+    "url": "https://github.com/BasisResearch/VerifiedJS",
+    "stars": 9,
+    "language": "Lean",
+    "created_at": "2026-03-08T09:17:38Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 253,
+    "sample_technique_files": [
+      "PROGRESS.md",
+      "README.md",
+      "tests/e2e/run_e2e.sh"
+    ],
+    "description": "A vibe-slopped verified compiler maybe?",
+    "topics": [],
+    "readme": "# VerifiedJS: A Formally Verified JavaScript-to-WebAssembly Compiler in Lean 4 ## Mission Build a formally verified compiler from **full JavaScript** (ECMAScript 2020) to WebAssembly, written entirely in Lean 4. The compiler's correctness—semantic preservation from source to target—is proved mechanically in Lean's type theory. The compiled output runs on any standard Wasm runtime. End-to-end behavior is validated against Node.js using Test262. ### Normative Reference The **ECMAScript 2020 Language Specification** is the normative reference for all semantic decisions: > **https://tc39.es/ecma26",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "batmeezy918/chronofold",
+    "url": "https://github.com/batmeezy918/chronofold",
+    "stars": 1,
+    "language": "Python",
+    "created_at": "2026-03-15T08:34:56Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 197,
+    "sample_technique_files": [
+      "run_protocol_lab.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "",
+    "readme_source": "none"
+  },
+  {
+    "repo": "baymax-afk/Pramana_RZP_buildathon_reconciliation_agent",
+    "url": "https://github.com/baymax-afk/Pramana_RZP_buildathon_reconciliation_agent",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-09-01T05:48:36Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 5,
+    "code_files": 104,
+    "sample_technique_files": [
+      "README.md",
+      "docs/AGENTIC.md",
+      "docs/ARCHITECTURE.md",
+      "docs/DEFECT_LOG.md",
+      "docs/METRICS.md"
+    ],
+    "description": "Pramana -> an AI-assisted, verification-first reconciliation controller that matches Razorpay payments, bank credits, and invoices; flags ambiguous exceptions instead of guessing. Automates reconciliation accurately and honestly for merchants.",
+    "topics": [
+      "agentic-ai",
+      "fastapi",
+      "fintech",
+      "fintech-tools",
+      "react"
+    ],
+    "readme": "# Pramana\n\n**A reconciliation engine that verifies its own output**\n\n> *pramāṇa* — the term in Indian epistemology for a **means of valid knowledge**: not a\n> belief, but the thing that justifies holding one. The name states the argument rather\n> than the subject matter. Producing candidate reconciliation matches is easy; knowing\n> which of them is *justified* is the unsolved part, and that is what the four\n> verification layers exist to answer — without an answer key.\n\nA three-way reconciliation engine that matches Razorpay payments against a bank\nstatement against an invoice ledger over a batch of 200+ records, produces a\nrupee-ranked actionable exception list, and — the part that matters — **verifies its\nown output through four independent mechanisms that do not require knowing the right\nanswer.**\n\n---\n\n## The claim\n\nProducing candidate matches is easy. Knowing which candidates to trust is the\nunsolved part.\n\nReconciliation vendors report auto-match rates of 90–99%, and their own analysts now\nsay headline accuracy is no longer the differentiator — what matters is the 1–10%\nthat don't auto-match. **Commercial vendors publish coverage; they do not publish\nmatch precision.**\n\nThat claim is deliberately scoped to vendors, because the research community does not\nshare the gap. [BenchRec](https://www.kaggle.com/datasets/benchmarkteam/benchrec-real-world-cash-reconciliation-dataset),\nthe only public real-world reconciliation benchmark, already treats precision as a\nhard constraint and coverage as the thing to optimise beneath it. This project is on\nthe benchmark's side of a gap the vendors haven't closed.\n\nSo the contribution is not \"verification matters.\" It is that **the verification\napparatus ships inside the system and runs at runtime on data where no ground truth\nexists** — because anything that needs the right answer in order to check the answer\nis useless on a merchant's own books.\n\nFour layers, none of which require labels:\n\n| Layer | Mechanism | Question it answers |\n|---|---|---|\n| **1** | Metamorphic relations (MR1–MR6) | Does the output change when it provably shouldn't? |\n| **2** | Uniqueness testing + principled refusal | Is this *an* answer, or *the* answer? |\n| **3** | Fellegi–Sunter evidence weights, gated on contradiction | Does the non-amount evidence *argue against* this match? |\n| **4** | Materiality stratification (PCAOB AS 2315) | What can be claimed about the rows nobody checked? |\n\n**Three of the four verify at runtime; the fourth produces the plan an auditor works.**\nProjection needs an observed error rate and observing errors needs a human, so Layer 4's\nruntime output is a *verification plan* — which items require full checking, which sample\nstands for the rest, and what the projection would be for any error rate that sample\nturns up. Computing a projected error from zero actual verification would be inventing\nassurance. `src/recon/verify/materiality.py` has always said this; the summary above did\nnot.\n\n**MR1 is not only a ",
+    "readme_source": "full"
+  },
+  {
+    "repo": "bbakernoaa/ACES",
+    "url": "https://github.com/bbakernoaa/ACES",
+    "stars": 0,
+    "language": "Fortran",
+    "created_at": "2026-02-25T22:48:59Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 128,
+    "sample_technique_files": [
+      "tests/test_properties.cpp"
+    ],
+    "description": "Atmospheric Chemistry Emission System (ACES)",
+    "topics": [],
+    "readme": "# ACES: Atmospheric Chemistry Emission System ACES is a high-performance, performance-portable emissions compute component for Earth System Models. It is built using C++20 and the Kokkos programming model, designed to run efficiently on both multi-core CPUs and GPUs. ## Quick Start ### 1. Development Environment The recommended way to develop ACES is using the provided Docker container: ```bash ./setup.sh ``` ### 2. Build Inside the container: ```bash mkdir build && cd build cmake .. make -j4 ``` ### 3. Run Examples ACES provides several example configurations to demonstrate different capabili",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "bblcoder333/Project",
+    "url": "https://github.com/bblcoder333/Project",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-05-19T17:07:32Z",
+    "technique_test_files": 2,
+    "technique_nontest_files": 7,
+    "code_files": 18,
+    "sample_technique_files": [
+      "README.md",
+      "benchmark_pipeline.py",
+      "main.py",
+      "stages/metamorphic_testing.py",
+      "stages/optimization.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# Multi-Agent Mobile UI Testing Pipeline — Sustainability Benchmark A 5-agent pipeline that processes ENRICO dataset screenshots through UI perception, test case generation, metamorphic relation generation, test optimization, and energy-aware suite reduction — benchmarked across multiple small language models (SLMs) for energy/emissions cost using CodeCarbon. ## Pipeline overview | Agent | Task | Model role | | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | -----------",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "bbuchsbaum/fmrimod",
+    "url": "https://github.com/bbuchsbaum/fmrimod",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-02-18T11:45:11Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 683,
+    "sample_technique_files": [
+      "tests/test_robust/test_estimators.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# fmrimod fMRI design and statistical modeling in Python. A design is a Python value rather than a formula string: it is built from `hrf(...)`, `drift(...)` and `intercept(...)` terms, combined with `+`, and can be inspected before any coefficient is solved. The library covers HRF specification, design matrix construction, first-level GLM (including AR, robust and low-rank variants), single-trial estimation, contrasts and group statistics, using `numpy` and `pandas` types at the boundaries and reading and writing BIDS. ## Documentation - **[Documentation site](https://bbuchsbaum.github.io/fmri",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Ben-Kovakas/RSE-Agent",
+    "url": "https://github.com/Ben-Kovakas/RSE-Agent",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-01-02T17:03:45Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 1,
+    "code_files": 17,
+    "sample_technique_files": [
+      "outputs/_smoke/final_state.json",
+      "outputs/_smoke/test_candidate.py",
+      "src/rse_agent/nodes.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "",
+    "readme_source": "none"
+  },
+  {
+    "repo": "Benjaminnnnnn/splendor",
+    "url": "https://github.com/Benjaminnnnnn/splendor",
+    "stars": 0,
+    "language": "TypeScript",
+    "created_at": "2026-01-17T16:50:49Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 145,
+    "sample_technique_files": [
+      "tests/betting.property.test.ts"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "### Project Planning Doc [Link](https://docs.google.com/document/d/1PAPP2f9cWRFYKT0ZIvfGKHRqpM4EXlPoIG2qE6m9Zqk/edit?tab=t.0#heading=h.gv3ovndfbn6s ) ### AI Generated Code 1. Frontend UI and art assets 2. Initial infrastructure code 3. Documentation # Splendor Board Game A web-based implementation of the popular board game Splendor, featuring a Node.js backend and modern web frontend. 📖 **[View Architecture Documentation](./ARCHITECTURE.md)** - Comprehensive guide to the application's architecture, design patterns, and development workflows. ## Getting Started This project uses a [dev containe",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "benjthyer/nGibbs",
+    "url": "https://github.com/benjthyer/nGibbs",
+    "stars": 3,
+    "language": "Jupyter Notebook",
+    "created_at": "2025-09-27T01:50:58Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 2,
+    "code_files": 160,
+    "sample_technique_files": [
+      "scripts/property_comparison.py",
+      "src/ngibbs/engine/API.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# nGibbs: Neural Network Emulators for Free Energy Minimizing Silicate Phase Equilibria A collection of fast neural network emulators for MELTS, HeFESTo, and related free-energy codes for silicate multi-component systems. nGibbs substitutes for computationally expensive thermodynamic simulations with GPU-accelerated neural network predictions that are orders of magnitude faster. --- ## Quick Install The core inference package is available on PyPI. This is the recommended starting point for most users — it includes pre-trained models and the full inference API, but not the data-generation or tr",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "benseverndev-oss/rusty-memory",
+    "url": "https://github.com/benseverndev-oss/rusty-memory",
+    "stars": 0,
+    "language": "Rust",
+    "created_at": "2026-08-18T21:44:41Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 91,
+    "sample_technique_files": [
+      "crates/rm-conform/README.md",
+      "crates/rm-conform/src/applicability.rs",
+      "docs/superpowers/plans/2026-08-24-rm-conform.md",
+      "docs/superpowers/plans/2026-08-25-applicability-conformance.md"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# rusty-memory A memory that knows what it doesn't know. ``` spouse Alex employer no value — asserted to have none pets nothing known — this was never discussed ``` Three answers, not two — and the third is *stated*, not inferred. Run the same two conversations past mem0: one where the speaker says they have no partner, one where partners never come up. Ask both whether this person has a partner. It keeps the difference — the first returns the stated negation at 0.64, the second returns unrelated memories at 0.19. What it does not do is say **which**. The caller is handed content and a score,",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Benwellonedge28/Zamani",
+    "url": "https://github.com/Benwellonedge28/Zamani",
+    "stars": 1,
+    "language": "Rust",
+    "created_at": "2026-03-31T12:48:58Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 1459,
+    "sample_technique_files": [
+      "grammar/validation/scalability.md",
+      "src/quantum/optimization/tests/properties.rs",
+      "src/quantum/resilience/DETERMINISM.md"
+    ],
+    "description": "A programming language",
+    "topics": [],
+    "readme": "# Zamani: The Omniversal AGI Language & Operating Intelligence **Tagline:** Zamani : The very extra super Extremely supremely autonomous infinity Advanced and secure infinitely AGI Language and Operating Intelligence. --- ## Introduction Zamani is not merely a programming language; it is the foundational linguistic and computational platform for an **Omniversal Advanced General Intelligence (AGI)**. Designed from the ground up to embody ultimate autonomy, provable correctness, and ethical self-governance, Zamani represents the pinnacle of intelligent systems. It is the language an AGI uses to",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "bern4rd/istqb-arena",
+    "url": "https://github.com/bern4rd/istqb-arena",
+    "stars": 0,
+    "language": "TypeScript",
+    "created_at": "2026-05-25T01:23:51Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 15,
+    "sample_technique_files": [
+      "server.ts",
+      "src/data/questions-CT-AI.json"
+    ],
+    "description": "ISTQB Arena",
+    "topics": [],
+    "readme": "# ISTQB Arena 🎯 **Plataforma oficial de simulações e treinamento focado nas certificações do ISTQB.** O ISTQB Arena é um ambiente completo de estudos (Full-stack) que permite aos analistas de QA realizarem simulados oficiais do ISTQB com limite de tempo, grading automático e mentoria baseada em Inteligência Artificial (usando a DeepSeek API). ## 🚀 Tecnologias Utilizadas - **Frontend:** React 19, TypeScript, Vite, Tailwind CSS, Lucide React - **Backend:** Node.js, Express, TypeScript - **Banco de Dados:** MongoDB (Mongoose) para persistência de Usuários e Tentativas de Prova - **Autenticação:**",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "bgilbert1984/SCYTHE",
+    "url": "https://github.com/bgilbert1984/SCYTHE",
+    "stars": 1,
+    "language": "Python",
+    "created_at": "2026-06-19T17:49:11Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 1509,
+    "sample_technique_files": [
+      "test_rf_symbol_clock.py"
+    ],
+    "description": "SCYTHE @ https://neurosphere-2.tail52f848.ts.net/",
+    "topics": [],
+    "readme": "# SCYTHE Spectrcyde @ https://neurosphere-2.tail52f848.ts.net/wordpress/ SCYTHE_Blog @ https://neurosphere-2.tail52f848.ts.net/wordpress/?page_id=14 ### A command operations visualization layer for RF intelligence, PCAP analysis, hypergraph reasoning, and geospatial situational awareness. [Open the live SCYTHE instance](https://neurosphere-2.tail52f848.ts.net/) | [Launch the visualization](command-ops-visualization.html) SCYTHE is a high-density operational interface for turning signal, network, and geospatial telemetry into an explorable command picture. It blends a 3D globe, hypergraph overl",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "bharaththiruveedula/software-testing-project",
+    "url": "https://github.com/bharaththiruveedula/software-testing-project",
+    "stars": 0,
+    "language": "TeX",
+    "created_at": "2026-04-13T02:47:16Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 35,
+    "sample_technique_files": [
+      "reports/LLM_Analysis_v2.tex",
+      "tests/test_param_honoring.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# Python-Based LLM Inference Load and Validation Suite **Team Members:** Bharath Thiruveedula, Kaitlin Arnold, Ronald Joseph Marcelin Franklin A CLI tool that stress-tests OpenAI-compatible inference servers (vLLM, llama.cpp, Ollama) by sending concurrent async HTTP requests, measuring performance metrics (**TTFT, ITL, TPOT**, Latency), and validating response structure against JSON schemas. ## Features - **Concurrent Load Testing** — Uses Python's `asyncio` and `aiohttp` to simulate 100+ concurrent requests. - **Ramp-Up Testing** — Safely probe server limits (`--ramp`) simulating step-wise co",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Bhargs24/plumbline",
+    "url": "https://github.com/Bhargs24/plumbline",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-08-21T02:30:24Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 63,
+    "sample_technique_files": [
+      "README.md",
+      "docs/index.html",
+      "docs/make_social.py",
+      "docs/social/LINKEDIN.md",
+      "docs/social/_slides.html"
+    ],
+    "description": "Evidencing that AI-operated financial controls actually ran. A metamorphic control-testing harness for LLM agents in accounts payable, with SOX-style attestation output.",
+    "topics": [
+      "accounts-payable",
+      "ai-safety",
+      "evaluation",
+      "fintech",
+      "internal-audit",
+      "llm-agents",
+      "metamorphic-testing",
+      "sox-compliance"
+    ],
+    "readme": "# Plumbline\n\n**Metamorphic conformance testing for LLM agents.** Declare the invariants an agent must never violate; try to break them with input changes that preserve meaning; localise every violation to a named step with a confidence interval.\n\n[![tests](https://github.com/Bhargs24/plumbline/actions/workflows/tests.yml/badge.svg)](https://github.com/Bhargs24/plumbline/actions/workflows/tests.yml)\n![python](https://img.shields.io/badge/python-3.10%E2%80%933.13-blue)\n![evidence](https://img.shields.io/badge/evidence-2%2C082%20trajectories%20committed-informational)\n![licence](https://img.shields.io/badge/licence-Apache--2.0-lightgrey)\n\n**In plain words:** your agent can get the right answer every time and still skip\nthe control that was the whole point — an output eval cannot see that, a control\ntest can. Plumbline records what an agent actually *did*, checks every step\nagainst the controls you declare, tries to break them by rewording the request\nand injecting faults, and reports what broke, where, with a confidence interval\n— down to a SOX-style control-testing workpaper an auditor recognises.\n\n**Two ways in:**\n\n- **See it working in 30 seconds, no API key** — clone this repo and run\n  `plumbline demo`: it replays the committed studies below and opens the console.\n- **Point it at your own agent** — `pip install \"plumbline-harness[server]\"`\n  (the CLI and import name are `plumbline`), then declare your invariants and\n  feed it trajectories or OpenTelemetry traces: [section 7](#7--point-it-at-your-own-agent).\n\nWhat follows is the study this instrument was built on — including the result\nit retracted, which is the best demonstration of what it does.\n\n---\n\n## 1 · The finding: a significant result that was entirely baseline artifact\n\nI built this to measure what moving an agent's control flow out of the model actually buys. The first study said: a lot. Under an injected transient tool failure, the deterministic executor reached the correct outcome **81.2%** of the time against the free-form agent's **98.2%**. A 17-point gap, p = 0.0029. Determinism looked *worse*.\n\nThat result does not survive contact with how these systems are actually built. **No production finance system treats a single 503 as fatal.** Every RPA platform has a retry policy; every payments integration has backoff. The executor under test had neither.\n\nAdding one and re-running the same 768 trials settles it. (The retry study\nreplays the first study's recorded model responses offline — the executor's\nsingle interpretation call is byte-identical by construction, so only the\nerror-handling differs. 52 of the free-form agent's 768 replays had no\nrecorded response to replay and are excluded as missing data; every cell's\nn is in the report's tooltips.)\n\n<img src=\"docs/assets/results.svg\" alt=\"Outcome correctness by perturbation for three series with 95% Wilson intervals. Every condition sits at 100% except tool_fault, where the no-retry executor falls to 81.2% while the retry executor a",
+    "readme_source": "full"
+  },
+  {
+    "repo": "bhavuk1409/nipuna-ai-backend",
+    "url": "https://github.com/bhavuk1409/nipuna-ai-backend",
+    "stars": 0,
+    "language": "TypeScript",
+    "created_at": "2026-05-30T18:46:11Z",
+    "technique_test_files": 2,
+    "technique_nontest_files": 0,
+    "code_files": 17771,
+    "sample_technique_files": [
+      "agents-nipuna-ai-workflow/packages/testing/test-impact/src/impact-map.test.ts",
+      "agents-nipuna-ai-workflow/packages/workflow/test/get-child-nodes.test.ts"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# Nipuna AI — Backend Monorepo This repo hosts the backend and infrastructure side of **Nipuna AI**: a LangGraph-powered assistant with source-grounded answers, a multi-tenant FastAPI orchestration API, AWS infrastructure-as-code, and a desktop agent for local integrations (Tally). ![python](https://img.shields.io/badge/python-FastAPI%20%2B%20LangGraph-009688) ![db](https://img.shields.io/badge/db-PostgreSQL%20%2B%20Redis-336791) ![infra](https://img.shields.io/badge/infra-AWS%20CDK-FF9900) ![desktop](https://img.shields.io/badge/desktop-Electron-47848F) ![automation](https://img.shields.io/ba",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "BhuvaneshBhatt/asymptotic",
+    "url": "https://github.com/BhuvaneshBhatt/asymptotic",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-08-31T15:04:13Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 1,
+    "code_files": 629,
+    "sample_technique_files": [
+      "README.md",
+      "docs/testing.md",
+      "tests/reference_cases/docs/univariate-behavior-corpus.md",
+      "tests/test_multivariate_metamorphic_generated.py",
+      "tools/generate_metamorphic_multivariate_cases.py"
+    ],
+    "description": "Symbolic asymptotics package built on SymPy, with lazy multiseries, nested/log-exp expansions, Puiseux and inverse series, dominant balance, multivariate scaling, nonlinear ODE lifting, parameter stratification, and theorem-oriented remainder certificates.",
+    "topics": [],
+    "readme": "# asymptotic `asymptotic` is a symbolic asymptotic-analysis package built on SymPy. It spans directed real and multivariate asymptotics together with complex/sector-aware branch geometry, formal ODE/transseries interchange, asymptotic expansions, limits, sums, recurrences, implicit asymptotics, perturbation methods, and probability/Laplace asymptotics, and it includes certification and evidence for the conditions that make results valid. It handles simultaneous multivariate approaches, competing power/logarithmic/exponential scales, parameter conditions, and selected special-function and pertu",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "BhuvaneshBhatt/tensoratlas",
+    "url": "https://github.com/BhuvaneshBhatt/tensoratlas",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-08-18T20:21:16Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 2865,
+    "sample_technique_files": [
+      "tests/test_algebraic_metamorphic_properties.py"
+    ],
+    "description": "TensorAtlas is a symbolic tensor, differential-geometry, relativity, and geometric-algebra package for Python",
+    "topics": [],
+    "readme": "# TensorAtlas TensorAtlas is a SymPy-backed Python package for symbolic tensor algebra, coordinate geometry, differential forms, curvature calculations, tensor-valued forms, and orthogonal-metric geometric algebra. Conventions are explicit, objects expose summaries and validation helpers, and expensive symbolic simplification can be controlled. **Author:** Bhuvanesh Bhatt (bhuvaneshbhatt@gmail.com) **License:** GNU General Public License v3.0 only (GPL-3.0-only) ## Highlights - Coordinate charts, coordinate maps, scalar/vector/covector/tensor fields, and coordinate-field transformations. - Vec",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "BillJr99/Ursinus-CS374-Fall2026",
+    "url": "https://github.com/BillJr99/Ursinus-CS374-Fall2026",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-06-12T16:18:05Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 51,
+    "sample_technique_files": [
+      "files/reference/src/interpreter/test_interp.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "",
+    "readme_source": "none"
+  },
+  {
+    "repo": "binaryeq/daleq",
+    "url": "https://github.com/binaryeq/daleq",
+    "stars": 18,
+    "language": "HTML",
+    "created_at": "2024-12-11T01:03:07Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 251,
+    "sample_technique_files": [
+      "src/test/java/io/github/bineq/daleq/TestRules.java"
+    ],
+    "description": "datalog-based binary equivalence",
+    "topics": [],
+    "readme": "# DALEQ - Datalog-based Binary Equivalence ## Publications 1. [Jens Dietrich, Behnaz Hassanshahi: DALEQ - Explainable Equivalence for Java Bytecode (preprint)](https://arxiv.org/abs/2508.01530) 2. [Jens Dietrich, Tim White, Behnaz Hassanshahi, Paddy Krishnan: Levels of Binary Equivalence for the Comparison of Binaries from Alternative Builds. ICSME'25](https://arxiv.org/abs/2410.08427) 3. [Jens Dietrich, Tim White, Valerio Terragni, Behnaz Hassanshahi: Towards Cross-Build Differential Testing. ICST'25](https://www.researchgate.net/publication/391937833_Towards_Cross-Build_Differential_Testing)",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "binsec/rosa",
+    "url": "https://github.com/binsec/rosa",
+    "stars": 51,
+    "language": "Rust",
+    "created_at": "2024-12-16T17:40:13Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 6,
+    "code_files": 38,
+    "sample_technique_files": [
+      "CITATION.cff",
+      "README.md",
+      "crates/rosa-cli/src/bin/rosa-explain.rs",
+      "crates/rosa-cli/src/bin/rosa-filter-diff.rs",
+      "crates/rosa-cli/src/bin/rosa/main.rs"
+    ],
+    "description": "ROSA: Finding Backdoors with Fuzzing",
+    "topics": [],
+    "readme": "# The ROSA backdoor detection toolchain [![ROSA Paper DOI badge](https://img.shields.io/badge/ROSA%20Paper%20DOI-10.1109%2FICSE55347.2025.00183-blue?style=flat)](https://doi.org/10.1109/ICSE55347.2025.00183) [![ROSA Zenodo DOI badge](https://img.shields.io/badge/ROSA%20Zenodo%20DOI-10.5281%2Fzenodo.14724250-blue?style=flat)](https://doi.org/10.5281/zenodo.14724250) [![Lily Zenodo DOI badge](https://img.shields.io/badge/Lily%20Zenodo%20DOI-10.5281%2Fzenodo.19337349-blue?style=flat)](https://doi.org/10.5281/zenodo.19337349) [![SWH](https://archive.softwareheritage.org/badge/origin/https://github",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "BioMicroCenter/NExtSEEK",
+    "url": "https://github.com/BioMicroCenter/NExtSEEK",
+    "stars": 3,
+    "language": "Python",
+    "created_at": "2021-10-01T20:53:31Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 2381,
+    "sample_technique_files": [
+      "nextseek_api/attributes/tests/test_planner.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# NExtSEEK A Django/Mezzanine extension of the FAIRDOM SEEK platform for active scientific data curation, with a graph-backed sample database (Neo4j) and an embedded AI assistant, Nessie, for natural-language questions about samples, assays and projects. This repo brings up the whole stack in Docker. ## Quick start ```bash git clone https://github.com/BioMicroCenter/NExtSEEK.git cd NExtSEEK ./startup.sh install ``` Open http://localhost:8000 and log in with `demo / demopassword` (admin) or `user / userpassword` (regular). `./startup.sh doctor` runs every prerequisite and health check when some",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "birdayz/fdb-go",
+    "url": "https://github.com/birdayz/fdb-go",
+    "stars": 6,
+    "language": "Go",
+    "created_at": "2025-08-04T09:48:44Z",
+    "technique_test_files": 2,
+    "technique_nontest_files": 5,
+    "code_files": 4444,
+    "sample_technique_files": [
+      ".claude/skills/dst/SKILL.md",
+      ".github/workflows/nightly-oracles.yml",
+      "cmd/factory-run/main.go",
+      "pkg/relational/conformance/factory/execute.go",
+      "pkg/relational/conformance/factory/pipeline_test.go"
+    ],
+    "description": "FoundationDB Ecosystem for Go.",
+    "topics": [
+      "fdb-recordlayer",
+      "foundationdb",
+      "foundationdb-client",
+      "sql"
+    ],
+    "readme": "# fdb-go — FoundationDB for Go\n\n[![CI](https://github.com/birdayz/fdb-go/actions/workflows/ci.yml/badge.svg)](https://github.com/birdayz/fdb-go/actions/workflows/ci.yml)\n\n**Use FoundationDB from Go — at the key-value, record, or SQL layer.**\n\nfdb-go includes a native client with no cgo dependency, a Go port of Apple's\n[Record Layer](https://github.com/FoundationDB/fdb-record-layer), and an embedded\n`database/sql` engine. FoundationDB remains the database server; these libraries\nrun in your Go application. Use the client on its own or the layers above it.\n\nSharing record-store data with Java Record Layer 4.14.2.0 is a central goal,\nwith explicit [compatibility boundaries](docs/compatibility.md). This is not a\nPostgreSQL-compatible SQL server or a replacement for the FoundationDB cluster.\n\nThis is an **unofficial, independent project**, not affiliated with, sponsored by,\nor endorsed by Apple Inc. or the FoundationDB project. Apple and FoundationDB\nnames identify upstream projects and compatibility targets, not an endorsement.\n\n[Get started](#getting-started) · [Examples](example/) ·\n[Status](STATUS.md) · [Compatibility](docs/compatibility.md) ·\n[Operator guide](docs/operations.md) · [Website](https://fdb.dev/)\n\n## Choose a layer\n\n| API | Use it for | Package |\n|-----|------------|---------|\n| **FoundationDB client** | Key-value transactions, range reads, and retries without cgo | [`pkg/fdbgo/fdb`](pkg/fdbgo/fdb) |\n| **Record Layer** | Protobuf records, secondary indexes, schema metadata, and cursors | [`pkg/recordlayer`](pkg/recordlayer) |\n| **SQL** | Queries through Go's `database/sql`, planned and executed in-process | [`pkg/relational/sqldriver`](pkg/relational/sqldriver) |\n\nThe SQL engine uses the Record Layer, which uses an FDB client. Record Layer and\nSQL builds may select Apple's C client instead of the default pure-Go backend;\nsee [backend selection](#fdb-client).\n\n## Status\n\n**Pre-1.0; not declared production-ready.** Evaluate a pinned commit against your\nschemas, queries, recovery requirements, and load. [STATUS.md](STATUS.md) describes\nreadiness and what the test lanes establish. These docs describe the development\ntree, not the older v0.1.0 release. Read the [upgrade guide](docs/upgrade.md) before\nopening existing data; older Go SQL storage is not automatically migrated.\n\n## Getting started\n\nRequires the Go toolchain specified in [go.mod](go.mod) and a running Docker daemon.\nFrom a clone of this repository:\n\n```sh\n# Build the CLI from this checkout.\ngo build -o frl ./cmd/frl\n\n# Start AND configure a disposable single-node cluster.\n# stdout is the cluster-file path.\nFDB_CLUSTER_FILE=\"$(./frl fdb up)\" && export FDB_CLUSTER_FILE\n\n# Run the complete SQL example, or the record-store example.\ngo run ./example/sql\ngo run ./example\n```\n\n**Use a disposable cluster:** the SQL example recreates `/FRL/QUICKSTART` and\n`QUICKSTART_TMPL`; the record-store example writes order `1001` under\n`record_layer_demo`. Both programs return a nonzero exit status",
+    "readme_source": "full"
+  },
+  {
+    "repo": "biromiro/feup-gulbenkian-qc-mt",
+    "url": "https://github.com/biromiro/feup-gulbenkian-qc-mt",
+    "stars": 1,
+    "language": "Jupyter Notebook",
+    "created_at": "2022-07-04T13:07:32Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 3,
+    "sample_technique_files": [
+      "README.md",
+      "qiskit/shor.py"
+    ],
+    "description": "⚡ Developed Code for the New Talents in Quantum Technologies Program of the Gulbenkian Foundation / Capstone Project @FEUP",
+    "topics": [
+      "metamorphic-testing",
+      "quantum",
+      "quantum-computing"
+    ],
+    "readme": "# Asserting the correctness of Quantum Programs using Metamorphic Testing Paper: [Asserting the correctness of Shor implementations using metamorphic testing](https://dl.acm.org/doi/abs/10.1145/3549036.3562062) An increasing sense of anticipation and enthusiasm surrounds quantum computing. However, several obstacles must be overtaken before quantum computing can be widely adopted. One of which is determining whether or not a quantum program is correct. There are several tried-and-true methods for identifying program flaws in the traditional world, but it is far from simple to adapt them to the",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "bistu-serc/bistu-serc.github.io",
+    "url": "https://github.com/bistu-serc/bistu-serc.github.io",
+    "stars": 1,
+    "language": "JavaScript",
+    "created_at": "2024-10-24T05:53:00Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 5,
+    "sample_technique_files": [
+      "data/i18n/zh-en-map.json",
+      "data/news.json",
+      "data/papers.csv",
+      "js/i18n-data-map.js"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# <a href=\"https://bistu-serc.github.io\" target=\"_blank\">主页链接</a>",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "bitbart/python-pub",
+    "url": "https://github.com/bitbart/python-pub",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2022-10-23T19:38:46Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 33,
+    "sample_technique_files": [
+      "hypothesis/dict.py"
+    ],
+    "description": "Public repo of Python scripts",
+    "topics": [],
+    "readme": "# python-pub ## Constraint solving with Z3 - [The strange case of Prof. Pinna](z3/pinna-case.py) - [Socrates is mortal](z3/socrates-is-mortal.py) - [Halloween at the Science Palace](z3/halloween-science-palace.py) - [Halloween party](z3/halloween-party.py) - [The Chef and the 3 measuring cups](z3/chef.py) ## Property-based testing with Hypothesis - Remove least element from a list: [1](hypothesis/remove_smallest1.py), [2](hypothesis/remove_smallest2.py), [3](hypothesis/remove_smallest3.py), [4](hypothesis/remove_smallest4.py), [5](hypothesis/remove_smallest5.py), [6](hypothesis/remove_smallest",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "bitsforthought/Wilnaatahl",
+    "url": "https://github.com/bitsforthought/Wilnaatahl",
+    "stars": 0,
+    "language": "F#",
+    "created_at": "2025-04-25T17:26:22Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 126,
+    "sample_technique_files": [
+      "tests/Wilnaatahl.Core.Tests/Persistence/TransformTests.fs"
+    ],
+    "description": "A tool for visualizing the genealogical relationships of Gitxsan huwilp members",
+    "topics": [],
+    "readme": "# Wilnaatahl A tool for visualizing the genealogical relationships of Gitxsan huwilp members. ## Using Wilnaatahl When you open Wilnaatahl, it boots straight into a visualization of the bundled sample dataset, so you can see what the tool does without any setup. The toolbar gives you two file actions: - **Open file…** — opens your operating system's file picker immediately. Pick a JSON file from your device to replace the current visualization with your own data. A file that can't be parsed leaves the current visualization in place and shows a dismissible error; a file that loads with minor is",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "BLamy/orly",
+    "url": "https://github.com/BLamy/orly",
+    "stars": 3,
+    "language": "TypeScript",
+    "created_at": "2026-06-21T02:32:34Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 3,
+    "code_files": 1984,
+    "sample_technique_files": [
+      ".github/ISSUE_TEMPLATE/tweak-book.yml",
+      "apps/bookshelf/src/viz/books/explained-property-testing/chapter-3.tsx",
+      "apps/bookshelf/src/viz/explainers/metamorphic-relations/MetamorphicRelations.stories.tsx",
+      "apps/bookshelf/src/viz/explainers/metamorphic-relations/MetamorphicRelations.tsx",
+      "apps/bookshelf/src/viz/explainers/model-properties/ModelProperties.tsx"
+    ],
+    "description": "An O'RLY-parody bookshelf of AI-generated, narrated data-flow explainers",
+    "topics": [],
+    "readme": "<h1 align=\"center\">orly 📚</h1>\n\n<p align=\"center\">\n  <em>A self-building bookshelf of generated explainers.</em><br/>\n  Point Astra and Fable at any GitHub repo + a subsystem to build a narrated,\n  animated <strong>O'RLY-parody</strong> \"book\" — then ships it to the shelf.\n</p>\n\n<p align=\"center\">\n  <a href=\"https://github.com/BLamy/orly/actions/workflows/deploy.yml\"><img src=\"https://github.com/BLamy/orly/actions/workflows/deploy.yml/badge.svg\" alt=\"Deploy\"/></a>\n  <a href=\"https://orly.brett-lamy.workers.dev/\"><img src=\"https://img.shields.io/badge/live-orly.brett--lamy.workers.dev-2ea44f\" alt=\"Live\"/></a>\n  <a href=\"https://claude.com/claude-code\"><img src=\"https://img.shields.io/badge/built%20with-Claude%20Code-d97757\" alt=\"Built with Claude Code\"/></a>\n  <a href=\"LICENSE\"><img src=\"https://img.shields.io/badge/license-MIT-blue\" alt=\"License: MIT\"/></a>\n</p>\n\n<p align=\"center\">\n  <a href=\"https://orly.brett-lamy.workers.dev/?bundle=the-orly-loop\">\n    <img src=\"public/generated/the-orly-loop/animal.png\" width=\"170\" alt=\"ORLY Loop — the surprised owl\"/>\n  </a>\n</p>\n\n> ### ▶ Watch the explainer that explains this repo\n> **[ORLY Loop →](https://orly.brett-lamy.workers.dev/?bundle=the-orly-loop)** — a book the shelf generated *about itself*: open an issue → Claude Code builds the book → a preview PR → `@claude` tweaks → you merge → it's live. The fastest way to understand this project is to watch it.\n\n**Live shelf:** **https://orly.brett-lamy.workers.dev/**\n\n---\n\n## Authoring workflow\n\n**Astra plans and builds Blender 3D models; Fable 5.1 authors D3 animations.**\nUse `npx --yes @anthropic-ai/claude-code@latest` for every Fable run. The\n[shared workflow](docs/authoring-models.md) covers handoffs, source grounding,\nmodel provenance and deterministic hybrid playback. Covers still use built-in ImageGen.\n\n## What's a \"book\"?\n\nEach book is a narrated, animated **data-flow explainer** of one subsystem of some codebase:\n\n- A multi-chapter **D3 slideshow** — nodes and edges that build up over time, animated message packets, a camera that frames each step.\n- **Narration** by ElevenLabs, with slides synced to the audio via exact per-character TTS timestamps.\n- An **O'RLY-parody cover** — a `gpt-image` woodcut animal (text-rejecting QA loop), composited in-browser with the title/author and skewed onto a 3-D book on the shelf.\n- **Grounded in real code** — the storyboard step cites real files/functions; nothing is invented.\n\nThere are **8 books on the shelf** today, including a whole *Effect.ts — The Good Parts* series.\n\n## How the loop works\n\nYou never edit files to add a book. You **open an issue**, and CI does the rest:\n\n```mermaid\nflowchart LR\n  issue[\"📋 GitHub issue<br/>new-book · new-series · tweak\"] --> ci[\"⚙️ GitHub Actions<br/>new-book.yml\"]\n  ci --> claude[\"🤖 Astra + Fable in CI<br/>plan / 3D → D3 → narrate → cover\"]\n  claude --> pr[\"🔀 Pull request<br/>(stays open)\"]\n  pr --> preview[\"☁️ Cloudflare preview<br/>*.workers.dev link\"]\n  preview -. \"💬 re",
+    "readme_source": "full"
+  },
+  {
+    "repo": "blazephoenixxyz-crypto/Blaze-Phoenix-Dex",
+    "url": "https://github.com/blazephoenixxyz-crypto/Blaze-Phoenix-Dex",
+    "stars": 0,
+    "language": "Solidity",
+    "created_at": "2026-08-03T11:34:09Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 37,
+    "sample_technique_files": [
+      ".github/scripts/assurance/regime_lattice.py",
+      ".zenodo.json",
+      "README.md",
+      "TESTING.md",
+      "docs/assurance/ASSURANCE.md"
+    ],
+    "description": "On-chain DeFi router and aggregator for the EVM. Prices every route on the pool's measured marginal output, not on self-reported state: quote equals execution, and every swap fails closed on the output floor. Uniswap V2/V3/V4, Algebra, Solidly. Solidity + Yul.",
+    "topics": [
+      "aggregator",
+      "ai-agents",
+      "bug-bounty",
+      "defi",
+      "defi-protocol",
+      "defi-security",
+      "dex",
+      "dex-aggregator",
+      "ethereum",
+      "evm",
+      "formal-verification",
+      "foundry",
+      "llms-txt",
+      "mev",
+      "mutation-testing",
+      "smart-contracts",
+      "solidity",
+      "uniswap",
+      "uniswap-v4",
+      "yul"
+    ],
+    "readme": "<div align=\"center\">\n\n# BlazePhoenix-Dex\n\n**A fully on-chain DEX router and aggregator for the EVM that prices every route on what a pool *measurably* pays, not on what it claims.**\n\n[![CI](https://github.com/blazephoenixxyz-crypto/Blaze-Phoenix-Dex/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/blazephoenixxyz-crypto/Blaze-Phoenix-Dex/actions/workflows/ci.yml)\n[![Assurance metrics](https://img.shields.io/github/actions/workflow/status/blazephoenixxyz-crypto/Blaze-Phoenix-Dex/assurance.yml?branch=main&label=assurance%20metrics)](https://github.com/blazephoenixxyz-crypto/Blaze-Phoenix-Dex/actions/workflows/assurance.yml)\n[![Static analysis](https://img.shields.io/github/actions/workflow/status/blazephoenixxyz-crypto/Blaze-Phoenix-Dex/security.yml?branch=main&label=static%20analysis)](https://github.com/blazephoenixxyz-crypto/Blaze-Phoenix-Dex/actions/workflows/security.yml)\n[![Last commit](https://img.shields.io/github/last-commit/blazephoenixxyz-crypto/Blaze-Phoenix-Dex/main)](https://github.com/blazephoenixxyz-crypto/Blaze-Phoenix-Dex/commits/main)\n[![License: BUSL-1.1](https://img.shields.io/badge/license-BUSL--1.1-blue)](./LICENSE)\n<br>\n[![SDK on npm](https://img.shields.io/npm/v/@blazephoenix/sdk?label=%40blazephoenix%2Fsdk)](https://www.npmjs.com/package/@blazephoenix/sdk)\n[![MCP on npm](https://img.shields.io/npm/v/@blazephoenix/mcp?label=%40blazephoenix%2Fmcp)](https://www.npmjs.com/package/@blazephoenix/mcp)\n[![Contract reference](https://img.shields.io/badge/docs-contract%20reference-informational)](https://blazephoenixxyz-crypto.github.io/Blaze-Phoenix-Dex/)\n[![Whitepaper DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23084091.svg)](https://doi.org/10.5281/zenodo.23084091)\n\n[Website](https://blazephoenix.xyz) ·\n[Contract reference](https://blazephoenixxyz-crypto.github.io/Blaze-Phoenix-Dex/) ·\n[Whitepaper](docs/papers/whitepaper-v2.2.md) ·\n[SDK](https://github.com/blazephoenixxyz-crypto/SDK) ·\n[MCP server](https://github.com/blazephoenixxyz-crypto/blazephoenix-mcp) ·\n[HTTP API](https://github.com/blazephoenixxyz-crypto/Blaze-Phoenix-API) ·\n[Security](SECURITY.md) ·\n[llms.txt](llms.txt)\n\n</div>\n\n---\n\n## Contents\n\n- [Overview](#overview)\n- [Status](#status)\n- [Why it is different](#why-it-is-different)\n- [Architecture](#architecture)\n- [Supported venues](#supported-venues)\n- [Integrate](#integrate)\n- [Guarantees, and how to check each one](#guarantees-and-how-to-check-each-one)\n- [The repository at a glance](#the-repository-at-a-glance)\n- [Assurance: what the repository measures about its own evidence](#assurance-what-the-repository-measures-about-its-own-evidence)\n- [Reproducing every gate](#reproducing-every-gate)\n- [Security and the researchers who read the source](#security-and-the-researchers-who-read-the-source)\n- [Repository map](#repository-map)\n- [Documentation](#documentation)\n- [For AI agents and indexers](#for-ai-agents-and-indexers)\n- [Cite, license, authorship](#cite-license-authorship)\n\n## Overview\n\nB",
+    "readme_source": "full"
+  },
+  {
+    "repo": "Blite-HQ/chimera",
+    "url": "https://github.com/Blite-HQ/chimera",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-06-29T14:25:03Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 4,
+    "code_files": 483,
+    "sample_technique_files": [
+      "docs/specs/generalidad-retos.md",
+      "engine/src/blite/verification/__init__.py",
+      "engine/src/blite/verification/evidence.py",
+      "engine/src/blite/verification/property_rule.py",
+      "knowledge/trust/03-escalera-verificacion-metodos.md"
+    ],
+    "description": "Open platform for trustworthy agentic scientific research.",
+    "topics": [
+      "agentic-ai",
+      "combinatorial-optimization",
+      "event-sourcing",
+      "in-toto",
+      "mcp",
+      "provenance",
+      "quantum-computing",
+      "reproducible-research",
+      "supply-chain-security",
+      "verifiable-computing"
+    ],
+    "readme": "# Chimera > Open platform for trustworthy agentic scientific research. > > _\"Lo cuántico propone, las anclas no-modelo verifican; confiable ≠ plausible.\"_ Chimera is a sovereign, open-source AI substrate with anchored verification and provenance. It powers verified scientific research by combining quantum and classical computation tools with a deterministic verification layer. The MVP Nivel-1 (closed 2026-07-24) ships that thesis end to end: a runtime API (`POST /runs` → SSE event stream → verifiable DSSE certificate), real anchor verifiers (CP-SAT exact solver + pandapower execution), a React",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "bluesky-social/jetstream",
+    "url": "https://github.com/bluesky-social/jetstream",
+    "stars": 36,
+    "language": "Go",
+    "created_at": "2026-05-11T19:31:41Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 730,
+    "sample_technique_files": [
+      "internal/oracle/harness_test.go"
+    ],
+    "description": "Full-network archive and streaming service for atproto.",
+    "topics": [],
+    "readme": "# Jetstream 🛩️ [![Go Reference](https://pkg.go.dev/badge/github.com/bluesky-social/jetstream.svg)](https://pkg.go.dev/github.com/bluesky-social/jetstream) [![Go Version](https://img.shields.io/github/go-mod/go-version/bluesky-social/jetstream)](https://github.com/bluesky-social/jetstream/blob/main/go.mod) [![Latest Release](https://img.shields.io/github/v/release/bluesky-social/jetstream)](https://github.com/bluesky-social/jetstream/releases/latest) [![License](https://img.shields.io/badge/license-MIT%2FApache--2.0-blue)](https://github.com/bluesky-social/jetstream/blob/main/LICENSE-DUAL) [![C",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "bluestacks/external-deqp-a16",
+    "url": "https://github.com/bluestacks/external-deqp-a16",
+    "stars": 0,
+    "language": "C++",
+    "created_at": "2026-07-24T02:30:15Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 3,
+    "code_files": 3712,
+    "sample_technique_files": [
+      "AndroidGen.bp",
+      "AndroidKhronosCTSGen.bp",
+      "modules/gles3/functional/CMakeLists.txt",
+      "modules/gles3/functional/es3fFunctionalTests.cpp",
+      "modules/gles3/functional/es3fShaderMetamorphicTests.cpp"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "VK-GL-CTS README =========== This repository contains Khronos Conformance Testing Suite called VK-GL-CTS which originated from dEQP (drawElements Quality Program). VK-GL-CTS contains tests for several graphics APIs, including OpenGL, OpenGL ES, EGL, Vulkan, and Vulkan SC. Documentation ------------- Up-to-date documentation for VK-GL-CTS is available at: * [The VK-GL-CTS wiki for Khronos members](https://gitlab.khronos.org/Tracker/vk-gl-cts/wikis/home) * [The VK-GL-CTS wiki for non-Khronos members](https://github.com/KhronosGroup/VK-GL-CTS/wiki) The .qpa logs generated by the conformance tests",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "blueuwu/Reward-Reliability-Audit",
+    "url": "https://github.com/blueuwu/Reward-Reliability-Audit",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-08-07T12:47:38Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 159,
+    "sample_technique_files": [
+      "grader_v2/grading/generators.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# Green Isn't Correct ## Auditing reward reliability in HUD coding environments A coding agent can make the test command exit successfully without fixing the task. It can weaken visible tests, skip collection, shadow an installed package, hard-code observed cases, or alter files the task never allowed it to touch. If the grader rewards only exit code `0`, each of those failures becomes a training signal. This project measures that problem and implements a hardened grader for HUD coding environments. It includes five reproducible Python tasks, valid and adversarial patch corpora, independent la",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "bnnr-team/bnnr",
+    "url": "https://github.com/bnnr-team/bnnr",
+    "stars": 35,
+    "language": "Python",
+    "created_at": "2026-03-01T09:46:08Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 221,
+    "sample_technique_files": [
+      "tests/test_benchmarks_stats_oracle.py"
+    ],
+    "description": "XAI-driven augmentation & diagnostics for PyTorch vision - find model failures, fix with saliency-guided augmentation (ICD/AICD), prove with auditable reports.",
+    "topics": [
+      "augmentation",
+      "computer-vision",
+      "data-augmentation",
+      "deep-learning",
+      "explainability",
+      "explainable-ai",
+      "grad-cam",
+      "image-classification",
+      "interpretability",
+      "machine-learning",
+      "model-analysis",
+      "model-debugging",
+      "neural-network",
+      "object-detection",
+      "python",
+      "pytorch",
+      "saliency-maps",
+      "torchvision",
+      "vision",
+      "xai"
+    ],
+    "readme": "<p align=\"center\">\n  <picture>\n    <source media=\"(prefers-color-scheme: dark)\" srcset=\"https://raw.githubusercontent.com/bnnr-team/bnnr/main/docs/assets/logo-dark.png\" />\n    <source media=\"(prefers-color-scheme: light)\" srcset=\"https://raw.githubusercontent.com/bnnr-team/bnnr/main/docs/assets/logo-light.png\" />\n    <img alt=\"BNNR Logo\" src=\"https://raw.githubusercontent.com/bnnr-team/bnnr/main/docs/assets/logo-dark.png\" width=\"180\" />\n  </picture>\n</p>\n\n<p align=\"center\">\n  <a href=\"https://pypi.org/project/bnnr/\"><img src=\"https://img.shields.io/pypi/v/bnnr?style=flat-square\" alt=\"PyPI\"></a>\n  <a href=\"https://pypi.org/project/bnnr/\"><img src=\"https://img.shields.io/pypi/pyversions/bnnr?style=flat-square\" alt=\"Python\"></a>\n  <a href=\"https://github.com/bnnr-team/bnnr/stargazers\"><img src=\"https://img.shields.io/github/stars/bnnr-team/bnnr?style=flat-square&logo=github\" alt=\"GitHub stars\"></a>\n  <a href=\"https://pepy.tech/projects/bnnr\"><img src=\"https://static.pepy.tech/personalized-badge/bnnr?period=total&amp;units=INTERNATIONAL_SYSTEM&amp;left_color=BLACK&amp;right_color=GREEN&amp;left_text=downloads\" alt=\"PyPI downloads\"></a>\n  <a href=\"https://github.com/bnnr-team/bnnr/blob/main/LICENSE\"><img src=\"https://img.shields.io/github/license/bnnr-team/bnnr?style=flat-square\" alt=\"License\"></a>\n  <a href=\"https://github.com/bnnr-team/bnnr/actions/workflows/ci.yml\"><img src=\"https://github.com/bnnr-team/bnnr/actions/workflows/ci.yml/badge.svg\" alt=\"CI\"></a>\n  <a href=\"https://doi.org/10.5281/zenodo.20581372\"><img src=\"https://zenodo.org/badge/DOI/10.5281/zenodo.20581372.svg\" alt=\"DOI\"></a>\n</p>\n\n<p align=\"center\">\n  <a href=\"https://www.bnnr.dev/\">Website</a>\n  ·\n  <a href=\"https://doi.org/10.5281/zenodo.20581077\">Paper</a>\n  ·\n  <a href=\"https://www.linkedin.com/company/bnnr/\">LinkedIn</a>\n</p>\n\n<p align=\"center\">\n  <strong>XAI-driven augmentation &amp; diagnostics for PyTorch vision</strong>: find model failures, fix with saliency-guided augmentation (ICD/AICD), prove with auditable reports.\n</p>\n\n<p align=\"center\">\n  <video width=\"720\" controls playsinline poster=\"https://raw.githubusercontent.com/bnnr-team/bnnr/main/docs/assets/hero-promo-poster.jpg\">\n    <source src=\"https://raw.githubusercontent.com/bnnr-team/bnnr/main/docs/assets/hero-promo.mp4\" type=\"video/mp4\">\n    <a href=\"https://www.bnnr.dev\">Watch the demo on bnnr.dev</a>\n  </video>\n</p>\n<p align=\"center\"><em>Demo with audio (1280p). Original 4K recording: <a href=\"https://www.bnnr.dev\">bnnr.dev</a></em></p>\n\n# BNNR (Bulletproof Neural Network Recipe)\n\n**An HTML failure report for any PyTorch vision checkpoint — see _where_ your model looks when it's wrong, then fix it with saliency-guided augmentation.** MIT licensed. No retraining required for diagnostics.\n\nRun `bnnr analyze` on a trained model and you get a self-contained HTML report: confusion matrix, top confused pairs, OptiCAM saliency overlays on the worst failures, and plain-language recommendations.\n\n**Try it without installin",
+    "readme_source": "full"
+  },
+  {
+    "repo": "bob-ghu/Software-Testing",
+    "url": "https://github.com/bob-ghu/Software-Testing",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-06-16T17:33:47Z",
+    "technique_test_files": 2,
+    "technique_nontest_files": 1,
+    "code_files": 47,
+    "sample_technique_files": [
+      "Project Report/TEST/conftest.py",
+      "Project Report/TEST/test_script.py",
+      "Tutorials/gen_mutants.py"
+    ],
+    "description": "Basic exploration of software testing concepts, error types, and mutation testing.",
+    "topics": [],
+    "readme": "",
+    "readme_source": "none"
+  },
+  {
+    "repo": "bobisme/continuum",
+    "url": "https://github.com/bobisme/continuum",
+    "stars": 0,
+    "language": "Rust",
+    "created_at": "2026-07-25T17:49:51Z",
+    "technique_test_files": 35,
+    "technique_nontest_files": 7,
+    "code_files": 918,
+    "sample_technique_files": [
+      ".bones/events/2026-07.events",
+      ".bones/events/2026-09.events",
+      ".seal/reviews/cr-35xovl/events.jsonl",
+      "crates/continuum-asupersync/src/binding.rs",
+      "crates/continuum-asupersync/tests/pr14_impl01_journal.rs"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "![A vast engraved architecture of branching causal paths converging on a luminous vault](assets/continuum-hero.webp) # Continuum _An intent-preserving verification workbench for concurrent and distributed Rust._ Continuum is an attempt to make the shortest trustworthy path from an engineering claim to a working system: state the intent, model the behavior, exercise the real program, inspect causal evidence, repair what failed, and independently check what was proved. > [!IMPORTANT] > Continuum is currently in the **design and executable-spike phase**. This > repository contains the Revision 3",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "bobisme/paintop",
+    "url": "https://github.com/bobisme/paintop",
+    "stars": 0,
+    "language": "Rust",
+    "created_at": "2026-06-21T15:03:57Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 10,
+    "code_files": 259,
+    "sample_technique_files": [
+      ".bones/events/2026-06.events",
+      "crates/paintop-cpu/src/adjust.rs",
+      "crates/paintop-cpu/src/diff.rs",
+      "crates/paintop-cpu/src/flip.rs",
+      "crates/paintop-cpu/src/mask_algebra.rs"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# paintop `paintop` is a command-line runtime for deterministic, verifiable visual edits. The project is aimed at coding agents and automation systems that need to edit images, and later material textures, without relying on unchecked pixel scripts or subjective visual inspection. A user or agent writes a typed JSON operation graph; `paintop` validates it, normalizes it, executes it, and emits outputs plus machine-checkable evidence. ## What It Is For - Localized image touch-ups inside explicit masks, with a machine-checkable no-change-outside-mask guarantee. - Typed image, mask, field, SDF, l",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "bodar/mogwai-db",
+    "url": "https://github.com/bodar/mogwai-db",
+    "stars": 0,
+    "language": "TypeScript",
+    "created_at": "2026-07-11T06:13:33Z",
+    "technique_test_files": 2,
+    "technique_nontest_files": 0,
+    "code_files": 432,
+    "sample_technique_files": [
+      "test/L5-properties/README.md",
+      "test/L5-properties/metamorphic.test.ts",
+      "test/L7-census/README.md",
+      "test/support/graph.ts"
+    ],
+    "description": "A TinkerPop 4 graph database with SQLite as its engine — natively targeting the browser, edge, bare metal and Docker.",
+    "topics": [],
+    "readme": "<p align=\"center\">\n  <img src=\"logo.png\" alt=\"mogwai-db\" width=\"900\" height=\"450\">\n</p>\n\n# mogwai-db\n\n**A TinkerPop 4 graph database with SQLite as its engine — natively targeting the browser, edge, bare metal and Docker.**\n\nPoint any TinkerPop 4 client at it and it speaks Gremlin over the standard HTTP\nwire — no bespoke driver. Underneath there's no graph query engine to run and\nscale — just SQLite.\n\n> ### Status: pre-alpha — design in the open, not for production\n>\n> Actively developed on `trunk`; no auth yet, expect churn. Shared so the design and\n> progress are visible, not because it's production-ready.\n>\n> - **Understands the whole language** — 2,395 / 2,395 canonical Gremlin traversals\n>   parse and chain (100%), through a parser generated from TinkerPop's own `Gremlin.g4`.\n> - **Executes correctly** — **<!-- L3:passing -->1,848<!-- /L3:passing -->** official TinkerPop Gherkin scenarios pass\n>   through the *unmodified* `gremlin` JS client (tinkerpop `origin/master`) over the real GraphBinary wire,\n>   run as a **ratchet** (the number only goes up).\n> - **Reads + writes + strategies** land across a wide step surface. For the exact\n>   per-step edges see the **[feature support matrix](docs/feature-support-matrix.md)**.\n\n## SQLite is the engine\n\nA Gremlin traversal is normally run by walking its step chain one traverser at a\ntime. mogwai-db doesn't — it **lowers each whole traversal to a single parameterised\nSQL statement** for SQLite to run. The traversal executes *in the same process as\nstorage* — no query-engine-to-storage hop — and k-hop movement becomes index-only\ncovering scans. The planner, indexes, and execution are SQLite's; mogwai-db's job is\nthe compile.\n\n```mermaid\nflowchart LR\n  G[\"Gremlin string<br/>+ params\"] --> P[\"parse<br/><i>generated ANTLR</i>\"]\n  P --> IR[\"step chain<br/><i>own IR</i>\"]\n  IR --> N[\"normalize<br/><i>strategies</i>\"]\n  N --> L[\"lower<br/><i>typed Stream pipeline</i>\"]\n  L --> Q[\"one SQL query<br/><i>CTE chain</i>\"]\n  Q --> DB[(\"SQLite engine<br/><i>in-process</i>\")]\n```\n\nThe lowering pipeline is a typed **Stream** model: each read step transforms an\nimmutable stream (elements → scalars → lists → groups → …), accumulating CTEs, and\nthe whole plan materialises to GraphBinary only at the root. Movement, filters,\nprojections, branching, recursion, paths, aggregation, side-effects and the\ncollection/string/date families all lower through this one engine — no row-at-a-time\ninterpreter anywhere.\n\n## Runs everywhere\n\nBecause the engine is SQLite, mogwai-db runs wherever SQLite does. The parser,\ncompiler, and GraphBinary wire are platform-agnostic; only the synchronous **SQLite\nleaf** changes per target — and one shared contract test runs against every backend\nover the real wire, so they're proven identical, not tested twice. Every edition is\nself-contained and published on each release ([Releases](../../releases)):\n\n- **Browser** — SQLite compiled to WebAssembly (`opfs-sahpool`) behind a Service\n  Worker; the whol",
+    "readme_source": "full"
+  },
+  {
+    "repo": "bollese2/Giskard",
+    "url": "https://github.com/bollese2/Giskard",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2025-12-02T16:49:07Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 4,
+    "code_files": 424,
+    "sample_technique_files": [
+      "WEB_INTERFACE_README.md",
+      "docs/community/contribution_guidelines/index.rst",
+      "docs/knowledge/catalogs/test-catalog/classification/index.rst",
+      "docs/knowledge/catalogs/test-catalog/regression/index.rst",
+      "docs/open_source/customize_tests/test_model/index.md"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "<p align=\"center\"> <img alt=\"giskardlogo\" src=\"https://raw.githubusercontent.com/giskard-ai/giskard/main/readme/giskard_logo.png#gh-light-mode-only\"> <img alt=\"giskardlogo\" src=\"https://raw.githubusercontent.com/giskard-ai/giskard/main/readme/giskard_logo_green.png#gh-dark-mode-only\"> </p> <h1 align=\"center\" weight='300' >The Evaluation & Testing framework for AI systems</h1> <h3 align=\"center\" weight='300' >Control risks of performance, bias and security issues in AI systems</h3> <div align=\"center\"> [![GitHub release](https://img.shields.io/github/v/release/Giskard-AI/giskard)](https://githu",
+    "readme_source": "excerpt"
+  }
+]

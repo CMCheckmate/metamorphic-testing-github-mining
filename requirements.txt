@@ -1,23 +1,12 @@
-# Core
+# Python 3.11+. Git 2.30+ must also be installed and on PATH (cloning / scanning).
+
+# Specialised pipeline (search, scan, data collection, reports)
 requests>=2.31.0
 python-dotenv>=1.0.0
-
-# Git history mining (for commit timeline analysis)
-pydriller>=2.5
-
-# Progress
 tqdm>=4.66.0
-
-# Plotting & visualisation
 matplotlib>=3.8.0
 numpy>=1.24.0
 wordcloud>=1.9
 
-# Report
-seaborn>=0.13.0
-
-# Optional: NLTK for lemmatisation (not strictly required)
-# nltk>=3.8.0
-
-# YAML technique profiles (legacy; inputs/ files are now primary)
-pyyaml>=6.0
+# Full analysis only (python -m full_analysis): commit history mining
+pydriller>=2.5

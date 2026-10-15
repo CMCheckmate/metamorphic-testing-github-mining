@@ -1,0 +1,111 @@
+{
+  "query": "\"fuzzing\" OR \"fuzz test\" OR \"fuzz testing\" OR \"fuzz target\" OR \"fuzz harness\" OR \"fuzz corpus\"",
+  "strata": 17,
+  "windows_sampled": 1737,
+  "windows_total": 61105,
+  "checks": 14099,
+  "requests": 19836,
+  "agent": {
+    "2020": {
+      "share": 0.0,
+      "ci": 0.0,
+      "relevant_est": 15110.637010676155,
+      "exact": false
+    },
+    "2021": {
+      "share": 0.0,
+      "ci": 0.0,
+      "relevant_est": 20518.402930402928,
+      "exact": false
+    },
+    "2022": {
+      "share": 0.0031413612565445027,
+      "ci": 0.006029157428012946,
+      "relevant_est": 18925.81761006289,
+      "exact": false
+    },
+    "2023": {
+      "share": 0.0,
+      "ci": 0.0,
+      "relevant_est": 22053.080459770114,
+      "exact": false
+    },
+    "2024": {
+      "share": 0.00023546032493524844,
+      "ci": 0.00041247984795667503,
+      "relevant_est": 20820.94707520891,
+      "exact": false
+    },
+    "2025": {
+      "share": 0.05226223453370268,
+      "ci": 0.010788682076567796,
+      "relevant_est": 33372.21910112359,
+      "exact": false
+    },
+    "2026": {
+      "share": 0.27463726276188666,
+      "ci": 0.021209396829072955,
+      "relevant_est": 104621.18584070797,
+      "exact": false
+    }
+  },
+  "adoption": {
+    "2020": {
+      "estimate": 1954.8042704626332,
+      "ci": 382.0390826465322,
+      "rel_ci": 0.19543597710481625,
+      "exact": false,
+      "outside_capped": 0.0,
+      "inside_capped": 1954.8042704626332
+    },
+    "2021": {
+      "estimate": 2303.589743589743,
+      "ci": 445.2572658613797,
+      "rel_ci": 0.19328843909832827,
+      "exact": false,
+      "outside_capped": 0.0,
+      "inside_capped": 2303.589743589743
+    },
+    "2022": {
+      "estimate": 2695.194968553459,
+      "ci": 528.4068664342092,
+      "rel_ci": 0.19605515467321125,
+      "exact": false,
+      "outside_capped": 0.0,
+      "inside_capped": 2695.194968553459
+    },
+    "2023": {
+      "estimate": 3062.022988505747,
+      "ci": 565.1070944034575,
+      "rel_ci": 0.18455351136316162,
+      "exact": false,
+      "outside_capped": 0.0,
+      "inside_capped": 3062.022988505747
+    },
+    "2024": {
+      "estimate": 3500.3899721448465,
+      "ci": 285.5035733771152,
+      "rel_ci": 0.08156336169657527,
+      "exact": false,
+      "outside_capped": 0.0,
+      "inside_capped": 3500.3899721448465
+    },
+    "2025": {
+      "estimate": 7642.022471910112,
+      "ci": 1323.2241110699706,
+      "rel_ci": 0.17315103638254975,
+      "exact": false,
+      "outside_capped": 0.0,
+      "inside_capped": 7642.022471910112
+    },
+    "2026": {
+      "estimate": 31180.28824273072,
+      "ci": 2470.5775763352226,
+      "rel_ci": 0.07923523852962475,
+      "exact": false,
+      "outside_capped": 4.571428571428571,
+      "inside_capped": 31175.716814159292
+    }
+  },
+  "computed_at": "2026-10-15T20:51:01Z"
+}

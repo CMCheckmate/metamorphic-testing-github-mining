@@ -1,0 +1,1121 @@
+[
+  {
+    "repo": "aragorn67/or-agent",
+    "url": "https://github.com/aragorn67/or-agent",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-05-13T13:45:00Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 151,
+    "sample_technique_files": [
+      "tests/test_metamorphic_transforms.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# OR Agent An LLM-driven operations-research agent. Takes a natural-language description of an optimization problem, classifies the problem family, extracts parameters into a structured schema, runs a deterministic solver, and explains the result. ## What it does Given a prose problem statement such as: > *\"Boston can supply up to 1200 units and Phoenix can supply 700 units. Rome needs 350 units, Berlin needs 400 units, and Tokyo needs 250 units. Shipping from Boston to Rome costs $2.50 per unit, ...\"* the agent: 1. Detects intent (new problem vs. follow-up vs. small talk). 2. Classifies the p",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "AravindPro/Smartbooks",
+    "url": "https://github.com/AravindPro/Smartbooks",
+    "stars": 0,
+    "language": "Jupyter Notebook",
+    "created_at": "2024-12-10T16:22:29Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 3,
+    "sample_technique_files": [
+      "StructuredBooks/llmpaper.json",
+      "test.ipynb"
+    ],
+    "description": "Make books entertaining and learn faster",
+    "topics": [],
+    "readme": "API: - Give next content provided the prompt tokens - Database: break the book into chapters, subchapters and paragraphs and store in json. Also store the current paragraph number - Provided a book a function to break it up into chapters and paragraphs.",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "arclabs561/anno",
+    "url": "https://github.com/arclabs561/anno",
+    "stars": 11,
+    "language": "Rust",
+    "created_at": "2025-11-26T21:39:55Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 447,
+    "sample_technique_files": [
+      "crates/anno-eval/src/eval/property_tests.rs"
+    ],
+    "description": "Text annotation and entity extraction",
+    "topics": [
+      "coreference-resolution",
+      "information-extraction",
+      "ner",
+      "nlp",
+      "rust"
+    ],
+    "readme": "# anno [![crates.io](https://img.shields.io/crates/v/anno.svg)](https://crates.io/crates/anno) [![Documentation](https://docs.rs/anno/badge.svg)](https://docs.rs/anno) Text annotation and entity extraction. Extract entity spans, coreference links, and common forms of personally identifiable information from text. Model-backed extractors are optional; the rule-based extractors work offline. In Python, spaCy and GLiNER are the usual choices for NER and Microsoft Presidio for PII detection; use `anno` for these tasks from Rust, with character offsets and offline fallbacks. ## Library ```toml [dep",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "arclabs561/durability",
+    "url": "https://github.com/arclabs561/durability",
+    "stars": 2,
+    "language": "Rust",
+    "created_at": "2026-01-27T19:22:30Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 65,
+    "sample_technique_files": [
+      "tests/prop_publish_cadence_invariance.rs"
+    ],
+    "description": "Durability primitives for local persistence",
+    "topics": [
+      "persistence",
+      "rust",
+      "wal"
+    ],
+    "readme": "# durability [![crates.io](https://img.shields.io/crates/v/durability.svg)](https://crates.io/crates/durability) [![Documentation](https://docs.rs/durability/badge.svg)](https://docs.rs/durability) Durability primitives for local persistence. `durability` provides filesystem and in-memory directories, atomic writes, WALs, record logs, checkpoint files, CRC validation, and sync helpers. It does not own indexing, segment selection, compaction, or reader visibility. For a ready-made embedded key-value store, use redb or fjall, and for a standalone WAL crate, okaywal; use `durability` when your ow",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Arclude/Arterm-CLI",
+    "url": "https://github.com/Arclude/Arterm-CLI",
+    "stars": 2,
+    "language": "Rust",
+    "created_at": "2026-06-21T21:01:46Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 1556,
+    "sample_technique_files": [
+      "crates/arterm-tui/src/tui/app/commands.rs"
+    ],
+    "description": "Terminal AI coding agent that runs local models. Connect to Ollama, any OpenAI-compatible server, or load a GGUF directly — plus optional cloud providers. Permission-gated file & shell tools in a rich Ink TUI. No cloud or API keys required.",
+    "topics": [
+      "ai-agents",
+      "ai-tools",
+      "cli",
+      "code"
+    ],
+    "readme": "# Arterm A terminal AI coding agent, written in Rust. 83 crates, a real TUI, multi-model routing and swarm coordination, with the agent loop, tool registry and session server all in-process. It runs local and hosted models through one provider layer, and it is built to be driven unattended as readily as interactively. ## Install ```bash curl -fsSL https://arterm.dev/install | bash ``` Windows (PowerShell): ```powershell irm https://arterm.dev/install.ps1 | iex ``` The installer resolves the latest release, verifies the download against the release's `SHA256SUMS`, and puts the binary in `~/.loc",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Arghyadevs/arghyadevs_portfolio",
+    "url": "https://github.com/Arghyadevs/arghyadevs_portfolio",
+    "stars": 0,
+    "language": "TypeScript",
+    "created_at": "2026-01-01T17:24:21Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 2,
+    "code_files": 15,
+    "sample_technique_files": [
+      "public/ai-powered-applications.jsx",
+      "src/ai-powered-applications.jsx"
+    ],
+    "description": "I am Arghyadip Pakhira, a full-stack developer and machine learning enthusiast based in Kolkata. I specialize in building high-performance, cinematic web experiences and scalable AI solutions, including RAG-powered agents and HUD-style interfaces. Currently pursuing my B.Tech in CSE at Techno Main Salt Lake, I am also an active competitive programm",
+    "topics": [
+      "groq",
+      "portfolio",
+      "portfolio-website",
+      "react"
+    ],
+    "readme": "<p align=\"center\"> <img src=\"./public/assets/readme-banner.svg\" width=\"100%\" alt=\"Cyber HUD Banner\" /> </p> # Arghyadip Pakhira — Cybernetic Portfolio A cinematic, HUD-style personal developer terminal and conversational AI companion console. <p align=\"center\"> <a href=\"https://react.dev\"><img src=\"https://img.shields.io/badge/React-20232A?style=for-the-badge&amp;logo=react&amp;logoColor=61DAFB\" alt=\"React\" /></a> <a href=\"https://www.typescriptlang.org\"><img src=\"https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&amp;logo=typescript&amp;logoColor=white\" alt=\"TypeScript\" /></a>",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "ariel-frischer/autospec",
+    "url": "https://github.com/ariel-frischer/autospec",
+    "stars": 141,
+    "language": "Go",
+    "created_at": "2025-12-15T03:02:04Z",
+    "technique_test_files": 3,
+    "technique_nontest_files": 4,
+    "code_files": 501,
+    "sample_technique_files": [
+      "docs/public/reference.md",
+      "internal/config/config_test.go",
+      "internal/config/defaults.go",
+      "internal/config/schema.go",
+      "internal/config/schema_test.go"
+    ],
+    "description": "CLI for streamlined spec-driven development",
+    "topics": [
+      "agentic-workflow",
+      "ai",
+      "claude-code",
+      "codex",
+      "command-line",
+      "developer-tools",
+      "golang",
+      "opencode",
+      "prd",
+      "spec",
+      "spec-driven-development",
+      "specification",
+      "speckit",
+      "terminal",
+      "vibe-coding"
+    ],
+    "readme": "<div align=\"center\">\n\n<pre>\n▄▀█ █ █ ▀█▀ █▀█ █▀ █▀█ █▀▀ █▀▀\n█▀█ █▄█  █  █▄█ ▄█ █▀▀ ██▄ █▄▄\n</pre>\n\n**Spec-Driven Development Automation**\n\n[![GitHub CI](https://github.com/ariel-frischer/autospec/actions/workflows/ci.yml/badge.svg)](https://github.com/ariel-frischer/autospec/actions/workflows/ci.yml)\n[![GitHub Release](https://img.shields.io/github/v/release/ariel-frischer/autospec)](https://github.com/ariel-frischer/autospec/releases/latest)\n[![Go Report Card](https://goreportcard.com/badge/github.com/ariel-frischer/autospec)](https://goreportcard.com/report/github.com/ariel-frischer/autospec)\n[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)\n\nBuild features systematically with AI-powered specification workflows.\n\n</div>\n\n**Stop AI slop.** Autospec brings structure to AI coding: spec → plan → tasks → implement - all in one command.\n\nBuilt with a **multi-agent architecture** and inspired by [GitHub SpecKit](https://github.com/github/spec-kit), Autospec reimagines the specification workflow with **YAML-first artifacts** for programmatic access and validation. These principles ensure reliable, performant, and maintainable software that developers \ncan trust for their critical development workflows.\n\nSupported agents: [Claude Code](https://claude.ai/code), [Codex CLI](https://developers.openai.com/codex/cli/reference), [OpenCode](https://opencode.ai), and [Jcode](https://github.com/1jehuang/jcode).\n\n## 📦 Installation\n\n```bash\ncurl -fsSL https://raw.githubusercontent.com/ariel-frischer/autospec/main/install.sh | sh\n```\n\nhttps://github.com/user-attachments/assets/85b6be0f-1ec6-4121-b5ef-91ca3fd20f11\n\n## 🎯 Key Features\n\n- **Automated Workflow Orchestration** — Runs stages in dependency order with automatic retry on failure\n- **YAML-First Artifacts** — Machine-readable `spec.yaml`, `plan.yaml`, `tasks.yaml` for programmatic access\n- **Smart Validation** — Validates artifacts exist and meet completeness criteria before proceeding\n- **Cross-Platform** — Native binaries for Linux and macOS (Intel/Apple Silicon). Windows users: use [WSL](https://learn.microsoft.com/en-us/windows/wsl/install)\n- **Flexible Stage Selection** — Mix and match stages with intuitive flags (`-spti`, `-a`, etc.)\n- **Shell Completion** — Tab completion for bash, zsh, and fish\n- **OS Notifications** — Native desktop notifications with custom sound support\n- **History Tracking** — View and filter command execution history with status, duration, and exit codes\n- **Auto-Commit** — Automatic git commit creation with .gitignore management and conventional commit messages\n- **Multi-Agent** — Claude Code, Codex CLI, OpenCode, and Jcode, plus custom agent commands\n- **Per-Stage Models & Profiles** — Pick a model per stage (`models.<stage>`) and switch whole config sets with `--profile`\n- **Clean Interruption** — Ctrl+C, timeouts, and cancellation stop the agent and all its subprocesses\n\n## ✨ What Makes Autospec Different?\n\nOriginally in",
+    "readme_source": "full"
+  },
+  {
+    "repo": "ariffazil/A-FORGE",
+    "url": "https://github.com/ariffazil/A-FORGE",
+    "stars": 0,
+    "language": "TypeScript",
+    "created_at": "2026-04-02T09:27:28Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 2,
+    "code_files": 804,
+    "sample_technique_files": [
+      "src/domain/forge/capabilityAbi.ts",
+      "src/domain/forge/missionContract.ts"
+    ],
+    "description": "Governed execution engine. Mutates files, services, and git only after arifOS judges. 119 live MCP tools. Never self-authorizes.",
+    "topics": [
+      "a2a-protocol",
+      "agentic-ai",
+      "deployment",
+      "fastapi",
+      "governance",
+      "infrastructure",
+      "mcp",
+      "orchestration",
+      "runtime"
+    ],
+    "readme": "<!-- SOT-MANIFEST federation_release: v2026.09.17 last_verified: 2026-09-16T16:35:00Z live_commit: cbc25cb4 (runtime-reported via :7072/health) sense_port: 7071 (healthy) forge_port: 7072 (healthy) tools_live: 121 (tools_listed via :7072/health) · 87 stateless authority_ceiling: 777_FORGE (execution only — never adjudicate) apex_zen: A2A delegates ⊥ MCP equips ⊥ ACT mutates ⊥ arifOS governs ⊥ F13 decides act_ingress: HMAC-SHA256 verified, FI alias map complete infra_organs: arifFlow:7073 METABOLISM, FED:7074 ADVISORY, FRAME:frame-organ OBSERVE (FLAME:18901 decommissioned 2026-09-04) truth_rule",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "ariffazil/arifOS",
+    "url": "https://github.com/ariffazil/arifOS",
+    "stars": 51,
+    "language": "Python",
+    "created_at": "2025-11-17T07:50:32Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 2304,
+    "sample_technique_files": [
+      "tests/test_verdict_invariance.py"
+    ],
+    "description": "Independent policy kernel for AI agents: judge before execute. F1–F13 floors, VAULT999 receipts. Not a model. Not a chatbot.",
+    "topics": [
+      "agentic-ai",
+      "agi",
+      "ai",
+      "ai-agents",
+      "ai-governance",
+      "ai-safety",
+      "claude-code",
+      "constitutional-ai",
+      "fastmcp",
+      "governance",
+      "guardrails",
+      "llm",
+      "malaysia",
+      "mcp",
+      "mcp-client",
+      "mcp-server",
+      "model-context-protocol",
+      "multi-agent",
+      "prompt-engineering",
+      "python"
+    ],
+    "readme": "<!-- SOT-MANIFEST last_verified: 2026-10-05T07:41:19+00:00 kernel_release: v2026.08.01 (release_name from live /health) · canon version 2026.09.20-e8e6f93 pypi_version: 1!2026.9.2 (published 2026-09-15T16:42Z) · repo tree 1!2026.10.1 (staged, not yet released) live_commit: a98af0d74 (Merge remote-tracking branch 'origin/main' into heal/alias-slash-2026-10-04) source_commit: a98af0d74 built_commit: a98af0d deployment_drift_status: aligned (source = built = deployed (drift: false)) tools_exposed_via_mcp: 8 (canonical public verbs — verified by live tools/list) tools_canonical_superset: 25 (8 exp",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Arison591/SWE-abs-enhancement",
+    "url": "https://github.com/Arison591/SWE-abs-enhancement",
+    "stars": 1,
+    "language": "Python",
+    "created_at": "2026-05-11T10:49:27Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 2,
+    "code_files": 4455,
+    "sample_technique_files": [
+      "new_methods/abs_h_native_stage12/ABS_H_NATIVE_HANDOFF_20260503.md",
+      "new_methods/abs_h_native_stage12/run_round1_dual_granularity_absh_pipeline.py",
+      "new_methods/abs_h_native_stage12/run_round1d_c_consolidated_ranker_v2_hygiene.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "<p align=\"center\"> <img src=\"data/image/icon.png\" alt=\"SWE-ABS Icon\" width=\"200\"/> <br/> <h1 align=\"center\">SWE-ABS</h1> </p> [![Leaderboard](https://img.shields.io/badge/🏆_Leaderboard-Live-blue?style=for-the-badge)](https://openagenteval.github.io/SWE-ABS/) [![Dataset](https://img.shields.io/badge/🤗_SWE--Bench__Verified__ABS-HuggingFace-yellow?style=for-the-badge)](https://huggingface.co/datasets/OpenAgentLab/SWE-Bench_Verified_ABS) [![Dataset](https://img.shields.io/badge/🤗_SWE--bench__Pro--ABS-HuggingFace-yellow?style=for-the-badge)](https://huggingface.co/datasets/OpenAgentLab/SWE-bench_Pr",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "ArminAmiriDev/bit-or-qubit",
+    "url": "https://github.com/ArminAmiriDev/bit-or-qubit",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2024-10-12T08:12:10Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 2,
+    "sample_technique_files": [
+      "test.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "",
+    "readme_source": "none"
+  },
+  {
+    "repo": "Arrobear/Momo_test",
+    "url": "https://github.com/Arrobear/Momo_test",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2025-07-12T14:36:54Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 2,
+    "code_files": 22,
+    "sample_technique_files": [
+      "entrance.py",
+      "main.py",
+      "metamorphic_test.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "",
+    "readme_source": "none"
+  },
+  {
+    "repo": "arthurcolle/agents.erl",
+    "url": "https://github.com/arthurcolle/agents.erl",
+    "stars": 43,
+    "language": "Erlang",
+    "created_at": "2025-05-01T16:53:14Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 686,
+    "sample_technique_files": [
+      "apps/agent_web/src/autonomous_codebase.erl"
+    ],
+    "description": "Agents are distributed systems, and in this repository, they are treated as such. arthur@distributed.systems for projects / employment opportunities",
+    "topics": [],
+    "readme": "# agents.erl **An Erlang/OTP operating system for autonomous agents.** Supervision trees instead of orchestrators. Mnesia instead of a database. Message passing instead of HTTP glue. ~1,150 Erlang sources across two OTP applications — the distributed-systems research arm that gives Distributed Systems, Inc. its name. --- ## Why Erlang Autonomous agents are long-lived, failure-prone, stateful processes that must be individually supervised, restarted, hot-upgraded, and coordinated across a cluster. That is *exactly* the problem OTP was built for in 1986. agents.erl applies five decades of teleco",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "arthurcolle/dspy.ex",
+    "url": "https://github.com/arthurcolle/dspy.ex",
+    "stars": 37,
+    "language": "Elixir",
+    "created_at": "2025-06-01T23:36:40Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 166,
+    "sample_technique_files": [
+      "examples/frontier_2025_modalities.exs"
+    ],
+    "description": "DSPy prompt engineering",
+    "topics": [],
+    "readme": "# DSPy for Elixir Elixir implementation of DSPy - a framework for algorithmically optimizing language model prompts and weights. DSPy provides a unified interface for composing LM programs with automatic optimization, bringing the power of systematic prompt engineering to the Elixir ecosystem. ## Features - 🎯 **Type-safe signatures** - Define input/output interfaces with validation - 🧩 **Composable modules** - Build complex programs from simple components - 🤔 **Chain of Thought** - Built-in step-by-step reasoning capabilities - 🔌 **Multiple LM providers** - Support for OpenAI GPT-4.1 variants",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "aryanmehrotra/agents",
+    "url": "https://github.com/aryanmehrotra/agents",
+    "stars": 2,
+    "language": "Go",
+    "created_at": "2026-07-21T18:25:00Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 103,
+    "sample_technique_files": [
+      "agents/knowledge/org-memory/metamorphic_test.go"
+    ],
+    "description": "Personal AI agents built on GoFr 1.58 — LLM + MCP agent loop, SSE streaming, RAG. Runs keyless via a claude-CLI shim; default provider Groq.",
+    "topics": [
+      "ai-agents",
+      "gofr",
+      "golang",
+      "llm",
+      "mcp",
+      "rag"
+    ],
+    "readme": "<div align=\"center\"> # 🤖 agents ### A multi-agent system built on **[GoFr](https://gofr.dev) v1.58** *Specialist agents behind an LLM-routing orchestrator — talking to each other over **resilient**<br/>GoFr HTTP services, with tracing, token metrics, health checks and streaming wired in for free.* <br/> [![Go](https://img.shields.io/badge/Go-1.24+-00ADD8?style=for-the-badge&logo=go&logoColor=white)](https://go.dev) [![GoFr](https://img.shields.io/badge/GoFr-v1.58-FF7A00?style=for-the-badge)](https://github.com/gofr-dev/gofr/releases/tag/v1.58.0) [![License](https://img.shields.io/badge/License",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "ascalva/mind-palace",
+    "url": "https://github.com/ascalva/mind-palace",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-07-04T03:26:27Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 608,
+    "sample_technique_files": [
+      "core/complex/cut.py",
+      "docs/archive/WHITEPAPER-DREAMER-MATHEMATICS.md",
+      "docs/archive/math_proposals/gpt_chats.md",
+      "docs/design-notes/holistic-testing.md"
+    ],
+    "description": "Mind Palace is a knowledge system built around a single question: what does it mean for a system to know why it believes something? Built with the thing it's trying to understand.",
+    "topics": [],
+    "readme": "# Mind Palace [![CI](https://github.com/ascalva/Mind-Palace/actions/workflows/ci.yml/badge.svg)](https://github.com/ascalva/Mind-Palace/actions/workflows/ci.yml) [![tests](https://img.shields.io/badge/tests-1000%2B-brightgreen)](docs/runbook.md) [![coverage](https://img.shields.io/badge/coverage-88%25-green)](pyproject.toml) [![mypy](https://img.shields.io/badge/mypy-0_errors-brightgreen)](pyproject.toml) [![type coverage](https://img.shields.io/badge/type_coverage-gate--enforced-brightgreen)](ops/type_gate.py) [![sealed core](https://img.shields.io/badge/sealed_core-zero_egress-6f42c1)](scrip",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "askprash/concam",
+    "url": "https://github.com/askprash/concam",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-06-09T01:17:21Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 119,
+    "sample_technique_files": [
+      "tests/test_detection_metrics.py"
+    ],
+    "description": "Contrail detection on ground cameras",
+    "topics": [],
+    "readme": "# MIT ConCam contrail-detection pipeline A camera (\"ConCam\") on the roof of the MIT Green Building records the sky. This pipeline ingests that video, reads the on-frame timestamp, detects contrails, cross-references nearby aircraft from ADS-B flight tracks, groups the detections into per-flight \"Episodes\", and builds a web \"labeler\" bundle so human reviewers can mark ground truth. For the domain vocabulary and architecture in depth, read [`CONTEXT.md`](CONTEXT.md) — it is the authoritative glossary, and this README intentionally stays shallow and points there. ## Status Work in progress, share",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "asozialesnetzwerk/cockroach",
+    "url": "https://github.com/asozialesnetzwerk/cockroach",
+    "stars": 0,
+    "language": "Go",
+    "created_at": "2024-11-08T15:59:58Z",
+    "technique_test_files": 4,
+    "technique_nontest_files": 16,
+    "code_files": 8872,
+    "sample_technique_files": [
+      "pkg/BUILD.bazel",
+      "pkg/acceptance/cluster/dockercluster.go",
+      "pkg/acceptance/util_docker.go",
+      "pkg/bench/rttanalysis/validate_benchmark_data.go",
+      "pkg/cmd/roachtest/test_runner.go"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "<p align=\"center\"> <img src='docs/media/cockroach_db.png?raw=true' width='70%'> </p> --- CockroachDB is a cloud-native distributed SQL database designed to build, scale, and manage modern, data-intensive applications. - [What is CockroachDB?](#what-is-cockroachdb) - [Docs](#docs) - [Starting with Cockroach Cloud](#starting-with-cockroachcloud) - [Starting with CockroachDB](#starting-with-cockroachdb) - [Client Drivers](#client-drivers) - [Deployment](#deployment) - [Need Help?](#need-help) - [Contributing](#contributing) - [Design](#design) - [Comparison with Other Databases](#comparison-with-",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "ast-fortiss-tum/LUNAR",
+    "url": "https://github.com/ast-fortiss-tum/LUNAR",
+    "stars": 1,
+    "language": "Python",
+    "created_at": "2026-03-27T10:05:29Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 257,
+    "sample_technique_files": [
+      "code/sensei/README.md",
+      "code/sensei/src/metamorphic/rules.py"
+    ],
+    "description": "LUNAR: Search-based Generation of Multi-Turn Conversations through Intent-Level Abstractions",
+    "topics": [],
+    "readme": "<h1 align=\"center\">🌙 LUNAR: Search-based Generation of Multi-Turn Conversations through Intent-Level Abstractions </h1> LUNAR is an automated testing framework for benchmarking multi-turn conversations in task-oriented LLM applications. It models the conversation space using an intent-based formalization and applies genetic optimization to systematically identify failure-inducing interaction sequences. ## Updates <div style=\"background:#fff6d8;border:1px solid #dfc15d;border-left:6px solid #b98c00;border-radius:10px;padding:14px 16px;margin:20px 0;color:#2f2400;line-height:1.6;font-size:18px;",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "astorise/Magnetar",
+    "url": "https://github.com/astorise/Magnetar",
+    "stars": 0,
+    "language": "Rust",
+    "created_at": "2026-08-20T08:15:11Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 185,
+    "sample_technique_files": [
+      "magnetar-runtime/src/kernel_qualification.rs",
+      "openspec/changes/archive/2026-08-28-define-generated-kernel-qualification-cache-and-hot-swap-contract/proposal.md"
+    ],
+    "description": "Magnetar is a hardware-agnostic compute runtime for AI, written in Rust. It compiles and executes computation graphs across CPUs, GPUs, NPUs, TPUs and future accelerators through a modular plugin architecture, providing a portable, high-performance foundation for next-generation AI systems.",
+    "topics": [],
+    "readme": "# Magnetar [![Quality](https://github.com/astorise/Magnetar/actions/workflows/quality.yml/badge.svg)](https://github.com/astorise/Magnetar/actions/workflows/quality.yml) [![GPU Runner Smoke Test](https://github.com/astorise/Magnetar/actions/workflows/gpu-runner-smoke.yml/badge.svg)](https://github.com/astorise/Magnetar/actions/workflows/gpu-runner-smoke.yml) Magnetar is a Rust runtime for portable local AI execution. The current implementation is a v0.1 local-runtime baseline with real Provider-backed first-native execution. The repository contains the `magnetar-runtime` and `magnetar-cli` cra",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "astrogilda/tsbootstrap",
+    "url": "https://github.com/astrogilda/tsbootstrap",
+    "stars": 95,
+    "language": "Python",
+    "created_at": "2023-07-06T22:28:08Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 113,
+    "sample_technique_files": [
+      "tests/property/test_conformal_rng_invariants.py"
+    ],
+    "description": "tsbootstrap: generate bootstrapped time series samples in Python",
+    "topics": [],
+    "readme": "<!-- mcp-name: io.github.astrogilda/tsbootstrap -->\n\n<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->\n[![All Contributors](https://img.shields.io/github/all-contributors/astrogilda/tsbootstrap?color=ee8449&style=flat-square)](#contributors)\n<!-- ALL-CONTRIBUTORS-BADGE:END -->\n\n\n<div align=\"center\">\n    <div style=\"float: left; margin-right: 20px;\">\n        <img src=\"https://github.com/astrogilda/tsbootstrap/blob/main/tsbootstrap_logo.png\" width=\"120\" />\n    </div>\n    <h3>Fast, dependence-aware uncertainty for one time series or ten thousand.</h3>\n    <p>Block, model-based, and wild resampling; confidence and prediction intervals; fused statistics without replicate tensors. <a href=\"https://tsbootstrap.readthedocs.io/en/latest/\">Explore the documentation</a>.</p>\n    <div style=\"clear: both;\"></div>\n    <br>\n    <p align=\"center\">\n        <img src=\"https://img.shields.io/badge/Markdown-000000.svg?style=flat&logo=Markdown&logoColor=white\" alt=\"Markdown\" />\n        <img src=\"https://img.shields.io/badge/Python-3776AB.svg?style=flat&logo=Python&logoColor=white\" alt=\"Python\" />\n        <img src=\"https://img.shields.io/badge/Pytest-0A9EDC.svg?style=flat&logo=Pytest&logoColor=white\" alt=\"pytest\" />\n        <img src=\"https://img.shields.io/badge/GitHub%20Actions-2088FF.svg?style=flat&logo=GitHub-Actions&logoColor=white\" alt=\"actions\" />\n    </p>\n    <a href=\"https://arxiv.org/abs/2607.06690\"><img src=\"https://img.shields.io/static/v1?label=arXiv&message=2607.06690&color=B31B1B&logo=arXiv\" alt=\"preprint\">\n    </a>\n    <a href=\"https://pypi.org/project/tsbootstrap/\">\n        <img src=\"https://img.shields.io/pypi/v/tsbootstrap?color=5D6D7E&logo=pypi\" alt=\"pypi-version\" />\n    </a>\n    <a href=\"https://pypi.org/project/tsbootstrap/\">\n        <img src=\"https://img.shields.io/pypi/pyversions/tsbootstrap?color=5D6D7E&logo=python\" alt=\"pypi-python-version\" />\n    </a>\n    <a href=\"https://pepy.tech/projects/tsbootstrap\">\n        <img src=\"https://static.pepy.tech/badge/tsbootstrap\" alt=\"All-time downloads (pepy.tech)\"/>\n    </a>\n    <img src=\"https://img.shields.io/github/license/astrogilda/tsbootstrap?color=5D6D7E\" alt=\"github-license\" />\n    <img src=\"https://github.com/astrogilda/tsbootstrap/workflows/CI/badge.svg\" alt=\"Build Status\"/>\n    <a href=\"https://codecov.io/gh/astrogilda/tsbootstrap\"><img src=\"https://codecov.io/gh/astrogilda/tsbootstrap/branch/main/graph/badge.svg\" alt=\"codecov\"/></a>\n    <a href=\"https://doi.org/10.5281/zenodo.8226495\"><img src=\"https://zenodo.org/badge/DOI/10.5281/zenodo.8226495.svg\" alt=\"DOI\"/></a>\n    <a href=\"https://mybinder.org/v2/gh/astrogilda/tsbootstrap/HEAD?labpath=docs/source/tutorials/quickstart.ipynb\"><img src=\"https://mybinder.org/badge_logo.svg\" alt=\"Launch tutorials on Binder\"/></a>\n    <img src=\"https://img.shields.io/github/last-commit/astrogilda/tsbootstrap\" alt=\"Last Commit\"/>\n    <img src=\"https://img.shields.io/github/issues/astrogilda/tsbootstrap\" alt=\"Issues\"/>\n    <img src=\"htt",
+    "readme_source": "full"
+  },
+  {
+    "repo": "ateferos77/scstability",
+    "url": "https://github.com/ateferos77/scstability",
+    "stars": 1,
+    "language": "Jupyter Notebook",
+    "created_at": "2026-09-01T12:09:17Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 24,
+    "sample_technique_files": [
+      "tests/test_metamorphic.py"
+    ],
+    "description": "Bootstrap cluster stability for single-cell RNA-seq",
+    "topics": [
+      "anndata",
+      "bioinformatics",
+      "clustering",
+      "computational-biology",
+      "leiden",
+      "python",
+      "scanpy",
+      "scrna-seq",
+      "single-cell",
+      "stability"
+    ],
+    "readme": "# scstability\n\n**Which of your single-cell clusters survive resampling, and which dissolve?**\n\n[![PyPI](https://img.shields.io/pypi/v/scstability.svg?color=blue)](https://pypi.org/project/scstability/)\n[![Python](https://img.shields.io/pypi/pyversions/scstability.svg)](https://pypi.org/project/scstability/)\n[![Tests](https://github.com/ateferos77/scstability/actions/workflows/test.yml/badge.svg)](https://github.com/ateferos77/scstability/actions/workflows/test.yml)\n[![License: BSD-3-Clause](https://img.shields.io/badge/License-BSD--3--Clause-green.svg)](https://github.com/ateferos77/scstability/blob/main/LICENSE)\n\nLeiden will return clusters from pure noise, confidently. The silhouette score\nwill not save you: it rewards compactness, which a slice carved out of a\ncontinuum also has. `scstability` answers the question that actually matters:\n**would this cluster still be here if you had sequenced a different sample of\nthe same cells?**\n\nIt implements the cluster-wise Jaccard stability of **Hennig (2007)** over\nsubsampled reclusterings. AnnData-first, scanpy-compatible, one function call.\n\n![Stability across resolutions on five genotype-labelled cell lines](https://raw.githubusercontent.com/ateferos77/scstability/main/docs/images/validation_5cl_curve.png)\n\n<sub>Five human cell lines mixed and sequenced together, each cell assigned to\nits line by SNP genotype (Tian et al., *Nature Methods* 2019). The package sees\nonly PCA coordinates, never the genotype, and finds the true five groups\nstable at 0.980, with everything finer collapsing. See\n[Does it work?](https://github.com/ateferos77/scstability#does-it-work)</sub>\n\n---\n\n## Contents\n\n- [What it does](https://github.com/ateferos77/scstability#what-it-does) · [Installation](https://github.com/ateferos77/scstability#installation) · [Quick start](https://github.com/ateferos77/scstability#quick-start)\n- [Reading the score](https://github.com/ateferos77/scstability#reading-the-score): **read this before trusting a number**\n- [Does it work?](https://github.com/ateferos77/scstability#does-it-work) · [Performance](https://github.com/ateferos77/scstability#performance)\n- [API](https://github.com/ateferos77/scstability#api), and the [full reference](https://github.com/ateferos77/scstability/blob/main/docs/API.md)\n- [Prior art](https://github.com/ateferos77/scstability#prior-art) · [Limitations](https://github.com/ateferos77/scstability#limitations) · [Citing](https://github.com/ateferos77/scstability#citing)\n\nTwo executed notebooks carry the detail:\n**[usage walkthrough](https://github.com/ateferos77/scstability/blob/main/examples/pbmc_walkthrough.ipynb)** on 11,000 real PBMCs,\nand **[the validation](https://github.com/ateferos77/scstability/blob/main/benchmarks/validation.ipynb)**.\n\n---\n\n## What it does\n\n1. **Cluster the full data** at each resolution. This is the reference.\n2. **Draw 80% of the cells** without replacement, rebuild the kNN graph on just\n   those cells, and recluster from scratch.\n3. **Match ea",
+    "readme_source": "full"
+  },
+  {
+    "repo": "atulpokharel-gp/jcode-jarvise",
+    "url": "https://github.com/atulpokharel-gp/jcode-jarvise",
+    "stars": 0,
+    "language": "Rust",
+    "created_at": "2026-06-20T01:20:03Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 1077,
+    "sample_technique_files": [
+      "crates/jcode-tui/src/tui/app/commands.rs"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "<div align=\"center\"> # jcode‑jarvise · Multi‑Agent Coding Console **A local control room that runs a whole team of coding agents from one screen — they plan, build in parallel, test their own work, and fix their own mistakes.** [![License: MIT](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](LICENSE) [![Platforms](https://img.shields.io/badge/platforms-Linux%20%7C%20macOS%20%7C%20Windows-blue?style=flat-square)](#quick-start) [![Last Commit](https://badgen.net/github/last-commit/atulpokharel-gp/jcode-jarvise/main?icon=github)](https://github.com/atulpokharel-gp/jcode-jarvise/",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "augusto-scarvalho/tare.tools.dialog-engine",
+    "url": "https://github.com/augusto-scarvalho/tare.tools.dialog-engine",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-08-18T14:45:15Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 47,
+    "sample_technique_files": [
+      "README.md",
+      "src/tare_dialog/mutator.py"
+    ],
+    "description": "Deterministic Conversational AST, Semantic Diff Engine, Static SpEL Evaluator, Topological Graph Analyzer & Mission Control Triage Console for Dialog Trees & AI Agents.",
+    "topics": [
+      "ai-agents",
+      "ast",
+      "chatgpt-code-interpreter",
+      "conversational-ai",
+      "copilot-studio",
+      "dialog-tree",
+      "graph-analysis",
+      "semantic-diff",
+      "spel",
+      "state-machine",
+      "static-analysis",
+      "tare-tools",
+      "watson-assistant"
+    ],
+    "readme": "<div align=\"center\"> # tare.tools — Dialog Engine **Deterministic Conversational AST, Semantic Diff Engine, Hardened SpEL Evaluator, Topological Graph Analyzer, Symbolic Mutation Fuzzer, Decoupled Schema Binding Adapter, and Mission Control Triage Console for Enterprise Dialog Systems.** [![License: Apache-2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![Python Version](https://img.shields.io/badge/Python-3.10%2B-brightgreen.svg)](https://python.org) [![High Performance](https://img.shields.io/badge/Accelerated-orjson%20%7C%20networ",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "augusto-scarvalho/tare.tools.local-labs",
+    "url": "https://github.com/augusto-scarvalho/tare.tools.local-labs",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-08-13T12:03:14Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 684,
+    "sample_technique_files": [
+      "tests/benchmark_harness/README.md",
+      "tests/benchmark_harness/benchmark_harness_selftest.py"
+    ],
+    "description": "Private Local AI Lab experiments and relay surface for tare.tools",
+    "topics": [],
+    "readme": "<div align=\"center\"> # 🧪 tare.tools.local-labs **Empirical Research Lab, Lifecycle Benchmarking Engine, and Local Inference Optimization Test Bench for High-Performance Open-Source LLMs.** [![License: Apache-2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![CI](https://github.com/augusto-scarvalho/tare.tools.local-labs/actions/workflows/ci.yml/badge.svg)](https://github.com/augusto-scarvalho/tare.tools.local-labs/actions/workflows/ci.yml) [![Python Version](https://img.shields.io/badge/Python-3.10%2B-brightgreen.svg)](https://python.",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "auldsyababua/BrainBot",
+    "url": "https://github.com/auldsyababua/BrainBot",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2025-07-18T21:36:35Z",
+    "technique_test_files": 4,
+    "technique_nontest_files": 0,
+    "code_files": 259,
+    "sample_technique_files": [
+      "tests/security/test_list_processor_anti_mesa.py",
+      "tests/security/test_task_processor_anti_mesa.py",
+      "testsprite_tests/README_ANTI_MESA.md",
+      "testsprite_tests/test_list_processor_anti_mesa.py",
+      "testsprite_tests/test_task_processor_anti_mesa.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# 🧠 BrainBot - CAG (Creation Augmented Generation) An intelligent Telegram bot that acts as your personal filing assistant. Send it any information and it automatically organizes everything without asking questions - like having a hyper-competent assistant who just handles knowledge management. > **Architecture**: Webhook-based (production) | Polling (local development) > **Philosophy**: Append-only, source-preserving, auto-organizing ## 🎯 Core Features - **Auto-Organization**: Intelligently files information without user intervention - **Source Preservation**: Every input preserved with audit",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "auldsyababua/flrts-bmad",
+    "url": "https://github.com/auldsyababua/flrts-bmad",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2025-08-15T00:57:51Z",
+    "technique_test_files": 3,
+    "technique_nontest_files": 0,
+    "code_files": 187,
+    "sample_technique_files": [
+      "testsprite_tests/README_ANTI_MESA.md",
+      "testsprite_tests/test_field_report_processor_anti_mesa.py",
+      "testsprite_tests/test_list_processor_anti_mesa.py",
+      "testsprite_tests/test_task_processor_anti_mesa.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# 🧠 BrainBot - CAG (Creation Augmented Generation) An intelligent Telegram bot that acts as your personal filing assistant. Send it any information and it automatically organizes everything without asking questions - like having a hyper-competent assistant who just handles knowledge management. > **Architecture**: Webhook-based (production) | Polling (local development) > **Philosophy**: Append-only, source-preserving, auto-organizing ## 🎯 Core Features - **Auto-Organization**: Intelligently files information without user intervention - **Source Preservation**: Every input preserved with audit",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Aurtechmx/openlidarviewer",
+    "url": "https://github.com/Aurtechmx/openlidarviewer",
+    "stars": 22,
+    "language": "TypeScript",
+    "created_at": "2026-06-03T05:31:11Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 3097,
+    "sample_technique_files": [
+      "docs/validation/defect-records.md",
+      "scripts/make-profile-section-fixture.mjs",
+      "tests/profileSectionProjection.test.ts"
+    ],
+    "description": "Browser-based LiDAR and point-cloud viewer - measure, classify, profile, and export, entirely client-side on WebGPU with a WebGL2 fallback. Runs locally, no upload.",
+    "topics": [
+      "3d-spatial",
+      "3d-visualization",
+      "copc",
+      "drone-lidar",
+      "geospatial",
+      "gis",
+      "lidar",
+      "lidar-data",
+      "point-cloud",
+      "point-cloud-viewer",
+      "remote-sensing",
+      "research-development",
+      "research-tool",
+      "spatial-computing",
+      "surveying",
+      "threejs",
+      "webgl",
+      "webgpu"
+    ],
+    "readme": "# OpenLiDARViewer\n\n<p align=\"center\"><img src=\"docs/assets/olv-hero.png\" alt=\"OpenLiDARViewer: local-first point-cloud exploration in the browser\" width=\"100%\"></p>\n\nA browser-native LiDAR and point-cloud viewer for fast local inspection, 3D navigation, measurement, and terrain analysis. Local-first, cited, honest about what it can't tell you.\n\n<!-- Does it build and run, everywhere it claims to -->\n[![CI](https://github.com/Aurtechmx/openlidarviewer/actions/workflows/ci.yml/badge.svg)](https://github.com/Aurtechmx/openlidarviewer/actions/workflows/ci.yml)\n[![Clean clone](https://github.com/Aurtechmx/openlidarviewer/actions/workflows/clean-clone.yml/badge.svg)](https://github.com/Aurtechmx/openlidarviewer/actions/workflows/clean-clone.yml)\n[![Benchmark portability](https://github.com/Aurtechmx/openlidarviewer/actions/workflows/benchmark-portability.yml/badge.svg)](https://github.com/Aurtechmx/openlidarviewer/actions/workflows/benchmark-portability.yml)\n\n<!-- Is it measured, and by whom -->\n[![Security audit](https://github.com/Aurtechmx/openlidarviewer/actions/workflows/security.yml/badge.svg)](https://github.com/Aurtechmx/openlidarviewer/actions/workflows/security.yml)\n[![Coverage](https://img.shields.io/codecov/c/github/Aurtechmx/openlidarviewer?label=coverage&color=3fb950)](https://codecov.io/gh/Aurtechmx/openlidarviewer)\n[![Core mutation score](https://img.shields.io/endpoint?style=flat&label=core%20mutation%20score&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2FAurtechmx%2Fopenlidarviewer%2Fmain)](https://dashboard.stryker-mutator.io/reports/github.com/Aurtechmx/openlidarviewer/main)\n[![Quality gate](https://sonarcloud.io/api/project_badges/measure?project=Aurtechmx_openlidarviewer&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Aurtechmx_openlidarviewer)\n\n<!-- Can the work be found and reused -->\n[![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.21544619-1682D4)](https://doi.org/10.5281/zenodo.21544619)\n[![fair-software.eu](https://img.shields.io/badge/fair--software.eu-%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8B%20%20%E2%97%8F%20%20%E2%97%8B-orange)](https://fair-software.eu)\n[![Latest release](https://img.shields.io/github/v/release/Aurtechmx/openlidarviewer?color=2F6BFF)](https://github.com/Aurtechmx/openlidarviewer/releases/latest)\n[![License](https://img.shields.io/badge/license-AGPL--3.0--only-blue)](LICENSE)\n\n## Try it in 10 seconds\n\nNo install, no account, no upload. Open [app.openlidarviewer.org](https://app.openlidarviewer.org/), then drag a `.las`, `.laz`, or `.copc.laz` file (or paste a remote COPC / `ept.json` URL) onto the page. You're navigating the cloud in your browser, and the file never leaves your device.\n\nNew here? The [User Guide](docs/USER_GUIDE.md) covers opening and measuring a scan. It also covers terrain analysis, comparing two scans and sharing your work. Full documentation, the format matrix, and the scientific validation record live at the [docs site](https://openlidarviewer.o",
+    "readme_source": "full"
+  },
+  {
+    "repo": "austinb-ultranaut/ultranauts-istqb-studyguide",
+    "url": "https://github.com/austinb-ultranaut/ultranauts-istqb-studyguide",
+    "stars": 1,
+    "language": "Jupyter Notebook",
+    "created_at": "2024-08-07T10:20:24Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 2,
+    "sample_technique_files": [
+      "ISTQB_Flashcards.ipynb",
+      "glossary_terms_cards.json",
+      "key_terms.md"
+    ],
+    "description": "A python based project to run Jupyter notecards for ISTQB foundation exam materials. It also uses automation to collect and update vocabulary from the official ISTQB website",
+    "topics": [],
+    "readme": "# ultranauts-istqb-studyguide A python based project to run Jupyter notecards for ISTQB foundation exam materials. It also uses automation to collect and update vocabulary from the official ISTQB website # General use Running the example.py script as a standalone should load the glossary page of the ISTQB webpage, and handle any popups related to cookies. If a .pkl file already exists that saves cookie data then the script will load the previous session and continue with the main portion. After the webpage is scrapped then everything is saved into a .md file, which is then converted to a .json",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "austinyuch/skills",
+    "url": "https://github.com/austinyuch/skills",
+    "stars": 1,
+    "language": "Python",
+    "created_at": "2026-06-23T07:20:33Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 143,
+    "sample_technique_files": [
+      "skills/test-design-generator/references/test-design-techniques.md",
+      "skills/test-design-generator/scripts/run.py",
+      "skills/test-quality-reviewer/references/test-smells.md"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# aclab Skills **aclab's** curated collection of AI agent skills for professional software development workflows. This is an **agent-agnostic** collection — the skills run on **OpenCode**, **Claude Code**, and **Codex** (and other compatible runtimes), not just one vendor. 🌐 **Languages:** [English](README.md) · [繁體中文](README.zh-TW.md) [![CI](https://github.com/austinyuch/skills/actions/workflows/ci.yml/badge.svg)](https://github.com/austinyuch/skills/actions/workflows/ci.yml) > 🤖 **Using a coding agent?** Read [`AGENTS.md`](AGENTS.md) — it explains how to navigate this > collection, when to e",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "autoren/simulagent-model",
+    "url": "https://github.com/autoren/simulagent-model",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-08-06T02:17:05Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 5,
+    "code_files": 1890,
+    "sample_technique_files": [
+      "python/audit_v22_relational.py",
+      "python/audit_v22r2_grounding.py",
+      "python/generate_v22_relational_development.py",
+      "python/run_v22_oracle_baselines.py",
+      "python/test_v22_protocol.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# Simulagent QLoRA > **Final research status (2026-08-19):** Simulagent is closed as an active experimental program and retained as a > read-only evidence and reference-architecture repository. The supported result is a model-free mechanism > architecture, not externally validated open-world language understanding. Start with > [`docs/simulagent-final-closure.md`](docs/simulagent-final-closure.md), > [`docs/simulagent-unpursued-tracks.md`](docs/simulagent-unpursued-tracks.md), and > [`docs/cross-track-evidence-synthesis-through-v224.md`](docs/cross-track-evidence-synthesis-through-v224.md). >",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "AV-CSE31/veridian",
+    "url": "https://github.com/AV-CSE31/veridian",
+    "stars": 2,
+    "language": "Python",
+    "created_at": "2026-03-21T05:19:47Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 5,
+    "code_files": 189,
+    "sample_technique_files": [
+      "benchmarks/sota_assurance_bench.py",
+      "tests/math/test_robustness.py",
+      "veridian/math/__init__.py",
+      "veridian/math/_robustness.py",
+      "veridian/math/banking.py"
+    ],
+    "description": "The verification contract between an agent and the world.",
+    "topics": [],
+    "readme": "# Veridian **Deterministic assurance and replay-safe effects for AI agents.** [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/) [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE) [![PyPI](https://img.shields.io/pypi/v/veridian-ai.svg)](https://pypi.org/project/veridian-ai/) Veridian is a Python library for enforcing a narrow boundary around agent work: an agent may propose an output or action, but deterministic checks decide whether it may be accepted or executed. For ordinary task completion, the rule is simple",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "av-toolkit/toolkit",
+    "url": "https://github.com/av-toolkit/toolkit",
+    "stars": 3,
+    "language": "Python",
+    "created_at": "2022-08-07T22:53:37Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 24,
+    "code_files": 66,
+    "sample_technique_files": [
+      "README.md",
+      "assessment_toolkit/assessment_toolkit.py",
+      "assessment_toolkit/backend/scenario/follow_vehicle.py",
+      "assessment_toolkit/backend/scenario/follow_vehicle_town3.py",
+      "assessment_toolkit/backend/scenario/intersection_left_turn.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "Autonomous Vehicle Assessment Toolkit ===================================== ## Recommended system * Intel i7 gen 9th - 11th / Intel i9 gen 9th - 11th / AMD ryzen 7 / AMD ryzen 9 * +16 GB RAM memory * NVIDIA RTX 2070 / NVIDIA RTX 2080 / NVIDIA RTX 3070, NVIDIA RTX 3080 * Ubuntu 18.04 ## Requirements * Python 3.7 * CUDA-10.0 (https://docs.nvidia.com/cuda/archive/10.0/cuda-installation-guide-linux/index.html) * Docker (19.03+) (https://github.com/autowarefoundation/autoware_ai_documentation/wiki/docker-installation) * Nvidia docker (https://github.com/NVIDIA/nvidia-docker) * carla-simulator 0.9.",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "averykhoo/graph-reachability-zanzibar-index",
+    "url": "https://github.com/averykhoo/graph-reachability-zanzibar-index",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2024-02-09T02:25:22Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 241,
+    "sample_technique_files": [
+      "tests/test_irrelevant_alternatives.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# Directed Acyclic (Multi-)Graph Reachability Indexing for Zanzibar\n\nI can't find any literature on a graph reachability index that works exactly the way I want,\nso here we go again on another ~~yak-shaving exercise~~ exploratory side project\n\nThis is all an effort to find a way to index zanzibar-like permissions for efficient lookup\n\n## What is this\n\nIt should be some code that lets you index a directed acyclic graph and look up in constant-ish time:\n\n* given two nodes `u` and `v`, whether there is a path from `u` to `v`\n* given one node `u`, all nodes `v'` that have a path from `u`\n* given one node `v`, all nodes `u'` that have a path to `v`\n\nAnd it should allow addition and removal in about linear-ish time\n(or constant-ish time, given some assumptions about the out-degree of nodes in the graph):\n\n* adding an edge from `u` to `v`\n* removing an edge from `u` to `v`\n* adding a new node `u` with no incoming/outgoing edges\n* removing a node `u` and all edges to/from `u`\n\nAnd it should build an index from a given graph in no worse than polynomial time,\nand shouldn't take any more than polynomial space.\n\nAll this is to help with indexing permissions in [Google Zanzibar](https://zanzibar.tech)\n\n## How does it work\n\n~~Please read the the code to understand how it works.\nIf it doesn't work then this repo will probably be archived.~~\n\nClaude helped to write explainer docs and update some of this readme.\nStart at [`docs/architecture/overview.md`](./docs/architecture/overview.md) for the module map and the short version of everything.\nThe actual *why* lives in [`docs/architecture/theory.md`](./docs/architecture/theory.md) (path-counting closure, split wildcard nodes, stratified fixpoints, the star-closed set algebra)\nand [`docs/architecture/correctness.md`](./docs/architecture/correctness.md) (what's proved by construction vs pinned by redundant implementations, and the known gaps).\nThe full design specs (with the rejected alternatives) are in [`docs/specs/`](./docs/specs/), decisions distilled in\n[`docs/architecture/decision-log.md`](./docs/architecture/decision-log.md).\nThe code cites the specs by section number (`spec §N` / `boolean spec §N`), so they're reference material, not just history.\n\n## Repo layout\n\nThe library is one package, `zanzibar` (`src/zanzibar/`, `pyproject.toml`); everything\nelse in the repo is tests, proofs, benchmarks and docs. `pip install -e .` for scripts;\nthe test suite needs no install (`pytest.ini` puts `src` on the path).\n\n```\nsrc/zanzibar/\n  schema/              shared schema layer (DSL + OpenFGA JSON parsers, compile,\n                       validation)\n  graphindex/          the graph index (closure core, wildcard façade,\n                       boolean delta processor, invariants, outbox)\n  setengine/           the set engine (bitmap evaluation, MemberSet, interner)\n  connectedstore/      the composed system: source-of-truth tuples + permanent\n                       log feeding the index (sync or async), freshness tokens,\n ",
+    "readme_source": "full"
+  },
+  {
+    "repo": "AvilaLabs/ACTINV",
+    "url": "https://github.com/AvilaLabs/ACTINV",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-08-25T06:13:59Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 1333,
+    "sample_technique_files": [
+      "controls/g2_p16_metamorphic.py",
+      "docs/PARKING.md",
+      "docs/ROADMAP.md",
+      "docs/history/COMPETITIVE_BENCHMARK_ARCHIVE.md",
+      "docs/history/sessions/CB1.md"
+    ],
+    "description": "Open, standalone activation and nuclide-inventory solver in Rust with a Python API and reproducible validation.",
+    "topics": [
+      "activation",
+      "depletion",
+      "fusion-energy",
+      "nuclear-data",
+      "nuclear-engineering",
+      "nuclide-inventory",
+      "python",
+      "radioactivity",
+      "rust",
+      "scientific-computing"
+    ],
+    "readme": "# ACTINV [![CI](https://github.com/AvilaLabs/ACTINV/actions/workflows/ci.yml/badge.svg)](https://github.com/AvilaLabs/ACTINV/actions/workflows/ci.yml) [![PyPI](https://img.shields.io/pypi/v/actinv?label=PyPI)](https://pypi.org/project/actinv/) [![crates.io](https://img.shields.io/crates/v/actinv-cli?label=crates.io)](https://crates.io/crates/actinv-cli) [![License: MIT OR Apache-2.0](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue.svg)](#contributing-and-licence) **Open, reproducible activation and nuclide-inventory calculations with a native desktop, command line, and Python.",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "aviral-shrivastava-dev/Campus-Cruise",
+    "url": "https://github.com/aviral-shrivastava-dev/Campus-Cruise",
+    "stars": 0,
+    "language": "JavaScript",
+    "created_at": "2026-03-03T11:16:52Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 145,
+    "sample_technique_files": [
+      "backend/src/utils/propertyTestHelpers.js"
+    ],
+    "description": "Community Driven Carpooling App for College Students",
+    "topics": [],
+    "readme": "# Campus Cruise Community-driven carpooling platform for college students to facilitate ride-sharing to and from campus and surrounding communities. ## Project Structure ``` campus-cruise/ ├── backend/ # Node.js + Express.js backend │ ├── src/ │ │ ├── config/ # Configuration files (database, firebase) │ │ ├── controllers/ # Request handlers │ │ ├── middleware/ # Express middleware │ │ ├── migrations/ # Database migrations │ │ ├── models/ # Sequelize models │ │ ├── routes/ # API routes │ │ ├── seeders/ # Database seeders │ │ ├── services/ # Business logic │ │ ├── utils/ # Utility functions │ │",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "aws-samples/sample-why-agents-fail",
+    "url": "https://github.com/aws-samples/sample-why-agents-fail",
+    "stars": 17,
+    "language": "Jupyter Notebook",
+    "created_at": "2026-02-12T00:53:55Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 56,
+    "sample_technique_files": [
+      "stop-ai-agent-hallucinations/01-faq-graphrag-demo/README.md",
+      "stop-ai-agent-hallucinations/01-faq-graphrag-demo/test_graphrag.ipynb",
+      "stop-ai-agent-hallucinations/03-multiagent-demo/README.md",
+      "stop-ai-agent-hallucinations/README.md"
+    ],
+    "description": "How to stop AI agents from hallucinating and wasting tokens. Working demos: Graph-RAG, semantic tool selection, neurosymbolic guardrails, DebounceHook — built with Strands Agents",
+    "topics": [
+      "agentic-ai",
+      "bedrock",
+      "openai",
+      "paper",
+      "strands-agents",
+      "tutorial"
+    ],
+    "readme": "# 🤖 Why AI Agents Fail (And How to Fix Them) [![GitHub stars](https://img.shields.io/github/stars/aws-samples/sample-why-agents-fail.svg?style=for-the-badge&logo=github&color=yellow)](https://github.com/aws-samples/sample-why-agents-fail/stargazers) [![License](https://img.shields.io/badge/License-MIT--0-blue.svg?style=for-the-badge)](LICENSE) [![Python](https://img.shields.io/badge/Python-3.9+-green.svg?style=for-the-badge&logo=python)](https://python.org) [![AWS](https://img.shields.io/badge/AWS-Bedrock-orange.svg?style=for-the-badge&logo=amazon-aws)](https://aws.amazon.com/bedrock/) [![Stra",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "awslabs/aidlc-workflows",
+    "url": "https://github.com/awslabs/aidlc-workflows",
+    "stars": 4575,
+    "language": "TypeScript",
+    "created_at": "2025-11-13T22:05:08Z",
+    "technique_test_files": 2,
+    "technique_nontest_files": 0,
+    "code_files": 1118,
+    "sample_technique_files": [
+      "tests/e2e/t-tui-t139-revision-loop-idempotency.serial.test.ts",
+      "tests/e2e/t138-scope-exclusion-counts.test.ts"
+    ],
+    "description": "AI-Driven Life Cycle (AI-DLC) adaptive workflow steering rules for AI coding agents",
+    "topics": [],
+    "readme": "# AI-DLC - one core, many harnesses AI-DLC (AI-Driven Development Life Cycle) turns AI coding assistants into structured, verifiable software-delivery workflows. One harness-neutral core runs natively in Claude Code, Kiro CLI, Kiro IDE, Codex CLI, Cursor, opencode, and GitHub Copilot. ![version](https://img.shields.io/badge/version-2.11.0-blue) ![license](https://img.shields.io/badge/license-MIT--0-green) The Quick Start below installs the latest stable AI-DLC release. ## Quick Start ### 1. Install AI-DLC macOS, Linux, or WSL: ```bash curl -fsSL https://github.com/awslabs/aidlc-workflows/relea",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "axerazo/dcr",
+    "url": "https://github.com/axerazo/dcr",
+    "stars": 0,
+    "language": "TypeScript",
+    "created_at": "2026-04-08T22:34:06Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 47,
+    "sample_technique_files": [
+      "docs/e2e/TEST_PLAN.md",
+      "src/lib/golden.test.ts"
+    ],
+    "description": "Differential validation harness for AI-generated output, and the ledger-first finance app it validates. React 19 · TypeScript · Supabase · Claude API",
+    "topics": [
+      "ai-testing",
+      "llm-evaluation",
+      "playwright",
+      "supabase",
+      "test-automation",
+      "typescript"
+    ],
+    "readme": "# Digital Check Register ![CI](https://github.com/axerazo/dcr/actions/workflows/ci.yml/badge.svg)\n\n**A differential validation harness for AI-generated output — and the ledger-first finance application it validates.**\n\n> **Status:** Active development, personal project. Not deployed. Not production-ready.\n\nMost projects that use an LLM verify the output by looking at it. This one doesn't. Every figure the AI-assisted reconciliation engine produces is diffed against an independently built ground-truth oracle, continuously, as the system evolves.\n\nThe finance application is the system under test. The validation approach is the point.\n\n## Why this exists\n\nMost personal finance apps treat the bank as the source of truth. This one inverts that — the user's register leads, bank data confirms.\n\nThe principle is simple: I record what I spend, I track its lifecycle (recorded → pending → cleared), and I use bank data to verify what I already know. AI helps surface discrepancies and suggest matches, but never makes decisions on my behalf. The user decides; AI assists.\n\nThis started as a replacement for a hand-built Excel check register I'd been using for years. That workbook became something more useful than a starting point: it is now the correctness oracle the application is validated against.\n\n## The validation problem\n\n\"It looked right\" is not a correctness standard.\n\nWhen a model classifies a financial transaction there is no fixed expected value to assert against, and a plausible-looking wrong answer is indistinguishable from a correct one at a glance. That is the central testing problem in AI-backed systems, and conventional assertions don't reach it.\n\nThe approach here: maintain a parallel implementation of the same financial logic in a separate system — the Excel workbook, built independently of the application — and treat it as the oracle. Every calculation the application produces is diffed against it. Divergence is a defect in one of the two, and the process forces you to determine which.\n\n### What the method actually caught\n\n**The carry-forward rule.** The running-balance logic depends on how a register carries a balance forward. The rule was resolved empirically, by reading the oracle's formulas rather than by asking anyone: it is *status-blind* — the last amount-bearing, non-void row, regardless of cleared or pending status. That finding contradicted both my own verbal description of the rule and the AI's initial analysis of it. Two independent accounts of the requirement were wrong; the oracle was right.\n\n**A latent defect in the oracle itself.** Differential validation cuts both ways. The process surfaced a long-standing bug in the Excel model — a `LOOKUP(100000, ...)` that silently mis-resolved above its literal ceiling, corrected to `LOOKUP(9.99E+307, ...)`. The ground truth had been quietly wrong for years, and the harness is what exposed it.\n\nThe second case is the more useful one. A validation strategy that can only ever indict the sys",
+    "readme_source": "full"
+  },
+  {
+    "repo": "ayachc/TCG",
+    "url": "https://github.com/ayachc/TCG",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-06-30T08:12:37Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 88,
+    "sample_technique_files": [
+      "src/prompts/prompts.py"
+    ],
+    "description": "Test-Centric Code Generation",
+    "topics": [],
+    "readme": "# Property Code Generation Evaluation 这个项目用于批量运行代码生成评测。入口脚本是 `run.py`，它会读取 `.env` 中的 API 配置，然后依次调用 `src/main.py` 处理配置好的数据集。 ## 配置环境变量 先从模板创建本地配置文件： ```bash cp .env.template .env ``` 然后在 `.env` 中填写真实配置： ```bash BASE_URL=https://example.com/v1 API_KEY=your-api-key MODEL_NAME=your-model-name HTTP_PROXY= HTTPS_PROXY= ``` `BASE_URL` 和 `API_KEY` 会被 `src/llm_api/llm_api.py` 读取，用于调用 OpenAI-compatible Chat Completions API。`MODEL_NAME` 会作为 `--model_name` 参数传给 `src/main.py`。 如果需要代理，可以填写 `HTTP_PROXY` 和 `HTTPS_PROXY`。如果不需要代理，保留为空或删除这两行即可。 ## 运行 ```bash python run.py ``` `run.py` 当前默认运行以下数据集： - `datasets/ap",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "ayocloudi/FYP_HealthHubQA",
+    "url": "https://github.com/ayocloudi/FYP_HealthHubQA",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-06-07T20:40:46Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 10,
+    "sample_technique_files": [
+      "generate_presentation.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# HealthHubQA - Supporting Materials **Author:** Ayomide Ogun-Ajala **Student ID:** 21309903 <img width=\"1070\" height=\"510\" alt=\"Screenshot 2026-06-07 220949\" src=\"https://github.com/user-attachments/assets/06030e16-7046-487a-9315-3f97cb63076e\" /> This archive contains the source code and supporting files for **HealthHubQA**, a biomedical question answering system built for a Final Year Project. The system uses a Retrieval-Augmented Generation (RAG) workflow on PubMedQA-style data and compares model behavior with and without retrieval. ## Project Summary HealthHubQA evaluates biomedical QA und",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "ayokura/kalimba-transcription",
+    "url": "https://github.com/ayokura/kalimba-transcription",
+    "stars": 1,
+    "language": "Python",
+    "created_at": "2026-03-22T16:14:26Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 218,
+    "sample_technique_files": [
+      "scripts/audio-analysis/metamorphic_alarm.py"
+    ],
+    "description": "Record kalimba audio and convert performances into multiple notation styles.",
+    "topics": [],
+    "readme": "# Kalimba Score カリンバの演奏を録音すると自動で楽譜になるソフト (個人開発 MVP)。最終目標は、事前に何を弾くか知らせなくても自由演奏がそのまま楽譜になること。開発は人間と AI エージェントの共同作業で進んでいる。 Kalimba performance to sheet music MVP — recording in the browser, kalimba-focused analysis on the server, editable notation out. ## 一般向けの文書 (技術知識を前提にしない読み物) 技術に詳しくない方 (カリンバ講師・テスター・録音協力者) 向けに、専門用語を使わない文書を用意しています: - [録音で協力してくださる方へ](docs/guide-for-recording-helpers.md) — なぜ録音が一番の貢献なのか・録り方・著作権と機材を聞かれる理由・提供後の流れ - [録音はどうやって楽譜になるのか](docs/guide-how-it-works.md) — 仕組みと「なぜ間違えるのか」のやさしい解説 - [開発計画のやさしい版](docs/sprint-plan-2026-07d-plain.md) — 現行計画 (第 4 期) の全内容を用語辞書付きで ## Structure - `apps/",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "ayoubnabil/aiondb",
+    "url": "https://github.com/ayoubnabil/aiondb",
+    "stars": 50,
+    "language": "Rust",
+    "created_at": "2026-05-13T07:56:02Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 1471,
+    "sample_technique_files": [
+      "xtask/src/checkworld_lite.rs"
+    ],
+    "description": "PostgreSQL-compatible SQL, graph, and vector database built from scratch in Rust.",
+    "topics": [
+      "aiondb",
+      "database",
+      "database-engine",
+      "distributed-systems",
+      "embedded-database",
+      "graph-database",
+      "graph-rag",
+      "hnsw",
+      "pgwire",
+      "postgresql",
+      "postgresql-compatible",
+      "rag",
+      "rust",
+      "rust-database",
+      "sql",
+      "vector-database",
+      "vector-search"
+    ],
+    "readme": "AionDB ====== AionDB is a Rust database. It speaks the PostgreSQL wire protocol, stores rows on disk through its own storage engine, and adds vector and graph access paths on top of the same catalog. Status: v0.5. Alpha. Not for production data. The v0.5 line covers installation, configuration, planner performance and release packaging. Quick start ----------- Prebuilt images: git clone https://github.com/ayoubnabil/aiondb.git cd aiondb cp quickstart.env .env docker compose --profile studio up Studio: http://127.0.0.1:8082 psql: source .env PGPASSWORD=\"$AIONDB_BOOTSTRAP_PASSWORD\" \\ psql \"host=",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "AyushCoder9/recruitment-signal-fusion",
+    "url": "https://github.com/AyushCoder9/recruitment-signal-fusion",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-06-25T12:01:48Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 50,
+    "sample_technique_files": [
+      "src/eval/adversarial.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# Recruitment Signal Fusion — Intelligent Candidate Discovery & Ranking > **India.Runs × Redrob — Data & AI Challenge.** Rank the top-100 of **100,000** candidates > for a *\"Senior AI Engineer (founding team)\"* job description, against a hidden ground truth, > on the official composite metric — fast, explainable, reproducible, and disqualification-safe. **Team:** NullSet · **Lead:** Ayush Kumar Singh --- ## TL;DR A hybrid ranking engine that treats the **job description as the scoring rubric in disguise** and faithfully reproduces *a careful recruiter applying that rubric* across all 100k cand",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "ayushkumrdev/NSE",
+    "url": "https://github.com/ayushkumrdev/NSE",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-05-28T17:42:10Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 1,
+    "code_files": 90,
+    "sample_technique_files": [
+      "ROADMAP.md",
+      "nse/tools/property_oracle.py",
+      "tests/test_property_oracle.py"
+    ],
+    "description": "Neural Shadow Executor (NSE) is a symbolic, uncertainty-aware patch-selection engine that generates multiple candidate fixes, simulates and scores them using hybrid LLM and latent models, then applies a deterministic arbiter to safely choose and execute the best patch inside an isolated sandbox while logging outcomes for calibration and auditing.",
+    "topics": [],
+    "readme": "# Neural Shadow Executor (NSE) A symbolic-first, uncertainty-aware, adversarially stressed, sandboxed **anticipatory patch-selection engine**. NSE generates *k* candidate patches, simulates and scores them with a hybrid simulator (LLM + latent ensemble), applies a deterministic arbiter that enforces compile authority and safe uncertainty routing, and executes only the highest-value branch in an isolated sandbox — logging every outcome to continuously calibrate and audit itself. This repository implements the **Day-1 foundation** from the build-ready blueprint: a complete, runnable pipeline fro",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Azaril/poe-optimizer",
+    "url": "https://github.com/Azaril/poe-optimizer",
+    "stars": 0,
+    "language": "Rust",
+    "created_at": "2026-09-07T15:51:48Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 1943,
+    "sample_technique_files": [
+      "crates/poe-optimizer-engine/tests/data_injection.rs"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# poe-optimizer An experimental Rust project for constraint-driven Path of Exile 2 build optimization, with potential Path of Exile 1 support later. The intended workflow is to import a build, choose which build decisions may change, set encounter assumptions, and configure goals, then search for good legal alternatives using a native Rust evaluator, with Path of Building available as an optional parity reference. Goals are user-configurable. Damage, resistance, EHP, and skill-selection examples are illustrative; users choose objectives, constraints, and preferences from an extensible metric c",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "b-macker/NAAb",
+    "url": "https://github.com/b-macker/NAAb",
+    "stars": 1,
+    "language": "C++",
+    "created_at": "2026-02-03T19:31:55Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 2,
+    "code_files": 1053,
+    "sample_technique_files": [
+      "tests/property/test_arith_oracle.sh",
+      "tools/naabfuzz/__main__.py",
+      "tools/naabfuzz/properties.py"
+    ],
+    "description": "Stop AI agents before they do damage — behavioral sequence detection blocks credential exfiltration, config harvesting, and secret leakage before the network call fires",
+    "topics": [
+      "agent-governance",
+      "agent-security",
+      "ai-agent-security",
+      "ai-governance",
+      "ai-safety",
+      "behavioral-sequence-detection",
+      "credential-exfiltration",
+      "developer-tools",
+      "devsecops",
+      "govern-json",
+      "llm-agent",
+      "llm-security",
+      "open-source",
+      "polyglot",
+      "programming-language",
+      "runtime-enforcement",
+      "static-analysis",
+      "taint-tracking"
+    ],
+    "readme": "# NAAb — Stop AI Agents Before They Do Damage\n\n[![CI](https://github.com/b-macker/NAAb/actions/workflows/ci.yml/badge.svg)](https://github.com/b-macker/NAAb/actions/workflows/ci.yml)\n[![Sanitizers](https://github.com/b-macker/NAAb/actions/workflows/sanitizers.yml/badge.svg)](https://github.com/b-macker/NAAb/actions/workflows/sanitizers.yml)\n[![CodeQL](https://github.com/b-macker/NAAb/actions/workflows/codeql.yml/badge.svg)](https://github.com/b-macker/NAAb/actions/workflows/codeql.yml)\n[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)\n[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)\n[![Discussions](https://img.shields.io/badge/Discussions-enabled-blue.svg)](https://github.com/b-macker/NAAb/discussions)\n\nAI agents can read your secrets, encode them, and send them to an external API — all in three steps. NAAb blocks the sequence **before the network call fires.**\n\n```\n$ naab-lang agent_task.naab\n\n[governance] Behavioral sequence 'credential_exfiltration' blocked before execution.\n\n  Pattern matched:\n    Step 1 — env.get(\"API_SECRET_KEY\")        ✓ matched\n    Step 2 — crypto.base64_encode(secret)     ✓ matched\n    Step 3 — agent.send(handle, encoded)      ✗ BLOCKED\n\n  Rule: behavioral_sequences.credential_exfiltration [HARD]\n  The sequence env.get:*KEY* → encode → agent.send matches a known\n  exfiltration pattern. Execution was stopped before the API call.\n```\n\nNo prompt engineering. No post-hoc log scanning. The agent never reaches the network.\n\n---\n\n## How It Works\n\nNAAb is a programming language with a governance engine built into the runtime. You define behavioral rules in `govern.json` — multi-step attack patterns, capability limits, secret scanning — and the engine enforces them as your code runs, not after.\n\n```json\n{\n  \"version\": \"5.0\",\n  \"mode\": \"enforce\",\n  \"behavioral_sequences\": {\n    \"enabled\": true,\n    \"patterns\": [\n      {\n        \"name\": \"credential_exfiltration\",\n        \"sequence\": [\"env.get:*KEY*|*SECRET*|*TOKEN*\", \"encode|base64\", \"agent.send|http.post\"],\n        \"level\": \"hard\",\n        \"rationale\": \"Reading credentials then encoding and sending matches exfiltration.\"\n      },\n      {\n        \"name\": \"config_harvest\",\n        \"sequence\": [\"file.read:*config*|file.read:*govern*\", \"agent.send\"],\n        \"level\": \"hard\",\n        \"rationale\": \"Reading config files then sending content to an external agent.\"\n      }\n    ]\n  }\n}\n```\n\nThe patterns are yours to define. The engine tracks event sequences across your entire script — with configurable gap limits, decay timers, and enforcement tiers — and blocks the final step before it executes.\n\n### What Else Gets Blocked\n\n| Threat | How NAAb stops it |\n|--------|-------------------|\n| Credential exfiltration | Sequence detection — `env.get(SECRET)` → encode → `agent.send` blocked pre-execution |\n| Config harvesting | `file.read(govern.json)` → `agent.send` blocked before API call |\n| Agen",
+    "readme_source": "full"
+  },
+  {
+    "repo": "b7n0de/proofbundle",
+    "url": "https://github.com/b7n0de/proofbundle",
+    "stars": 2,
+    "language": "Python",
+    "created_at": "2026-07-01T10:35:23Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 625,
+    "sample_technique_files": [
+      "docs/TESTING_STRATEGY.md",
+      "tests/test_content_root_property.py"
+    ],
+    "description": "Offline cryptographic receipts for AI evaluation results — Ed25519 + RFC 6962 Merkle + optional SD-JWT. Integrity, not truth",
+    "topics": [
+      "ai-evaluation",
+      "ai-safety",
+      "attestation",
+      "attestations",
+      "cryptography",
+      "ed25519",
+      "evidence",
+      "llm-evaluation",
+      "merkle",
+      "merkle-tree",
+      "provenance",
+      "python",
+      "receipts",
+      "rfc6962",
+      "sd-jwt",
+      "sigstore",
+      "supply-chain-security",
+      "transparency-log",
+      "verifiable-credentials"
+    ],
+    "readme": "<div align=\"center\"> <img alt=\"proofbundle, flat rabbit head with a pink ear tip\" src=\"https://raw.githubusercontent.com/b7n0de/proofbundle/main/assets/proofbundle-hase-flach-512.png\" width=\"180\"> <h1>proofbundle</h1> [![CI](https://github.com/b7n0de/proofbundle/actions/workflows/ci.yml/badge.svg)](https://github.com/b7n0de/proofbundle/actions/workflows/ci.yml) [![demo reproducible](https://github.com/b7n0de/proofbundle/actions/workflows/demo-reproducible.yml/badge.svg)](https://github.com/b7n0de/proofbundle/actions/workflows/demo-reproducible.yml) [![PyPI](https://img.shields.io/pypi/v/proofb",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "backordinary/QDP-FSL",
+    "url": "https://github.com/backordinary/QDP-FSL",
+    "stars": 1,
+    "language": "Python",
+    "created_at": "2024-11-06T03:29:41Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 5,
+    "code_files": 6309,
+    "sample_technique_files": [
+      "source/0/followup_f8a306d8953f4e46a2b8ecec434f9cc0_d5fa2a.py",
+      "source/0/shor_072b8b.py",
+      "source/0/source_824c28fef26e41ab8ca656c1068c5799_8685cf.py",
+      "source/0/source_f019de334ee8449db10e18b23e93f071_309cc4.py",
+      "source/0/source_f8a306d8953f4e46a2b8ecec434f9cc0_d01b0e.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# QDP-FSL ## Introduction QDP-FSL is a quantum defect prediction (QDP) model designed for quantum software. It leverages a pre-trained code model to understand quantum code semantics and incorporates few-shot learning (FSL) to tackle limited defective samples. Addressing unique challenges in quantum software, QDP-FSL surpasses traditional static analysis methods, advancing quantum software quality assurance. ------ ## Directory Structure ```bash ├── Ours/ # Our results ├── QChecker/ # QChecker tools results ├── code/ # Main code folder │ ├── pretrained_models/ # Pretrained model folder │ │ └──",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "bajinsheng/sqlancer_uc",
+    "url": "https://github.com/bajinsheng/sqlancer_uc",
+    "stars": 1,
+    "language": "Java",
+    "created_at": "2025-03-19T17:46:17Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 3,
+    "code_files": 1080,
+    "sample_technique_files": [
+      "README.md",
+      "docs/PAPERS.md",
+      "src/sqlancer/cockroachdb/ast/CockroachDBAggregate.java",
+      "src/sqlancer/cockroachdb/oracle/tlp/CockroachDBTLPAggregateOracle.java",
+      "src/sqlancer/presto/ast/PrestoAggregateFunction.java"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "[![Build Status](https://github.com/sqlancer/sqlancer/workflows/ci/badge.svg)](https://github.com/sqlancer/sqlancer/actions) ![SQLancer](media/logo/png/sqlancer_logo_logo_pos_500.png) SQLancer is a tool to automatically test Database Management Systems (DBMSs) in order to find bugs in their implementation. That is, it finds bugs in the code of the DBMS implementation, rather than in queries written by the user. SQLancer has found hundreds of bugs in mature and widely-known DBMSs. SQLancer tackles two essential challenges when automatically testing the DBMSs: 1. **Test input generation**: SQLan",
+    "readme_source": "excerpt"
+  }
+]

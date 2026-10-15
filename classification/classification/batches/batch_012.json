@@ -1,0 +1,1048 @@
+[
+  {
+    "repo": "get2knowio/deacon",
+    "url": "https://github.com/get2knowio/deacon",
+    "stars": 2,
+    "language": "Rust",
+    "created_at": "2025-12-31T18:07:26Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 5,
+    "code_files": 524,
+    "sample_technique_files": [
+      "crates/parity-harness/src/lib.rs",
+      "crates/parity-harness/src/model.rs",
+      "crates/parity-harness/src/observe/mod.rs",
+      "crates/parity-harness/src/observe/temporal.rs",
+      "crates/parity-harness/src/runner.rs"
+    ],
+    "description": "Rust implementation of the Development Containers CLI",
+    "topics": [],
+    "readme": "# deacon\n\n**The DevContainer CLI, minus the parts you don't use.**\n\nA fast, focused Rust CLI for developers who use [dev containers](https://containers.dev) and CI pipelines — not for feature authors.\n\n<!-- Badges -->\n<p>\n  <a href=\"https://github.com/get2knowio/deacon/releases/latest\">\n    <img alt=\"Latest Release\" src=\"https://img.shields.io/github/v/release/get2knowio/deacon\" />\n  </a>\n  <a href=\"https://github.com/get2knowio/deacon/actions/workflows/ci.yml?query=branch%3Amain\">\n    <img alt=\"CI\" src=\"https://github.com/get2knowio/deacon/actions/workflows/ci.yml/badge.svg?branch=main\" />\n  </a>\n  <a href=\"https://github.com/get2knowio/deacon/actions/workflows/codeql.yml?query=branch%3Amain\">\n    <img alt=\"CodeQL\" src=\"https://github.com/get2knowio/deacon/actions/workflows/codeql.yml/badge.svg?branch=main\" />\n  </a>\n  <a href=\"https://coveralls.io/github/get2knowio/deacon?branch=main\">\n    <img alt=\"Coverage\" src=\"https://img.shields.io/coverallsCoverage/github/get2knowio/deacon?branch=main\" />\n  </a>\n  <img alt=\"MSRV\" src=\"https://img.shields.io/badge/MSRV-1.82-blue.svg\" />\n  <a href=\"https://github.com/get2knowio/deacon/security/policy\">\n    <img alt=\"Security Policy\" src=\"https://img.shields.io/badge/security-policy-blue.svg\" />\n  </a>\n  <a href=\"https://github.com/get2knowio/deacon/blob/main/LICENSE\">\n    <img alt=\"License: MIT\" src=\"https://img.shields.io/badge/License-MIT-green.svg\" />\n  </a>\n</p>\n\n## Install\n\n```bash\ncurl -fsSL https://get2knowio.github.io/deacon/install.sh | bash\n```\n\nWhile only pre-release builds are published, install the latest pre-release with:\n\n```bash\ncurl -fsSL https://get2knowio.github.io/deacon/install.sh | bash -s -- --prerelease\n```\n\n<details>\n<summary>Other installation methods</summary>\n\n### macOS (Homebrew) - Coming Soon\n```bash\nbrew install get2knowio/tap/deacon\n```\n\n### Manual Download\nDownload from [releases](https://github.com/get2knowio/deacon/releases/latest):\n\n| Platform | Architecture | Download |\n|----------|--------------|----------|\n| Linux | x86_64 | [deacon-linux-x86_64.tar.gz](https://github.com/get2knowio/deacon/releases/latest/download/deacon-v0.2.0-x86_64-unknown-linux-gnu.tar.gz) |\n| Linux | ARM64 | [deacon-linux-arm64.tar.gz](https://github.com/get2knowio/deacon/releases/latest/download/deacon-v0.2.0-aarch64-unknown-linux-gnu.tar.gz) |\n| Linux (musl) | x86_64 | [deacon-linux-musl-x86_64.tar.gz](https://github.com/get2knowio/deacon/releases/latest/download/deacon-v0.2.0-x86_64-unknown-linux-musl.tar.gz) |\n| macOS | x86_64 | [deacon-darwin-x86_64.tar.gz](https://github.com/get2knowio/deacon/releases/latest/download/deacon-v0.2.0-x86_64-apple-darwin.tar.gz) |\n| macOS | ARM64 (Apple Silicon) | [deacon-darwin-arm64.tar.gz](https://github.com/get2knowio/deacon/releases/latest/download/deacon-v0.2.0-aarch64-apple-darwin.tar.gz) |\n| Windows | x86_64 | [deacon-windows-x86_64.zip](https://github.com/get2knowio/deacon/releases/latest/download/deacon-v0.2.0-x86_64-pc-windows-msvc.zip) |\n| Windows | ",
+    "readme_source": "full"
+  },
+  {
+    "repo": "getodk/collect",
+    "url": "https://github.com/getodk/collect",
+    "stars": 787,
+    "language": "Kotlin",
+    "created_at": "2015-08-04T23:21:33Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 1737,
+    "sample_technique_files": [
+      "shared/src/test/java/org/odk/collect/shared/geometry/GeometryTest.kt"
+    ],
+    "description": "ODK Collect is an Android app for filling out forms. It's been used to collect billions of data points in challenging environments around the world. Contribute and make the world a better place! ✨📋✨",
+    "topics": [
+      "android",
+      "data-collection",
+      "global-development",
+      "global-health",
+      "java",
+      "mhealth",
+      "mobile-data-collection",
+      "odk",
+      "social-impact",
+      "xforms"
+    ],
+    "readme": "# ODK Collect\n\n![Platform](https://img.shields.io/badge/platform-Android-blue.svg)\n[![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)\n[![Build status](https://circleci.com/gh/getodk/collect.svg?style=shield&circle-token=:circle-token)](https://circleci.com/gh/getodk/collect)\n[![Slack](https://img.shields.io/badge/chat-on%20slack-brightgreen)](https://slack.getodk.org)\n\nODK Collect is an Android app for filling out forms. It is designed to be used in resource-constrained environments with challenges such as unreliable connectivity or power infrastructure. ODK Collect is part the ODK project, a free and open-source set of tools which help organizations author, field, and manage mobile data collection solutions. Learn more about ODK and its history [here](https://getodk.org/) and read about example ODK deployments [here](https://forum.getodk.org/c/showcase).\n\nODK Collect renders forms that are compliant with the [ODK XForms standard](https://getodk.github.io/xforms-spec/), a subset of the [XForms 1.1 standard](https://www.w3.org/TR/xforms/) with some extensions. The form parsing is done by the [JavaRosa library](https://github.com/getodk/javarosa) which Collect includes as a dependency.\n\nPlease note that the `master` branch reflects ongoing development and is not production-ready.\n\n## Table of Contents\n* [Learn more about ODK Collect](#learn-more-about-odk-collect)\n* [Release cycle](#release-cycle)\n* [Downloading builds](#downloading-builds)\n* [Suggesting new features](#suggesting-new-features)\n* Contributing\n  * [Contributing code](#contributing-code)\n  * [Contributing translations](#contributing-translations)\n* Developing\n  * [Setting up your development environment](#setting-up-your-development-environment)\n  * [Testing a form without a server](#testing-a-form-without-a-server)\n  * [Using APIs for local development](#using-apis-for-local-development)\n  * [Debugging JavaRosa](#debugging-javarosa)\n  * [Troubleshooting](#troubleshooting)\n  * [Test devices](#test-devices)\n* [Creating signed releases for Google Play Store](#creating-signed-releases-for-google-play-store)\n\n## Learn more about ODK Collect\n* ODK website: [https://getodk.org](https://getodk.org)\n* ODK Collect usage documentation: [https://docs.getodk.org/collect-intro/](https://docs.getodk.org/collect-intro/)\n* ODK forum: [https://forum.getodk.org](https://forum.getodk.org)\n* ODK developer Slack chat: [https://slack.getodk.org](https://slack.getodk.org)\n\n## Release cycle\n\nThe work to be done is continuously revised and prioritized in [the backlog](https://github.com/orgs/getodk/projects/9/views/8) by the Collect team. The majority of this is influenced by the priorities in [the ODK roadmap](https://getodk.org/roadmap). Releases are planned to happen every 2-3 months (resulting in ~4 releases a year). This goal is to balance the pace of delivery with keeping things stable for users while also minimizing the risk in each rele",
+    "readme_source": "full"
+  },
+  {
+    "repo": "GH4ZII/CarMinder",
+    "url": "https://github.com/GH4ZII/CarMinder",
+    "stars": 1,
+    "language": "Python",
+    "created_at": "2026-01-15T17:06:49Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 122,
+    "sample_technique_files": [
+      "backend-python/tests/test_scoring_engine.py"
+    ],
+    "description": "Bachelor Project",
+    "topics": [],
+    "readme": "# CarMinder A car maintenance and reminder app built with Expo (React Native), a FastAPI backend, and an optional Vite-based web app. Track cars, service intervals, maintenance events, incidents, and get reminders. ## Tech stack - **Mobile:** Expo (React Native), TypeScript, file-based routing via Expo Router - **Backend:** FastAPI, Supabase, Firebase Identity Toolkit (REST) — `routers/`, `services/`, `schemas/`, `config/` in `backend-python/` - **Web:** Vite + React in `web/` - **API layer:** `frontendServices/` (e.g. `apiCall.ts`, `carApi.ts`, `authApi.ts`) ## Quick start ### Frontend (Expo",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "gHashTag/t27",
+    "url": "https://github.com/gHashTag/t27",
+    "stars": 1,
+    "language": "Zig",
+    "created_at": "2026-04-03T20:05:22Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 1383,
+    "sample_technique_files": [
+      ".github/ISSUE_TEMPLATE/bootstrap-testing.yml",
+      ".github/ISSUE_TEMPLATE/ring-test-framework.yml",
+      "docs/nona-03-manifest/GOLDEN-CHAIN-TESTING-ATLAS.md",
+      "docs/nona-03-manifest/T27-BOOTSTRAP-TESTING-PLAN.md",
+      "docs/nona-03-manifest/T27-MATH-PHYSICS-TEST-FRAMEWORK-SPEC.md"
+    ],
+    "description": "Spec-first ternary language: .t27 → synthesizable Verilog, bit-exact — the compiler behind Trinity's silicon",
+    "topics": [
+      "golden-ratio",
+      "trinity-ecosystem",
+      "zig"
+    ],
+    "readme": "# Trinity S³AI DNA -- t27 -- TRI-27 Spec-First Language\n\n[![CI](https://img.shields.io/github/actions/workflow/status/gHashTag/t27/bootstrap-tests.yml?branch=master&logo=github&label=CI)](https://github.com/gHashTag/t27/actions/workflows/bootstrap-tests.yml)\n[![Zenodo](https://zenodo.org/badge/DOI/10.5281/zenodo.19456875.svg)](https://doi.org/10.5281/zenodo.19456875)\n[![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)\n[![Version: 0.2.0](https://img.shields.io/badge/version-0.2.0-orange.svg)](https://github.com/gHashTag/t27/releases)\n\n\n> **Canonical Zenodo SOT:** [zenodo.org/communities/trinity-s3ai](https://zenodo.org/communities/trinity-s3ai/). The GoldenFloat badge above (19456875) is a legitimate Vasilev deposit but lives **outside** the curated S³AI v5.0 record set; see [docs/ZENODO.md](docs/ZENODO.md) for the canonical 12-record bundle and aliases.\n\nThe canonical source of truth for Trinity S3AI.\n`.t27` specs in → Zig, Verilog, C out.\n\n**φ² + 1/φ² = 3 | TRINITY**\n\n---\n\n## What this repo is\n\n**t27** is the **spec-first toolchain and numeric format registry** for the\n**TRI-NET line** of open high-assurance ternary AI silicon. The primary\nproduct of t27 is the path `.t27 → Verilog RTL → Tiny Tapeout` with sealed,\ninspectable artefacts at every step.\n\n- **How to verify:** `cd bootstrap && cargo build --release && cd .. && ./scripts/tri test`\n  (full Quick Start below). Validators: `./scripts/tri validate-conformance` and `validate-gen-headers`.\n- **Primary numeric path:** GoldenFloat **GF16** (default), with the family\n  GF4–GF32 registered in [`conformance/FORMAT-SPEC-001.json`](conformance/FORMAT-SPEC-001.json).\n  FP8 compat and NF4 / INT4 / INT8 quant bridges are **planned**, not shipped.\n  Full details: [`FORMAT_REGISTRY.md`](FORMAT_REGISTRY.md).\n- **Readiness:** [`STATUS.md`](STATUS.md) records what is at SPEC / RTL / SIM /\n  SYNTH / GDS / SILICON, conservatively, from this repo's own evidence only.\n- **Sibling chip repos (separate):** `tt-trinity-phi` (1×1 φ-anchor),\n  `tt-trinity-euler` (8×2 e-engine, safety/control), `tt-trinity-gamma`\n  (8×4 γ-surface 32-PE ternary mesh). Tape-out target:\n  [Tiny Tapeout](https://tinytapeout.com/chips/) -- the TTSKY26a and TTSKY26b\n  submissions were withdrawn and refunded (no die fabricated). See\n  [`LINEUP.md`](LINEUP.md).\n- **Positioning:** [`COMPETITORS.md`](COMPETITORS.md) — we do not race\n  commercial NPUs on TOPS or SDK breadth; we own the inspectable open silicon\n  and formal / assurance corner. Benchmark policy: [`BENCHMARKS.md`](BENCHMARKS.md).\n- **CLARA traceability:** [`CLARA_TRACEABILITY.md`](CLARA_TRACEABILITY.md).\n## FPGA — what is measured on real silicon (2026-08-15)\n\nThree **QMTech XC7A200T-FGG676** boards. Synthesis is\n`yosys 0.63 → nextpnr-xilinx (openXC7) → prjxray`, always with\n**`-nodsp -nosrl`** (see the defect note below).\n\n| result | number |\n|---|---|\n| **Trained ternary network across three dice** | **",
+    "readme_source": "full"
+  },
+  {
+    "repo": "GhostD00m/RoFL",
+    "url": "https://github.com/GhostD00m/RoFL",
+    "stars": 0,
+    "language": "TeX",
+    "created_at": "2025-10-16T12:50:46Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 4,
+    "sample_technique_files": [
+      "lab1/metamorf.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "A repository for laboratory work on the course \"Theory of Formal Languages,\" completed as part of studies at Bauman Moscow State Technical University in the Department of Theoretical Informatics and Computer Technologies.",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "ghskyzhou/ghskyzhou.github.io",
+    "url": "https://github.com/ghskyzhou/ghskyzhou.github.io",
+    "stars": 1,
+    "language": "HTML",
+    "created_at": "2025-01-14T09:44:06Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 23,
+    "sample_technique_files": [
+      "notes/CSC4001.html",
+      "notes/print.html",
+      "notes/searchindex.js"
+    ],
+    "description": "Skyzhou's Github blog",
+    "topics": [],
+    "readme": "",
+    "readme_source": "none"
+  },
+  {
+    "repo": "ghulam-mujtaba5/SSA-LAB",
+    "url": "https://github.com/ghulam-mujtaba5/SSA-LAB",
+    "stars": 0,
+    "language": "JavaScript",
+    "created_at": "2026-07-24T07:13:21Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 318,
+    "sample_technique_files": [
+      "data/academicSite.js"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# SSA Research Lab — Software Security Assessment Laboratory A high-performance, responsive academic web platform for **Dr. Junaid Akram** (Assistant Professor, HEC-approved PhD supervisor) and the **Software Security Assessment (SSA) Research Laboratory** at COMSATS University Islamabad, Lahore Campus. --- ## 🔬 Core Academic & Research Specializations - **Software Security Assessment (SSA)**: Static analysis methods for identifying, understanding, and mitigating software vulnerabilities. - **Vulnerability Detection Platforms**: Scalable vulnerability detection engines (**SQVDT**, **VCIPR**) i",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Gingoo-TvT/Qraft",
+    "url": "https://github.com/Gingoo-TvT/Qraft",
+    "stars": 3,
+    "language": "Go",
+    "created_at": "2026-09-11T03:54:58Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 1,
+    "code_files": 818,
+    "sample_technique_files": [
+      "backend/internal/workflow/activities/generate_testdata.go",
+      "backend/internal/workflow/activities/generate_testdata_adaptive_test.go"
+    ],
+    "description": "Qraft · 题构 — 开源算法题创作工作区，支持 AI 出题、混合题集、题库组卷与 Windows 桌面客户端。",
+    "topics": [
+      "ai-agents",
+      "competitive-programming",
+      "education",
+      "problem-generation",
+      "qraft",
+      "self-hosted",
+      "windows-desktop"
+    ],
+    "readme": "<div align=\"center\"> <img src=\"docs/assets/qraft-mark.svg\" width=\"80\" alt=\"Qraft\"> <h1>Qraft · 题构</h1> <p><strong>从一道好题，到一套好题。</strong></p> <p>AI 辅助出题 · 混合题集 · 题库组卷 · 可复现验证</p> <p> <a href=\"https://github.com/Gingoo-TvT/Qraft/releases/latest\"><img alt=\"Release\" src=\"https://img.shields.io/github/v/release/Gingoo-TvT/Qraft?style=flat-square&color=2465ae\"></a> <a href=\"https://github.com/Gingoo-TvT/Qraft/actions/workflows/ci.yml\"><img alt=\"CI\" src=\"https://github.com/Gingoo-TvT/Qraft/actions/workflows/ci.yml/badge.svg\"></a> <a href=\"LICENSE\"><img alt=\"MIT License\" src=\"https://img.shields.io/bad",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "GiskardAI/GiskardAI",
+    "url": "https://github.com/GiskardAI/GiskardAI",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2024-11-25T02:40:01Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 3,
+    "code_files": 416,
+    "sample_technique_files": [
+      "docs/community/contribution_guidelines/index.rst",
+      "docs/knowledge/catalogs/test-catalog/classification/index.rst",
+      "docs/knowledge/catalogs/test-catalog/regression/index.rst",
+      "docs/open_source/customize_tests/test_model/index.md",
+      "docs/reference/tests/metamorphic.rst"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "<p align=\"center\">\n  <img alt=\"giskardlogo\" src=\"https://raw.githubusercontent.com/giskard-ai/giskard/main/readme/giskard_logo.png#gh-light-mode-only\">\n  <img alt=\"giskardlogo\" src=\"https://raw.githubusercontent.com/giskard-ai/giskard/main/readme/giskard_logo_green.png#gh-dark-mode-only\">\n</p>\n<h1 align=\"center\" weight='300' >The Evaluation & Testing framework for AI systems</h1>\n<h3 align=\"center\" weight='300' >Control risks of performance, bias and security issues in AI systems</h3>\n<div align=\"center\">\n\n  [![GitHub release](https://img.shields.io/github/v/release/Giskard-AI/giskard)](https://github.com/Giskard-AI/giskard/releases)\n  [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://github.com/Giskard-AI/giskard/blob/main/LICENSE)\n  [![Downloads](https://static.pepy.tech/badge/giskard/month)](https://pepy.tech/project/giskard)\n  [![CI](https://github.com/Giskard-AI/giskard/actions/workflows/build-python.yml/badge.svg?branch=main)](https://github.com/Giskard-AI/giskard/actions/workflows/build-python.yml?query=branch%3Amain)\n  [![Giskard on Discord](https://img.shields.io/discord/939190303397666868?label=Discord)](https://gisk.ar/discord)\n\n  <a rel=\"me\" href=\"https://fosstodon.org/@Giskard\"></a>\n\n</div>\n<h3 align=\"center\">\n   <a href=\"https://docs.giskard.ai/en/stable/getting_started/index.html\"><b>Docs</b></a> &bull;\n  <a href=\"https://www.giskard.ai/?utm_source=github&utm_medium=github&utm_campaign=github_readme&utm_id=readmeblog\"><b>Website</b></a> &bull;\n  <a href=\"https://gisk.ar/discord\"><b>Community</b></a>\n </h3>\n<br />\n\n## Install Giskard 🐢\nInstall the latest version of Giskard from PyPi using pip:\n```sh\npip install \"giskard[llm]\" -U\n```\nWe officially support Python 3.9, 3.10 and 3.11.\n## Try in Colab 📙\n[Open Colab notebook](https://colab.research.google.com/github/giskard-ai/giskard/blob/main/docs/getting_started/quickstart/quickstart_llm.ipynb)\n\n______________________________________________________________________\n\nGiskard is an open-source Python library that **automatically detects performance, bias & security issues in AI applications**. The library covers LLM-based applications such as RAG agents, all the way to traditional ML models for tabular data. \n\n## Scan: Automatically assess your LLM-based agents for performance, bias & security issues ⤵️\n\nIssues detected include: \n- Hallucinations\n- Harmful content generation\n- Prompt injection\n- Robustness issues\n- Sensitive information disclosure\n- Stereotypes & discrimination\n- many more...\n\n<p align=\"center\">\n  <img src=\"https://raw.githubusercontent.com/giskard-ai/giskard/main/readme/scan_updates.gif\" alt=\"Scan Example\" width=\"800\">\n</p>\n\n## RAG Evaluation Toolkit (RAGET): Automatically generate evaluation datasets & evaluate RAG application answers ⤵️\n\nIf you're testing a RAG application, you can get an even more in-depth assessment using **RAGET**, Giskard's RAG Evaluation Toolkit.\n\n- **RAGET** can generate automatically a list of `question`, `reference",
+    "readme_source": "full"
+  },
+  {
+    "repo": "GitBartlomiej/FaceMaskDetector",
+    "url": "https://github.com/GitBartlomiej/FaceMaskDetector",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2024-01-24T08:27:28Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 1,
+    "code_files": 22,
+    "sample_technique_files": [
+      "scripts/dataset_creation_and_model_testing.py",
+      "scripts/test_analizes.py"
+    ],
+    "description": "Yolov8 face mask detector",
+    "topics": [],
+    "readme": "Uruchomienie Skrypt metamorphic_detection_workflow.py jest przeznaczony dla użytkownika do do tworzenia metamorficznego zestawu danych z pliku wideo, a następnie testowania modeli wykrywania obrazów na tym zestawie danych. Automatyzuje proces generowania przekształconych obrazów i ocenia wydajność modeli wykrywania YOLOv8 i ImageNet na tych obrazach. Tutaj można zmienić ścieżki oraz parametry generowania zdjęć z nagrania video. W konsoli: python metamorphic_detection_workflow.py Skrypt automatycznie przetworzy plik wideo, utworzy przekształcone obrazy, a następnie przeprowadzi testy wykrywania",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "GiulioDER/cca-audit",
+    "url": "https://github.com/GiulioDER/cca-audit",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-05-19T10:39:51Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 110,
+    "sample_technique_files": [
+      "CHANGELOG.md",
+      "cca_checks/plugin/agents/cca-numeric-auditor.md",
+      "cca_checks/properties.py",
+      "docs/superpowers/plans/2026-07-21-numeric-differential-oracle.md",
+      "docs/superpowers/specs/2026-07-21-numeric-differential-oracle-design.md"
+    ],
+    "description": "Parallel multi-agent code audit + fix pipeline for Claude Code. One tiered /audit-fix command auto-selects FAST/STANDARD/DEEP by diff size + risk, running up to 11 specialized auditors plus anti-hallucination, anti-regression, and fix→finding verification gates. Any language, one command.",
+    "topics": [
+      "ai",
+      "ai-agents",
+      "ai-code-review",
+      "anthropic",
+      "claude",
+      "claude-code",
+      "code-audit",
+      "code-quality",
+      "code-review",
+      "developer-tools",
+      "llm",
+      "llm-tools",
+      "multi-agent-systems",
+      "static-analysis"
+    ],
+    "readme": "<p align=\"center\">\n  <img src=\"https://raw.githubusercontent.com/GiulioDER/cca-audit/master/docs/banner.svg\" alt=\"CCA-Audit for Claude Code and Codex. Pipeline: parallel auditors, consolidate, verify (L2.5), fix, regression diff (L5.5), architect gate (L6).\" width=\"100%\"/>\n</p>\n\n<p align=\"center\">\n  <a href=\"https://github.com/GiulioDER/cca-audit/actions/workflows/ci.yml\"><img src=\"https://github.com/GiulioDER/cca-audit/actions/workflows/ci.yml/badge.svg?branch=master\" alt=\"CI\"/></a>\n  <img src=\"https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13-blue\" alt=\"Python 3.10–3.13\"/>\n  <img src=\"https://img.shields.io/badge/typed-pyright-informational\" alt=\"Type-checked with pyright\"/>\n  <a href=\"https://github.com/GiulioDER/cca-audit/blob/master/LICENSE\"><img src=\"https://img.shields.io/badge/license-MIT-lightgrey\" alt=\"MIT license\"/></a>\n</p>\n\n# CCA-Audit\n\n**A multi-agent code auditor for [Claude Code](https://docs.anthropic.com/en/docs/claude-code) and Codex in which no unverified finding is allowed into the fix plan.**\n\nEleven specialised auditors read your diff in parallel. Their findings are deduplicated, then each one is\n**re-derived against the real code** — mechanically, by `pyright`, `clippy`, `semgrep`, `pytest` or\n`hypothesis` wherever a tool can settle the claim, and by adversarial review where none can. Only\nverified findings that survive that gate are eligible to be fixed. The fix is then checked for scope creep,\nand the whole change is gated on a mapping proving every confirmed finding has a fix and every edit\nhas a finding.\n\n**Python and Rust** have deterministic settlers. Each language gets the claim vocabulary that\nactually carries information in it — Rust does not get `nullability`, because the code compiled;\nit gets `panic_path`, `overflow` and `error_swallow` instead. Any other language, and any claim type\na backend does not declare, escalates rather than being settled by a tool built for something else.\n\nThe design constraint throughout: **a check that could not run must never be indistinguishable from a\ncheck that passed.**\n\nFor the shortest reader path, use the [documentation map](https://github.com/GiulioDER/cca-audit/blob/master/docs/README.md):\ninstall, run, tune, extend, then inspect the design evidence behind each verifier.\n\n---\n\n## Verified in the field\n\nTwo upstream results, both from [hunt mode](#hunt-mode--auditing-code-you-did-not-write), both\ncheckable in under a minute.\n\n### SciPy — merged upstream\n\nHunt mode was pointed at [scipy/scipy](https://github.com/scipy/scipy) (~14.8k stars) and found a\ncopy-paste defect in `signal.decimate`'s complex-coefficient guard:\n\n```python\nelif (any(np.iscomplex(system.poles))\n      or any(np.iscomplex(system.poles))   # <- should be system.zeros\n      or np.iscomplex(system.gain)):\n```\n\n> The guard exists to route complex-coefficient filters away from `zpk2sos`, which cannot represent\n> them. Because it tested the poles twice and never the zeros, a `dlti`",
+    "readme_source": "full"
+  },
+  {
+    "repo": "Gleb-Zaslavsky/KiThe",
+    "url": "https://github.com/Gleb-Zaslavsky/KiThe",
+    "stars": 14,
+    "language": "Rust",
+    "created_at": "2024-08-13T18:59:11Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 2,
+    "code_files": 341,
+    "sample_technique_files": [
+      "src/Thermodynamics/ChemEquilibrium/TODO_ANALYSIS.md",
+      "src/Thermodynamics/ChemEquilibrium/frozen_reference/ar_water_co2_sublimation_gauge.rs",
+      "src/Thermodynamics/ChemEquilibrium/frozen_reference/nasa_tp1907_chon_graphite_tests.rs"
+    ],
+    "description": "collection of RUST structures and functions useful for chemical kinetics, chemical thermodynamics, combustion, heat and mass transfer, shock tubes and so on and so far. Work in progress. Advices and contributions will be appreciated",
+    "topics": [
+      "cfd",
+      "chemical-equilibrium",
+      "chemical-kinetics",
+      "combustion",
+      "scientific-computing"
+    ],
+    "readme": "[TOC] # KiThe This is a package of structures, functions and databases useful for such areas as chemical thermodynamics, chemical kinetics, as well as modeling of chemical reactors, combustion, processes in shock tubes and rocket engines, propulsion. PROJECT NEWS: Experimental kinetics pipeline (with GUI) added ## Content - [Kinetics](#Kinetics) - [Thermodynamics](#Thermodynamics) - [Chemical thermodynamics](#Chemical_thermodynamics) - [Chemical equilibrium](#chemical-equilibrium) - [NIST scrapper](#NIST_scrapper) - [Testing](#Testing) - [Contributing](#contributing) - [To do](#to-do) ## Featu",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "glorat/gainstrack",
+    "url": "https://github.com/glorat/gainstrack",
+    "stars": 16,
+    "language": "TypeScript",
+    "created_at": "2019-04-07T15:07:55Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 296,
+    "sample_technique_files": [
+      "client/src/lib/__tests__/exportInvariance.spec.ts"
+    ],
+    "description": "Have control over their own finances through information and insights on their networth",
+    "topics": [
+      "plaintextaccounting"
+    ],
+    "readme": "# Gainstrack Gainstrack is a plain-text double-entry accounting engine for personal finance and investments. You write financial events in a small domain-specific language, and it produces portfolio reports and the primary financial statements from them. To install the CLI or the agent skill, see [INSTALL.md](INSTALL.md). To use the web app, go to [www.gainstrack.com](https://www.gainstrack.com), and for user help start at [Gainstrack Help](https://www.gainstrack.com/help). The rest of this file is for developers working on the engine itself. ## What is in the repository | path | what it is |",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "GMISWE/tinker-cloud",
+    "url": "https://github.com/GMISWE/tinker-cloud",
+    "stars": 29,
+    "language": "Python",
+    "created_at": "2025-11-27T07:00:26Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 204,
+    "sample_technique_files": [
+      "gates/invariants.py"
+    ],
+    "description": "Tinkering RL",
+    "topics": [],
+    "readme": "<p align=\"center\"><img src=\"docs/tinkercloud-mark.svg\" alt=\"tinkercloud\" width=\"640\"></p> FastAPI server that provides an abstraction layer between the Tinker client SDK and pluggable training backends (Miles, NeMo RL, Automodel, Megatron-Bridge) — the same Tinker API drives any backend, no client changes required. ``` Tinker Client --> TinkerCloud --> Miles | NeMo RL | Automodel | Megatron-Bridge --> GPUs ``` ## Quickstart (NeMo RL) ### 1. Deploy ```bash # Onto a Kubernetes GPU cluster HF_TOKEN_FILE=~/.hf_token ./scripts/deploy_tinkercloud.sh --source git --target k8s # Onto a docker GPU box",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "gokuljayaprakash8/SVP-Semantic-Validation-Protocol-KERNEL",
+    "url": "https://github.com/gokuljayaprakash8/SVP-Semantic-Validation-Protocol-KERNEL",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-02-10T22:55:45Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 116,
+    "sample_technique_files": [
+      "svp_v04_independent_falsification.py",
+      "svp_v04_independent_falsification_output.txt"
+    ],
+    "description": "Deterministic pre-execution runtime risk scoring for autonomous AI agent workflows.",
+    "topics": [
+      "agentic-ai",
+      "ai",
+      "ai-agents",
+      "ai-safety",
+      "developer-tools",
+      "fastapi",
+      "machine-learning",
+      "policy-engine",
+      "python",
+      "risk-engine",
+      "runtime-security",
+      "semantic-search"
+    ],
+    "readme": "# SVP Kernel ## Semantic Validation Protocol Kernel ### A Runtime Decision Kernel for Safer AI Agents ![Python](https://img.shields.io/badge/Python-3.12.12-blue) ![FastAPI](https://img.shields.io/badge/FastAPI-Backend-green) ![AI Security](https://img.shields.io/badge/AI-Security-red) ![Semantic Validation](https://img.shields.io/badge/Semantic-Validation-purple) ![Policy Engine](https://img.shields.io/badge/Policy-YAML-orange) ![Docker](https://img.shields.io/badge/Docker-Container-blue) ![GitHub Actions](https://img.shields.io/badge/CI-GitHub_Actions-black) ![License](https://img.shields.io/",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "gomezabajo/Wodel",
+    "url": "https://github.com/gomezabajo/Wodel",
+    "stars": 6,
+    "language": "Java",
+    "created_at": "2016-03-17T16:37:15Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 3,
+    "code_files": 3047,
+    "sample_technique_files": [
+      "wodel.ai.assistant/src/wodel/ai/assistant/AITask.java",
+      "wodel.ai.assistant/src/wodel/ai/assistant/tasks/MetamodelInferingTask.java",
+      "wodel.ai.assistant/src/wodel/ai/assistant/utils/AIMeTMRAssistUtil.java"
+    ],
+    "description": "A domain-specific language for model mutation",
+    "topics": [],
+    "readme": "<p align=\"center\"> <a href=\"https://gomezabajo.github.io/Wodel/\"> <img src=\"https://gomezabajo.github.io/Wodel/images/wodel_w_red.png\" width=\"173\" height=\"120\" alt=\"Wodel logo\" /> </a> </p> <h1 align=\"center\">Wodel</h1> <p align=\"center\"><i>A domain-specific language for model mutation</i></p> <p align=\"center\"> <img src=\"https://img.shields.io/badge/Wodel-3.0.0-blue\" alt=\"Wodel 3.0.0\"> <img src=\"https://img.shields.io/badge/Wodel_AI_Assistant-1.0.0-blueviolet\" alt=\"Wodel AI Assistant 1.0.0\"> <a href=\"https://github.com/gomezabajo/Wodel/graphs/contributors\"><img src=\"https://img.shields.io/git",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "gomezabajo/Wodel4diac",
+    "url": "https://github.com/gomezabajo/Wodel4diac",
+    "stars": 1,
+    "language": "Java",
+    "created_at": "2026-06-29T16:28:04Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 5,
+    "code_files": 2831,
+    "sample_technique_files": [
+      "wodel.ai.assistant/src/wodel/ai/assistant/AITask.java",
+      "wodel.ai.assistant/src/wodel/ai/assistant/chat/ParameterExtractor.java",
+      "wodel.ai.assistant/src/wodel/ai/assistant/chat/PlannerAgent.java",
+      "wodel.ai.assistant/src/wodel/ai/assistant/tasks/MetamodelInferingTask.java",
+      "wodel.ai.assistant/src/wodel/ai/assistant/utils/AIMeTMRAssistUtil.java"
+    ],
+    "description": "A domain-specific language for model mutation - compatible with Eclipse4diac",
+    "topics": [],
+    "readme": "<p align=\"center\"> <a href=\"https://github.com/gomezabajo/Wodel4diac\"> <img src=\"https://gomezabajo.github.io/Wodel4diac/images/wodel4diac_w_red.png\" width=\"210\" height=\"120\" alt=\"Wodel4diac logo\" /> </a> </p> <h1 align=\"center\">Wodel4diac</h1> <p align=\"center\"><i>A domain-specific language for model mutation — compatible with <a href=\"https://eclipse.dev/4diac/\">Eclipse 4diac</a></i></p> <p align=\"center\"> <a href=\"https://github.com/gomezabajo/Wodel4diac/blob/main/LICENSE\"><img src=\"https://img.shields.io/github/license/gomezabajo/Wodel4diac\" alt=\"License\"></a> <img src=\"https://img.shields",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Gracegejiaqi/metamorphic-testing-nlp",
+    "url": "https://github.com/Gracegejiaqi/metamorphic-testing-nlp",
+    "stars": 2,
+    "language": "TeX",
+    "created_at": "2026-06-13T15:09:05Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 2,
+    "code_files": 2,
+    "sample_technique_files": [
+      "README.md",
+      "experiments/chain_length_sweep.py",
+      "metamorphic_testing.py",
+      "report/main.tex"
+    ],
+    "description": "Grammar-based multi-step metamorphic testing for NLP models, extending CheckList with transformation chains and grammar fuzzing",
+    "topics": [],
+    "readme": "# Grammar-based Multi-step Metamorphic Testing for NLP Models\n\nBehavioral testing of NLP models, extending [CheckList](https://github.com/marcotcr/checklist)\n(Ribeiro et al., ACL 2020) with **multi-step transformation chains** and\n**grammar-based fuzzing**.\n\nCourse research project at Guangdong Technion – Israel Institute of Technology,\nadvised by Prof. Nazareno Aguirre (Oct 2025 – Feb 2026).\n\n## Idea\n\nStandard CheckList tests apply a *single* perturbation to each input (swap a\nname, add a typo, flip a negation) and check the model's response. Real-world\ninput variation is rarely isolated: typos, entity substitutions, and semantic\nmodifiers accumulate and interact. This project:\n\n1. **Expands each seed input into a chain** `s0 -> s1 -> ... -> sL`, where each\n   step applies a CheckList perturbation operator (typos, punctuation,\n   contractions, name/location/number substitution, add/remove negation).\n2. **Samples both the perturbation pipeline and the metamorphic property from\n   grammars**, using `GrammarFuzzer` from\n   [The Fuzzing Book](https://www.fuzzingbook.org/) — no manual test design.\n3. **Checks the sampled property** (invariance `INV_FINAL(k)` or directional\n   expectations such as `DIR_FINAL(k, EXPECT=MORE_NEGATIVE)`) between the\n   original input `s0` and the final transformed input `sL`, through\n   CheckList's `INV`/`DIR` test types.\n\nApplied to a HuggingFace sentiment model on the Twitter US Airline Sentiment\ndataset, multi-step chains reveal interaction failures and cumulative drift\nthat single-step perturbations miss.\n\n## Usage\n\n```bash\npip install -r requirements.txt\npython -m spacy download en_core_web_sm\n\npython metamorphic_testing.py\n```\n\nEach run samples a fresh perturbation pipeline and property, builds\ntransformation chains for 100 seed tweets, runs the CheckList test, and prints\nrepresentative passing/failing example pairs.\n\n### Chain-length sweep\n\n```bash\npython -m experiments.chain_length_sweep\n```\n\nBuilds one long chain per seed and measures the invariance pass-rate (fraction\nof sentences whose predicted label is unchanged from `s0` to `sk`) at every\nprefix length `k`. The resulting curve quantifies the *cumulative drift* the\nreport describes — invariance erodes as more perturbations compound — and is\nsaved to `experiments/chain_length_sweep.png`.\n\n## Repository layout\n\n| Path | Description |\n| --- | --- |\n| `metamorphic_testing.py` | Full pipeline: data loading, grammars, chain construction, CheckList integration, qualitative analysis |\n| `experiments/chain_length_sweep.py` | Invariance pass-rate vs. chain length (cumulative-drift experiment) |\n| `report/report.pdf` | Project report (method, experiments, comparison with original CheckList, limitations) |\n| `report/main.tex` | LaTeX source of the report |\n\n## References\n\n- Ribeiro et al., *Beyond Accuracy: Behavioral Testing of NLP Models with CheckList*, ACL 2020\n- Zeller et al., *The Fuzzing Book*\n- Chen et al., *Metamorphic Testing: A New Approach for Generating Nex",
+    "readme_source": "full"
+  },
+  {
+    "repo": "grammy-jiang/subagent-factory",
+    "url": "https://github.com/grammy-jiang/subagent-factory",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-06-08T22:31:57Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 271,
+    "sample_technique_files": [
+      "docs/Research/run_research.sh",
+      "docs/enhancement-steps/step-11-behaviour-test-generation.md",
+      "subagents/software-testing-advisor/.build/clusters.json",
+      "subagents/software-testing-advisor/.build/groups.json",
+      "subagents/software-testing-advisor/analysis/claims.jsonl"
+    ],
+    "description": "Local Claude Code factory that turns source documents into validated, provenance-tracked subagent packages.",
+    "topics": [],
+    "readme": "",
+    "readme_source": "none"
+  },
+  {
+    "repo": "Grand-Tetons-Inc/aamva-id-faker",
+    "url": "https://github.com/Grand-Tetons-Inc/aamva-id-faker",
+    "stars": 1,
+    "language": "Python",
+    "created_at": "2025-11-20T04:07:30Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 84,
+    "sample_technique_files": [
+      "mdarchive/TDD_TESTING_STRATEGY.md",
+      "mdarchive/TEST_SUITE_SUMMARY.md",
+      "tests/property/test_properties.py"
+    ],
+    "description": "Generates AAMVA DRL/IDs to test with scanners. Has various settings. Produces PDF417 barcode. Use at your own risk. Unsupported, but may be useful for research and testing projects.",
+    "topics": [],
+    "readme": "# License Generator This project generates test license data and prints the data along with a PDF417 barcode in the proper AAMVA format on one side of a business card. It is entirely possible that this is broken. I wrote the original to create PDF417 barcodes with enough data for me to verify them visually when scanned using a 2D USB barcode scanner. I wanted a bit of cruft adeded to it, so I had an AI munge some things in, and I haven't tested it very much. Nor do I intend to do so. If you need this sort of thing, then you can look at this, use it as a base and generate test data for your pro",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "greenpioneersolutions/voicestead",
+    "url": "https://github.com/greenpioneersolutions/voicestead",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-07-04T18:51:52Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 38,
+    "sample_technique_files": [
+      "tests/TESTING.md",
+      "tests/run_eval.py"
+    ],
+    "description": "Writing that sounds like you and never invents a fact — a Claude writing skill with a 3-tier eval harness",
+    "topics": [],
+    "readme": "<p align=\"center\">\n  <picture>\n    <source media=\"(prefers-color-scheme: dark)\" srcset=\"brand/voicestead-lockup-reversed.svg\">\n    <img src=\"brand/voicestead-lockup.svg\" alt=\"Voicestead\" width=\"380\">\n  </picture>\n</p>\n\n<p align=\"center\"><strong>A writing skill that keeps your voice.</strong></p>\n\n<p align=\"center\">Voicestead teaches the <a href=\"https://claude.com/claude-code\">Claude</a> you already use to do the mechanical work — structure, tightening, cutting the tells that mark prose as machine-made — and leaves you the thinking and the voice. It works entirely locally; connect memory later if you want it.</p>\n\n<p align=\"center\"><em>Free · open source (MIT) · no account · works with your Claude subscription</em></p>\n\n---\n\n## What it is\n\nA small writing skill for Claude. Paste in a rough draft or a brain-dump and get back something you'd actually send — in your voice, not a model's. It runs on your own Claude: no account, no server, nothing to sign up for. If you ever want your voice to follow you across devices, you can turn on memory later — but you never have to.\n\nOne thing it will not do is invent facts. When a draft has no real number or quote to stand on, it says so and asks you for one instead of making it up.\n\n**Before**\n\n> In today's rapidly evolving landscape, our robust solution doesn't just streamline workflows — it transforms them, unlocking innovation and driving engagement at scale.\n\n**After**\n\n> More teams are moving to the platform, and the ones that do say it's easier to work together.\n>\n> *(The original names nothing real — no number, no example. I won't invent one for you. Give me a win that actually happened and this goes from fine to sharp.)*\n\nA paragraph of throat-clearing became one plain sentence. Notice what it did *not* do: fill the empty space with a made-up statistic. The empty space was the problem, so it said so.\n\n## Install\n\nOne step for your client. Pick one.\n\n**Claude Code**\n\n```\n/plugin marketplace add greenpioneersolutions/voicestead\n/plugin install voicestead@voicestead\n```\n\n**claude.ai (skill upload)** — build the skill file, then upload it under **Customize → Skills**:\n\n```\npython3 -m scripts.package_skill voicestead   # → voicestead.skill\n```\n\n**Claude Desktop** — same `voicestead.skill` as above, uploaded under **Customize → Skills** in the desktop app.\n\nOn ChatGPT, Gemini, or a coding tool (Codex, Cursor, Copilot)? Each has a paste-ready bundle — see [other platforms](#other-platforms).\n\n## Try it\n\nInstall it, then paste one of these into a fresh chat:\n\n- **Turn a mess into an email.** *\"Help me tell my team the launch slips to Friday. Here's the mess: QA found a login bug, the fix needs another two days, and I don't want to sound panicked.\"*\n- **Make it sound less AI.** Paste something stiff and say *\"make this sound less AI — keep my meaning, lose the polish.\"*\n- **Draft a hard message.** *\"Help me push back on my manager's deadline without sounding difficult.\"*\n\nNone of these need setup. To make it s",
+    "readme_source": "full"
+  },
+  {
+    "repo": "Grenzlinie/MatBenchGuard",
+    "url": "https://github.com/Grenzlinie/MatBenchGuard",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-07-14T03:21:15Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 31,
+    "sample_technique_files": [
+      "references/BioMaster-benchmark-review/SKILL.md",
+      "references/BioMaster-benchmark-review/references/checker_audit.md",
+      "references/BioMaster-benchmark-review/scripts/dynamic_checker_probe.py",
+      "references/biomaster-benchmark-repair/SKILL.md"
+    ],
+    "description": "An automated quality assurance and repair framework for materials science benchmarks, enabling systematic auditing, validation, and self-repair of benchmark tasks through deterministic checks and agent-assisted workflows.",
+    "topics": [],
+    "readme": "# 材料科学基准质量保障 本仓库包含用于审查和修复 Harbor 格式材料科学基准题包的质量保障规范、测试与参考资料。 ## 目录结构 - `CONTEXT.md`：领域术语与通用审查政策。 - `AGENTS.md`：在本仓库中工作的 Agent 操作说明。 - `.cursor/skills/`：当前四个核心 skills 与独立 Paper-Grounded Audit 扩展 skill 的规范、模板与 validator。 - `.claude/skills/`：指向 `.cursor/skills/` 的 Claude skill 入口。 - `docs/agents/`：Issue 跟踪、分诊标签和领域文档规范。 - `tests/`：核心四-skill、扩展审题 skill、Harbor 结构和 validator 的仓库级测试。 - `references/`：参考技能、报告模板与辅助说明。 - `materials_science_questions/`：本地材料科学 Harbor 格式题包及审阅结果语料。 ## 本地题包语料 `materials_science_questions/` 有意不纳入 Git：其中保存本地题包语料与审阅产物。已跟踪的 `.gitkeep` 文件用于在克隆仓库后保留空目录；不得将该目录中的题包或审阅结果加入 Git。 在检出的工作区中",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "GriffinCanCode/Retrigger",
+    "url": "https://github.com/GriffinCanCode/Retrigger",
+    "stars": 0,
+    "language": "Rust",
+    "created_at": "2025-09-21T01:04:19Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 118,
+    "sample_technique_files": [
+      "src/core/tests/test_property.c"
+    ],
+    "description": "Fast file system watcher for Node.js, webpack and Vite - native XXH3-64 content hashing over inotify/FSEvents/ReadDirectoryChangesW, with a zero-dependency JavaScript fallback",
+    "topics": [
+      "chokidar",
+      "dev-server",
+      "file-watcher",
+      "file-watching",
+      "filesystem",
+      "fsevents",
+      "hmr",
+      "hot-reload",
+      "inotify",
+      "live-reload",
+      "napi-rs",
+      "nodejs",
+      "rust",
+      "simd",
+      "vite",
+      "vite-plugin",
+      "watcher",
+      "webpack",
+      "webpack-plugin",
+      "xxhash"
+    ],
+    "readme": "# Retrigger: Skip Byte-Identical Rebuilds [![npm version](https://img.shields.io/npm/v/@retrigger/core.svg)](https://www.npmjs.com/package/@retrigger/core) [![downloads](https://img.shields.io/npm/dm/@retrigger/core.svg)](https://www.npmjs.com/package/@retrigger/core) [![install size](https://packagephobia.com/badge?p=@retrigger/core)](https://packagephobia.com/result?p=@retrigger/core) [![node](https://img.shields.io/node/v/@retrigger/core.svg)](https://nodejs.org) [![license](https://img.shields.io/npm/l/@retrigger/core.svg)](LICENSE) ![Retrigger — skip byte-identical rebuilds for Node.js, w",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "growvv/PaperX",
+    "url": "https://github.com/growvv/PaperX",
+    "stars": 0,
+    "language": "Go",
+    "created_at": "2026-04-03T12:50:08Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 2,
+    "code_files": 215,
+    "sample_technique_files": [
+      "backend/internal/service/sync_service.go",
+      "daily-paper/config/queries.json",
+      "daily-paper/src/lib/classify.ts",
+      "db/migrations/000005_default_projects.up.sql",
+      "db/migrations/000021_mobile_testing_software_engineering_scope.up.sql"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# PaperX PaperX 是一个面向连续阅读的 arXiv 专项论文工作台。当前默认运行边界是 Next.js Web、Go API、Go worker 和 PostgreSQL，用于按研究方向同步论文、筛选阅读、生成 AI 速读内容、管理阅读队列和观察后台处理状态。 ![PaperX 首页](docs/assets/paperx-home.png) ## 当前功能 - 专项阅读：按研究方向组织论文，首页展示专项状态、论文数量和最近同步时间。 - 全局搜索：跨全部专项检索标题、摘要、作者、专项标签、自定义 tag 和 AI 速读内容。 - 列表筛选：专项内支持关键词、标签、阅读状态、收藏/稍后/冷藏/置顶队列、日期和排序筛选。 - 论文详情：展示 arXiv 元数据、摘要、中文翻译、快速介绍、详细介绍、PDF 抽取文本、引用信息、笔记和自定义 tag。 - AI 处理：Go worker 负责 PDF 文本抽取、AI 速读、中文翻译、TLNR、详细介绍、embedding 和 AI Recommend。 - 阅读状态：支持已读/未读、收藏、稍后阅读、冷藏、置顶、笔记和详情页阅读进度记录。 - 设置与监控：Web 端可配置同步节奏、专项 query、专项标签、模型连接，并通过监控页查看队列、失败、吞吐和覆盖情况。 - 统计页：展示论文规模、阅读活动、专项分布、AI 覆盖和 PD",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "guangyusong/giskard",
+    "url": "https://github.com/guangyusong/giskard",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2025-01-20T20:36:36Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 3,
+    "code_files": 412,
+    "sample_technique_files": [
+      "docs/community/contribution_guidelines/index.rst",
+      "docs/knowledge/catalogs/test-catalog/classification/index.rst",
+      "docs/knowledge/catalogs/test-catalog/regression/index.rst",
+      "docs/open_source/customize_tests/test_model/index.md",
+      "docs/reference/tests/metamorphic.rst"
+    ],
+    "description": "🐢 Open-Source Evaluation & Testing for ML models & LLMs",
+    "topics": [],
+    "readme": "<p align=\"center\"> <img alt=\"giskardlogo\" src=\"https://raw.githubusercontent.com/giskard-ai/giskard/main/readme/giskard_logo.png#gh-light-mode-only\"> <img alt=\"giskardlogo\" src=\"https://raw.githubusercontent.com/giskard-ai/giskard/main/readme/giskard_logo_green.png#gh-dark-mode-only\"> </p> <h1 align=\"center\" weight='300' >The Evaluation & Testing framework for LLMs & ML models</h1> <h3 align=\"center\" weight='300' >Control risks of performance, bias and security issues in AI models</h3> <div align=\"center\"> [![GitHub release](https://img.shields.io/github/v/release/Giskard-AI/giskard)](https://",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "guarani-ux/espada",
+    "url": "https://github.com/guarani-ux/espada",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-07-30T02:26:58Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 2,
+    "code_files": 83,
+    "sample_technique_files": [
+      "HANDOFF.md",
+      "IDEATION.md",
+      "RESEARCH_AUDIT.md",
+      "WRITER.md",
+      "espada/evidence.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "",
+    "readme_source": "none"
+  },
+  {
+    "repo": "guidance-ai/guidance",
+    "url": "https://github.com/guidance-ai/guidance",
+    "stars": 21748,
+    "language": "Jupyter Notebook",
+    "created_at": "2022-11-10T18:21:45Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 191,
+    "sample_technique_files": [
+      "notebooks/testing_lms.ipynb"
+    ],
+    "description": "A guidance language for controlling large language models.",
+    "topics": [],
+    "readme": "<div align=\"right\"> <a href=\"https://discord.gg/cjPfAK43dz\"><img src=\"https://img.shields.io/badge/Discord-Join%20Us-5865F2?logo=discord&logoColor=white\" alt=\"Discord\"></a> <a href=\"mailto:guidanceai@microsoft.com\"><img src=\"https://img.shields.io/badge/Email-guidanceai%40microsoft.com-0078D4?logo=microsoft-outlook&logoColor=white\" alt=\"Email\"></a> <img src=\"https://img.shields.io/badge/Hours-10am--2pm%20Pacific-gray\" alt=\"Hours\"> </div> <div align=\"center\"><picture> <source media=\"(prefers-color-scheme: dark)\" srcset=\"docs/figures/guidance_logo_blue_dark.svg\"> <img alt=\"guidance\" src=\"docs/fi",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "GuitarAlchemist/hari",
+    "url": "https://github.com/GuitarAlchemist/hari",
+    "stars": 0,
+    "language": "Rust",
+    "created_at": "2026-03-25T05:43:17Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 61,
+    "sample_technique_files": [
+      "crates/hari-core/tests/metric_liveness.rs"
+    ],
+    "description": "Typed epistemic-state sandbox for autoresearch: contradiction-preserving beliefs, trust-aware consensus, and replayable IX traces.",
+    "topics": [],
+    "readme": "# Project Hari — Cognitive-State Research Sandbox\n\n## Purpose\n\nProject Hari is an **experimental Rust sandbox** that aims to be a typed, contradiction-preserving **epistemic substrate** for autoresearch systems. Its job is not to *be* the researcher — it tracks uncertain claims, preserves contradictory evidence, coordinates agent beliefs under explicit trust, derives downstream beliefs from declared logical relations, and recommends what needs more investigation. An external system (IX, in the working integration target) drives experiments and feeds results in; Hari maintains the belief state and recommends next actions.\n\nThe original \"Lie-inspired state evolution beats simpler baselines\" hypothesis was tested and **does not survive comparison against a Subjective Logic baseline** on the Phase 5 fixtures. SL beats Lie on `false_acceptance_count` 3/6 fixtures, ties 3/6, and never loses. The project's defensible value claim is the substrate (typed claim layer + reasoning + trust-aware consensus + audit trail), not the Lie-algebra dynamics that motivated the original hypothesis. Lie remains in the codebase as an opt-in research knob.\n\n## Status\n\nActive research code. **Not** production software, **not** a stable API, **not** an external-facing tool. But the substrate is concretely shipped and tested — `cargo test --all` passes 159 tests across 11 suites at HEAD, and every milestone listed below has either ✅ landed or ⏸ been deliberately deferred (no half-done features in `main`).\n\nFor phase-by-phase status see [`ROADMAP.md`](ROADMAP.md).\n\n## What Hari does today\n\nEnd-to-end, reachable from the streaming protocol via `SessionConfig`:\n\n| Capability | Default? | Reachability |\n|---|---|---|\n| **Hexavalent belief tracking** with contradiction preservation | always on | `BeliefUpdate` / `ExperimentResult` events |\n| **Action recommendations** (`Investigate / Retry / Accept / Escalate / Wait`) | always on | response per event |\n| **Four priority models for action scoring** | `RecencyDecay` (post-Phase-5 substrate decision) | `priority_model: \"Flat\" \\| \"RecencyDecay\" \\| \"Lie\" \\| \"SubjectiveLogic\"` |\n| **Forward reasoning** via `Implies` / `Supports` / `Contradicts` relations | active when relations are declared (no-op otherwise) | `RelationDeclaration` events |\n| **Derivation provenance** — every derived belief carries the edge contributions that produced it | always on (omitted from JSON when empty) | `ResearchEventOutcome.derivations` |\n| **Trust-aware swarm consensus** | opt-in (`Equal` is default) | `trust_model: \"RoleWeighted\"`, `initial_agents: [...]`, `use_swarm_consensus: true` |\n| **Streaming protocol** (stdio JSONL) | — | `hari-core serve` with deterministic replay parity (`replay --session`) |\n| **Python reference client** | — | `clients/ix_reference/` (stdlib-only) |\n\nThe four `PriorityModel` variants are all routable via `SessionConfig.priority_model`:\n\n- **`Flat`** — every action priority 1.0, original order. Pre-Phase-5 default; now used for",
+    "readme_source": "full"
+  },
+  {
+    "repo": "gunbaz/autogluon-iris",
+    "url": "https://github.com/gunbaz/autogluon-iris",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2025-10-29T08:53:54Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 5,
+    "sample_technique_files": [
+      "Jenkinsfile",
+      "giskard_report.html",
+      "mlsecops_security.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# AutoGluon Iris - MLSecOps Security Pipeline v3.0 🛡️ AutoGluon ile Iris veri seti üzerinde makine öğrenimi modeli eğitimi ve **kapsamlı 9 güvenlik testi** içeren MLSecOps pipeline projesi. ## 🔒 Güvenlik Özellikleri Bu proje, modern ML güvenlik standartlarını uygular ve **9 farklı güvenlik testi** içerir: ### Test 1-5: Temel Güvenlik Testleri | Test | Framework | Açıklama | |------|-----------|----------| | T1 | OWASP ML06 | Supply Chain Security (Bandit, Safety) | | T2 | OWASP ML08 | Model Drift Detection | | T3 | OWASP ML01 | Adversarial Robustness Testing | | T4 | NVIDIA Garak | LLM Securit",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "guycanella/reflect-mobile",
+    "url": "https://github.com/guycanella/reflect-mobile",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-02-03T18:24:51Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 3,
+    "code_files": 7,
+    "sample_technique_files": [
+      "pyproject.toml",
+      "src/reflect/__init__.py",
+      "src/reflect/cli.py",
+      "src/reflect/core/orchestrator.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "",
+    "readme_source": "none"
+  },
+  {
+    "repo": "guycorbaz/steadyinvest",
+    "url": "https://github.com/guycorbaz/steadyinvest",
+    "stars": 1,
+    "language": "Rust",
+    "created_at": "2026-06-09T08:49:55Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 291,
+    "sample_technique_files": [
+      "_bmad-output/implementation-artifacts/1-7-core-normalization-layer.md",
+      "_bmad-output/implementation-artifacts/1-8-core-ssg-calculation-engine.md",
+      "_bmad-output/implementation-artifacts/epic-1-retro-2026-06-12.md",
+      "_bmad-output/planning-artifacts/architecture.md",
+      "_bmad-output/planning-artifacts/epics.md"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# steadyinvest A personal, **offline-first desktop application** (Rust + Slint, local SQLite) for disciplined, self-directed investment decisions. It faithfully reproduces the *method* of the NAIC/BetterInvesting Stock Selection Guide (SSG) — the formulas, which are not protectable — using **neutral terminology and original layouts**, and layers on an interactive analytical experience: live recalculation, draggable judgment lines, and color-coded buy/hold/sell zones. > **Independent project — not affiliated with NAIC / BetterInvesting / ICLUBcentral.** > This software surfaces **facts, never r",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "gvillarroel/skills",
+    "url": "https://github.com/gvillarroel/skills",
+    "stars": 0,
+    "language": "HTML",
+    "created_at": "2026-06-19T19:28:05Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 1340,
+    "sample_technique_files": [
+      "projects/harness-efficiency-study/scripts/validate_pi_context_rot.py",
+      "skills/simulation-data-lab/references/diagnostics-and-inference.md"
+    ],
+    "description": "personal skills",
+    "topics": [],
+    "readme": "# Codex Skills Repository A maintained collection of reusable skills, compact references, deterministic helpers, and acceptance examples. Canonical bundles live in `skills/`; the backlog and validation status live in `SKILLS.md`. A skill must work as an independent bundle. Repository documentation and example galleries support maintenance but must not become hidden runtime dependencies. ## Get started Use uv to inspect and validate the repository. ```sh uv run --script scripts/validate-skills.py uv run --script scripts/check-repo-payload.py ``` The [usage and maintenance guide](docs/getting-st",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "HabitatHQ/calcy",
+    "url": "https://github.com/HabitatHQ/calcy",
+    "stars": 1,
+    "language": "TypeScript",
+    "created_at": "2026-06-24T13:16:59Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 128,
+    "sample_technique_files": [
+      "tests/differential.test.ts"
+    ],
+    "description": "Offline-first notepad calculator: unit-aware math, uncertainty propagation, and rate reasoning — all client-side, no accounts, no telemetry.",
+    "topics": [],
+    "readme": "# calcy — unit-aware, uncertainty-propagating calculator [![Live demo](https://img.shields.io/badge/demo-live-7c3aed?style=flat-square)](https://npalladium.github.io/calcy/) [![License](https://img.shields.io/badge/license-GPLv3-blue?style=flat-square)](LICENSE) [![PWA](https://img.shields.io/badge/PWA-offline--ready-5a0fc8?style=flat-square)](https://npalladium.github.io/calcy/) [![No network](https://img.shields.io/badge/no%20network-no%20account-2ea043?style=flat-square)](#privacy) A pure, offline, installable PWA notepad that does three things at once: 1. **Unit-aware math**—`5 km + 3 mi`,",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Hakkadaikon/test-design-showcase",
+    "url": "https://github.com/Hakkadaikon/test-design-showcase",
+    "stars": 0,
+    "language": "TypeScript",
+    "created_at": "2026-06-23T12:06:22Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 10,
+    "sample_technique_files": [
+      "test/expr.test.ts"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# test-design-showcase\n\nテスト設計のワークフローを、実際に動く TypeScript のコードで一直線に辿れる形にしたショーケースである。\n振る舞いの抽出から手法の割り当て、テストへの橋渡しまでを、教科書どおりの順序で実地になぞれる。\n\n題材は四つあり、いずれも縦に貫いて完成させてある。\n最初の `duration`(時間文字列と秒数の相互変換)は、0段の振る舞い抽出から同値分割・境界値・性質ベーステスト・差分テストまでを通し、抽出台帳の各項目がテストに一対一で対応する。\n残る三題材も同じ手順で、状態遷移テスト、構造網羅とメタモルフィック、非決定出力の階層化品質設計をそれぞれ実演する。\n\n## ワークフロー\n\nテスト設計を三段階で進める。\n各段階の成果が次の段階の入力になり、最後にトレーサビリティ(振る舞いから手法、テスト名までの対応)が残る。\n\n### 0段: 振る舞いを抽出する\n\nいきなりテストを書かない。\nまず、テストすべき振る舞いを洗い出す。\n\n最初に曖昧な用語を定義する。\n用語が未定義のまま進むと、境界と異常系の抽出漏れが最も多く生まれる。\n`duration` であれば「受理する単位は `h`/`m`/`s` か」「単位の順序に制約はあるか」「ゼロ・負・空・桁あふれをどう扱うか」を、曖昧さが残らないところまで言語化する。\n\n定義が固まったら、仕様の視点とコードの視点で独立に振る舞いを出し、両者の和を取る。\n出した振る舞いを `T-001` から採番して台帳に落とす。\n各振る舞いに種別(正常系・境界・異常系・非機能)を振り、正常系それぞれに「不正な入力なら? 境界なら? 並行に来たら?」と問うて、異常系を系統的に生やす。\n原則は「過剰抽出は安全、漏れは危険」である。\n挙げすぎた振る舞いは後で優先度を下げられるが、挙げ損ねた振る舞いはテストをすり抜ける。\n\n### 手法割当\n\n台帳の各振る舞いに、それを検証する手法を割り当てる。\n同値分割、境界値、デシジョンテーブル、状態遷移テスト、性質ベーステスト、差分テスト、メタモルフィックテスト、モデルベーステスト、構造網羅(C0/C1/MC/DC)などから、振る舞いの性質に合うものを選ぶ。\n\n### 検証へ橋渡し\n\n台帳の T-ID がそのままテストリストになる。\nTDD(Red、Green、Refactor)で一項目ずつ消し込み、振る舞いから手法、テスト名までの対応を保つ。\n\n## 題材と手法の対応\n\n| 題材 | 実演する手法 | 状態 |\n|---|---|---|\n| `duration`（`\"1h30m\"` と秒数の相互変換） | 同値分割、境界値、性質ベーステスト（往復で元に戻る不変条件）、差分テスト（独立な参照実装との突き合わせ）、ファジングと冪等性 | 縦に完成（33 tests green） |\n| `order-fsm`（created→paid→shipped→delivered） | 状態遷移テスト（0-switch の全遷移と無効遷移）、モデルベーステスト、デシジョンテーブル | 縦に完成（26 tests green） |\n| `expr`（`1+2*x` の評価） | 構造網羅（C0/C1/MC/DC）、デシジョンテーブル、メタモルフィックテスト（可換・結合） | 縦に完成（29 tests green） |\n| `llm-validator`（非決定出力の階層化） | 非決定的出力の三層品質設計（入口で入力検証を網羅、中央で性質と複数サンプリングの合意、出口で後段バリデーション） | 縦に完成（19 tests green） |\n\n## duration が縦の完成形である\n\n`duration` は、ワークフローの全段階を実物で踏んだ題材である。\n\n0段の抽出台帳は `tasks/` 配下にあり(git 管理外)、用語定義から `T-001` から `T-028` までの台帳、各振る舞いの種別までを実際にたどれる。\n本実装は `src/duration/duration.ts` に置く。\n差分テスト用の参照実装は `src/duration/reference.ts` に、本実装と同じ穴を共有しないよう独立に書いてある。\nテストは `test/duration.test.ts` にあり、台帳の T-ID と一対一で対応する。\n\n同値分割・境界値・性質ベーステスト・差分テストの四手法がすべて緑である。\n往復で元に戻る不変条件(`parse(format(n))` が `n` に戻ること)は、広い範囲の入力を生成する性質ベーステストで叩いている。\n各テストの `describe` 名と先頭コメントの T-ID をたどれば、台帳からテストまでの対応を追える。\n\n## ディレクトリ構成\n\n```\ntest-design-showcase/\n├─ README.md            … 本ファイル（ワークフロー要約と題材・手法の対応）\n├─ src/\n│  ├─ duration/         … parse と format（縦に完成した題材）と README\n│  ├─ order-fsm/        … 注文の状態機械（縦に完成した題材）と README\n│  ├─ expr/             … 式評価器（縦に完成した題材）と README\n│  └─ llm-validator/    … 非決定出力の階層化バリデータ（縦に完成した題材）と README\n└─ test/                … 各 src に対応するテスト（手法ごとに describe を分ける）\n```\n\n各題材ディレクトリの README に、どの振る舞いになぜその手法を割り当てたかを一対一で書いてある。\n\n## 使い方\n\n```\nnpm install\nnpm test\n```\n\n`npm test` は vitest を一度だけ走らせる。\n四題材あわせて 106 tests がすべて green である(duration 33・order-fsm 26・expr 29・llm-validator 19)。\n\nカバレッジ率は目的にしない。\n到達はテストの強さを保証しないので、強さを点検したいときは mutation(Stryker)を使う。",
+    "readme_source": "full"
+  },
+  {
+    "repo": "HanyunReady/CreditCheck",
+    "url": "https://github.com/HanyunReady/CreditCheck",
+    "stars": 1,
+    "language": "Python",
+    "created_at": "2026-05-28T16:37:07Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 2,
+    "code_files": 47,
+    "sample_technique_files": [
+      "docs/contracts（契约形式化）/contract_interaction_coverage_20260529.md",
+      "docs/contracts（契约形式化）/estimator_contract_table_20260529.md",
+      "docs/contracts（契约形式化）/six_state_contract_formalism_20260529.md",
+      "docs/experiments（实验结果）/source_gap（缺字段样例）/source_gap_badcase_prompt_batch_20260529.md",
+      "docs/handoff（交接计划）/research_todo_20260529.md"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# Credit Validity Envelopes Status: CPU-side diagnostic package plus validated Qwen-assisted contract-state and source-gap stress cases; still not a mature paper artifact. This repository is intentionally separate from `seal_bench`. Working thesis: ```text Existing credit assignment methods for asynchronous long-horizon LLM-agent RL often assume their credit estimates are valid once rewards, trajectories, and advantages are computed. In real async systems, rollout provenance can violate those assumptions: stale policy versions, mixed-version continuations, train/infer logprob mismatch, stale K",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Haofei/modern-c",
+    "url": "https://github.com/Haofei/modern-c",
+    "stars": 1,
+    "language": "Zig",
+    "created_at": "2026-06-04T05:25:57Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 121,
+    "sample_technique_files": [
+      ".github/workflows/nightly-fuzz.yml",
+      "tools/fuzz/mcfuzz.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# MC / modern-c\n\nMC is a spec-first systems language and compiler for explicit machine contracts\nin freestanding systems code. It explores a specific question: how much\nlow-level machine behavior can be made explicit and checkable without hiding\nallocation, control flow, hardware access, or optimizer assumptions?\n\nMC is a research prototype, not a general C replacement. The compiler emits\nchecked C for the documented, implemented subset. A second lowering to textual\nLLVM IR is kept as a differential oracle: it lowers the same verified program by\nan unrelated route, so a disagreement between the two is evidence that one is\nwrong.\n\nThe useful claim is deliberately narrow: within the tested subset, MC either\nemits the documented lowering or rejects the unsupported construct. Current\nlanguage and compiler work is tracked in [`docs/todo.md`](docs/todo.md).\n\n## Why MC Exists\n\nLow-level code often carries its most important rules in comments: which address\nspace a value belongs to, whether an access is MMIO, whether arithmetic may wrap,\nwhether a resource must move exactly once, or whether a function may trap. MC\ntries to represent those rules in source and carry them through semantic analysis\nand MIR verification.\n\nThe language currently includes:\n\n- checked arithmetic by default, plus explicit wrapping, saturating, serial, and\n  counter domains;\n- distinct physical, virtual, DMA, and MMIO address types;\n- explicit atomics, fences, IRQ effects, DMA/cache ownership transitions, and\n  unsafe boundaries;\n- `move` resources for ownership-sensitive handles;\n- `Result<T, E>`, optional values, tagged unions, and bounded value-level\n  comptime evaluation;\n- `#[no_lang_trap]`, `#[bounded]`, `#[irq_context]`, and unsafe contracts;\n- a rule that optimization mode cannot silently change the semantics of an\n  already accepted program.\n\nTraits, closures, broad generics, and advanced ownership forms such as\n`view struct`, `region struct`, `thread_move`, and borrowed-return contracts\nexist as experimental or validation surfaces. They are frozen while compiler\nwork focuses on closing the typed MIR / `VerifiedProgram` backend boundary.\n\nAsync/await is not in this tree. Its transform, `std/task.mc` and its fixtures\nlive on the `experimental-surface` branch, and the parser here rejects `async`\nand `await` with `E_ASYNC_ON_BRANCH` naming that branch. Spec section 33 is kept\nas the design of record for it.\n\nThe machine-readable status table is\n[`docs/feature-maturity.json`](docs/feature-maturity.json).\n\nMC does not claim general memory safety. Raw pointers remain available, and the\ncurrent compiler does not implement a general borrow checker or lifetime system.\n\nThe normative language contract is\n[`docs/spec/MC_0.7_Final_Design.md`](docs/spec/MC_0.7_Final_Design.md).\n\n## Quick Start\n\nThe required compiler version is Zig 0.16.0. A native development environment\nalso needs Python 3.10 or newer and LLVM 18 on `PATH`.\n\n```sh\nzig build\nzig-out/bin/mcc --version\nzig-out/bin/mcc c",
+    "readme_source": "full"
+  },
+  {
+    "repo": "Haofei/rsscript",
+    "url": "https://github.com/Haofei/rsscript",
+    "stars": 0,
+    "language": "Rust",
+    "created_at": "2026-05-28T02:18:44Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 395,
+    "sample_technique_files": [
+      "fuzz/fuzz_targets/format_idempotent.rs"
+    ],
+    "description": "Reviewable System Script",
+    "topics": [],
+    "readme": "# RSScript RSScript is a small scripting language for scripts that run inside Rust applications. It is ownership-aware: every parameter states whether the call reads, mutates, or consumes its argument, and the checker proves those claims before the program can run. Compilation depends on nothing but the source and the interfaces it declares, so one build produces one provider-neutral, verified Artifact that any host can run. It is built for code that a machine writes and a host has to trust: an agent generates a script, the compiler answers precisely what is wrong with it, and the host runs th",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "hedge-lang/hedge",
+    "url": "https://github.com/hedge-lang/hedge",
+    "stars": 0,
+    "language": "TypeScript",
+    "created_at": "2026-06-12T21:03:22Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 146,
+    "sample_technique_files": [
+      "toolchain/compiler-conformance-tests/src/correctness.test.ts"
+    ],
+    "description": "A statically typed programming language bringing ownership, borrowing, lifetimes, and deterministic cleanup to the Node ecosystem",
+    "topics": [],
+    "readme": "# Hedge Hedge is a statically typed programming language with ownership, borrowing, lifetimes, and deterministic cleanup. It compiles directly to JavaScript and emits corresponding TypeScript declarations. ## Status **Current state:** Not yet ready for production use. Specification work is ongoing, and parser and compiler implementation are underway. Track progress in [ROADMAP.md](ROADMAP.md). You can find additional resources in the following places: - [`specification/`](specification/0000-index.md): the language specification (Draft v0.1). - [`docs/`](docs/): architecture decision records, d",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "hegner123/repfor",
+    "url": "https://github.com/hegner123/repfor",
+    "stars": 0,
+    "language": "Go",
+    "created_at": "2026-01-15T10:40:51Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 12,
+    "sample_technique_files": [
+      "TESTING.md",
+      "main_fuzz_test.go"
+    ],
+    "description": "MCP server tool for safe, exact-match string replacement across files. Designed for AI-driven refactoring workflows with compact JSON output.",
+    "topics": [
+      "claude-code",
+      "cli",
+      "developer-tools",
+      "golang",
+      "mcp",
+      "mcp-server",
+      "refactoring",
+      "search-and-replace",
+      "terse-mcp"
+    ],
+    "readme": "# repfor [![Tests](https://github.com/hegner123/repfor/actions/workflows/test.yml/badge.svg)](https://github.com/hegner123/repfor/actions/workflows/test.yml) [![Go Version](https://img.shields.io/badge/go-1.23-blue.svg)](https://go.dev/) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Go Report Card](https://goreportcard.com/badge/github.com/hegner123/repfor)](https://goreportcard.com/report/github.com/hegner123/repfor) An MCP server tool for searching and replacing strings in files across directories. Designed for safe, token-effi",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "HeIIowrld/dsl-bc",
+    "url": "https://github.com/HeIIowrld/dsl-bc",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-06-05T03:29:50Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 3,
+    "code_files": 13,
+    "sample_technique_files": [
+      "final_UI/server.py",
+      "scripts/eval/apply_omnieval_metrics_v2.py",
+      "scripts/eval/run_multi_model_eval.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# BC Finance LLM Evaluation Handoff This repository is the compact handoff package for the BC finance QA LLM evaluation dashboard. It contains the UI, curated benchmark/regression question sets, evaluation scripts, schemas, score snapshot summaries, and small demo CSV files used to verify CSV ingestion. Markdown handoff documents are kept ASCII-only so they render reliably in Windows PowerShell, GitHub, copied folders, and remote shells. Runtime CSV content, model answers, judge reasons, UI labels, and uploaded test data can still contain Korean text. ## Quick Start Run from the repository roo",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "hejy47/Minoan",
+    "url": "https://github.com/hejy47/Minoan",
+    "stars": 1,
+    "language": "Verilog",
+    "created_at": "2023-11-18T11:00:45Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 9,
+    "code_files": 13,
+    "sample_technique_files": [
+      "MT4V/tests_process.py",
+      "MetamorphicRelation/aes.py",
+      "MetamorphicRelation/des.py",
+      "MetamorphicRelation/des3.py",
+      "MetamorphicRelation/project.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "",
+    "readme_source": "none"
+  },
+  {
+    "repo": "HeLeHanPrivate/PBTwithCodeGen",
+    "url": "https://github.com/HeLeHanPrivate/PBTwithCodeGen",
+    "stars": 9,
+    "language": "Python",
+    "created_at": "2025-05-27T14:14:32Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 64,
+    "sample_technique_files": [
+      "lcb_runner/prompts/property_generation.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# Code Generation and Repair Benchmark Runner This repository provides a benchmark runner and repair pipeline for code generation tasks. It supports code generation, self-repair, checker/property-based extension, and evaluation across multiple models and datasets. ## Environment Setup ```bash conda create -n codepbt python=3.11 -y conda activate codepbt pip install -r requirements.txt ``` ## Data and Model Preparation ### Datasets Download the benchmark data you want to use and place it under `datasets/` or `main_datasets/` at the project root. You can also override the root directory with the",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "HelgeSverre/lira",
+    "url": "https://github.com/HelgeSverre/lira",
+    "stars": 2,
+    "language": "C",
+    "created_at": "2025-12-30T09:20:15Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 142,
+    "sample_technique_files": [
+      "crates/lirac/tests/differential.rs"
+    ],
+    "description": "[Very WIP] A modern systems programming language (read: rust/go lovechild) with fiber concurrency, pattern matching, and a custom bytecode VM. Written in Rust. (ofc)",
+    "topics": [
+      "bytecode",
+      "compiler",
+      "concurrency",
+      "language-server",
+      "programming-language",
+      "rust",
+      "tree-sitter",
+      "virtual-machine"
+    ],
+    "readme": "# Lira [![Rust](https://img.shields.io/badge/rust-1.70%2B-orange.svg)](https://www.rust-lang.org/) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE.md) [![Build](https://img.shields.io/badge/build-passing-brightgreen.svg)]() A modern systems programming language with Go-like fiber concurrency, pattern matching, and a clean syntax. Compiles to bytecode and runs on a custom VM. ## Features - **Fiber-based concurrency** — lightweight green threads with channels - **Pattern matching** — with guards and destructuring - **Strong typing** — with type inference and generics",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "helmdubo/CFTUV",
+    "url": "https://github.com/helmdubo/CFTUV",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-03-09T11:23:10Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 908,
+    "sample_technique_files": [
+      "DECISIONS.md",
+      "artifacts/envelope_metric_spike/results.json",
+      "docs/session_m_r1_rational_affine_filtered_runtime_handoff.md",
+      "tools/benchmark_envelope_metric_models.py"
+    ],
+    "description": "CFTUV (Constraint-First Trim UV) — Blender addon для полупроцедурной UV развёртки архитектурных ассетов (hard-surface environment geometry). Пользователь размечает mesh в 3D Viewer (sharp edges, seams, face selection), система строит граф 3D patches и автоматически генерирует UV layout по правилам стыковки.",
+    "topics": [],
+    "readme": "# CFTUV CFTUV (Constraint-First Trim UV) is a Blender addon for semi-procedural UV unwrapping of architectural hard-surface meshes for trim sheet / tile workflows. The core solve rule is **chain-first strongest-frontier**: scaffold grows chain by chain from a global frontier pool across the whole quilt. ## Target - Blender 4.1+ (legacy GPENCIL) through 4.5.x (GREASEPENCIL v3) - Python 3.10+ - Hard-surface environment production meshes - Trim sheet / tile UV workflows ## Layout ```text cftuv/ Blender addon: analysis -> solve -> UV, plus the envelope debug adapter kernel/ Blender-free exact enve",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "hersh11/silentfail",
+    "url": "https://github.com/hersh11/silentfail",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-08-19T05:35:24Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 8,
+    "sample_technique_files": [
+      "code/datasets.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# Silent by Task, Not by Framework -- Reproducibility Package (v3) 960 main-grid runs (3 datasets x 8 conditions x 2 implementations x 20 seeds), including ALL THREE placements of the derivative bug (layer 1, layer 2, both) -- not just the one placement reported in earlier drafts -- plus a 180-run architecture robustness check and a threshold-sensitivity check. ## What changed from the previous version - wrong_deriv is no longer hardcoded to layer 2. numpy_model.py / torch_model.py take a `wrong_deriv_layer` parameter (None, 1, 2, \"both\"); experiment.py runs and reports all three placements. -",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "hestami-ai/ai-home-maintenance",
+    "url": "https://github.com/hestami-ai/ai-home-maintenance",
+    "stars": 1,
+    "language": "TypeScript",
+    "created_at": "2025-03-07T14:15:45Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 3,
+    "code_files": 4076,
+    "sample_technique_files": [
+      "JanumiCode/janumicode_v2/docs/JanumiCode v2 Engineering Constitution.md",
+      "JanumiCode/janumicode_v2/prompts/phases/phase_07_test_planning/test_case_saturation/test_decomposition.system.md",
+      "JanumiCode/janumicode_v2/src/lib/orchestrator/phases/packetSynthesis/packetContextFormatter.ts",
+      "JanumiCode/janumicode_v2/src/lib/orchestrator/phases/phase7_1a.ts",
+      "JanumiCode/janumicode_v2/src/lib/types/records.ts"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "",
+    "readme_source": "none"
+  },
+  {
+    "repo": "hexguardian01/vecble",
+    "url": "https://github.com/hexguardian01/vecble",
+    "stars": 0,
+    "language": "Go",
+    "created_at": "2025-02-20T07:00:55Z",
+    "technique_test_files": 7,
+    "technique_nontest_files": 17,
+    "code_files": 578,
+    "sample_technique_files": [
+      "internal/pebble/pebble/compaction.go",
+      "internal/pebble/pebble/docs/RFCS/20211018_range_keys.md",
+      "internal/pebble/pebble/external_test.go",
+      "internal/pebble/pebble/internal/manifest/manifest_test.go",
+      "internal/pebble/pebble/internal/manifest/testdata/overlaps"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# Vector database that compatible with SQL protocol ## Query patterns Create: CREATE TABLE items (id bigserial PRIMARY KEY, embedding vector(3)); Insert: INSERT INTO items (embedding) VALUES ('[1,2,3]'), ('[4,5,6]'); Search: SELECT * FROM items ORDER BY embedding <-> '[3,1,2]' LIMIT 5; Querying: Get the nearest neighbors to a vector SELECT * FROM items ORDER BY embedding <-> '[3,1,2]' LIMIT 5; Supported distance functions are: <-> - L2 distance <#> - (negative) inner product <=> - cosine distance <+> - L1 distance <~> - Hamming distance (binary vectors) <%> - Jaccard distance (binary vectors)",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "heyrmi/sdet-prep",
+    "url": "https://github.com/heyrmi/sdet-prep",
+    "stars": 0,
+    "language": "Java",
+    "created_at": "2026-03-20T14:15:50Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 2,
+    "code_files": 544,
+    "sample_technique_files": [
+      "sdet/company-questions/amazon-model-answers.md",
+      "sdet/company-questions/google-model-answers.md",
+      "sdet/company-questions/meta-model-answers.md",
+      "sdet/src/main/java/ra/hul/sdet/propertytesting/Ques1_PropertyBasedTesting.java",
+      "sdet/src/main/java/ra/hul/sdet/propertytesting/Ques3_MetamorphicTesting.java"
+    ],
+    "description": "This repo contains all the code I used to prepare for SDET rounds in different companies and lessons learnt along the way",
+    "topics": [],
+    "readme": "[![Run Framework Tests](https://github.com/heyrmi/sdet-prep/actions/workflows/run-tests.yml/badge.svg)](https://github.com/heyrmi/sdet-prep/actions/workflows/run-tests.yml)\n\n# SDET Interview Prep — the mega-repo\n\n> One repo to train for a **FAANG-level SDET** loop end-to-end: the coding round, the\n> system-design round, the practical automation/test-engineering round, the company-specific\n> screens, and the behavioral round — plus a **spaced-repetition engine** so it all sticks.\n\nSeven pillars, one workflow:\n\n| # | Pillar | What it is | Entry point |\n|---|--------|-----------|-------------|\n| 🧩 | **DSA** | **205 runnable Java problems** across 28 topic/pattern packages, each a single file with a `main()` you can run in your IDE. Orientation lessons (Big-O, Java gotchas, UMPIRE) + a frequency-ranked strategy guide. | [`dsa/`](dsa/) · [guide](dsa/DSA_INTERVIEW_QUESTIONS.md) |\n| 🛠️ | **SDET practical** | **61 runnable solutions** across file ops, data processing, API, concurrency, regex, Linux, design patterns, SQL/JDBC (in-memory H2), and machine-coding builds — plus the 100+ question, 13-category guide. | [`sdet/`](sdet/) · [guide](sdet/SDET_INTERVIEW_QUESTIONS.md) |\n| 🏢 | **Company question bank** | **932 real interview questions across 32 companies** (verbal/scenario style), by domain + difficulty. Plus full **model answers for Google/Amazon/Meta/Microsoft/Apple** and a fully-answered JioStar/Hotstar framework round. | [`sdet/company-questions/`](sdet/company-questions/) |\n| ⚙️ | **Automation framework (Java)** | Production-grade **Web + API + Mobile + Performance** framework (Selenium 4, RestAssured, Appium, Gatling, TestNG, Allure, CI) with **visual regression, accessibility (axe-core), Pact contract testing, and data factories**. Vendored from `heyrmi/framework` via git subtree. | [`framework/`](framework/) |\n| 🎭 | **Automation framework (TypeScript)** | A **Playwright** framework — UI + API in TypeScript with Zod schema validation, fixtures, page objects, Biome, CI, plus **cross-browser, visual regression, accessibility (axe-core), Pact contract testing, and faker data factories**. Vendored from `heyrmi/hlpw` via git subtree. | [`playwright/`](playwright/) |\n| 📐 | **System Design** | A ByteByteGo-style course: 30+ first-principles lessons (networking → building blocks → distributed systems) + **17 case studies**, a **5-lesson SDET module**, a **6-lesson AI system design module**, and a **3-lesson distributed-systems testing module** — **28 Go assignments** in total, every solution verified in CI. | [`sd/`](sd/) |\n| 🤖 | **AI/LLM testing** | **8 runnable problems** on the question that most separates candidates in 2026: eval harnesses, golden datasets, LLM-as-judge calibration, retrieval metrics, guardrails, regression gating, non-determinism control, and agent tool-call validation. | [`sdet/…/aiqa/`](sdet/src/main/java/ra/hul/sdet/aiqa/) |\n| 🔁 | **Spaced-repetition tracker** | `srs` — a dependency-free Go CLI that auto-discovers every lesson ",
+    "readme_source": "full"
+  },
+  {
+    "repo": "HG12265/periyar-university-department-page",
+    "url": "https://github.com/HG12265/periyar-university-department-page",
+    "stars": 0,
+    "language": "JavaScript",
+    "created_at": "2026-08-01T06:42:44Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 3,
+    "code_files": 117,
+    "sample_technique_files": [
+      "backend/src/utils/museumScraper.ts",
+      "frontend/src/app/admin/edit/[id]/components/EditDepartmentContext.js",
+      "frontend/src/components/MuseumSection.js"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "",
+    "readme_source": "none"
+  },
+  {
+    "repo": "highlightime/leveldb-ycsb",
+    "url": "https://github.com/highlightime/leveldb-ycsb",
+    "stars": 0,
+    "language": "Go",
+    "created_at": "2025-01-15T07:48:33Z",
+    "technique_test_files": 7,
+    "technique_nontest_files": 17,
+    "code_files": 573,
+    "sample_technique_files": [
+      "compaction.go",
+      "docs/RFCS/20211018_range_keys.md",
+      "external_test.go",
+      "internal/manifest/manifest_test.go",
+      "internal/manifest/testdata/overlaps"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# Pebble [![Build Status](https://github.com/cockroachdb/pebble/actions/workflows/ci.yaml/badge.svg?branch=master)](https://github.com/cockroachdb/pebble/actions/workflows/ci.yaml) [![GoDoc](https://godoc.org/github.com/cockroachdb/pebble?status.svg)](https://godoc.org/github.com/cockroachdb/pebble) <sup><sub><sub>[Coverage](https://storage.googleapis.com/crl-codecover-public/pebble/index.html)</sub></sub></sup> #### [Nightly benchmarks](https://cockroachdb.github.io/pebble/) Pebble is a LevelDB/RocksDB inspired key-value store focused on performance and internal usage by CockroachDB. Pebble i",
+    "readme_source": "excerpt"
+  }
+]

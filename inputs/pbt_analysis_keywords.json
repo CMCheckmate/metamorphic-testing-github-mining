@@ -1,36 +1,9 @@
 [
-  {"id": "phrase_pbt",           "label": "property-based test(ing)",       "category": "specific_technique", "regex": "\\bproperty[- ]based\\s+test(?:ing|s)?\\b",                  "flags": "IGNORECASE"},
-  {"id": "phrase_generative",    "label": "generative testing",             "category": "specific_technique", "regex": "\\bgenerative\\s+test(?:ing|s)?\\b",                          "flags": "IGNORECASE"},
+  {"_note": "Keyword set v2 (2026-10-11): explicit technique phrases only, mirroring the kept search keywords (team decision: no tool/library/API keywords). Same rules as the MT v2 set: ASCII-only boundaries, space-or-hyphen separators, plurals/tester(s), and split_first/split_second for a phrase wrapped over two lines. PBT has no concept phrases. The previous library/API set is kept in inputs/archive/pbt_analysis_keywords_v1_libraries.json."},
 
-  {"id": "import_hypothesis",    "label": "import hypothesis",              "category": "specific_technique", "regex": "(?:^import hypothesis|^from hypothesis)"},
-  {"id": "decorator_given",      "label": "@given (Hypothesis)",            "category": "specific_technique", "regex": "@given\\s*\\("},
-  {"id": "decorator_settings",   "label": "@settings (Hypothesis)",         "category": "specific_technique", "regex": "@settings\\s*\\("},
-  {"id": "hyp_strategies",       "label": "hypothesis st.* strategies",     "category": "specific_technique", "regex": "\\bst\\.(?:integers|text|floats|booleans|lists|dictionaries|composite|one_of|builds)\\b"},
-  {"id": "hyp_assume",           "label": "hypothesis assume()",            "category": "specific_technique", "regex": "\\bassume\\s*\\("},
+  {"id": "phrase_pbt",   "label": "property-based test(ing)",              "category": "specific_technique", "regex": "(?<![A-Za-z0-9])property[\\s-]+based[\\s-]+test(?:ing|s|ers?)?(?![A-Za-z0-9])", "flags": "IGNORECASE",
+   "split_first": "(?<![A-Za-z0-9])property[\\s-]+based[\\s-]*$", "split_second": "^[\\W_]*test(?:ing|s|ers?)?(?![A-Za-z0-9])"},
 
-  {"id": "import_quickcheck",    "label": "import quickcheck",              "category": "specific_technique", "regex": "(?i)(?:import|use|extern crate)\\s+quickcheck"},
-  {"id": "class_arbitrary",      "label": "Arbitrary trait/class",          "category": "specific_technique", "regex": "\\bArbitrary\\b"},
-  {"id": "forall_method",        "label": "forAll() method",                "category": "specific_technique", "regex": "\\bforAll\\s*\\("},
-
-  {"id": "import_scalacheck",    "label": "import ScalaCheck",              "category": "specific_technique", "regex": "(?:import|use)\\s+org\\.scalacheck"},
-  {"id": "import_jqwik",         "label": "import jqwik",                   "category": "specific_technique", "regex": "import\\s+net\\.jqwik"},
-  {"id": "ann_property_java",    "label": "@Property (jqwik)",              "category": "specific_technique", "regex": "@Property\\b"},
-  {"id": "ann_forall_java",      "label": "@ForAll (jqwik)",                "category": "specific_technique", "regex": "@ForAll\\b"},
-
-  {"id": "import_fastcheck",     "label": "import fast-check",              "category": "specific_technique", "regex": "(?:require|from)\\s+['\"]fast-check['\"]"},
-  {"id": "fc_api",               "label": "fc.property/assert (fast-check)","category": "specific_technique", "regex": "\\bfc\\.(?:property|assert|check|anything|integer|string|array)\\b"},
-
-  {"id": "proptest_macro",       "label": "proptest! macro (Rust)",         "category": "specific_technique", "regex": "\\bproptest!\\s*\\{"},
-  {"id": "import_proptest",      "label": "use proptest (Rust)",            "category": "specific_technique", "regex": "use\\s+proptest"},
-
-  {"id": "import_fscheck",       "label": "open FsCheck",                   "category": "specific_technique", "regex": "open\\s+FsCheck"},
-  {"id": "import_proper",        "label": "PropEr (Erlang/Elixir)",         "category": "specific_technique", "regex": "(?:-include_lib\\s*\\(\"proper/include/proper\\.hrl\"\\)|\\buse\\s+PropCheck\\b|\\bprop_statem\\b)"},
-  {"id": "import_gopter",        "label": "import gopter (Go)",             "category": "specific_technique", "regex": "\"github\\.com/leanovate/gopter"},
-
-  {"id": "ident_prop_test",      "label": "property_test / prop_test",      "category": "specific_technique", "regex": "\\b(?:property_test|prop_test)\\w*\\b"},
-  {"id": "string_pbt",           "label": "string: property-based testing", "category": "specific_technique", "regex": "\"[Pp]roperty[- ]based\\s+test(?:ing|s)?\""},
-  {"id": "string_quickcheck",    "label": "string: QuickCheck",             "category": "specific_technique", "regex": "\"QuickCheck\""},
-  {"id": "comment_pbt",          "label": "comment: property-based",        "category": "specific_technique", "regex": "(?:#|//).*\\bproperty[- ]based\\s+test(?:ing|s)?\\b",           "flags": "IGNORECASE"},
-  {"id": "comment_invariant",    "label": "comment: invariant testing",     "category": "specific_technique", "regex": "(?:#|//).*\\binvariant\\s+test(?:ing|s)?\\b",                    "flags": "IGNORECASE"},
-  {"id": "abbrev_PBT",           "label": "abbreviation PBT",               "category": "specific_technique", "regex": "(?<![A-Za-z0-9_])PBT(?![A-Za-z0-9_])"}
+  {"id": "string_pbt",   "label": "string literal: property-based test",   "category": "specific_technique", "regex": "\"[Pp]roperty[\\s-]+[Bb]ased[\\s-]+[Tt]est(?:ing|s|ers?)?\"", "subset_of": "phrase_pbt"},
+  {"id": "comment_pbt",  "label": "comment: property-based test",          "category": "specific_technique", "regex": "(?:#|//).*(?<![A-Za-z0-9])property[\\s-]+based[\\s-]+test(?:ing|s|ers?)?(?![A-Za-z0-9])", "flags": "IGNORECASE", "subset_of": "phrase_pbt"}
 ]

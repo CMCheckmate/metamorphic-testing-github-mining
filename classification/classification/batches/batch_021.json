@@ -1,0 +1,1094 @@
+[
+  {
+    "repo": "NguyenHoangHuy2103/RT-SWT301-SE1916-G2",
+    "url": "https://github.com/NguyenHoangHuy2103/RT-SWT301-SE1916-G2",
+    "stars": 2,
+    "language": "Java",
+    "created_at": "2026-06-27T03:59:32Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 104,
+    "sample_technique_files": [
+      "Nguyen-Hoang-Huy-SE190240/SLR/01_all_records.csv",
+      "Nguyen-Hoang-Huy-SE190240/SLR/02_after_screening_v1.csv",
+      "Nguyen-Hoang-Huy-SE190240/SLR/03_final_included.csv",
+      "Nguyen-Hoang-Huy-SE190240/SLR/ie_criteria.md",
+      "Nguyen-Le-Thuan-SE190305/SLR/01_all_records.csv"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# LLM-based REST API Test Generation vs Manual & EvoMaster on Pre-seeded-Fault Benchmarks **Topic:** RT-SWT301-SE1916-G2 **Môn:** SWT301 — Research-Based Learning **Nhóm:** SE1916-G2 — Summer 2026 **Thành viên:** - Nguyễn Hoàng Huy (SE190240) — **PL** (Project Lead) - Nguyen Thanh Dat (SE190239) — **DG** (Data & Ground Truth) - Nguyen Tien Dung (SE190034) — **LR** (LLM Runner) - Nguyen Le Thuan (SE190305) — **MS** (Metrics & Stats) - Vo Le Trung Nguyen (SE190220) — **RW** (Report Writer) **Member effort** | Student code | Name | Role | Effort | |---|---|---|---| | SE190240 | Nguyễn Hoàng Huy |",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "nguyennhutien/csszyx",
+    "url": "https://github.com/nguyennhutien/csszyx",
+    "stars": 0,
+    "language": "TypeScript",
+    "created_at": "2026-02-25T06:38:22Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 1157,
+    "sample_technique_files": [
+      "packages/core/tests/metamorphic-sz.test.ts"
+    ],
+    "description": "Build-time CSS-in-JS for Tailwind v4: a typed sz prop compiles to utility classes, with no runtime style engine. SSR-safe hydration, opt-in class-name mangling, Vite and webpack plugins.",
+    "topics": [
+      "compiler",
+      "css-in-js",
+      "design-system",
+      "nextjs",
+      "react",
+      "rust",
+      "ssr",
+      "svelte",
+      "tailwind-object",
+      "tailwindcss",
+      "typescript",
+      "unplugin",
+      "utility-first",
+      "vite-plugin",
+      "vue",
+      "wasm",
+      "webpack-plugin",
+      "zero-runtime"
+    ],
+    "readme": "# CSSzyx\n\nCSS-in-JS framework for the AI era — Tailwind-v4 object syntax, build-time class mangling, and SSR-safe hydration.\n\n> **Pronunciation:** \"css-zyx\". With mangling on, class names are encoded in reversed tier order `z → y → x → … → A`, so the most common utilities get the shortest names — a name-hiding feature, not a size one (see below).\n\n[![npm version](https://img.shields.io/npm/v/csszyx.svg)](https://www.npmjs.com/package/csszyx)\n[![npm downloads](https://img.shields.io/npm/dm/csszyx.svg)](https://www.npmjs.com/package/csszyx)\n[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)\n[![CI](https://img.shields.io/github/actions/workflow/status/nguyennhutien/csszyx/ci.yml?branch=main)](https://github.com/nguyennhutien/csszyx/actions/workflows/ci.yml)\n[![codecov](https://codecov.io/github/nguyennhutien/csszyx/graph/badge.svg?token=1NZO20POQ7)](https://codecov.io/github/nguyennhutien/csszyx)\n[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=nguyennhutien_csszyx&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=nguyennhutien_csszyx)\n[![OpenSSF Best Practices](https://www.bestpractices.dev/projects/13447/badge)](https://www.bestpractices.dev/projects/13447)\n\n## Quick Start\n\nInstall:\n\n```bash\npnpm add -D csszyx\n```\n\nWire the plugin (Vite shown — Webpack, esbuild, Rollup, Next.js all supported via `@csszyx/unplugin`):\n\n```ts\n// vite.config.ts\nimport { defineConfig } from \"vite\";\nimport csszyx from \"csszyx/vite\";\nimport tailwindcss from \"@tailwindcss/vite\";\nimport react from \"@vitejs/plugin-react\";\n\nexport default defineConfig({\n  plugins: [...csszyx(), tailwindcss(), react()],\n});\n```\n\nUse the `sz` prop in your components:\n\n```tsx\n<div sz={{ p: 4, bg: \"red-500\", hover: { bg: \"blue-600\" } }} />\n```\n\nAt build time, the plugin transforms `sz` to `className`, lets Tailwind JIT emit CSS, then mangles both together:\n\n```html\n<div class=\"z y\" />\n<style>\n  .z{padding:1rem}.y{background:#ef4444}...\n</style>\n```\n\nFull walkthrough: <https://csszyx.com>\n\n## Features\n\n- **Type-safe `sz` prop** — full TypeScript autocomplete for every Tailwind v4 utility and variant\n- **Class-name obfuscation** — opt-in reversed-tier encoding (`p-4` → `z`, `bg-red-500` → `y`) hides the utility vocabulary in shipped bundles; a name-hiding feature, not a compression one\n- **SSR-safe hydration** — SHA-256 checksum validation detects mangle-map mismatch between server and client and preserves server HTML\n- **Zero-runtime static path** — fully-static `sz` objects compile to string literals; dynamic objects stay light (5ns zero-alloc for 0–4 keys)\n- **Variant authoring (`szv`)** — CVA-style factories for finite enum props; every combination extracted and safelisted at build time\n- **Mangle-aware merge (`szcn`)** — last-wins override per utility that keeps working on mangled classes, where `tailwind-merge` can't\n- **Slot styling (`szs`)** — style a compound component's internal parts i",
+    "readme_source": "full"
+  },
+  {
+    "repo": "NicholasBurgo/Colosseum-rs",
+    "url": "https://github.com/NicholasBurgo/Colosseum-rs",
+    "stars": 0,
+    "language": "Rust",
+    "created_at": "2026-06-25T14:52:37Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 21,
+    "sample_technique_files": [
+      "crates/store/src/gauntlet.rs",
+      "docs/ARCHITECTURE.md",
+      "docs/INDEX.md",
+      "docs/RESEARCH.md",
+      "docs/RUST-IMPLEMENTATION.md"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# Colosseum-rs A Rust port of [Colosseum](https://github.com/NicholasBurgo/Colosseum), the local memory architecture that makes a frozen small model compound in capability over time. This port is **consolidation-first**: it brings up the N2 clustering + N3 distillation path (raw episodic T1 memories folded into durable semantic T2 claims) that is the mechanism behind the compounding thesis, then fills in the rest of the system around it (ADR-013 in the Python repo). The full design lives in `docs/` (ARCHITECTURE.md, the ADRs, and the `docs/specs/` specs, notably `distillation.md`), mirrored he",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "NicholasEhsanRoy/stelling",
+    "url": "https://github.com/NicholasEhsanRoy/stelling",
+    "stars": 1,
+    "language": "Python",
+    "created_at": "2026-07-16T15:30:32Z",
+    "technique_test_files": 2,
+    "technique_nontest_files": 0,
+    "code_files": 352,
+    "sample_technique_files": [
+      "CONTRIBUTING.md",
+      "DOCUMENTATION_ARCHITECTURE.md",
+      "tests/property/README.md",
+      "tests/property/_grammar.py",
+      "tests/property/test_metamorphic.py"
+    ],
+    "description": "Static precondition checker for numerical JAX programs: declare a box, get a stamped VERIFIED/REFUTED/UNKNOWN with a runnable witness. Zero required dependencies.",
+    "topics": [
+      "abstract-interpretation",
+      "cvc5",
+      "formal-verification",
+      "interval-arithmetic",
+      "jax",
+      "numerical-computing",
+      "preconditions",
+      "python",
+      "scientific-computing",
+      "smt",
+      "smt-solver",
+      "static-analysis",
+      "z3"
+    ],
+    "readme": "<img src=\"https://raw.githubusercontent.com/NicholasEhsanRoy/stelling/main/assets/stelling_logo.png\" alt=\"the stelling wordmark: three cubes arranged as ∴, therefore, beside the name\" width=\"100%\">\n\n[![ci](https://github.com/NicholasEhsanRoy/stelling/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/NicholasEhsanRoy/stelling/actions/workflows/ci.yml)\n[![python: >=3.10, the floor this package declares — see \"Which Python\" for what CI actually runs](https://img.shields.io/badge/python-%3E%3D3.10%20declared-blue.svg)](https://github.com/NicholasEhsanRoy/stelling/blob/main/pyproject.toml)\n[![license: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](https://github.com/NicholasEhsanRoy/stelling/blob/main/LICENSE)\n\n# Stelling\n\nAn assertion-based verifier for JAX array programs — inspired by\n[Kani](https://github.com/model-checking/kani) for Rust. Prove stated\nproperties of traced computations over declared input regions, with a stamp\non every verdict naming its own assumptions.\n\n*stelling is not affiliated with or endorsed by the JAX project.*\n\n> ### ⚠️ `0.1.0` and `0.2.0` ARE YANKED. DO NOT USE THEM ON FLOATING-POINT PROGRAMS.\n>\n> Both published releases can return **VERIFIED for a property the compiled\n> program contradicts** at a point of the declared box. Real mode — the\n> default — reasons over ℝ with outward-rounded intervals and models\n> neither IEEE flush-to-zero, nor the program's own float format, nor the\n> compiler's freedom to reassociate a reduction. Two of the nine driven\n> witnesses need no reduction, no division and no `assume`:\n>\n> ```python\n> x = any_array((), \"float32\", (1e-20, 1e-10));  assert_(x * x > 0.0)   # VERIFIED\n> x = any_array((), \"float32\", (-100.0, -50.0)); assert_(jnp.exp(x) > 0.0)  # VERIFIED\n> ```\n>\n> Both execute `0.0` at an admitted point, where the obligation is False.\n> Nine of the ten driven programs reproduce against `0.1.0` as well.\n>\n> **The yank stops new installs and leaves pinned environments working.**\n> If you have a real-mode VERIFIED over float dtypes, re-run it under\n> `semantics=\"ieee\"`, which refuses every one of these. Integer harnesses\n> are unaffected. The release train is frozen until the class is closed;\n> there is no fixed version to upgrade to yet.\n>\n> Full record, with the witnesses, the reach and the response:\n> [SOUNDNESS.md](https://github.com/NicholasEhsanRoy/stelling/blob/main/SOUNDNESS.md)\n> (2026-08-30) and\n> [design/soundness-response-policy.md](https://github.com/NicholasEhsanRoy/stelling/blob/main/design/soundness-response-policy.md).\n\n---\n\n## JAX silently narrows integer constants during tracing\n\n<!-- doc-example: illustrative -->\n```python\nx = jnp.int8(100)\ny = x + 256          # you wrote 256\n```\n\nThe jaxpr — the trace JAX actually executes — contains:\n\n```\nadd a 0:i8[]         # JAX silently made it 0\n```\n\nNo error. No warning. Verify it yourself: `jax.make_jaxpr(lambda x: x + 256)(jnp.zeros(1, jnp.int8))` prints `add a 0:i8[]` — the 256 is",
+    "readme_source": "full"
+  },
+  {
+    "repo": "nickharris808/exploit-counter",
+    "url": "https://github.com/nickharris808/exploit-counter",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-07-28T14:11:43Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 17,
+    "sample_technique_files": [
+      "SCOPE.md",
+      "tests/test_adversarial.py"
+    ],
+    "description": "Turn 'we found no escapes' into an exact integer. Exact and soundly-bracketed model counting for guard over-acceptance.",
+    "topics": [
+      "clopper-pearson",
+      "formal-methods",
+      "model-counting",
+      "python",
+      "security",
+      "sharp-sat"
+    ],
+    "readme": "# exploit-counter [![ci](https://github.com/nickharris808/exploit-counter/actions/workflows/ci.yml/badge.svg)](https://github.com/nickharris808/exploit-counter/actions/workflows/ci.yml) [![Python](https://img.shields.io/badge/python-3.9%2B-blue.svg)](https://www.python.org/) [![status](https://img.shields.io/badge/status-pre--release-orange.svg)](#install) [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE) **Turn \"we found no escapes\" into an exact integer — or an honest refusal.** ## Three verdicts, and you cannot confuse them ``` EXACT an exact integer count car",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "nightwalker-prd/cs-tools",
+    "url": "https://github.com/nightwalker-prd/cs-tools",
+    "stars": 0,
+    "language": "TypeScript",
+    "created_at": "2026-02-28T22:50:46Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 792,
+    "sample_technique_files": [
+      "apps/functional-programming/src/data/topics.ts"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# CS Tools A monorepo of interactive Computer Science learning tools built with React, TypeScript, and Vite. ## Apps | App | Description | Port | |-----|-------------|------| | `hub` | Central dashboard with global stats | 5170 | | `algo-viz` | Step-by-step algorithm visualizer | 5173 | | `dsa-drills` | SRS-backed DSA flashcard drills | 5174 | | `system-design` | Interactive system design reference | 5175 | | `complexity-atlas` | Big-O reference & practice | 5176 | ## Packages | Package | Description | |---------|-------------| | `@cstools/ui` | Shared shadcn/ui + CS-specific components | | `@",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "nihatkutukoglu/ridebase-synthetic-dataset-v1",
+    "url": "https://github.com/nihatkutukoglu/ridebase-synthetic-dataset-v1",
+    "stars": 0,
+    "language": "Jupyter Notebook",
+    "created_at": "2026-08-26T12:33:09Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 185,
+    "sample_technique_files": [
+      "docs/v2_1_validation_plan.md",
+      "ridebase-ml/ridebase_ml/v2_1/audit_v2_0.py"
+    ],
+    "description": "RideBase: sentetik motosiklet bakım/servis veri seti (v1.1/v1.2) + EDA/ML notebook'ları",
+    "topics": [],
+    "readme": "",
+    "readme_source": "none"
+  },
+  {
+    "repo": "niirex1/ABMA-project",
+    "url": "https://github.com/niirex1/ABMA-project",
+    "stars": 0,
+    "language": "Solidity",
+    "created_at": "2023-11-04T01:39:13Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 2,
+    "code_files": 5,
+    "sample_technique_files": [
+      "README.md",
+      "classification.py",
+      "main.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# ABMA Project: Enhancing Smart Contract Security\n\n## Overview\n\nThe Adaptive Bayesian Metamorphic Assessment (ABMA) introduces a revolutionary approach for enhancing the security of blockchain-based smart contracts. By integrating Bayesian Inference Models with Metamorphic Testing, ABMA stands out as a dynamic and adaptable solution for identifying and mitigating vulnerabilities in smart contracts.\n\n## Key Features\n\n- **Innovative Framework**: Combines Bayesian inference with Metamorphic Testing for comprehensive smart contract security assessment.\n- **Probabilistic Approach**: Employs Bayesian models to effectively manage the uncertainties in vulnerability detection, with a focus on high-risk issues like reentrancy attacks.\n- **Dynamic Testing**: Integrates Metamorphic Testing to adapt to evolving smart contract functions, ensuring relevance and accuracy.\n- **Empirical Validation**: Validated through analysis of 21,116 real-world smart contracts, demonstrating superior performance and real-world applicability.\n\n## Repository Contents\n\n1. **Data Preprocessing Scripts**: Tools and algorithms used for the initial processing of smart contract code, transforming raw data into a format ready for detailed analysis.\n\n2. **Feature Selection Algorithms**: Scripts implementing Bayesian probabilistic techniques to identify and select key features in smart contracts that are indicative of potential vulnerabilities.\n\n3. **Classification and Metamorphic Testing Scripts**: Components that combine the insights from feature selection with dynamic metamorphic testing methodologies. This includes mechanisms for classifying contracts based on their vulnerability profiles and identifying zero-day vulnerabilities.\n\n## Getting Started\n\n### Prerequisites\n\n- Python (version 3.8 or higher)\n- Git (for cloning the repository)\n\n### Installation\n\n1. Clone the repository:\n   ```bash\n   git clone https://github.com/niirex1/ABMA-project.git\n   ```\n2. Install required packages:\n   ```bash\n   pip install -r requirements.txt\n   ```\n3. Run the main script:\n   ```bash\n   python main.py\n   ```\n\n## Usage Instructions\n\n1. **Load Smart Contract Source Code**: Begin by importing or loading the source code of the smart contract you wish to analyze.\n\n2. **Execute Data Preprocessing Scripts**: Run the data preprocessing tools to transform the raw smart contract code into a structured format that is suitable for in-depth analysis.\n\n3. **Run Feature Selection Algorithms**: Use the feature selection scripts to apply Bayesian probabilistic techniques. This will help in identifying critical features in the smart contract that may indicate vulnerabilities.\n\n4. **Perform Classification and Metamorphic Testing**: Execute the scripts for classification and metamorphic testing. This process involves classifying the contracts into different vulnerability categories and applying dynamic testing methodologies to uncover potential security issues, including zero-day vulnerabilities.\n\n5. **Apply Bayesian I",
+    "readme_source": "full"
+  },
+  {
+    "repo": "nikhil-kamath/FGL",
+    "url": "https://github.com/nikhil-kamath/FGL",
+    "stars": 1,
+    "language": "Haskell",
+    "created_at": "2023-05-18T00:11:26Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 9,
+    "sample_technique_files": [
+      "src/Basic.hs"
+    ],
+    "description": "property-based testing of graphs in Haskell",
+    "topics": [],
+    "readme": "# FGL This suite is made for automatic, model-based testing of graph algorithms! #### How it Works Essentially, a model-based test compares two implementations of the same problem to ensure an algorithm provides the same output on both of them. I've created a variety of pre-programmed tests which compare the outputs of builtin graph implementations in Haskell, namely the `Patricia Tree` and the `Tree`. The suite: - Generates an arbitrary graph - Represents it using both data structures - Runs an algorithm on both equal representations - Ensures they return the same result And repeats, thousand",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "NikhilMamilla/EvidenceGraph",
+    "url": "https://github.com/NikhilMamilla/EvidenceGraph",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-08-21T03:56:15Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 232,
+    "sample_technique_files": [
+      "EVIDENCEGRAPH_AI_RISK_MANAGER_EVALUATION_GATE.md",
+      "README.md",
+      "backend/tests/test_decision_replay.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# EvidenceGraph **A pre-submission chargeback-defense verifier.** It reads a merchant's defense statement and evidence package for a delivery dispute and answers one question, deterministically and with a full audit trail: > **Is this defense claim actually supported by the evidence — and can we prove how we reached that verdict?** > Razorpay Buildathon — **Track 02: AI Risk Manager** > One class of loss · measured precision/recall on a held-out set · **defense-only** --- ## In one paragraph A cardholder disputes a payment (\"I never received this\"). The merchant has evidence — a courier's deli",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Nikhilodeon1/DigiTwin",
+    "url": "https://github.com/Nikhilodeon1/DigiTwin",
+    "stars": 1,
+    "language": "Python",
+    "created_at": "2026-08-04T05:33:29Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 188,
+    "sample_technique_files": [
+      "ml/evaluation/backtest_lifecourse.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "",
+    "readme_source": "none"
+  },
+  {
+    "repo": "NikolayS/pg_brakes",
+    "url": "https://github.com/NikolayS/pg_brakes",
+    "stars": 13,
+    "language": "Rust",
+    "created_at": "2026-06-21T14:12:51Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 159,
+    "sample_technique_files": [
+      "crates/policy/src/verdict.rs",
+      "docs/spec/SPEC.md",
+      "docs/spec/decisions.md"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# pg_brakes [![CI](https://github.com/NikolayS/pg_brakes/actions/workflows/ci.yml/badge.svg)](https://github.com/NikolayS/pg_brakes/actions/workflows/ci.yml) ![license](https://img.shields.io/badge/license-Apache--2.0-3ddc97) ![postgres](https://img.shields.io/badge/PostgreSQL-14--18-3ddc97) pg_brakes is a Rust safety gateway between AI agents and PostgreSQL. It puts a deterministic floor below the agent: least-privilege PostgreSQL roles, a proxy-only connection path, read budgets and cancellation, explicit write certification, human approval, and tamper-evident audit evidence. This is a serio",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "ninadpchaudhari/LNGUI---Ecommerce",
+    "url": "https://github.com/ninadpchaudhari/LNGUI---Ecommerce",
+    "stars": 0,
+    "language": "TypeScript",
+    "created_at": "2026-04-09T06:12:00Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 17,
+    "sample_technique_files": [
+      "src/components/MetamorphicPanel.tsx",
+      "src/index.css"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# Chat-Assisted Ecommerce\n\nA Vite + React demo where a natural language prompt is converted into structured product filters.\n\n## What Changed\n\nThe API is now runtime-agnostic and uses the standard Fetch API instead of Vercel-specific request/response types.\n\n- Core handler: `api/command.ts` exports `handleCommandRequest(request, env?)`\n- Local dev adapter: `server.ts` maps Express requests to `Request`\n- Cloudflare entrypoint: `api/worker.ts`\n\n## LLM Routing (OpenRouter Default)\n\nThis project uses the OpenAI SDK with a configurable base URL.\n\nDefault behavior (when `LITELLM_BASE_URL` is not set):\n\n- `OPENAI_BASE_URL` defaults to `https://openrouter.ai/api/v1`\n- `OPENAI_MODEL` defaults to `openai/gpt-4o-mini`\n\nRequired for default OpenRouter usage:\n\n- `OPENAI_API_KEY`\n\nOptional overrides in direct mode:\n\n- `OPENAI_BASE_URL`\n- `OPENAI_MODEL`\n\nOptional for LiteLLM usage:\n\n- `LITELLM_BASE_URL` (example: `https://litellm.example.com/v1`)\n- `LITELLM_MODEL` (example: `openai/gpt-4o-mini`)\n- `LITELLM_API_KEY` (if your LiteLLM proxy requires auth)\n- `LITELLM_API_KEY_HEADER` (custom auth header name when not using `Authorization`)\n\n## Observability (Langfuse)\n\nLangfuse tracing is enabled when both keys are present:\n\n- `LANGFUSE_PUBLIC_KEY`\n- `LANGFUSE_SECRET_KEY`\n\nOptional:\n\n- `LANGFUSE_BASE_URL`\n\nThe command API records:\n\n- input prompt and available filters/sorts\n- model and routing metadata\n- initial LLM generation and repair attempt\n- final status and output/error\n\n## Run Locally\n\n```bash\nnpm install\nnpm run dev\n```\n\nClient runs on Vite and API is proxied to `http://localhost:3001/api/command`.\n\n## Run Locally With Docker Compose\n\nYou can run both frontend and API in one containerized dev workflow.\n\n1. Add required env vars to `.env` (same env vars used by local Node run).\n2. Start services:\n\n```bash\ndocker compose up --build\n```\n\n3. Open the app at `http://localhost:5173`.\n\nThe API is available at `http://localhost:3001/api/command` and Vite still proxies `/api` requests automatically.\n\nTo stop:\n\n```bash\ndocker compose down\n```\n\n### LiteLLM: Cloud vs Local Container\n\nYou can use either mode:\n\n1. Cloud LiteLLM:\n- Set `LITELLM_BASE_URL` to your hosted LiteLLM endpoint (for example `https://<your-host>/v1`).\n- Run normal compose:\n\n```bash\ndocker compose up --build\n```\n\n2. Local LiteLLM in Docker:\n- Add `OPENAI_API_KEY` in `.env` for the LiteLLM container.\n- Set app routing in `.env`:\n\t- `LITELLM_BASE_URL=http://litellm:4000/v1`\n\t- `LITELLM_MODEL=openai/gpt-4o-mini`\n- Start compose with LiteLLM profile:\n\n```bash\ndocker compose --profile litellm up --build\n```\n\nLiteLLM local config is in `litellm.config.yaml` and exposes port `4000` on your machine.\n\n## Local Test Mode (No External LLM)\n\nIf you want to test the full app flow locally without calling LiteLLM/OpenAI, set:\n\n- `LOCAL_TEST_MODE=true`\n\nWhen enabled, the API uses a deterministic prompt parser and returns a valid command payload without any network LLM call.\n\nExample `.env` for local-only testing:\n",
+    "readme_source": "full"
+  },
+  {
+    "repo": "NishiokaMasahiro/AutonomousAI.jl",
+    "url": "https://github.com/NishiokaMasahiro/AutonomousAI.jl",
+    "stars": 0,
+    "language": "Julia",
+    "created_at": "2026-08-15T04:17:50Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 39,
+    "sample_technique_files": [
+      "src/Verification.jl"
+    ],
+    "description": "LLM を高次認知層として使い、Julia を計算・最適化・GPU 実行・システム統率の中心に置いた、境界付き自律型 Computational Intelligence System",
+    "topics": [],
+    "readme": "# AutonomousAI.jl **LLM を高次認知層として使い、Julia を計算・最適化・GPU 実行・システム統率の中心に置いた、 境界付き自律型 Computational Intelligence System。** ``` Goal → LLM(Plan) → World Model → Computational Optimizer → Julia Code/Kernel → Sandbox → Benchmark/Verify → CPU/CUDA → Hardware → Observation → Replan ``` --- ## 0. まず最初に 最初にやること: ```bash julia --project=. -e 'using Pkg; Pkg.instantiate()' # 依存をインストール julia --project=. test/runtests.jl # ここで初めて実測が始まる ``` --- ## 1. クイックスタート ```julia using AutonomousAI # ハードウェア観測(読み取り専用) AutonomousAI.Interface.main([\"hardware\"]) # 閉ループ実行 agent = AutonomousAI.AgentCore.Agent() goal = Autonomous",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "nlpet/apart-ai-control-hackathon",
+    "url": "https://github.com/nlpet/apart-ai-control-hackathon",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-03-18T15:03:51Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 54,
+    "sample_technique_files": [
+      "track-2-frontier/agentic/agentic_defense.py",
+      "track-2-frontier/monitors/CONTROL-PROTOCOL.md"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "<p align=\"center\"> <img src=\"assets/context-shield.jpg\" alt=\"Defense-in-Depth Against AI Agent Sabotage\" width=\"100%\"> </p> # Defense-in-Depth Against AI Agent Sabotage **Apart Research AI Control Hackathon, March 20-22, 2026** | [Paper (PDF)](submission/submission.pdf) | Track 2: Control Protocol Design John Burden, Nora Petrova, Helin Ece Akgul — Prolific AI Research --- <p align=\"center\"> <img src=\"assets/results-diagram.jpg\" alt=\"56-92% sabotage → 7-55% after prevention → 0% after detection\" width=\"90%\"> </p> ## TL;DR AI coding agents instructed to sabotage produce buggy code 56-92% of the",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "nnnn088/LLM-PCB-Component-Recommendation",
+    "url": "https://github.com/nnnn088/LLM-PCB-Component-Recommendation",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-09-07T13:13:39Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 38,
+    "sample_technique_files": [
+      "code/state.py"
+    ],
+    "description": "Research code for LLM-based component recommendation on in-progress PCB schematics, including benchmark construction, model comparison, retrieval, SFT, and related experiments.",
+    "topics": [],
+    "readme": "# LLM PCB Component Recommendation This repository contains the code used in an MSc dissertation on recommending PCB components from in-progress schematics. Completed KiCad designs are masked to create repeatable intermediate design states. Large language models then recommend up to three components, and the recommendations are assessed using tier-aware rules for component type, defining value or MPN, and connectivity. The study covers benchmark construction, comparison of several language models, precedent and technical-knowledge retrieval, practical design conditions, and an exploratory supe",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Nolane-x/Nolane-Localview",
+    "url": "https://github.com/Nolane-x/Nolane-Localview",
+    "stars": 1,
+    "language": "Rust",
+    "created_at": "2026-08-23T08:43:22Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 2,
+    "code_files": 593,
+    "sample_technique_files": [
+      "crates/validation-lab/src/lib.rs",
+      "crates/validation-lab/src/metamorphic_adapter.rs",
+      "crates/validation-lab/tests/metamorphic_adapter.rs"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "<div align=\"center\"> # LocalView ### A local-first visual runtime for humans, coding agents, and localhost applications. **Observe the running app. Understand what actually happened. Act through bounded authority. Verify the result with evidence.** [English](README.md) · [Tiếng Việt](README.vi.md) · [简体中文](README.zh-CN.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [Español](README.es.md) [![CI](https://github.com/Nolane-x/Nolane-Localview/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Nolane-x/Nolane-Localview/actions/workflows/ci.yml) [![Release candidate](https://git",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "nolanrbrady/kernel-labs",
+    "url": "https://github.com/nolanrbrady/kernel-labs",
+    "stars": 0,
+    "language": "TypeScript",
+    "created_at": "2026-02-16T23:26:59Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 3,
+    "code_files": 106,
+    "sample_technique_files": [
+      "src/problems/problem-spec-v2.ts",
+      "src/problems/seed-problem-pack.ts",
+      "src/problems/suggest-topic-spec-v2.ts",
+      "tests/problem-spec-v2.validation.test.ts"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "",
+    "readme_source": "none"
+  },
+  {
+    "repo": "nonsense-j/JavaTransformer",
+    "url": "https://github.com/nonsense-j/JavaTransformer",
+    "stars": 0,
+    "language": "Java",
+    "created_at": "2025-08-22T10:02:18Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 67,
+    "sample_technique_files": [
+      ".kiro/steering/product.md",
+      "README.md",
+      "USAGE_EXAMPLES.md",
+      "docs/QUICK_START_GUIDE.md",
+      "docs/examples/ProgrammaticExample.java"
+    ],
+    "description": "Semantic-preserving Code Transformer separated from Statfier",
+    "topics": [],
+    "readme": "# Transformer Library A standalone Java library for applying code transformations to Java source files, with support for both specific transformation methods and location-based strategies guided by external bug information. ## Overview The Transformer library extracts and refactors the code transformation functionality from the Statfier project into a clean, standalone JAR library. It provides a simple API for applying Java code transformations using either specific transformation methods or intelligent location-based strategies that can be guided by bug information from external static analys",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "NooRotic/agentroom-win",
+    "url": "https://github.com/NooRotic/agentroom-win",
+    "stars": 1,
+    "language": "Rust",
+    "created_at": "2026-03-16T22:27:24Z",
+    "technique_test_files": 2,
+    "technique_nontest_files": 0,
+    "code_files": 2287,
+    "sample_technique_files": [
+      "search-backend/asupersync/tests/raptorq_conformance.rs",
+      "search-backend/cass/PLAN_FOR_ADVANCED_OPTIMIZATIONS_ROUND_1__GPT.md",
+      "search-backend/cass/PLAN_FOR_ADVANCED_OPTIMIZATIONS_ROUND_1__OPUS.md",
+      "search-backend/frankentui/crates/ftui-layout/tests/responsive_matrix.rs"
+    ],
+    "description": "Windows 11 port of AgentRoom — just my working build",
+    "topics": [],
+    "readme": "# agentroom-win > **Just my working build.** This is a personal Windows 11 port of [AgentRoom](https://github.com/liuyixin-louis/agentroom) by Yixin Liu. The original did not build or run on Windows out of the box. With the help of Claude (Anthropic), I diagnosed and fixed the issues. Sessions now show, agents animate, transcripts load — on Windows 11. ![AgentRoom screenshot](docs/screenshots/hero-office-tagged.png) --- ## What is AgentRoom? AgentRoom is a desktop app that turns your AI coding agents into animated pixel art characters in a virtual office — with full session search, transcript",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "northwood-labs/terraform-provider-corefunc",
+    "url": "https://github.com/northwood-labs/terraform-provider-corefunc",
+    "stars": 45,
+    "language": "Go",
+    "created_at": "2023-09-03T01:29:13Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 276,
+    "sample_technique_files": [
+      ".kiro/specs/str-leftpad-property-tests/design.md",
+      ".kiro/specs/str-leftpad-property-tests/requirements.md",
+      "corefunc/str_pad_rapid_test.go"
+    ],
+    "description": "Utilities that should have been Terraform core functions.",
+    "topics": [
+      "bats",
+      "data-sources",
+      "functions",
+      "go",
+      "golang",
+      "library",
+      "opentofu",
+      "opentofu-provider",
+      "terraform",
+      "terraform-plugin-framework",
+      "terraform-provider",
+      "terratest",
+      "tfprotocol",
+      "tfschema"
+    ],
+    "readme": "# Core Functions\n\n[![Terraform Docs](https://img.shields.io/badge/Terraform-Docs-7B42BC?style=for-the-badge)](https://registry.terraform.io/providers/northwood-labs/corefunc/latest/docs)\n[![OpenTofu Docs](https://img.shields.io/badge/OpenTofu-Docs-FEDA15?style=for-the-badge)](https://search.opentofu.org/provider/northwood-labs/corefunc/latest)\n[![Library.tf](https://img.shields.io/badge/Library.tf-Docs-B3DBF1?style=for-the-badge)](https://library.tf/providers/northwood-labs/corefunc/latest)\n[![Go Docs](https://img.shields.io/badge/Go-Docs-blue?style=for-the-badge)](https://pkg.go.dev/github.com/northwood-labs/terraform-provider-corefunc/v2/corefunc)\n[![GitHub](https://img.shields.io/github/license/northwood-labs/Terraform-provider-corefunc?style=for-the-badge)](https://opensource.org/licenses/Apache-2.0)\n[![Go Report Card](https://goreportcard.com/badge/github.com/northwood-labs/Terraform-provider-corefunc?style=for-the-badge)](https://goreportcard.com/report/github.com/northwood-labs/terraform-provider-corefunc)\n[![Open Source Insights](https://img.shields.io/badge/Open_Source-Insights-000000?style=for-the-badge)](https://deps.dev/go/github.com%2Fnorthwood-labs%2Fterraform-provider-corefunc%2Fv2)\n[![GitHub issues](https://img.shields.io/github/issues/northwood-labs/Terraform-provider-corefunc?style=for-the-badge)](https://github.com/northwood-labs/terraform-provider-corefunc/issues)\n[![GitHub contributors](https://img.shields.io/github/contributors/northwood-labs/Terraform-provider-corefunc?style=for-the-badge)](https://github.com/northwood-labs/terraform-provider-corefunc/graphs/contributors)\n[![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/m/northwood-labs/Terraform-provider-corefunc?style=for-the-badge)](https://github.com/northwood-labs/terraform-provider-corefunc/commits/main/)\n[![GitHub all releases](https://img.shields.io/github/downloads/northwood-labs/Terraform-provider-corefunc/total?style=for-the-badge)](https://github.com/northwood-labs/terraform-provider-corefunc/releases)\n[![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/northwood-labs/Terraform-provider-corefunc/test.yml?style=for-the-badge&label=Tests)](https://github.com/northwood-labs/terraform-provider-corefunc/actions/workflows/test.yml)\n[![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/northwood-labs/Terraform-provider-corefunc/release.yml?style=for-the-badge&label=Release)](https://github.com/northwood-labs/terraform-provider-corefunc/actions/workflows/release.yml)\n\n## Overview\n\nCore functions with identical implementations for [Terraform], [OpenTofu], [Terratest], and other software in the so-called _Terra/Fu_ ecosystem.\n\nWhile some of these _can_ be implemented in HCL, some of them begin to push up against the limits of Terraform and the HCL2 configuration language. Exposing these functions as both a Go library as well as a Terraform/OpenTofu provider e",
+    "readme_source": "full"
+  },
+  {
+    "repo": "notatallshaw/nab",
+    "url": "https://github.com/notatallshaw/nab",
+    "stars": 27,
+    "language": "Python",
+    "created_at": "2026-05-15T03:41:03Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 412,
+    "sample_technique_files": [
+      "nab-resolver/tests/property/graph_oracles.py"
+    ],
+    "description": "PubGrub-based dependency resolver for Python packages",
+    "topics": [],
+    "readme": "# nab\n\nnab is an experimental dependency locker and download tool for Python packages, written in Python\nbut aiming to have similar performance to uv on cold resolves.\n\nIt reads your `pyproject.toml`, finds compatible versions of your dependencies, and writes a PEP 751\n`pylock.toml` or pinned requirements. An installer such as pip then installs from that file.\n\nDocumentation: <https://nab.readthedocs.io/en/stable/>\n\n## Install\n\nInstall nab in an isolated tool environment:\n\n```bash\nuv tool install nab\n# or\npipx install nab\n```\n\nConfirm the command is available with `nab --version`. nab runs on CPython 3.10 and newer.\n\n## Quick start\n\nFrom a directory containing your `pyproject.toml` (or the [example below](#example-project)),\nresolve and write the lock:\n\n```bash\nnab lock pyproject.toml\n```\n\nOpen `pylock.toml` to see the selected versions and distribution hashes.\n\nIn a virtual environment matching the lock's Python and platform, install with pip 26.1 or newer:\n\n```bash\npython -m pip install -r pylock.toml\n```\n\npip's `pylock.toml` support is experimental. This installs the locked dependencies; installing your\nown project is a separate step. The [getting-started tutorial][getting-started] includes environment\nsetup, and [Use a lock][use-lock] explains pip's selection limits.\n\n## Why nab?\n\n### Keep dependency choices in a file\n\nLocking is a separate step from changing your environment. `nab lock` records exact dependency\nversions for the environments you resolve, so you can review and commit the result before installing\nit.\n\nFor a single-environment lock, you can also [check the committed file in CI][check-lock].\n\n### Use standard packaging formats\n\nKeep your dependency declarations in the standard `[project]` table of `pyproject.toml`. nab reads\nPython packaging versions, requirements, and environment markers, and produces a\n[cross-tool PEP 751 lockfile][lockfiles]. You can also write hashed requirements for pip.\n\n### Choose your target environments explicitly\n\nBy default, nab resolves for the Python and platform running nab. You can\n[declare a different target][resolve-environment], such as the Python used in production, or a\nmatrix of targets for several platforms. Dependency markers and wheel compatibility are evaluated\nfor those targets, and the lock records where it applies. If any declared target cannot be resolved,\nnab fails without writing a lock.\n\n### Security via build and VCS policies\n\nReading dependency metadata can require running a package's build backend. nab\n[reads remote sources without building them by default][build-policy]; local checkouts may build\nwhen their metadata needs it. If a remote package requires a build, you can opt in for that package.\n[Direct archives][archive-sources] also require a verified digest.\n\nnab blocks [VCS dependencies][vcs] by default and supports only Git. To allow them, set\n`policy = \"allow\"` under `[tool.nab.vcs]` and list both the permitted URL schemes and repository\nprefixes in `allowed-schemes` and ",
+    "readme_source": "full"
+  },
+  {
+    "repo": "NotNeelPatel/CityAgent",
+    "url": "https://github.com/NotNeelPatel/CityAgent",
+    "stars": 3,
+    "language": "Python",
+    "created_at": "2025-09-24T20:43:11Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 68,
+    "sample_technique_files": [
+      "backend/tests/README.md",
+      "backend/tests/metamorphic_tests/test_metamorphic.py"
+    ],
+    "description": "An AI data-driven service that answers questions relating to the City of Ottawa's Asset Management.",
+    "topics": [],
+    "readme": "# CityAgent\n\n## Overview\nCityAgent is an AI-driven web application developed in collaboration with the City of Ottawa to make municipal asset information easier to access and understand. It provides a secure, natural-language interface where authorized staff can ask plain-language questions and receive grounded answers that include dates, context, and links to official documents. \n\nMunicipal data is often scattered across various internal systems, making it difficult to access efficiently. CityAgent addresses this by centralizing data retrieval, reducing manual workload for city staff, and utilizing AI to accurately summarize and cite infrastructure and asset management information.\n\n## Key Features\n* **Natural Language Querying**: Users can ask questions about municipal services, asset conditions, and infrastructure priorities using plain language.\n* **Retrieval-Augmented Generation (RAG)**: The system ensures responses are grounded in verified official documents, specifically supporting PDF, XLSX, and CSV file formats.\n* **Integrated Document Viewer**: An embedded viewer allows users to explore referenced materials and verify sources directly within the application.\n* **Session History**: The application saves users' previous queries and responses, allowing them to easily revisit past searches.\n* **Administrative Dashboard**: Authorized personnel can manage the system's knowledge base by uploading new files and deleting outdated documents.\n\n## Video Demo\n\nYou can watch this [quick demo](https://youtu.be/XiBouvPlMwU) to get an overview of the project.\n\n## Technical Architecture\n\nCityAgent follows a modular, layered client-server architecture designed for scalability and maintainability.\n\n### Frontend Layer\n* **Framework**: The user interface is built as a Single-Page Application (SPA) using React and Vite. \n* **UI Components**: It utilizes Shadcn to provide clean, accessible, and WCAG-compliant interface components.\n* **Authentication**: Secure login is managed via Supabase, supporting email/password and Google Single Sign-On (SSO).\n\n### Backend Layer\n* **API & Orchestration**: The backend is developed in Python using FastAPI to handle REST API routing. \n* **Agent Framework**: It leverages the Google Agent Development Kit (ADK) to manage and orchestrate the multi-agent AI workflows.\n\n### Multi-Agent Pipeline\nCityAgent utilizes a specialized three-agent pipeline to process user queries accurately:\n* **Orchestrator Agent**: Analyzes the user's query, translates intents to keywords, and coordinates the data retrieval process without answering the question directly.\n* **Data Analyst Agent**: Specialized in querying and analyzing official PDFs and spreadsheets using RAG. It utilizes dedicated Python tools to filter, extract, and compute data directly from the files.\n* **Reasoner Agent**: Synthesizes the final answer based exclusively on the information retrieved by the Data Analyst. It formats the output into a JSON response with clear source citatio",
+    "readme_source": "full"
+  },
+  {
+    "repo": "notrishabhjain/kundali-jain",
+    "url": "https://github.com/notrishabhjain/kundali-jain",
+    "stars": 0,
+    "language": "TypeScript",
+    "created_at": "2026-05-10T02:24:35Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 2,
+    "code_files": 161,
+    "sample_technique_files": [
+      ".github/workflows/quality-gates.yml",
+      "scripts/check-ephemeris.ts",
+      "scripts/check-metamorphic.ts"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "<div align=\"center\">\n<img width=\"1200\" height=\"475\" alt=\"GHBanner\" src=\"https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6\" />\n</div>\n\n# Run and deploy your AI Studio app\n\nThis contains everything you need to run your app locally.\n\nView your app in AI Studio: https://ai.studio/apps/79a1540e-8e18-4961-8b2b-8ff40a96a401\n\n## Run Locally\n\n**Prerequisites:**  Node.js\n\n\n1. Install dependencies:\n   `npm install`\n2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key\n3. Run the app:\n   `npm run dev`",
+    "readme_source": "full"
+  },
+  {
+    "repo": "nousergon/crucible-backtester",
+    "url": "https://github.com/nousergon/crucible-backtester",
+    "stars": 2,
+    "language": "Python",
+    "created_at": "2026-03-09T20:37:06Z",
+    "technique_test_files": 2,
+    "technique_nontest_files": 1,
+    "code_files": 531,
+    "sample_technique_files": [
+      "analysis/self_test.py",
+      "evaluate.py",
+      "tests/test_metamorphic_invariants.py"
+    ],
+    "description": "Nous Ergon — signal quality analysis, portfolio simulation, and autonomous parameter optimization via sweep + VectorBT",
+    "topics": [
+      "algorithmic-trading",
+      "autonomous-agents",
+      "langgraph",
+      "python",
+      "trading",
+      "vectorbt"
+    ],
+    "readme": "# alpha-engine-backtester\n\n> Part of [**Crucible**](https://nousergon.ai) — a [Nous Ergon](https://nousergon.ai) product: a harness for rigorous AI/ML experiments in finance, an equity research-and-trading system instrumented end-to-end. Repo and S3 names use the underlying project codename `alpha-engine`.\n\n[![Part of Crucible](https://img.shields.io/badge/Part_of-Crucible-1a73e8?style=flat-square)](https://nousergon.ai)\n[![Python](https://img.shields.io/badge/python-3.11+-blue?style=flat-square)](https://www.python.org/)\n[![vectorbt](https://img.shields.io/badge/vectorbt-1a73e8?style=flat-square)](https://vectorbt.dev/)\n[![LightGBM](https://img.shields.io/badge/LightGBM-1a73e8?style=flat-square)](https://lightgbm.readthedocs.io/)\n[![License: AGPL-3.0-only](https://img.shields.io/badge/License-AGPL--3.0--only-yellow?style=flat-square)](LICENSE)\n[![Phase 2 · Reliability](https://img.shields.io/badge/Phase_2-Reliability-e9c46a?style=flat-square)](https://github.com/nousergon/nousergon-docs#phase-trajectory)\n\nWeekly system evaluator and autonomous parameter optimizer. Reads historical signals + trades, measures signal quality, runs parameter sweeps, and writes four optimized configs back to S3 each week — closing the system's learning loop without manual intervention.\n\n> System overview, Step Function orchestration, and module relationships live in [`alpha-engine-docs`](https://github.com/nousergon/nousergon-docs). Code index lives in [`OVERVIEW.md`](OVERVIEW.md).\n\n## What this does\n\n- **Signal quality evaluation** — accuracy at 10d/30d, regime-conditional breakdowns, score-bucket analysis, sub-score attribution from `score_performance` table\n- **Autonomous config auto-apply** — writes four configs back to S3 each week: `scoring_weights.json` (Research), `executor_params.json` (Executor 60-trial random search over 6 risk params, ranked by Sharpe), `predictor_params.json` (veto threshold auto-tune), `research_params.json` (deferred until 200+ samples)\n- **Predictor synthetic backtest** — replays 10y of synthetic signals through the meta-ensemble on the full S3 price cache; primary param-sweep substrate\n- **VectorBT portfolio simulation** — replays historical orders to produce Sharpe / drawdown / Calmar / alpha tracking\n- **Component grading** — A–F scorecard across all system components rolled into a 52-week trend, used for the weekly evaluator email\n- **LLM-as-judge eval** (consolidated 2026-04-24) — judge rubric scoring runs inside the same spot job as backtest + parity\n\n## Phase 2 measurement contribution\n\nThis is the system's learning mechanism. Phase 2 contribution: every week the backtester captures whether the prior week's signals + parameter set produced expected outcomes, then writes the optimized parameter set forward. The weekly cadence + auto-apply discipline is the substrate that lets Phase 3 systematically tune toward sustained alpha — without it, parameter changes would require manual deployment and the feedback loop would close in mon",
+    "readme_source": "full"
+  },
+  {
+    "repo": "nousergon/crucible-evaluator",
+    "url": "https://github.com/nousergon/crucible-evaluator",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-06-04T15:38:03Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 170,
+    "sample_technique_files": [
+      "grading/handler.py"
+    ],
+    "description": "Nous Ergon — measurement & evaluation layer: System Report Card grading + the Director weekly action-plan agent",
+    "topics": [
+      "algorithmic-trading",
+      "autonomous-agents",
+      "aws-lambda",
+      "evaluation",
+      "observability",
+      "python",
+      "trading"
+    ],
+    "readme": "# alpha-engine-evaluator > Part of [**Crucible**](https://nousergon.ai) — a [Nous Ergon](https://nousergon.ai) product: a harness for rigorous AI/ML experiments in finance, an equity research-and-trading system instrumented end-to-end. Repo and S3 names use the underlying project codename `alpha-engine`. [![Part of Crucible](https://img.shields.io/badge/Part_of-Crucible-1a73e8?style=flat-square)](https://nousergon.ai) [![Python](https://img.shields.io/badge/python-3.12+-blue?style=flat-square)](https://www.python.org/) [![Anthropic Claude](https://img.shields.io/badge/Anthropic_Claude-1a73e8?s",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "nousergon/nousergon-lib",
+    "url": "https://github.com/nousergon/nousergon-lib",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-04-14T15:34:08Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 260,
+    "sample_technique_files": [
+      "src/nousergon_lib/quant/selftest.py"
+    ],
+    "description": "Nous Ergon — shared utilities: preflight, logging, ArcticDB, dates/calendar, decision capture, cost telemetry, RAG, agent output schemas, transparency-substrate health checks",
+    "topics": [
+      "algorithmic-trading",
+      "anthropic",
+      "arcticdb",
+      "autonomous-agents",
+      "langchain",
+      "langgraph",
+      "python",
+      "trading"
+    ],
+    "readme": "# nousergon-lib > Part of [**Crucible**](https://nousergon.ai) — a [Nous Ergon](https://nousergon.ai) product: a harness for rigorous AI/ML experiments in finance, an equity research-and-trading system instrumented end-to-end. Repo and S3 names use the underlying project codename `alpha-engine`. [![Part of Crucible](https://img.shields.io/badge/Part_of-Crucible-1a73e8?style=flat-square)](https://nousergon.ai) [![Python](https://img.shields.io/pypi/pyversions/nousergon-lib)](https://pypi.org/project/nousergon-lib/) [![License](https://img.shields.io/github/license/nousergon/nousergon-lib)](LICE",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "NovaVey/Relationship-Based-Authorization",
+    "url": "https://github.com/NovaVey/Relationship-Based-Authorization",
+    "stars": 0,
+    "language": "TypeScript",
+    "created_at": "2026-08-15T12:01:56Z",
+    "technique_test_files": 6,
+    "technique_nontest_files": 2,
+    "code_files": 286,
+    "sample_technique_files": [
+      "PROGRESS.md",
+      "docs/CAPABILITY-GAPS.md",
+      "docs/DECISIONS.md",
+      "docs/REVERSE-LOOKUP-PROPOSAL.md",
+      "docs/REVIEWS.md"
+    ],
+    "description": "Fine-grained, relationship-based authorization service in the style of Google Zanzibar — schema DSL, relation tuple store, graph-walking permission checks, and a test suite proving no unauthorized path resolves. TypeScript + Postgres.",
+    "topics": [],
+    "readme": "# Relationship-Based Authorization\n\nA fine-grained authorization service, Zanzibar-style: relationship tuples\nand a graph-walking check engine, with a differential-fuzzing proof that\nthe check engine never grants a permission no real path supports.\n\n[![CI](https://github.com/NovaVey/Relationship-Based-Authorization/actions/workflows/ci.yml/badge.svg)](https://github.com/NovaVey/Relationship-Based-Authorization/actions/workflows/ci.yml)\n[![Soundness](https://github.com/NovaVey/Relationship-Based-Authorization/actions/workflows/soundness.yml/badge.svg)](https://github.com/NovaVey/Relationship-Based-Authorization/actions/workflows/soundness.yml)\n[![Schema Verifier](https://github.com/NovaVey/Relationship-Based-Authorization/actions/workflows/schema-verifier.yml/badge.svg)](https://github.com/NovaVey/Relationship-Based-Authorization/actions/workflows/schema-verifier.yml)\n[![DST](https://github.com/NovaVey/Relationship-Based-Authorization/actions/workflows/dst.yml/badge.svg)](https://github.com/NovaVey/Relationship-Based-Authorization/actions/workflows/dst.yml)\n[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)\n\n**Live:** [`authz-api-production.up.railway.app`](https://authz-api-production.up.railway.app/health) —\nseeded with the exact demo graph below (`document`/`folder`/`group`/`org`,\nall four published); `GET /health` (unauthenticated) confirms this directly —\nreal database connectivity, and all four namespaces at their real versions.\n`POST /check`/`/expand` accept either `ADMIN_API_KEY` or `READONLY_API_KEY`\n(D-064, widened by D-138); `/schema/publish` and `/tuples` writes remain\n`ADMIN_API_KEY`-only — this is a live instance of the real service, not a\npublic sandbox, so read access is deliberately not open to anyone who finds\nthe URL. `POST /schema/compile` (no write, no gate) is open if you want to\ntry the DSL compiler itself against your own source.\n\n## Contents\n\n- [The failure this exists to stop](#the-failure-this-exists-to-stop)\n- [What an `allow` actually looks like here](#what-an-allow-actually-looks-like-here)\n- [The soundness result](#the-soundness-result)\n- [Further proof, and the full review history](#further-proof-and-the-full-review-history)\n- [Try it yourself — under 10 minutes, from a clean clone](#try-it-yourself--under-10-minutes-from-a-clean-clone)\n- [How it works](#how-it-works)\n- [Latency](#latency)\n- [What this is not](#what-this-is-not)\n- [Stack](#stack)\n- [API and CLI](#api-and-cli)\n- [Repository layout](#repository-layout)\n- [Building this out further / contributing](#building-this-out-further--contributing)\n\n## The failure this exists to stop\n\nEvery application that grows past \"everyone with an account can see\neverything\" reinvents authorization, badly, in the same order: a `role`\ncolumn, then a `role` column plus a handful of special-cased `if`\nstatements for the exceptions, then a table of exceptions nobody fully\ntrusts, then an incident where someone could see something they shouldn't\nhave",
+    "readme_source": "full"
+  },
+  {
+    "repo": "NoWall-572/GraphMeta_for_MAS",
+    "url": "https://github.com/NoWall-572/GraphMeta_for_MAS",
+    "stars": 4,
+    "language": "Python",
+    "created_at": "2026-06-30T14:37:24Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 6,
+    "code_files": 55,
+    "sample_technique_files": [
+      "README.md",
+      "scripts/evaluate_gpt_judge.py",
+      "src/graphmeta/__init__.py",
+      "src/graphmeta/io/trace.py",
+      "src/graphmeta/mr/__init__.py"
+    ],
+    "description": "GraphMeta is a research prototype for detecting abnormal behavior in multi-agent software engineering systems without requiring a hand-written oracle. It converts source and metamorphic follow-up executions into paired interaction graphs, then learns anomaly signals from semantic, structural, temporal, visual, and state-level differences.",
+    "topics": [],
+    "readme": "# 🌌 GraphMeta <p align=\"center\"> <b>Oracle-Free Anomaly Detection for Multi-Agent Software Engineering</b><br/> <i>Metamorphic interaction graphs · semantic/state-aware graph pairs · benchmark-ready MAS traces</i> </p> <p align=\"center\"> <img alt=\"Python\" src=\"https://img.shields.io/badge/Python-3.10%2B-3776AB?style=for-the-badge&logo=python&logoColor=white\"/> <img alt=\"License\" src=\"https://img.shields.io/badge/Code%20License-MIT-green?style=for-the-badge\"/> <img alt=\"Dataset\" src=\"https://img.shields.io/badge/Dataset-HuggingFace-yellow?style=for-the-badge&logo=huggingface&logoColor=black\"/>",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "nowarp/nowarp.github.io",
+    "url": "https://github.com/nowarp/nowarp.github.io",
+    "stars": 0,
+    "language": "TypeScript",
+    "created_at": "2024-07-22T09:54:42Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 24,
+    "sample_technique_files": [
+      "blog/2026-06-27-compiler-testing-part-2.md",
+      "src/pages/index.tsx"
+    ],
+    "description": "",
+    "topics": [
+      "documentation",
+      "github-pages",
+      "misti",
+      "static-analysis",
+      "ton",
+      "website"
+    ],
+    "readme": "# nowarp.github.io\n\nA static website for Misti and related projects: [nowarp.io](https://nowarp.io/).\n\n## Usage\n\n1. Clone the repo and required dependencies. Keep the structure as specified here:\n```\ngit clone https://github.com/nowarp/misti\ngit clone https://github.com/nowarp/souffle.js\ngit clone https://github.com/nowarp/nowarp.github.io\n```\n\n2. Install dependencies and build each of the projects above.\n\n3. Build the site locally:\n```\ncd nowarp.github.io && npx docusaurus start\n```\nIt will be available at localhost:3000.\n\n4. Build and deploy the site:\n```\nyarn build && yarn deploy\n```",
+    "readme_source": "full"
+  },
+  {
+    "repo": "Nox-HQ/nox",
+    "url": "https://github.com/Nox-HQ/nox",
+    "stars": 10,
+    "language": "Go",
+    "created_at": "2026-02-08T21:10:43Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 2,
+    "code_files": 1463,
+    "sample_technique_files": [
+      ".github/workflows/metamorphic-audit.yml",
+      ".github/workflows/metamorphic.yml",
+      "CHANGELOG.md",
+      "scripts/metamorphic/README.md",
+      "scripts/metamorphic/harness.py"
+    ],
+    "description": "Open-source security scanner with first-class AI app security (prompt injection, embedding leakage, agent over-privilege, MCP hardening). Polyglot AIBOM, SARIF, SBOM. Cosign-signed plugin marketplace. Offline-first, agent-native via MCP.",
+    "topics": [
+      "ai-security",
+      "cli",
+      "cosign",
+      "devsecops",
+      "golang",
+      "llm-security",
+      "mcp",
+      "plugin-marketplace",
+      "sarif",
+      "sbom",
+      "scanner",
+      "security",
+      "sigstore",
+      "static-analysis",
+      "supply-chain-security"
+    ],
+    "readme": "<p align=\"center\">\n  <img src=\"assets/logo.png\" alt=\"Nox\" width=\"180\" />\n</p>\n\n<h1 align=\"center\">Nox</h1>\n\n<p align=\"center\">\n  <img src=\"https://github.com/nox-hq/nox/actions/workflows/ci.yml/badge.svg\" alt=\"CI\" />\n  <img src=\".github/nox-badge.svg\" alt=\"Security\" />\n  <img src=\".github/coverage-badge.svg\" alt=\"Coverage\" />\n  <img src=\"https://img.shields.io/badge/Go-1.25+-00ADD8?logo=go&logoColor=white\" alt=\"Go\" />\n  <img src=\"https://img.shields.io/badge/License-Apache_2.0-blue.svg\" alt=\"License\" />\n</p>\n\n**The security scanner for AI application developers.** Open source, offline-first, no SaaS.\n\nIf you're shipping LLM features — `chat.completions.create`, RAG ingest into a vector DB, agents with tool calls, MCP servers — nox is the static analyzer that knows how those break. Plus the boring stuff: secrets, dep CVEs, IaC, container scans.\n\n**What nox catches that other scanners don't:**\n\n- **Prompt injection** at the call site (AI-PI-*, OWASP LLM01)\n- **Embedding leakage** when secrets / PII land in vector stores (AI-EMBED-*, LLM06)\n- **Agent over-privilege** when `file_read` + `http_request` live in the same agent context (AI-AGENT-*, LLM07)\n- **Agent-config execution surface** (AGENT-001..006) — the files that steer a coding agent are code: injection directives in `.cursorrules`/`CLAUDE.md`/skills, permission-bypass (`bypassPermissions`, `--dangerously-skip-permissions`), wildcard tool grants (`\"Bash(*)\"`), exfiltration directives in `.claude/settings.json`, unauthenticated **A2A agent cards** (`agent.json` with an empty/`none` security scheme, ASI07), and **DXT desktop-extension** manifests that interpolate `${user_config.*}` into a server command (ASI02)\n- **Slopsquatting / hallucinated packages** (SLOP-001) — source imports of a package that exists in no manifest, no standard library, and no local module: the surface an attacker slopsquats after an LLM invents the name. Deterministic, offline, Python + JS/TS\n- **CVE variants in your own code** (`nox variants`, VARIANT-*) — first-party code that reproduces the root cause of a known CVE (Log4Shell, Zip Slip, PyYAML full-loader, tar path traversal, SSTI, shell interpolation) even when no vulnerable dependency is present\n- **Unverifiable dependency provenance** (PROV-001/002, OWASP ASI04 / SLSA) — dependencies pulled from a VCS/URL/tarball instead of a signed registry, or a VCS dep pinned to a mutable branch/tag instead of an immutable commit SHA\n- **OWASP Top 10 for Agentic Applications (ASI01–ASI10)** mapping on findings, alongside the LLM and MCP Top 10 — traceable from static rule to runtime attack to GRC evidence\n- **Full MCP threat coverage** mapped to the OWASP MCP Top 10 — server hardening (MCP-001..008), tool poisoning (MCP-009..014, MCP03), rug-pull / definition drift (MCP-015, MCP04), authn/authz & SSRF (MCP-016..021, MCP07), shadow & cross-server tool shadowing (MCP-022..024, MCP09)\n- **Cross-file AI taint** — `request.json` → service hop → `chat.completions.create` across funct",
+    "readme_source": "full"
+  },
+  {
+    "repo": "npatsakula/svod",
+    "url": "https://github.com/npatsakula/svod",
+    "stars": 13,
+    "language": "Rust",
+    "created_at": "2025-11-06T13:54:02Z",
+    "technique_test_files": 2,
+    "technique_nontest_files": 0,
+    "code_files": 1057,
+    "sample_technique_files": [
+      "schedule/src/test/property/mod.rs",
+      "schedule/src/test/property/passes.rs"
+    ],
+    "description": "Tensor runtime.",
+    "topics": [],
+    "readme": "<div align=\"center\"> # Svod **A deep learning compiler and inference engine written in Rust.** [![CI](https://github.com/npatsakula/svod/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/npatsakula/svod/actions/workflows/ci.yml) [![Docs](https://img.shields.io/badge/docs-svod.vpermilp.online-blue)](https://svod.vpermilp.online/docs/introduction) [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE) [Documentation](https://svod.vpermilp.online/docs/introduction) · [Models](#models-and-pipelines) · [Architecture](https://svod.vpermilp.online/docs/architectu",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "npci/ainxt-os",
+    "url": "https://github.com/npci/ainxt-os",
+    "stars": 2,
+    "language": "Rust",
+    "created_at": "2026-09-08T16:54:11Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 1,
+    "code_files": 771,
+    "sample_technique_files": [
+      "crates/ainxt-scenario/src/lib.rs",
+      "crates/ainxt-scenario/tests/r11_oracles_and_pairwise.rs",
+      "docs/ai_engine/conformance_runtime.md",
+      "docs/first_module_tree.json",
+      "docs/index.html"
+    ],
+    "description": "AiNxt OS is an open foundation for building and running AI applications and agents. It provides the core building blocks for connecting AI models, tools and workflows, giving developers the flexibility to build AI solutions using the technologies and models they choose.",
+    "topics": [],
+    "readme": "<p align=\"center\"> <!-- Brand-approved lockup (AINxt_CTC-01), the transparent version. PNG rather than SVG because GitHub sanitises inline SVG in Markdown. --> <img src=\"assets/AINxt_CTC-01.png\" alt=\"AiNxt\" width=\"360\"> </p> # AiNxt OS [![OSS Lifecycle](https://img.shields.io/badge/oss_lifecycle-active-brightgreen)](OSSMETADATA) [![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![Contributing](https://img.shields.io/badge/contributing-guidelines-blueviolet)](CONTRIBUTING.md) [![Security](https://img.shields.io/badge/security-policy-important)](SECURITY.md) > **One Inte",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "nraikm/reordermenus.koplugin",
+    "url": "https://github.com/nraikm/reordermenus.koplugin",
+    "stars": 9,
+    "language": "Lua",
+    "created_at": "2026-08-21T01:19:47Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 522,
+    "sample_technique_files": [
+      "tests/test_reset_metamorphic.lua"
+    ],
+    "description": "KOReader plugin to reorder & hide menus",
+    "topics": [
+      "koreader-plugin"
+    ],
+    "readme": "# Reordering Menus for KOReader Reorder, hide, move, and group KOReader menu items in both **Book view** and the **File Manager**, using KOReader's native interface. <p align=\"center\"> <img src=\"screenshots/01-menu-order.png\" width=\"46%\" alt=\"Reordering the Book view menus\"> <img src=\"screenshots/02-submenu-order.png\" width=\"46%\" alt=\"Reordering the Tools submenu\"> </p> <p align=\"center\"> <img src=\"screenshots/03-submenu-actions.png\" width=\"46%\" alt=\"Actions available for the Tools submenu\"> <img src=\"screenshots/04-submenu-presets.png\" width=\"46%\" alt=\"Preset management for the Tools submenu\"",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "NsPowEr/CASForSwift-DSN",
+    "url": "https://github.com/NsPowEr/CASForSwift-DSN",
+    "stars": 0,
+    "language": "C++",
+    "created_at": "2026-04-30T09:08:11Z",
+    "technique_test_files": 2,
+    "technique_nontest_files": 0,
+    "code_files": 847,
+    "sample_technique_files": [
+      "docs/archive/CAS_TASKS.md",
+      "test/unit/algebra/test_half_gcd.cpp",
+      "test/unit/algebra/test_hensel_quadratic.cpp"
+    ],
+    "description": "High-performance C++ Symbolic Algebra System (CAS) with Gröbner Basis F4 and Risch Integration.",
+    "topics": [
+      "computer-algebra",
+      "computer-algebra-system",
+      "cpp20",
+      "groebner-basis",
+      "mathematics",
+      "mpfr",
+      "risch-algorithm",
+      "symbolic-computation"
+    ],
+    "readme": "# REAL CAS ENGINE > An industrial-grade symbolic computer algebra system in modern C++20. [![Build](https://img.shields.io/badge/build-passing-brightgreen)](#build) [![Tests](https://img.shields.io/badge/tests-2858%20passing-brightgreen)](#testing) [![Maxima Golden](https://img.shields.io/badge/golden%20vs%20Maxima-99.6%25%20non--skip-blue)](#golden-corpus) [![Giac Parity](https://img.shields.io/badge/second%20oracle-Giac%202.0.0-lightgrey)](#golden-corpus) [![C++20](https://img.shields.io/badge/C%2B%2B-20-blue)](#requirements) [![License: MIT](https://img.shields.io/badge/license-MIT-yellow.s",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Nu11ified/polylab",
+    "url": "https://github.com/Nu11ified/polylab",
+    "stars": 0,
+    "language": "TypeScript",
+    "created_at": "2026-05-26T17:47:03Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 22,
+    "sample_technique_files": [
+      "apps/server/src/store.ts"
+    ],
+    "description": "Algorithm Research Assistant",
+    "topics": [],
+    "readme": "# PolyLab Verified AI-native research and experimentation workspace. ## Development ```bash bun install bun run dev ``` The desktop app starts Vite and Electron. The local API runs on `http://127.0.0.1:3917`. ## Verification ```bash bun run verify ``` ## Desktop Builds ```bash bun run dist:mac bun run dist:linux ``` Linux builds emit AppImage and deb artifacts. macOS builds emit dmg and zip artifacts when run on macOS.",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "NVIDIA-NeMo/Speech",
+    "url": "https://github.com/NVIDIA-NeMo/Speech",
+    "stars": 18436,
+    "language": "Python",
+    "created_at": "2019-08-05T20:16:42Z",
+    "technique_test_files": 2,
+    "technique_nontest_files": 0,
+    "code_files": 1794,
+    "sample_technique_files": [
+      "tests/collections/asr/decoding/test_streaming_beam_decoding.py",
+      "tests/collections/asr/decoding/test_streaming_decoding.py"
+    ],
+    "description": "A scalable generative AI framework built for researchers and developers working on Large Language Models, Multimodal, and Speech AI (Automatic Speech Recognition and Text-to-Speech)",
+    "topics": [
+      "asr",
+      "deeplearning",
+      "generative-ai",
+      "machine-translation",
+      "neural-networks",
+      "speaker-diariazation",
+      "speaker-recognition",
+      "speech-synthesis",
+      "speech-translation",
+      "tts"
+    ],
+    "readme": "[![Project Status: Active -- The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)\n[![CodeQL](https://github.com/NVIDIA-NeMo/Speech/actions/workflows/codeql.yml/badge.svg?branch=main&event=push)](https://github.com/NVIDIA-NeMo/Speech/actions/workflows/codeql.yml)\n[![NeMo Speech license](https://img.shields.io/badge/License-Apache%202.0-brightgreen.svg)](https://github.com/NVIDIA-NeMo/Speech/blob/main/LICENSE)\n[![Release version](https://badge.fury.io/py/nemo-toolkit.svg)](https://badge.fury.io/py/nemo-toolkit)\n[![Python version](https://img.shields.io/pypi/pyversions/nemo-toolkit.svg)](https://badge.fury.io/py/nemo-toolkit)\n[![PyPi total downloads](https://static.pepy.tech/personalized-badge/nemo-toolkit?period=total&units=international_system&left_color=grey&right_color=brightgreen&left_text=downloads)](https://pepy.tech/project/nemo-toolkit)\n[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)\n\n# **NVIDIA NeMo Speech**\nCheckout our [HuggingFace🤗 collection](https://huggingface.co/collections/nvidia/nemotron-speech) for the latest open\nweight checkpoints and demos!\n\n## Updates\n\n> NeMo Speech 3.0 is now available as [release v3.0.0](https://github.com/NVIDIA-NeMo/Speech/releases/tag/v3.0.0)\n> and in the [26.07.00 NeMo Speech NGC container](https://catalog.ngc.nvidia.com/orgs/nvidia/containers/nemo-speech?version=26.07.00).\n> The final NeMo release before the repository split was\n> [v2.7.3](https://github.com/NVIDIA-NeMo/Speech/releases/tag/v2.7.3), available in the\n> [26.04 NeMo NGC container](https://catalog.ngc.nvidia.com/orgs/nvidia/containers/nemo?version=26.04).\n\n- 2026-07: [MagpieTTS v2607](https://huggingface.co/nvidia/magpie_tts_multilingual_357m) has been released with support\n    for 3 new languages (Ar, Ko, Pt) + 9 existing languages (En, Es, De, Fr, Vi, It, Zh, Hi, Ja). Try out\n    [the demo](https://huggingface.co/spaces/nvidia/magpie_tts_multilingual_demo)!\n- 2026-06: [Nemotron-3.5-ASR-Streaming-0.6B](https://huggingface.co/nvidia/nemotron-3.5-asr-streaming-0.6b) has been released with 40 languages supported, controllable latency 80ms-1s, and 240-2400 1xH100 concurrent streams. Built on cache-aware Fastconformer architecture.\n- 2026-04: [Parakeet-unified-en-0.6b](https://huggingface.co/nvidia/parakeet-unified-en-0.6b) has been released with high-quality offline and streaming (with a minimum latency of 160ms) inference in one model for English language with punctuation and capitalization support. \n- 2026-03: [Nemotron 3 VoiceChat](https://build.nvidia.com/nvidia/nemotron-voicechat/modelcard) is now released in Early Access. Built on the Nemotron Nano v2 LLM backbone with Nemotron speech and TTS decoder, VoiceChat delivers full-duplex, natural, interruptible conversations with low latency. Try out [the demo](https://build.nvidia.com/nvidia/nemotron-voicechat) and",
+    "readme_source": "full"
+  },
+  {
+    "repo": "NWhitener/scrnabench",
+    "url": "https://github.com/NWhitener/scrnabench",
+    "stars": 2,
+    "language": "R",
+    "created_at": "2022-05-25T14:10:03Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 3,
+    "code_files": 10,
+    "sample_technique_files": [
+      "NAMESPACE",
+      "R/report.R",
+      "R/research.R",
+      "R/workflow.R",
+      "README.md"
+    ],
+    "description": "A package for metamorphic benchmarking of scRNA-seq data analysis methods",
+    "topics": [],
+    "readme": "# scrnabench\n'scrnabench' provides tools for the creation of reference and metamorphic datasets for benchmarking of scRNA-seq data analysis methods.\nThis R package focuses on metamorphic stability of cluster analysis and data integration tools. \n\n## Installing From Github\n\nThe `BiocManager` is needed for installing scrnabench. Execute the following commands:\n```\nif (!require(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"batchelor\")\n```\n\nIf you do not have `devtools` installed, run this command:\n\n```\ninstall.packages(\"devtools\")\n```\n\nIn the R terminal, execute the following command to install the package:\n```\ndevtools::install_github(\"NWhitener/scrnabench\")\n```\n\nTo use the package:\n```\nlibrary(scrnabench)\n```\n\nTo download the raw data, use the **download_data()** function. This will download 48 raw reference datasets from [Zenodo](https://zenodo.org/record/6617997). The datasets are downloaded as one R object called 'gene_counts.RData'.\nTo save the dataset, provide a filepath to the desired location, for example, **path = \"/User/Downloads\"**.  This function will download and automatically load the raw datasets into scrnabench. This function only needs to be run once.                                                                          \n\n```\ndatasets = download_data(path = \"/Users/Downloads\")\n```\n\n## Common Issues \n\nBelow are some of the solutions to common issues that may arise when installing or using the package. \n\n### ERROR: lazy loading failed for package ‘SeuratWrappers’\n\nThis issue may occur during the installation. To fix this issue, execute the following commands:\n\n```\nremotes::install_github('satijalab/seurat-wrappers')\ndevtools::install_github(\"NWhitener/scrnabench\")\n```\n\n### API rate limit exceeded\n\nThis issue may occur when you call a GitHub API more than 5,000 times within a 60-minute window, even if you are authenticated. To fix this issue, see: [post](https://gist.github.com/Z3tt/3dab3535007acf108391649766409421). \n\n### Vector Memory Exhausted \n\nThis issue may occur when R does not have a large enough max vector heap size. To fix this issue, execute the following commands: \n\n```\nlibrary(usethis) \nusethis::edit_r_environ()\n```\n\nThis will open the R environment file. Add the following command, requesting larger memory (example 100 Gb) and restart your R session. \n\n```\nR_MAX_VSIZE=100Gb\n```\n\n# Quick Start Guide \n\n## Dataset Load \nIf you have already downloaded the raw data to a directory on your local computer or would like to use the demo dataset, call the **load_data()** function.  Provide the path of the downloaded data file.  This will load the dataset for benchmarking. This function should be used anytime the data needs to be loaded.\n\n```\n#Load the demo dataset \ndatasets = load_data(demo = TRUE, path = \"/Users/Downloads\") \n\n#Load the full dataset \ndatasets = load_data(demo = FALSE, path = \"/Users/Downloads\")\n```\n\nThe demo file is smaller than the full dataset, comprising of 2 raw ref",
+    "readme_source": "full"
+  },
+  {
+    "repo": "nyejames/moth",
+    "url": "https://github.com/nyejames/moth",
+    "stars": 2,
+    "language": "Rust",
+    "created_at": "2026-05-27T13:05:45Z",
+    "technique_test_files": 2,
+    "technique_nontest_files": 0,
+    "code_files": 1536,
+    "sample_technique_files": [
+      "docs/release/developer-docs/memory-management/boracle/index.html",
+      "docs/release/docs/progress/index.html",
+      "docs/roadmap/plans/boracle-next-research-plans/boracle-conflict-directed-relational-refinement-plan.md",
+      "docs/roadmap/plans/boracle-next-research-plans/boracle-loop-generation-epochs-and-edge-last-use-plan.md",
+      "docs/src/developer-docs/memory-management/boracle/boracle-operational-oracle.mtf"
+    ],
+    "description": "The Moth programming language",
+    "topics": [
+      "borrow-checker",
+      "compilers",
+      "markdown",
+      "programming-languages",
+      "wasm",
+      "web-framework"
+    ],
+    "readme": "<div align=\"center\">\n<img src=\"./docs/assets/moth-logo.webp\" width=\"10%\"/>\n<br>\n\n# Moth\n\n<p><em>\n  A language for creating reliable software in elegant codebases\n</em></p>\n\n<p><em>\n  Solve problems with code, not frameworks.\n</em></p>\n\n</div>\n\n> [!WARNING]\n> This project is in early Alpha ⚠️\n\n> [!IMPORTANT]\n> The language semantics and compiler are still stabilising. The Wasm backend and final memory model are not fully implemented.\n\n<br>\n<br>\n\n<div align=\"center\">\n\n## What is Moth?\n\n</div>\n\nMoth is a small, statically typed and opinionated programming language. \n\nThe goal is to provide everything you need for modern, memory safe apps. Designed from the ground up to work elegantly within one language and build system.\n\nWeb development is the current focus. The home-grown HTML project builder creates static web pages using core compiler tooling.\n\n<p><a href=\"https://nyejames.github.io/moth/\">The documentation site</a> was created using this language and toolchain. Check it out for code examples and to familiarise yourself with the basics.</p>\n\n</br>\n\n<div align=\"center\">\n\n</br>\n\n## Moth  🤝  Markdown\n\n</div>\n\nTemplates are first-class language values in Moth.\nThey are the main way you create strings, but are far more powerful than regular string formatters. \n\n<img src=\"./docs/assets/code-snippet.png\" width=\"800px\"/>\n\nMoth's custom flavor of Markdown can live inside normal templates, so content can capture values, compose styles and fold straight into HTML at compile time.\n\nThis makes content-heavy pages quick to build and easy to format. \n\nNo more TypeScript framework lasagne, build-tool linguini or 17 package dependency spaghetti for padding a string.\n\n<br>\n<div align=\"center\">\n\n## Getting Started\n\n</div>\n\n`moth` is the project tool for creating, checking, building and running Moth projects.\nIt's the CLI bundled with the compiler and build system.\n\n> [!NOTE]\n> Installation scripts will arrive for Beta, with tagged releases starting soon. For now you'll have to build from source.\n\n### Create a project\n\n```bash\nmoth new html my-site\ncd my-site\n```\n\n### Run the development server\n\n```bash\nmoth dev .\n```\n\nThe dev server hot-reloads the project when files change automatically.\n\n### Release build\n\n```bash\nmoth build . --release\n```\n\nThis compiles the project using the command-selected builder and writes output to the configured release directory.\n\n<br>\n\n<div align=\"center\">\n</div>\n\n<div align=\"center\">\n\n## Goals \n\n</div>\n\n- First-class string templates powerful enough to act as a small compile-time markup engine. They support built-in Markdown, formatting, slots and runtime fragment insertion.\n\n- Readable and consistent syntax. Unique but quick to learn.\n\n- Fast, modular tooling for short feedback loops and quick development builds (currently needs a lot more optimisation work).\n\n- Built-in hot reloading development server.\n\n- A small static type system plus borrow validation for memory-safe code that's free of data races and iterator invalidation by de",
+    "readme_source": "full"
+  },
+  {
+    "repo": "oasmobile/php-http",
+    "url": "https://github.com/oasmobile/php-http",
+    "stars": 0,
+    "language": "HTML",
+    "created_at": "2016-03-08T02:33:17Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 240,
+    "sample_technique_files": [
+      "docs/changes/3.0/specs/php85-phase3-security-refactor/requirements.md",
+      "docs/changes/3.0/specs/php85-phase4-language-adaptation/design.md",
+      "docs/changes/3.0/specs/php85-phase4-language-adaptation/requirements.md",
+      "docs/changes/3.0/specs/php85-phase4-language-adaptation/tasks.md",
+      "graphify-out/graph.html"
+    ],
+    "description": "HTTP framework, an extension to Silex",
+    "topics": [],
+    "readme": "# **oasis/http** **oasis/http** is a composer component that provides a simple yet useful framework for building web applications. This component is built on top of the [Symfony] MicroKernel, leveraging [Symfony] components for routing, security, dependency injection, and more. ### Requirements - PHP >= 8.5 ### Installation Install the latest version with command below: ```bash $ composer require oasis/http ``` ### Web Server Configuration All examples in this documentation rely on a well-configured web server. Please refer to [Symfony Web Server Configuration][Symfony Web Server] for sample w",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "oasmobile/php-slimapp",
+    "url": "https://github.com/oasmobile/php-slimapp",
+    "stars": 2,
+    "language": "HTML",
+    "created_at": "2016-01-09T06:25:09Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 47,
+    "sample_technique_files": [
+      "docs/changes/3.0/specs/release-3.0/requirements.md",
+      "tests/pbt/NamespaceResolverPbtTest.php"
+    ],
+    "description": "slim application framework",
+    "topics": [],
+    "readme": "# SlimApp The Slim Application Framework (SlimApp) is an all-in-one framework aiming to make development of PHP project, either web or console, faster and easier. - [Installation & Setup](#installation-setup) - [Directory structure](#directory-structure) - [Configuration](#configuration) - [Bootstrap](#bootstrap) - [Refer to Config Value](#refer-to-config-value) - [get value by _config key_:](#get-value-by-config-key) - [get value by _parameter key_:](#get-value-by-parameter-key) - [Service Container](#service-container) - [Service Description](#service-description) - [The Construction Phase](",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "oatlog/oatlog",
+    "url": "https://github.com/oatlog/oatlog",
+    "stars": 23,
+    "language": "Rust",
+    "created_at": "2024-11-18T12:37:37Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 66,
+    "sample_technique_files": [
+      "oatlog-core/src/frontend/egglog_ast.rs"
+    ],
+    "description": "An egglog-compatible but faster ahead-of-time compiling e-graph engine.",
+    "topics": [
+      "egglog",
+      "egraphs",
+      "equality-saturation"
+    ],
+    "readme": "# Oatlog Oatlog is an e-graph engine that is implements the egglog language while being faster than [egglog](https://github.com/egraphs-good/egglog). You can learn more about Oatlog through * the master's thesis (<https://github.com/oatlog/oatlog/releases/download/masters-thesis/oatlog_thesis.pdf>) * the master's thesis presentation (<https://www.youtube.com/watch?v=hWBs1nQXGXg>) * egraphs workshop video (<https://www.youtube.com/watch?v=Me-sxQcfnQQ>) ## Limitations Oatlog requires that the schema and rewrite rules are known at compile time. A typical usecase might be an optimizing compiler. S",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "oaverify/oaverify",
+    "url": "https://github.com/oaverify/oaverify",
+    "stars": 2,
+    "language": "TypeScript",
+    "created_at": "2026-04-19T01:42:27Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 549,
+    "sample_technique_files": [
+      "packages/cli/test/aot-grid/README.md",
+      "packages/cli/test/aot-parity-grid.test.ts",
+      "scripts/grid/README.md"
+    ],
+    "description": "OpenAPI 3.x validator for TypeScript. Check specs, validate HTTP traffic, and compile standalone validators.",
+    "topics": [
+      "api-validation",
+      "express",
+      "fastify",
+      "json-schema",
+      "json-schema-validator",
+      "openapi",
+      "openapi-validator",
+      "openapi3",
+      "openapi31",
+      "openapi32",
+      "sarif",
+      "serverless",
+      "swagger",
+      "typescript"
+    ],
+    "readme": "# oaverify\n\n[![npm](https://img.shields.io/npm/v/oaverify)](https://www.npmjs.com/package/oaverify)\n[![CI](https://github.com/oaverify/oaverify/actions/workflows/ci.yml/badge.svg?branch=main&event=push)](https://github.com/oaverify/oaverify/actions/workflows/ci.yml)\n[![pins](https://github.com/oaverify/oaverify/actions/workflows/pins.yml/badge.svg)](https://github.com/oaverify/oaverify/actions/workflows/pins.yml)\n[![types included](https://img.shields.io/badge/types-included-blue)](https://www.typescriptlang.org/)\n[![license: MIT](https://img.shields.io/npm/l/oaverify)](https://github.com/oaverify/oaverify/blob/main/LICENSE)\n\noaverify is a schema validator, traffic validator, and streaming validator, with a\n**zero-dependency** kernel. It validates OpenAPI 3.0, 3.1 and 3.2 documents, and HTTP\nrequest and response frames (method, path, parameters, headers, content type, status,\nbodies) against those documents.\n\n| Question                                        | How to check                            |\n| ----------------------------------------------- | --------------------------------------- |\n| Is this request or response what the spec says? | `validateRequest` / `oaverify validate` |\n| Is the spec itself any good?                    | `checkSpec` / `oaverify check`          |\n\nThe first is framework-neutral validation with structured errors. The\nsecond grades the document: unused components, schemas oaverify had to\nrewrite or could not satisfy, OpenAPI conformance, examples that don't\nmatch their schema, catastrophic regular expression backtracking, and more.\n\nThe core package builds a validator from a parsed OpenAPI document.\nCompanion packages add YAML loading, Express and Fastify adapters, a\nCLI, standalone validator generation, document checking with SARIF\noutput, spec overlays, and streaming validation with peak-buffer\nbudgets for large JSON bodies.\n\n```ts\nimport { createValidator } from \"@oaverify/core\";\n\nconst validator = createValidator(document); // your parsed OpenAPI spec\n\nconst result = validator.validateRequest({\n  method: \"POST\",\n  path: \"/pets\",\n  contentType: \"application/json\",\n  body: { name: \"Fido\" },\n});\n\nif (!result.valid) {\n  console.log(result.errors);\n  // [{ code: \"required\", path: [\"body\", \"age\"], message: \"...\", params: { missing: \"age\" } }]\n}\n```\n\nOne validation call covers the whole request or response: method, path, parameters,\nbody, content type, status, and headers.\n\n## Why this exists\n\nThe established OpenAPI validators for JavaScript predate OpenAPI 3.1.\noaverify was built to be a boring, correct option for modern specs.\n\n- **3.1 and 3.2 are JSON Schema 2020-12, natively.** 1296/1301 on the\n  required upstream test suite, every divergence itemized and\n  cross-checked against other implementations, plus real-world specs\n  (Stripe, GitHub, Twilio, and more) and Express 4 / 5 + Fastify\n  integration tests\n  ([conformance report](https://github.com/oaverify/oaverify/blob/main/conformance/REPORT.md)).\n- **Validator ",
+    "readme_source": "full"
+  },
+  {
+    "repo": "obinnho00/SoftwareTesting",
+    "url": "https://github.com/obinnho00/SoftwareTesting",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2024-09-01T04:27:14Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 2,
+    "code_files": 16,
+    "sample_technique_files": [
+      "A6/MetamorphicTestingArray.py",
+      "A6/MetamorphicTestingforBFS.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# Software Testing Repository ## Overview This repository is designed to guide you through the essentials of software testing, starting with foundational concepts and gradually advancing to more sophisticated testing techniques. Whether you're a beginner looking to review the basics or an experienced tester seeking to refine your skills, this repository provides a comprehensive learning path. ## Learning Path ### 1. **Review of Basic Testing Concepts** - **Introduction to Testing:** Understanding the purpose and importance of software testing. - **Unit Testing:** Writing basic unit tests to va",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "ocsigen/wax",
+    "url": "https://github.com/ocsigen/wax",
+    "stars": 50,
+    "language": "OCaml",
+    "created_at": "2024-09-26T21:35:00Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 304,
+    "sample_technique_files": [
+      "fuzz/PLAN.md",
+      "fuzz/README.md",
+      "fuzz/unreachable-fuzz.sh",
+      "fuzz/wat-unreachable-insert.awk"
+    ],
+    "description": "Rust-like syntax for WebAssembly featuring a full toolchain for conversion, type-checking, and auto-formatting.",
+    "topics": [],
+    "readme": "<div align=\"center\">\n  <img src=\"assets/wax128.png\" alt=\"Wax logo\" width=\"120\" height=\"120\">\n</div>\n\n# Wax\n\n[![CI](https://github.com/ocsigen/wax/actions/workflows/ci.yml/badge.svg)](https://github.com/ocsigen/wax/actions/workflows/ci.yml)\n[![Nightly fuzzing](https://github.com/ocsigen/wax/actions/workflows/fuzz-nightly.yml/badge.svg)](https://github.com/ocsigen/wax/actions/workflows/fuzz-nightly.yml)\n[![Documentation](https://img.shields.io/badge/docs-ocsigen.org%2Fwax-blue)](https://ocsigen.org/wax/)\n[![License](https://img.shields.io/badge/license-Apache--2.0-green)](LICENSE)\n\n**Wax is a Rust-like syntax for WebAssembly.** Write Wasm (including WasmGC)\nin a familiar, expression-oriented notation, and convert between Wax,\nWebAssembly Text (WAT), and the binary format, in any direction.\n\nWhere the WebAssembly text format spells out a stack machine:\n\n```wat\n(func $add (param $x i32) (param $y i32) (result i32)\n  local.get $x\n  local.get $y\n  i32.add)\n```\n\nWax reads like a programming language:\n\n```rust\nfn add(x: i32, y: i32) -> i32 {\n    x + y;\n}\n```\n\nBoth compile to identical bytecode.\n\n**[Try it in your browser](https://ocsigen.org/wax/playground.html)**: type\nWax, see the WAT and diagnostics live, with no install.\n\nThe payoff grows with the program: struct types, nullable references, casts,\nand loops stay readable where the equivalent WAT sprawls:\n\n```rust\ntype list = { value: i32, next: &?list };\n\n#[export = \"sum\"]\nfn sum(l: &?list) -> i32 {\n    let total: i32 = 0;\n    while l is &list {\n        total += l.value;\n        l = l.next;\n    }\n    total;\n}\n```\n\n<details>\n<summary>The WAT this compiles to (<code>wax sum.wax -f wat</code>)</summary>\n\n```wat\n(type $list (struct (field $value i32) (field $next (ref null $list))))\n\n(func $sum (export \"sum\") (param $l (ref null $list)) (result i32)\n  (local $total i32)\n  (local.set $total (i32.const 0))\n  (loop $loop\n    (if (ref.test (ref $list) (local.get $l))\n      (then\n        (local.set $total\n          (i32.add (local.get $total)\n            (struct.get $list $value (local.get $l))))\n        (local.set $l (struct.get $list $next (local.get $l)))\n        (br $loop))))\n  (local.get $total)\n)\n```\n\n</details>\n\n## Highlights\n\n- **Full WebAssembly 3.0**: garbage collection, exception handling, tail\n  calls, multiple and 64-bit memories, SIMD, plus stack switching, threads,\n  wide arithmetic, and branch hints on by default. See\n  [Feature Support](https://ocsigen.org/wax/features.html).\n- **Every direction**: all 9 conversions between `wax`, `wat`, and `wasm`\n  work, including decompiling an arbitrary `.wasm` binary into readable Wax.\n- **A real type checker**: errors are caught before any output is produced,\n  and reported with source context:\n\n  ```\n  Error: This operator cannot be applied to operands of types i32 and f64.\n   ──➤  hello.wax:3:7\n  1 │ #[export = \"add\"]\n  2 │ fn add(x: i32, y: f64) -> i32 {\n  3 │     x + y;\n    ·       ^\n  4 │ }\n  ```\n\n- **A toolchain, not just a compiler**: a formatter",
+    "readme_source": "full"
+  },
+  {
+    "repo": "OffchainLabs/arbitrum-chain-sdk",
+    "url": "https://github.com/OffchainLabs/arbitrum-chain-sdk",
+    "stars": 54,
+    "language": "TypeScript",
+    "created_at": "2023-11-02T15:27:04Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 353,
+    "sample_technique_files": [
+      "src/types/NodeConfig.generated.ts"
+    ],
+    "description": "💙 SDK for building Arbitrum chains",
+    "topics": [],
+    "readme": "# Arbitrum Chain SDK TypeScript SDK for [building Arbitrum chains](https://docs.arbitrum.io/launch-arbitrum-chain/a-gentle-introduction). ## Installation Make sure you are using Node.js v18 or greater. ```bash pnpm add @arbitrum/chain-sdk viem@^1.20.0 ``` ### Custom genesis generation Genesis generation is intentionally not exposed as an SDK function: there is no `generateGenesis` export in `@arbitrum/chain-sdk`. The `generateGenesis` CLI command requires the external `genesis-generator` binary and `@arbitrum/genesis-file-generator`, which are bundled only in the Docker image and are not inclu",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "OffchainLabs/nitro",
+    "url": "https://github.com/OffchainLabs/nitro",
+    "stars": 951,
+    "language": "Go",
+    "created_at": "2021-09-27T13:33:19Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 1857,
+    "sample_technique_files": [
+      "cmd/conf/database.go"
+    ],
+    "description": "Nitro goes vroom and fixes everything",
+    "topics": [],
+    "readme": "<br /> <p align=\"center\"> <a href=\"https://arbitrum.io/\"> <img src=\"https://arbitrum.io/assets/arbitrum/logo_color.png\" alt=\"Logo\" width=\"80\" height=\"80\"> </a> <h3 align=\"center\">Arbitrum Nitro</h3> <p align=\"center\"> <a href=\"https://developer.arbitrum.io/\"><strong>Next Generation Ethereum L2 Technology »</strong></a> <br /> </p> </p> ## About Arbitrum Nitro <img src=\"https://arbitrum.io/assets/arbitrum/logo_color.png\" alt=\"Logo\" width=\"80\" height=\"80\"> Nitro is the latest iteration of the Arbitrum technology. It is a fully integrated, complete layer 2 optimistic rollup system, including frau",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "ofSener/AI-HAL-DETECT-2",
+    "url": "https://github.com/ofSener/AI-HAL-DETECT-2",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-02-02T22:40:32Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 20,
+    "sample_technique_files": [
+      "data/processed/visualizations/results_dashboard.html",
+      "docs/PROJE_OZETI.md",
+      "docs/thesis/Body/Abstract.tex",
+      "docs/thesis/Body/Backmatter/CV.tex",
+      "docs/thesis/Body/CV.tex"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# LOGIC-HALT **Multi-Signal LLM Hallucination Detection System with Bayesian-Optimized Fusion** [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/) [![PyTorch](https://img.shields.io/badge/PyTorch-2.1+-ee4c2c.svg)](https://pytorch.org/) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) LOGIC-HALT is an advanced hallucination detection framework that identifies factual errors and logical inconsistencies in Large Language Model (LLM) outputs. Unlike single-signal approaches, LOGIC-HALT",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "ohpauleez/spec-check",
+    "url": "https://github.com/ohpauleez/spec-check",
+    "stars": 4,
+    "language": "TypeScript",
+    "created_at": "2026-06-18T10:46:46Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 163,
+    "sample_technique_files": [
+      "docs/lfm.md",
+      "docs/typescript_style.md",
+      "openspec/changes/archive/2026-08-24-add-final-evidence-report/design.md",
+      "openspec/changes/archive/2026-08-24-add-final-evidence-report/tasks.md",
+      "test/property/semantic-batching.property.test.ts"
+    ],
+    "description": "Requirements analysis and source intent alignment tool",
+    "topics": [],
+    "readme": "# spec-check `spec-check` is a TypeScript CLI that analyzes OpenSpec specifications for defects, ambiguity, contradictions, and missing assumptions before implementation begins, and optionally compares specification intent against code-derived guarantees. It is intentionally narrow: `spec-check` is a read-only analysis tool, not a code generator or specification editor. Specifications are the source of truth for intended behavior, source code is the source of truth for implemented behavior, and SMT-backed formal analysis bridges the two. This project is strongly influenced by [AWS's Requiremen",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "OJ-Uday/vetlock",
+    "url": "https://github.com/OJ-Uday/vetlock",
+    "stars": 1,
+    "language": "TypeScript",
+    "created_at": "2026-07-12T10:09:58Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 3,
+    "code_files": 322,
+    "sample_technique_files": [
+      "assurance/src/metrics/collector.ts",
+      "assurance/src/runner/types.ts",
+      "assurance/src/runner/worker.ts",
+      "assurance/test/runner/runner-extended.test.ts"
+    ],
+    "description": "Behavioral diff for npm dependency updates — catches supply-chain attacks that advisory DBs miss.",
+    "topics": [],
+    "readme": "<div align=\"center\">\n\n# 🔒 vetlock\n\n**Behavioral diff for npm dependency updates.**\n*What does this update DO now that it didn't do before?*\n\n[![License: Apache-2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)\n[![Node ≥ 20](https://img.shields.io/badge/node-%E2%89%A5%2020-brightgreen)](package.json)\n[![Tests: 946 passing](https://img.shields.io/badge/tests-946%20passing-brightgreen)](#tests)\n[![Corpus: 12/13 caught](https://img.shields.io/badge/corpus-12%2F13%20caught-brightgreen)](docs/DETECTIONS.md)\n[![Benchmark: 92.3%](https://img.shields.io/badge/benchmark-92.3%25-brightgreen)](https://github.com/OJ-Uday/vetlock-benchmark)\n[![FP: 14.3% BLOCK on routine bumps](https://img.shields.io/badge/FP-14.3%25%20on%20routine%20bumps-brightgreen)](docs/FP-STUDY.md)\n[![PyPI FP: synthetic study complete](https://img.shields.io/badge/PyPI%20FP-synthetic%20study-yellow)](docs/PYPI-FP-STUDY.md)\n[![Red-team: 37/48 exploits closed](https://img.shields.io/badge/red--team-37%2F48%20closed-brightgreen)](docs/REDTEAM-2026-07-12.md)\n[![Zero telemetry](https://img.shields.io/badge/telemetry-zero-blue)](#privacy)\n[![NEVER-EXECUTE canary](https://img.shields.io/badge/canary-NEVER--EXECUTE-red)](docs/adr/0005-never-execute.md)\n[![npm: v0.8.0](https://img.shields.io/badge/npm-v0.8.0-cb3837)](https://www.npmjs.com/package/@oj-uday/vetlock)\n\n![Assurance](https://github.com/OJ-Uday/vetlock/actions/workflows/assurance-pr.yml/badge.svg)\n\n</div>\n\n> Corpus: 12/13 corpus attack fixtures caught (1 honest miss: colors-2022 protestware, out-of-scope by design).\n> Full inventory on disk: 14 entries — 13 attack fixtures documented in `docs/DETECTIONS.md` (10 PR-tier real-world seeded cases + 3 synthetic hardening fixtures) plus `fp-smoke` (7 expected-CLEAN validation cases, excluded from the 13).\n\n**Current release:** [`@oj-uday/vetlock@0.8.0`](https://www.npmjs.com/package/@oj-uday/vetlock)\nis public and the `v0.8.0` release gate is green. The repository also contains\nan MCP admission-server preview; it is source-only for now and is not yet a\npublished npm package. The hosted GitHub App remains pre-launch until a real\npull request completes the full check-run lifecycle.\n\n---\n\n## Try it in 10 seconds\n\n```bash\nnpx @oj-uday/vetlock demo\n```\n\nThat's it. No install, no config, no network. You'll see vetlock replay the **Shai-Hulud 2025** worm attack against a bundled defanged fixture and produce 13 findings (BLOCK):\n\n> **New:** `vetlock add <pkg>` — a **pre-install** gate that runs vetlock against the incoming tarball **before npm downloads and executes any code from it**. If the package trips a BLOCK-tier detector, the install is refused. Offline, no auth, no telemetry.\n>\n> ```bash\n> vetlock add lodash            # scan then install\n> vetlock add lodash --dry-run  # scan only, never install\n> ```\n>\n> This is the workflow to add to your dev box today. See [`docs/COMPARISONS.md`](docs/COMPARISONS.md) for how this compares to Socket ",
+    "readme_source": "full"
+  }
+]

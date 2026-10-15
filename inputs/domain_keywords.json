@@ -1,5 +1,5 @@
 {
-  "_source": "ACM CCS 2012 (acm.org/ccs) — keyword lists derived from taxonomy categories. Edit here to adjust domain detection without touching source code.",
+  "_source": "Domain names aligned with ACM CCS 2012 top-level category structure (acm.org/ccs). Keyword values are manually curated practitioner terms (framework names, tools, techniques, acronyms) — not drawn directly from the CCS taxonomy text. Matching is case-insensitive on word boundaries (see sections_aggregate.domain_patterns). Edit here to adjust domain detection without touching source code.",
 
   "machine_learning": [
     "machine learning", "neural network", "deep learning", "reinforcement learning",

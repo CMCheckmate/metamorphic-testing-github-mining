@@ -1,0 +1,1073 @@
+[
+  {
+    "repo": "RTianShi/Python_src",
+    "url": "https://github.com/RTianShi/Python_src",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2025-09-16T13:15:44Z",
+    "technique_test_files": 295,
+    "technique_nontest_files": 14,
+    "code_files": 748,
+    "sample_technique_files": [
+      "MetamorphicTestGenerator1.py",
+      "MetamorphicTestGenerator2.py",
+      "MetamorphicTestGenerator3.py",
+      "MetamorphicTestGenerator4.py",
+      "MetamorphicTestGenerator5.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "",
+    "readme_source": "none"
+  },
+  {
+    "repo": "Ruach-Tov/LlamaTov",
+    "url": "https://github.com/Ruach-Tov/LlamaTov",
+    "stars": 1,
+    "language": "C",
+    "created_at": "2026-05-22T06:50:03Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 429,
+    "sample_technique_files": [
+      "bpd/tests/test_metamorphic_fusion.pl",
+      "bpd/tests/test_metamorphic_shape_sweep.py"
+    ],
+    "description": "LlamaTov — The Prolog-Dispatched, AI-Improvable Inference Substrate",
+    "topics": [],
+    "readme": "# LlamaTov **The Prolog-Dispatched, AI-Improvable Inference Substrate.** > Run a transformer *faster than Ollama* on hardware everyone else abandoned — with > **bit-identical** output you can verify yourself. LlamaTov generates verified GPU kernels from **declarative Prolog facts** — one fact per kernel — and runs a quantized transformer entirely on the device. On a **Tesla P4** (Pascal, `sm_61` — the GPU PyTorch dropped), it decodes **Qwen2.5-0.5B-Instruct (Q8_0)** at: | | tok/s | | |---|---:|---| | stock baseline | 144 | | | **LlamaTov** | **168** | **+16.7%**, 0-ULP (bit-identical) | Every",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Rub-git/n8n-auto",
+    "url": "https://github.com/Rub-git/n8n-auto",
+    "stars": 0,
+    "language": "TypeScript",
+    "created_at": "2026-07-03T17:55:37Z",
+    "technique_test_files": 2,
+    "technique_nontest_files": 0,
+    "code_files": 17361,
+    "sample_technique_files": [
+      "packages/testing/test-impact/src/impact-map.test.ts",
+      "packages/workflow/test/get-child-nodes.test.ts"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "![Banner image](https://user-images.githubusercontent.com/10284570/173569848-c624317f-42b1-45a6-ab09-f0ea3c247648.png) # n8n – The Platform for AI Agents and Workflow Automation Fair-code platform to build and deploy AI agents and workflows. Combine a visual canvas with custom code, run it self-hosted or in the [cloud](https://app.n8n.cloud/login), and connect to 1500+ integrations. AI automation you can trust with real work, from prototype to production. ![n8n.io - Screenshot](https://raw.githubusercontent.com/n8n-io/n8n/master/assets/n8n-screenshot-readme.png) ## Key Capabilities - **AI-Nati",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "rustic-ai/uni-db",
+    "url": "https://github.com/rustic-ai/uni-db",
+    "stars": 54,
+    "language": "Rust",
+    "created_at": "2026-01-19T16:55:51Z",
+    "technique_test_files": 8,
+    "technique_nontest_files": 3,
+    "code_files": 1825,
+    "sample_technique_files": [
+      "crates/uni-plugin-builtin/src/algorithms/graph_compute/differential_tests.rs",
+      "crates/uni-plugin-builtin/src/algorithms/graph_compute/session.rs",
+      "crates/uni/benches/dense_retrieval.rs",
+      "crates/uni/tests/common/diff/mod.rs",
+      "crates/uni/tests/common/metamorphic/dense.rs"
+    ],
+    "description": "Uni is a modern, embedded database that combines property graph (OpenCypher), vector search, and columnar storage (Lance) into a single, cohesive engine. It is designed for applications requiring local, fast, and multimodal data access, backed by object storage (S3/GCS) durability.",
+    "topics": [
+      "agentic",
+      "columnar",
+      "columnar-storage",
+      "database",
+      "embedded-database",
+      "graph",
+      "graph-algorithms",
+      "graph-database",
+      "knowledge-management",
+      "python-library",
+      "rust-crate",
+      "vector-database"
+    ],
+    "readme": "# Uni: Embedded Graph & Vector Database\n\n[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)\n[![Rust](https://img.shields.io/badge/rust-1.91+-orange.svg)](https://www.rust-lang.org)\n[![Python](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org)\n\n**Uni** is an embedded database that combines a property graph (OpenCypher), vector search, and columnar storage (Lance) into a single engine. Designed for applications requiring local, fast, multimodal data access with object storage (S3/GCS/local) durability.\n\nPart of [The Rustic Initiative](https://www.rustic.ai) by [Dragonscale Industries Inc.](https://www.dragonscale.ai)\n\n## Key Features\n\n- **Embedded & Serverless:** Runs as a library within your application — no server process.\n- **Property Graph:** OpenCypher queries with MATCH, CREATE, WHERE, ORDER BY, LIMIT, and aggregations.\n- **Serializable Transactions:** Snapshot isolation + optimistic concurrency control, on by default — conflicting concurrent commits abort with a retriable error instead of silently losing writes.\n- **Locy Reasoning:** Datalog-style recursive rules over the graph, with probabilistic semantics and neural predicates.\n- **Vector Search:** K-NN similarity search (L2, cosine) with pre-filter and threshold support, plus hybrid vector + BM25 fusion.\n- **Columnar Storage:** Lance-backed persistence on local disk or object storage (S3/GCS).\n- **Graph Algorithms:** PageRank, Louvain, shortest path, and more via the built-in algorithm library.\n- **Forks:** Named, durable, writable graph branches with nesting, TTL, structural diff, and content-UID-keyed write-audit-publish promotion to primary. See [`website/docs/features/forks.md`](website/docs/features/forks.md).\n- **Rust & Python:** Native Rust crate and Python bindings (PyO3).\n\n## Getting Started\n\n### Rust\n\nAdd to your `Cargo.toml`:\n\n```toml\n[dependencies]\nuni-db = \"3\"\n```\n\n```rust\nuse uni_db::{DataType, Uni};\n\nlet db = Uni::open(\"./my_graph\").build().await?;\n\n// Define schema\ndb.schema()\n    .label(\"Person\")\n    .property(\"name\", DataType::String)\n    .property(\"age\", DataType::Int)\n    .done()\n    .apply()\n    .await?;\n\n// Write data in a transaction\nlet session = db.session();\nlet tx = session.tx().await?;\ntx.execute(\"CREATE (:Person {name: 'Alice', age: 30})\").await?;\ntx.execute(\"CREATE (:Person {name: 'Bob', age: 25})\").await?;\ntx.commit().await?;\n\n// Query through the session\nlet results = session\n    .query_with(\"MATCH (p:Person) WHERE p.age > $min RETURN p.name AS name\")\n    .param(\"min\", 28)\n    .fetch_all()\n    .await?;\n```\n\n### Python\n\n```bash\npip install uni-db\n```\n\n```python\nimport uni_db\n\n# Open or create a database\ndb = uni_db.Uni.open(\"./my_graph\")\n\n# Define schema\n(\n    db.schema()\n    .label(\"Person\")\n    .property(\"name\", \"string\")\n    .property(\"age\", \"int\")\n    .index(\"name\", \"btree\")\n    .done()\n    .apply()\n)\n\n# Write data in a transaction\nsession = db.session()\ntx = sess",
+    "readme_source": "full"
+  },
+  {
+    "repo": "ruvnet/sublinear-time-solver",
+    "url": "https://github.com/ruvnet/sublinear-time-solver",
+    "stars": 90,
+    "language": "Rust",
+    "created_at": "2025-09-19T19:10:19Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 1,
+    "code_files": 564,
+    "sample_technique_files": [
+      "npx/goalie/src/plugins/state-of-art-anti-hallucination.ts",
+      "npx/goalie/tests/test-anti-hallucination-proof.js"
+    ],
+    "description": "Rust + WASM sublinear-time solver for asymmetric diagonally dominant systems. Exposes Neumann series, push, and hybrid random-walk algorithms with npm/npx CLI and Flow-Nexus HTTP streaming for swarm cost propagation and verification.",
+    "topics": [
+      "asymmetric-matrices",
+      "conjugate-gradient-method",
+      "diagonally-dominant",
+      "distributed-solvers",
+      "edge-computing-algorithms",
+      "graph-laplacian",
+      "iterative-solvers",
+      "mcp-tools",
+      "model-context-protocol",
+      "network-flow-optimization",
+      "neumann-series",
+      "numerical-linear-algebra",
+      "pagerank-algorithm",
+      "rust-wasm",
+      "scientific-computing",
+      "sparse-linear-solver",
+      "sparse-matrix-computation",
+      "sublinear-algorithms",
+      "temporal-computing"
+    ],
+    "readme": "# 🚀 The Ultimate Mathematical & AI Toolkit v1.6.0 [![npm version](https://img.shields.io/npm/v/sublinear-time-solver.svg)](https://www.npmjs.com/package/sublinear-time-solver) [![npm downloads](https://img.shields.io/npm/dm/sublinear-time-solver.svg)](https://www.npmjs.com/package/sublinear-time-solver) [![Crates.io](https://img.shields.io/crates/v/nanosecond-scheduler.svg)](https://crates.io/crates/nanosecond-scheduler) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Rust](https://img.shields.io/badge/rust-%23000000.svg?style=flat",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "rwheeler926/ml-trading-platform-beads-canary",
+    "url": "https://github.com/rwheeler926/ml-trading-platform-beads-canary",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-03-09T15:05:17Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 1414,
+    "sample_technique_files": [
+      "docs/plans/2026-02-25-dzif-phase-0-seam-inventory-oracle-strategy.md",
+      "tests/utils/ml_models/training/test_temporal_validation_deep_invariants.py"
+    ],
+    "description": "Test Beads Canary",
+    "topics": [],
+    "readme": "# ML Trading Platform A comprehensive machine learning trading platform for building, training, and backtesting quantitative trading models. ## Quick Start ```bash # Activate the canonical Python environment (Conda) conda activate claude_algo_env # Install Python dependencies (shared runtime + backend + dev/test tools) pip install -e \".[dev,test]\" # Set up environment variables cp .env.example .env # Generate required local secrets (does not print the key) python scripts/setup_model_signing_key.py # Edit .env with your API keys (Polygon, FRED, etc.) # Run tests pytest tests/ ``` Notes: - The r",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "RyanDavidNelson/cloq-agent",
+    "url": "https://github.com/RyanDavidNelson/cloq-agent",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-06-27T02:48:52Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 108,
+    "sample_technique_files": [
+      "FILEMAP.md",
+      "docs/SPEC.md",
+      "eval/mutate.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "``` █████╗ ██╗ ██╗████████╗ ██████╗ ██████╗██╗ ██████╗ ██████╗ ██╔══██╗██║ ██║╚══██╔══╝██╔═══██╗██╔════╝██║ ██╔═══██╗██╔═══██╗ ███████║██║ ██║ ██║ ██║ ██║██║ ██║ ██║ ██║██║ ██║ ██╔══██║██║ ██║ ██║ ██║ ██║██║ ██║ ██║ ██║██║▄▄ ██║ ██║ ██║╚██████╔╝ ██║ ╚██████╔╝╚██████╗███████╗╚██████╔╝╚██████╔╝ ╚═╝ ╚═╝ ╚═════╝ ╚═╝ ╚═════╝ ╚═════╝╚══════╝ ╚═════╝ ╚══▀▀═╝ ``` ### AI-Generated, Formally-Verified, Tight Timing Constraints for Machine Code [![ci](https://github.com/RyanDavidNelson/cloq-agent/actions/workflows/ci.yml/badge.svg)](https://github.com/RyanDavidNelson/cloq-agent/actions/workflows/ci.yml) *",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "ryanyen2/semipy-package",
+    "url": "https://github.com/ryanyen2/semipy-package",
+    "stars": 1,
+    "language": "Python",
+    "created_at": "2026-02-20T03:51:35Z",
+    "technique_test_files": 2,
+    "technique_nontest_files": 5,
+    "code_files": 233,
+    "sample_technique_files": [
+      "docs/behavioral-contract.md",
+      "docs/brainstorms/2026-07-03-programmable-neural-programs-design-inspiration.md",
+      "docs/brainstorms/2026-07-03-programmable-neural-programs-requirements.md",
+      "docs/brainstorms/2026-07-04-incremental-formalization-thesis.md",
+      "docs/plans/2026-07-04-001-refactor-frontier-kernel-plan.md"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# semipy\n\nWrite Python logic in natural language. `semipy` generates, validates, and caches real Python functions from your specs — no boilerplate, no hardcoded rules.\n\n```python\nfrom semipy import semiformal, semi, configure\n\nconfigure(openai_api_key=\"sk-...\")  # or set OPENAI_API_KEY in environment\n\n@semiformal\ndef parse_log_line(line: str) -> dict:\n    #> extract timestamp, level, and message from an Apache log line\n    result = ...\n    return result\n\n# First call: agent generates a Python function and caches it.\n# All later calls: load the cached implementation instantly.\nrow = parse_log_line('127.0.0.1 - - [10/Oct/2000:13:55:36] \"GET /index.html\" 200')\n```\n\n## Concepts\n\nFor the idea behind `semipy` — semi-formal programming, where part of a program's\nspecification stays informal and only commits to an implementation when it is first\nused — and how the pieces fit together, see\n[docs/semi-formal-programming.md](docs/semi-formal-programming.md).\n\n## Documentation\n\n- [docs/semi-formal-programming.md](docs/semi-formal-programming.md) — the idea: semi-formal programming.\n- [docs/architecture.md](docs/architecture.md) — runtime architecture: call-site/slot identity, the spec-equivalence key, the REUSE/ADAPT/GENERATE/INSTANTIATE decision, and the DAG cache, with math and a worked trace.\n- [docs/behavioral-contract.md](docs/behavioral-contract.md) — the contract subsystem that records *why* each regeneration happened and *what its effect was*.\n- [docs/effects.md](docs/effects.md) — reified, verifiable, revertable real-world effects (the `fx` capability, shadow worlds, the blast-radius proof, the effect ledger).\n- [docs/sketch-library.md](docs/sketch-library.md) — pattern learning and the INSTANTIATE decision (satisfy a new slot by substitution, no LLM call).\n- [docs/interpreted-mode.md](docs/interpreted-mode.md) — interpret-until-shape-stable slots (`interpreted=True`): per-call LLM that promotes itself to cached code once a residual reproduces held-out examples.\n\n## Install\n\nThe distribution is named `semiformal-py`; you import it as `semipy`.\n\n```bash\npip install semiformal-py\n```\n\nFor Jupyter notebook display:\n\n```bash\npip install \"semiformal-py[jupyter]\"\n```\n\nFor PDF input materialization:\n\n```bash\npip install \"semiformal-py[pdf]\"\n```\n\n## API key\n\nsemipy uses the OpenAI API for code generation. Set your key in one of three ways:\n\n**Environment variable** (recommended for scripts):\n\n```bash\nexport OPENAI_API_KEY=sk-...\n```\n\n**`.env` file** at the project root (loaded automatically):\n\n```\nOPENAI_API_KEY=sk-...\n```\n\n**In code** (overrides env):\n\n```python\nfrom semipy import configure\nconfigure(openai_api_key=\"sk-...\")\n```\n\n## Configuration\n\n```python\nfrom semipy import configure\n\nconfigure(\n    openai_api_key=\"sk-...\",       # defaults to OPENAI_API_KEY env var\n    openai_model=\"gpt-4o\",         # generation model (default: gpt-5.5)\n    verbose=True,                  # rich terminal output during generation (default: True)\n    cache_dir=\".semiformal",
+    "readme_source": "full"
+  },
+  {
+    "repo": "Ryo-2023/kaggle",
+    "url": "https://github.com/Ryo-2023/kaggle",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2025-09-14T06:51:26Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 1555,
+    "sample_technique_files": [
+      "pokemon-tcg-ai-battle/tests/offline_training_v1_support/test_fuzz_meta.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# kaggle Kaggle コンペティションの作業リポジトリ。コンペごとにディレクトリを分ける。 | ディレクトリ | コンペ | 状態 | |---|---|---| | [pokemon-tcg-ai-battle/](pokemon-tcg-ai-battle/) | The Pokemon Company - PTCG AI Battle Challenge (Simulation) | 終了・アーカイブ | | [house-prices-advanced-regression-techniques/](house-prices-advanced-regression-techniques/) | House Prices - Advanced Regression Techniques | — | | [titanic/](titanic/) | Titanic - Machine Learning from Disaster | — | ## pokemon-tcg-ai-battle 2026年7月上旬から8月17日まで取り組んだ、ポケモンカードゲームの対戦 AI とデッキ構築のプロジェクト。デッキ 60 枚と、公式シミュレータ上で合法手を返す方策を開発した。 - [プロジェクト総括報告書](pokemon-tcg-ai-battle/docs/postmort",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "s0fractal/pure-lambda",
+    "url": "https://github.com/s0fractal/pure-lambda",
+    "stars": 1,
+    "language": "JavaScript",
+    "created_at": "2025-09-10T09:32:18Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 299,
+    "sample_technique_files": [
+      "devour-core/src/surgeon/verifier.rs",
+      "genes/map/laws.md",
+      "operations/medbed-op-001/properties.yaml"
+    ],
+    "description": "Cross-dimensional genetics. One gene, many bodies. One soul, many manifestations.",
+    "topics": [],
+    "readme": "# 🚀 Pure Lambda - Autonomous Control System\n\n[![CI](https://github.com/s0fractal/pure-lambda/actions/workflows/ci.yml/badge.svg)](https://github.com/s0fractal/pure-lambda/actions/workflows/ci.yml)\n![PAC Badge](fractal-lattice/pac-badge.svg) ![Autopilot](https://img.shields.io/badge/autopilot-STABLE-brightgreen?style=flat-square) ![Speedup](https://img.shields.io/badge/speedup-1.61×-blue?style=flat-square) ![Proofs](https://img.shields.io/badge/proofs-✓-success?style=flat-square) ![100 Seeds Week](https://img.shields.io/badge/100_Seeds_Week-LIVE-4CAF50?style=flat-square)\n\n> **🌱 100 Seeds Week is LIVE! Submit your computational seeds and help grow the ecosystem. [Learn more →](docs/100-SEEDS-WEEK.md)**\n\n> **Автопілот на стабільній ґратці: 1.61× швидше, PAC ≤ 2.22% @95%, нуль побічних ефектів (Gate G0). Embassy Pack — офлайн, read-only, з криптоперевіркою. Запустіть локально. Решта — ваша справа.**\n\n## 🎯 Proven Performance (v1.0.0)\n\n- **1.61× median speedup** with mathematical guarantees\n- **PAC bound ≤ 2.22% @95%** (135 orthogonal tests, 0 misroutes)\n- **Gate #0: 100% side effect blocking** (oracle violations = 0)\n- **+61% energy efficiency** | **0.039kg CO₂ saved** weekly\n\n## Quick Start (GitHub Action)\n\nAdd to your `.github/workflows/` file:\n\n```yaml\nname: CI with Pure Lambda Canary\n\non: [push, pull_request]\n\njobs:\n  test:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n\n      - name: Run tests (baseline)\n        run: npm test\n\n      - name: Pure Lambda Canary\n        uses: s0fractal/pure-lambda@v1\n        with:\n          runner: vitest  # or jest, pytest\n          node-version: 20\n          package-manager: npm\n        continue-on-error: true  # Non-blocking\n```\n\n## How It Works\n\n1. **ESM Loader** instruments code at runtime (zero changes needed)\n2. **Oracle** detects side effects and blocks unsafe optimizations\n3. **Memoization** caches pure function results using content-addressed storage\n4. **Receipts** provide cryptographic proof of equivalence and performance\n\n## Local Usage\n\n```bash\n# Install\ncurl -sSL -o loader.mjs https://raw.githubusercontent.com/s0fractal/pure-lambda/main/packages/loader/index.mjs\n\n# Run with acceleration\nnode --loader=./loader.mjs node_modules/vitest/vitest.mjs run\n\n# View receipts\nls .pl/receipts/\n```\n\n## Typical Results\n\n- **p-queue**: 3× faster (6ms → 2ms, 91.6% cache rate)\n- **Validation libs**: 2-4× faster on schema operations\n- **Build tools**: 25-35% faster on file parsing\n- **State managers**: 20-30% on reducer operations\n\n## Safety Guarantees\n\n✅ **Non-blocking**: `continue-on-error: true` - never breaks CI\n✅ **Zero code changes**: Works via ESM loader only\n✅ **Side effect detection**: Oracle monitors Date, Math.random, fs, etc\n✅ **Deterministic**: Seeded randomness ensures reproducibility\n✅ **Cryptographic proofs**: Receipts verify equivalence\n✅ **Kill switch**: Remove action or set `PL_DISABLE=1`\n\n## Action Inputs\n\n| Input | Default | Description |\n|-------|---------|-------------|\n| ",
+    "readme_source": "full"
+  },
+  {
+    "repo": "safal11goyal/23BCE1234_D2_Theory_Project",
+    "url": "https://github.com/safal11goyal/23BCE1234_D2_Theory_Project",
+    "stars": 0,
+    "language": "HTML",
+    "created_at": "2026-03-12T14:50:54Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 3,
+    "code_files": 6,
+    "sample_technique_files": [
+      "README.md",
+      "backend/app.py",
+      "backend/metamorphic_tests.py",
+      "backend/test_runner.py",
+      "frontend/index.html"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# Metamorphic Testing Framework for RESTful Web APIs\n\n## Project Overview\n\nThis project is a small full-stack demo of a **Metamorphic Testing Framework** for a simple RESTful Web API.\n\n- **Backend**: Python + Flask\n- **Frontend**: HTML, CSS, JavaScript, Bootstrap 5, Chart.js\n- **Purpose**: Demonstrate how metamorphic testing can automatically check API consistency without relying on a traditional test oracle.\n\nThe backend exposes:\n- `/search?q=keyword` – search items in a small in-memory dataset.\n- `/run-tests` – run a suite of metamorphic tests on the search API.\n\nThe frontend provides:\n- A search UI to query the API.\n- A metamorphic tests runner.\n- A dashboard with charts showing pass/fail statistics.\n\n## What Is Metamorphic Testing?\n\nTraditional testing often needs a **test oracle** – something that can tell us whether the output of a program is correct. For many systems (especially ML and complex APIs), it is hard or impossible to know the *exact* expected output.\n\n**Metamorphic testing** tackles this by focusing on **relations between multiple executions** of the program, rather than a single expected output.\n\nA **metamorphic relation (MR)** is a rule that describes how the output should change (or not change) if we transform the input.\n\nFor example, if `search(\"apple\")` is called twice:\n- The outputs should be identical (Equality relation).\n\nIf we sort the results differently:\n- The set of returned items should remain the same (Equivalence relation).\n\nIf we use a more specific query (`\"apple juice\"`) compared to a broader query (`\"apple\"`):\n- The specific query’s results should be a subset of the broader query’s results (Subset relation).\n\nIf we filter using a keyword:\n- The number of results should be less than or equal to the total dataset (Filtering relation).\n\nThese relations allow us to detect **inconsistencies** even when we do not know the ground truth for each output.\n\n## Project Structure\n\n```text\nmetamorphic-api-testing/\n  backend/\n    app.py\n    api.py\n    metamorphic_tests.py\n    test_runner.py\n    utils.py\n  frontend/\n    index.html\n    style.css\n    script.js\n  requirements.txt\n  README.md\n```\n\n## How to Run the Backend\n\n1. Create and activate a virtual environment (optional but recommended).\n\n   ```bash\n   cd metamorphic-api-testing\n   python -m venv venv\n   # On Windows PowerShell:\n   .\\venv\\Scripts\\Activate.ps1\n   ```\n\n2. Install dependencies:\n\n   ```bash\n   pip install -r requirements.txt\n   ```\n\n3. Run the Flask server from the `backend` directory:\n\n   ```bash\n   cd backend\n   python app.py\n   ```\n\n4. Open your browser and go to:\n\n   ```text\n   http://127.0.0.1:5000/\n   ```\n\n   The backend also serves the frontend directly, so you do not need a separate static server.\n\n## How to Run the Frontend\n\nThe easiest way is simply via Flask:\n\n1. Start the backend (as above).\n2. Open `http://127.0.0.1:5000/` in your browser.\n\nThe frontend will automatically connect to:\n\n- `GET /search?q=...`\n- `GET /run-tests`\n\nIf the backend is no",
+    "readme_source": "full"
+  },
+  {
+    "repo": "saguarocrypto/coalesce-program",
+    "url": "https://github.com/saguarocrypto/coalesce-program",
+    "stars": 0,
+    "language": "Rust",
+    "created_at": "2026-02-28T02:13:09Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 127,
+    "sample_technique_files": [
+      "tests/metamorphic_tests.rs"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# Coalesce Lending Program Coalesce is an unsecured, fixed interest rate lending protocol smart contract for the Solana blockchain. Built with [Pinocchio](https://github.com/anza-xyz/pinocchio) for raw BPF performance — no Anchor dependency. ## Deployments | Network | Program Id | | ------- | --- | | Mainnet | `GooseA4bSoxitTMPa4ppe2zUQ9fu4139u8pEk6x65SR` | ## Building ### Prerequisites - [Rust](https://rustup.rs/) (stable toolchain, installed automatically via `rust-toolchain.toml`) - [Solana CLI](https://docs.solanalabs.com/cli/install) with `cargo-build-sbf` ### Build the BPF binary ```bash",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Saisharathchandranandnetha/otto",
+    "url": "https://github.com/Saisharathchandranandnetha/otto",
+    "stars": 1,
+    "language": "TypeScript",
+    "created_at": "2026-07-07T21:48:26Z",
+    "technique_test_files": 2,
+    "technique_nontest_files": 0,
+    "code_files": 20968,
+    "sample_technique_files": [
+      "apps/workflow-engine/packages/testing/test-impact/src/impact-map.test.ts",
+      "apps/workflow-engine/packages/workflow/test/get-child-nodes.test.ts"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "<div align=\"center\"> <img src=\"logo.png\" alt=\"Otto Logo\" width=\"180\" /> # Otto — The Autonomous AI Operator for Small Businesses *Software that installs itself in 3 minutes, then earns your trust like a real employee.* [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Next.js 14](https://img.shields.io/badge/Next.js-14-black)](https://nextjs.org/) [![Postgres 16](https://img.shields.io/badge/Postgres-16+pgvector-blue)](https://www.postgresql.org/) [![OpenRouter](https://img.shields.io/badge/LLM-OpenRouter-purple)](https://openrouter.",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "SaiVamsiKolla-QA/qa-agent",
+    "url": "https://github.com/SaiVamsiKolla-QA/qa-agent",
+    "stars": 1,
+    "language": "Python",
+    "created_at": "2026-04-18T15:39:56Z",
+    "technique_test_files": 2,
+    "technique_nontest_files": 0,
+    "code_files": 25,
+    "sample_technique_files": [
+      "AGENTS.md",
+      "CLAUDE.md",
+      "README.md",
+      "RESULTS.md",
+      "evals/golden/example_case.json"
+    ],
+    "description": "A local AI agent that reads ISTQB certification material and behaves like a Senior QA Engineer mentor.",
+    "topics": [],
+    "readme": "# QA Expert Agent (ISTQB Mentor) A local AI agent that turns ISTQB certification material into an interactive QA mentor. The agent answers software testing questions, explains testing concepts, and suggests practical test cases — grounded only in retrieved ISTQB documentation. This project is intentionally built from primitives (without LangChain or orchestration frameworks) to understand how Retrieval-Augmented Generation (RAG) and AI agents actually work. The system runs fully locally using mimik AI Foundation with models served via the mimoe runtime. Part of my SDET portfolio → [saivamsikol",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "salamaashoush/barq",
+    "url": "https://github.com/salamaashoush/barq",
+    "stars": 4,
+    "language": "TypeScript",
+    "created_at": "2025-12-18T22:48:39Z",
+    "technique_test_files": 3,
+    "technique_nontest_files": 0,
+    "code_files": 3097,
+    "sample_technique_files": [
+      "packages/compiler-rs/test/metamorphic.test.ts",
+      "packages/compiler-rs/test/metamorphic.ts",
+      "packages/compiler-rs/test/session.ts"
+    ],
+    "description": "Barq - A lightweight, signal-based UI framework",
+    "topics": [],
+    "readme": "<div align=\"center\"> <img src=\"./logo.svg\" alt=\"Barq\" width=\"120\" height=\"120\"> # Barq **Lightning-fast JSX framework with fine-grained reactivity** [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT) [![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-blue.svg)](https://www.typescriptlang.org/) [![Bun](https://img.shields.io/badge/Bun-1.1+-f9f1e1.svg)](https://bun.sh/) [Quick start](#quick-start) | [Packages](#packages) | [How it works](#how-it-works) </div> --- Barq (Arabic for \"lightning\") is a JSX framework where components run",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "salsina/LLMBT",
+    "url": "https://github.com/salsina/LLMBT",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2024-08-01T22:55:14Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 6,
+    "sample_technique_files": [
+      "README.md",
+      "plots/draw.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# LLMBT: LLM Meta Bias Tester The increasing use of Large Language Models (LLMs) across diverse applications has sparked concerns about biases in their responses. Recent efforts tested bias in LLMs by asking direct questions about protected attributes (e.g., “are men meaner than females”, etc.). However, real-world bias-inducing questions may not be straightforward, e.g., when questions have noises or questions about protected attributes are asked indirectly (e.g., “is being mean a frequent trait among some men”?). We present LLMBT (LLM Meta Bias Tester), a framework that adopts the concepts o",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "sameerp30/Structured-generation",
+    "url": "https://github.com/sameerp30/Structured-generation",
+    "stars": 1,
+    "language": "Jupyter Notebook",
+    "created_at": "2023-08-17T10:52:11Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 2,
+    "code_files": 219,
+    "sample_technique_files": [
+      "nl2structure/guidance-port-for-gptneo/notebooks/testing_lms.ipynb",
+      "nl2structure/guidance_pipeline/notebooks/testing_lms.ipynb"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "Execution instructions for Colbert: Refer to folder https://github.com/sameerp30/Structured-generation/tree/main/Colbert_files **SBert_top_3.py** - Give the argument of num_negatives in the following format. Python3 <file name> <num_negatives> **Colbert_train_triple.py** - Give the argument of num_negatives in the following format. Python3 <file name> <num_negatives> **prepare_index_data.py** **prepare_train_data.py** Finally, the training file. **train_colbert.py**: Give path of indexing, query file. Give the path of the Colbert-v2 checkpoint (https://downloads.cs.stanford.edu/nlp/data/colber",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "samiksha-bisht/ai-vnv",
+    "url": "https://github.com/samiksha-bisht/ai-vnv",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-06-18T10:28:41Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 44,
+    "sample_technique_files": [
+      "backend/modules/rigor_checklist_module.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# DRDO AI Software Verification & Validation (V&V) Platform An automated, end-to-end Verification & Validation platform for Artificial Intelligence and Machine Learning models, built in strict compliance with the **DRDO Guidelines for Verification & Validation of AI Software**. The platform evaluates pretrained models across **17 specialized V&V modules** covering system criticality, risk assessment, data quality, robustness, adversarial security, safety (FMEA/hazards), privacy (DPDPA), deployment readiness, and closing V&V metrics. It features an interactive React dashboard, client-side Index",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "samm82/TestingTesting",
+    "url": "https://github.com/samm82/TestingTesting",
+    "stars": 0,
+    "language": "TeX",
+    "created_at": "2023-06-12T21:33:29Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 12,
+    "sample_technique_files": [
+      "ApproachGlossary.csv",
+      "SuppGlossary.csv",
+      "Testing Glossary.csv",
+      "acronyms.tex",
+      "assets/graphs/approachGraph.tex"
+    ],
+    "description": "My M.A.Sc. thesis: Putting Software Testing Terminology to the Test",
+    "topics": [
+      "literature-analysis",
+      "software-testing",
+      "taxonomy",
+      "terminology",
+      "testing"
+    ],
+    "readme": "# Putting Software Testing Terminology to the Test\n_Last Updated: Mar. 20, 2026_\n\nSamuel Crawford's M.A.Sc. thesis on software testing terminology.\n\n### Notice Regarding the Use of This Repo to Train AI Models\n\nI ask that the contents of this repository *not* be used to train AI models,\nLLMs, or neural networks for the following (uncomprehensive) reasons:\n\n1. This likely violates the licenses given for this work. By using this repo\nas training data, one cannot meaningfully and consistently comply with Section\n3(a)(1) of the CC BY-NC 4.0 license included. Likewise, this usage would not\ncomply with Condition 5 of the License to McMaster University, which requires\nthat my thesis and its copies \"may not be copied or reproduced except as\npermitted by the copyright laws without written authority from the copyright\nowner\". Since, to my knowledge, \"no Canadian court decision has examined the\nprospect of infringing AI-generated content\"\n([source](https://ised-isde.canada.ca/site/strategic-policy-sector/en/marketplace-framework-policy/consultation-copyright-age-generative-artificial-intelligence-what-we-heard-report#s6)),\none cannot be sure that their use of this work as training data does not\nviolate copyright law.\n\n2. The majority of the collected data is flawed. As described in my abstracts,\nwe found 344 flaws with test approaches and the relations between them.\nTherefore, using this collected data as training data will likely propagate\nthese flaws to the generated output *without* the caveat that the information\nis flawed and recorded \"as-is\".\n\nYes, I used generative AI (in particular, ChatGPT, GitHub Copilot, and\nProWritingAid) throughout the process of writing this thesis. If I started this\nproject today, I would likely avoid it entirely if only because of the ethical\nconcerns and lack of traceability. That being said, I used these tools as\nlast resorts for uncovering information (which I then fact-checked by finding\na reliable source), debugging code, and double-checking spelling and grammar.\nI clearly labelled any information or code that I found or generated with AI\nso it can be double-checked for correctness and plagiarism. If any of this\noutput is provably yours, please reach out to me and I will properly credit\nyou (and would love to hear any other feedback you have)!\n\n## Lay Abstract\n\nIt is important to test software to ensure that it achieves its goals and works\nas intended. However, the documents that describe how to perform testing have\nmany flaws, making this process more difficult and less consistent. By looking\nthrough the literature, we found 567 different approaches to testing. We record\nhow these approaches are defined and the relations between them. After\ncollecting and analyzing all these data, we found 344 flaws, such as missing\ndefinitions or relations that contradict each other. This shows that despite the\namount of information available about software testing, there are significant\nimprovements to be made that would make testing",
+    "readme_source": "full"
+  },
+  {
+    "repo": "SammyTourani/tripwire",
+    "url": "https://github.com/SammyTourani/tripwire",
+    "stars": 2,
+    "language": "Python",
+    "created_at": "2026-06-27T03:18:07Z",
+    "technique_test_files": 2,
+    "technique_nontest_files": 8,
+    "code_files": 86,
+    "sample_technique_files": [
+      "BUILD_PLAN.md",
+      "CLAUDE.md",
+      "README.md",
+      "docs/decisions.md",
+      "docs/target-authoring.md"
+    ],
+    "description": "Correctness oracle for AI code-optimization loops: catches reward hacks with canonical, metamorphic, withheld-input, and timing checks.",
+    "topics": [
+      "agents",
+      "ai-safety",
+      "evals",
+      "llm-evals",
+      "openevolve",
+      "python",
+      "reward-hacking"
+    ],
+    "readme": "<div align=\"center\"> # Tripwire **A layered, adversarial-by-design correctness oracle for AI code optimization.** [![PyPI](https://img.shields.io/pypi/v/tripwire-oracle.svg?color=e5484d)](https://pypi.org/project/tripwire-oracle/) [![Python](https://img.shields.io/pypi/pyversions/tripwire-oracle.svg)](https://pypi.org/project/tripwire-oracle/) [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE) [![Live visualizer](https://img.shields.io/badge/live-visualizer-e5484d.svg)](https://sammytourani.github.io/tripwire/) ![Tripwire CLI — launch, menu, demo, scorecard](docs/as",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "samyama-ai/samyama-graph",
+    "url": "https://github.com/samyama-ai/samyama-graph",
+    "stars": 171,
+    "language": "Rust",
+    "created_at": "2026-01-19T10:51:28Z",
+    "technique_test_files": 2,
+    "technique_nontest_files": 0,
+    "code_files": 972,
+    "sample_technique_files": [
+      ".github/workflows/ci.yml",
+      "tests/query_metamorphic_invariants.rs",
+      "tests/varlen_metamorphic.rs"
+    ],
+    "description": "Graph-vector database that queried 1 billion edges for $2.50. Rust, OpenCypher, vector search, 14 graph algorithms. 74M nodes / 1B edges on a single machine.",
+    "topics": [
+      "billion-edges",
+      "cypher",
+      "cypher-query-language",
+      "graph-algorithms",
+      "graph-database",
+      "graph-rag",
+      "hnsw",
+      "knowledge-graph",
+      "mcp-server",
+      "opencypher",
+      "rust",
+      "vector-search"
+    ],
+    "readme": "<p align=\"center\">\n  <h1 align=\"center\">Samyama Graph</h1>\n  <p align=\"center\">A Rust-native graph-vector database for GraphRAG, knowledge graphs, and billion-edge analytics.</p>\n  <p align=\"center\">\n    <strong>99.9% of the openCypher TCK's evaluated scenarios pass · SNB Interactive 21/21 and SNB BI 20/20, no timeouts · 1B edges on one machine</strong>\n  </p>\n  <p align=\"center\">\n    <a href=\"https://github.com/samyama-ai/samyama-graph/releases\"><img src=\"https://img.shields.io/badge/version-1.11.0-blue\" alt=\"Version\"></a>\n    <a href=\"https://github.com/samyama-ai/samyama-graph/actions/workflows/ci.yml\"><img src=\"https://github.com/samyama-ai/samyama-graph/actions/workflows/ci.yml/badge.svg\" alt=\"CI\"></a>\n    <a href=\"LICENSE\"><img src=\"https://img.shields.io/badge/license-Apache_2.0-blue\" alt=\"License\"></a>\n    <a href=\"https://graph.samyama.cloud/book/\"><img src=\"https://img.shields.io/badge/book-read_the_docs-orange\" alt=\"Book\"></a>\n    <a href=\"https://chat.whatsapp.com/Jjjkb3uWRDi1YMdfffaD9d\"><img src=\"https://img.shields.io/badge/community-WhatsApp-25D366?logo=whatsapp&logoColor=white\" alt=\"WhatsApp Community\"></a>\n  </p>\n  <p align=\"center\">\n    💬 <strong><a href=\"https://chat.whatsapp.com/Jjjkb3uWRDi1YMdfffaD9d\">Join the Samyama OSS community on WhatsApp</a></strong> — questions, help, and updates.\n  </p>\n</p>\n\n---\n\n## What is Samyama Graph?\n\nSamyama Graph is a Rust-native graph-vector database that lets developers store, query, search, and analyze connected data in one system.\n\nIt brings together graph traversal, OpenCypher-style querying, vector search, graph algorithms, and Redis-compatible access, making it useful for GraphRAG, knowledge graphs, AI agent memory, and large-scale relationship analytics.\n\n### Quickstart\n\n#### Option 1 — Run with Docker Compose\n\n**Step 1 — Prerequisites**\n\n- ✅ Docker Desktop installed and running — [Watch setup video →](https://samyama.dev/videos)\n- ✅ No account or credentials needed — the image is public on GitHub Container Registry (`latest` is the newest release; pin a version such as `:1.11.0` for a reproducible setup)\n\n**Step 2 — Pull the Docker image**\n\n```bash\ndocker pull ghcr.io/samyama-ai/samyama-graph:latest\n```\n\n**Step 3 — Docker Compose setup**\n\nCreate a clean folder, then create `docker-compose.yml` inside it.\n\nLinux & Mac:\n\n```bash\nmkdir -p samyama-graph\ncd samyama-graph\ntouch docker-compose.yml\n```\n\nWindows (PowerShell):\n\n```powershell\nmkdir C:\\samyama-graph\ncd C:\\samyama-graph\nnotepad docker-compose.yml\n```\n\n> ℹ️ Replace `<your-openai-api-key>` with your actual key. Generate one at [platform.openai.com/api-keys](https://platform.openai.com/api-keys).\n\n```yaml\nversion: \"3.9\"\nservices:\n  samyama-graph:\n    image: ghcr.io/samyama-ai/samyama-graph:latest\n    container_name: samyama-graph\n    restart: unless-stopped\n    ports:\n      - \"6379:6379\"\n      - \"8080:8080\"\n    environment:\n      EMBED_ENABLED: \"true\"\n      EMBED_PROVIDER: openai\n      EMBED_MODEL: text-embedding-3-small\n      EMBED_",
+    "readme_source": "full"
+  },
+  {
+    "repo": "SannRainy/A.L.I.S.A.",
+    "url": "https://github.com/SannRainy/A.L.I.S.A.",
+    "stars": 1,
+    "language": "Python",
+    "created_at": "2026-06-03T10:20:25Z",
+    "technique_test_files": 2,
+    "technique_nontest_files": 4,
+    "code_files": 169,
+    "sample_technique_files": [
+      "backend/tests/layers/conftest.py",
+      "backend/tests/layers/test_l9_metamorphic.py",
+      "build_full_test_report.py",
+      "generate_actual_d_docx.py",
+      "generate_final_docx.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# 🏯 A.L.I.S.A. (Adaptive Language Intelligent Symbolic Assistant) A.L.I.S.A. adalah sistem **Tutor Virtual Bahasa Jepang Interaktif (TVJP)** tingkat dasar (JLPT N5) berbasis **Neuro-Symbolic AI**. Sistem ini memadukan kekuatan generatif *Large Language Model* (LLM) dengan kepastian fakta dari *Knowledge Graph* menggunakan pendekatan **GraphRAG (Graph Retrieval-Augmented Generation)** untuk menghadirkan tutor virtual yang interaktif, akurat secara pedagogis, dan tergamifikasi tanpa risiko halusinasi informasi. --- ## 🌟 Fitur Utama 1. **Discovery Mode (Casual Chatting & Learning)** * Siswa dapat",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "sanowl/lora-trainer",
+    "url": "https://github.com/sanowl/lora-trainer",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2025-02-03T07:38:40Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 4,
+    "sample_technique_files": [
+      "lora.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "",
+    "readme_source": "none"
+  },
+  {
+    "repo": "sant0shg/networkx-hypothesis-testing",
+    "url": "https://github.com/sant0shg/networkx-hypothesis-testing",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-04-11T18:42:18Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 1,
+    "sample_technique_files": [
+      "main.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# Property-Based Testing for NetworkX A collection of property-based tests for [NetworkX](https://networkx.org/documentation/stable/) graph algorithms, written with the [Hypothesis](https://hypothesis.readthedocs.io/) library. ## Test Results ![17 tests passing](./test_results.png) --- ## Algorithms Under Test | Algorithm | NetworkX Function | Properties Tested | |---|---|---| | **Dijkstra's Shortest Path** | `single_source_dijkstra` | Invariants, Postconditions, Metamorphic, Idempotence, Boundary | | **Dinitz Maximum Flow** | `algorithms.flow.dinitz` | Invariants, Postconditions, Metamorphic,",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "sanxing-chen/BERTest",
+    "url": "https://github.com/sanxing-chen/BERTest",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2020-11-15T21:37:43Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 2,
+    "code_files": 23,
+    "sample_technique_files": [
+      "README.md",
+      "main.py",
+      "metamorphicTesting/tester.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# Coverage-Guided Metamorphic Testing for Pre-trained Language Models\n\n> Final Project for Program Analysis (2020 Fall)\n\nThis repo contains a toolkit and data for the experiments described in our paper of \"Coverage-Guided Metamorphic Testing for Pre-trained Language Models\".\n\n# Project Structures\n\nOverall, our project is organized in the following structure.\n\n- `SST-2` contains the raw data of the Stanford Sentiment Treebank v2 (SST2) dataset\n- `filter_data` contains our manually filtered SST2 data for effective testing\n- `metamorphicTesting` contains code for our transformations and metamorphic relations\n- `tmp` is the output directory to host result files\n- `main.py` is the entry program of our tool\n\n\n# Install Dependency \n\nThe tool is tested in three major platforms but only in python3.7. We recommend install it in a clean python environment.\n\n```\npip install -r requirements.txt\npython -m spacy download en_core_web_sm\n```\n\n# Configuration\n\nIn the entry program `main.py`, an entry function `draw_comparison(nsample=10, coverage_type=0)` is executed.\nThe default parameters here mean 10 random runs with the coverage metric indexed as follows.\n- 0-DeepXplore\n- 1-DeepGauge\n- 2-NearestNeighbor\n\nBy default, the program runs in CPU mode, if you have access to GPU resource, enable GPU computation by setting `cuda=True` in `main.py:L241` and set the environment variable `CUDA_VISIBLE_DEVICES`.\n\n# Run Experiment\n\nExecute the entry program `main.py`, the program will start running the experiments with output files saved to the directory `tmp`.\nEach experiment will produce three output files\n- A csv file record all the coverage changes during the process\n- A txt file record all failures trigered by the generated tests\n- A png file illustrate coverage under each of three neuron coverage metrics changing with the number of generated tests\n\nAt the first time, the program will automatically download the DistilBERT model used in our tool.\nRunning the program in CPU could eat out lot of computation resource and take much longer (1min for one experiment unit) than the GPU mode.\n\n# Experimental Results\n\nThe experimental results used in our paper are also included in the `saved_results` directory.",
+    "readme_source": "full"
+  },
+  {
+    "repo": "sapn95/berndeutsch-for-ai",
+    "url": "https://github.com/sapn95/berndeutsch-for-ai",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-07-29T11:33:20Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 2,
+    "code_files": 5,
+    "sample_technique_files": [
+      "README.md",
+      "scripts/evaluate.py",
+      "scripts/selftest.py"
+    ],
+    "description": "Bärndütsch for AI assistants. A tool-agnostic rulebook that makes any LLM write real Bernese German, plus a Claude Code hook that injects it automatically when your prompt is in dialect",
+    "topics": [
+      "berndeutsch",
+      "claude-code",
+      "dialect",
+      "llm",
+      "prompt-engineering",
+      "swiss-german"
+    ],
+    "readme": "# berndeutsch-for-ai\n\n**Bärndütsch for AI.**\n\nA rulebook that makes any AI write real Bernese German, instead of a generic\nSwiss German that drifts a little further toward Zurich every session.\n\n> **Work in progress.** This is a 0.x release and it is being actively worked\n> on. The rulebook itself is stable enough to use — it summarises a published\n> spelling system, and `NOTICE` says exactly whose. The detector around it is\n> not finished: the marker lists still move, the thresholds are still being\n> tuned, and a release can change how the hook decides. Expect breaking\n> changes between minor versions until 1.0.\n>\n> What that means in practice: pasting `rules/schrybwys.md` into any AI is safe\n> and does not depend on any of this. If you install the hook, pin a version\n> rather than tracking `main`, and re-read this file when you upgrade.\n>\n> Corrections to the Bernese itself are the most useful thing anyone can send.\n\nWrite to an AI in Bärndütsch and it will answer in something dialect-shaped.\nOver a long conversation that something decays: `nöd` creeps in for `nid`, `ä`\ninflates everywhere (`Gipfäli`), and words get invented on the spot because they\nsound plausible. The cause is mundane. Whatever spelling rules you gave the model\nlive in a memory or a preferences file that is only sometimes in context. When\nthey are absent, the model falls back on its generic Swiss German prior.\n\n**The rulebook works with any AI.** `rules/schrybwys.md` is a plain markdown file\nwith no tool-specific syntax, and `rules/schrybwys-compact.md` holds the same\nrules in a 2270-character block for instruction boxes that impose a limit. Drop\neither into a system prompt, custom instructions, `AGENTS.md`,\n`.github/copilot-instructions.md` or `.cursor/rules/` and you are done.\n\n**For Claude Code there is also a hook**, which removes the \"sometimes\"\nentirely. `UserPromptSubmit` checks each prompt for Bernese markers and, when it\nfinds them, injects the rules into that turn. Deterministically, every time, and\nsilently on prompts that are not in dialect.\n\n```text\nyou:     hesch mer chönne luege wies mitem Modul steit?\nhook:    [detects Bärndütsch] -> injects rules/schrybwys.md\nclaude:  answers in Bärndütsch, with nid instead of nöd\n```\n\n## What is in the box\n\n| | |\n| --- | --- |\n| `rules/schrybwys.md` | The rulebook. The codified *schriftsprach-nah* system after Marti and Bietenhard: vowels, consonants, `ds`/`z`, grammar, and what separates Bernese from its neighbours. Tool-agnostic. |\n| `rules/schrybwys-compact.md` | The same rules in 2270 characters, with attribution and licence inside the block. |\n| `hooks/berndeutsch_gate.py` | The detector and injector, for Claude Code. |\n| `scripts/bdw` | Dictionary lookup against berndeutsch.ch. Answers the question the model cannot answer honestly by itself: is this actually a word? |\n| `scripts/bd-corpus` | Fetches a small corpus of genuinely Bernese text, for feel rather than rules. |\n| `corpus/sources.md` | Where to read real Bernes",
+    "readme_source": "full"
+  },
+  {
+    "repo": "saroo98/loom",
+    "url": "https://github.com/saroo98/loom",
+    "stars": 1,
+    "language": "Python",
+    "created_at": "2026-07-10T12:39:04Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 297,
+    "sample_technique_files": [
+      "tools/test_lifecycle_intent_metamorphic.py"
+    ],
+    "description": "An alive planning OS for AI coding agents. It shows its work and learns from every run so the more you use it, the better it gets.",
+    "topics": [
+      "ai-agents",
+      "claude-code",
+      "codex",
+      "developer-tools",
+      "planning"
+    ],
+    "readme": "<p align=\"center\"> <a href=\"https://saroo98.github.io/loom/\"> <img src=\"./docs/readme-hero.svg\" alt=\"Loom connects an owner request to a project-aware plan, bounded authority, verification, recovery, and completion.\" width=\"100%\"> </a> </p> <p align=\"center\"> <strong>Planning and verification control for AI coding agents.</strong><br> Turn one request into reviewable work grounded in the project as it exists now. </p> <p align=\"center\"> <a href=\"https://saroo98.github.io/loom/\">Website</a> · <a href=\"#quick-start\">Quick start</a> · <a href=\"#installation\">Installation</a> · <a href=\"./docs/arc",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Sarthaksahu777/Agent-Harness",
+    "url": "https://github.com/Sarthaksahu777/Agent-Harness",
+    "stars": 9,
+    "language": "Python",
+    "created_at": "2026-01-29T13:13:17Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 126,
+    "sample_technique_files": [
+      "examples/rigorous_metamorphic_tests.py"
+    ],
+    "description": "Agent Harness is a runtime governance layer that enforces hard behavioral bounds in autonomous agents. Performance fails not due to low intelligence, but a lack of structural limits. This system does not improve reasoning or alignment. It defines the deterministic boundary where execution MUST halt, even if the agent attempts to continue.",
+    "topics": [],
+    "readme": "<div align=\"center\"> # 🛡️ Agent-Harness **A Rigorous Engineering Kernel for Bounded Autonomous Agents** [![PyPI version](https://img.shields.io/pypi/v/agentharnessengine?color=blue&style=flat-square)](https://pypi.org/project/agentharnessengine/) [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg?style=flat-square)](https://www.python.org/downloads/) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT) [![CI Tests](https://img.shields.io/badge/build-passing-brightgreen?style=flat-square)](#) [![GitHub S",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "satori-chatbots/chatbot-dojo",
+    "url": "https://github.com/satori-chatbots/chatbot-dojo",
+    "stars": 2,
+    "language": "JavaScript",
+    "created_at": "2024-12-09T09:31:19Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 163,
+    "sample_technique_files": [
+      "frontend/src/data/sensei-check-documentation.js"
+    ],
+    "description": "a web server for sensei",
+    "topics": [],
+    "readme": "# Chatbot dōjō Web Access the website: [miso.ii.uam.es:8081](http://miso.ii.uam.es:8081/) Demo Video [![Watch the video](https://img.youtube.com/vi/dFsbN1FKGVg/0.jpg)](https://www.youtube.com/watch?v=dFsbN1FKGVg) The website is deployed at the port `8081` due to conflicts with other services, if you wish to deploy at `80` or `443` change the `docker-compose.yml` from `8081` to your desired port. ```yaml nginx: image: nginx:latest ports: - 8081:80 ``` ## Requirements - Docker - Docker Compose ## Generate `.env` and `.env.dev` Use the script `generate_env.py` (if you don't have the dependencies",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "satori-chatbots/user-simulator-evaluation",
+    "url": "https://github.com/satori-chatbots/user-simulator-evaluation",
+    "stars": 1,
+    "language": "Python",
+    "created_at": "2024-10-13T15:42:17Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 2,
+    "code_files": 581,
+    "sample_technique_files": [
+      "chatbots-wild-analysis/bin/run-report.sh",
+      "chatbots-wild-analysis/src/times.py"
+    ],
+    "description": "Sensei user simulator evaluation",
+    "topics": [],
+    "readme": "# Evaluating SENSEI This repository contains the results of three experiments using [SENSEI](https://github.com/sensei-chat/sensei). SENSEI is an automated end-to-end test system for chatbots, made of a user simulator, and a system to define and test checking rules on the generated conversations. The two experiments consisted of: - Mutation analysis of 4 chatbots created using [Taskyto](https://github.com/satori-chatbots/taskyto), published in this [paper](https://dl.acm.org/doi/10.1145/3640794.3665538), and freely available on Taskyto's repository. These results are in folder [mutation_analys",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "SauersML/Descent",
+    "url": "https://github.com/SauersML/Descent",
+    "stars": 1,
+    "language": "Lean",
+    "created_at": "2026-08-05T05:18:58Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 3,
+    "code_files": 461,
+    "sample_technique_files": [
+      ".github/workflows/prover.yml",
+      "Descent/Core/Fst.lean",
+      "Descent/PopGen/GeneticArchitectureDiscovery.lean",
+      "scripts/ci-mirror.sh",
+      "validation/empirical/extract/defs.json"
+    ],
+    "description": "A Lean 4 formalization of genetics, with simulation-based validation",
+    "topics": [],
+    "readme": "# Descent\n\nA Lean 4 formalization of genetic theory.\n\nThe three PGS portability questions are developed in\n[OpenQuestions.lean](Descent/Program/OpenQuestions.lean). The proofs classify\nindividual-loss information and noise, give sharp attainable ranges at fixed\nsecond moments and genetic inputs, characterize finite evolutionary/reporting\nclosure, and establish metric-ordering and decision-cost converses. Their domains\ninclude arbitrary square-integrable loss for the information theorems and explicit\nfinite model classes for the sharp ranges. Gaussian loss noise is derived from\nthe Gaussian measure. The combined axiom audit is\n[CheckThreeQuestions.lean](validation/code/CheckThreeQuestions.lean).\n\nFor exact results and limits of demographic prediction of polygenic score accuracy,\nsee [Universal portability](UNIVERSAL_PORTABILITY.md).\n\n## Building\n\n```sh\nlake exe cache get\nlake build Descent ValidationShared\n```\n\n## Contributing\n\nAll contributions are welcome.\n\n## Spec\n- Simulations must never be used to fit models. They are only for validating existing derivations.\n- Only these three axioms are allowed: propext, Classical.choice, and Quot.sound\n\n## License\n\nApache-2.0. See [LICENSE](LICENSE).",
+    "readme_source": "full"
+  },
+  {
+    "repo": "saydirasulov-alt/governance-runtime-iot",
+    "url": "https://github.com/saydirasulov-alt/governance-runtime-iot",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-06-12T08:23:13Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 54,
+    "sample_technique_files": [
+      "gap_finder/policy_gap_finder.py"
+    ],
+    "description": "Reproducibility package and deployable reference service for the Sensors paper on runtime governance in AI-driven smart-building climate control. Closes the control loop through a physical plant model and measures what each governance mechanism is worth in unsafe exposure (°C·min). All 127 reported numbers are machine-verified.",
+    "topics": [
+      "cyber-physical-systems",
+      "hvac",
+      "iot",
+      "mqtt",
+      "open-policy-agent",
+      "policy-as-code",
+      "python",
+      "reproducibility",
+      "runtime-governance",
+      "safety-critical",
+      "smart-building",
+      "software-in-the-loop"
+    ],
+    "readme": "# A Closed-Loop Measurement Study of Runtime Governance in AI-Driven Smart-Building Climate Control [![Tests](https://github.com/saydirasulov-alt/governance-runtime-iot/actions/workflows/ci.yml/badge.svg)](https://github.com/saydirasulov-alt/governance-runtime-iot/actions) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21374935.svg)](https://doi.org/10.5281/zenodo.21374935) Reproducibility package and deployable reference service for: > **A Closed-Loop Measurement Study of Runtime Governance in AI-Driven Smart",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "scikit-learn-contrib/category_encoders",
+    "url": "https://github.com/scikit-learn-contrib/category_encoders",
+    "stars": 2502,
+    "language": "Python",
+    "created_at": "2015-11-29T19:32:37Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 86,
+    "sample_technique_files": [
+      "tests/test_encoders.py"
+    ],
+    "description": "A library of sklearn compatible categorical variable encoders",
+    "topics": [],
+    "readme": "Categorical Encoding Methods\n============================\n\n[![Downloads](https://pepy.tech/badge/category-encoders)](https://pepy.tech/project/category-encoders)\n[![Downloads](https://pepy.tech/badge/category-encoders/month)](https://pepy.tech/project/category-encoders)\n![Test Suite and Linting](https://github.com/scikit-learn-contrib/category_encoders/workflows/Test%20Suite%20and%20Linting/badge.svg)\n[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1157109.svg)](https://doi.org/10.5281/zenodo.1157109)\n\nA set of scikit-learn-style transformers for encoding categorical \nvariables into numeric by means of different techniques.\n\nImportant Links\n---------------\n\nDocumentation: [http://contrib.scikit-learn.org/category_encoders/](http://contrib.scikit-learn.org/category_encoders/)\n\nEncoding Methods\n----------------\n__Unsupervised:__\n * Backward Difference Contrast [2][3]\n * BaseN [6]\n * Binary [5]\n * Gray [14]\n * Count [10]\n * Hashing [1]\n * Helmert Contrast [2][3]\n * Ordinal [2][3]\n * One-Hot [2][3]\n * Multi-Hot [17]\n * Rank Hot [15]\n * Polynomial Contrast [2][3]\n * Sum Contrast [2][3]\n\n__Supervised:__\n * CatBoost [11]\n * Count Target Encoding [17]\n * Generalized Linear Mixed Model [12] \n * James-Stein Estimator [9]\n * LeaveOneOut [4]\n * M-estimator [7]\n * Target Encoding [7]\n * Weight of Evidence [8]\n * Quantile Encoder [13]\n * Summary Encoder [13]\n\nInstallation\n------------\n\nThe package requires: `numpy`, `statsmodels`, and `scipy`.\n\nTo install the package, execute:\n\n```shell\n$ python setup.py install\n```\n\nor \n\n```shell\npip install category_encoders\n```\n\nor\n\n```shell\nconda install -c conda-forge category_encoders\n```\n\nTo install the development version, you may use:\n\n```shell\npip install --upgrade git+https://github.com/scikit-learn-contrib/category_encoders\n```\n\nUsage\n-----\n\nAll of the encoders are fully compatible sklearn transformers, so they can be used in pipelines or in your existing \nscripts. Supported input formats include numpy arrays and pandas dataframes. If the cols parameter isn't passed, all \ncolumns with object or pandas categorical data type will be encoded. Please see the docs for transformer-specific \nconfiguration options.\n\nExamples\n--------\nThere are two types of encoders: unsupervised and supervised. An unsupervised example:\n```python\nfrom category_encoders import *\nimport pandas as pd\n\n# prepare some data with categorical features\nX = pd.DataFrame({\n    'gender': ['male', 'female', 'female', 'male', 'female'],\n    'country': ['US', 'UK', 'US', 'CA', 'UK'],\n    'age': [25, 32, 47, 51, 38],\n})\n\n# use binary encoding to encode two categorical features\nenc = BinaryEncoder(cols=['gender', 'country']).fit(X)\n\n# transform the dataset\nnumeric_dataset = enc.transform(X)\n```\n\nAnd a supervised example:\n```python\nfrom category_encoders import *\nimport pandas as pd\n\n# prepare some training and test data with categorical features and a target\nX_train = pd.DataFrame({\n    'gender': ['male', 'female', 'female', 'male'],\n    'country': ['US",
+    "readme_source": "full"
+  },
+  {
+    "repo": "SciSharp/NumSharp",
+    "url": "https://github.com/SciSharp/NumSharp",
+    "stars": 1480,
+    "language": "C#",
+    "created_at": "2018-10-10T00:10:09Z",
+    "technique_test_files": 4,
+    "technique_nontest_files": 0,
+    "code_files": 2079,
+    "sample_technique_files": [
+      ".claude/CLAUDE.md",
+      ".claude/skills/oracle/SKILL.md",
+      ".claude/skills/oracle/references/architecture.md",
+      "docs/releases/RELEASE_0.60.0.md",
+      "docs/stale-docs/LEAK_ANALYZER.md"
+    ],
+    "description": "High Performance Computation for N-D Tensors in .NET, similar API to NumPy.",
+    "topics": [
+      "ai",
+      "machine-learning",
+      "numpy",
+      "numsharp",
+      "pandas"
+    ],
+    "readme": "<p align=\"center\">\n  <a href=\"https://github.com/SciSharp/NumSharp\">\n    <img src=\"docs/website-src/images/numsharp.icon.svg\" alt=\"NumSharp\" width=\"96\" height=\"96\">\n  </a>\n</p>\n\n<h1 align=\"center\">NumSharp</h1>\n\n<p align=\"center\">\n  <strong>NumPy for .NET</strong>\n</p>\n\n<p align=\"center\">\n  <a href=\"https://www.nuget.org/packages/NumSharp\"><img alt=\"NuGet\" src=\"https://img.shields.io/nuget/v/NumSharp.svg\"></a>\n  <a href=\"https://www.nuget.org/packages/NumSharp\"><img alt=\"NuGet downloads\" src=\"https://osscdn.nucs.workers.dev/numsharp-downloads-BlFBRHRBTF.svg\"></a>\n  <a href=\"https://github.com/SciSharp/NumSharp/actions/workflows/build-and-release.yml\"><img alt=\"Build\" src=\"https://github.com/SciSharp/NumSharp/actions/workflows/build-and-release.yml/badge.svg\"></a>\n  <a href=\"https://github.com/SciSharp/NumSharp/actions/workflows/docs.yml\"><img alt=\"Docs\" src=\"https://github.com/SciSharp/NumSharp/actions/workflows/docs.yml/badge.svg\"></a>\n  <a href=\"https://scisharp.github.io/NumSharp/docs/benchmarks-dashboard.html\"><img alt=\"Benchmarks\" src=\"https://img.shields.io/badge/benchmarks-dashboard-0e7490.svg\"></a>\n  <a href=\"LICENSE\"><img alt=\"License\" src=\"https://img.shields.io/github/license/SciSharp/NumSharp.svg\"></a>\n</p>\n\n<p align=\"center\">\n  NumSharp is a native .NET array library with a NumPy-shaped API: <code>NDArray</code>,\n  broadcasting, slicing views, dtype-aware <code>np.*</code> functions, unmanaged storage,\n  and runtime-generated kernels with cpu-acceleration for performance-sensitive numerical code.\n</p>\n\n<p align=\"center\">\n  The compatibility target is <strong>NumPy 2.x</strong>. When NumSharp behavior and\n  NumPy behavior differ, NumPy is treated as the source of truth and aligns.\n</p>\n\n## What Is NumSharp?\n\nNumSharp lets C# and F# code use a NumPy-like programming model without embedding\nCPython. It is intended for scientific computing, numerical utilities, machine\nlearning infrastructure, and projects that want NumPy-style array operations in\nordinary .NET code.\n\nNumSharp's edge is utilizing the power of [C#'s dynamic IL generation](https://scisharp.github.io/NumSharp/docs/il-generation.html) and [fused kernels](https://scisharp.github.io/NumSharp/docs/NDIter.html) translating to assembly generated with [JIT optimizations](https://learn.microsoft.com/en-us/dotnet/standard/managed-execution-process#compilation-by-the-jit-compiler) and [SIMD CPU acceleration](https://en.wikipedia.org/wiki/Hardware_acceleration).\nThis edge leads the design of NumSharp's backend and by that to higher performance mark than NumPy on many functions as can be seen in [Performance](#performance).\n\nNumSharp focuses on:\n\n- NumPy-shaped API names and behavior.\n- N-dimensional arrays with shape, stride, offset, and view metadata.\n- Broadcasting without materializing repeated values.\n- Dtype-aware math, comparisons, reductions, random sampling, and formatting.\n- Runtime IL generation and SIMD fast paths where layout and dtype allow it.\n\n<p align=\"left\">\n  <a href",
+    "readme_source": "full"
+  },
+  {
+    "repo": "scooter-sensei/extant",
+    "url": "https://github.com/scooter-sensei/extant",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-07-22T16:05:45Z",
+    "technique_test_files": 3,
+    "technique_nontest_files": 0,
+    "code_files": 153,
+    "sample_technique_files": [
+      "NEXT_SESSION.md",
+      "tests/harnesses/README.md",
+      "tests/harnesses/fuzz.py",
+      "tests/harnesses/fuzz_differential.py",
+      "tests/harnesses/fuzz_oracles.py"
+    ],
+    "description": "Your documentation makes claims. This checks whether they are still true, against git and the filesystem. Dead commit references, false merge claims, broken links, tags that never shipped, files that contradict each other. Works on the README you already have.",
+    "topics": [
+      "ai-agents",
+      "developer-tools",
+      "documentation",
+      "git",
+      "git-hooks",
+      "linter",
+      "markdown",
+      "pre-commit",
+      "pre-commit-hooks",
+      "python",
+      "sarif",
+      "static-analysis"
+    ],
+    "readme": "<div align=\"center\">\n\n# extant\n\n**Your docs cite commits. Some of those commits no longer exist.**\n\n[![tests](https://github.com/scooter-sensei/extant/actions/workflows/tests.yml/badge.svg)](https://github.com/scooter-sensei/extant/actions/workflows/tests.yml)\n[![license: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)\n[![python: 3.9+](https://img.shields.io/badge/python-3.9%2B-blue)](https://www.python.org)\n[![dependencies: none on 3.11+](https://img.shields.io/badge/dependencies-none%20on%203.11%2B-success)](#requirements)\n\n*extant (adj.) - still in existence; surviving.*\n\n</div>\n\n---\n\n## The problem\n\nA plan document says the work landed in `8f2a91c`. A spec says its predecessor\nmerged to `develop` at `abc1234`. A status file says a branch is not merged yet.\n\nThen someone squash-merges, or rebases, or force-pushes a cleanup, and those\nsentences quietly stop being true. Nothing complains, because documentation is\njust writing. Tests check code. Type checkers check types. **Nothing checks\nwhether a commit you wrote down still exists.**\n\nThis got much worse recently, and not for a subtle reason. Coding agents write\nplan documents, spec documents and status files at a volume humans never did,\nand those documents are dense with commit SHAs, branch names and file paths.\nThen the next agent session reads them back **as fact**. It cannot tell that a\nline expired, so it plans around something untrue and hands back confidently\nwrong work.\n\nHere is one real project, swept with a single command and no configuration.\n49 tracked markdown files, 43 findings, counted by rule:\n\n| Count | Rule | |\n|---:|:---|:---|\n| 37 | `dead-sha` | a commit that no longer resolves |\n| 5 | `bare-dead-sha` | the same, written without backticks |\n| 1 | `dead-path-pointer` | a file that moved |\n\n**42 of 43 were dead commit references, and every located finding sat in the\nproject's plan and spec directories** - the documents written during agent\nsessions. Zero in the README. Zero in CONTRIBUTING. The human-facing docs were\nfine; the machine-facing ones had rotted where nobody looks.\n\nThat is the shape of the problem, and a link checker will not find any of it,\nbecause none of these are links.\n\n## What it looks like\n\nA plan document written during an earlier session. It says the work merged to\n`main`. The commit is real, so nothing looks wrong, but it sits on a branch that\nwas never merged:\n\n```console\n$ extant --repo . --sweep\n\nUNREVIEWED - surveyed only, not gated\ndocs/plans/phase-3.md: line 3: [false-merge-claim] claims work merged to main at `096aa5d`, but that commit is not an ancestor of main\ndocs/plans/phase-3.md: line 4: [dead-sha] `8f2a91c` does not resolve in this repo\ndocs/plans/phase-3.md: line 6: [dead-path-pointer] points at `docs/plans/phase-2.md`, which does not exist\n\nswept 2 markdown file(s): 0 configured (0 finding(s)), 2 unreviewed (3 finding(s))\n  1 repository-wide rule(s) ran once (0 finding(s))\n  examined: dead-sha 2, stale-live-claim 0, unknown-",
+    "readme_source": "full"
+  },
+  {
+    "repo": "scott-lydon/crucible",
+    "url": "https://github.com/scott-lydon/crucible",
+    "stars": 0,
+    "language": "HTML",
+    "created_at": "2026-06-17T17:41:26Z",
+    "technique_test_files": 4,
+    "technique_nontest_files": 5,
+    "code_files": 130,
+    "sample_technique_files": [
+      "HANDOFF.md",
+      "README.md",
+      "_design_bundle/_slices.json",
+      "_design_bundle/slice-02-live-run-view/v1.html",
+      "_design_bundle/slice-02-live-run-view/v2.html"
+    ],
+    "description": "Crucible: adversarial security platform — an LLM red-team attacks a target, non-colluding oracles verify, a blue loop hardens it, and it grades its own catch rate against an adversary that already knows the scheme. Gauntlet capstone (architecture).",
+    "topics": [],
+    "readme": "# Crucible\n\n[![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)\n\n**An adversarial platform for AI Integrity: Crucible's red agent attacks an AI system under verification (a classifier such as a fraud LightGBM model, or an agent such as a code-generation agent), independent oracles verify each output using checks held back from that AI system and its makers, a blue loop hardens it by retraining classical-ML targets or patching agent targets' prompts and configuration, and the platform measures its own catch rate against the same red agent, now armed with the verification scheme. Crucible does NOT detect fraud or write code itself; it verifies that the AI systems doing those jobs are not silently wrong. See [`docs/VOCABULARY.md`](docs/VOCABULARY.md) for term-by-term definitions.**\n\n`Direction:` ML + LLM hybrid\n\n> **Note.** Every metric on the dashboard populates from a real run; the platform never shows placeholder values.\n\n## Run it locally (no API key needed)\n\nCrucible is mock-first: the full test suite runs offline against a deterministic\nscripted model, so you can clone, install, and verify it with no Anthropic or\nOpenRouter key.\n\n```bash\nuv sync --all-extras   # app plus the dev and ml extras (pytest, ruff, the ML stack)\ndocker compose up -d   # local Postgres 16, publishes on $CRUCIBLE_DB_PORT (default 5432)\nuv run pytest          # full suite, scripted model, zero API keys\n```\n\nIf port 5432 is already taken, pick a free one first (the suite reads `PGPORT`):\n\n```bash\nexport CRUCIBLE_DB_PORT=5439 PGPORT=5439\n```\n\nTo run the API or exercise the real models, see [CONTRIBUTING.md](CONTRIBUTING.md).\n\n---\n\n## The problem\n\nAI systems are graded against a *proxy metric* (a validation set, a benchmark, a unit-test suite, a user-feedback signal). Crucible groups the AI systems it verifies into two architectural shapes: **(Shape 1) smaller custom machine-learning models the customer owns** — a tree-boosted fraud classifier, a credit scorer, an anomaly detector — and **(Shape 2) agent products built on vendor language models** — a code-generation agent, a research assistant, a retrieval-augmented Q&A bot, a customer-service chatbot. Whatever optimizer fit the AI system to its proxy metric finds the cheapest path to maximize the score it was given: gradient descent fits a Shape 1 classifier to a labeled dataset; reinforcement learning or fine-tuning shapes the vendor language model an agent calls (but is done by the foundation lab, not by Crucible's customer); prompt-and-configuration tuning shapes the agent loop itself in Shape 2. When the proxy diverges from the real goal, the optimizer lives in the gap: the AI system scores high on the metric and silently fails at the job.\n\nExamples:\n\n- Fraud detector learns \"flag merchant category 5816\" because the validation set was heavy there. Scores 99 percent on eval, misses two-thirds of real fraud.\n- Code-generation agent hardcodes the visible test inputs into a lookup ta",
+    "readme_source": "full"
+  },
+  {
+    "repo": "scratchbird-software-inc/ScratchBird",
+    "url": "https://github.com/scratchbird-software-inc/ScratchBird",
+    "stars": 5,
+    "language": "C++",
+    "created_at": "2026-06-07T22:12:51Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 1,
+    "code_files": 8117,
+    "sample_technique_files": [
+      "project/tests/sbsql_parser_worker/generated/hardening/sml_041_046/SML_044_046_HARDENING_ORACLE.json",
+      "project/tests/sbsql_parser_worker/generated/hardening/sml_041_046/sbsql_sml_044_046_hardening_oracle_gate.py",
+      "project/tools/sb_parser_gen/generate_sbsql_sml_041_046_product_qa_gates.py"
+    ],
+    "description": "A Convergent Data Engine (CDE) early release",
+    "topics": [
+      "data-analysis",
+      "database"
+    ],
+    "readme": "# ScratchBird Convergent Data Engine ## What is this? ScratchBird Convergent Data Engine (SBcde, or SB) is an experimental database-engine project released for source review, testing, research, and community contribution. The project explores a convergent database-engine architecture: a single engine core with separate parser and protocol-facing components, internal UUID-based object identity, an SBLR execution boundary, and a multigenerational storage and transaction model. This repository is a public source-review beta release. It is intended to let interested developers, database engineers,",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "scthornton/airs_pyrit",
+    "url": "https://github.com/scthornton/airs_pyrit",
+    "stars": 2,
+    "language": "Python",
+    "created_at": "2025-06-26T00:29:07Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 1,
+    "sample_technique_files": [
+      "pyrit_panw_airs.py"
+    ],
+    "description": "Pyrit test with Palo Alto Networks AI Runtime Security",
+    "topics": [
+      "api",
+      "genai",
+      "genai-chatbot",
+      "llm",
+      "palo-alto-networks",
+      "pyrit",
+      "python"
+    ],
+    "readme": "# PyRIT-Enhanced PAN Security Tester A comprehensive security testing framework for Palo Alto Networks AI Runtime Security using Microsoft's PyRIT (Python Risk Identification Toolkit). This tool performs extensive red-team testing to evaluate the effectiveness of your AI security policies. ## Features ### Core Testing Capabilities - **PyRIT Dataset Integration** - Tests against 18 security datasets including AdvBench, HarmBench, and XSTest - **Advanced Attack Simulation** - Psychological manipulation, metamorphic attacks, and social engineering - **Multi-language Evasion** - Tests attacks in 1",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "scyja3/RBAC_TestFramework",
+    "url": "https://github.com/scyja3/RBAC_TestFramework",
+    "stars": 0,
+    "language": "Java",
+    "created_at": "2026-04-27T07:24:29Z",
+    "technique_test_files": 5,
+    "technique_nontest_files": 0,
+    "code_files": 13,
+    "sample_technique_files": [
+      "OER/framework/Framework-Overview.md",
+      "OER/tutorial/01-What-Is-MT.md",
+      "OER/tutorial/02-What-Is-RBAC.md",
+      "OER/tutorial/03-MR-Categories.md",
+      "OER/tutorial/04-Worked-Examples.md"
+    ],
+    "description": "This repository is a learning resource and a research framework. The research aspect involves the implementation of testing a methodology known as Metamorphic Testing (MT) to find real bugs in Spring Security's role hierarchy implementation.",
+    "topics": [
+      "metamorphic-relations",
+      "metamorphic-testing",
+      "role-based-access-control"
+    ],
+    "readme": "# Testing the Untestable: Computer Security (Metamorphic Testing for Role-Based Access Control)\n\n> Author: Julienne Adwin (scyja3@nottingham.edu.cn) \\\n> Licence: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) — free to use, adapt, and share with attribution  \n> Code licence: [MIT](https://opensource.org/licenses/MIT)  \n\n## What Is It?\nThis repository is a **learning resource** and a **research framework**. The research aspect involves the implementation of testing a methodology known as **Metamorphic Testing (MT)** to find real bugs in Spring Security's role hierarchy implementation. The OER aspect is for people who want to understand how MT works, how it is useful for security systems, and how to apply it themselves. \n\nThis README will introduce metamorphic testing if you have never heard of it before. However, if you do know the basics of Metamorphic Testing, are familiar with what MRs are, and just want to see how the framework works, you can jump straight to the [Framework Guide](oer/framework-guide/).\n\n## Who is this for?\nThis OER is written for two audiences:\n- **Computer Science students that are new to metamorphic testing**: the tutorial section will explain everything from scratch, with worked examples before introducing any code\n- **Students who already have some basic knowledge in MT**: can skip ahead to the MR category breakdowns and the framework walkthrough (go further into the specific design decisions made and why). \n\nNo prior knowledge of Spring Security is needed; however, some basic understanding of Java and access control concepts will help. \n\n## Repository Structure\n```\nrbac-testing/\n├── oer/\n│   ├── README.md                   ← you are here\n│   ├── tutorial/\n│   │   ├── 01-What-Is-MT.md        ← the basics of metamorphic testing\n│   │   ├── 02-What-Is-RBAC.md      ← the basics of Role-Based Access Control\n│   │   ├── 03-MR-categories.md     ← the three MR categories used in this project\n│   │   └── 04-worked-examples.md   ← concrete examples of each MR type\n│   └── framework-guide/\n│       ├── overview.md             ← how the framework is structured\n│       └── running-the-tests.md    ← how to run everything and read the output\n└── target/\n    └── mr-results/                 ← generated after running mvn test\n        ├── jqwik_results_*.csv     ← raw jqwik property test recordings\n        ├── raw_results_*.csv       ← full per-MR execution data\n        └── summary_*.csv           ← aggregated results across all 35 MRs\n```\n\n> **Note:** The `target/` directory is excluded from version control by default.  \n> To reproduce the results, clone the repo and run `mvn test`. Output CSVs will  \n> be generated automatically in `target/mr-results/`.\n\n## How to Run The Tests \nIf you only want to see the test results, run these commands:\n```bash\ngit clone <repo-url>\ncd rbac-testing\nmvn test\n```\nResults will be written to `target/mr-results/`. There will be two main CSV files: `summary_*.csv` (answers the research questions) a",
+    "readme_source": "full"
+  },
+  {
+    "repo": "scyyx5/Visualization-and-Validation-Tool-for-Credit-Risk-Models",
+    "url": "https://github.com/scyyx5/Visualization-and-Validation-Tool-for-Credit-Risk-Models",
+    "stars": 0,
+    "language": "HTML",
+    "created_at": "2024-10-11T04:15:38Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 50,
+    "sample_technique_files": [
+      "src/visualization/adjustSlope.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# Visualization and Validation Tool for Credit Risk Models If you have any questions, please contact the author at anyaxiao0604@outlook.com. ## Introduction Nowadays, credit risk modelling is widely used in financial institutions. However, no software applications have been developed for loan managers to enhance their understanding and help them utilise the model without statistical analysis background. This project aims to bridge the gap by implementing an application to help loan managers analyse the risk of default and predict potential losses, specifically focusing on default rates and the",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "seal-io/terraform-provider-byteset",
+    "url": "https://github.com/seal-io/terraform-provider-byteset",
+    "stars": 0,
+    "language": "Go",
+    "created_at": "2023-06-07T10:05:06Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 5,
+    "code_files": 415,
+    "sample_technique_files": [
+      "staging/cockroach/pkg/col/coldata/batch.go",
+      "staging/cockroach/pkg/util/constants.go",
+      "staging/cockroach/pkg/util/constants_metamorphic_disable.go",
+      "staging/cockroach/pkg/util/constants_metamorphic_enable.go",
+      "staging/cockroach/pkg/util/json/config.go"
+    ],
+    "description": "A Terraform provider to seed your database for Development/Testing.",
+    "topics": [
+      "database-seeding",
+      "terraform",
+      "terraform-provider"
+    ],
+    "readme": "# ByteSet for Terraform [![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/seal-io/terraform-provider-byteset?label=release)](https://github.com/seal-io/terraform-provider-byteset/releases) [![license](https://img.shields.io/github/license/seal-io/terraform-provider-byteset.svg)]() The ByteSet provider for Terraform is a plugin that seed your database for Development/Testing. This provider is maintained by [Seal](https://github.com/seal-io). ## Requirements - [Terraform](https://www.terraform.io/downloads.html) 1.4.x - [Go](https://golang.org/doc/install) 1.19.x (to build the p",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "seanchatmangpt/wasm4pm",
+    "url": "https://github.com/seanchatmangpt/wasm4pm",
+    "stars": 1,
+    "language": "TypeScript",
+    "created_at": "2026-04-04T05:07:31Z",
+    "technique_test_files": 46,
+    "technique_nontest_files": 8,
+    "code_files": 3505,
+    "sample_technique_files": [
+      "apps/wasm4pm/src/__tests__/adversarial-metamorphic-ef.test.ts",
+      "apps/wasm4pm/src/__tests__/autoprocess-e2e.test.ts",
+      "apps/wasm4pm/src/__tests__/powl-error-contracts.test.ts",
+      "apps/wasm4pm/src/__tests__/prolog8-cli.test.ts",
+      "apps/wasm4pm/src/__tests__/registry-export.test.ts"
+    ],
+    "description": "WASM4PM: Rust for Process Mining.",
+    "topics": [],
+    "readme": "<!-- wasm4pm-doc-status: active; reviewed: 2026-08-02; original: README.md; source-sha256: 1a81394bdf1c4e82b8cf7e6b5cc9850ccbb506cb03541f1769dba2d0be48c34d; reason: path-local authority or entrypoint -->\n\n# wasm4pm\n\nwasm4pm is an evidence-oriented process-mining platform implemented in Rust, WebAssembly, and TypeScript. The public `wpm` CLI discovers and validates process models, operates on XES and object-centric event data, executes POWL routes, and manufactures replayable evidence.\n\nThe platform law is simple:\n\n> Claims may not exceed the exact subject, runtime, authority, receipt, and replay evidence that supports them.\n\n## Current standing\n\nThe Vision 2030 implementation graph is present, but global standing is `PARTIAL_ALIVE` until the complete workspace, real Node-target WASM session, exact release certificate, signed AAT-Live bundle, and required exact-head CI all execute and replay against one immutable commit.\n\nUse the executable capability report instead of a prose status claim:\n\n```bash\nwpm system doctor capabilities --format json\n```\n\n## Repository setup\n\nThe public TypeScript CLI lives in `apps/wasm4pm`. The Rust CLI under `crates/wasm4pm-cli` is a smaller development surface and may install another binary named `wpm`.\n\n```bash\ncorepack enable\npnpm install --frozen-lockfile\npnpm run build:wasm\npnpm run build:cli\npnpm --filter @wasm4pm/cli exec wpm --help\n```\n\nBuild commands and package names can change. Treat the current manifests, `Justfile`, and `Makefile` as command authority.\n\n## Core workflows\n\n### Diagnose and repair\n\n```bash\nwpm system doctor capabilities --format json\nwpm system doctor fix --dry-run\nwpm system doctor fix --only ensure-results-directory --yes\n```\n\nDoctor diagnosis is inspection-only. Repairs are selected from a structured registry, require explicit authority, write a pending receipt before DO, and write an outcome receipt afterward.\n\n### Discover from an event log\n\n```bash\nwpm run data/small-example.xes -a dfg\nwpm algorithms\n```\n\nDo not infer the number or standing of algorithms from this README. Query the current CLI and inspect the versioned reachability and behavior evidence for release claims.\n\n### Execute and replay an object-centric session\n\n```bash\nwpm evidence session data/example-ocel-v2.json --object-type Order\n\nwpm evidence session data/example-ocel-v2.json \\\n  --object-type Order \\\n  --mode replay \\\n  --session .wasm4pm/sessions/<run-id>.json\n```\n\nThis route requires the exact OCEL-v2 WASM normalization and flattening exports, compares them with the independent TypeScript reader, discovers and validates a POWL model, executes it in WASM, and hashes every transition. OCEL-v1 and OCEL NDJSON remain typed unsupported on this composition root until equivalent WASM routes exist.\n\n### Manufacture signed AAT-Live standing\n\n```bash\nwpm evidence live \\\n  --trace trace.ndjson \\\n  --session session.json \\\n  --weaver weaver-admission.json \\\n  --proof mcp-plus-proof.json\n```\n\nAn `Accepted` passport requires or",
+    "readme_source": "full"
+  },
+  {
+    "repo": "SecTechTool/Chronos",
+    "url": "https://github.com/SecTechTool/Chronos",
+    "stars": 4,
+    "language": "C",
+    "created_at": "2023-04-07T03:21:54Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 2,
+    "code_files": 28302,
+    "sample_technique_files": [
+      "workload/mysql-cluster/sqlancer/docs/PAPERS.md",
+      "workload/mysql-cluster/sqlancer/src/sqlancer/cockroachdb/ast/CockroachDBAggregate.java",
+      "workload/mysql-cluster/sqlancer/src/sqlancer/cockroachdb/oracle/tlp/CockroachDBTLPAggregateOracle.java"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# Chronos: An Automatical Testing Framework for Finding Timeout Bugs in Distributed Systems by Self-Adaptive Delay Model. Delays are inevitable in complex distributed environments. Timeout mechanisms are commonly used to handle unexpected failures in distributed systems. However, incorrect timeout handling or implementation errors in timeout mechanisms can lead to system hang-ups or crashes. Such timeout bugs may be crucial and pose a significant threat to the availability and security of distributed systems. In this work, we introduce Chronos, a general testing framework for automatically det",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "SEED-VT/FLTest",
+    "url": "https://github.com/SEED-VT/FLTest",
+    "stars": 3,
+    "language": "Python",
+    "created_at": "2026-02-13T15:20:27Z",
+    "technique_test_files": 4,
+    "technique_nontest_files": 5,
+    "code_files": 85,
+    "sample_technique_files": [
+      "CHANGELOG.md",
+      "README.md",
+      "USAGE.md",
+      "docs/cli.md",
+      "docs/concepts.md"
+    ],
+    "description": "A testbed for evaluating the privacy and robustness of Privacy-Preserving Federated Learning (PPFL).",
+    "topics": [],
+    "readme": "<p align=\"center\">\n  <picture>\n    <source media=\"(prefers-color-scheme: dark)\"\n            srcset=\"docs/assets/png/fltest-lockup-on-maroon-1600.png\">\n    <img src=\"docs/assets/png/fltest-lockup-1600.png\" alt=\"FLTest\" width=\"430\">\n  </picture>\n</p>\n\n**A testbed for evaluating the privacy and robustness of Privacy-Preserving Federated\nLearning (PPFL).** FLTest gives *software-defined control and visibility* into FL testing.\nOne YAML config runs the same experiment across several FL frameworks, injects attacks and\ndefenses as composable hooks, and applies differential testing, metamorphic testing, and a\npitfall checker.\n\nFLTest is the **NSF PDaSP (Track 3) FLTEST project** — *A Testbed for Enhancing Privacy and\nRobustness of Federated Learning Systems* — supported by the U.S. National Science Foundation\n(**Award #2452817-19**).\n\n<p align=\"center\">\n  <img src=\"docs/assets/logos/nsf.png\"   alt=\"U.S. National Science Foundation\"        height=\"64\" hspace=\"20\" vspace=\"6\">\n  <img src=\"docs/assets/logos/umn.png\"   alt=\"University of Minnesota\"                 height=\"42\" hspace=\"20\" vspace=\"6\">\n  <img src=\"docs/assets/logos/vt.png\"    alt=\"Virginia Tech\"                           height=\"50\" hspace=\"20\" vspace=\"6\">\n  <img src=\"docs/assets/logos/umass.png\" alt=\"University of Massachusetts Amherst\"     height=\"34\" hspace=\"20\" vspace=\"6\">\n</p>\n\n**Principal Investigators:**\n[Ali Anwar](https://chalianwar.github.io/) (University of Minnesota) ·\n[Muhammad Ali Gulzar](https://people.cs.vt.edu/~gulzar/) (Virginia Tech) ·\n[Fatima Anwar](https://people.umass.edu/fanwar/) (University of Massachusetts Amherst)\n\n## Why\n\nA survey of 50 FL robustness papers found wildly inconsistent setups (MNIST-only, IID-only,\nnaive attacks, no personalized metrics), which inflates privacy/robustness claims. FLTest\nmakes a rigorous setup the default and *checks* for the common pitfalls.\n\n## Highlights\n\n- **One abstraction, many backends.** Every FL framework implements a single\n  `run_simulation()` adapter. Built in: a dependency-light **reference** PyTorch FedAvg\n  oracle, **Flower**, and **NVFlare** (optional extra).\n- **Everything is a hook.** Attacks, defenses, and metric listeners are hook plugins that\n  share one `HookContext`. A plugin written once runs across every backend, and several\n  plugins compose on a single run.\n- **Attacks:** `label_flip`, `sign_flip`, `gaussian`, `backdoor` and `model_replacement`\n  (with attack-success-rate), `dlg` (gradient-inversion privacy attack), and\n  `membership_inference` (loss-threshold privacy attack, scored as AUC each round).\n- **Defenses (PPFL):** `gradient_noise` (DP-style clip+noise), `norm_clip`, robust\n  aggregation `krum` / `trimmed_mean` / `median`, and secure aggregation\n  `secure_aggregation` (float pairwise masking) / `mpc_aggregation` (fixed point in a\n  finite ring, which surfaces quantization, overflow, and dropout errors). `fldetector`\n  names the malicious clients and excludes them, rather than out-voting them each round.",
+    "readme_source": "full"
+  },
+  {
+    "repo": "Sehajk005/Tollgate",
+    "url": "https://github.com/Sehajk005/Tollgate",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-08-23T03:15:50Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 298,
+    "sample_technique_files": [
+      "00-CHANGELOG-v1-to-v2.md",
+      "07-IMPLEMENTATION-PLAN-v2.md",
+      "Decisions.md",
+      "pyproject.toml",
+      "tests/acceptance/test_metamorphic.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# Tollgate **Pre-authorization card-testing defence.** Tollgate scores every checkout attempt *before* the bank authorization call, decides whether to wave it through, add one friction step, or (only with an operator's confirmation) block it, and shows a bank-style risk operator what is happening and why — without ever seeing a card number. **Status: `DEMO READY`** (Day 9 final audit — `QA-AUDIT-DAY-9-2026-09-03.md` §23). Two complete demo rehearsals from a clean `docker compose down -v && docker compose up --build`, the full J6 flow end-to-end, zero P0, zero unresolved P1, no manual backend i",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "Selva-Sridhar/MetaQA-Hallucination-detection-Python-LIbrary",
+    "url": "https://github.com/Selva-Sridhar/MetaQA-Hallucination-detection-Python-LIbrary",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2025-06-26T10:09:31Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 2,
+    "code_files": 15,
+    "sample_technique_files": [
+      "metaqa/__init__.py",
+      "pyproject.toml",
+      "setup.py"
+    ],
+    "description": "",
+    "topics": [],
+    "readme": "# MetaQA-Hallucination-detection-Python-LIbrary",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "semql-io/semql",
+    "url": "https://github.com/semql-io/semql",
+    "stars": 0,
+    "language": "Python",
+    "created_at": "2026-06-07T06:15:19Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 282,
+    "sample_technique_files": [
+      "CHANGELOG.md",
+      "docs/specs/test-plan.md",
+      "packages/semql/tests/test_metamorphic.py"
+    ],
+    "description": "SemQL: semantic data layer with SQL generation, authorisation, and a typed LLM prompt pipeline",
+    "topics": [],
+    "readme": "# SemQL\n\nSemantic Query Layer with SQL generation, authorisation, and a typed\nLLM prompt pipeline.\n\n## What it does\n\nDefine **semantic cubes** — dimensions, measures, filters, and joins\nover your tables. Organize them in a **catalog**. SemQL turns a\ndeclarative `SemanticQuery` into parameterised SQL across Postgres,\nClickHouse, DuckDB, BigQuery, and Snowflake, plus the analytics\nengines Redshift, Trino, and Databricks.\n\n- **SQL generation** — semantic spec → dialect-aware SQL with bound params\n- **Authorisation** — `AuthContext` viewer + cube `required_roles` +\n  registered `ScopeFn`s. The compiler refuses queries that touch a\n  cube the viewer can't see, and injects row-level predicates inside\n  the cube's alias subquery so outer ORs can't bypass them.\n- **Time spine** — `fill_nulls_with` emits one row per bucket in\n  range, COALESCEd, across the five stable backends. SQL Server,\n  MySQL, and Oracle are experimental; gap-filling time spines are\n  not yet implemented on any of them.\n- **Pipeline prompts** — four typed roles (Router / Generator /\n  Presenter / Drilldown) with structured Pydantic outputs. Plug into\n  any LLM client; no vendor lock-in.\n- **MCP server** — auto-generated `query_<cube>()` tools per cube.\n- **Drift check** — `semql-validate-db` probes a live database\n  against a catalog before deploy.\n\n## Install\n\n```sh\npip install semql\npip install semql-auth          # + credential→identity adapters\npip install semql-engine        # + in-process federated executor\npip install semql-erd           # + ER diagrams\npip install semql-introspect    # + catalog bootstrap from a live DB\npip install semql-mcp           # + MCP server\npip install semql-prompt        # + LLM prompt fragments\npip install semql-validate-db   # + drift checker\n```\n\n## Quick start\n\n```python\nfrom semql import (\n    AuthContext, Dialect, Catalog, Cube, Dimension, Measure,\n    ScopePredicate, SemanticQuery, TimeDimension, TimeWindow,\n)\n\norders = Cube(\n    name=\"orders\",\n    dialect=Dialect.POSTGRES,\n    table=\"orders\",\n    alias=\"o\",\n    measures=[Measure(name=\"revenue\", sql=\"{o}.amount\", agg=\"sum\", unit=\"currency\")],\n    dimensions=[\n        Dimension(name=\"region\", sql=\"{o}.region\", type=\"string\"),\n        Dimension(name=\"rep_id\", sql=\"{o}.rep_id\", type=\"string\"),\n    ],\n    time_dimensions=[TimeDimension(name=\"created_at\", sql=\"{o}.created_at\")],\n    scope=\"my_team\",                    # row-level scoping via ScopeFn\n)\n\n\ndef my_team(_cube, viewer):\n    \"\"\"Sales reps see only their team's orders. Admins see all.\"\"\"\n    if \"admin\" in viewer.roles:\n        return None\n    return ScopePredicate(\n        sql=\"{o}.rep_id IN (SELECT id FROM reps WHERE team = {ctx.viewer_team})\",\n        ctx_keys=[\"ctx.viewer_team\"],\n    )\n\n\ncatalog = Catalog([orders], scope_fns={\"my_team\": my_team})\n\nviewer = AuthContext(viewer_id=\"alice@example.com\", roles=[\"sales\"])\ncompiled = catalog.compile(\n    SemanticQuery(\n        measures=[\"orders.revenue\"],\n        time_dimension=TimeWindow(\n   ",
+    "readme_source": "full"
+  },
+  {
+    "repo": "sensei-chat/sensei",
+    "url": "https://github.com/sensei-chat/sensei",
+    "stars": 4,
+    "language": "Python",
+    "created_at": "2025-02-06T08:39:19Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 24,
+    "sample_technique_files": [
+      "README.md",
+      "src/metamorphic/rules.py"
+    ],
+    "description": "User simulator and end-to-end testing framework for chatbots",
+    "topics": [],
+    "readme": "# SENSEI: end-to-end testing for chatbots This repository contains the code of SENSEI: an end-to-end testing framework for chatbots. It is made of two components: a user simulator (file [src/sensei-chat.py](src/sensei-chat.py)) and an engine to check correctness rules on the generated conversations (file [src/sensei-check.py](src/sensei-check.py)). The working scheme of both tools is shown in the next figure, and they are explained [here](#sensei-chat) and [here](#sensei-check). <p align=\"center\"> <img src=\"https://github.com/user-attachments/assets/9d697d6e-c3c3-4c4f-a7a7-2a4064da1221\" width=",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "SepShr/MLCSHE",
+    "url": "https://github.com/SepShr/MLCSHE",
+    "stars": 3,
+    "language": "Jupyter Notebook",
+    "created_at": "2021-08-04T21:13:08Z",
+    "technique_test_files": 1,
+    "technique_nontest_files": 0,
+    "code_files": 72,
+    "sample_technique_files": [
+      "tests/test_fitness_function.py"
+    ],
+    "description": "This repo houses the ML-Component Systemic Hazard Envelope project, or MILSCHE (pronounced /'mɪlʃ/).",
+    "topics": [],
+    "readme": "# MLCSHE: Machine Learning Component Systemic Hazard Envelope ML Component Systemic Hazard Envelope project, or *MLCSHE* (pronounced /'mɪlʃ/), is a cooperative coevolutionary search algorithm that automatically identifies the *hazard boundary* of a ML component in an ML-enabled Autonomous System (MLAS), given a system safety requirement. This work is done at [Nanda Lab](https://www.nanda-lab.ca/), EECS Department, University of Ottawa. ## Publications __Identifying the Hazard Boundary of ML-enabled Autonomous Systems__ by Sepehr Sharifi, Donghwan Shin, Lionel C. Briand, and Nathan Aschbacher,",
+    "readme_source": "excerpt"
+  },
+  {
+    "repo": "sercatuta-lei/sercatuta-lei.github.io",
+    "url": "https://github.com/sercatuta-lei/sercatuta-lei.github.io",
+    "stars": 0,
+    "language": "TypeScript",
+    "created_at": "2025-08-24T21:18:06Z",
+    "technique_test_files": 0,
+    "technique_nontest_files": 1,
+    "code_files": 46,
+    "sample_technique_files": [
+      "app/publications/data.ts"
+    ],
+    "description": "Dr. Jeff Lei's Lab Website",
+    "topics": [],
+    "readme": "This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app). ## Getting Started First, run the development server: ```bash npm run dev # or yarn dev # or pnpm dev # or bun dev ``` Open [http://localhost:3000](http://localhost:3000) with your browser to see the result. You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file. This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load",
+    "readme_source": "excerpt"
+  }
+]
