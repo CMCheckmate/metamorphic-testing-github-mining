@@ -116,9 +116,31 @@ def _s1(ctx: Ctx, out: list[str]) -> None:
     for b in ctx.sec["s1"].get("unique_gt_raw", []):
         ctx.note("S1", "caveat", f"{b['surface'].upper()} {b['keyword']}: {b['api_hit_count']:,} raw < "
                  f"{b['new_unique']:,} collected — GitHub's `total_count` is an estimate; raw hits are approximate.")
-    ctx.note("S1", "caveat", "Search truncation: GitHub returns ≤1,000 results per query; queries are split by date/"
-             "size until each piece has <900 results, but an unsplittable piece is truncated to 1,000. The original "
-             "run only printed this to the console, so it cannot be checked; `search.py` now logs 'TRUNCATED SLICE'.")
+    _truncation_note(ctx)
+
+
+def _truncation_note(ctx: Ctx) -> None:
+    """Capped search queries (search.log) and whether --fill-capped re-collected them."""
+    from core_helpers.fill_capped import capped_queries
+    capped = capped_queries(ctx.slug)
+    fill = load_json(ctx.dirs["search"] / "capped_fill.json", {}) or {}
+    if not capped:
+        ctx.note("S1", "info", "Search truncation: no query of a kept search keyword hit GitHub's 1,000-result cap.")
+        return
+    missing = sum(c["total_before"] - c["retrieved_before"] for c in capped)
+    desc = "; ".join(f"{c['surface'].upper()} {c['keyword']} {c['start']}..{c['end']} "
+                     f"({c['retrieved_before']:,} of {c['total_before']:,})" for c in capped)
+    done = [v for v in fill.values() if v.get("done")]
+    if len(done) >= len(capped):
+        left = sum(v.get("still_truncated", 0) for v in done)
+        ctx.note("S1", "info", f"Search truncation: {len(capped)} queries hit GitHub's 1,000-result cap ({desc}). "
+                 f"They were re-collected in finer time slices (`--fill-capped`): {sum(v['new_items'] for v in done):,} "
+                 f"items added" + (f"; about {left:,} results still beyond the cap." if left else "; nothing is missing now."))
+    else:
+        ctx.note("S1", "caveat", f"Search truncation: {len(capped)} queries hit GitHub's 1,000-result cap ({desc}); at most "
+                 f"{missing:,} results (GitHub's estimate, overlapping between keywords) were not collected; every other "
+                 f"query was collected completely. `non_code_specialised_analysis.py -t {_short(ctx)} --fill-capped` "
+                 f"re-collects them if needed.")
 
 
 def _s2(ctx: Ctx, out: list[str]) -> None:

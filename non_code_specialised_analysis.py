@@ -7,6 +7,8 @@ Run the flags in the order listed (several can be given at once; they run in thi
   --prepare            PBT / fuzz only, local (no API): keep explicit-phrase search results,
                        check every non-code title/body for a technique phrase, draw the ±3% / 95%
                        random samples (CODE scan + A6/A7) -> results/<slug>/filtered/, analysis/*_sample.json
+  --fill-capped        MT only: re-collects the few search queries that hit GitHub's 1,000-result cap
+                       (finer time slices) and merges the new items into search/*.json. Run it first.
   --metadata           repository metadata (language, creation date, size, description):
                        MT -> every repository found by the search; PBT / fuzz -> both samples
   --readmes            READMEs (A6/A7): MT -> verified non-CODE repositories; PBT / fuzz -> A6/A7 sample
@@ -29,6 +31,7 @@ Commit sampling (search API, ~24 requests/min on one token):
   options: --exhaustive (download everything: exact), --years 2024 2025 2026, --max-hours 3
 
 Examples:
+  python non_code_specialised_analysis.py -t mt --fill-capped --metadata
   python non_code_specialised_analysis.py -t mt --metadata --readmes --lang-baseline --commit-coverage
   python non_code_specialised_analysis.py -t pbt --prepare
   python non_code_specialised_analysis.py -t pbt --metadata --readmes --lang-baseline
@@ -49,6 +52,7 @@ def main() -> None:
                                 formatter_class=argparse.RawDescriptionHelpFormatter, epilog=__doc__)
     p.add_argument("--technique", "-t", required=True, help="mt / pbt / fuzz (or full slug)")
     p.add_argument("--prepare", action="store_true", help="PBT/fuzz: filter search results and draw the samples (local).")
+    p.add_argument("--fill-capped", action="store_true", help="MT: re-collect search queries that hit the 1,000-result cap.")
     p.add_argument("--metadata", action="store_true", help="Repository metadata (MT: all repos; PBT/fuzz: samples).")
     p.add_argument("--readmes", action="store_true", help="READMEs for A6/A7.")
     p.add_argument("--lang-baseline", action="store_true", help="GitHub-wide language counts (A5).")
@@ -61,7 +65,7 @@ def main() -> None:
     p.add_argument("--max-hours", type=float, default=0, help="commit sampling: stop after about this many hours.")
     p.add_argument("--pilot", type=int, default=6, help="commit sampling estimate: windows per year in the pilot.")
     a = p.parse_args()
-    if not (a.prepare or a.metadata or a.readmes or a.lang_baseline or a.commit_coverage or a.commit_sampling):
+    if not (a.fill_capped or a.prepare or a.metadata or a.readmes or a.lang_baseline or a.commit_coverage or a.commit_sampling):
         p.error("choose at least one step (see --help)")
 
     slug = resolve_technique(a.technique)
@@ -69,14 +73,19 @@ def main() -> None:
     dirs, logger = technique_dirs(slug), setup_logging(slug, "non_code_specialised_analysis")
     if mt and (a.prepare or a.commit_sampling):
         p.error("--prepare and --commit-sampling are for PBT / fuzz (MT's search was not capped and uses all repos).")
+    if not mt and a.fill_capped:
+        p.error("--fill-capped is for MT; PBT / fuzz are capped far more widely (see --commit-sampling and the samples).")
     if not mt and a.commit_coverage:
         p.error("--commit-coverage is checked once, on MT.")
-    needs_api = a.metadata or a.readmes or a.lang_baseline or a.commit_coverage or (a.commit_sampling not in (None, "status"))
+    needs_api = a.fill_capped or a.metadata or a.readmes or a.lang_baseline or a.commit_coverage or (a.commit_sampling not in (None, "status"))
     if needs_api and not cfg.GITHUB_TOKEN:
         p.error("GITHUB_TOKEN is not set (.env).")
 
     from core_helpers import github_fetch as gf
     from core_helpers import technique_data as td
+    if a.fill_capped:
+        from core_helpers import fill_capped
+        fill_capped.run(slug, logger)
     if a.prepare:
         td.prepare(slug)
     if a.metadata:

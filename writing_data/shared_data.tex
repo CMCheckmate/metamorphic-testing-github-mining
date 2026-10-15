@@ -17,7 +17,7 @@
 \newcommand{\note}[1]{\textcolor{black!60}{\small #1}}
 
 \title{Mining GitHub for Metamorphic Testing:\\ Shared Data for the Final Report}
-\date{13 October 2026}
+\date{15 October 2026}
 \author{}
 \begin{document}
 \maketitle
@@ -45,12 +45,12 @@ Surface & Search hits & Verified results & Distinct repositories \\
 \midrule
 Code & 49,948 & 28,268 & 5,879 \\
 Repositories & 848 & 230 & 230 \\
-Commits & 24,754 & 4,157 & 1,155 \\
-Pull requests & 8,442 & 1,165 & 503 \\
+Commits & 24,754 & 4,160 & 1,156 \\
+Pull requests & 8,442 & 1,169 & 507 \\
 Issues & 5,213 & 1,175 & 453 \\
 Discussions & 78 & 16 & 8 \\
 \midrule
-\textbf{All surfaces} &  &  & \textbf{7,055} \\
+\textbf{All surfaces} &  &  & \textbf{7,060} \\
 \bottomrule
 \end{tabular}
 \par\smallskip\parbox{0.94\linewidth}{\footnotesize Search hits: GitHub's reported \texttt{total\_count} summed over the search keywords (before de-duplication). Verified results: distinct items whose text (non-code) or repository snapshot (code) contains an MT phrase. A repository found on several surfaces is counted once in the total.}
@@ -60,7 +60,7 @@ Discussions & 78 & 16 & 8 \\
 
 \paragraph{Keywords without results (S4).} All 18 search keywords returned results on the code and commits surfaces. Interestingly, some keyword forms are never seen elsewhere: on the repositories surface \texttt{metamorphic groups}, \texttt{metamorphic oracle}; on the pull requests surface \texttt{metamorphic\_relation}, \texttt{metamorphic\_tests}; on the issues surface \texttt{metamorphic\_relation}, \texttt{metamorphic\_relations}; on the discussions surface \texttt{metamorphic relation}, \texttt{metamorphic relationship}, \texttt{metamorphic relationships}, \texttt{metamorphic group}, \texttt{metamorphic groups}, \texttt{MetamorphicTest}, \texttt{MetamorphicRelation}, \texttt{metamorphic\_relation}, \texttt{metamorphic\_relations}, \texttt{metamorphic\_test}, \texttt{metamorphic\_tests}. The identifier forms (e.g.\ \texttt{metamorphic\_relation}) are essentially code-only.
 
-\paragraph{Technique keywords (A1).} In the code of the 5,879 repositories, the most frequent forms are \emph{metamorphic test(ing)} (46,334 lines in 4,370 repositories), \emph{metamorphic relation} (28,358 lines in 2,346 repositories), \emph{metamorphic\_test* (snake\_case)} (17,599 lines in 372 repositories). In the 6,743 verified issues, pull requests, commits, discussions and repository descriptions, the leading forms are \emph{metamorphic test(ing)} (4,390 items), \emph{metamorphic relation} (1,679 items), \emph{metamorphic property} (650 items).
+\paragraph{Technique keywords (A1).} In the code of the 5,879 repositories, the most frequent forms are \emph{metamorphic test(ing)} (46,334 lines in 4,370 repositories), \emph{metamorphic relation} (28,358 lines in 2,346 repositories), \emph{metamorphic\_test* (snake\_case)} (17,599 lines in 372 repositories). In the 6,750 verified issues, pull requests, commits, discussions and repository descriptions, the leading forms are \emph{metamorphic test(ing)} (4,397 items), \emph{metamorphic relation} (1,679 items), \emph{metamorphic property} (650 items).
 
 \section{RQ2 -- Usage and classification}
 
@@ -118,26 +118,26 @@ R & 29 & 0.5\% & 0.21\% & \textbf{2.51} \\
 \begin{table}[htbp]
 \centering
 \small
-\caption{Application domain of the 1,943 repositories with a verified non-code MT result (A6).}
+\caption{Application domain of the 1,948 repositories with a verified non-code MT result (A6).}
 \label{tab:mt-a6}
 \begin{tabular}{@{}lrrrr@{}}
 \toprule
 Domain & \shortstack{Description\\+ topics} & \% & \shortstack{+ README} & \% \\
 \midrule
-Web / APIs & 82 & 4.2\% & 355 & 18.3\% \\
-Machine learning & 226 & 11.6\% & 348 & 17.9\% \\
+Web / APIs & 83 & 4.3\% & 357 & 18.3\% \\
+Machine learning & 227 & 11.7\% & 349 & 17.9\% \\
 Databases & 92 & 4.7\% & 331 & 17.0\% \\
-Compilers / programming languages & 100 & 5.1\% & 178 & 9.2\% \\
-Security / cryptography & 68 & 3.5\% & 168 & 8.6\% \\
+Compilers / programming languages & 100 & 5.1\% & 178 & 9.1\% \\
+Security / cryptography & 69 & 3.5\% & 170 & 8.7\% \\
+Scientific computing & 84 & 4.3\% & 131 & 6.7\% \\
 Operating systems & 38 & 2.0\% & 131 & 6.7\% \\
-Scientific computing & 83 & 4.3\% & 130 & 6.7\% \\
-Finance & 64 & 3.3\% & 107 & 5.5\% \\
+Finance & 65 & 3.3\% & 108 & 5.5\% \\
 Autonomous systems / robotics & 46 & 2.4\% & 61 & 3.1\% \\
-Distributed systems & 36 & 1.9\% & 56 & 2.9\% \\
+Distributed systems & 36 & 1.8\% & 56 & 2.9\% \\
 Embedded / IoT & 24 & 1.2\% & 32 & 1.6\% \\
 Bioinformatics & 13 & 0.7\% & 16 & 0.8\% \\
 \midrule
-\emph{No domain matched} & 1,314 & 67.6\% & 867 & 44.6\% \\
+\emph{No domain matched} & 1,317 & 67.6\% & 869 & 44.6\% \\
 \bottomrule
 \end{tabular}
 \par\smallskip\parbox{0.94\linewidth}{\footnotesize Keyword matching against an ACM CCS-based domain vocabulary (whole words). Description + topics: any domain keyword; + README: the README adds a domain only if it contains at least three different keywords of that domain. A repository can have several domains. Heuristic; ten random repositories per domain are listed for manual checking.}
@@ -148,7 +148,7 @@ Bioinformatics & 13 & 0.7\% & 16 & 0.8\% \\
 \begin{subfigure}{\linewidth}\centering\includegraphics[width=0.92\linewidth]{figures/mt_a7_wordcloud_domain.png}\caption{Domain vocabulary only}\end{subfigure}
 \par\medskip
 \begin{subfigure}{\linewidth}\centering\includegraphics[width=0.92\linewidth]{figures/mt_a7_wordcloud_all.png}\caption{All words (stopwords removed)}\end{subfigure}
-\caption{Word clouds of the README and project description of the 1,943 repositories with a verified non-code MT result (A7; 1,804 with a README). Each word counts once per repository; size $\propto \sqrt{\text{repositories}}$.}
+\caption{Word clouds of the README and project description of the 1,948 repositories with a verified non-code MT result (A7; 1,809 with a README). Each word counts once per repository; size $\propto \sqrt{\text{repositories}}$.}
 \label{fig:mt-a7}
 \end{figure}
 
@@ -165,7 +165,7 @@ Commits are taken from GitHub's commit search (default branches; the whole histo
 \label{fig:mt-t8}
 \end{figure}
 
-\paragraph{The 2026 surge.} 936 repositories made their first MT commit in 2026 (to the end of August), against 81 in 2025 and about 20 per year before that. They belong to 848 different owners, 85\% were created in 2026, and 68\% have a single technique commit. 48\% of these first commits, and 59\% of all 3,178 technique commits in 2026, carry an AI-agent authorship line (a lower bound, since several agents leave no trace). The rise is gradual from late 2025 rather than a single burst, and no search artefact explains it (complete search, no concentration in a few accounts, no copied commit messages).
+\paragraph{The 2026 surge.} 937 repositories made their first MT commit in 2026 (to the end of August), against 81 in 2025 and about 20 per year before that. They belong to 849 different owners, 85\% were created in 2026, and 68\% have a single technique commit. 48\% of these first commits, and 59\% of all 3,181 technique commits in 2026, carry an AI-agent authorship line (a lower bound, since several agents leave no trace). The rise is gradual from late 2025 rather than a single burst, and no search artefact explains it (complete search, no concentration in a few accounts, no copied commit messages).
 
 \begin{figure}[htbp]
 \centering
@@ -177,7 +177,7 @@ Commits are taken from GitHub's commit search (default branches; the whole histo
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\linewidth]{figures/mt_t8_creation_year.pdf}
-\caption{Creation year of the 1,155 repositories with at least one MT commit. * 2026: January--August.}
+\caption{Creation year of the 1,156 repositories with at least one MT commit. * 2026: January--August.}
 \label{fig:mt-creation}
 \end{figure}
 
@@ -198,7 +198,7 @@ Year & \shortstack{First-commit\\repos} & \shortstack{...agent-\\marked} & \shor
 2023 & 20 & 0 & 136 & 0 & 0\% & 30 \\
 2024 & 21 & 0 & 95 & 0 & 0\% & 29 \\
 2025 & 81 & 14 & 243 & 39 & 16\% & 85 \\
-2026 & 936 & 451 & 3,178 & 1,887 & 59\% & 944 \\
+2026 & 937 & 452 & 3,181 & 1,888 & 59\% & 945 \\
 \bottomrule
 \end{tabular}
 \par\smallskip\parbox{0.94\linewidth}{\footnotesize 2026: January--August. Agent-marked: commit message carries an AI-agent authorship line (lower bound).}
@@ -219,8 +219,8 @@ Surface & MT & PBT & Fuzz \\
 \midrule
 Code & 5,879 & $\approx$72,794 $\pm$ 990 & $\approx$233,928 $\pm$ 4,121 \\
 Repositories & 230 & 1,205 & 7,050 \\
-Commits & 1,155 & 6,710 & 13,355 \\
-Pull requests & 503 & 6,555 & 29,251 \\
+Commits & 1,156 & 6,710 & 13,355 \\
+Pull requests & 507 & 6,555 & 29,251 \\
 Issues & 453 & 4,373 & 12,519 \\
 Discussions & 8 & 140 & 561 \\
 \midrule
@@ -239,7 +239,7 @@ Code-surface repositories found by search & 6,117 & 76,846 & 255,740 \\
 
 \subsection{Project descriptions (A7)}
 
-README and project description of repositories with a verified non-code result: all 1,943 for MT, and the random samples of 1,073 (PBT) and 1,126 (fuzz) repositories. Each word counts once per repository. The domain vocabulary (162 words) is the same for all three techniques, so its word clouds and shares are directly comparable (Table~\ref{tab:cmp-a7}, Figures~\ref{fig:cmp-a7-domain} and~\ref{fig:cmp-a7-all}).
+README and project description of repositories with a verified non-code result: all 1,948 for MT, and the random samples of 1,073 (PBT) and 1,126 (fuzz) repositories. Each word counts once per repository. The domain vocabulary (162 words) is the same for all three techniques, so its word clouds and shares are directly comparable (Table~\ref{tab:cmp-a7}, Figures~\ref{fig:cmp-a7-domain} and~\ref{fig:cmp-a7-all}).
 
 \begin{table}[htbp]
 \centering
@@ -272,7 +272,7 @@ README and project description of repositories with a verified non-code result: 
 
 \begin{figure}[p]
 \centering
-\begin{subfigure}{\linewidth}\centering\includegraphics[width=0.86\linewidth]{figures/cmp_a7_whitelist_freq_mt.png}\caption{Metamorphic testing (1,943 repositories)}\end{subfigure}
+\begin{subfigure}{\linewidth}\centering\includegraphics[width=0.86\linewidth]{figures/cmp_a7_whitelist_freq_mt.png}\caption{Metamorphic testing (1,948 repositories)}\end{subfigure}
 \par\medskip
 \begin{subfigure}{\linewidth}\centering\includegraphics[width=0.86\linewidth]{figures/cmp_a7_whitelist_freq_pbt.png}\caption{Property-based testing (1,073 repositories)}\end{subfigure}
 \par\medskip
@@ -283,7 +283,7 @@ README and project description of repositories with a verified non-code result: 
 
 \begin{figure}[p]
 \centering
-\begin{subfigure}{\linewidth}\centering\includegraphics[width=0.86\linewidth]{figures/cmp_a7_freq_mt.png}\caption{Metamorphic testing (1,943 repositories)}\end{subfigure}
+\begin{subfigure}{\linewidth}\centering\includegraphics[width=0.86\linewidth]{figures/cmp_a7_freq_mt.png}\caption{Metamorphic testing (1,948 repositories)}\end{subfigure}
 \par\medskip
 \begin{subfigure}{\linewidth}\centering\includegraphics[width=0.86\linewidth]{figures/cmp_a7_freq_pbt.png}\caption{Property-based testing (1,073 repositories)}\end{subfigure}
 \par\medskip
@@ -315,7 +315,7 @@ Year & MT & PBT & Fuzz & MT & PBT & Fuzz \\
 2023 & 20 & 469 & 3,062 $\pm$ 565 & 0\% & 0\% & 0\% $\pm$ 0 \\
 2024 & 21 & 529 & 3,500 $\pm$ 286 & 0\% & 0\% & 0\% $\pm$ 0 \\
 2025 & 81 & 3,796 & 7,642 $\pm$ 1,323 & 16\% & 23\% & 5\% $\pm$ 1 \\
-2026 & 936 & 12,479 & 31,180 $\pm$ 2,471 & 59\% & 31\% & 27\% $\pm$ 2 \\
+2026 & 937 & 12,479 & 31,180 $\pm$ 2,471 & 59\% & 31\% & 27\% $\pm$ 2 \\
 \bottomrule
 \end{tabular}
 \par\smallskip\parbox{0.94\linewidth}{\footnotesize 2026: January--August. PBT: exact recount of the capped commit-search ranges. Fuzz: $\pm$ = 95\% CI of the random-window estimate; $^{\dagger}$ as collected, a lower bound for fuzz (its commit search was capped in every year).}
