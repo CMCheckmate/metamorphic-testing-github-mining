@@ -19,7 +19,19 @@ LABELS = ["actual_usage", "framework_library", "research_artifact", "other_usage
 
 
 def load(name):
-    return {int(r["id"]): r for r in csv.DictReader(open(HERE / name, encoding="utf-8"))}
+    raw = (HERE / name).read_bytes()
+    try:
+        text = raw.decode("utf-8-sig")
+    except UnicodeDecodeError:          # sheets re-saved by Excel on Windows
+        text = raw.decode("cp1252")
+    rows = {int(r["id"]): r for r in csv.DictReader(text.splitlines(keepends=True))}
+    flags = LABELS + ["not_mt_false_positive"]
+    for r in rows.values():             # a blank flag means 0 once the row has any label set
+        if any(str(r.get(c, "")).strip() for c in flags):
+            for c in flags:
+                if not str(r.get(c, "")).strip():
+                    r[c] = "0"
+    return rows
 
 
 def yes(v):
