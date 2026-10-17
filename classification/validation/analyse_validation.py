@@ -65,12 +65,17 @@ kq, mrg, key = load("rater_KQ.csv"), load("rater_MRG.csv"), load("sample_key.csv
 cons = load("consensus.csv") if (HERE / "consensus.csv").exists() else None
 ids = sorted(key)
 
-print("Inter-rater agreement (before reconciliation), n =", len(ids))
-for lab in LABELS:
-    po, k = kappa([yes(kq[i][lab]) for i in ids], [yes(mrg[i][lab]) for i in ids])
-    print(f"  {lab:18s} agreement {po:6.1%}  kappa {k:5.2f}")
-po, k = kappa([yes(kq[i]["not_mt_false_positive"]) for i in ids], [yes(mrg[i]["not_mt_false_positive"]) for i in ids])
-print(f"  {'not_mt (false pos.)':18s} agreement {po:6.1%}  kappa {k:5.2f}")
+# Inter-rater section: skip if KQ sheet is unfilled (single-rater mode)
+_kq_filled = all(str(kq[i]["actual_usage"]).strip() in {"0","1"} for i in ids)
+if _kq_filled:
+    print("Inter-rater agreement (before reconciliation), n =", len(ids))
+    for lab in LABELS:
+        po, k = kappa([yes(kq[i][lab]) for i in ids], [yes(mrg[i][lab]) for i in ids])
+        print(f"  {lab:18s} agreement {po:6.1%}  kappa {k:5.2f}")
+    po, k = kappa([yes(kq[i]["not_mt_false_positive"]) for i in ids], [yes(mrg[i]["not_mt_false_positive"]) for i in ids])
+    print(f"  {'not_mt (false pos.)':18s} agreement {po:6.1%}  kappa {k:5.2f}")
+else:
+    print("Inter-rater agreement: skipped (rater_KQ.csv not yet filled — single-rater mode)")
 
 if cons is None:
     raise SystemExit("\nconsensus.csv not found: reconcile the two sheets first.")

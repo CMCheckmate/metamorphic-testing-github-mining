@@ -22,7 +22,7 @@ This is an example of a Gotten program with two metamorphic relations:Metamorphi
 9,Chris0Jeky/collaborative-hill-lab,https://github.com/Chris0Jeky/collaborative-hill-lab,1,1,AGENTS.md|docs/FOUNDATION_REVIEW.md|docs/research/LEGACY_AUDIT.md|docs/research/METHODOLOGY.md|docs/research/_discovery/architecture-stress.md,0,0,0,1,0,0,README/tests: unit/property/metamorphic/integration suites,medium,5,17/10/2026
 10,svenreyes/portfolio,https://github.com/svenreyes/portfolio,0,1,src/components/sections/WorkAccordion.tsx,0,0,0,0,1,indexed,"docs/  { 
     id: 'blockchain', 
-    company: 'Blockchain Research — ECU', 
+    company: 'Blockchain Research Â— ECU', 
     role: 'Undergraduate Research',
     description: 'Researched smart contract reliability through metamorphic testing, evaluating how behavioral properties change across transformations in blockchain systems.',
     color: '#D4AF37',
@@ -110,7 +110,7 @@ I = original image
 ? = brightness factor (tool using mt to test for emotion recognition. )",high,5,17/10/2026
 28,greenpioneersolutions/voicestead,https://github.com/greenpioneersolutions/voicestead,1,0,tests/TESTING.md|tests/run_eval.py,1,0,0,0,0,0,"code/Failing deterministic checks named in must_pass are promoted to hard failures;
     the case's declared metamorphic property is enforced here too."""""" (metamorphic properties identified but not implementing mt)",high,5,17/10/2026
-29,ManuelBehrendt/Mera.jl,https://github.com/ManuelBehrendt/Mera.jl,1,0,test/75_mask_equivalence_tests.jl|test/README.md,0,1,0,0,0,0,"README/Metamorphic properties — no known answer needed, only that two routes to the same quantity agree (e.g. getvar(q; mask=m) == getvar(q)[m], see 75_mask_equivalence_tests.jl). (Appears to implement equivalence mt tests)",medium,5,17/10/2026
+29,ManuelBehrendt/Mera.jl,https://github.com/ManuelBehrendt/Mera.jl,1,0,test/75_mask_equivalence_tests.jl|test/README.md,0,1,0,0,0,0,"README/Metamorphic properties Â— no known answer needed, only that two routes to the same quantity agree (e.g. getvar(q; mask=m) == getvar(q)[m], see 75_mask_equivalence_tests.jl). (Appears to implement equivalence mt tests)",medium,5,17/10/2026
 30,rjunderwood/avtestkit,https://github.com/rjunderwood/avtestkit,0,17,README.md|assessment_toolkit/assessment_toolkit.py|assessment_toolkit/backend/scenario/follow_vehicle.py|assessment_toolkit/backend/scenario/intersection_left_turn.py|assessment_toolkit/backend/scenario/pedestrian_crossing.py,0,0,1,0,0,0,"README/Metamorphic Testing Framework of Automated Driving Systems: CARLA Autoware
 A new framework for metamorphic testing (MT) as a means of assuring the safety of autonomous vehicles (AVs) in future intelligent transportation systems. MT is a well-established technique for safety assurance, but it is unclear whether the existing approach can be applied to the more complex real-world scenarios encountered in automated driving systems. code/Metamorphic Tests
     METAMORPHIC_TEST_FILE_LOCATION= CWD + ""/backend/scenario/test_input/pedestrian_crossing.json"" (code implements mt from comparing source inputs)",high,5,17/10/2026
@@ -122,7 +122,7 @@ A new framework for metamorphic testing (MT) as a means of assuring the safety o
     }, (portfolio mentioning metamorphic testing experience)",high,5,17/10/2026
 32,cdcseacave/halfmesh,https://github.com/cdcseacave/halfmesh,1,0,docs/TESTING.md|tests/CMakeLists.txt|tests/robustness/RobustnessTest.cpp,0,1,0,0,0,0,"tests/
 // ===========================================================================
-// Part 3 — Metamorphic tests
+// Part 3 Â— Metamorphic tests
 // ===========================================================================
 
 // 3a. IO round-trip identity: Load(Save(M)) == M (binary PLY) up to tolerance.
@@ -139,7 +139,7 @@ No known correct output, but a known relation between two runs.
 
 search(q) and search(q + "" "") return the same results.
 sort(shuffle(xs)) == sort(xs).
-Rendering at 2× scale produces the same layout relationships.
+Rendering at 2Ã— scale produces the same layout relationships.
 A model's prediction should not change when an irrelevant field is permuted.
 The answer for ML, search, ranking, rendering, and anything else where ""correct"" is not computable but ""consistent"" is. (repo to help with ai skills involving test design, includes mt as a reference for test design and discusses it (not implementing mt but used as a technique for ai skill)",high,5,17/10/2026
 37,DBMSTesting/sql-prolog-implement,https://github.com/DBMSTesting/sql-prolog-implement,0,2,docs/PAPERS.md|src/sqlancer/cockroachdb/ast/CockroachDBAggregate.java|src/sqlancer/cockroachdb/oracle/tlp/CockroachDBTLPAggregateOracle.java,0,0,0,1,1,indexed,"code/test/        CockroachDBAggregateFunction windowFunction = Randomly
