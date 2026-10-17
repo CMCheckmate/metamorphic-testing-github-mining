@@ -1,41 +1,155 @@
 id,repo,url,technique_test_files,technique_nontest_files,sample_technique_files,not_mt_false_positive,actual_usage,framework_library,research_artifact,other_usage,other_subtype,evidence,confidence,minutes,date_viewed
-1,remla25-team12/model-training,https://github.com/remla25-team12/model-training,1,0,tests/test_robustness.py,,,,,,,,,,
-2,RobustNLP/TestIC,https://github.com/RobustNLP/TestIC,0,6,MetaIC/Report_erroneous_issues/azure_meta_relation_error_report_dir/meta_relation_error_report_0.py|MetaIC/Report_erroneous_issues/azure_meta_relation_error_report_dir/meta_relation_error_report_bar1.py|MetaIC/Report_erroneous_issues/azure_meta_relation_error_report_dir/meta_relation_error_report_bar2.py|MetaIC/Report_erroneous_issues/azure_meta_relation_error_report_dir/meta_relation_error_report_bar3.py|ROME/README.md,,,,,,,,,,
-3,timpaquatte/pytest-mutagen,https://github.com/timpaquatte/pytest-mutagen,0,1,examples/BST_mutations.py,,,,,,,,,,
-4,Aquaticat/Monochromatic,https://github.com/Aquaticat/Monochromatic,0,2,doc/troubleshooting/toml-eslint-parser-static-value-prototype-setter.md|package/module/toml-edit.fuzz/src/equality.ts|package/module/toml-edit.fuzz/src/round-trip.property.unit.test.ts,,,,,,,,,,
-5,nateschmiedehaus/LiBrainian,https://github.com/nateschmiedehaus/LiBrainian,1,5,docs/TEST.md|src/engines/domain_registry.ts|src/engines/tdd_advanced.ts|src/engines/tdd_presets.ts|src/strategic/__tests__/advanced_engineering.test.ts,,,,,,,,,,
-6,straylight-archive/hydrogen-jpyxal,https://github.com/straylight-archive/hydrogen-jpyxal,1,0,.psci_modules/Test.Property/index.js|test/Property.purs,,,,,,,,,,
-7,gomezabajo/Wodel4diac,https://github.com/gomezabajo/Wodel4diac,0,5,wodel.ai.assistant/src/wodel/ai/assistant/AITask.java|wodel.ai.assistant/src/wodel/ai/assistant/chat/ParameterExtractor.java|wodel.ai.assistant/src/wodel/ai/assistant/chat/PlannerAgent.java|wodel.ai.assistant/src/wodel/ai/assistant/tasks/MetamodelInferingTask.java|wodel.ai.assistant/src/wodel/ai/assistant/utils/AIMeTMRAssistUtil.java,,,,,,,,,,
-8,dcr309duan/full-self-evolution-agent,https://github.com/dcr309duan/full-self-evolution-agent,1,0,memory/goals.json|memory/research_log.json|tests/test_new_file_creation_metamorphic.py,,,,,,,,,,
-9,Chris0Jeky/collaborative-hill-lab,https://github.com/Chris0Jeky/collaborative-hill-lab,1,1,AGENTS.md|docs/FOUNDATION_REVIEW.md|docs/research/LEGACY_AUDIT.md|docs/research/METHODOLOGY.md|docs/research/_discovery/architecture-stress.md,,,,,,,,,,
-10,svenreyes/portfolio,https://github.com/svenreyes/portfolio,0,1,src/components/sections/WorkAccordion.tsx,,,,,,,,,,
-11,adbrowne/smelt-sql,https://github.com/adbrowne/smelt-sql,0,1,crates/smelt-maintenance-testkit/src/s_tracker.rs|docs/TODO.md|docs/outcomes/20260904-decided-gap-residue/outcome.md|docs/outcomes/20260904-decided-gap-residue/phases/02-plan.md|docs/outcomes/20260904-decided-gap-residue/phases/02-summary.md,,,,,,,,,,
-12,yubo-research/yubo,https://github.com/yubo-research/yubo,0,1,optimizer/uhd_be_enn.py,,,,,,,,,,
-13,Calvin-Corbett/thomas,https://github.com/Calvin-Corbett/thomas,0,1,demo/baselines/agent_test_suite_full_coverage.contract.json|docs/AGENT_TEST_SUITE_FULL_COVERAGE.md|scripts/generate_full_coverage_contract.py,,,,,,,,,,
-14,jgreathouse9/mlsynth,https://github.com/jgreathouse9/mlsynth,6,1,CHANGELOG.md|agents/agents_tests.md|mlsynth/tests/test_geox_engine_properties.py|mlsynth/tests/test_geox_mvbbsc_engine.py|mlsynth/tests/test_mlsc_properties.py,,,,,,,,,,
-15,Rigorous-Software-Engineering/BabelFuzz,https://github.com/Rigorous-Software-Engineering/BabelFuzz,0,8,src/main_pipeline/main.py|src/main_pipeline/metamorphic_relations/correctness_mr/arithmetic.py|src/main_pipeline/metamorphic_relations/correctness_mr/dead_jumps.py|src/main_pipeline/metamorphic_relations/correctness_mr/dead_loops.py|src/main_pipeline/metamorphic_relations/correctness_mr/loops.py,,,,,,,,,,
-16,BasisResearch/VerifiedJS,https://github.com/BasisResearch/VerifiedJS,1,0,PROGRESS.md|README.md|tests/e2e/run_e2e.sh,,,,,,,,,,
-17,AdvancedBlockchainSecurity/SolidityDefend,https://github.com/AdvancedBlockchainSecurity/SolidityDefend,0,1,crates/detectors/src/create2_salt_frontrunning.rs,,,,,,,,,,
-18,hersh11/silentfail,https://github.com/hersh11/silentfail,0,1,code/datasets.py,,,,,,,,,,
-19,Todor-cmd/ai-testing-2,https://github.com/Todor-cmd/ai-testing-2,0,2,results/model_1/results.json|results/model_2/results.json|utils/experiment.py|utils/metamorphic_testing.py,,,,,,,,,,
-20,AdventureGoldDao/adventure-layer-shards,https://github.com/AdventureGoldDao/adventure-layer-shards,0,1,cmd/conf/database.go,,,,,,,,,,
-21,raullenchai/Rapid-MLX,https://github.com/raullenchai/Rapid-MLX,1,0,tests/property/strategies.py,,,,,,,,,,
-22,OrangeCatLoves/SeeQLancer,https://github.com/OrangeCatLoves/SeeQLancer,0,3,README.md|docs/PAPERS.md|src/sqlancer/cockroachdb/ast/CockroachDBAggregate.java|src/sqlancer/cockroachdb/oracle/tlp/CockroachDBTLPAggregateOracle.java|src/sqlancer/presto/ast/PrestoAggregateFunction.java,,,,,,,,,,
-23,kisungyou/believe14,https://github.com/kisungyou/believe14,1,0,docs/contributing.md|docs/validation/ledger-template.md|tests/test_registry.py,,,,,,,,,,
-24,grammy-jiang/subagent-factory,https://github.com/grammy-jiang/subagent-factory,0,1,docs/Research/run_research.sh|docs/enhancement-steps/step-11-behaviour-test-generation.md|subagents/software-testing-advisor/.build/clusters.json|subagents/software-testing-advisor/.build/groups.json|subagents/software-testing-advisor/analysis/claims.jsonl,,,,,,,,,,
-25,NeilYXIN/MKCKKS_Go2Py,https://github.com/NeilYXIN/MKCKKS_Go2Py,1,0,CHANGELOG.md|tests/test_public_contract.py,,,,,,,,,,
-26,yantrikos/yantrikdb,https://github.com/yantrikos/yantrikdb,1,0,crates/yantrikdb-core/src/engine/tests/metamorphic.rs,,,,,,,,,,
-27,realearn-people/testing-emotion-db-muict-internship-2026,https://github.com/realearn-people/testing-emotion-db-muict-internship-2026,0,1,README.md|code/experiment/experiment_25_MR_gpt5_face[o+c]_no_instruction_pending.py,,,,,,,,,,
-28,greenpioneersolutions/voicestead,https://github.com/greenpioneersolutions/voicestead,1,0,tests/TESTING.md|tests/run_eval.py,,,,,,,,,,
-29,ManuelBehrendt/Mera.jl,https://github.com/ManuelBehrendt/Mera.jl,1,0,test/75_mask_equivalence_tests.jl|test/README.md,,,,,,,,,,
-30,rjunderwood/avtestkit,https://github.com/rjunderwood/avtestkit,0,17,README.md|assessment_toolkit/assessment_toolkit.py|assessment_toolkit/backend/scenario/follow_vehicle.py|assessment_toolkit/backend/scenario/intersection_left_turn.py|assessment_toolkit/backend/scenario/pedestrian_crossing.py,,,,,,,,,,
-31,zouge666/nextjs-resume-senhao,https://github.com/zouge666/nextjs-resume-senhao,0,1,src/data/config.ts,,,,,,,,,,
-32,cdcseacave/halfmesh,https://github.com/cdcseacave/halfmesh,1,0,docs/TESTING.md|tests/CMakeLists.txt|tests/robustness/RobustnessTest.cpp,,,,,,,,,,
-33,electro9666/electro9666.github.io,https://github.com/electro9666/electro9666.github.io,0,26,gisulsa/assets/js/00f960eb.739a7a7c.js|gisulsa/assets/js/18daa0da.a8684062.js|gisulsa/assets/js/2d6f1798.4d100e6e.js|gisulsa/assets/js/2d6f1798.93129801.js|gisulsa/assets/js/332c4eff.555c3900.js,,,,,,,,,,
-34,Ronaknowal/Portfolio,https://github.com/Ronaknowal/Portfolio,0,3,docs/curriculum/CURRICULUM-INVENTORY.md|docs/curriculum/pre-expansion-topic-ids.json|docs/curriculum/pre-programming-module-completion.json|docs/curriculum/professional-modules-baseline.json|docs/curriculum/quantum-curriculum-baseline.json,,,,,,,,,,
-35,Arghyadevs/arghyadevs_portfolio,https://github.com/Arghyadevs/arghyadevs_portfolio,0,2,public/ai-powered-applications.jsx|src/ai-powered-applications.jsx,,,,,,,,,,
-36,simota/quality-skills,https://github.com/simota/quality-skills,1,0,quality-tools/test_validate.py|skills/quality-test/SKILL.md|skills/quality-test/reference/oracles.md,,,,,,,,,,
-37,DBMSTesting/sql-prolog-implement,https://github.com/DBMSTesting/sql-prolog-implement,0,2,docs/PAPERS.md|src/sqlancer/cockroachdb/ast/CockroachDBAggregate.java|src/sqlancer/cockroachdb/oracle/tlp/CockroachDBTLPAggregateOracle.java,,,,,,,,,,
-38,parthmahajan008/Change-Engine-DataVisualisation,https://github.com/parthmahajan008/Change-Engine-DataVisualisation,0,1,Data/Paper_Details/New_Results/conf_title_count.csv|Scripts/processing_author_list.ipynb|Scripts/scopus.csv,,,,,,,,,,
-39,bansodevivek/hackerRanKOrchestrate,https://github.com/bansodevivek/hackerRanKOrchestrate,0,1,PHASE8.md|code/phase8_evaluate.py,,,,,,,,,,
-40,theQRL/go-qrllib,https://github.com/theQRL/go-qrllib,3,0,.github/workflows/test.yml|crypto/internal/mlkem1024/metamorphic_test.go|crypto/ml_dsa_87/metamorphic_fuzz_test.go|crypto/ml_dsa_87/metamorphic_test.go,,,,,,,,,,
+1,remla25-team12/model-training,https://github.com/remla25-team12/model-training,1,0,tests/test_robustness.py,0,1,0,0,0,,"README/Model training, evaluation, fairness, robustness, and mutamorphic (metamorphic) testing, tests/test_utils.py::test_synonym_metamorphic
+tests/test_robustness.py::test_mutamorphic_with_synonym_replacement",high,5,17/10/2026
+2,RobustNLP/TestIC,https://github.com/RobustNLP/TestIC,0,6,MetaIC/Report_erroneous_issues/azure_meta_relation_error_report_dir/meta_relation_error_report_0.py|MetaIC/Report_erroneous_issues/azure_meta_relation_error_report_dir/meta_relation_error_report_bar1.py|MetaIC/Report_erroneous_issues/azure_meta_relation_error_report_dir/meta_relation_error_report_bar2.py|MetaIC/Report_erroneous_issues/azure_meta_relation_error_report_dir/meta_relation_error_report_bar3.py|ROME/README.md,0,1,0,0,0,,"code/# metamorphic relation one: the rule of class
+    # if image_id_dict[cnt][1] != meta_class_set or not( ori_class_set.issubset(meta_class_set) ):
+    #     error_report_list.append(cnt)",low,5,17/10/2026
+3,timpaquatte/pytest-mutagen,https://github.com/timpaquatte/pytest-mutagen,0,1,examples/BST_mutations.py,0,0,1,0,0,,tests/# Metamorphic properties (followed by implementation of test function),medium,5,17/10/2026
+4,Aquaticat/Monochromatic,https://github.com/Aquaticat/Monochromatic,0,2,doc/troubleshooting/toml-eslint-parser-static-value-prototype-setter.md|package/module/toml-edit.fuzz/src/equality.ts|package/module/toml-edit.fuzz/src/round-trip.property.unit.test.ts,1,0,0,0,0,,"docs/Metamorphic invariance: adding a leading comment, a trailing comment, or
+    trailing blank lines never changes a document's meaning. (discusses metamorphic transformation of comment text, not testing)",medium,5,17/10/2026
+5,nateschmiedehaus/LiBrainian,https://github.com/nateschmiedehaus/LiBrainian,1,5,docs/TEST.md|src/engines/domain_registry.ts|src/engines/tdd_advanced.ts|src/engines/tdd_presets.ts|src/strategic/__tests__/advanced_engineering.test.ts,0,1,0,0,0,0,"docs/Layer 3: Metamorphic/differential testing (oracle-free), tests/describe('createMetamorphicRelation', () => {
+      it('creates a basic metamorphic relation', () => {
+        const relation = createMetamorphicRelation<number[], number>(",high,5,17/10/2026
+6,straylight-archive/hydrogen-jpyxal,https://github.com/straylight-archive/hydrogen-jpyxal,1,0,.psci_modules/Test.Property/index.js|test/Property.purs,0,1,0,0,0,0,"tests/describe ""Metamorphic properties"" do
+    it ""lighten then darken by same amount returns original (within bounds)"" do",medium,5,17/10/2026
+7,gomezabajo/Wodel4diac,https://github.com/gomezabajo/Wodel4diac,0,5,wodel.ai.assistant/src/wodel/ai/assistant/AITask.java|wodel.ai.assistant/src/wodel/ai/assistant/chat/ParameterExtractor.java|wodel.ai.assistant/src/wodel/ai/assistant/chat/PlannerAgent.java|wodel.ai.assistant/src/wodel/ai/assistant/tasks/MetamodelInferingTask.java|wodel.ai.assistant/src/wodel/ai/assistant/utils/AIMeTMRAssistUtil.java,0,1,0,1,0,0,"README/Wodel's mutation operators let researchers systematically explore variants of model-based systems, tests/""""""Gotten is a DSL to define metamorphic relations, together with their input features, output features, and processors.
+This is an example of a Gotten program with two metamorphic relations:MetamorphicRelations {		
+  MR1 = [ (NNodes(m1) > NNodes(m2)) implies (Time(m1) <= Time(m2)) ]	
+  MR2 = [ (CPU(m1) > CPU(m2) and (w1) == (w2)) implies (Energy(m1) <= Energy(m2)) ]	
+}",medium,5,17/10/2026
+8,dcr309duan/full-self-evolution-agent,https://github.com/dcr309duan/full-self-evolution-agent,1,0,memory/goals.json|memory/research_log.json|tests/test_new_file_creation_metamorphic.py,1,0,0,0,0,0,"code/class TestNewFileCreationMetamorphic(unittest.TestCase):
+    """"""Test the metamorphic property of creating a new file and running the mutation pipeline."""""" (metamorphic transformation of file, not testing)",medium,5,17/10/2026
+9,Chris0Jeky/collaborative-hill-lab,https://github.com/Chris0Jeky/collaborative-hill-lab,1,1,AGENTS.md|docs/FOUNDATION_REVIEW.md|docs/research/LEGACY_AUDIT.md|docs/research/METHODOLOGY.md|docs/research/_discovery/architecture-stress.md,0,0,0,1,0,0,README/tests: unit/property/metamorphic/integration suites,medium,5,17/10/2026
+10,svenreyes/portfolio,https://github.com/svenreyes/portfolio,0,1,src/components/sections/WorkAccordion.tsx,0,0,0,0,1,indexed,"docs/  { 
+    id: 'blockchain', 
+    company: 'Blockchain Research — ECU', 
+    role: 'Undergraduate Research',
+    description: 'Researched smart contract reliability through metamorphic testing, evaluating how behavioral properties change across transformations in blockchain systems.',
+    color: '#D4AF37',
+    overview: 'Investigated smart contract correctness and reliability through metamorphic testing methodologies applied to blockchain systems.',
+    workedOn: 'Designed and executed metamorphic test cases to evaluate behavioral properties of smart contracts across code transformations. Analyzed failure patterns and edge cases in contract execution to surface reliability concerns in decentralized systems.',
+    focusTags: ['Smart Contracts', 'Metamorphic Testing', 'Blockchain', 'Research'],
+  }, (mentioned implemented MT in portfolio)",high,5,17/10/2026
+11,adbrowne/smelt-sql,https://github.com/adbrowne/smelt-sql,0,1,crates/smelt-maintenance-testkit/src/s_tracker.rs|docs/TODO.md|docs/outcomes/20260904-decided-gap-residue/outcome.md|docs/outcomes/20260904-decided-gap-residue/phases/02-plan.md|docs/outcomes/20260904-decided-gap-residue/phases/02-summary.md,0,0,0,1,1,incidental,"tests/Retained
+    /// only as the vacuity witness the restated comparator's metamorphic test
+    /// demonstrates against (project is personal research project with possible implementation of mt)",low,5,17/10/2026
+12,yubo-research/yubo,https://github.com/yubo-research/yubo,0,1,optimizer/uhd_be_enn.py,0,1,0,1,0,0,"ef fit_enn_batch_raw_reference(zs, ys, enn_k, *, num_fit_candidates=1, num_fit_samples=10):
+    """"""One-shot batch fit on raw y (reference for incremental metamorphic tests).""""""",low,5,17/10/2026
+13,Calvin-Corbett/thomas,https://github.com/Calvin-Corbett/thomas,0,1,demo/baselines/agent_test_suite_full_coverage.contract.json|docs/AGENT_TEST_SUITE_FULL_COVERAGE.md|scripts/generate_full_coverage_contract.py,0,0,0,0,1,incidental,"code/      ""title"": ""Metamorphic tests for deterministic transforms."",
+      ""description"": ""Metamorphic tests for deterministic transforms."", (inclde",medium,5,17/10/2026
+14,jgreathouse9/mlsynth,https://github.com/jgreathouse9/mlsynth,6,1,CHANGELOG.md|agents/agents_tests.md|mlsynth/tests/test_geox_engine_properties.py|mlsynth/tests/test_geox_mvbbsc_engine.py|mlsynth/tests/test_mlsc_properties.py,0,0,0,1,0,0,"tests/""""""Metamorphic and algebraic properties of the mlSC estimator.
+
+Reference: Bottmer, L., ""Synthetic Control with Disaggregated Data"" (JMP,
+Stanford), Equation 5.2 and the discussion following it.
+
+Two families, neither of which needs an oracle:
+
+* C4 -- metamorphic relations on ``MLSC.fit()``. The paper states that the
+  ",high,5,17/10/2026
+15,Rigorous-Software-Engineering/BabelFuzz,https://github.com/Rigorous-Software-Engineering/BabelFuzz,0,8,src/main_pipeline/main.py|src/main_pipeline/metamorphic_relations/correctness_mr/arithmetic.py|src/main_pipeline/metamorphic_relations/correctness_mr/dead_jumps.py|src/main_pipeline/metamorphic_relations/correctness_mr/dead_loops.py|src/main_pipeline/metamorphic_relations/correctness_mr/loops.py,0,0,1,0,0,0,"folder/metamorphic_relations, files/test_mr, (describes mutations and metamorphic transitions in framework as away to test compilers)",medium,5,17/10/2026
+16,BasisResearch/VerifiedJS,https://github.com/BasisResearch/VerifiedJS,1,0,PROGRESS.md|README.md|tests/e2e/run_e2e.sh,1,0,0,0,0,0,"README/Metamorphic tests: Core vs Flat vs ANF interpreter traces must match (semantic preservation) (describes metamorphic interpreters, not tests",medium,5,17/10/2026
+17,AdvancedBlockchainSecurity/SolidityDefend,https://github.com/AdvancedBlockchainSecurity/SolidityDefend,0,1,crates/detectors/src/create2_salt_frontrunning.rs,1,0,0,0,0,0,"code/""Metamorphic Contract Detection"".to_string(),
+                ""Detects metamorphic contract patterns (CREATE2 + SELFDESTRUCT) that enable changing contract code at the same address"".to_string(),
+                vec![ (seems to describe metamorphic contracts, not testing)",low,5,17/10/2026
+18,hersh11/silentfail,https://github.com/hersh11/silentfail,0,1,code/datasets.py,0,0,0,1,1,incidental,"code/""""""
+Synthetic 2D binary classification datasets.
+
+Both datasets are constructed so that the two classes are related by an
+exact 180-degree rotation about a known center point (before noise is
+added). This gives us a ground-truth metamorphic relation we can use as
+a diagnostic later: for a perfect model, rotating any input by 180
+degrees about the dataset's center should flip the predicted  class.
+"""""" (designs mt relation but not implemented mt yet)",medium,5,17/10/2026
+19,Todor-cmd/ai-testing-2,https://github.com/Todor-cmd/ai-testing-2,0,2,results/model_1/results.json|results/model_2/results.json|utils/experiment.py|utils/metamorphic_testing.py,0,1,0,0,1,tutorial,"tests/metamorphic_testing.py, README/ai-testing-2
+A test suite created to test two models as part of DSAIT4015 Software Engineering and Testing for AI Systems course at TU Delft. (seems to be coursework with mt implementation)",high,5,17/10/2026
+20,AdventureGoldDao/adventure-layer-shards,https://github.com/AdventureGoldDao/adventure-layer-shards,0,1,cmd/conf/database.go,1,0,0,0,0,0,"databasefile/f.Bool(prefix+"".force-writer-parallelism"", PebbleExperimentalConfigDefault.ForceWriterParallelism, ""force parallelism in the sstable Writer for the metamorphic tests. Even with the MaxWriterConcurrency option set, pebble only enables parallelism in the sstable Writer if there is enough CPU available, and this option bypasses that."") (just a single vague mention of metamorphic test in database config, cannot prove anything)",low,5,17/10/2026
+21,raullenchai/Rapid-MLX,https://github.com/raullenchai/Rapid-MLX,1,0,tests/property/strategies.py,0,0,0,0,1,incidental,"code/Model-requiring
+metamorphic properties (streaming == non-streaming, temp=0 determinism)
+are deliberately out of scope and belong in the integration suite. (mentions metamorphic properties being out of scope of implementaiton)",high,5,17/10/2026
+22,OrangeCatLoves/SeeQLancer,https://github.com/OrangeCatLoves/SeeQLancer,0,3,README.md|docs/PAPERS.md|src/sqlancer/cockroachdb/ast/CockroachDBAggregate.java|src/sqlancer/cockroachdb/oracle/tlp/CockroachDBTLPAggregateOracle.java|src/sqlancer/presto/ast/PrestoAggregateFunction.java,0,0,1,1,0,0,"README/PQS effectively detects bugs, but requires more implementation effort than other testing approaches that follow a metamorphic testing or differential testing methodology. Thus, it is currently unmaintained. Docs/This paper describes NoREC, a metamorphic testing approach to detect optimization bugs, that is, logic bugs that affect the query optimizer. A preprint is available here. code/        public static CockroachDBAggregateFunction getRandomMetamorphicOracle() {
+            // not: VARIANCE, STDDEV, SQRDIFF
+            return Randomly.fromOptions(SUM, SUM_INT, MIN, MAX, XOR_AGG, BIT_AND, BIT_OR, BOOL_AND, BOOL_OR, COUNT, AVG,
+                    COUNT_ROWS);
+        } (seems to not have actual implementation, but investigates use of metamorphic testing thorugh research in its framework",high,5,17/10/2026
+23,kisungyou/believe14,https://github.com/kisungyou/believe14,1,0,docs/contributing.md|docs/validation/ledger-template.md|tests/test_registry.py,0,0,0,0,1,incidental,"code/Complexity|""
+    r""Literal oracle|Independent comparator or paper fixture|Metamorphic properties|"" (seems to be a tool involving searching for mt related stuff?)",low,5,17/10/2026
+24,grammy-jiang/subagent-factory,https://github.com/grammy-jiang/subagent-factory,0,1,docs/Research/run_research.sh|docs/enhancement-steps/step-11-behaviour-test-generation.md|subagents/software-testing-advisor/.build/clusters.json|subagents/software-testing-advisor/.build/groups.json|subagents/software-testing-advisor/analysis/claims.jsonl,0,0,0,1,0,0,"code/metamorphic test generation, and adversarial red-team prompts for a specialised persona|test case generation; LLM unit tests; checklist generation; behavioral testing; metamorphic testing (seems to be a research tool that mines topics with above text as example on mt)",medium,5,17/10/2026
+25,NeilYXIN/MKCKKS_Go2Py,https://github.com/NeilYXIN/MKCKKS_Go2Py,1,0,CHANGELOG.md|tests/test_public_contract.py,0,1,0,1,0,0,"code/def test_complex_metamorphic_property(
+    context: mkckks.Context,
+    property_party: mkckks.Party,
+    components: list[tuple[float, float]],
+) -> None:
+    values = np.asarray([complex(real, imag) for real, imag in components])
+    ciphertext = property_party.encrypt(values)
+    evaluator = mkckks.Evaluator(context)
+    restored = evaluator.subtract(evaluator.add(ciphertext, 0.125 - 0.25j), 0.125 - 0.25j)
+    decoded = decrypt_one(context, property_party, restored)
+    bound = mkckks.precision_bound(context.parameters, mkckks.PrecisionClass.BASIC) * 3
+    report = mkckks.measure_precision(decoded, values)
+    assert report.maximum_real_error <= bound
+    assert report.maximum_imaginary_error <= bound (research implemenation of tool that includes singular mt test",medium,5,17/10/2026
+26,yantrikos/yantrikdb,https://github.com/yantrikos/yantrikdb,1,0,crates/yantrikdb-core/src/engine/tests/metamorphic.rs,0,1,0,0,0,0,"tests///! No example-based test would have caught it, because nobody writes a test
+//! asserting ""the word 'at' does not matter"". That is the point of a
+//! metamorphic test: it asserts a RELATION BETWEEN TWO RETRIEVALS rather than
+//! a specific output, so it needs no golden answers and no labelled set, and
+//! it holds for any corpus.
+//!",medium,5,17/10/2026
+27,realearn-people/testing-emotion-db-muict-internship-2026,https://github.com/realearn-people/testing-emotion-db-muict-internship-2026,0,1,README.md|code/experiment/experiment_25_MR_gpt5_face[o+c]_no_instruction_pending.py,0,1,0,0,0,0,"README/Metamorphic Relation 1
+File: MR-experiment_25_gpt5_face[o+c]_no_instruction-pending.py
+
+The metamorphic relation used in this experiment is:
+
+Changing only the image brightness should not change the predicted sentiment.
+
+Formally,
+
+Prediction(I) == Prediction(Brightness(I, ?))
+where
+
+I = original image
+? = brightness factor (tool using mt to test for emotion recognition. )",high,5,17/10/2026
+28,greenpioneersolutions/voicestead,https://github.com/greenpioneersolutions/voicestead,1,0,tests/TESTING.md|tests/run_eval.py,1,0,0,0,0,0,"code/Failing deterministic checks named in must_pass are promoted to hard failures;
+    the case's declared metamorphic property is enforced here too."""""" (metamorphic properties identified but not implementing mt)",high,5,17/10/2026
+29,ManuelBehrendt/Mera.jl,https://github.com/ManuelBehrendt/Mera.jl,1,0,test/75_mask_equivalence_tests.jl|test/README.md,0,1,0,0,0,0,"README/Metamorphic properties — no known answer needed, only that two routes to the same quantity agree (e.g. getvar(q; mask=m) == getvar(q)[m], see 75_mask_equivalence_tests.jl). (Appears to implement equivalence mt tests)",medium,5,17/10/2026
+30,rjunderwood/avtestkit,https://github.com/rjunderwood/avtestkit,0,17,README.md|assessment_toolkit/assessment_toolkit.py|assessment_toolkit/backend/scenario/follow_vehicle.py|assessment_toolkit/backend/scenario/intersection_left_turn.py|assessment_toolkit/backend/scenario/pedestrian_crossing.py,0,0,1,0,0,0,"README/Metamorphic Testing Framework of Automated Driving Systems: CARLA Autoware
+A new framework for metamorphic testing (MT) as a means of assuring the safety of autonomous vehicles (AVs) in future intelligent transportation systems. MT is a well-established technique for safety assurance, but it is unclear whether the existing approach can be applied to the more complex real-world scenarios encountered in automated driving systems. code/Metamorphic Tests
+    METAMORPHIC_TEST_FILE_LOCATION= CWD + ""/backend/scenario/test_input/pedestrian_crossing.json"" (code implements mt from comparing source inputs)",high,5,17/10/2026
+31,zouge666/nextjs-resume-senhao,https://github.com/zouge666/nextjs-resume-senhao,0,1,src/data/config.ts,0,0,0,0,1,indexed,"    {
+      title: ""Metamorphic Testing for NLP Systems"",
+      venue: ""Algorithms 2023"",
+      doi: ""10.1000/example-doi-1"",
+      note: ""Co-author on evaluation methods for relation extraction models.""
+    }, (portfolio mentioning metamorphic testing experience)",high,5,17/10/2026
+32,cdcseacave/halfmesh,https://github.com/cdcseacave/halfmesh,1,0,docs/TESTING.md|tests/CMakeLists.txt|tests/robustness/RobustnessTest.cpp,0,1,0,0,0,0,"tests/
+// ===========================================================================
+// Part 3 — Metamorphic tests
+// ===========================================================================
+
+// 3a. IO round-trip identity: Load(Save(M)) == M (binary PLY) up to tolerance.
+TEST(Metamorphic, IOBinaryPLYRoundTrip)
+{
+	halfmesh::Mesh original = hmtest (implements MT testing for their mesh processing tool)",high,5,17/10/2026
+33,electro9666/electro9666.github.io,https://github.com/electro9666/electro9666.github.io,0,26,gisulsa/assets/js/00f960eb.739a7a7c.js|gisulsa/assets/js/18daa0da.a8684062.js|gisulsa/assets/js/2d6f1798.4d100e6e.js|gisulsa/assets/js/2d6f1798.93129801.js|gisulsa/assets/js/332c4eff.555c3900.js,0,0,0,0,1,indexed,code/(Metamorphic Testing) (mentions it in an asset file seeming to be a portfolio or personal repo of unknown purpose),high,5,17/10/2026
+34,Ronaknowal/Portfolio,https://github.com/Ronaknowal/Portfolio,0,3,docs/curriculum/CURRICULUM-INVENTORY.md|docs/curriculum/pre-expansion-topic-ids.json|docs/curriculum/pre-programming-module-completion.json|docs/curriculum/professional-modules-baseline.json|docs/curriculum/quantum-curriculum-baseline.json,0,0,0,0,1,indexed,"code/    ""metaqa-metamorphic-testing-for-hallucination-detection"" (asset file in portfolio)",high,5,17/10/2026
+35,Arghyadevs/arghyadevs_portfolio,https://github.com/Arghyadevs/arghyadevs_portfolio,0,2,public/ai-powered-applications.jsx|src/ai-powered-applications.jsx,0,0,0,0,1,indexed,"code/            <TypewriterCode
+              className=""text-cyan-300/90 text-sm whitespace-pre-wrap break-words font-mono""
+              code={`# STARK Metamorphic Testing for Image Classifier (mentions mt experience in portfolio)",high,5,17/10/2026
+36,simota/quality-skills,https://github.com/simota/quality-skills,1,0,quality-tools/test_validate.py|skills/quality-test/SKILL.md|skills/quality-test/reference/oracles.md,0,0,1,0,1,agent,"docs/3. Metamorphic oracle
+No known correct output, but a known relation between two runs.
+
+search(q) and search(q + "" "") return the same results.
+sort(shuffle(xs)) == sort(xs).
+Rendering at 2× scale produces the same layout relationships.
+A model's prediction should not change when an irrelevant field is permuted.
+The answer for ML, search, ranking, rendering, and anything else where ""correct"" is not computable but ""consistent"" is. (repo to help with ai skills involving test design, includes mt as a reference for test design and discusses it (not implementing mt but used as a technique for ai skill)",high,5,17/10/2026
+37,DBMSTesting/sql-prolog-implement,https://github.com/DBMSTesting/sql-prolog-implement,0,2,docs/PAPERS.md|src/sqlancer/cockroachdb/ast/CockroachDBAggregate.java|src/sqlancer/cockroachdb/oracle/tlp/CockroachDBTLPAggregateOracle.java,0,0,0,1,1,indexed,"code/test/        CockroachDBAggregateFunction windowFunction = Randomly
+                .fromOptions(CockroachDBAggregate.CockroachDBAggregateFunction.getRandomMetamorphicOracle()); (seems to be researching into databases regarding metamorphic oracles, not implementation)",low,5,17/10/2026
+38,parthmahajan008/Change-Engine-DataVisualisation,https://github.com/parthmahajan008/Change-Engine-DataVisualisation,0,1,Data/Paper_Details/New_Results/conf_title_count.csv|Scripts/processing_author_list.ipynb|Scripts/scopus.csv,0,0,0,1,0,0,"docs/Proceedings - 2021 IEEE/ACM 6th International Workshop on Metamorphic Testing, MET 2021 (research with reference to metamorphic testing)",low,5,17/10/2026
+39,bansodevivek/hackerRanKOrchestrate,https://github.com/bansodevivek/hackerRanKOrchestrate,0,1,PHASE8.md|code/phase8_evaluate.py,1,0,0,0,0,0,"code/def metamorphic_suite(analyzer=None):
+    """"""Meaning-preserving transformations, kept separate from challenge categories.
+
+    The challenge CSV `group` column is a taxonomy/category bucket, not a
+    metamorphic relation. (discusses transofrmations without actual mt implementations)",high,5,17/10/2026
+40,theQRL/go-qrllib,https://github.com/theQRL/go-qrllib,3,0,.github/workflows/test.yml|crypto/internal/mlkem1024/metamorphic_test.go|crypto/ml_dsa_87/metamorphic_fuzz_test.go|crypto/ml_dsa_87/metamorphic_test.go,0,1,0,0,0,0,"tests/metamorphic_test.go, 
+func metamorphicCorpus() []metamorphicVector {
+	var zeroSeed [SEED_BYTES]uint8 (implements mt in a tool)",high,5,17/10/2026
