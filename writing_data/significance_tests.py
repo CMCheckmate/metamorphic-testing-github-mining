@@ -1,15 +1,14 @@
 """
 Significance tests for the final report (run once; results are copied into main.tex).
 
-1. Languages: are MT repositories' primary languages distributed like GitHub's?
-   Chi-square goodness-of-fit and per-language exact binomial tests, restricted to the
-   30 languages for which a GitHub-wide count was fetched (both sides use the same
-   denominator, so repositories without a language do not distort the comparison).
-2. README vocabulary: does the share of repositories using a domain word differ between
-   MT (all 1,948 verified non-code repositories, a census) and the PBT / fuzzing random
-   samples? Exact binomial test of each comparator sample against MT's population share.
-3. Agent share 2025: MT (39 of 243 relevant commits) vs PBT (exact recount) - two-proportion
-   z-test, treating the commits of each year as realisations of an underlying process.
+All tests are Pearson chi-square tests at the 5% level, Bonferroni-corrected within each group.
+1. Languages: is MT repositories' language mix the same as GitHub's? One goodness-of-fit test
+   over the 30 languages with a GitHub-wide count (same denominator on both sides), then one
+   test per language (that language vs all others, 1 degree of freedom).
+2. README vocabulary: is a domain word used by the same share of repositories for MT and for
+   PBT (and for MT and fuzzing)? One 2x2 test (technique x word present/absent) per word and pair.
+3. Agent share: is the agent-marked share of technique commits the same for MT and PBT?
+   One 2x2 test (technique x agent-marked or not) per year.
 
 Multiple tests are Bonferroni-corrected within each family. Run:  python -I significance_tests.py
 """
@@ -78,54 +77,58 @@ def fmt_p(p):
     return "< 0.001" if p < 0.001 else f"= {p:.3f}"
 
 
+def chi2_2x2(a, b, c, d):
+    """Pearson chi-square (1 df) for the table [[a, b], [c, d]]; returns (chi2, p)."""
+    n = a + b + c + d
+    den = (a + b) * (c + d) * (a + c) * (b + d)
+    x = n * (a * d - b * c) ** 2 / den if den else 0.0
+    return x, chi2_sf(x, 1)
+
+
 # ---------------------------------------------------------------- 1. languages
 mt = sec("mt")
-base = mt["a5"]["baseline"] if isinstance(mt["a5"].get("baseline"), dict) else None
-gh = json.load(open(ROOT / "metamorphic_testing" / "analysis" / "github_language_baseline.json"))["languages"]
-rows = mt["a5"]["rows"]
-mt_counts = {r["language"]: r["repos"] for r in rows} if isinstance(rows, list) else {k: v for k, v in rows.items()}
-langs = [l for l in gh if l in mt_counts or True]
+gh = {l: v for l, v in json.load(open(ROOT / "metamorphic_testing" / "analysis" / "github_language_baseline.json"))["languages"].items() if v}
+mt_counts = {r["language"]: r["repos"] for r in mt["a5"]["rows"]}
+langs = list(gh)
 obs = {l: mt_counts.get(l, 0) for l in langs}
 n = sum(obs.values())
-G = sum(gh[l] for l in langs)
+G = sum(gh.values())
 chi2 = sum((obs[l] - n * gh[l] / G) ** 2 / (n * gh[l] / G) for l in langs)
-df = len(langs) - 1
 print("=== 1. Languages (30 languages with a GitHub-wide count)")
 print(f"MT repositories in these languages: {n:,}; GitHub repositories: {G:,}")
-print(f"Chi-square goodness of fit: chi2 = {chi2:,.0f}, df = {df}, p {fmt_p(chi2_sf(chi2, df))}")
+print(f"Goodness of fit: chi2 = {chi2:,.0f}, df = {len(langs) - 1}, p {fmt_p(chi2_sf(chi2, len(langs) - 1))}")
 alpha = 0.05 / len(langs)
-print(f"Per-language exact binomial tests, Bonferroni alpha = 0.05/{len(langs)} = {alpha:.5f}")
+print(f"Per language (1 df), Bonferroni alpha = 0.05/{len(langs)} = {alpha:.5f}")
 for l in sorted(langs, key=lambda x: -obs[x]):
-    p0 = gh[l] / G
-    pv = binom_two_sided(obs[l], n, p0)
-    exp = n * p0
-    print(f"  {l:18s} obs {obs[l]:5d}  exp {exp:8.1f}  ratio {obs[l]/exp:6.2f}  p {fmt_p(pv):9s} {'SIG' if pv < alpha else 'ns'}")
+    e = n * gh[l] / G
+    x = (obs[l] - e) ** 2 / e + ((n - obs[l]) - (n - e)) ** 2 / (n - e)
+    pv = chi2_sf(x, 1)
+    print(f"  {l:18s} obs {obs[l]:5d}  exp {e:8.1f}  lift {obs[l]/e:6.2f}  chi2 {x:9.1f}  p {fmt_p(pv):9s} {'SIG' if pv < alpha else 'ns'}")
 
 # ---------------------------------------------------------------- 2. README vocabulary
 print("\n=== 2. README / description domain vocabulary")
 A7 = {t: sec(t)["a7"] for t in SLUG}
 N = {t: A7[t]["repos"] for t in SLUG}
-F = {t: dict(A7[t]["whitelist_freq"]) if isinstance(A7[t]["whitelist_freq"], dict)
-     else {w: c for w, c in A7[t]["whitelist_freq"]} for t in SLUG}
+F = {t: dict(A7[t]["whitelist_freq"]) for t in SLUG}
 top = set()
 for t in SLUG:
     top |= set(sorted(F[t], key=lambda w: -F[t][w])[:15])
 words = sorted(top)
 ntests = 2 * len(words)
 alpha = 0.05 / ntests
-print(f"Repositories: MT {N['mt']} (census), PBT {N['pbt']} (sample), fuzz {N['fuzz']} (sample)")
-print(f"{len(words)} words in any top-15; {ntests} tests; Bonferroni alpha = {alpha:.5f}")
+print(f"Repositories: MT {N['mt']}, PBT {N['pbt']}, fuzz {N['fuzz']}")
+print(f"{len(words)} words in any top-15; {ntests} 2x2 tests (MT vs PBT, MT vs fuzz); Bonferroni alpha = {alpha:.5f}")
 for w in sorted(words, key=lambda x: -F['mt'].get(x, 0)):
-    pm = F["mt"].get(w, 0) / N["mt"]
-    out = f"  {w:15s} MT {pm:6.1%}"
+    km = F["mt"].get(w, 0)
+    out = f"  {w:15s} MT {km / N['mt']:6.1%}"
     for t in ("pbt", "fuzz"):
         k = F[t].get(w, 0)
-        pv = binom_two_sided(k, N[t], pm) if 0 < pm < 1 else float("nan")
-        out += f" | {t} {k/N[t]:6.1%} p {fmt_p(pv):9s} {'SIG' if pv < alpha else 'ns '}"
+        x, pv = chi2_2x2(km, N["mt"] - km, k, N[t] - k)
+        out += f" | {t} {k / N[t]:6.1%} chi2 {x:6.1f} p {fmt_p(pv):9s} {'SIG' if pv < alpha else 'ns '}"
     print(out)
 
 # ---------------------------------------------------------------- 3. agent share 2025 / 2026
-print("\n=== 3. Agent-marked share of technique commits")
+print("\n=== 3. Agent-marked share of technique commits (MT vs PBT), Bonferroni alpha = 0.025")
 t9 = mt["t9"]
 g = lambda d, y: d.get(str(y), d.get(y, 0))
 pbt_est = json.load(open(ROOT / SLUG["pbt"] / "commit_sample" / "estimates.json", encoding="utf-8"))["agent"]
@@ -133,8 +136,5 @@ for y in (2025, 2026):
     k1, n1 = g(t9["agent_marked"], y), g(t9["relevant"], y)
     e = pbt_est[str(y)]
     n2 = round(e["relevant_est"]); k2 = round(e["share"] * n2)
-    p1, p2 = k1 / n1, k2 / n2
-    pp = (k1 + k2) / (n1 + n2)
-    z = (p1 - p2) / math.sqrt(pp * (1 - pp) * (1 / n1 + 1 / n2))
-    pv = 2 * norm_sf(abs(z))
-    print(f"  {y}: MT {k1}/{n1} = {p1:.1%}  vs PBT {k2}/{n2} = {p2:.1%}   z = {z:.2f}, p {fmt_p(pv)}  (PBT exact: {e.get('exact')})")
+    x, pv = chi2_2x2(k1, n1 - k1, k2, n2 - k2)
+    print(f"  {y}: MT {k1}/{n1} = {k1/n1:.1%}  vs PBT {k2}/{n2} = {k2/n2:.1%}   chi2 = {x:.1f}, p {fmt_p(pv)}  (PBT exact: {e.get('exact')})")
